@@ -13,7 +13,7 @@ public class Constraint {
    public static final String APPNAME = "Demo";
     public static final String SUCCESS = "success";
     public static final String INDEX = "index";
-    public static final String VERSION = "V-1";
+    public static final String CARD = "Card";
     public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
 
     public static  final String zipUrl="https://c2.mobilepricecard.com/pickup/";

@@ -75,7 +75,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
             fileName = timestamp + "_" + fileName;
 
             //External directory path to save file
-            folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME+Constraint.SLASH+Constraint.VERSION+Constraint.SLASH;
+            folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME+Constraint.SLASH+Constraint.CARD+Constraint.SLASH;
 
             //Create androiddeft folder if it does not exist
             File directory = new File(folder);
