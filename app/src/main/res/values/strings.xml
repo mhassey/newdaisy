@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Daisy</string>
     <string name="storage_not_available">Storage not available</string>
+    <string name="daisyconfig">DaisyConfig</string>
+    <string name="v_01">V.01</string>
+    <string name="baseurl">baseURL=</string>
+    <string name="save_and_load">Save and Load</string>
+    <string name="loading">Loading...</string>
+    <string name="invalid_url">Invalid Url</string>
 </resources>

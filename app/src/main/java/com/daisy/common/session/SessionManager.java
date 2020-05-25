@@ -621,4 +621,8 @@ public class SessionManager {
     {
         return pref.getStringData(PrefConstant.LOCATION);
     }
+
+    public void deleteLocation() {
+        pref.removeLocation();
+    }
 }

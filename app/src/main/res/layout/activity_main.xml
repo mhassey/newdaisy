@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:background="#000000"
+        android:id="@+id/upperLayout"
         android:layout_height="match_parent"
-        tools:context=".activity.MainActivity">
+       >
+
 
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        <LinearLayout
+            android:id="@+id/settingHeader"
+            android:gravity="top|left"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp100">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+            <ImageView
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dp10"
+                android:id="@+id/setting"
+                android:src="@drawable/ic_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/swipeclick"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp10"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+    </RelativeLayout>
+ </layout>
