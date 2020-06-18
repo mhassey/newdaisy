@@ -29,6 +29,7 @@ import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
+import com.daisy.service.BackgroundService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.DownloadFile;
 import com.daisy.utils.OnSwipeTouchListener;
@@ -37,6 +38,7 @@ import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
 
@@ -52,7 +54,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        initService();
         setOnClickListener();
+    }
+
+    private void initService() {
+        long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
+        Utils.constructJobForBackground(time1,getApplicationContext());
     }
 
 

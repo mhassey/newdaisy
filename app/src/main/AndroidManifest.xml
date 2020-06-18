@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -45,7 +47,10 @@
             android:showOnLockScreen="true" android:screenOrientation="portrait"/>
         <activity android:name=".activity.lockscreen.OverlayActivity"/>
 
+        <receiver android:name=".broadcastforbackgroundservice.AlarmReceiverForBackground" />
+
         <receiver android:name=".notification.AlarmReceiver" />
+
         <receiver
             android:name=".notification.AlarmBootReceiver"
             android:enabled="false">
@@ -54,8 +59,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         <service android:name=".service.BackgroundService" android:stopWithTask="false"  />
-
     </application>
 
 </manifest>

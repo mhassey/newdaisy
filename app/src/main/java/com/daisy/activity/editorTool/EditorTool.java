@@ -31,7 +31,6 @@ import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityEditorToolBinding;
-import com.daisy.service.BackgroundService;
 import com.daisy.service.StickyService;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
@@ -66,7 +65,6 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
 
     private void startServices() {
         startService(new Intent(getBaseContext(), StickyService.class));
-        startService(new Intent(getBaseContext(), BackgroundService.class));
     }
 
 

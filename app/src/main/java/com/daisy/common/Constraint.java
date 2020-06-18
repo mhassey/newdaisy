@@ -95,6 +95,7 @@ public class Constraint {
     public static final String PERMISSION_REQUIRED = " Permission Required";
     public static final String BATTRY_OPTIMIZATION = "Please allow Daisy battery  to not optimized in your device's settings";
     public static final int BATTRY_OPTIMIZATION_CODE = 232;
+    public static final long FIVE = 5;
     public static  boolean IS_OVER_APP_SETTING = false;
     public static  int CREENTBRIGHNESS  ;
 }
