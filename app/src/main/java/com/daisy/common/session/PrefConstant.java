@@ -87,4 +87,11 @@ public interface PrefConstant {
     String INDUSTRY_DATA ="industryData" ;
     String STRIPE_CODE ="stripeCode" ;
     String CARD_DATA = "card_details";
+    String DARK_MODE = "dark_mode";
+    String POP_UP_PERMISSION = "popUpPermission";
+    String IN_FORGROUND = "in_forground";
+    String USE_CASE_PERMISSION = "use_case_permission";
+    String MODIFY_SYSTEM_SETTINGS = "modify_system_settings";
+    String DATA = "data";
+    String PROCESS_DATA = "process_data";
 }

@@ -7,4 +7,21 @@
     <string name="save_and_load">Save and Load</string>
     <string name="loading">Loading...</string>
     <string name="invalid_url">Invalid Url</string>
+    <string name="logs">Logs</string>
+    <string name="application_logs">Application Log</string>
+    <string name="card_logs">Card Log</string>
+    <string name="promotion_logs">Promotion Logs</string>
+    <string name="back">Back</string>
+    <string name="_20_may_2020">20 May 2020</string>
+    <string name="no_data_available">No data available</string>
+    <string name="settings">Settings</string>
+    <string name="exit">Exit</string>
+    <string name="clear_and_exit">Clear and exit</string>
+    <string name="no_internet_available">No Internet Connection!</string>
+    <string name="some_issue_occur">Some issue occur</string>
+    <string name="chche">/cache</string>
+    <string name="databse">/databases</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="packageName">com.daisy</string>
+    <string name="onePlus">OnePlus</string>
 </resources>

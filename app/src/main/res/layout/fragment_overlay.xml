@@ -8,7 +8,7 @@
         android:background="#000000"
         android:id="@+id/upperLayout"
         android:layout_height="match_parent"
-       >
+        >
 
 
         <WebView
@@ -42,4 +42,4 @@
 
         </LinearLayout>
     </RelativeLayout>
- </layout>
+</layout>

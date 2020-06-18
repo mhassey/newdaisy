@@ -625,4 +625,63 @@ public class SessionManager {
     public void deleteLocation() {
         pref.removeLocation();
     }
+
+    public void darkMode(boolean isChecked) {
+        pref.setBooleanData(PrefConstant.DARK_MODE,isChecked);
+    }
+
+    public boolean getDarkTheme() {
+      return   pref.getBoolean(PrefConstant.DARK_MODE);
+    }
+
+    public void popUpPermission(boolean b) {
+        pref.setBooleanData(PrefConstant.POP_UP_PERMISSION,b);
+    }
+    public boolean getPopUpPermission() {
+        return   pref.getBoolean(PrefConstant.POP_UP_PERMISSION);
+    }
+
+    public void setInForground(boolean b) {
+        pref.setBooleanData(PrefConstant.IN_FORGROUND,b);
+    }
+
+    public boolean getInForground() {
+        return   pref.getBoolean(PrefConstant.IN_FORGROUND);
+    }
+
+    public void useCasePermission(boolean b) {
+        pref.setBooleanData(PrefConstant.USE_CASE_PERMISSION,b);
+
+    }
+    public boolean getUseCasePermission() {
+        return   pref.getBoolean(PrefConstant.USE_CASE_PERMISSION);
+    }
+
+    public boolean getModifySystemSettings() {
+        return   pref.getBoolean(PrefConstant.MODIFY_SYSTEM_SETTINGS);
+    }
+
+    public void setModifySystemSettings(boolean b) {
+        pref.setBooleanData(PrefConstant.MODIFY_SYSTEM_SETTINGS,b);
+
+    }
+
+    public void setData(String data)
+    {
+        pref.setStringData(PrefConstant.DATA,data);
+
+    }
+    public String getData() {
+        return   pref.getStringData(PrefConstant.DATA);
+
+    }
+
+    public void setProcessId(int myPid) {
+        pref.setIntData(PrefConstant.PROCESS_DATA,myPid);
+
+    }
+    public int getProcessId() {
+        return   pref.getIntData(PrefConstant.PROCESS_DATA);
+
+    }
 }

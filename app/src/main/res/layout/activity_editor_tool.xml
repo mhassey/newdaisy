@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/rootLayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.editorTool.EditorTool">
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/daisyconfig"
-            android:textColor="@color/black"
+            android:textColor="?attr/textcolorblack"
             android:textSize="@dimen/dp20" />
 
         <TextView
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:text="@string/v_01"
-            android:textColor="@color/black"
+            android:textColor="?attr/textcolorblack"
             android:textSize="@dimen/dp15" />
 
     </LinearLayout>
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/baseurl"
-                android:textColor="@color/black"
+                android:textColor="?attr/textcolorblack"
                 android:textSize="@dimen/sp18" />
 
         </LinearLayout>
@@ -58,20 +59,26 @@
             android:gravity="center">
 
             <EditText
+
                 android:id="@+id/baseUrl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/editTextColor"
                 android:layout_margin="@dimen/dp5"
                 android:inputType="text"
                 android:textSize="@dimen/dp14"
-                android:imeOptions="actionDone"
                 android:background="@drawable/edit_text_format"
                 android:hint="https://baseURL"
+                android:textColorHint="@color/editTextLineColor"
                 android:padding="@dimen/dp10" />
+
+
+
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
@@ -85,7 +92,15 @@
             android:background="@drawable/button_border_format"
             android:text="@string/save_and_load"
             android:textColor="@color/white" />
-
+        <Button
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_width="@dimen/dp200"
+            android:id="@+id/logs"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border_format"
+            android:text="@string/logs"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

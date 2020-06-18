@@ -2,16 +2,20 @@ package com.daisy.activity.mainActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
-import android.widget.Toast;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -19,7 +23,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
-import com.daisy.activity.BaseActivity;
+import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
@@ -39,6 +43,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
+    private Context context;
+    private boolean isRedirected;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -48,11 +55,22 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         setOnClickListener();
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initView() {
+        setNoTitleBar(this);
+        mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
+        context = this;
+        mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        sessionManager = SessionManager.get();
+        PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
+        loadURL();
+    }
+
+
     private void setOnClickListener() {
-    mBinding.settingHeader.setOnClickListener(this);
-    mBinding.setting.setOnClickListener(this);
-
-
+        mBinding.settingHeader.setOnClickListener(this);
+        mBinding.setting.setOnClickListener(this);
         mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 settingHeader();
@@ -60,20 +78,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         });
 
     }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void initView() {
-        setNoTitleBar(this);
-        mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
-        mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        sessionManager = SessionManager.get();
-        PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
-          loadURL();
-    }
-
-
-
 
     private void getDownloadData() {
         if (CheckForSDCard.isSDCardPresent()) {
@@ -84,17 +88,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 final String url = Utils.getPath();
                 if (url != null) {
                     new DownloadFile(MainActivity.this, MainActivity.this).execute(url);
-                }
-                else
-                {
+                } else {
                     editorToolOpen();
                 }
             }
         } else {
-            ValidationHelper.showToast(this,getString(R.string.storage_not_available));
+            ValidationHelper.showToast(this, getString(R.string.storage_not_available));
         }
     }
-
 
 
     @Override
@@ -128,17 +129,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         mBinding.webView.requestLayout();
 
-    }
-
-
-    // Shows the system bars by removing all the flags
-// except for the ones that make the content appear under the system bars.
-    private void showSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
 
@@ -187,19 +177,32 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             settings.setLoadWithOverviewMode(true);
             settings.setAllowFileAccessFromFileURLs(true);
             settings.setAllowUniversalAccessFromFileURLs(true);
+            settings.setLoadsImagesAutomatically(true);
             settings.setJavaScriptCanOpenWindowsAutomatically(true);
+            settings.setPluginState(WebSettings.PluginState.ON);
             settings.setUseWideViewPort(true);
-            mBinding.webView.setWebChromeClient(new WebChromeClient() {
-            });
+            settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+            settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            settings.setAppCacheEnabled(true);
+            settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+            settings.setUseWideViewPort(true);
+            settings.setAppCacheEnabled(true);
+            settings.setDomStorageEnabled(true);
+            settings.setAppCachePath(getApplicationContext().getFilesDir().getAbsolutePath() + getString(R.string.chche));
+            settings.setDatabaseEnabled(true);
+            settings.setDatabasePath(getApplicationContext().getFilesDir().getAbsolutePath() + getString(R.string.databse));
+            settings.setMediaPlaybackRequiresUserGesture(false);
+            mBinding.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+            mBinding.webView. setWebChromeClient(new WebChromeClientCustomPoster());
+            setWebViewClient();
             File file = new File(sessionManager.getLocation() + Constraint.SLASH + Utils.getFileName() + Constraint.SLASH + Constraint.FILE_NAME);
             if (file.exists()) {
                 mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Utils.getFileName() + Constraint.SLASH + Constraint.FILE_NAME);
             } else {
-                File file1=new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                File file1 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
                 if (file1.exists())
-                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                else
-                {
+                    mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                else {
                     sessionManager.deleteLocation();
                     getDownloadData();
                 }
@@ -210,18 +213,72 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
+    private void setWebViewClient() {
+
+        mBinding.webView.setWebViewClient(new WebViewClient() {
+
+            public void onReceivedError(WebView mWebView, int i, String s, String d1) {
+                ValidationHelper.showToast(getApplicationContext(), getString(R.string.no_internet_available));
+
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+                super.onPageStarted(view, url, favicon);
+                if (url.contains(Constraint.FILE)) {
+                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD, Constraint.WEBPAGE_LOAD_DESCRIPTION, url, Constraint.CARD_LOGS);
+                }
+
+            }
+
+            @Override
+            public void onPageFinished(WebView view, final String url) {
+
+                super.onPageFinished(view, url);
+                if (url.contains(Constraint.FILE)) {
+                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
+                }
+
+
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                 view.loadUrl(url);
+                 if (!isRedirected) {
+                     Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
+                 isRedirected=true;
+                 }
+                 else
+                 {
+                     isRedirected=false;
+                 }
+                return true;
+            }
+
+
+        });
+
+    }
+
+    private class WebChromeClientCustomPoster extends WebChromeClient {
+
+        @Override
+        public Bitmap getDefaultVideoPoster() {
+            return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.settingHeader:
-            {
+        switch (v.getId()) {
+            case R.id.settingHeader: {
                 settingHeader();
                 break;
             }
-            case R.id.setting:
-            {
+            case R.id.setting: {
                 settingClick();
                 break;
             }
@@ -229,43 +286,47 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
     private void settingClick() {
+        Utils.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         editorToolOpenwithValue();
     }
 
 
-
     private void settingHeader() {
-        if (mViewModel.isSettingVisible())
-        {
+        if (mViewModel.isSettingVisible()) {
             mViewModel.setSettingVisible(false);
             mBinding.setting.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             mViewModel.setSettingVisible(true);
             mBinding.setting.setVisibility(View.VISIBLE);
             hideSettingsIcon();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
     private void editorToolOpen() {
         Intent intent = new Intent(MainActivity.this, EditorTool.class);
         startActivity(intent);
         finish();
     }
+
     private void editorToolOpenwithValue() {
         Intent intent = new Intent(MainActivity.this, EditorTool.class);
-        Bundle bundle=new Bundle();
-        bundle.putString(Constraint.CALLFROM,Constraint.SETTINGS);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constraint.CALLFROM, Constraint.SETTINGS);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
 
-    void hideSettingsIcon()
-    {
+    void hideSettingsIcon() {
         Runnable mRunnable;
-        Handler mHandler=new Handler();
-        mRunnable=new Runnable() {
+        Handler mHandler = new Handler();
+        mRunnable = new Runnable() {
 
             @Override
             public void run() {
@@ -275,8 +336,37 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 }
             }
         };
-        mHandler.postDelayed(mRunnable,Constraint.TWENTY*Constraint.THOUSAND);
+        mHandler.postDelayed(mRunnable, Constraint.TWENTY * Constraint.THOUSAND);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    if (mBinding.webView.canGoBack()) {
+                        mBinding.webView.goBack();
+                    } else {
+                        finish();
+                    }
+                    return true;
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        onBackToHome();
+    }
+
+    public void onBackToHome() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
 
 }
