@@ -86,7 +86,6 @@ public class SessionManager {
     }
 
 
-
     public int getNotificationOn() {
         return pref.getIntData(PrefConstant.isNotificationOn);
     }
@@ -594,7 +593,6 @@ public class SessionManager {
     }
 
 
-
     public void setStripeCode(String stripeCode) {
         pref.setStringData(PrefConstant.STRIPE_CODE, stripeCode);
 
@@ -615,10 +613,10 @@ public class SessionManager {
 
 
     public void setFilePath(String location) {
-    pref.setStringData(PrefConstant.LOCATION,location);
+        pref.setStringData(PrefConstant.LOCATION, location);
     }
-    public String getFilePath()
-    {
+
+    public String getFilePath() {
         return pref.getStringData(PrefConstant.LOCATION);
     }
 
@@ -627,61 +625,110 @@ public class SessionManager {
     }
 
     public void darkMode(boolean isChecked) {
-        pref.setBooleanData(PrefConstant.DARK_MODE,isChecked);
+        pref.setBooleanData(PrefConstant.DARK_MODE, isChecked);
     }
 
     public boolean getDarkTheme() {
-      return   pref.getBoolean(PrefConstant.DARK_MODE);
+        return pref.getBoolean(PrefConstant.DARK_MODE);
     }
 
     public void popUpPermission(boolean b) {
-        pref.setBooleanData(PrefConstant.POP_UP_PERMISSION,b);
+        pref.setBooleanData(PrefConstant.POP_UP_PERMISSION, b);
     }
+
     public boolean getPopUpPermission() {
-        return   pref.getBoolean(PrefConstant.POP_UP_PERMISSION);
+        return pref.getBoolean(PrefConstant.POP_UP_PERMISSION);
     }
 
     public void setInForground(boolean b) {
-        pref.setBooleanData(PrefConstant.IN_FORGROUND,b);
+        pref.setBooleanData(PrefConstant.IN_FORGROUND, b);
     }
 
     public boolean getInForground() {
-        return   pref.getBoolean(PrefConstant.IN_FORGROUND);
+        return pref.getBoolean(PrefConstant.IN_FORGROUND);
     }
 
     public void useCasePermission(boolean b) {
-        pref.setBooleanData(PrefConstant.USE_CASE_PERMISSION,b);
+        pref.setBooleanData(PrefConstant.USE_CASE_PERMISSION, b);
 
     }
+
     public boolean getUseCasePermission() {
-        return   pref.getBoolean(PrefConstant.USE_CASE_PERMISSION);
+        return pref.getBoolean(PrefConstant.USE_CASE_PERMISSION);
     }
 
     public boolean getModifySystemSettings() {
-        return   pref.getBoolean(PrefConstant.MODIFY_SYSTEM_SETTINGS);
+        return pref.getBoolean(PrefConstant.MODIFY_SYSTEM_SETTINGS);
     }
 
     public void setModifySystemSettings(boolean b) {
-        pref.setBooleanData(PrefConstant.MODIFY_SYSTEM_SETTINGS,b);
+        pref.setBooleanData(PrefConstant.MODIFY_SYSTEM_SETTINGS, b);
 
     }
 
-    public void setData(String data)
-    {
-        pref.setStringData(PrefConstant.DATA,data);
+    public void setData(String data) {
+        pref.setStringData(PrefConstant.DATA, data);
 
     }
+
     public String getData() {
-        return   pref.getStringData(PrefConstant.DATA);
+        return pref.getStringData(PrefConstant.DATA);
 
     }
 
     public void setProcessId(int myPid) {
-        pref.setIntData(PrefConstant.PROCESS_DATA,myPid);
+        pref.setIntData(PrefConstant.PROCESS_DATA, myPid);
 
     }
+
     public int getProcessId() {
-        return   pref.getIntData(PrefConstant.PROCESS_DATA);
+        return pref.getIntData(PrefConstant.PROCESS_DATA);
 
     }
+
+    public void setPasswordCorrect(boolean b) {
+        pref.setBooleanData(PrefConstant.PASSWORD_CORRECT, b);
+
+    }
+
+    public boolean getPasswordCorrect() {
+        return pref.getBoolean(PrefConstant.PASSWORD_CORRECT);
+
+    }
+
+    public void setDeletePhoto(boolean b) {
+        pref.setBooleanData(PrefConstant.DELETE_PHOTO, b);
+
+    }
+
+    public boolean getDeletePhoto() {
+        return pref.getBoolean(PrefConstant.DELETE_PHOTO);
+    }
+
+    public void setLock(boolean b) {
+        pref.setBooleanData(PrefConstant.LOCK, b);
+
+    }
+
+    public void onBoarding(boolean b) {
+        pref.setBooleanData(PrefConstant.ON_BOARDING, b);
+    }
+
+    public boolean getOnBoarding() {
+        return pref.getBoolean(PrefConstant.ON_BOARDING);
+    }
+
+    public boolean getLock() {
+        return pref.getBoolean(PrefConstant.LOCK);
+    }
+
+    public void setWifiGone(boolean b) {
+
+        pref.setBooleanData(PrefConstant.WIFI_GONE, b);
+
+    }
+    public boolean getWifiGone() {
+        return pref.getBoolean(PrefConstant.WIFI_GONE);
+    }
+
 }

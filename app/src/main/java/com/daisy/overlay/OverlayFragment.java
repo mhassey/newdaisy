@@ -1,4 +1,4 @@
-package com.daisy.activity.lockscreen;
+package com.daisy.overlay;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,7 +22,6 @@ import com.daisy.activity.base.BaseFragment;
 import com.daisy.activity.mainActivity.MainActivityViewModel;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
-import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.databinding.FragmentOverlayBinding;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;

@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -29,13 +33,17 @@ import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
-import com.daisy.service.BackgroundService;
+import com.daisy.pojo.response.InternetResponse;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.DownloadFile;
 import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -58,9 +66,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         setOnClickListener();
     }
 
+
+
+
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
-        Utils.constructJobForBackground(time1,getApplicationContext());
+        Utils.constructJobForBackground(time1, getApplicationContext());
     }
 
 
@@ -73,12 +84,29 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         sessionManager = SessionManager.get();
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
         loadURL();
+        checkWifiState();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkWifiState();
+    }
+
+    private void checkWifiState() {
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager.isWifiEnabled()) {
+            mBinding.offlineLayout.setVisibility(View.GONE);
+        } else {
+            mBinding.offlineLayout.setVisibility(View.VISIBLE);
+        }
     }
 
 
     private void setOnClickListener() {
         mBinding.settingHeader.setOnClickListener(this);
         mBinding.setting.setOnClickListener(this);
+        mBinding.offLineIcon.setOnClickListener(this);
         mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 settingHeader();
@@ -201,7 +229,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             settings.setDatabasePath(getApplicationContext().getFilesDir().getAbsolutePath() + getString(R.string.databse));
             settings.setMediaPlaybackRequiresUserGesture(false);
             mBinding.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-            mBinding.webView. setWebChromeClient(new WebChromeClientCustomPoster());
+            mBinding.webView.setWebChromeClient(new WebChromeClientCustomPoster());
             setWebViewClient();
             File file = new File(sessionManager.getLocation() + Constraint.SLASH + Utils.getFileName() + Constraint.SLASH + Constraint.FILE_NAME);
             if (file.exists()) {
@@ -253,15 +281,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                 view.loadUrl(url);
-                 if (!isRedirected) {
-                     Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
-                 isRedirected=true;
-                 }
-                 else
-                 {
-                     isRedirected=false;
-                 }
+                view.loadUrl(url);
+                if (!isRedirected) {
+                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
+                    isRedirected = true;
+                } else {
+                    isRedirected = false;
+                }
                 return true;
             }
 
@@ -290,13 +316,24 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingClick();
                 break;
             }
+            case R.id.offLineIcon: {
+
+                goToWifi();
+                break;
+            }
         }
+    }
+
+    private void goToWifi() {
+        startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS),Constraint.RESPONSE_CODE);
     }
 
     private void settingClick() {
         Utils.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         editorToolOpenwithValue();
     }
+
+
 
 
     private void settingHeader() {
@@ -355,7 +392,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     if (mBinding.webView.canGoBack()) {
                         mBinding.webView.goBack();
                     } else {
-                        finish();
+                        onBackToHome();
                     }
                     return true;
             }
@@ -366,15 +403,40 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         onBackToHome();
     }
 
     public void onBackToHome() {
+        Log.e("kali", "back");
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void InternetAvailability(InternetResponse internetResponse) {
+        if (internetResponse.isAvailable()) {
+            mBinding.offlineLayout.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.offlineLayout.setVisibility(View.GONE);
+
+        }
     }
 
 }

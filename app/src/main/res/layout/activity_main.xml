@@ -1,45 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:background="#000000"
         android:id="@+id/upperLayout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-       >
+        android:background="#000000">
 
 
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
         <LinearLayout
-            android:id="@+id/settingHeader"
-            android:gravity="top|left"
-            android:layout_marginStart="@dimen/dp20"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp100">
+            android:layout_height="@dimen/dp100"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:visibility="gone"
-                android:padding="@dimen/dp10"
-                android:layout_marginTop="@dimen/dp10"
-                android:id="@+id/setting"
-                android:src="@drawable/ic_settings"
+            <LinearLayout
+                android:id="@+id/settingHeader"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp100"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_weight="1"
+                android:gravity="top|left">
+
+                <ImageView
+                    android:id="@+id/setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:src="@drawable/ic_settings"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/offlineLayout"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10">
 
+                <ImageView
+                    android:visibility="visible"
+                    android:id="@+id/offLineIcon"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:src="@drawable/offline" />
+            </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/swipeclick"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp10"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
 
         </LinearLayout>
     </RelativeLayout>
- </layout>
+</layout>

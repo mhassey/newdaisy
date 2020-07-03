@@ -16,7 +16,7 @@ public class Constraint {
     public static final String SUCCESS = "success";
     public static final String INDEX = "index";
     public static final String CARD = "Card";
-    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_SETTINGS};
+    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE};
 
     public static final String zipUrl = "https://c2.mobilepricecard.com/pickup/";
 
@@ -96,6 +96,19 @@ public class Constraint {
     public static final String BATTRY_OPTIMIZATION = "Please allow Daisy battery  to not optimized in your device's settings";
     public static final int BATTRY_OPTIMIZATION_CODE = 232;
     public static final long FIVE = 5;
+    public static final long TEN_MINUTES = 1000*60;
+    public static final String SETTING_PATH = "com.android.settings";
+    public static final String PLAY_STORE_PATH = "com.android.vending";
+    public static final String PASSWORD = "12345";
+    public static final String PACKAGE = "package";
+    public static final CharSequence DAISY = ".Daisy";
+    public static final String MEDIA_PERMISSION = "mediaPermission";
+    public static final String DISPLAY_OVER_THE_APP = "displayOverTheApp";
+    public static final String GRAND_USAGE_ACCESS = "grandUsageAccess";
+    public static final String MODIFY_SYSTEM_SET = "modifySystemSettings";
+    public static final String BATTRY_OPTI = "batteryOptimization";
     public static  boolean IS_OVER_APP_SETTING = false;
     public static  int CREENTBRIGHNESS  ;
+    public static String current_running_process = "";
+
 }

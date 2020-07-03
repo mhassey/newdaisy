@@ -24,4 +24,34 @@
     <string name="dark_mode">Dark mode</string>
     <string name="packageName">com.daisy</string>
     <string name="onePlus">OnePlus</string>
+    <string name="enter_password">ENTER PASSWORD</string>
+    <string name="password">password</string>
+    <string name="unlock">UNLOCK</string>
+    <string name="invalid_password">INVALID PASSWORD</string>
+    <string name="welcome">WELCOME</string>
+    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">This app requires several special permissions to perform properly. Pressing \'begin\' below will start guiding you through the process.</string>
+    <string name="begin">BEGIN</string>
+    <string name="next">Next</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="grant_media_permission">Grant Media Permission</string>
+    <string name="display_over_other_apps">Display Over Other Apps</string>
+    <string name="grand_usage_access">Grant Usage Access</string>
+    <string name="modify_system_settings">Modify System Settings</string>
+    <string name="app_settings">App Settings</string>
+    <string name="lock_access_to_play_store">Lock Access to Play Store</string>
+    <string name="delete_photos">Delete Photos</string>
+    <string name="only_disable_if_using_personal_device">* Only disable if using personal device</string>
+    <string name="device_detected">Device Detected:</string>
+    <string name="use_detected_device">Use Detected Device</string>
+    <string name="score_code">Score Code</string>
+    <string name="don_t_optimized_battery">Don\'t Optimized Battery</string>
+    <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
+    <string name="save_and_start_mpc"><![CDATA[Save and start MPC >]]></string>
+    <string name="store_code">Store Code</string>
+    <string name="Password">Password</string>
+    <string name="manage_device_content">Manage Device Content</string>
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="wifi">wifi</string>
 </resources>

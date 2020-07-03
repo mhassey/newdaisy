@@ -94,4 +94,9 @@ public interface PrefConstant {
     String MODIFY_SYSTEM_SETTINGS = "modify_system_settings";
     String DATA = "data";
     String PROCESS_DATA = "process_data";
+    String PASSWORD_CORRECT = "password_correct";
+    String DELETE_PHOTO = "deletePhoto";
+    String LOCK = "lock";
+    String ON_BOARDING = "onBoarding";
+    String WIFI_GONE = "wifiGone";
 }

@@ -13,10 +13,9 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.daisy.broadcast.ScreenReceiver;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
-import com.daisy.notification.AlarmReceiver;
+import com.daisy.notification.ScreenReceiver;
 import com.daisy.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
@@ -36,7 +35,7 @@ public class Daisy extends Application implements LifecycleObserver {
        }
 
     private void registerBroadCast() {
-        AlarmReceiver receiver=new AlarmReceiver();
+        ScreenReceiver receiver=new ScreenReceiver();
         IntentFilter filter1 = new IntentFilter("android.intent.action.BOOT_COMPLETED");
         registerReceiver(receiver, filter1);
     }
@@ -71,9 +70,7 @@ public class Daisy extends Application implements LifecycleObserver {
         sessionManager.setInForground(false);
         if (Constraint.IS_OVER_APP_SETTING)
             screenBrightness(Constraint.CREENTBRIGHNESS);
-        long time = TimeUnit.SECONDS.toMillis(Constraint.THIRTY);
-        Utils.constructJob(time,getApplicationContext());
-    }
+        }
 
 
 
@@ -126,10 +123,5 @@ public class Daisy extends Application implements LifecycleObserver {
         return 255;
     }
 
-    private void setSleepBroadCast() {
-        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        BroadcastReceiver mReceiver = new ScreenReceiver();
-        registerReceiver(mReceiver, filter);
-    }
+
 }

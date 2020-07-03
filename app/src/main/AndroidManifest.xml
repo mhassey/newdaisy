@@ -3,20 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.daisy">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW"
+    <uses-permission
+        android:name="android.permission.INTERNAL_SYSTEM_WINDOW"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
 
     <application
         android:name=".Daisy"
@@ -28,45 +37,69 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.login.LoginActivity"></activity>
+        <activity android:name=".activity.onBoarding.slider.OnBaording" />
+        <activity
+            android:name=".activity.onBoarding.WelcomeScreen"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.onBoarding.SplashScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.lockscreen.LockScreen"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".service.DeletePhotoService"
+            android:enabled="true"
+            android:exported="true" />
         <service
             android:name=".service.StickyService"
             android:stopWithTask="false" />
 
-
-        <activity android:name=".activity.settings.Settings"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.logs.logs_show.LogsShowActivity"  android:screenOrientation="portrait" />
-        <activity android:name=".activity.logs.LogsMainActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.editorTool.EditorTool"  android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.mainActivity.MainActivity"
-            android:showOnLockScreen="true" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.lockscreen.OverlayActivity"/>
+        <activity
+            android:name=".activity.settings.Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.logs.logs_show.LogsShowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.logs.LogsMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.editorTool.EditorTool"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mainActivity.MainActivity"
+            android:screenOrientation="portrait"
+            android:showOnLockScreen="true" />
+        <activity android:name=".overlay.OverlayActivity" />
 
         <receiver android:name=".broadcastforbackgroundservice.AlarmReceiverForBackground" />
-
-        <receiver android:name=".notification.AlarmReceiver" />
-
-        <receiver
-            android:name=".notification.AlarmBootReceiver"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <receiver
             android:name=".broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
             android:enabled="false">
-            <intent-filter>
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service android:name=".service.BackgroundService" android:stopWithTask="false"  />
+        <receiver
+            android:name=".bootcomplete.BootReceiver"
+            android:enabled="false">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.BackgroundService"
+            android:stopWithTask="false" />
     </application>
 
 </manifest>

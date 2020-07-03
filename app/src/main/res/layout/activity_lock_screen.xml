@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:id="@+id/rootLayout"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.editorTool.EditorTool">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp150"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_password"
+                android:textColor="?attr/textcolorblack"
+                android:textSize="@dimen/dp20" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp100"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <EditText
+
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/editTextColor"
+                    android:layout_margin="@dimen/dp10"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/dp14"
+                    android:background="@drawable/edit_text_format"
+                    android:hint="@string/password"
+                    android:textColorHint="@color/editTextLineColor"
+                    android:padding="@dimen/dp10" />
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+
+            <Button
+                android:layout_width="@dimen/dp200"
+                android:id="@+id/unlock"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_border_format"
+                android:text="@string/unlock"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

@@ -53,10 +53,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         startServices();
-
-
         initView();
         onAttachedToWindow();
         setThemeChanges();
@@ -372,7 +369,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                     String path = Utils.getPath();
                     if (path != null) {
                         if (!path.equals(mBinding.baseUrl.getText().toString())) {
-                            deleteCardFolder();
+                            Utils.deleteCardFolder();
                             Utils.writeFile(configFilePath, mBinding.baseUrl.getText().toString());
                             sessionManager.deleteLocation();
                             Utils.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, mBinding.baseUrl.getText().toString(), Constraint.APPLICATION_LOGS);
@@ -392,17 +389,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void deleteCardFolder() {
-        File dir = new File(Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
-        if (dir.isDirectory()) {
-            try {
-                FileUtils.deleteDirectory(dir);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-        }
-    }
 
 
     @Override
@@ -432,10 +419,11 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void permissionWork() {
-        boolean b = PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
-        if (!b) {
-            askForExternalPermission();
-        }
+//        boolean b = PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
+//        if (!b) {
+//            askForExternalPermission();
+//        }
+        checkAndValidate();
     }
 
 

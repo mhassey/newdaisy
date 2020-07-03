@@ -29,6 +29,20 @@ public class PermissionManager {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
+    public static boolean checkPermissionOnly(Activity activity, String[] permission, int requestCode) {
+        List<String> permissions = new ArrayList<>();
+        for (String per : permission) {
+            int status = activity.checkSelfPermission(per);
+            if (status != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(per);
+            }
+        }
+        if (!permissions.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean checkPermission(Context context, Fragment activity, String[] permission, int requestCode) {
         List<String> permissions = new ArrayList<>();
         for (String per : permission) {

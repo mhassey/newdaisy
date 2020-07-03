@@ -32,8 +32,7 @@ public class AlarmReceiverForBackground extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        if (!Utils.isMyServiceRunning(BackgroundService.class, context)) {
+         if (!Utils.isMyServiceRunning(BackgroundService.class, context)) {
             context.startService(new Intent(context, BackgroundService.class));
         }
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.FIVE);

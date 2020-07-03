@@ -1,6 +1,5 @@
-package com.daisy.activity.lockscreen;
+package com.daisy.overlay;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;

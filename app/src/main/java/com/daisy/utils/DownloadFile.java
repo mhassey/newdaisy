@@ -129,6 +129,9 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     }
 
 
+    /**
+     * after download zip extract it in following path
+     * */
     @Override
     protected void onPostExecute(String path) {
         // dismiss the dialog after the file was downloaded

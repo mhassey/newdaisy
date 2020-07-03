@@ -28,13 +28,20 @@ import java.util.concurrent.TimeUnit;
 /**
  * AlarmReceiver handles the broadcast message and generates Notification
  */
-public class AlarmReceiver extends BroadcastReceiver {
+public class ScreenReceiver extends BroadcastReceiver {
     private SessionManager sessionManager;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+            // do whatever you need to do here
 
+
+        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+            // and do whatever you need to do here
+
+        }
     }
 
 
