@@ -5,8 +5,10 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,13 +17,17 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityLockScreenBinding;
+import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+
+import okhttp3.internal.Util;
 
 public class LockScreen extends BaseActivity implements View.OnClickListener {
     private ActivityLockScreenBinding binding;
     private Context context;
     private String current_running_path;
     private SessionManager sessionManager;
+    private boolean comeFromUninstall = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +41,15 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
         context = this;
-        Constraint.current_running_process="";
-        current_running_path=String.valueOf(getIntent().getStringExtra(Constraint.PACKAGE));
-        sessionManager=SessionManager.get();
+        Constraint.current_running_process = "";
+        current_running_path = String.valueOf(getIntent().getStringExtra(Constraint.PACKAGE));
+        String uninstall = getIntent().getStringExtra(Constraint.UNINSTALL);
+        if (uninstall != null && !uninstall.equals("")) {
+            comeFromUninstall = false;
+        } else {
+            comeFromUninstall = true;
+        }
+        sessionManager = SessionManager.get();
     }
 
     private void initClick() {
@@ -58,6 +70,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.unlock: {
+                Utils.hideKeyboard(context);
                 unlockPassword();
             }
         }
@@ -67,10 +80,11 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         String password = binding.password.getText().toString();
         if (password != null) {
             if (password.equals(Constraint.PASSWORD)) {
-                if (current_running_path!=null) {
-                    finish();
-                    startLastActivity(current_running_path);
-                }
+                if (!comeFromUninstall)
+                    sessionManager.setUninstall(true);
+                finish();
+                startLastActivity(current_running_path);
+
             } else {
                 ValidationHelper.showToast(context, getString(R.string.invalid_password));
 
@@ -81,22 +95,26 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     private void startLastActivity(String packageName) {
-        sessionManager.setPasswordCorrect(true);
-
-        if (packageName.equals("wifi"))
-        {
-            startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS),Constraint.RESPONSE_CODE);
-
-        }
-        else {
+        if (comeFromUninstall) {
+            sessionManager.setPasswordCorrect(true);
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
             if (launchIntent != null) {
                 startActivity(launchIntent);
-            } else {
-                Toast.makeText(LockScreen.this, "There is no package available in android", Toast.LENGTH_LONG).show();
             }
+        } else {
+
+            onBackToHome();
+            Intent intent = new Intent(Intent.ACTION_DELETE);
+            intent.setData(Uri.parse("package:com.daisy"));
+            startActivity(intent);
         }
     }
 
+    public void onBackToHome() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
 
 }

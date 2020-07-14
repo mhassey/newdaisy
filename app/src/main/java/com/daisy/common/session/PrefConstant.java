@@ -99,4 +99,5 @@ public interface PrefConstant {
     String LOCK = "lock";
     String ON_BOARDING = "onBoarding";
     String WIFI_GONE = "wifiGone";
+    String UNINSTALL = "uninstall";
 }

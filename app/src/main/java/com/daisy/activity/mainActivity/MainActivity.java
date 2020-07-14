@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -69,6 +71,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
 
+
+
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
@@ -83,25 +87,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         sessionManager = SessionManager.get();
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         loadURL();
-        checkWifiState();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        checkWifiState();
-    }
 
-    private void checkWifiState() {
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager.isWifiEnabled()) {
-            mBinding.offlineLayout.setVisibility(View.GONE);
-        } else {
-            mBinding.offlineLayout.setVisibility(View.VISIBLE);
-        }
     }
-
 
     private void setOnClickListener() {
         mBinding.settingHeader.setOnClickListener(this);
@@ -325,7 +322,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
     private void goToWifi() {
-        startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS),Constraint.RESPONSE_CODE);
+        sessionManager.setPasswordCorrect(true);
+        Intent intent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        this.startActivityForResult(intent,9900);
+
+
     }
 
     private void settingClick() {
@@ -438,5 +444,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         }
     }
+
+
+
 
 }

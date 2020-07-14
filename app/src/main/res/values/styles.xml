@@ -26,26 +26,25 @@
     </style>
     <style name="AppThemeDark" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">#24272e</item>
-        <item name="editTextColor">@color/white</item>
-        <item name="toggle">@color/white</item>
+        <item name="editTextColor">@color/black</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="backgroundColor">#24272e</item>
+        <item name="backgroundColor">#000000</item>
         <item name="cardBackgroundColor">#000000</item>
         <item name="textcolor">@color/white</item>
         <item name="tintcolor">@color/black</item>
         <item name="bottoncolor">@color/black</item>
-        <item name="textcolorblack">@color/white</item>
-        <item name="layout_log">@color/black</item>
+        <item name="textcolorblack">@color/black</item>
+        <item name="layout_log">@color/white</item>
        </style>
 
     <style name="SwitchCompatTheme">

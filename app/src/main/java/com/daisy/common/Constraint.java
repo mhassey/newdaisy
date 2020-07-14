@@ -107,6 +107,9 @@ public class Constraint {
     public static final String GRAND_USAGE_ACCESS = "grandUsageAccess";
     public static final String MODIFY_SYSTEM_SET = "modifySystemSettings";
     public static final String BATTRY_OPTI = "batteryOptimization";
+    public static final int WIFI_COME_BACK = 105;
+    public static final String UNINSTALL = "uninstall";
+    public static final String YES = "yes";
     public static  boolean IS_OVER_APP_SETTING = false;
     public static  int CREENTBRIGHNESS  ;
     public static String current_running_process = "";

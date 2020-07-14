@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/next"
-                        android:textColor="?attr/textcolorblack"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/dp20" />
 
                     <TextView
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp5"
                         android:text=">"
-                        android:textColor="?attr/textcolorblack"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/sp18" />
                 </LinearLayout>
 

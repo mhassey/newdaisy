@@ -2,7 +2,7 @@ package com.daisy.common.session;
 
 import android.app.Application;
 
-import com.daisy.Daisy;
+import com.daisy.app.AppController;
 
 
 public class SessionManager {
@@ -27,7 +27,7 @@ public class SessionManager {
     }
 
     public static SessionManager get() {
-        init(Daisy.getInstance());
+        init(AppController.getInstance());
         return sInstance;
     }
 
@@ -731,4 +731,14 @@ public class SessionManager {
         return pref.getBoolean(PrefConstant.WIFI_GONE);
     }
 
+    public void setUninstall(boolean b) {
+        pref.setBooleanData(PrefConstant.UNINSTALL, b);
+    }
+    public boolean getUninstall() {
+        return pref.getBoolean(PrefConstant.UNINSTALL);
+    }
+
+    public String getAccessToken() {
+        return null;
+    }
 }

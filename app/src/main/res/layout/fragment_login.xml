@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".activity.onBoarding.slider.slides.PermissionAsk">
+        tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
 
         <LinearLayout
@@ -34,17 +34,21 @@
 
 
             <EditText
+                android:id="@+id/storeCode"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
                 android:layout_margin="@dimen/dp20"
                 android:background="@drawable/edit_text_format"
                 android:hint="@string/store_code"
                 android:textSize="@dimen/sp15"
+                android:inputType="text"
+                android:imeOptions="actionNext"
                 android:paddingStart="@dimen/dp10"
                 android:textColor="?attr/textcolorblack" />
 
 
             <EditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
                 android:layout_marginStart="@dimen/dp20"
@@ -53,6 +57,8 @@
                 android:background="@drawable/edit_text_format"
                 android:hint="@string/Password"
                 android:textSize="@dimen/sp15"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
                 android:paddingStart="@dimen/dp10"
                 android:textColor="?attr/textcolorblack" />
 

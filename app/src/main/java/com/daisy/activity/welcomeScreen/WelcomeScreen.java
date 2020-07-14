@@ -1,4 +1,4 @@
-package com.daisy.activity.onBoarding;
+package com.daisy.activity.welcomeScreen;
 
 import android.content.Intent;
 import android.os.Bundle;

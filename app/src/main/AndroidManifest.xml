@@ -4,13 +4,13 @@
     package="com.daisy">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -28,7 +28,7 @@
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
 
     <application
-        android:name=".Daisy"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -40,11 +40,11 @@
         <activity android:name=".activity.login.LoginActivity"></activity>
         <activity android:name=".activity.onBoarding.slider.OnBaording" />
         <activity
-            android:name=".activity.onBoarding.WelcomeScreen"
+            android:name=".activity.welcomeScreen.WelcomeScreen"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".activity.onBoarding.SplashScreen"
+            android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

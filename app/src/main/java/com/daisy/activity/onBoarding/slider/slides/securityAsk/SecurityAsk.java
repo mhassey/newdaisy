@@ -1,4 +1,4 @@
-package com.daisy.activity.onBoarding.slider.slides;
+package com.daisy.activity.onBoarding.slider.slides.securityAsk;
 
 import android.os.Bundle;
 
@@ -12,31 +12,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.daisy.R;
-import com.daisy.databinding.FragmentDeviceDetectionBinding;
-import com.daisy.utils.Utils;
+import com.daisy.databinding.FragmentSecurityAskBinding;
 
 
-public class DeviceDetection extends Fragment {
+public class SecurityAsk extends Fragment {
 
-    private FragmentDeviceDetectionBinding detectionBinding;
+     public FragmentSecurityAskBinding securityAskBinding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        detectionBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_device_detection, container, false);
-    return detectionBinding.getRoot();
+        securityAskBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_security_ask, container, false);
+        return securityAskBinding.getRoot();
     }
-    public static DeviceDetection getInstance() {
-        return new DeviceDetection();
+    public static SecurityAsk getInstance() {
+        return new SecurityAsk();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setDefaultValues();
-    }
 
-    private void setDefaultValues() {
-    detectionBinding.deviceName.setText(Utils.getDeviceName());
     }
 }

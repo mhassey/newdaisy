@@ -3,8 +3,10 @@ package com.daisy.overlay;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +25,14 @@ import com.daisy.activity.mainActivity.MainActivityViewModel;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.FragmentOverlayBinding;
+import com.daisy.pojo.response.InternetResponse;
+import com.daisy.pojo.response.OverLayResponse;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
@@ -50,6 +58,8 @@ public class OverlayFragment extends BaseFragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_overlay,container,false);
         setNoTitleBar(getActivity());
         initView();
+
+        checkWifiState();
         return mBinding.getRoot();
 
     }
@@ -165,6 +175,21 @@ public class OverlayFragment extends BaseFragment {
         @Override
         public Bitmap getDefaultVideoPoster() {
             return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
+        }
+    }
+    private void checkWifiState() {
+
+        WifiManager wifiManager = (WifiManager) requireContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        InternetResponse internetResponse = new InternetResponse();
+
+        if (wifiManager.isWifiEnabled()) {
+            Log.e("check","enabled");
+            mBinding.offlineLayout.setVisibility(View.GONE);
+
+        } else {
+            Log.e("check","disable");
+            mBinding.offlineLayout.setVisibility(View.VISIBLE);
+
         }
     }
 

@@ -1,17 +1,15 @@
-package com.daisy.activity.onBoarding;
+package com.daisy.activity.splash;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Telephony;
 import android.view.View;
 
 import com.daisy.R;
+import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.common.session.SessionManager;
-import com.daisy.utils.Utils;
 
 public class SplashScreen extends BaseActivity {
     private SessionManager sessionManager;
@@ -20,7 +18,8 @@ public class SplashScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         initView();
-       }
+
+    }
 
     private void initView() {
         setNoTitleBar(this);

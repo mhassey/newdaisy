@@ -1,9 +1,7 @@
-package com.daisy;
+package com.daisy.app;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.provider.Settings;
@@ -13,17 +11,19 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.daisy.activity.base.BaseActivity;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.notification.ScreenReceiver;
 import com.daisy.utils.Utils;
 
-import java.util.concurrent.TimeUnit;
+import okhttp3.internal.Util;
 
-public class Daisy extends Application implements LifecycleObserver {
-    public static Daisy sInstance;
-    public static final String TAG = Daisy.class.getName();
+public class AppController extends Application implements LifecycleObserver {
+    public static AppController sInstance;
+    public static final String TAG = AppController.class.getName();
     private SessionManager sessionManager;
+    private BaseActivity baseActivity;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,11 +40,11 @@ public class Daisy extends Application implements LifecycleObserver {
         registerReceiver(receiver, filter1);
     }
 
-    public static Daisy getInstance() {
+    public static AppController getInstance() {
         if (sInstance == null) {
-            synchronized (Daisy.class) {
+            synchronized (AppController.class) {
                 if (sInstance == null)
-                    sInstance = new Daisy();
+                    sInstance = new AppController();
             }
         }
         // Return the instance
@@ -69,7 +69,7 @@ public class Daisy extends Application implements LifecycleObserver {
         sessionManager=SessionManager.get();
         sessionManager.setInForground(false);
         if (Constraint.IS_OVER_APP_SETTING)
-            screenBrightness(Constraint.CREENTBRIGHNESS);
+            Utils.screenBrightness(Constraint.CREENTBRIGHNESS,getApplicationContext());
         }
 
 
@@ -81,22 +81,12 @@ public class Daisy extends Application implements LifecycleObserver {
 
     private void setFullBrightNess() {
         if (Constraint.IS_OVER_APP_SETTING) {
-            int max = getMaximumScreenBrightnessSetting();
-            screenBrightness(max);
+            int max = Utils.getMaximumScreenBrightnessSetting();
+            Utils.screenBrightness(max,getApplicationContext());
         }
     }
 
-    private void screenBrightness(int level) {
-        try {
-            android.provider.Settings.System.putInt(
-                    getContentResolver(),
-                    android.provider.Settings.System.SCREEN_BRIGHTNESS, level);
-        } catch (Exception e) {
-            e.printStackTrace();
 
-
-        }
-    }
 
     public static int getScreenBrightness(Context context) {
         int brightnessValue = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
@@ -106,22 +96,9 @@ public class Daisy extends Application implements LifecycleObserver {
     }
 
 
-    public static int getMaximumScreenBrightnessSetting() {
-        final Resources res = Resources.getSystem();
-         int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
-        if (id != 0) {
-            try {
-               id= res.getInteger(id);
-                int val=((id*70)/100);
 
-                return val;
-            } catch (Resources.NotFoundException e) {
-                // ignore
-                e.printStackTrace();
-            }
-        }
-        return 255;
+    public BaseActivity getActivity() {
+        return baseActivity;
     }
-
 
 }

@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.android.application'
+// Add this line
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 29
@@ -13,6 +17,22 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+//
+//    productFlavors {
+//
+//        production {
+//            dimension "buildTypes"
+//            buildConfigField "String", "BASE_URL", '"http://13.126.245.24:3000/"'
+//        }
+//
+//        development {
+//
+//            // Stagging :- http://13.126.245.24:3000/
+//            // Development :- http://13.126.127.160:3000/
+//            dimension "buildTypes"
+//            buildConfigField "String", "BASE_URL", '"http://13.126.127.160:3000/"'
+//        }
+//    }
 
     buildTypes {
         release {
@@ -42,7 +62,15 @@ dependencies {
     // Room components
     implementation "android.arch.persistence.room:runtime:1.0.0"
     implementation 'com.rvalerio:fgchecker:1.1.0'
+
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
+
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
 
 
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
 }

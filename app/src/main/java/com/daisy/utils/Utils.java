@@ -12,8 +12,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -56,6 +58,39 @@ import java.util.concurrent.TimeUnit;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class Utils {
+
+
+    public static void screenBrightness(int level,Context context) {
+        try {
+            android.provider.Settings.System.putInt(
+                    context.getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS, level);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+
+        }
+    }
+
+    public static int getMaximumScreenBrightnessSetting() {
+        final Resources res = Resources.getSystem();
+        int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
+        if (id != 0) {
+            try {
+                id= res.getInteger(id);
+                int val=((id*70)/100);
+                if (Utils.getDeviceName().contains("Pixel") || Utils.getDeviceName().contains("pixel"))
+                {
+                    val=((id*37)/100);
+                }
+                return val;
+            } catch (Resources.NotFoundException e) {
+                // ignore
+                e.printStackTrace();
+            }
+        }
+        return 255;
+    }
 
     public static String getPath() {
         try {
@@ -109,6 +144,13 @@ public class Utils {
         Log.e( "Deleted: " , count+"" );
     }
 
+    public static boolean getNetworkState(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+    }
     public static boolean isInternetOn(Context context) {
 
         // get Connectivity Manager object to check connection
@@ -478,6 +520,10 @@ public class Utils {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+            else
+            {
+                inFile.delete();
             }
         }
 

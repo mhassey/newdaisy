@@ -33,7 +33,12 @@ public class AlarmReceiverForBackground extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
          if (!Utils.isMyServiceRunning(BackgroundService.class, context)) {
-            context.startService(new Intent(context, BackgroundService.class));
+             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                 context.startForegroundService(new Intent(context, BackgroundService.class));
+             } else {
+                 context.startService(new Intent(context, BackgroundService.class));
+             }
+          //  context.startService(new Intent(context, BackgroundService.class));
         }
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.FIVE);
         Utils.constructJobForBackground(time1, context);

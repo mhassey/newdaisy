@@ -1,4 +1,4 @@
-package com.daisy.activity.onBoarding.slider.slides;
+package com.daisy.activity.onBoarding.slider.slides.permissionAsk;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.daisy.R;
-import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.common.Constraint;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;

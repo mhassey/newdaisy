@@ -1,8 +1,6 @@
 package com.daisy.service;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,53 +10,42 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.provider.CallLog;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 import com.daisy.R;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
+import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.overlay.OverlayActivity;
-import com.daisy.common.Constraint;
 import com.daisy.pojo.response.InternetResponse;
+import com.daisy.pojo.response.OverLayResponse;
 import com.daisy.utils.Utils;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.LockSupport;
 
 public class BackgroundService extends Service implements View.OnTouchListener {
 
@@ -110,22 +97,18 @@ public class BackgroundService extends Service implements View.OnTouchListener {
         appChecker.whenAny(new AppChecker.Listener() {
             @Override
             public void onForeground(String process) {
-                if (process.equals("com.google.android.packageinstaller")) {
-                    Intent intent = new Intent(getApplication(), LockScreen.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    intent.putExtra(Constraint.PACKAGE, Constraint.current_running_process);
-                    PendingIntent pendingIntent =
-                            PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-                    try {
-                        pendingIntent.send();
-                    } catch (PendingIntent.CanceledException e) {
-                        e.printStackTrace();
+                if (!sessionManager.getUninstall()) {
+                    if (process.equals("com.google.android.packageinstaller")) {
+                        Intent intent = new Intent(getApplication(), LockScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        intent.putExtra(Constraint.UNINSTALL,Constraint.YES);
+                        intent.putExtra(Constraint.PACKAGE, Constraint.current_running_process);
+                     startActivity(intent);
+
+
                     }
-
-
                 }
-
                     boolean b = sessionManager.getLock();
                   if (!Constraint.current_running_process.equals(process)) {
                         if (process.equals(Constraint.PLAY_STORE_PATH)) {
@@ -133,40 +116,31 @@ public class BackgroundService extends Service implements View.OnTouchListener {
                                 return;
                             }
                         }
-                        if (!process.equals(getApplication().getPackageName())) {
-                            Constraint.current_running_process = process;
-                            if (process.equals(Constraint.SETTING_PATH) || process.equals(Constraint.PLAY_STORE_PATH)) {
-                                if (!sessionManager.getPasswordCorrect()) {
+                      Constraint.current_running_process = process;
+                      if (!process.equals(getApplication().getPackageName())) {
+                          Log.e("kali",process);
+                             if (process.equals(Constraint.SETTING_PATH) || process.equals(Constraint.PLAY_STORE_PATH)) {
+                                  if (!sessionManager.getPasswordCorrect()) {
 
-                                    Intent intent = new Intent(getApplication(), LockScreen.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    if (sessionManager.getWifiGone()) {
-                                        intent.putExtra(Constraint.PACKAGE, getString(R.string.wifi));
-                                        sessionManager.setWifiGone(false);
-                                    }
-                                        else
-                                    intent.putExtra(Constraint.PACKAGE, Constraint.current_running_process);
-                                    PendingIntent pendingIntent =
-                                            PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-                                    try {
-                                        pendingIntent.send();
-                                    } catch (PendingIntent.CanceledException e) {
-                                        e.printStackTrace();
-                                    }
+                                      Intent intent = new Intent(getApplication(), LockScreen.class);
+                                      intent.putExtra(Constraint.PACKAGE, process);
+                                      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                      intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                      startActivity(intent);
+                                  } else {
+                                      sessionManager.setPasswordCorrect(false);
+                                  }
+                              } else {
+                                  sessionManager.setPasswordCorrect(false);
+                              }
 
-                                } else {
-                                    sessionManager.setPasswordCorrect(false);
-                                }
-                            } else {
-                                sessionManager.setPasswordCorrect(false);
-                            }
-                        }
+                      }
+
 
 
                     }
                 }
-        }).timeout(1000).start(getApplicationContext());
+        }).timeout(100).start(getApplicationContext());
     }
 
     @SuppressLint("InvalidWakeLockTag")
@@ -206,12 +180,17 @@ public class BackgroundService extends Service implements View.OnTouchListener {
                     String value = appChecker.getForegroundApp(getApplicationContext());
 
                     if (!value.equals(getApplication().getPackageName())) {
-                        checkNetwork();
-                        bringApplicationToFront(getApplicationContext());
+                      //  checkNetwork();
+                        if (!value.equals("com.google.android.packageinstaller")) {
+
+                            bringApplicationToFront(getApplicationContext());
+                        }
                     }
-                    count = 0;
+                     count = 0;
 
                 }
+                checkWifiState();
+
             }
         }, 1000, 1000);
 
@@ -228,13 +207,13 @@ public class BackgroundService extends Service implements View.OnTouchListener {
 
     }
 
-    private void checkNetwork() {
-        boolean b = Utils.isInternetOn(getApplicationContext());
-        InternetResponse internetResponse = new InternetResponse();
-        internetResponse.setAvailable(b);
-        EventBus.getDefault().post(internetResponse);
-
-    }
+//    private void checkNetwork() {
+//        boolean b = Utils.isInternetOn(getApplicationContext());
+//        InternetResponse internetResponse = new InternetResponse();
+//        internetResponse.setAvailable(b);
+//        EventBus.getDefault().post(internetResponse);
+//
+//    }
 
     private void bringApplicationToFront(final Context context) {
         try {
@@ -265,7 +244,7 @@ public class BackgroundService extends Service implements View.OnTouchListener {
         registerReceiver(overlayReceiver, filter);
 
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
+        intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         registerReceiver(wifiStateReceiver, intentFilter);
     }
 
@@ -290,25 +269,30 @@ public class BackgroundService extends Service implements View.OnTouchListener {
             final String action = intent.getAction();
             Log.e("wifi state", "changes");
             InternetResponse internetResponse = new InternetResponse();
-            if (action.equals(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION)) {
-                if (intent.getBooleanExtra(WifiManager.EXTRA_SUPPLICANT_CONNECTED, false)) {
-                    //do stuff
+            OverLayResponse overLayResponse= new OverLayResponse();
+           int wifiState=intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,WifiManager.WIFI_STATE_UNKNOWN);
+            switch (wifiState)
+            {
+                case WifiManager.WIFI_STATE_ENABLED:
+                {
                     internetResponse.setAvailable(false);
                     EventBus.getDefault().post(internetResponse);
-                } else {
-                    // wifi connection was lost
-                  //  enableWifi();
+                    break;
+                }
+                case WifiManager.WIFI_STATE_DISABLED:
+                {
                     internetResponse.setAvailable(true);
                     EventBus.getDefault().post(internetResponse);
-
+                    break;
                 }
             }
+
         }
     };
 
     private void showOverlayActivity(Context context) {
         Log.e("kali", "inhance");
-        Intent intent = new Intent(context, OverlayActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
@@ -446,5 +430,24 @@ public class BackgroundService extends Service implements View.OnTouchListener {
 
         }
     }
+
+    private void checkWifiState() {
+
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        InternetResponse internetResponse = new InternetResponse();
+        OverLayResponse overLayResponse=new OverLayResponse();
+
+        if (wifiManager.isWifiEnabled()) {
+            Log.e("check","enabled");
+            internetResponse.setAvailable(false);
+            EventBus.getDefault().post(internetResponse);
+        } else {
+            Log.e("check","disable");
+            internetResponse.setAvailable(true);
+            EventBus.getDefault().post(internetResponse);
+        }
+    }
+
+
 
 }

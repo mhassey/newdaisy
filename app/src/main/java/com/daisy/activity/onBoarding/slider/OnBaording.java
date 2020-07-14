@@ -8,32 +8,33 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.activity.onBoarding.slider.slides.DeviceDetection;
-import com.daisy.activity.onBoarding.slider.slides.Login;
-import com.daisy.activity.onBoarding.slider.slides.PermissionAsk;
-import com.daisy.activity.onBoarding.slider.slides.SecurityAsk;
+import com.daisy.activity.onBoarding.slider.slides.deviceDetection.DeviceDetection;
+import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
+import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
+import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
+import com.daisy.activity.onBoarding.slider.vo.DeviceDetectRequest;
+import com.daisy.activity.onBoarding.slider.vo.DeviceDetectResponse;
 import com.daisy.adapter.SliderAdapter;
 import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.pojo.response.PermissionDone;
-import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,6 +48,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     private int count = 0;
     private SessionManager sessionManager;
     public ActivityOnBaordingBinding mBinding;
+    private DeviceDetectionViewModel deviceDetectionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +68,17 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
         context = this;
+        mBinding.rootView.setVisibility(View.VISIBLE);
         sessionManager = SessionManager.get();
+      //  deviceDetectionViewModel=new ViewModelProvider(this).get(DeviceDetectionViewModel.class);
         setNoTitleBar(this);
         stopSwipe();
-        mBinding.rootView.setVisibility(View.VISIBLE);
         addFragementList();
+        setPager();
+        disableSwipeOnViewPager();
+    }
+
+    private void setPager() {
         mBinding.pager.setAdapter(new SliderAdapter(getSupportFragmentManager(), 1, fragmentList));
         mBinding.tabDotsLayout.setupWithViewPager(mBinding.pager);
 
@@ -91,8 +99,12 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
             }
         });
-        LinearLayout tabStrip = ((LinearLayout)mBinding.tabDotsLayout.getChildAt(0));
-        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+    }
+
+
+    private void disableSwipeOnViewPager() {
+        LinearLayout tabStrip = ((LinearLayout) mBinding.tabDotsLayout.getChildAt(0));
+        for (int i = 0; i < tabStrip.getChildCount(); i++) {
             tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -110,6 +122,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
 
     }
+
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -129,11 +142,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
 
-
     private void addFragementList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
         fragmentList.add(SecurityAsk.getInstance());
-        fragmentList.add(Login.getInstance(OnBaording.this));
+        fragmentList.add(SignUp.getInstance(OnBaording.this));
         fragmentList.add(DeviceDetection.getInstance());
 
     }
@@ -145,9 +157,9 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 nextSlideClickHandler();
                 break;
             }
-            case R.id.saveAndStartMpc:
-            {
+            case R.id.saveAndStartMpc: {
                 sessionManager.onBoarding(true);
+               // getDeviceZipFile();
                 redirectToMainHandler();
             }
         }
@@ -158,42 +170,31 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         if (count == (fragmentList.size())) {
             redirectToMainHandler();
         }
-        if (count==2)
-        {
-         SecurityAsk securityAsk= (SecurityAsk) fragmentList.get(count-1);
-           if (securityAsk.securityAskBinding.deletePhoto.isChecked())
-           {
-            sessionManager.setDeletePhoto(true);
-           }
-           else
-           {
-               sessionManager.setDeletePhoto(false);
-           }
-           if (securityAsk.securityAskBinding.lock.isChecked())
-           {
-              sessionManager.setLock(true);
-           }
-           else
-           {
-               sessionManager.setLock(false);
+        if (count == 2) {
+            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
+            if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
+                sessionManager.setDeletePhoto(true);
+            } else {
+                sessionManager.setDeletePhoto(false);
+            }
+            if (securityAsk.securityAskBinding.lock.isChecked()) {
+                sessionManager.setLock(true);
+            } else {
+                sessionManager.setLock(false);
 
-           }
+            }
             mBinding.nextSlide.setVisibility(View.GONE);
         }
-
-
 
 
         mBinding.pager.setCurrentItem(count);
     }
 
 
-    public void counterPlus()
-    {
+    public void counterPlus() {
         count = count + 1;
         mBinding.pager.setCurrentItem(count);
-        if (count==3)
-        {
+        if (count == 3) {
             mBinding.saveAndStartMpcHeader.setVisibility(View.VISIBLE);
         }
     }
@@ -217,7 +218,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             }
         }
         if (request) {
-             PermissionDone permissionDone = new PermissionDone();
+            PermissionDone permissionDone = new PermissionDone();
 
             permissionDone.setPermissionName(Constraint.MEDIA_PERMISSION);
             EventBus.getDefault().post(permissionDone);
@@ -241,15 +242,13 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 permissionDone.setPermissionName(Constraint.DISPLAY_OVER_THE_APP);
                 EventBus.getDefault().post(permissionDone);
             }
-        }
-        else if (requestCode == Constraint.RETURN) {
+        } else if (requestCode == Constraint.RETURN) {
             if (Utils.isAccessGranted(getApplicationContext())) {
                 PermissionDone permissionDone = new PermissionDone();
                 permissionDone.setPermissionName(Constraint.GRAND_USAGE_ACCESS);
                 EventBus.getDefault().post(permissionDone);
             }
-        }
-        else if (requestCode == Constraint.BATTRY_OPTIMIZATION_CODE) {
+        } else if (requestCode == Constraint.BATTRY_OPTIMIZATION_CODE) {
             PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
 
             if (pm.isIgnoringBatteryOptimizations(getString(R.string.packageName))) {
@@ -264,13 +263,41 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     private void stopSwipe() {
 
-        mBinding.pager.setOnTouchListener(new View.OnTouchListener()
-        {
+        mBinding.pager.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 return true;
             }
         });
     }
+
+
+    private void getDeviceZipFile() {
+        if (Utils.getNetworkState(context))
+        {
+            DeviceDetectRequest deviceDetectRequest=getDeviceRequest();
+            deviceDetectionViewModel.setDetectRequestMutableLiveData(deviceDetectRequest);
+          LiveData<DeviceDetectResponse> liveData= deviceDetectionViewModel.getResponseLiveData();
+            if (!liveData.hasActiveObservers())
+            {
+                liveData.observe(this, new Observer<DeviceDetectResponse>() {
+                    @Override
+                    public void onChanged(DeviceDetectResponse deviceDetectResponse) {
+                        handleDeviceDetectResponse(deviceDetectResponse);
+                    }
+                });
+            }
+        }
+    }
+
+    private void handleDeviceDetectResponse(DeviceDetectResponse deviceDetectResponse) {
+    // handleDetect
+    }
+
+    private DeviceDetectRequest getDeviceRequest() {
+        DeviceDetectRequest deviceDetectRequest=new DeviceDetectRequest();
+        deviceDetectRequest.setDeviceName(Utils.getDeviceName());
+        return deviceDetectRequest;
+    }
+
 }
