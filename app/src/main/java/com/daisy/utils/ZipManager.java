@@ -1,6 +1,5 @@
 package com.daisy.utils;
 
-import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 

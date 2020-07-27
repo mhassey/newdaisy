@@ -12,7 +12,8 @@ import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.logs.logs_show.LogsShowActivity;
 import com.daisy.activity.settings.Settings;
-import com.daisy.common.Constraint;
+import com.daisy.database.DBCaller;
+import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityLogsMainBinding;
 import com.daisy.utils.Utils;
 
@@ -84,7 +85,7 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.applicationLogs:
             {
-                Utils.storeLogInDatabase(context, Constraint.REVIEW_APPLICATION_LOG,Constraint.REVIEW_APPLICATION_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_APPLICATION_LOG,Constraint.REVIEW_APPLICATION_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
 
                 callLogsShowActivity(Constraint.APPLICATION_LOGS);
 
@@ -92,7 +93,7 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
             }
             case R.id.cardLogs:
             {
-                Utils.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
 
                 callLogsShowActivity(Constraint.CARD_LOGS);
                 break;

@@ -22,17 +22,13 @@ import androidx.databinding.DataBindingUtil;
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
 import com.daisy.activity.mainActivity.MainActivityViewModel;
-import com.daisy.common.Constraint;
+import com.daisy.database.DBCaller;
+import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.FragmentOverlayBinding;
 import com.daisy.pojo.response.InternetResponse;
-import com.daisy.pojo.response.OverLayResponse;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
@@ -135,7 +131,7 @@ public class OverlayFragment extends BaseFragment {
 
                 super.onPageStarted(view, url, favicon);
                 if (url.contains(Constraint.FILE)) {
-                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD, Constraint.WEBPAGE_LOAD_DESCRIPTION, url, Constraint.CARD_LOGS);
+                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD, Constraint.WEBPAGE_LOAD_DESCRIPTION, url, Constraint.CARD_LOGS);
                 }
 
             }
@@ -145,7 +141,7 @@ public class OverlayFragment extends BaseFragment {
 
                 super.onPageFinished(view, url);
                 if (url.contains(Constraint.FILE)) {
-                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
+                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
                 }
 
 
@@ -155,7 +151,7 @@ public class OverlayFragment extends BaseFragment {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 if (!isRedirected) {
-                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
+                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
                     isRedirected=true;
                 }
                 else

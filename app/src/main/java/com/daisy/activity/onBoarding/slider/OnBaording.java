@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.view.MotionEvent;
@@ -24,22 +25,37 @@ import androidx.viewpager.widget.ViewPager;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
+import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.activity.onBoarding.slider.deviceDetection.DeviceDetectionViewModel;
+import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectRequest;
+import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectResponse;
+import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
+import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
+import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddValidationHelper;
+import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddViewModel;
+import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
+import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreen;
 import com.daisy.activity.onBoarding.slider.slides.deviceDetection.DeviceDetection;
-import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
 import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
-import com.daisy.activity.onBoarding.slider.vo.DeviceDetectRequest;
-import com.daisy.activity.onBoarding.slider.vo.DeviceDetectResponse;
+import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.adapter.SliderAdapter;
-import com.daisy.common.Constraint;
+import com.daisy.database.DBCaller;
+import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityOnBaordingBinding;
+import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.PermissionDone;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class OnBaording extends BaseActivity implements View.OnClickListener {
@@ -49,6 +65,8 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     private SessionManager sessionManager;
     public ActivityOnBaordingBinding mBinding;
     private DeviceDetectionViewModel deviceDetectionViewModel;
+    private ScreenAddViewModel screenAddViewModel;
+    private GetCardViewModel getCardViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +88,9 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         context = this;
         mBinding.rootView.setVisibility(View.VISIBLE);
         sessionManager = SessionManager.get();
-      //  deviceDetectionViewModel=new ViewModelProvider(this).get(DeviceDetectionViewModel.class);
+        //deviceDetectionViewModel=new ViewModelProvider(this).get(DeviceDetectionViewModel.class);
+        screenAddViewModel = new ViewModelProvider(this).get(ScreenAddViewModel.class);
+        getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         setNoTitleBar(this);
         stopSwipe();
         addFragementList();
@@ -146,7 +166,9 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
         fragmentList.add(SecurityAsk.getInstance());
         fragmentList.add(SignUp.getInstance(OnBaording.this));
+        fragmentList.add(AddScreen.getInstance());
         fragmentList.add(DeviceDetection.getInstance());
+
 
     }
 
@@ -158,18 +180,60 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 break;
             }
             case R.id.saveAndStartMpc: {
-                sessionManager.onBoarding(true);
-               // getDeviceZipFile();
-                redirectToMainHandler();
+
+                getCardData();
+                // getDeviceZipFile();
             }
         }
     }
 
+    private void getCardData() {
+        if (Utils.getNetworkState(context)) {
+            showHideProgressDialog(true);
+            getCardViewModel.setMutableLiveData(getCardRequest());
+            LiveData<GlobalResponse<GetCardResponse>> liveData = getCardViewModel.getLiveData();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse<GetCardResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
+                        try {
+                            DBCaller.storeLogInDatabase(context,getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName()+Constraint.DATA_STORE,"","",Constraint.APPLICATION_LOGS);
+                            handleCardGetResponse(getCardResponseGlobalResponse);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
+    private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
+        showHideProgressDialog(false);
+        if (getCardResponseGlobalResponse.isApi_status()) {
+            sessionManager.onBoarding(true);
+            sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
+            sessionManager.setPromotion(getCardResponseGlobalResponse.getResult().getPromotions());
+            sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
+            redirectToMainHandler(getCardResponseGlobalResponse);
+
+        } else
+            ValidationHelper.showToast(context, getCardResponseGlobalResponse.getMessage());
+    }
+
+    private HashMap<String, String> getCardRequest() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
+        hashMap.put(Constraint.TOKEN,sessionManager.getDeviceToken());
+//        hashMap.put(Constraint.SCREEN_ID, "47");
+        return hashMap;
+    }
+
     public void nextSlideClickHandler() {
         count = count + 1;
-        if (count == (fragmentList.size())) {
-            redirectToMainHandler();
-        }
+
         if (count == 2) {
             SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
             if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
@@ -177,32 +241,136 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             } else {
                 sessionManager.setDeletePhoto(false);
             }
+            if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
+                sessionManager.setLockOnBrowser(true);
+            } else {
+                sessionManager.setLockOnBrowser(false);
+
+            }
+            if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
+                sessionManager.setLockOnMessage(true);
+            } else {
+                sessionManager.setLockOnMessage(false);
+
+            }
             if (securityAsk.securityAskBinding.lock.isChecked()) {
                 sessionManager.setLock(true);
             } else {
                 sessionManager.setLock(false);
 
             }
+
             mBinding.nextSlide.setVisibility(View.GONE);
         }
 
 
-        mBinding.pager.setCurrentItem(count);
+        if (count == 4) {
+
+            if (Utils.getNetworkState(context)) {
+                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+                ScreenAddValidationHelper screenAddValidationHelper=new ScreenAddValidationHelper(context,addScreen.mBinding);
+                if (screenAddValidationHelper.isValid()) {
+                    showHideProgressDialog(true);
+                    screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen));
+                    LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
+                    if (!liveData.hasActiveObservers()) {
+                        liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
+                            @Override
+                            public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
+                                showHideProgressDialog(false);
+                                handleScreenAddResponse(screenAddResponseGlobalResponse);
+                            }
+                        });
+                    }
+                }
+                else {
+                    count=3;
+                }
+            }
+
+
+        }
+
+        if (count == 1 || count == 2) {
+            mBinding.pager.setCurrentItem(count);
+        }
+    }
+
+    private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
+        if (screenAddResponseGlobalResponse.isApi_status()) {
+            DBCaller.storeLogInDatabase(context,screenAddResponseGlobalResponse.getResult().getId()+Constraint.SCREEN_ADD,"","",Constraint.APPLICATION_LOGS);
+            mBinding.nextSlide.setVisibility(View.GONE);
+            mBinding.saveAndStartMpcHeader.setVisibility(View.VISIBLE);
+            mBinding.pager.setCurrentItem(count);
+            sessionManager.setScreenID(screenAddResponseGlobalResponse.getResult().getId());
+            sessionManager.setDeviceToken(screenAddResponseGlobalResponse.getResult().getToken());
+            sessionManager.setScreenPosition(screenAddResponseGlobalResponse.getResult().getScreenPosition());
+
+        } else {
+            ValidationHelper.showToast(context, screenAddResponseGlobalResponse.getMessage());
+        }
+    }
+
+    private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
+         HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
+        hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
+        hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
+        hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.selectedProduct.getIdproductStatic());
+        LoginResponse loginResponse = sessionManager.getLoginResponse();
+        hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
+        return hashMap;
     }
 
 
     public void counterPlus() {
         count = count + 1;
-        mBinding.pager.setCurrentItem(count);
         if (count == 3) {
-            mBinding.saveAndStartMpcHeader.setVisibility(View.VISIBLE);
+            mBinding.nextSlide.setVisibility(View.VISIBLE);
+
         }
+        mBinding.pager.setCurrentItem(count);
+
     }
 
-    private void redirectToMainHandler() {
+    private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
+       String UrlPath= response.getResult().getPricecard().getFileName();
+        if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        Utils.writeFile(configFilePath,UrlPath);
+                        sessionManager.deleteLocation();
+                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                    }
+                } else {
+                    Utils.writeFile(configFilePath, UrlPath);
+                }
+
+                redirectToMain();
+
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.invalid_url));
+        }
+
         Intent intent = new Intent(OnBaording.this, EditorTool.class);
         startActivity(intent);
         finish();
+    }
+
+    private void redirectToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -258,6 +426,12 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
             }
         }
+        else if (requestCode==Constraint.MI_EXTRA_PERMISSION_CODE)
+        {
+            PermissionDone permissionDone = new PermissionDone();
+            permissionDone.setPermissionName(Constraint.REDME);
+            EventBus.getDefault().post(permissionDone);
+        }
     }
 
 
@@ -273,13 +447,11 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
 
     private void getDeviceZipFile() {
-        if (Utils.getNetworkState(context))
-        {
-            DeviceDetectRequest deviceDetectRequest=getDeviceRequest();
+        if (Utils.getNetworkState(context)) {
+            DeviceDetectRequest deviceDetectRequest = getDeviceRequest();
             deviceDetectionViewModel.setDetectRequestMutableLiveData(deviceDetectRequest);
-          LiveData<DeviceDetectResponse> liveData= deviceDetectionViewModel.getResponseLiveData();
-            if (!liveData.hasActiveObservers())
-            {
+            LiveData<DeviceDetectResponse> liveData = deviceDetectionViewModel.getResponseLiveData();
+            if (!liveData.hasActiveObservers()) {
                 liveData.observe(this, new Observer<DeviceDetectResponse>() {
                     @Override
                     public void onChanged(DeviceDetectResponse deviceDetectResponse) {
@@ -291,11 +463,11 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
     private void handleDeviceDetectResponse(DeviceDetectResponse deviceDetectResponse) {
-    // handleDetect
+        // handleDetect
     }
 
     private DeviceDetectRequest getDeviceRequest() {
-        DeviceDetectRequest deviceDetectRequest=new DeviceDetectRequest();
+        DeviceDetectRequest deviceDetectRequest = new DeviceDetectRequest();
         deviceDetectRequest.setDeviceName(Utils.getDeviceName());
         return deviceDetectRequest;
     }

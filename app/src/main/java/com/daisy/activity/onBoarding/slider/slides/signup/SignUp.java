@@ -16,17 +16,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.daisy.R;
+import com.daisy.activity.base.BaseFragment;
 import com.daisy.activity.onBoarding.slider.OnBaording;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpRequest;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
+import com.daisy.common.session.SessionManager;
+import com.daisy.database.DBCaller;
 import com.daisy.databinding.FragmentLoginBinding;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 
-public class SignUp extends Fragment implements View.OnClickListener {
+import java.util.HashMap;
+
+public class SignUp extends BaseFragment implements View.OnClickListener {
     private static OnBaording baording;
     private FragmentLoginBinding loginBinding;
     private Context context;
     private SignUpViewModel signUpViewModel;
+    private SessionManager sessionManager;
+    private SignUpValidationHelper signUpValidationHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,15 +63,18 @@ public class SignUp extends Fragment implements View.OnClickListener {
 
     private void initView() {
         context=requireContext();
-       // signUpViewModel=new ViewModelProvider(this).get(SignUpViewModel.class);
+        sessionManager=SessionManager.get();
+        signUpValidationHelper=new SignUpValidationHelper(context,loginBinding);
+        signUpViewModel=new ViewModelProvider(this).get(SignUpViewModel.class);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.singup: {
-              //  doSignUp();
-                baording.counterPlus();
+
+               doSignUp();
+
                 break;
             }
         }
@@ -71,29 +83,46 @@ public class SignUp extends Fragment implements View.OnClickListener {
     private void doSignUp() {
         if (Utils.getNetworkState(context))
         {
-            SignUpRequest signUpRequest=getSignUpRequest();
-            signUpViewModel.setSignUpRequestMutableLiveData(signUpRequest);
-            LiveData<SignUpResponse> liveData=signUpViewModel.getResponseLiveData();
-            if (!liveData.hasActiveObservers())
-            {
-                liveData.observe(this, new Observer<SignUpResponse>() {
-                    @Override
-                    public void onChanged(SignUpResponse signUpResponse) {
-                        handleResponse(signUpResponse);
-                    }
-                });
+            if (signUpValidationHelper.isValid()) {
+                showHideProgressDialog(true);
+                HashMap<String, String> signUpRequest = getSignUpRequest();
+                signUpViewModel.setSignUpRequestMutableLiveData(signUpRequest);
+                LiveData<SignUpResponse> liveData = signUpViewModel.getResponseLiveData();
+                if (!liveData.hasActiveObservers()) {
+                    liveData.observe(this, new Observer<SignUpResponse>() {
+                        @Override
+                        public void onChanged(SignUpResponse signUpResponse) {
+                            handleResponse(signUpResponse);
+                        }
+                    });
+                }
             }
         }
     }
 
     private void handleResponse(SignUpResponse signUpResponse) {
          // handleResponse
+        showHideProgressDialog(false);
+        if (signUpResponse!=null) {
+            if (signUpResponse.isApi_status()) {
+                DBCaller.storeLogInDatabase(context,Constraint.LOGIN_SUCCESS,"","",Constraint.APPLICATION_LOGS);
+                sessionManager.setSignUpData(signUpResponse.getData());
+                baording.counterPlus();
+            } else {
+                ValidationHelper.showToast(context, signUpResponse.getMessage());
+            }
+        }else
+        {
+            ValidationHelper.showToast(context,getString(R.string.no_internet_available));
+        }
+
     }
 
-    private SignUpRequest getSignUpRequest() {
-        SignUpRequest signUpRequest=new SignUpRequest();
-        signUpRequest.setStoreCode(loginBinding.storeCode.getText().toString());
-        signUpRequest.setPassword(loginBinding.password.getText().toString());
-        return signUpRequest;
+    private HashMap<String,String> getSignUpRequest() {
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put(getString(R.string.store_id),loginBinding.storeCode.getText().toString());
+        hashMap.put(getString(R.string.password),loginBinding.password.getText().toString());
+
+        return hashMap;
     }
 }

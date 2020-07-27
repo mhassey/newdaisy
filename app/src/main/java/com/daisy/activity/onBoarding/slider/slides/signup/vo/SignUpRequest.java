@@ -1,15 +1,15 @@
 package com.daisy.activity.onBoarding.slider.slides.signup.vo;
 
 public class SignUpRequest {
-    private String storeCode;
+    private String store_id;
     private String password;
 
-    public String getStoreCode() {
-        return storeCode;
+    public String getStore_id() {
+        return store_id;
     }
 
-    public void setStoreCode(String storeCode) {
-        this.storeCode = storeCode;
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
     }
 
     public String getPassword() {

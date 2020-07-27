@@ -1,25 +1,25 @@
 package com.daisy.activity.base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.daisy.R;
-import com.daisy.activity.splash.SplashScreen;
 import com.daisy.common.session.SessionManager;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity  {
     private int brightness;
     private ContentResolver cResolver;
     private Window window;
     private SessionManager sessionManager;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,7 @@ public class BaseActivity extends AppCompatActivity {
             setTheme(R.style.AppThemeDark);
         else
             setTheme(R.style.AppTheme);
-
         setContentView(R.layout.activity_editor_tool);
-
     }
 
 
@@ -55,5 +53,29 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
 
     }
+
+
+    public void showHideProgressDialog(boolean iShow) {
+        try {
+            if (progressDialog != null) {
+                if (iShow)
+                    progressDialog.show();
+                else {
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                        progressDialog = null;
+                    }
+                }
+            } else {
+                progressDialog =new ProgressDialog(this);
+                progressDialog.setMessage("Loading...");
+                showHideProgressDialog(iShow);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

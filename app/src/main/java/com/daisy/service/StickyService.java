@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.daisy.common.Constraint;
+import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 
 

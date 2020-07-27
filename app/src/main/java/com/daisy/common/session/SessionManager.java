@@ -2,7 +2,16 @@ package com.daisy.common.session;
 
 import android.app.Application;
 
+import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.app.AppController;
+import com.daisy.pojo.response.LoginResponse;
+import com.daisy.pojo.response.PriceCardMain;
+import com.daisy.pojo.response.Pricing;
+import com.daisy.pojo.response.Promotion;
+import com.daisy.pojo.response.ScreenPosition;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 
 public class SessionManager {
@@ -740,5 +749,76 @@ public class SessionManager {
 
     public String getAccessToken() {
         return null;
+    }
+
+    public void setLockOnBrowser(boolean b) {
+        pref.setBooleanData(PrefConstant.BROWSER_LOCK, b);
+    }
+
+    public void setLockOnMessage(boolean b) {
+        pref.setBooleanData(PrefConstant.MESSAGE_LOCK, b);
+    }
+
+    public boolean getBrowserLock() {
+        return pref.getBoolean(PrefConstant.BROWSER_LOCK);
+    }
+
+    public boolean getMessageLock() {
+        return pref.getBoolean(PrefConstant.MESSAGE_LOCK);
+    }
+
+    public void setSignUpData(LoginResponse signUpResponse) {
+        Gson gson = new Gson();
+     String data=   gson.toJson(signUpResponse);
+        pref.setStringData(PrefConstant.LOGIN_RESPONSE,data);
+    }
+    public LoginResponse getLoginResponse()
+    {
+        Gson gson=new Gson();
+        String response=pref.getStringData(PrefConstant.LOGIN_RESPONSE);
+       LoginResponse loginResponse= gson.fromJson(response, LoginResponse.class);
+        return loginResponse;
+    }
+
+    public void setScreenID(int id) {
+        pref.setIntData(PrefConstant.SCREEN_ID,id);
+    }
+
+
+    public int getScreenId() {
+        return pref.getIntData(PrefConstant.SCREEN_ID);
+
+    }
+
+    public void setPriceCard(PriceCardMain pricecard) {
+        Gson gson = new Gson();
+        String data=   gson.toJson(pricecard);
+        pref.setStringData(PrefConstant.PRICE_CARD,data);
+    }
+
+    public void setPromotion(List<Promotion> promotions) {
+        Gson gson = new Gson();
+        String data=   gson.toJson(promotions);
+        pref.setStringData(PrefConstant.PROMOTION,data);
+    }
+
+    public void setPricing(List<Pricing> pricing) {
+        Gson gson = new Gson();
+        String data=   gson.toJson(pricing);
+        pref.setStringData(PrefConstant.PRICING,data);
+    }
+
+
+    public void setScreenPosition(ScreenPosition screenPosition) {
+        Gson gson = new Gson();
+        String data=   gson.toJson(screenPosition);
+        pref.setStringData(PrefConstant.SCREEN_POSITION,data);
+    }
+
+    public ScreenPosition getPosition() {
+        Gson gson=new Gson();
+        String response=pref.getStringData(PrefConstant.SCREEN_POSITION);
+        ScreenPosition loginResponse= gson.fromJson(response, ScreenPosition.class);
+        return loginResponse;
     }
 }

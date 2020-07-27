@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.daisy.common.Constraint;
+import com.daisy.utils.Constraint;
 
 public class DatabaseClient {
     private Context context;

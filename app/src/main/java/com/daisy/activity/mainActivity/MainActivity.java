@@ -22,7 +22,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -31,7 +30,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.common.Constraint;
+import com.daisy.database.DBCaller;
+import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
@@ -228,18 +228,33 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             mBinding.webView.setWebChromeClient(new WebChromeClientCustomPoster());
             setWebViewClient();
-            File file = new File(sessionManager.getLocation() + Constraint.SLASH + Utils.getFileName() + Constraint.SLASH + Constraint.FILE_NAME);
-            if (file.exists()) {
-                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Utils.getFileName() + Constraint.SLASH + Constraint.FILE_NAME);
-            } else {
-                File file1 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                if (file1.exists())
-                    mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                else {
-                    sessionManager.deleteLocation();
-                    getDownloadData();
-                }
+      String val=      sessionManager.getLocation();
+            File f = new File(val);
+            File file[] = f.listFiles();
+            for (File file1:file)
+            {
+               if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX"))
+               {
+                   File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                   if (mainFile.exists()) {
+                       mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile()+ Constraint.SLASH + Constraint.FILE_NAME);
+                    //  mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
+
+                   } else {
+                       File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                       if (file2.exists())
+                           mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                       //    mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
+
+                       else {
+                           sessionManager.deleteLocation();
+                           getDownloadData();
+                       }
+                   }
+                   return;
+               }
             }
+
         } else {
 
             getDownloadData();
@@ -260,7 +275,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 super.onPageStarted(view, url, favicon);
                 if (url.contains(Constraint.FILE)) {
-                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD, Constraint.WEBPAGE_LOAD_DESCRIPTION, url, Constraint.CARD_LOGS);
+                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD, Constraint.WEBPAGE_LOAD_DESCRIPTION, url, Constraint.CARD_LOGS);
                 }
 
             }
@@ -270,7 +285,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 super.onPageFinished(view, url);
                 if (url.contains(Constraint.FILE)) {
-                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
+                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
                 }
 
 
@@ -278,9 +293,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+              Log.e("kali",url);
                 view.loadUrl(url);
                 if (!isRedirected) {
-                    Utils.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
+                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
                     isRedirected = true;
                 } else {
                     isRedirected = false;
@@ -323,19 +339,26 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     private void goToWifi() {
         sessionManager.setPasswordCorrect(true);
-        Intent intent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        this.startActivityForResult(intent,9900);
-
+        if (Utils.getDeviceName().contains(Constraint.PIXEL) || Utils.getDeviceName().contains(getString(R.string.pixel_emulator)))
+        {
+            startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS),1221);
+        }
+        else {
+            Intent intent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
+            if (Utils.getDeviceName().contains(getString(R.string.onePlus))) {
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            }
+            this.startActivityForResult(intent, 9900);
+        }
 
     }
 
     private void settingClick() {
-        Utils.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+        DBCaller.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         editorToolOpenwithValue();
     }
 

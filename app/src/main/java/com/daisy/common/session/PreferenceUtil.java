@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.daisy.common.Constraint;
+import com.daisy.utils.Constraint;
 
 
 public class PreferenceUtil {

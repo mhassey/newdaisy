@@ -2,8 +2,6 @@ package com.daisy.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.provider.Settings;
 
 import androidx.lifecycle.Lifecycle;
@@ -12,12 +10,10 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
-import com.daisy.notification.ScreenReceiver;
+import com.daisy.database.DBCaller;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-
-import okhttp3.internal.Util;
 
 public class AppController extends Application implements LifecycleObserver {
     public static AppController sInstance;
@@ -29,16 +25,11 @@ public class AppController extends Application implements LifecycleObserver {
         super.onCreate();
         sInstance = this;
         sessionManager=SessionManager.get();
-        Utils.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+        DBCaller.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
-        registerBroadCast();
        }
 
-    private void registerBroadCast() {
-        ScreenReceiver receiver=new ScreenReceiver();
-        IntentFilter filter1 = new IntentFilter("android.intent.action.BOOT_COMPLETED");
-        registerReceiver(receiver, filter1);
-    }
+
 
     public static AppController getInstance() {
         if (sInstance == null) {
@@ -62,6 +53,7 @@ public class AppController extends Application implements LifecycleObserver {
         }
         Constraint.CREENTBRIGHNESS=getScreenBrightness(this);
         setFullBrightNess();
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)

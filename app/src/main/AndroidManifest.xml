@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -36,18 +37,20 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activity.login.LoginActivity"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.updatePosition.UpdatePosition"></activity>
+        <activity android:name=".activity.login.LoginActivity" />
         <activity android:name=".activity.onBoarding.slider.OnBaording" />
         <activity
             android:name=".activity.welcomeScreen.WelcomeScreen"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -81,16 +84,16 @@
             android:showOnLockScreen="true" />
         <activity android:name=".overlay.OverlayActivity" />
 
-        <receiver android:name=".broadcastforbackgroundservice.AlarmReceiverForBackground" />
+        <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
         <receiver
-            android:name=".broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
+            android:name=".broadcast.broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
             android:enabled="false">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".bootcomplete.BootReceiver"
+            android:name=".broadcast.bootcomplete.BootReceiver"
             android:enabled="false">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

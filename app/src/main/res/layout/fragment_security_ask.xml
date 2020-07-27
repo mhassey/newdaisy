@@ -69,6 +69,58 @@
 
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp25"
+                android:gravity="center|start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lock_access_to_browser"
+                    android:textColor="?attr/textcolorblack"
+                    android:textSize="@dimen/sp15" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/lockToBrowser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:checked="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:theme="@style/SwitchCompatTheme" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp25"
+                android:gravity="center|start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lock_access_to_message"
+                    android:textColor="?attr/textcolorblack"
+                    android:textSize="@dimen/sp15" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/lockToMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:checked="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:theme="@style/SwitchCompatTheme" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

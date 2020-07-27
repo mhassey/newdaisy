@@ -28,15 +28,15 @@ import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.common.Constraint;
+import com.daisy.activity.updatePosition.UpdatePosition;
+import com.daisy.database.DBCaller;
+import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityEditorToolBinding;
 import com.daisy.service.StickyService;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
-
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,8 +124,9 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     private void setOnClickListener() {
-        mBinding.saveAndLoad.setOnClickListener(this);
-        mBinding.logs.setOnClickListener(this);
+        mBinding.saveAndLoad.setOnClickListener(this::onClick);
+        mBinding.logs.setOnClickListener(this::onClick);
+        mBinding.updatePosition.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -288,7 +289,17 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                 openLogActivity();
                 break;
             }
+            case R.id.updatePosition:
+            {
+                openUpdatePositionActivity();
+                break;
+            }
         }
+    }
+
+    private void openUpdatePositionActivity() {
+    Intent intent=new Intent(EditorTool.this,UpdatePosition.class);
+    startActivity(intent);
     }
 
     private void openLogActivity() {
@@ -372,7 +383,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                             Utils.deleteCardFolder();
                             Utils.writeFile(configFilePath, mBinding.baseUrl.getText().toString());
                             sessionManager.deleteLocation();
-                            Utils.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, mBinding.baseUrl.getText().toString(), Constraint.APPLICATION_LOGS);
+                            DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, mBinding.baseUrl.getText().toString(), Constraint.APPLICATION_LOGS);
 
                         }
                     } else {

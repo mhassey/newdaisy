@@ -5,9 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 

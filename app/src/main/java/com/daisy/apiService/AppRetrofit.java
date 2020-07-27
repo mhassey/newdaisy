@@ -2,6 +2,7 @@ package com.daisy.apiService;
 
 import android.util.Log;
 
+import com.daisy.BuildConfig;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.LiveDataCallAdapterFactory;
 
@@ -19,9 +20,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AppRetrofit {
     private static AppRetrofit instance;
     private final ApiService apiService;
+    String token = "";
 
     private AppRetrofit() {
-        apiService = provideService("");
+        apiService = provideService(BuildConfig.BASE_URL);
     }
 
     public AppRetrofit(String BaseUrl) {
@@ -56,20 +58,22 @@ public class AppRetrofit {
         httpClient.connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS);
+       if (SessionManager.get().getDeviceToken() != null) {
+            token = SessionManager.get().getDeviceToken();
+        }
         httpClient.addInterceptor(logging).addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request.Builder requestBuilder = chain.request().newBuilder().addHeader(ApiConstant.KEY_CONTENT_TYPE, ApiConstant.CONTENT_TYPE);
                 Request request = requestBuilder
-                        /*.addHeader(ApiConstant.USER_ID, String.valueOf(SessionManager.get().getUserIdForAPiHeader()))
-                        .addHeader("accessToken", SessionManager.get().getAccessToken())
-*/
-                        .addHeader(ApiConstant.ACCESS_TOKEN, SessionManager.get().getAccessToken())
-                        .addHeader(ApiConstant.KEY_CONTENT_TYPE, ApiConstant.CONTENT_TYPE)
-                        .build();
-                Response response = chain.proceed(request);
-                Log.e("AppRetrofit", SessionManager.get().getAccessToken());
+                       // .addHeader("token", token)
 
+
+//                        .addHeader(ApiConstant.ACCESS_TOKEN, finalToken)
+                        .build();
+                 Response response = chain.proceed(request);
+
+                Log.e("checking",token);
                 if (response.isSuccessful() && response.code() == 202) {
 //                    if (mAlertDialog == null) {
 //                      //  logout("You are already logged in on another device or your session expired");

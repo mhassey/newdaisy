@@ -17,22 +17,26 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-//
-//    productFlavors {
-//
-//        production {
-//            dimension "buildTypes"
-//            buildConfigField "String", "BASE_URL", '"http://13.126.245.24:3000/"'
-//        }
-//
-//        development {
-//
-//            // Stagging :- http://13.126.245.24:3000/
-//            // Development :- http://13.126.127.160:3000/
-//            dimension "buildTypes"
-//            buildConfigField "String", "BASE_URL", '"http://13.126.127.160:3000/"'
-//        }
-//    }
+    flavorDimensions "buildTypes"
+
+    productFlavors {
+
+        production {
+            dimension "buildTypes"
+            buildConfigField "String", "BASE_URL", '"http://13.126.127.160/"'
+            //       buildConfigField "String", "BASE_URL", '"http://oak.mobilepricecard.com"'
+        }
+
+        development {
+
+            // Stagging :- http://13.126.245.24:3000/
+            // Development :- http://13.126.127.160:3000/
+            dimension "buildTypes"
+            buildConfigField "String", "BASE_URL", '"http://13.126.127.160/"'
+            // buildConfigField "String", "BASE_URL", '"http://oak.mobilepricecard.com"'
+
+        }
+    }
 
     buildTypes {
         release {
@@ -42,6 +46,10 @@ android {
     }
     dataBinding {
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
 }

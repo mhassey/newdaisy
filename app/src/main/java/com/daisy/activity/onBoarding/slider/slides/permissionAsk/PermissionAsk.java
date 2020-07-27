@@ -21,7 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.daisy.R;
-import com.daisy.common.Constraint;
+import com.daisy.database.DBCaller;
+import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
 import com.daisy.pojo.response.PermissionDone;
@@ -40,6 +41,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private boolean grandModifySystemSettings = false;
     private boolean grandUsageAccess = false;
     private boolean grandBatteyOptimization = false;
+    private boolean grandExtraAccess = false;
+    private Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,11 +61,13 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
     private void initClick() {
+        context=requireContext();
         permissionAskBinding.grandMediaPermission.setOnClickListener(this);
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
+        permissionAskBinding.miExtra.setOnClickListener(this::onClick);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -72,31 +77,62 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         modifySystemSettings();
         mediaPermission();
         checkForOnePlus();
+        checkForMi();
         String name = Utils.getDeviceName();
-        if (!name.contains(getString(R.string.onePlus))) {
+        if (name.contains(getString(R.string.onePlus))) {
 
-            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp) {
-                Log.e("ok", "enable");
+            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp && grandBatteyOptimization) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
             } else {
-                Log.e("ok", "not enable");
+                onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
 
+            }
+        }
+        else  if (name.contains(Constraint.REDME))
+        {
+            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp && grandExtraAccess) {
+                onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
+            } else {
                 onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
 
             }
         }
         else
         {
-            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp && grandBatteyOptimization) {
-                Log.e("ok", "enable");
+            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
             } else {
-                Log.e("ok", "not enable");
                 onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
 
             }
+
         }
 
+    }
+
+    private void checkForMi() {
+    if (Utils.getDeviceName().contains(Constraint.REDME))
+    {
+        permissionAskBinding.miExtraHeader.setVisibility(View.VISIBLE);
+    }
+    else
+    {
+        permissionAskBinding.miExtraHeader.setVisibility(View.INVISIBLE);
+    }
+    if (grandExtraAccess)
+    {
+
+        permissionAskBinding.miExtraRight.setVisibility(View.VISIBLE);
+        permissionAskBinding.miExtra.setEnabled(false);
+
+    }
+    else
+    {
+        permissionAskBinding.miExtraRight.setVisibility(View.INVISIBLE);
+        permissionAskBinding.miExtra.setEnabled(true);
+
+
+    }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -209,7 +245,20 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 batteryUsage();
                 break;
             }
+            case R.id.miExtra:
+            {
+                callMiExtraPopUp();
+                break;
+            }
         }
+    }
+
+    private void callMiExtraPopUp() {
+        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+        intent.setClassName("com.miui.securitycenter",
+                "com.miui.permcenter.permissions.PermissionsEditorActivity");
+        intent.putExtra("extra_pkgname", getActivity().getPackageName());
+        requireActivity().startActivityForResult(intent,Constraint.MI_EXTRA_PERMISSION_CODE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -276,7 +325,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void permissionDone(PermissionDone permissionDone) {
-
+        if (permissionDone.getPermissionName().equals(Constraint.REDME))
+        {
+            grandExtraAccess=true;
+        }
         permissionSetter();
     }
 

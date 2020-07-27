@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.common.Constraint;
+import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivitySettingsBinding;
 

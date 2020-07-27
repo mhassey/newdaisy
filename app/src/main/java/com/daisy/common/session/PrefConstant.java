@@ -100,4 +100,13 @@ public interface PrefConstant {
     String ON_BOARDING = "onBoarding";
     String WIFI_GONE = "wifiGone";
     String UNINSTALL = "uninstall";
+    String BROWSER_LOCK = "browser";
+    String MESSAGE_LOCK = "message";
+    String LOGIN_RESPONSE = "login_response";
+    String SCREEN_ID = "screenId";
+    String PRICE_CARD = "price_card";
+    String PROMOTION = "promotion";
+    String PRICING = "pricing";
+    String FOLDER_NAME = "folderName";
+    String SCREEN_POSITION = "screenPosition";
 }

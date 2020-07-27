@@ -10,13 +10,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.FloatMath;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -24,30 +30,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.common.Constraint;
 import com.daisy.common.session.SessionManager;
-import com.daisy.overlay.OverlayActivity;
+import com.daisy.database.DBCaller;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.OverLayResponse;
+import com.daisy.sync.SyncLogs;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class BackgroundService extends Service implements View.OnTouchListener {
+public class BackgroundService extends Service implements View.OnTouchListener, SensorEventListener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
@@ -62,7 +72,17 @@ public class BackgroundService extends Service implements View.OnTouchListener {
     private WifiManager wifiManager;
     private AppChecker appChecker = new AppChecker();
     private SessionManager sessionManager;
+    private String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
+    private SensorManager sensorMan;
+    private Sensor accelerometer;
 
+    private float[] mGravity;
+    private double mAccel;
+    private double mAccelCurrent;
+    private double mAccelLast;
+    private boolean isPickedUp = false;
+    private int counter=0;
+    private long lastUpdate;
 
     @Nullable
     @Override
@@ -90,57 +110,99 @@ public class BackgroundService extends Service implements View.OnTouchListener {
         setCounter();
         initWifi();
         initPassword();
-
+        defineSensor();
+        setFrontCamera();
     }
+
+    private void setFrontCamera() {
+        FrontCameraRetriever.retrieveFor(getApplicationContext());
+    }
+
 
     private void initPassword() {
         appChecker.whenAny(new AppChecker.Listener() {
             @Override
             public void onForeground(String process) {
+
                 if (!sessionManager.getUninstall()) {
                     if (process.equals("com.google.android.packageinstaller")) {
-                        Intent intent = new Intent(getApplication(), LockScreen.class);
+                        Intent intent = new Intent(getApplicationContext(), LockScreen.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        intent.putExtra(Constraint.UNINSTALL,Constraint.YES);
+                        intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
                         intent.putExtra(Constraint.PACKAGE, Constraint.current_running_process);
-                     startActivity(intent);
+                        startActivity(intent);
 
 
                     }
                 }
-                    boolean b = sessionManager.getLock();
-                  if (!Constraint.current_running_process.equals(process)) {
-                        if (process.equals(Constraint.PLAY_STORE_PATH)) {
-                            if (!b) {
-                                return;
-                            }
+                boolean b = sessionManager.getLock();
+                if (!Constraint.current_running_process.equals(process)) {
+
+                    storeProcess(process);
+                    if (process.equals(Constraint.PLAY_STORE_PATH)) {
+                        if (!b) {
+
+                            return;
                         }
-                      Constraint.current_running_process = process;
-                      if (!process.equals(getApplication().getPackageName())) {
-                          Log.e("kali",process);
-                             if (process.equals(Constraint.SETTING_PATH) || process.equals(Constraint.PLAY_STORE_PATH)) {
-                                  if (!sessionManager.getPasswordCorrect()) {
+                    }
+                    boolean browserLock = sessionManager.getBrowserLock();
+                    if (process.equals(Constraint.CROME)) {
+                        if (!browserLock) {
+                            Log.e("browser..", process);
 
-                                      Intent intent = new Intent(getApplication(), LockScreen.class);
-                                      intent.putExtra(Constraint.PACKAGE, process);
-                                      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                      intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                      startActivity(intent);
-                                  } else {
-                                      sessionManager.setPasswordCorrect(false);
-                                  }
-                              } else {
-                                  sessionManager.setPasswordCorrect(false);
-                              }
+                            return;
+                        }
+                    }
+                    boolean messageLock = sessionManager.getMessageLock();
+                    if (Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
+                        // true
+                        if (!messageLock) {
+                            Log.e("mms..", process);
 
-                      }
+                            return;
+                        }
+                    }
 
 
+                    Constraint.current_running_process = process;
+                    if (!process.equals(getApplication().getPackageName())) {
+                        if (process.equals(Constraint.SETTING_PATH) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
+                            Log.e("password correct check", sessionManager.getPasswordCorrect() + "");
+                            if (!sessionManager.getPasswordCorrect()) {
+
+                                Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                intent.putExtra(Constraint.PACKAGE, process);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
+                            } else {
+                                sessionManager.setPasswordCorrect(false);
+                            }
+                        } else {
+                            sessionManager.setPasswordCorrect(false);
+                        }
 
                     }
+
+
                 }
+            }
         }).timeout(100).start(getApplicationContext());
+    }
+
+    private void storeProcess(String process) {
+        try {
+            String app_name = (String) getPackageManager().getApplicationLabel(
+                    getPackageManager().getApplicationInfo(process
+                            , PackageManager.GET_META_DATA));
+            if (app_name != null) {
+                if (!app_name.equals(Constraint.SYSTEM_LUNCHER) && !app_name.equals(Constraint.DAISYY))
+                    DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.OPEN + app_name, "", "", Constraint.APPLICATION_LOGS);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressLint("InvalidWakeLockTag")
@@ -162,6 +224,20 @@ public class BackgroundService extends Service implements View.OnTouchListener {
 
     }
 
+    private void defineSensor() {
+        sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        mAccel = 0.00f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
+        sensorMan.registerListener(this, accelerometer,
+                SensorManager.SENSOR_DELAY_UI);
+        sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+
 
     private void wakePhoneUp() {
         mWakeLock.acquire();
@@ -169,7 +245,26 @@ public class BackgroundService extends Service implements View.OnTouchListener {
     }
 
     private void setCounter() {
+        bringApplicationTimer();
+        setDeleteTimer();
+        sendLogTimer();
+    }
 
+    private void sendLogTimer() {
+        Timer logsSync = new Timer();
+        logsSync.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (Utils.getNetworkState(getApplicationContext())) {
+                    SyncLogs syncLogs = SyncLogs.getLogsSyncing(getApplicationContext());
+                    syncLogs.saveContactApi();
+                }
+            }
+        }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+
+    }
+
+    private void bringApplicationTimer() {
 
         Timer T = new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
@@ -180,20 +275,22 @@ public class BackgroundService extends Service implements View.OnTouchListener {
                     String value = appChecker.getForegroundApp(getApplicationContext());
 
                     if (!value.equals(getApplication().getPackageName())) {
-                      //  checkNetwork();
+                        //  checkNetwork();
                         if (!value.equals("com.google.android.packageinstaller")) {
 
                             bringApplicationToFront(getApplicationContext());
                         }
                     }
-                     count = 0;
+                    count = 0;
 
                 }
                 checkWifiState();
 
             }
         }, 1000, 1000);
+    }
 
+    private void setDeleteTimer() {
         Timer deletePhoto = new Timer();
         deletePhoto.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -207,13 +304,6 @@ public class BackgroundService extends Service implements View.OnTouchListener {
 
     }
 
-//    private void checkNetwork() {
-//        boolean b = Utils.isInternetOn(getApplicationContext());
-//        InternetResponse internetResponse = new InternetResponse();
-//        internetResponse.setAvailable(b);
-//        EventBus.getDefault().post(internetResponse);
-//
-//    }
 
     private void bringApplicationToFront(final Context context) {
         try {
@@ -269,18 +359,15 @@ public class BackgroundService extends Service implements View.OnTouchListener {
             final String action = intent.getAction();
             Log.e("wifi state", "changes");
             InternetResponse internetResponse = new InternetResponse();
-            OverLayResponse overLayResponse= new OverLayResponse();
-           int wifiState=intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,WifiManager.WIFI_STATE_UNKNOWN);
-            switch (wifiState)
-            {
-                case WifiManager.WIFI_STATE_ENABLED:
-                {
+            OverLayResponse overLayResponse = new OverLayResponse();
+            int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
+            switch (wifiState) {
+                case WifiManager.WIFI_STATE_ENABLED: {
                     internetResponse.setAvailable(false);
                     EventBus.getDefault().post(internetResponse);
                     break;
                 }
-                case WifiManager.WIFI_STATE_DISABLED:
-                {
+                case WifiManager.WIFI_STATE_DISABLED: {
                     internetResponse.setAvailable(true);
                     EventBus.getDefault().post(internetResponse);
                     break;
@@ -347,9 +434,6 @@ public class BackgroundService extends Service implements View.OnTouchListener {
         touchLayout = new LinearLayout(this);
     }
 
-    private boolean touchStarted = false;
-    // co-ordinates of image
-    private int x, y;
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -364,11 +448,12 @@ public class BackgroundService extends Service implements View.OnTouchListener {
         touchLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.e("kali","checking;....");
+                Log.e("kali", "checking;....");
                 return false;
             }
         });
         touchLayout.setLongClickable(true);
+
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         // set layout parameter of window manager
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -435,19 +520,77 @@ public class BackgroundService extends Service implements View.OnTouchListener {
 
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         InternetResponse internetResponse = new InternetResponse();
-        OverLayResponse overLayResponse=new OverLayResponse();
+        OverLayResponse overLayResponse = new OverLayResponse();
 
         if (wifiManager.isWifiEnabled()) {
-            Log.e("check","enabled");
             internetResponse.setAvailable(false);
             EventBus.getDefault().post(internetResponse);
         } else {
-            Log.e("check","disable");
             internetResponse.setAvailable(true);
             EventBus.getDefault().post(internetResponse);
         }
     }
 
 
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            mGravity = event.values.clone();
+            // Shake detection
+            float x = mGravity[0];
+            float y = mGravity[1];
+            float z = mGravity[2];
 
+            float yAbs = Math.abs(mGravity[1]);
+            if (yAbs>=2)
+            {
+            if (isPickedUp) {
+                isPickedUp = false;
+              if (counter==0) {
+               counter=1;
+                  Log.e("kali", "pickup");
+              }
+             else if (counter==1)
+              {
+
+                 Log.e("Kali1","pickdown");
+                 counter=0;
+                }
+                return;
+
+            }
+            }
+           if (yAbs<1)
+           {
+               isPickedUp=true;
+               return;
+           }
+//
+//            float accelationSquareRoot = (x * x + y * y + z * z)
+//                    / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
+//            long actualTime = event.timestamp;
+//            Log.e("accelationSquareRoot",accelationSquareRoot+"");
+//            if (accelationSquareRoot >= 2) //
+//            {
+//                if (actualTime - lastUpdate < 200) {
+//                    return;
+//                }
+//                lastUpdate = actualTime;
+//                Toast.makeText(this, "Device was shuffed", Toast.LENGTH_SHORT)
+//                        .show();
+//        }
+        }else if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            if (event.values[0] == 0) {
+                Log.e("something", "comes");
+
+            }
+
+
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }

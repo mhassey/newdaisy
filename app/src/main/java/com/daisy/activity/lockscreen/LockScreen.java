@@ -1,26 +1,20 @@
 package com.daisy.activity.lockscreen;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.common.Constraint;
+import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityLockScreenBinding;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
-
-import okhttp3.internal.Util;
 
 public class LockScreen extends BaseActivity implements View.OnClickListener {
     private ActivityLockScreenBinding binding;
@@ -63,7 +57,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-        finish();
+       finish();
     }
 
     @Override

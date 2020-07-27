@@ -25,7 +25,9 @@
     <string name="packageName">com.daisy</string>
     <string name="onePlus">OnePlus</string>
     <string name="enter_password">ENTER PASSWORD</string>
-    <string name="password">password</string>
+
+    <style name="update_position">Update Position</style>
+
     <string name="unlock">UNLOCK</string>
     <string name="invalid_password">INVALID PASSWORD</string>
     <string name="welcome">WELCOME</string>
@@ -41,6 +43,8 @@
     <string name="modify_system_settings">Modify System Settings</string>
     <string name="app_settings">App Settings</string>
     <string name="lock_access_to_play_store">Lock Access to Play Store</string>
+    <string name="lock_access_to_browser">Lock Access to Browser App</string>
+    <string name="lock_access_to_message">Lock Access to Message App</string>
     <string name="delete_photos">Delete Photos</string>
     <string name="only_disable_if_using_personal_device">* Only disable if using personal device</string>
     <string name="device_detected">Device Detected:</string>
@@ -54,4 +58,18 @@
     <string name="manage_device_content">Manage Device Content</string>
     <string name="grant_permissions">Grant Permissions</string>
     <string name="wifi">wifi</string>
+    <string name="pixel_emulator">Google sdk_gphone_x86</string>
+    <string name="password">password</string>
+    <string name="store_id">store_id</string>
+    <string name="please_enter_store_code">Please enter store code</string>
+    <string name="please_enter_store_password">Please enter store password</string>
+    <string name="add_screen">Add Screen</string>
+    <string name="isle">Isle</string>
+    <string name="shelf">Shelf</string>
+    <string name="isle_not_empty">Isle can not be empty</string>
+    <string name="position_not_empty">Position can not be empty</string>
+    <string name="shelf_not_empty">Shelf can not be empty</string>
+    <string name="mi_extra">Mi Extra Permission</string>
+    <string name="update_position">Update Position</string>
+    <string name="update_screen">Update Screen</string>
 </resources>

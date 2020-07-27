@@ -7,6 +7,11 @@ import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpRequest;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
+import com.daisy.utils.Utils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,8 +24,8 @@ public class SignUpRepo {
     {
         apiService= AppRetrofit.getInstance().getApiService();
     }
-    public LiveData<SignUpResponse> signUp(SignUpRequest input) {
-        Call<SignUpResponse> call=apiService.signUp(input);
+    public LiveData<SignUpResponse> signUp(HashMap<String,String> input) {
+         Call<SignUpResponse> call=apiService.signUp(input);
         call.enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
@@ -33,6 +38,7 @@ public class SignUpRepo {
 
             @Override
             public void onFailure(Call<SignUpResponse> call, Throwable t) {
+                t.printStackTrace();
             liveData.setValue(null);
             }
         });

@@ -1,5 +1,6 @@
 package com.daisy.activity.onBoarding.slider.slides.deviceDetection;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,13 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.daisy.R;
+import com.daisy.database.DBCaller;
 import com.daisy.databinding.FragmentDeviceDetectionBinding;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
 
 public class DeviceDetection extends Fragment {
 
     private FragmentDeviceDetectionBinding detectionBinding;
+    private Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,7 +37,13 @@ public class DeviceDetection extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView();
         setDefaultValues();
+    }
+
+    private void initView() {
+        DBCaller.storeLogInDatabase(context, Constraint.LOAD_ADD_SCREEN,"","",Constraint.APPLICATION_LOGS);
+
     }
 
     private void setDefaultValues() {

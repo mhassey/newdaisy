@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.daisy.database.DBCaller;
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
 import com.daisy.pojo.request.LogsRequest;
@@ -33,7 +34,7 @@ public class LogsRepository {
         @Override
         protected Object doInBackground(Object[] objects) {
             LogsRequest logsRequest= (LogsRequest) objects[0];
-            List<Logs> logs= Utils.getLogsFromDatabase(logsRequest.getContext(),logsRequest.getType());
+            List<Logs> logs= DBCaller.getLogsFromDatabase(logsRequest.getContext(),logsRequest.getType());
             liveData.postValue(logs);
             return null;
         }
@@ -43,7 +44,7 @@ public class LogsRepository {
         @Override
         protected Object doInBackground(Object[] objects) {
             LogClearRequest logClearRequest= (LogClearRequest) objects[0];
-            boolean b=  Utils.clearLog(logClearRequest);
+            boolean b=  DBCaller.clearLog(logClearRequest);
             LogClearResponse logClearResponse=new LogClearResponse();
             logClearResponse.setClear(b);
             logClearResponseMutableLiveData.postValue(logClearResponse);

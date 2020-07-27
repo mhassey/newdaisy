@@ -17,7 +17,6 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.CallLog;
@@ -32,12 +31,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
-import com.daisy.broadcastforbackgroundservice.AlaramHelperBackground;
-import com.daisy.common.Constraint;
-import com.daisy.database.DatabaseClient;
-import com.daisy.pojo.Logs;
+import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.pojo.LogsDataPojo;
-import com.daisy.pojo.request.LogClearRequest;
 
 import org.apache.commons.io.FileUtils;
 
@@ -45,12 +40,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -70,6 +67,25 @@ public class Utils {
 
 
         }
+    }
+
+    public static HashMap<String, String> ConvertObjectToMap(Object obj) throws
+            IllegalAccessException,
+            IllegalArgumentException,
+            InvocationTargetException {
+        Class<?> pomclass = obj.getClass();
+        pomclass = obj.getClass();
+        Method[] methods = obj.getClass().getMethods();
+
+
+        HashMap<String, String> map = new HashMap<>();
+        for (Method m : methods) {
+            if (m.getName().startsWith("get") && !m.getName().startsWith("getClass")) {
+                Object value = (Object) m.invoke(obj);
+                map.put(m.getName().substring(3), (String) value);
+            }
+        }
+        return map;
     }
 
     public static int getMaximumScreenBrightnessSetting() {
@@ -221,23 +237,14 @@ public class Utils {
         return null;
     }
 
-    public static void storeLogInDatabase(Context context, String eventName, String message, String eventUrl, String logType) {
-        Logs logs = new Logs();
-        logs.setEventName(eventName);
-        logs.setEventDescription(message);
-        logs.setEventUrl(eventUrl);
-        logs.setLogType(logType);
-        logs.setEventDateTime(getTodayDateWithTime());
-        logs.setEventTimeStemp(getTimeStemp());
-        new AddLog().execute(logs, context);
 
-    }
 
     public static String getTimeStemp() {
         Long tsLong = System.currentTimeMillis() / 1000;
         String ts = tsLong.toString();
         return ts;
     }
+
 
     public static boolean storeLogInFile(String fileName, String message) {
         try {
@@ -330,9 +337,9 @@ public class Utils {
         return formattedDate;
     }
 
-    private static String getTodayDateWithTime() {
+    public static String getTodayDateWithTime() {
         Date c = Calendar.getInstance().getTime();
-        DateFormat date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+        DateFormat date = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         String formattedDate = date.format(c);
         return formattedDate;
     }
@@ -353,20 +360,7 @@ public class Utils {
         writer.close();
     }
 
-    public static List<Logs> getLogsFromDatabase(Context context, String type) {
-        List<Logs> logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAll(type, Constraint.FALSE);
-        return logs;
-    }
 
-    public static boolean clearLog(LogClearRequest logClearRequest) {
-        try {
-            DatabaseClient.getInstance(logClearRequest.getContext()).getAppDatabase().logDao().clearLog(Constraint.TRUE, logClearRequest.getType());
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
 
     private static boolean isMIUI() {
@@ -379,16 +373,7 @@ public class Utils {
     }
 
 
-    public static class AddLog extends AsyncTask {
 
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            Logs logs = (Logs) objects[0];
-            Context context = (Context) objects[1];
-            DatabaseClient.getInstance(context).getAppDatabase().logDao().insert(logs);
-            return null;
-        }
-    }
 
     public static void youDesirePermissionCode(Activity context) {
         boolean permission;
@@ -427,7 +412,7 @@ public class Utils {
         if (text == null)
             text = "";
         android.app.AlertDialog mAlertDialog = new AlertDialog.Builder(mContext).setMessage(text).
-                setTitle(Constraint.PERMISSION_REQUIRED).setCancelable(isCancelable)
+                setTitle(Constraint.PERMISSION_REQUIRED).setCancelable(true)
                 .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

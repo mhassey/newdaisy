@@ -1,12 +1,20 @@
 package com.daisy.apiService;
 
 public class ApiConstant {
-    public static final String SIGN_UP = "sign_up";
-    public static final String CONTENT_TYPE = "application/json";
+
+    public static final String URL_PACK = "oak_bitbucket/api";
+
+    public static final String SIGN_UP = URL_PACK+"/login";
+    public static final String CONTENT_TYPE = "form-data";
     public static final String KEY_CONTENT_TYPE = "Content-Type";
     public static final String ACCESS_TOKEN = "token";
 
     public static final String RESOURCE_ERROR_TYPE = "type must be a resource";
     public static final String RESOURCE_ERROR_PARAMETER = "resource must be parameterized";
     public static final String DETECT_DEVICE = "detect_device";
+    public static final String GENERAL = URL_PACK+"/general";
+    public static final String CREATE_SCREEN = URL_PACK + "/create_screen";
+    public static final String GET_CARD = URL_PACK + "/get_cards";
+    public static final String SEND_LOGS = URL_PACK+"/create_log";
+    public static final String UPDATE_POSITION = URL_PACK+"/update_screen_position";
 }

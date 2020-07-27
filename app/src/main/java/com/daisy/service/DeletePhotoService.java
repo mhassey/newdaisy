@@ -10,9 +10,9 @@ import com.daisy.utils.Utils;
 
 public class DeletePhotoService extends Service {
     private SessionManager sessionManager;
+
     public DeletePhotoService() {
     }
-
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -21,16 +21,11 @@ public class DeletePhotoService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        sessionManager=SessionManager.get();
-                if (sessionManager.getDeletePhoto()) {
-                    Log.e("delete galaary","delete");
-                    Utils.deleteGalaryPhoto();
-                }
-                else
-                {
-                    Log.e("not","delete");
-                }
-     Utils.deleteCallList(getApplicationContext());
+        sessionManager = SessionManager.get();
+        if (sessionManager.getDeletePhoto()) {
+      //     Utils.deleteGalaryPhoto();
+        }
+     //   Utils.deleteCallList(getApplicationContext());
         stopSelf();
         return super.onStartCommand(intent, flags, startId);
 

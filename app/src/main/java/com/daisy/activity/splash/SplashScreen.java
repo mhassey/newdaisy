@@ -10,6 +10,7 @@ import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.common.session.SessionManager;
+import com.daisy.sync.SyncLogs;
 
 public class SplashScreen extends BaseActivity {
     private SessionManager sessionManager;
