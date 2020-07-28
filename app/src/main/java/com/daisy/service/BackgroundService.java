@@ -111,12 +111,9 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         initWifi();
         initPassword();
         defineSensor();
-        setFrontCamera();
     }
 
-    private void setFrontCamera() {
-        FrontCameraRetriever.retrieveFor(getApplicationContext());
-    }
+
 
 
     private void initPassword() {
@@ -549,6 +546,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
               if (counter==0) {
                counter=1;
                   Log.e("kali", "pickup");
+                  DBCaller.storeLogInDatabase(getApplicationContext(),Constraint.DEVICE_PICK_UP,"","",Constraint.APPLICATION_LOGS);
               }
              else if (counter==1)
               {
@@ -579,13 +577,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 //                Toast.makeText(this, "Device was shuffed", Toast.LENGTH_SHORT)
 //                        .show();
 //        }
-        }else if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-            if (event.values[0] == 0) {
-                Log.e("something", "comes");
-
-            }
-
-
         }
     }
 

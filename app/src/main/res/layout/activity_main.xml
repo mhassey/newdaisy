@@ -8,8 +8,29 @@
         android:layout_height="match_parent"
         android:background="#000000">
 
+        <io.fotoapparat.facedetector.view.CameraOverlayLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <io.fotoapparat.view.CameraView
+                android:id="@+id/camera_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <io.fotoapparat.facedetector.view.RectanglesView
+                android:id="@+id/rectanglesView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:rectanglesColor="@color/colorAccent"
+                app:rectanglesStrokeWidth="2dp"/>
+
+        </io.fotoapparat.facedetector.view.CameraOverlayLayout>
+
 
         <WebView
+            android:visibility="gone"
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

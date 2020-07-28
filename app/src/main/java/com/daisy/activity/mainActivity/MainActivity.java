@@ -13,20 +13,27 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.ConsoleMessage;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.daisy.ObjectDetection.CameraSurfaceView;
+import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
+import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
@@ -84,6 +91,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         setNoTitleBar(this);
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         context = this;
+        //FrontCameraRetriever.retrieveFor(this);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         sessionManager = SessionManager.get();
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
@@ -92,12 +100,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         loadURL();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     private void setOnClickListener() {
@@ -226,7 +228,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             settings.setDatabasePath(getApplicationContext().getFilesDir().getAbsolutePath() + getString(R.string.databse));
             settings.setMediaPlaybackRequiresUserGesture(false);
             mBinding.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-            mBinding.webView.setWebChromeClient(new WebChromeClientCustomPoster());
+            mBinding.webView.setWebChromeClient(new WebClient());
             setWebViewClient();
       String val=      sessionManager.getLocation();
             File f = new File(val);
@@ -238,13 +240,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                    File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                    if (mainFile.exists()) {
                        mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile()+ Constraint.SLASH + Constraint.FILE_NAME);
-                    //  mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
+                      //mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
 
                    } else {
                        File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
                        if (file2.exists())
                            mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                       //    mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
+                          // mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
 
                        else {
                            sessionManager.deleteLocation();
@@ -308,6 +310,36 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         });
 
     }
+
+//    @Override
+//    public void onFaceDetected() {
+//        ValidationHelper.showToast(context,"face detection");
+//        Log.e("kali","facedetected");
+//        DBCaller.storeLogInDatabase(context,Constraint.USER_PASS,"","",Constraint.APPLICATION_LOGS);
+//    }
+//
+//    @Override
+//    public void onFaceTimedOut() {
+//
+//    }
+//
+//    @Override
+//    public void onFaceDetectionNonRecoverableError() {
+//        Log.e("face","nonRecoverableError");
+//    }
+//
+//    @Override
+//    public void onLoaded(FaceDetectionCamera camera) {
+//       // SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
+//        // Add the surface view (i.e. camera preview to our layout)
+//     //   mBinding.cameraPreview.addView(cameraSurface);
+//            }
+//
+//    @Override
+//    public void onFailedToLoadFaceDetectionCamera() {
+//        Log.e("kali","issue in load camera");
+//
+//    }
 
     private class WebChromeClientCustomPoster extends WebChromeClient {
 
@@ -468,6 +500,23 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
+
+    public class  WebClient extends WebChromeClient
+    {
+
+        @Override
+        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+            Log.e("kali",consoleMessage.message());
+            return super.onConsoleMessage(consoleMessage);
+        }
+
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            Log.e("kali",message);
+            return super.onJsAlert(view, url, message, result);
+        }
+    }
 
 
 

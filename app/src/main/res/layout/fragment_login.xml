@@ -80,7 +80,7 @@
                 android:paddingTop="@dimen/dp20"
                 android:paddingEnd="@dimen/dp30"
                 android:paddingBottom="@dimen/dp20"
-                android:text="SignUp"
+                android:text="@string/signin"
                 android:textColor="?attr/textcolorblack"
                 android:textSize="@dimen/sp15" />
 

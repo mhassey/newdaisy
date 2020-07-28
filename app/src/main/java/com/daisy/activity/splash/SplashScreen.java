@@ -73,4 +73,9 @@ public class SplashScreen extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

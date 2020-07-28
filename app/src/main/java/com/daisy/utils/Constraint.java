@@ -16,7 +16,7 @@ public class Constraint {
     public static final String SUCCESS = "success";
     public static final String INDEX = "index";
     public static final String CARD = "Card";
-    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE};
+    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
 
     public static final String zipUrl = "https://c2.mobilepricecard.com/pickup/";
 
@@ -137,6 +137,8 @@ public class Constraint {
     public static final String OPEN = "Open";
     public static final String SYSTEM_LUNCHER = "System launcher";
     public static final String DAISYY = "Daisy";
+    public static final String USER_PASS = "User pass from phone";
+    public static final String DEVICE_PICK_UP = "device pick up";
     public static  boolean IS_OVER_APP_SETTING = false;
     public static  int CREENTBRIGHNESS  ;
     public static String current_running_process = "";

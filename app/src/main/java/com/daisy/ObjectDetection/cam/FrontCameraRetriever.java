@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.daisy.activity.mainActivity.MainActivity;
+
 /**
  * I manage loading and destroying the camera reference for you
  */
@@ -14,7 +16,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     private FaceDetectionCamera camera;
 
-    public static void retrieveFor(Context activity) {
+    public static void retrieveFor(Activity activity) {
         if (!(activity instanceof Listener)) {
             throw new IllegalStateException("Your activity needs to implement FrontCameraRetriever.Listener");
         }
@@ -49,7 +51,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     @Override
     public void onLoaded(FaceDetectionCamera camera) {
-        this.camera = camera;
+       this.camera = camera;
         listener.onLoaded(camera);
     }
 
@@ -60,9 +62,10 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityPaused(Activity activity) {
-        if (camera != null) {
-            camera.recycle();
-        }
+
+            if (camera != null) {
+                camera.recycle();
+            }
     }
 
     @Override
@@ -77,7 +80,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
+             activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
 
     public interface Listener extends LoadFrontCameraAsyncTask.Listener {

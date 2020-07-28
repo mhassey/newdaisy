@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -337,6 +338,22 @@ public class Utils {
         return formattedDate;
     }
 
+    public static String getDate(String dateComming) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = format.parse(dateComming);
+
+        DateFormat format1 = new SimpleDateFormat("yyyy-mm-dd");
+        String formattedDate = format1.format(date);
+        return formattedDate;
+    }
+
+    public static  String getTime(String time) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = format.parse(time);
+        DateFormat format1 = new SimpleDateFormat("HH:mm:ss");
+        String formattedDate = format1.format(date);
+        return formattedDate;
+    }
     public static String getTodayDateWithTime() {
         Date c = Calendar.getInstance().getTime();
         DateFormat date = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");

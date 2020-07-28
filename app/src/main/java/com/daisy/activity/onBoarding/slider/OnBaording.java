@@ -287,6 +287,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                     count=3;
                 }
             }
+            else
+            {
+                ValidationHelper.showToast(context,getString(R.string.no_internet_available));
+            }
 
 
         }

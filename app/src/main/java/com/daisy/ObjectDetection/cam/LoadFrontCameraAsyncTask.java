@@ -23,11 +23,14 @@ public class LoadFrontCameraAsyncTask extends AsyncTask<Void, Void, FaceDetectio
         executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+
     @Override
     protected FaceDetectionCamera doInBackground(Void... params) {
+        Camera camera = null;
         try {
             int id = getFrontFacingCameraId();
-            Camera camera = Camera.open(id);
+
+            camera = Camera.open(id);
 
             if (camera.getParameters().getMaxNumDetectedFaces() == 0) {
                 Log.e(TAG, "Face detection not supported");
@@ -37,6 +40,8 @@ public class LoadFrontCameraAsyncTask extends AsyncTask<Void, Void, FaceDetectio
             return new FaceDetectionCamera(camera);
         } catch (RuntimeException e) {
             Log.e(TAG, "Likely hardware / non released camera / other app fail", e);
+
+
             return null;
         }
     }

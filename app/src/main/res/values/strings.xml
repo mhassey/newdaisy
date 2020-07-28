@@ -17,7 +17,8 @@
     <string name="settings">Settings</string>
     <string name="exit">Exit</string>
     <string name="clear_and_exit">Clear and exit</string>
-    <string name="no_internet_available">No Internet Connection!</string>
+    <string name="no_internet_available">Oops! \n Please check your internet connectivity and try again.
+    </string>
     <string name="some_issue_occur">Some issue occur</string>
     <string name="chche">/cache</string>
     <string name="databse">/databases</string>
@@ -72,4 +73,5 @@
     <string name="mi_extra">Mi Extra Permission</string>
     <string name="update_position">Update Position</string>
     <string name="update_screen">Update Screen</string>
+    <string name="signin">SignIn</string>
 </resources>

@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityLockScreenBinding;
@@ -57,7 +58,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-       finish();
+       LockScreen.this.finish();
     }
 
     @Override

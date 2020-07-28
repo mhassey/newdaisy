@@ -98,6 +98,10 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 }
             }
         }
+        else
+        {
+            ValidationHelper.showToast(context,getString(R.string.no_internet_available));
+        }
     }
 
     private void handleResponse(SignUpResponse signUpResponse) {

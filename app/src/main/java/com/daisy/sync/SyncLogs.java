@@ -14,12 +14,14 @@ import com.daisy.pojo.request.LogServerRequest;
 import com.daisy.pojo.response.BlankResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
@@ -135,7 +137,9 @@ public class SyncLogs {
                 LogServerRequest logServerRequest=new LogServerRequest();
                 logServerRequest.setLog(logs1.getEventName());
                 logServerRequest.setTimezone(TimeZone.getDefault().getID());
-                logServerRequest.setTime(logs1.getEventDateTime());
+
+                logServerRequest.setTime(Utils.getTime(logs1.getEventDateTime()));
+                logServerRequest.setDate(Utils.getDate(logs1.getEventDateTime()));
                 requests.add(logServerRequest);
             }
             logSyncRequest.put("log",getJsonObject(requests).toString());
