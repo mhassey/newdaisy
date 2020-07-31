@@ -18,12 +18,8 @@ public class AddScreenRepo {
     private ApiService apiService;
     private MutableLiveData<GlobalResponse<GeneralResponse>> generalResponseMutableLiveData=new MutableLiveData<>();
 
-    public AddScreenRepo()
-    {
-        apiService= AppRetrofit.getInstance().getApiService();
-    }
-
     public LiveData<GlobalResponse<GeneralResponse>> getGenralResponse(HashMap<String, String> input) {
+        apiService= AppRetrofit.getInstance().getApiService();
         Call<GlobalResponse<GeneralResponse>> call=apiService.getGeneralResponse(input);
         call.enqueue(new Callback<GlobalResponse<GeneralResponse>>() {
             @Override
@@ -33,7 +29,7 @@ public class AddScreenRepo {
 
             @Override
             public void onFailure(Call<GlobalResponse<GeneralResponse>> call, Throwable t) {
-
+                generalResponseMutableLiveData.setValue(null);
             }
         });
         return generalResponseMutableLiveData;

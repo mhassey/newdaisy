@@ -15,6 +15,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
     private final Listener listener;
 
     private FaceDetectionCamera camera;
+    private Activity activity;
 
     public static void retrieveFor(Activity activity) {
         if (!(activity instanceof Listener)) {
@@ -46,26 +47,54 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityResumed(Activity activity) {
-        new LoadFrontCameraAsyncTask(this).load();
+        this.activity=activity;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (activity instanceof  MainActivity)
+                    new LoadFrontCameraAsyncTask(FrontCameraRetriever.this).load();
+
+            }
+        }).start();
     }
 
     @Override
     public void onLoaded(FaceDetectionCamera camera) {
-       this.camera = camera;
-        listener.onLoaded(camera);
-    }
+        this.camera=camera;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (activity instanceof  MainActivity) {
+
+                    listener.onLoaded(camera);
+                }
+
+            }
+        }).start();
+        }
 
     @Override
     public void onFailedToLoadFaceDetectionCamera() {
+       if (activity instanceof  MainActivity)
         listener.onFailedToLoadFaceDetectionCamera();
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (activity instanceof  MainActivity) {
+                    if (camera != null) {
+                        camera.recycle();
 
-            if (camera != null) {
-                camera.recycle();
+
+                    }
+                }
+
             }
+        }).start();
     }
 
     @Override
@@ -80,7 +109,8 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-             activity.getApplication().unregisterActivityLifecycleCallbacks(this);
+        if (activity instanceof  MainActivity)
+        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
 
     public interface Listener extends LoadFrontCameraAsyncTask.Listener {

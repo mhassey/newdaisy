@@ -18,9 +18,10 @@ public class AddScreenViewModel extends AndroidViewModel {
 
     private MutableLiveData<HashMap<String ,String>> generalRequest=new MutableLiveData<>();
     private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveData;
-    private AddScreenRepo addScreenRepo=new AddScreenRepo();
+    private AddScreenRepo addScreenRepo;
     public AddScreenViewModel(@NonNull Application application) {
         super(application);
+        addScreenRepo=new AddScreenRepo();
         generalResponseLiveData= Transformations.switchMap(generalRequest, new Function<HashMap<String, String>, LiveData<GlobalResponse<GeneralResponse>>>() {
             @Override
             public LiveData<GlobalResponse<GeneralResponse>> apply(HashMap<String, String> input) {

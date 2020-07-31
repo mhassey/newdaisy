@@ -7,6 +7,8 @@ import android.view.SurfaceView;
 
 import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
 
+import java.io.IOException;
+
 @SuppressLint("ViewConstructor") // View can only be inflated programatically
 public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -15,6 +17,8 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
     public CameraSurfaceView(Context context, FaceDetectionCamera camera, FaceDetectionCamera.Listener listener) {
         super(context);
+
+
         this.camera = camera;
         this.listener = listener;
         // Listen for when the surface is ready to be drawn on
@@ -25,7 +29,9 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceCreated(SurfaceHolder holder) {
         // When the surface is ready to be drawn on
         // tell our camera to use this to show a preview
-        camera.initialise(listener, holder);
+
+            camera.initialise(listener, holder);
+
     }
 
     @Override
@@ -33,8 +39,10 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         if (surfaceDoesNotExist()) {
             return;
         }
+
         // When the surface changes we need to re-attach it to our camera
-        camera.initialise(listener, holder);
+            camera.initialise(listener, holder);
+
     }
 
     private boolean surfaceDoesNotExist() {

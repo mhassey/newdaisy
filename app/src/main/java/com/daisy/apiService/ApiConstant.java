@@ -2,7 +2,8 @@ package com.daisy.apiService;
 
 public class ApiConstant {
 
-    public static final String URL_PACK = "oak_bitbucket/api";
+    public static final String URL_PACK = "api";
+   //public static final String URL_PACK = "/api";
 
     public static final String SIGN_UP = URL_PACK+"/login";
     public static final String CONTENT_TYPE = "form-data";

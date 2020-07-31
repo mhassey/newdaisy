@@ -109,4 +109,5 @@ public interface PrefConstant {
     String PRICING = "pricing";
     String FOLDER_NAME = "folderName";
     String SCREEN_POSITION = "screenPosition";
+    String BASE_URL = "baseUrl";
 }

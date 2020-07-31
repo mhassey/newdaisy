@@ -28,6 +28,7 @@ import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.database.DBCaller;
 import com.daisy.utils.Constraint;
@@ -127,6 +128,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
         mBinding.saveAndLoad.setOnClickListener(this::onClick);
         mBinding.logs.setOnClickListener(this::onClick);
         mBinding.updatePosition.setOnClickListener(this::onClick);
+        mBinding.updateBaseUrl.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -294,7 +296,18 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                 openUpdatePositionActivity();
                 break;
             }
+            case R.id.updateBaseUrl:
+            {
+                updateBaseUrl();
+                break;
+            }
         }
+    }
+
+    private void updateBaseUrl() {
+        Intent intent=new Intent(EditorTool.this, UpdateBaseUrl.class);
+        startActivity(intent);
+
     }
 
     private void openUpdatePositionActivity() {

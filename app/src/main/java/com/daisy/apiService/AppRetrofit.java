@@ -21,10 +21,19 @@ public class AppRetrofit {
     private static AppRetrofit instance;
     private final ApiService apiService;
     String token = "";
-
+    private static SessionManager sessionManager;
     private AppRetrofit() {
-        apiService = provideService(BuildConfig.BASE_URL);
-    }
+        sessionManager=SessionManager.get();
+       String baseUrl= sessionManager.getBaseUrl();
+       if (baseUrl!=null && baseUrl!="")
+       {
+           apiService = provideService(baseUrl);
+
+       }
+       else {
+           apiService = provideService(BuildConfig.BASE_URL);
+       }
+       }
 
     public AppRetrofit(String BaseUrl) {
         apiService = provideService(BaseUrl);
@@ -32,9 +41,18 @@ public class AppRetrofit {
 
 
     private static void initInstance() {
-        if (instance == null) {
-            // Create the instance
+        if (sessionManager==null)
+            sessionManager=SessionManager.get();
+      String baseUrl=  sessionManager.getBaseUrl();
+        if (baseUrl!=null && !baseUrl.equals(""))
+        {
             instance = new AppRetrofit();
+        }
+        else {
+            if (instance == null) {
+                // Create the instance
+                instance = new AppRetrofit();
+            }
         }
     }
 
@@ -66,20 +84,11 @@ public class AppRetrofit {
             public Response intercept(Chain chain) throws IOException {
                 Request.Builder requestBuilder = chain.request().newBuilder().addHeader(ApiConstant.KEY_CONTENT_TYPE, ApiConstant.CONTENT_TYPE);
                 Request request = requestBuilder
-                       // .addHeader("token", token)
-
-
-//                        .addHeader(ApiConstant.ACCESS_TOKEN, finalToken)
                         .build();
                  Response response = chain.proceed(request);
 
-                Log.e("checking",token);
                 if (response.isSuccessful() && response.code() == 202) {
-//                    if (mAlertDialog == null) {
-//                      //  logout("You are already logged in on another device or your session expired");
-//                    } else if (!mAlertDialog.isShowing()) {
-//                       // logout("You are already logged in on another device or your session expired");
-//                    }
+
                 }
                 return response;
             }

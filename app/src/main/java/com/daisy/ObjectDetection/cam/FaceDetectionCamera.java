@@ -11,9 +11,10 @@ import java.io.IOException;
  */
 public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listener {
 
-    private final Camera camera;
+    private Camera camera;
 
     private Listener listener;
+    private SurfaceHolder surfaceHolder;
 
     public FaceDetectionCamera(Camera camera) {
         this.camera = camera;
@@ -28,18 +29,57 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
     public void initialise(Listener listener, SurfaceHolder holder) {
         this.listener = listener;
         try {
+            surfaceHolder=holder;
             camera.stopPreview();
+
         } catch (Exception swallow) {
             // ignore: tried to stop a non-existent preview
         }
         try {
-            camera.setPreviewDisplay(holder);
-            camera.startPreview();
-            camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
-            camera.startFaceDetection();
-        } catch (IOException e) {
+            if (camera!=null) {
+                camera.setPreviewDisplay(holder);
+                camera.startPreview();
+                camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
+                camera.startFaceDetection();
+            }
+            } catch (IOException e) {
+                resetCamera(holder);
+
             this.listener.onFaceDetectionNonRecoverableError();
         }
+    }
+
+    private void resetCamera(SurfaceHolder holder) {
+
+        camera.stopPreview();
+        try {
+            camera.setPreviewDisplay(null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        camera.release();
+        camera=null;
+        camera=Camera.open(getFrontFacingCameraId());
+        try {
+            camera.setPreviewDisplay(holder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        camera.startPreview();
+        camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
+        camera.startFaceDetection();
+    }
+
+    private int getFrontFacingCameraId() {
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        int i = 0;
+        for (; i < Camera.getNumberOfCameras(); i++) {
+            Camera.getCameraInfo(i, cameraInfo);
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                break;
+            }
+        }
+        return i;
     }
 
     @Override
@@ -54,8 +94,12 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
 
     public void recycle() {
         if (camera != null) {
+
             camera.release();
+            camera=null;
+
         }
+
     }
 
     public interface Listener {

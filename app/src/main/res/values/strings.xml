@@ -74,4 +74,8 @@
     <string name="update_position">Update Position</string>
     <string name="update_screen">Update Screen</string>
     <string name="signin">SignIn</string>
+    <string name="update_baseurl">Update BaseUrl</string>
+    <string name="baseurl_can_not_be_empty">Base Url can not be empty</string>
+    <string name="enter_valid_url">Enter valid base url</string>
+    <string name="url_must_end_with_slash">Url must send with slash</string>
 </resources>

@@ -83,18 +83,21 @@ public class AddScreen extends BaseFragment implements AdapterView.OnItemSelecte
     }
 
     private void handleResponse(GlobalResponse<GeneralResponse> generalResponse) {
-        if (generalResponse.isApi_status())
-        {
-            products= (generalResponse.getResult().getProducts());
-            //Creating the ArrayAdapter instance having the country list
-            ArrayAdapter<Product> aa = new ArrayAdapter<Product>(context,android.R.layout.simple_spinner_item,products);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            //Setting the ArrayAdapter data on the Spinner
-            mBinding.productName.setAdapter(aa);
+        if (generalResponse!=null) {
+            if (generalResponse.isApi_status()) {
+                products = (generalResponse.getResult().getProducts());
+                //Creating the ArrayAdapter instance having the country list
+                ArrayAdapter<Product> aa = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, products);
+                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //Setting the ArrayAdapter data on the Spinner
+                mBinding.productName.setAdapter(aa);
+            } else {
+                ValidationHelper.showToast(context, generalResponse.getMessage());
+            }
         }
         else
         {
-            ValidationHelper.showToast(context,generalResponse.getMessage());
+            ValidationHelper.showToast(context,getString(R.string.invalid_url));
         }
 
     }

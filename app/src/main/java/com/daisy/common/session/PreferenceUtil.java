@@ -109,5 +109,7 @@ public class PreferenceUtil {
     }
 
 
-
+    public void removeBaseUrl() {
+        mSpref.edit().remove(PrefConstant.BASE_URL);
+    }
 }

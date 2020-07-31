@@ -81,8 +81,11 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private double mAccelCurrent;
     private double mAccelLast;
     private boolean isPickedUp = false;
-    private int counter=0;
+    private int counter = 0;
     private long lastUpdate;
+    private int movement = 0;
+    private boolean isPickedUpSucess = false;
+    private boolean isPickedDown = false;
 
     @Nullable
     @Override
@@ -112,8 +115,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         initPassword();
         defineSensor();
     }
-
-
 
 
     private void initPassword() {
@@ -225,7 +226,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         mAccel = 0.00f;
         mAccelCurrent = SensorManager.GRAVITY_EARTH;
         mAccelLast = SensorManager.GRAVITY_EARTH;
@@ -531,52 +532,47 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+        if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             mGravity = event.values.clone();
-            // Shake detection
-            float x = mGravity[0];
-            float y = mGravity[1];
-            float z = mGravity[2];
 
-            float yAbs = Math.abs(mGravity[1]);
-            if (yAbs>=2)
-            {
-            if (isPickedUp) {
-                isPickedUp = false;
-              if (counter==0) {
-               counter=1;
-                  Log.e("kali", "pickup");
-                  DBCaller.storeLogInDatabase(getApplicationContext(),Constraint.DEVICE_PICK_UP,"","",Constraint.APPLICATION_LOGS);
-              }
-             else if (counter==1)
-              {
+            if (mGravity != null) {
+                float z = mGravity[2];
+                float x = mGravity[0];
+                float y = mGravity[1];
+                int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
+                int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
+                int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
 
-                 Log.e("Kali1","pickdown");
-                 counter=0;
+                if (z_digree <= 92 && z_digree > 88) {
+                    counter++;
+                    if (counter > 10) {
+                        isPickedUp = false;
+                    }
+
+
+                } else {
+                    movement = 1;
+                    counter = 0;
+                    isPickedUp = true;
                 }
-                return;
+                if (movement == 1) {
+                    if (isPickedUp) {
+                        if (!isPickedUpSucess) {
+                            isPickedDown = false;
+                            isPickedUpSucess = true;
+                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
+                        }
+                    } else {
+                        if (!isPickedDown) {
+                            isPickedDown = true;
+                            isPickedUpSucess = false;
+                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked down", "", "", Constraint.APPLICATION_LOGS);
+
+                        }
+                    }
+                }
 
             }
-            }
-           if (yAbs<1)
-           {
-               isPickedUp=true;
-               return;
-           }
-//
-//            float accelationSquareRoot = (x * x + y * y + z * z)
-//                    / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
-//            long actualTime = event.timestamp;
-//            Log.e("accelationSquareRoot",accelationSquareRoot+"");
-//            if (accelationSquareRoot >= 2) //
-//            {
-//                if (actualTime - lastUpdate < 200) {
-//                    return;
-//                }
-//                lastUpdate = actualTime;
-//                Toast.makeText(this, "Device was shuffed", Toast.LENGTH_SHORT)
-//                        .show();
-//        }
         }
     }
 

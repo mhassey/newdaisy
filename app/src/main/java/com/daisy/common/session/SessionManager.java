@@ -3,6 +3,7 @@ package com.daisy.common.session;
 import android.app.Application;
 
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
+import com.daisy.apiService.ApiConstant;
 import com.daisy.app.AppController;
 import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.PriceCardMain;
@@ -820,5 +821,21 @@ public class SessionManager {
         String response=pref.getStringData(PrefConstant.SCREEN_POSITION);
         ScreenPosition loginResponse= gson.fromJson(response, ScreenPosition.class);
         return loginResponse;
+    }
+
+    public String getBaseUrl() {
+    return  pref.getStringData(PrefConstant.BASE_URL);
+    }
+    public void setBaseUrl(String baseUrl)
+    {
+        pref.setStringData(PrefConstant.BASE_URL,baseUrl);
+    }
+    public void deleteAllSession()
+    {
+        pref.clear();
+    }
+
+    public void removeBaseUrl() {
+    pref.removeBaseUrl();
     }
 }

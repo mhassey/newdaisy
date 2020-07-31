@@ -25,6 +25,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -37,13 +38,13 @@ import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.database.DBCaller;
-import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
+import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.utils.CheckForSDCard;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
 import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
@@ -57,7 +58,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener,FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
+//public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
 
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
@@ -76,10 +79,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-
-
-
-
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
@@ -91,7 +90,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         setNoTitleBar(this);
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         context = this;
-        //FrontCameraRetriever.retrieveFor(this);
+        FrontCameraRetriever.retrieveFor(this);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         sessionManager = SessionManager.get();
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
@@ -113,6 +112,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         });
 
     }
+
 
     private void getDownloadData() {
         if (CheckForSDCard.isSDCardPresent()) {
@@ -230,31 +230,35 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             mBinding.webView.setWebChromeClient(new WebClient());
             setWebViewClient();
-      String val=      sessionManager.getLocation();
+            String val = sessionManager.getLocation();
             File f = new File(val);
             File file[] = f.listFiles();
-            for (File file1:file)
-            {
-               if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX"))
-               {
-                   File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
-                   if (mainFile.exists()) {
-                       mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile()+ Constraint.SLASH + Constraint.FILE_NAME);
-                      //mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
+            for (File file1 : file) {
+                if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX")) {
+                    File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                    if (mainFile.exists()) {
+                        mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                     } else {
+                        File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                       File file3 = new File(sessionManager.getLocation() +Constraint.SLASH+file1.getName()+ Constraint.SLASH + file1.getName()+".html");
 
-                   } else {
-                       File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                       if (file2.exists())
-                           mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                          // mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
+                        if (file2.exists()) {
+                            mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                            // mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
+                        }
+                        else if (file3.exists())
+                        {
+                            mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() +Constraint.SLASH+file1.getName()+ Constraint.SLASH + file1.getName()+".html");
 
-                       else {
-                           sessionManager.deleteLocation();
-                           getDownloadData();
-                       }
-                   }
-                   return;
-               }
+                        }
+                        else {
+                            sessionManager.deleteLocation();
+                            getDownloadData();
+                        }
+                    }
+
+                    return;
+                }
             }
 
         } else {
@@ -295,7 +299,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-              Log.e("kali",url);
+                Log.e("kali", url);
                 view.loadUrl(url);
                 if (!isRedirected) {
                     DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_CHANGE, Constraint.WEB_PAGE_CHANGE_DESCRIPTION, url, Constraint.CARD_LOGS);
@@ -311,35 +315,50 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
-//    @Override
-//    public void onFaceDetected() {
-//        ValidationHelper.showToast(context,"face detection");
-//        Log.e("kali","facedetected");
-//        DBCaller.storeLogInDatabase(context,Constraint.USER_PASS,"","",Constraint.APPLICATION_LOGS);
-//    }
-//
-//    @Override
-//    public void onFaceTimedOut() {
-//
-//    }
-//
-//    @Override
-//    public void onFaceDetectionNonRecoverableError() {
-//        Log.e("face","nonRecoverableError");
-//    }
-//
-//    @Override
-//    public void onLoaded(FaceDetectionCamera camera) {
-//       // SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-//        // Add the surface view (i.e. camera preview to our layout)
-//     //   mBinding.cameraPreview.addView(cameraSurface);
-//            }
-//
-//    @Override
-//    public void onFailedToLoadFaceDetectionCamera() {
-//        Log.e("kali","issue in load camera");
-//
-//    }
+    @Override
+    public void onFaceDetected() {
+        ValidationHelper.showToast(context,"Face detected");
+        DBCaller.storeLogInDatabase(context,"Face detected","","",Constraint.APPLICATION_LOGS);
+    }
+
+    @Override
+    public void onFaceTimedOut() {
+
+    }
+
+    @Override
+    public void onFaceDetectionNonRecoverableError() {
+
+    }
+
+    @Override
+    public void onLoaded(FaceDetectionCamera camera) {
+        try {
+            // When the front facing camera has been retrieved we still need to ensure our display is ready
+            // so we will let the camera surface view initialise the camera i.e turn face detection on
+            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
+            // Add the surface view (i.e. camera preview to our layout)
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    mBinding.helloWorldCameraPreview.addView(cameraSurface);
+                    // Stuff that updates the UI
+
+                }
+            });
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
+    @Override
+    public void onFailedToLoadFaceDetectionCamera() {
+
+    }
+
 
     private class WebChromeClientCustomPoster extends WebChromeClient {
 
@@ -371,11 +390,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     private void goToWifi() {
         sessionManager.setPasswordCorrect(true);
-        if (Utils.getDeviceName().contains(Constraint.PIXEL) || Utils.getDeviceName().contains(getString(R.string.pixel_emulator)))
-        {
-            startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS),1221);
-        }
-        else {
+        if (Utils.getDeviceName().contains(Constraint.PIXEL) || Utils.getDeviceName().contains(getString(R.string.pixel_emulator))) {
+            startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 1221);
+        } else {
             Intent intent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
             if (Utils.getDeviceName().contains(getString(R.string.onePlus))) {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -393,8 +410,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         DBCaller.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         editorToolOpenwithValue();
     }
-
-
 
 
     private void settingHeader() {
@@ -481,6 +496,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onStart();
         if (!EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().register(this);
+        // fotoapparatSwitcher.start();
     }
 
     @Override
@@ -488,6 +504,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onStop();
         if (EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().unregister(this);
+        //fotoapparatSwitcher.stop();
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -501,23 +519,21 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-    public class  WebClient extends WebChromeClient
-    {
+    public class WebClient extends WebChromeClient {
 
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-            Log.e("kali",consoleMessage.message());
+            Log.e("kali", consoleMessage.message());
             return super.onConsoleMessage(consoleMessage);
         }
 
 
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-            Log.e("kali",message);
+            Log.e("kali", message);
             return super.onJsAlert(view, url, message, result);
         }
     }
-
 
 
 }

@@ -23,7 +23,9 @@ import android.provider.CallLog;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
 import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
@@ -42,6 +44,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,6 +72,15 @@ public class Utils {
 
 
         }
+    }
+    public static boolean isValidUrl(String urlString) {
+        try {
+            return URLUtil.isValidUrl(urlString) && Patterns.WEB_URL.matcher(urlString).matches();
+        } catch (Exception e) {
+
+        }
+
+        return false;
     }
 
     public static HashMap<String, String> ConvertObjectToMap(Object obj) throws

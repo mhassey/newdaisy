@@ -111,6 +111,15 @@
             android:background="@drawable/button_border_format"
             android:text="@string/update_position"
             android:textColor="@color/white" />
+        <Button
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_width="@dimen/dp200"
+            android:id="@+id/updateBaseUrl"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border_format"
+            android:text="@string/update_baseurl"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 
