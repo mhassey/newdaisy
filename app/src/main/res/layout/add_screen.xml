@@ -74,7 +74,32 @@
         android:hint="Position"
         android:textColorHint="@color/editTextLineColor"
         android:padding="@dimen/dp10" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dp15"
+        android:layout_height="wrap_content">
+        <Spinner
 
+            android:id="@+id/carrierName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/editTextColor"
+            android:inputType="text"
+            android:textSize="@dimen/dp14"
+            android:background="@drawable/edit_text_format"
+            android:hint="https://baseURL"
+            android:textColorHint="@color/editTextLineColor"
+            android:padding="@dimen/dp10" />
+
+        <ImageView
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/ic_dropdown"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_margin="@dimen/dp15"

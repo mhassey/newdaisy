@@ -103,7 +103,6 @@ public class ZipManager {
             return false;
         }
 
-        callBack.callBack(Constraint.SUCCESS);
-        return true;
+         return true;
     }
 }

@@ -41,13 +41,16 @@ import com.daisy.R;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.OverLayResponse;
+import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,7 +74,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private PowerManager.WakeLock mWakeLock;
     private WifiManager wifiManager;
     private AppChecker appChecker = new AppChecker();
-    private SessionManager sessionManager;
+    private static SessionManager sessionManager;
     private String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     private SensorManager sensorMan;
     private Sensor accelerometer;
@@ -86,6 +89,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private int movement = 0;
     private boolean isPickedUpSucess = false;
     private boolean isPickedDown = false;
+    public static Timer refreshTimer;
+
 
     @Nullable
     @Override
@@ -196,7 +201,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                             , PackageManager.GET_META_DATA));
             if (app_name != null) {
                 if (!app_name.equals(Constraint.SYSTEM_LUNCHER) && !app_name.equals(Constraint.DAISYY))
-                    DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.OPEN + app_name, "", "", Constraint.APPLICATION_LOGS);
+                    DBCaller.storeLogInDatabase(getApplicationContext(), getApplicationContext().getString(R.string.open) + app_name, "", "", Constraint.APPLICATION_LOGS);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,6 +251,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         bringApplicationTimer();
         setDeleteTimer();
         sendLogTimer();
+        checkUpdate();
     }
 
     private void sendLogTimer() {
@@ -259,6 +265,30 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 }
             }
         }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+
+    }
+
+    public static void checkUpdate() {
+        if (sessionManager == null)
+            sessionManager = SessionManager.get();
+        Time time = sessionManager.getTimeData();
+        int hour = 1;
+        int minit = 0;
+        if (time != null) {
+            hour = time.getHour();
+            minit = time.getMinit();
+        }
+
+        int second = ((hour * 3600) + (minit * 60)) * 1000;
+        refreshTimer = new Timer();
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
+                checkCardAvailability.checkCard();
+            }
+        }, second, second);
+
 
     }
 
@@ -542,10 +572,9 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
                 int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
                 int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
-
-                if (z_digree <= 92 && z_digree > 88) {
+                 if (z_digree ==90) {
                     counter++;
-                    if (counter > 10) {
+                    if (counter > 20) {
                         isPickedUp = false;
                     }
 
@@ -560,12 +589,17 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         if (!isPickedUpSucess) {
                             isPickedDown = false;
                             isPickedUpSucess = true;
+                            ValidationHelper.showToast(getApplicationContext(),"Device picked up");
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
                         }
                     } else {
                         if (!isPickedDown) {
                             isPickedDown = true;
                             isPickedUpSucess = false;
+                            ValidationHelper.showToast(getApplicationContext(),"Device put down");
+
+                            Log.e("checking","picked down");
+
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked down", "", "", Constraint.APPLICATION_LOGS);
 
                         }

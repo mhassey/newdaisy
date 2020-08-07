@@ -265,7 +265,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void batteryUsage() {
         final PowerManager pm = (PowerManager) requireContext().getSystemService(Context.POWER_SERVICE);
         if (!pm.isIgnoringBatteryOptimizations(getString(R.string.packageName))) {
-            Utils.showAlertDialog(requireContext(), Constraint.BATTRY_OPTIMIZATION, "Ok", new DialogInterface.OnClickListener() {
+            Utils.showAlertDialog(requireContext(), getString(R.string.battery_optimized), "Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -281,7 +281,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
     private void callUsageAccessSettings() {
-        Utils.showAlertDialog(requireContext(), Constraint.ACTION_USAGE_ACCESS_SETTINGS, "Ok", new DialogInterface.OnClickListener() {
+        Utils.showAlertDialog(requireContext(), getString(R.string.allow_data_access), "Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
@@ -293,7 +293,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
     private void modifySystemSettingsAsk() {
-        Utils.showAlertDialog(requireContext(), Constraint.MODIFY_SYSTEM_SEETINGS, "Ok", new DialogInterface.OnClickListener() {
+        Utils.showAlertDialog(requireContext(), getString(R.string.modify_system_settings_text), "Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Utils.youDesirePermissionCode(requireActivity());
@@ -307,7 +307,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     boolean askForPopUpPermission() {
 
         if (!Settings.canDrawOverlays(requireContext())) {
-            Utils.showAlertDialog(requireContext(), Constraint.ASK_FOR_POPUP_PERMISSION, "Ok", new DialogInterface.OnClickListener() {
+            Utils.showAlertDialog(requireContext(), getString(R.string.display_over_the_app), "Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,

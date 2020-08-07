@@ -13,6 +13,8 @@ import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogServerRequest;
 import com.daisy.pojo.response.BlankResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.PriceCard;
+import com.daisy.pojo.response.PriceCardMain;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.google.gson.Gson;
@@ -38,6 +40,7 @@ public class SyncLogs {
     private boolean isSyncingInProgress;
     private int MAX_CONTACT_COUNT_FOR_EACH_CALL = 500;
     private int loopCount;
+    private SessionManager sessionManager;
     private SyncLogs(Context context) {
         this.context = context;
         logsVOList = new ArrayList<>();
@@ -50,6 +53,7 @@ public class SyncLogs {
 
     }
     public void saveContactApi() {
+        sessionManager=SessionManager.get();
         if (isSyncingInProgress)
             return;
         new Thread(new Runnable() {
@@ -143,6 +147,9 @@ public class SyncLogs {
                 requests.add(logServerRequest);
             }
             logSyncRequest.put("log",getJsonObject(requests).toString());
+            PriceCardMain priceCard= sessionManager.getPriceCard();
+            logSyncRequest.put("idpriceCard",priceCard.getIdpriceCard());
+            logSyncRequest.put("idpromotion","1");
             logSyncRequest.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
 
         } catch (Exception e) {

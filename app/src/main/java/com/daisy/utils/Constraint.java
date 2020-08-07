@@ -85,15 +85,10 @@ public class Constraint {
     public static final long THIRTY = 30;
     public static final int POP_UP_RESPONSE = 121;
     public static final int RETURN = 11;
-    public static final String ASK_FOR_POPUP_PERMISSION = "Please allow Daisy to display over other apps on your device.";
-    public static final String ACTION_USAGE_ACCESS_SETTINGS = "Please allow Usage Data Access to Daisy in your device's settings.";
-    public static final String MODIFY_SYSTEM_SEETINGS = "Please allow Daisy to modify system settings in your device.";
-    public static final String PERMISSION_REQUIRED = " Permission Required";
-    public static final String BATTRY_OPTIMIZATION = "Please allow Daisy battery  to not optimized in your device's settings";
-    public static final int BATTRY_OPTIMIZATION_CODE = 232;
+   public static final int BATTRY_OPTIMIZATION_CODE = 232;
     public static final long FIVE = 5;
     public static final long TEN_MINUTES = 10000*60;
-    public static final long TWO_HOUR=120000*60;
+    public static final long TWO_HOUR=1000*60;
     public static final String SETTING_PATH = "com.android.settings";
     public static final String PLAY_STORE_PATH = "com.android.vending";
     public static final String PASSWORD = "12345";
@@ -121,20 +116,13 @@ public class Constraint {
     public static final String TOKEN = "token";
     public static final String REDME = "Redmi";
     public static final int MI_EXTRA_PERMISSION_CODE = 134;
-    public static final String CAMERA = "camera";
-    public static final String CAMERA_OPEN = "open camera";
-    public static final String LOAD_PERMISSION_SCREEN = "Load permission screen";
-    public static final String LOAD_SECURITY_SCREEN = "Load security screen";
-    public static final String LOAD_ADD_SCREEN = "Load add screen";
-    public static final String POSITION_UPDATE = "Position updated";
-    public static final String SCREEN_ADD = "Screen add";
-    public static final String LOGIN_SUCCESS = "Login success";
-    public static final String DATA_STORE = "Data store";
-    public static final String OPEN = "Open";
+
     public static final String SYSTEM_LUNCHER = "System launcher";
     public static final String DAISYY = "Daisy";
-    public static final String USER_PASS = "User pass from phone";
-    public static final String DEVICE_PICK_UP = "device pick up";
+    public static final String CARRIER_ID = "carrierId";
+    public static final String DEVICE_NAME = "deviceName";
+    public static final String BUILD_VERSION = "buildVersion";
+
     public static  boolean IS_OVER_APP_SETTING = false;
     public static  int CREENTBRIGHNESS  ;
     public static String current_running_process = "";

@@ -6,6 +6,7 @@ import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectRequest;
 import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectResponse;
 import com.daisy.activity.updatePosition.vo.UpdatePositionResponse;
+import com.daisy.pojo.response.DeleteCardResponse;
 import com.daisy.utils.Constraint;
 import com.daisy.pojo.response.BlankResponse;
 import com.daisy.pojo.response.GeneralResponse;
@@ -47,4 +48,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.UPDATE_POSITION)
     Call<GlobalResponse<UpdatePositionResponse>> updatePosition(@FieldMap HashMap<String, String> input,@Header(Constraint.TOKEN) String s);
+
+    @FormUrlEncoded
+    @POST(ApiConstant.DELETE_CARD)
+    Call<GlobalResponse<DeleteCardResponse>> deleteCard(@FieldMap  HashMap<String, String> hashMap,@Header(Constraint.TOKEN) String s);
 }

@@ -26,15 +26,16 @@ import androidx.databinding.DataBindingUtil;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
-import com.daisy.database.DBCaller;
-import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
+import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityEditorToolBinding;
 import com.daisy.service.StickyService;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
@@ -94,7 +95,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     private void batteryUsage() {
         final PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         if (!pm.isIgnoringBatteryOptimizations(getString(R.string.packageName))) {
-            Utils.showAlertDialog(context, Constraint.BATTRY_OPTIMIZATION, "Ok", new DialogInterface.OnClickListener() {
+            Utils.showAlertDialog(context, getString(R.string.battery_optimized), "Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -126,9 +127,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
 
     private void setOnClickListener() {
         mBinding.saveAndLoad.setOnClickListener(this::onClick);
-        mBinding.logs.setOnClickListener(this::onClick);
-        mBinding.updatePosition.setOnClickListener(this::onClick);
-        mBinding.updateBaseUrl.setOnClickListener(this::onClick);
+        mBinding.configSettings.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -232,7 +231,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
 
 
     private void modifySystemSettings() {
-        Utils.showAlertDialog(context, Constraint.MODIFY_SYSTEM_SEETINGS, "Ok", new DialogInterface.OnClickListener() {
+        Utils.showAlertDialog(context, getString(R.string.modify_system_settings_text), "Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Utils.youDesirePermissionCode(EditorTool.this);
@@ -243,7 +242,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     }
 
     private void callUsageAccessSettings() {
-        Utils.showAlertDialog(context, Constraint.ACTION_USAGE_ACCESS_SETTINGS, "Ok", new DialogInterface.OnClickListener() {
+        Utils.showAlertDialog(context,getString(R.string.allow_data_access), "Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
@@ -287,38 +286,21 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                 saveAndLoad();
                 break;
             }
-            case R.id.logs: {
-                openLogActivity();
-                break;
-            }
-            case R.id.updatePosition:
+            case  R.id.configSettings:
             {
-                openUpdatePositionActivity();
+                openConfigSettings();
                 break;
             }
-            case R.id.updateBaseUrl:
-            {
-                updateBaseUrl();
-                break;
-            }
+
         }
     }
 
-    private void updateBaseUrl() {
-        Intent intent=new Intent(EditorTool.this, UpdateBaseUrl.class);
-        startActivity(intent);
-
-    }
-
-    private void openUpdatePositionActivity() {
-    Intent intent=new Intent(EditorTool.this,UpdatePosition.class);
-    startActivity(intent);
-    }
-
-    private void openLogActivity() {
-        Intent intent = new Intent(EditorTool.this, LogsMainActivity.class);
+    private void openConfigSettings() {
+        Intent intent=new Intent(EditorTool.this, ConfigSettings.class);
         startActivity(intent);
     }
+
+
 
 
     private void saveAndLoad() {
@@ -425,7 +407,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     boolean askForPopUpPermission() {
 
         if (!Settings.canDrawOverlays(this)) {
-            Utils.showAlertDialog(context, Constraint.ASK_FOR_POPUP_PERMISSION, "Ok", new DialogInterface.OnClickListener() {
+            Utils.showAlertDialog(context, getString(R.string.display_over_the_app), "Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,

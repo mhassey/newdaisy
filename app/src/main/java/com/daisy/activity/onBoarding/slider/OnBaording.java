@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
@@ -197,7 +198,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            DBCaller.storeLogInDatabase(context,getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName()+Constraint.DATA_STORE,"","",Constraint.APPLICATION_LOGS);
+                            DBCaller.storeLogInDatabase(context,getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName()+getString(R.string.data_store),"","",Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -303,7 +304,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-            DBCaller.storeLogInDatabase(context,screenAddResponseGlobalResponse.getResult().getId()+Constraint.SCREEN_ADD,"","",Constraint.APPLICATION_LOGS);
+            DBCaller.storeLogInDatabase(context,screenAddResponseGlobalResponse.getResult().getId()+getString(R.string.screen_add),"","",Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.VISIBLE);
             mBinding.pager.setCurrentItem(count);
@@ -321,7 +322,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
         hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
         hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
+        if ( addScreen.selectedProduct.getIdproductStatic()!=null)
         hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.selectedProduct.getIdproductStatic());
+        hashMap.put(Constraint.DEVICE_NAME,Utils.getDeviceName());
+        hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_CODE+"");
         LoginResponse loginResponse = sessionManager.getLoginResponse();
         hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
         return hashMap;
@@ -339,6 +343,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
+        Utils.deleteDaisy();
        String UrlPath= response.getResult().getPricecard().getFileName();
         if (response.getResult().getPricecard().getFileName() != null) {
                 String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;

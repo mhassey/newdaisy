@@ -62,7 +62,7 @@ public class LoadFrontCameraAsyncTask extends AsyncTask<Void, Void, FaceDetectio
     protected void onPostExecute(FaceDetectionCamera camera) {
         super.onPostExecute(camera);
         if (camera == null) {
-            listener.onFailedToLoadFaceDetectionCamera();
+          // listener.onFailedToLoadFaceDetectionCamera();
         } else {
             listener.onLoaded(camera);
         }

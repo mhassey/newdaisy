@@ -110,4 +110,8 @@ public interface PrefConstant {
     String FOLDER_NAME = "folderName";
     String SCREEN_POSITION = "screenPosition";
     String BASE_URL = "baseUrl";
+    String TIME = "time";
+    public static final String DELETE_CARD = "deleteCard";
+
+    String OS_TYPE = "Os_Type";
 }

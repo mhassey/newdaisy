@@ -442,7 +442,7 @@ public class Utils {
         if (text == null)
             text = "";
         android.app.AlertDialog mAlertDialog = new AlertDialog.Builder(mContext).setMessage(text).
-                setTitle(Constraint.PERMISSION_REQUIRED).setCancelable(true)
+                setTitle(mContext.getString(R.string.permission_req)).setCancelable(true)
                 .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -633,6 +633,19 @@ public class Utils {
 
         } catch (PackageManager.NameNotFoundException e) {
             return false;
+        }
+    }
+
+    public static void deleteDaisy() {
+       String path= Environment.getExternalStorageDirectory()+Constraint.SLASH+Constraint.DAISY;
+        File dir = new File(path);
+        if (dir.isDirectory()) {
+            try {
+                FileUtils.deleteDirectory(dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }

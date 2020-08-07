@@ -109,7 +109,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         showHideProgressDialog(false);
         if (signUpResponse!=null) {
             if (signUpResponse.isApi_status()) {
-                DBCaller.storeLogInDatabase(context,Constraint.LOGIN_SUCCESS,"","",Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context,getString(R.string.login_success),"","",Constraint.APPLICATION_LOGS);
                 sessionManager.setSignUpData(signUpResponse.getData());
                 baording.counterPlus();
             } else {

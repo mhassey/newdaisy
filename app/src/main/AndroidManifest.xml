@@ -41,7 +41,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.updateBaseUrl.UpdateBaseUrl"></activity>
+        <activity android:name=".activity.refreshTimer.RefreshTimer"></activity>
+        <activity android:name=".activity.configSettings.ConfigSettings" />
+        <activity android:name=".activity.updateBaseUrl.UpdateBaseUrl" />
         <activity android:name=".activity.updatePosition.UpdatePosition" />
         <activity android:name=".activity.login.LoginActivity" />
         <activity android:name=".activity.onBoarding.slider.OnBaording" />

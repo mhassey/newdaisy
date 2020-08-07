@@ -30,6 +30,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.ObjectDetection.CameraSurfaceView;
@@ -37,12 +39,18 @@ import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
 import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.deleteCard.DeleteCardViewModel;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
+import com.daisy.pojo.response.DeleteCardResponse;
+import com.daisy.pojo.response.Download;
+import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.InternetResponse;
+import com.daisy.pojo.response.Promotion;
+import com.daisy.pojo.response.UpdateCards;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -56,6 +64,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -117,12 +128,26 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private void getDownloadData() {
         if (CheckForSDCard.isSDCardPresent()) {
 
+           List<Promotion> promotions= sessionManager.getPromotion();
+           List<Download> downloads=new ArrayList<>();
             //check if app has permission to write to the external storage.
             if (checkPermission()) {
                 //Get the URL entered
                 final String url = Utils.getPath();
                 if (url != null) {
-                    new DownloadFile(MainActivity.this, MainActivity.this).execute(url);
+                    Download download=new Download();
+                    download.setPath(url);
+                    download.setType("");
+                    downloads.add(download);
+                    for (Promotion promotion:promotions)
+                    {
+                        Download downloadPromotion=new Download();
+                        downloadPromotion.setPath(promotion.getFileName());
+                        downloadPromotion.setType(getString(R.string.promotion));
+                        downloads.add(downloadPromotion);
+                    }
+                     new DownloadFile(MainActivity.this, MainActivity.this,downloads).execute(url);
+
                 } else {
                     editorToolOpen();
                 }
@@ -197,7 +222,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     @Override
     public void callBack(String data) {
-        loadURL();
+        mBinding.webView.post(new Runnable() {
+            @Override
+            public void run() {
+                loadURL();
+            }
+        });
+
     }
 
     @SuppressLint("JavascriptInterface")
@@ -231,39 +262,78 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.setWebChromeClient(new WebClient());
             setWebViewClient();
             String val = sessionManager.getLocation();
+            boolean isDelete = sessionManager.getCardDeleted();
             File f = new File(val);
             File file[] = f.listFiles();
-            for (File file1 : file) {
-                if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX")) {
-                    File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
-                    if (mainFile.exists()) {
-                        mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
-                     } else {
-                        File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                       File file3 = new File(sessionManager.getLocation() +Constraint.SLASH+file1.getName()+ Constraint.SLASH + file1.getName()+".html");
+            if (file != null) {
+                for (File file1 : file) {
+                    if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX")) {
+                        File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                        if (mainFile.exists()) {
+                            mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                            if (!isDelete)
+                                deleteCard();
+                        } else {
 
-                        if (file2.exists()) {
-                            mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                            // mBinding.webView.loadUrl("https://c2.mobilepricecard.com/pricecard/pcard001/pcard001.html");
-                        }
-                        else if (file3.exists())
-                        {
-                            mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() +Constraint.SLASH+file1.getName()+ Constraint.SLASH + file1.getName()+".html");
+                            File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                            File file3 = new File(sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + ".html");
 
+                            if (file2.exists()) {
+                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+
+                                if (!isDelete)
+                                    deleteCard();
+                            } else if (file3.exists()) {
+                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + ".html");
+                                if (!isDelete)
+                                    deleteCard();
+                            } else {
+                                sessionManager.deleteLocation();
+                                getDownloadData();
+                            }
                         }
-                        else {
-                            sessionManager.deleteLocation();
-                            getDownloadData();
-                        }
+
+                        return;
                     }
 
-                    return;
                 }
-            }
 
-        } else {
+            } else {
+
+                getDownloadData();
+            }
+        }
+        else {
 
             getDownloadData();
+        }
+
+    }
+
+    private void deleteCard() {
+        DeleteCardViewModel deleteCardViewModel=new ViewModelProvider(this).get(DeleteCardViewModel.class);
+        deleteCardViewModel.setMutableLiveData(getDeleteCardRequest());
+      LiveData<GlobalResponse<DeleteCardResponse>> liveData= deleteCardViewModel.getLiveData();
+        liveData.observe(this, new Observer<GlobalResponse<DeleteCardResponse>>() {
+            @Override
+            public void onChanged(GlobalResponse<DeleteCardResponse> deleteCardResponseGlobalResponse) {
+                sessionManager.setCardDeleted();
+                handleDeleteResponse(deleteCardResponseGlobalResponse);
+            }
+        });
+    }
+
+
+    private HashMap<String, String> getDeleteCardRequest() {
+    HashMap<String,String> hashMap=new HashMap<>();
+    hashMap.put(Constraint.TOKEN,sessionManager.getDeviceToken());
+    return  hashMap;
+    }
+
+    private void handleDeleteResponse(GlobalResponse<DeleteCardResponse> deleteCardResponseGlobalResponse) {
+        if (deleteCardResponseGlobalResponse.isApi_status())
+        {
+
         }
     }
 
@@ -390,9 +460,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     private void goToWifi() {
         sessionManager.setPasswordCorrect(true);
-        if (Utils.getDeviceName().contains(Constraint.PIXEL) || Utils.getDeviceName().contains(getString(R.string.pixel_emulator))) {
-            startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 1221);
-        } else {
+//        if (Utils.getDeviceName().contains(Constraint.PIXEL) || Utils.getDeviceName().contains(getString(R.string.pixel_emulator))) {
+//            startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 1221);
+//        } else {
             Intent intent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
             if (Utils.getDeviceName().contains(getString(R.string.onePlus))) {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -402,7 +472,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             }
             this.startActivityForResult(intent, 9900);
-        }
+    //}
 
     }
 
@@ -504,7 +574,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onStop();
         if (EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().unregister(this);
-        //fotoapparatSwitcher.stop();
 
     }
 
@@ -518,6 +587,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateCards(UpdateCards updateCards)
+    {
+        getDownloadData();
+    }
 
     public class WebClient extends WebChromeClient {
 

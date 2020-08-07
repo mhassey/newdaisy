@@ -1,6 +1,7 @@
 package com.daisy.activity.splash;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -11,6 +12,8 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.common.session.SessionManager;
 import com.daisy.sync.SyncLogs;
+
+import java.util.Locale;
 
 public class SplashScreen extends BaseActivity {
     private SessionManager sessionManager;
@@ -25,14 +28,16 @@ public class SplashScreen extends BaseActivity {
     private void initView() {
         setNoTitleBar(this);
         sessionManager=SessionManager.get();
-        final Handler handler = new Handler();
+          final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 redirectToWelcome();
             }
         }, 4000);
+
     }
+
 
     private void redirectToWelcome() {
         if (sessionManager.getOnBoarding())

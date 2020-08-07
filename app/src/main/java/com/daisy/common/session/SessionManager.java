@@ -6,11 +6,17 @@ import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.apiService.ApiConstant;
 import com.daisy.app.AppController;
 import com.daisy.pojo.response.LoginResponse;
+import com.daisy.pojo.response.OsType;
+import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.PriceCardMain;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.ScreenPosition;
+import com.daisy.pojo.response.Time;
+import com.daisy.utils.Constraint;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -797,6 +803,7 @@ public class SessionManager {
         pref.setStringData(PrefConstant.PRICE_CARD,data);
     }
 
+
     public void setPromotion(List<Promotion> promotions) {
         Gson gson = new Gson();
         String data=   gson.toJson(promotions);
@@ -816,11 +823,24 @@ public class SessionManager {
         pref.setStringData(PrefConstant.SCREEN_POSITION,data);
     }
 
+    public PriceCardMain getPriceCard()
+    {
+        Gson gson=new Gson();
+        String response=pref.getStringData(PrefConstant.PRICE_CARD);
+        PriceCardMain priceCard=gson.fromJson(response,PriceCardMain.class);
+        return priceCard;
+    }
     public ScreenPosition getPosition() {
         Gson gson=new Gson();
         String response=pref.getStringData(PrefConstant.SCREEN_POSITION);
         ScreenPosition loginResponse= gson.fromJson(response, ScreenPosition.class);
         return loginResponse;
+    }
+    public List<Promotion> getPromotion() {
+        Gson gson=new Gson();
+        String response=pref.getStringData(PrefConstant.PROMOTION);
+        List<Promotion> promotion= gson.fromJson(response, new TypeToken<List<Promotion>>(){}.getType());
+        return promotion;
     }
 
     public String getBaseUrl() {
@@ -837,5 +857,36 @@ public class SessionManager {
 
     public void removeBaseUrl() {
     pref.removeBaseUrl();
+    }
+
+    public void setTimerToGetCard(Time time) {
+        Gson gson = new Gson();
+        String data=   gson.toJson(time);
+        pref.setStringData(PrefConstant.TIME,data);
+    }
+    public Time getTimeData()
+    {
+        Gson gson=new Gson();
+        String response=pref.getStringData(PrefConstant.TIME);
+        if (response!=null) {
+            Time time = gson.fromJson(response, Time.class);
+            return time;
+        }
+        return null;
+    }
+
+    public boolean getCardDeleted() {
+    return  pref.getBoolean(PrefConstant.DELETE_CARD);
+    }
+    public void setCardDeleted()
+    {
+        pref.setBooleanData(PrefConstant.DELETE_CARD,true);
+    }
+
+    public void setOSType(List<OsType> osTypes) {
+        Gson gson = new Gson();
+        String data=   gson.toJson(osTypes);
+        pref.setStringData(PrefConstant.OS_TYPE,data);
+
     }
 }

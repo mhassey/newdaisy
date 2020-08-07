@@ -92,33 +92,15 @@
             android:background="@drawable/button_border_format"
             android:text="@string/save_and_load"
             android:textColor="@color/white" />
-        <Button
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_width="@dimen/dp200"
-            android:id="@+id/logs"
-            android:textAllCaps="false"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_border_format"
-            android:text="@string/logs"
-            android:textColor="@color/white" />
 
         <Button
             android:layout_marginTop="@dimen/dp20"
             android:layout_width="@dimen/dp200"
-            android:id="@+id/updatePosition"
+            android:id="@+id/configSettings"
             android:textAllCaps="false"
             android:layout_height="wrap_content"
             android:background="@drawable/button_border_format"
-            android:text="@string/update_position"
-            android:textColor="@color/white" />
-        <Button
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_width="@dimen/dp200"
-            android:id="@+id/updateBaseUrl"
-            android:textAllCaps="false"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_border_format"
-            android:text="@string/update_baseurl"
+            android:text="@string/settings"
             android:textColor="@color/white" />
     </LinearLayout>
 
