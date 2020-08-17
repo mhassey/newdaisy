@@ -889,4 +889,13 @@ public class SessionManager {
         pref.setStringData(PrefConstant.OS_TYPE,data);
 
     }
+
+    public boolean getBaseUrlAdded() {
+   boolean b= pref.getBoolean(PrefConstant.BASE_URL_ENTER);
+        return b;
+    }
+
+    public void setBaseUrlChange(boolean b) {
+    pref.setBooleanData(PrefConstant.BASE_URL_ENTER,b);
+    }
 }

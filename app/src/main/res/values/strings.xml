@@ -88,7 +88,7 @@
     <string name="refresh_time_set">Refresh time set</string>
     <string name="promotion">promotion</string>
     <string name="open">Open</string>
-    <string name="data_store" >Data store</string>
+    <string name="data_store">Data store</string>
     <string name="login_success">Login success</string>
     <string name="screen_add">Screen add</string>
     <string name="position_update">Position updated</string>
@@ -106,4 +106,7 @@
     <string name="french">French</string>
     <string name="spanish">Spanish</string>
     <string name="postigues">Portuguese</string>
+    <string name="product_not_available">Product  not available</string>
+    <string name="store_code_id">store_code</string>
+    <string name="enter_base_url_for_server">Enter URL for the server</string>
 </resources>

@@ -37,7 +37,9 @@
 
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/isle"
+            android:text="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="?attr/editTextColor"
@@ -49,8 +51,9 @@
             android:textColorHint="@color/editTextLineColor"
             android:padding="@dimen/dp10" />
     <EditText
-
+        android:visibility="gone"
         android:id="@+id/shelf"
+        android:text="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="?attr/editTextColor"
@@ -62,7 +65,8 @@
         android:textColorHint="@color/editTextLineColor"
         android:padding="@dimen/dp10" />
     <EditText
-
+        android:visibility="gone"
+        android:text="1"
         android:id="@+id/position"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

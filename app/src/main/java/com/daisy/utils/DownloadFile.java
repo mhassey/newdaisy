@@ -33,6 +33,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     private CallBack callBack;
     private  boolean promotion;
     private List<Download> downloads;
+    int pathSetting=0;
 
 
     public DownloadFile(Context c, CallBack callBack,List<Download> downloads) {
@@ -80,15 +81,18 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 String timestamp = new SimpleDateFormat(Constraint.TIME_FORMAT).format(new Date());
 
                 //Extract file name from URL
-                fileName = f_url[0].substring(f_url[0].lastIndexOf('/') + 1);
+                fileName = download.getPath().substring(download.getPath().lastIndexOf('/') + 1);
 
                 //Append timestamp to file name
-                fileName = timestamp + "_" + fileName;
+             //   fileName = timestamp + "_" + fileName;
 
                 //External directory path to save file
                 if (promotion) {
-                    folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + context.getString(R.string.promotion) + Constraint.SLASH;
+                    String path=Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD;
+                    File f = new File(path);
+                    String file[] = f.list();
 
+                    folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH+file[1]+Constraint.SLASH+context.getString(R.string.promotion)+Constraint.SLASH;
                 } else
                     folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH;
 
@@ -125,9 +129,17 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 output.close();
                 input.close();
                 File file=new File(path);
-                SessionManager.get().setLocation(file.getParent());
+                if (pathSetting==0) {
+                        pathSetting++;
+                    SessionManager.get().setLocation(file.getParent());
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new ZipManager().unpackZip(path,callBack);
 
-                new ZipManager().unpackZip(path,callBack);
+                    }
+                }).start();
 
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());

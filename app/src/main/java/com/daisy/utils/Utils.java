@@ -226,6 +226,29 @@ public class Utils {
         return false;
     }
 
+    public static String getFileName(String configFilePath) {
+        try {
+             File file1 = new File(configFilePath, Constraint.configFile);
+            if (file1.exists()) {
+                Scanner input = null;
+                try {
+                    input = new Scanner(file1);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                String url = input.next();
+                File file = new File(url);
+                String name = file.getName();
+                name = name.replace(Constraint.DOT_ZIP, "");
+                return name;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
+    }
+
     public static String getFileName() {
         try {
             String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
@@ -470,6 +493,41 @@ public class Utils {
         return 0;
     }
 
+    public static String getFileNameFromURL(String url) {
+        if (url == null) {
+            return "";
+        }
+        try {
+            URL resource = new URL(url);
+            String host = resource.getHost();
+            if (host.length() > 0 && url.endsWith(host)) {
+                // handle ...example.com
+                return "";
+            }
+        }
+        catch(MalformedURLException e) {
+            return "";
+        }
+
+        int startIndex = url.lastIndexOf('/') + 1;
+        int length = url.length();
+
+        // find end index for ?
+        int lastQMPos = url.lastIndexOf('?');
+        if (lastQMPos == -1) {
+            lastQMPos = length;
+        }
+
+        // find end index for #
+        int lastHashPos = url.lastIndexOf('#');
+        if (lastHashPos == -1) {
+            lastHashPos = length;
+        }
+
+        // calculate the end index
+        int endIndex = Math.min(lastQMPos, lastHashPos);
+        return url.substring(startIndex, endIndex);
+    }
 
     public static void constructJobForBackground(long timeMiles, Context context) {
         AlaramHelperBackground.scheduleRepeatingRTCNotification(context, timeMiles);

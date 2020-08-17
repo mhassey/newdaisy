@@ -279,7 +279,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             minit = time.getMinit();
         }
 
-        int second = ((hour * 3600) + (minit * 60)) * 1000;
+         int second = ((hour * 3600) + (minit * 60)) * 1000;
         refreshTimer = new Timer();
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -589,17 +589,14 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         if (!isPickedUpSucess) {
                             isPickedDown = false;
                             isPickedUpSucess = true;
-                            ValidationHelper.showToast(getApplicationContext(),"Device picked up");
+                         //   ValidationHelper.showToast(getApplicationContext(),"Device picked up");
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
                         }
                     } else {
                         if (!isPickedDown) {
                             isPickedDown = true;
                             isPickedUpSucess = false;
-                            ValidationHelper.showToast(getApplicationContext(),"Device put down");
-
-                            Log.e("checking","picked down");
-
+                           // ValidationHelper.showToast(getApplicationContext(),"Device put down");
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked down", "", "", Constraint.APPLICATION_LOGS);
 
                         }

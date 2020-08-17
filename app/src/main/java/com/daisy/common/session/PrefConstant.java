@@ -114,4 +114,5 @@ public interface PrefConstant {
     public static final String DELETE_CARD = "deleteCard";
 
     String OS_TYPE = "Os_Type";
+    String BASE_URL_ENTER = "baseUrlEnter";
 }

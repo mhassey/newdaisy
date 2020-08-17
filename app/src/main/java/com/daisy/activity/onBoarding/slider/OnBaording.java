@@ -322,8 +322,15 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
         hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
         hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
-        if ( addScreen.selectedProduct.getIdproductStatic()!=null)
-        hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.selectedProduct.getIdproductStatic());
+        if (addScreen.selectedProduct!=null) {
+            if (addScreen.selectedProduct.getIdproductStatic() != null)
+                hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.selectedProduct.getIdproductStatic());
+        }
+        else
+        {
+         ValidationHelper.showToast(context,getString(R.string.product_not_available));
+
+        }
         hashMap.put(Constraint.DEVICE_NAME,Utils.getDeviceName());
         hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_CODE+"");
         LoginResponse loginResponse = sessionManager.getLoginResponse();

@@ -124,8 +124,8 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
     private HashMap<String,String> getSignUpRequest() {
         HashMap<String,String> hashMap=new HashMap<>();
-        hashMap.put(getString(R.string.store_id),loginBinding.storeCode.getText().toString());
-        hashMap.put(getString(R.string.password),loginBinding.password.getText().toString());
+        hashMap.put(Constraint.STORE_CODE,loginBinding.storeCode.getText().toString());
+        hashMap.put(Constraint.PASSWORD_ID,loginBinding.password.getText().toString());
 
         return hashMap;
     }

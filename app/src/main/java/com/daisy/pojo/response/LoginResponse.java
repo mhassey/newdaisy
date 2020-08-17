@@ -1,5 +1,7 @@
 package com.daisy.pojo.response;
 
+import java.util.List;
+
 public class LoginResponse extends GlobalResponse {
     private String idstore;
     private String idOU;
@@ -8,6 +10,15 @@ public class LoginResponse extends GlobalResponse {
     private String storeLocation;
     private String storeContact;
     private String storeHours;
+    private List<Carrier> carrier;
+
+    public List<Carrier> getCarrier() {
+        return carrier;
+    }
+
+    public void setCarrier(List<Carrier> carrier) {
+        this.carrier = carrier;
+    }
 
     public String getIdstore() {
         return idstore;

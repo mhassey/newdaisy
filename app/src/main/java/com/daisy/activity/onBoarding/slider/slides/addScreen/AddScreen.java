@@ -60,13 +60,28 @@ public class AddScreen extends BaseFragment {
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
 
         context = requireContext();
-        sessionManager = SessionManager.get();
-        getGeneralResponse(null);
+
     }
 
     private void initClick() {
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sessionManager = SessionManager.get();
+        if (sessionManager.getLoginResponse() != null) {
+            List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
+            if (carriers != null) {
+                this.carriers = carriers;
+                ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, android.R.layout.simple_spinner_item, this.carriers);
+                carrierArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mBinding.carrierName.setAdapter(carrierArrayAdapter);
+
+            }
+        }
     }
 
     private AdapterView.OnItemSelectedListener getProductNameListener() {
@@ -126,21 +141,14 @@ public class AddScreen extends BaseFragment {
         if (generalResponse != null) {
             if (generalResponse.isApi_status()) {
                 sessionManager.setOSType(generalResponse.getResult().getOsTypes());
-                if (selectedCarrier == null) {
-                    carriers = (generalResponse.getResult().getCarrier());
-                    if (carriers != null) {
-                        ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, android.R.layout.simple_spinner_item, carriers);
-                        carrierArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mBinding.carrierName.setAdapter(carrierArrayAdapter);
-                    }
-                } else {
-                    products = (generalResponse.getResult().getProducts());
-                    if (products != null) {
-                        ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, products);
-                        productArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mBinding.productName.setAdapter(productArrayAdapter);
-                    }
+
+                products = (generalResponse.getResult().getProducts());
+                if (products != null) {
+                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, products);
+                    productArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mBinding.productName.setAdapter(productArrayAdapter);
                 }
+
             } else {
                 ValidationHelper.showToast(context, generalResponse.getMessage());
             }

@@ -122,6 +122,9 @@ public class Constraint {
     public static final String CARRIER_ID = "carrierId";
     public static final String DEVICE_NAME = "deviceName";
     public static final String BUILD_VERSION = "buildVersion";
+    public static final String STORE_CODE = "store_code";
+    public static final String PASSWORD_ID = "password";
+    public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 
     public static  boolean IS_OVER_APP_SETTING = false;
     public static  int CREENTBRIGHNESS  ;

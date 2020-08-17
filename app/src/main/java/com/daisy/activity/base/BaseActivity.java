@@ -82,6 +82,7 @@ public class BaseActivity extends AppCompatActivity {
             } else {
                 progressDialog = new ProgressDialog(this);
                 progressDialog.setMessage("Loading...");
+                progressDialog.setCancelable(false);
                 showHideProgressDialog(iShow);
             }
         } catch (Exception e) {

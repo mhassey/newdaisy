@@ -62,6 +62,9 @@ import com.daisy.utils.ValidationHelper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -236,31 +239,28 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
 
 
-            WebSettings settings = mBinding.webView.getSettings();
-            mBinding.webView.addJavascriptInterface(this, Constraint.ANDROID);
-            settings.setJavaScriptEnabled(true);
-            settings.setDomStorageEnabled(true);
-            settings.setLoadWithOverviewMode(true);
-            settings.setAllowFileAccessFromFileURLs(true);
-            settings.setAllowUniversalAccessFromFileURLs(true);
-            settings.setLoadsImagesAutomatically(true);
-            settings.setJavaScriptCanOpenWindowsAutomatically(true);
-            settings.setPluginState(WebSettings.PluginState.ON);
-            settings.setUseWideViewPort(true);
-            settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-            settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-            settings.setAppCacheEnabled(true);
-            settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-            settings.setUseWideViewPort(true);
-            settings.setAppCacheEnabled(true);
-            settings.setDomStorageEnabled(true);
-            settings.setAppCachePath(getApplicationContext().getFilesDir().getAbsolutePath() + getString(R.string.chche));
-            settings.setDatabaseEnabled(true);
-            settings.setDatabasePath(getApplicationContext().getFilesDir().getAbsolutePath() + getString(R.string.databse));
-            settings.setMediaPlaybackRequiresUserGesture(false);
-            mBinding.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             mBinding.webView.setWebChromeClient(new WebClient());
             setWebViewClient();
+//            mBinding.webView.setWebChromeClient(new WebChromeClient());
+           //mBinding.webView.setWebViewClient(new WebViewClient());
+            mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(true);
+            mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+            mBinding.webView.clearCache(true);
+            mBinding.webView.clearHistory();
+            mBinding.webView.getSettings().setAllowContentAccess(true);
+            mBinding.webView.getSettings().setDomStorageEnabled(true);
+            mBinding.webView.getSettings().setJavaScriptEnabled(true); // enable javascript
+            mBinding.webView.getSettings().setBuiltInZoomControls(true);
+            mBinding.webView.getSettings().setSupportZoom(true);
+            mBinding.webView.getSettings().setLoadWithOverviewMode(true);
+            mBinding.webView.getSettings().setUseWideViewPort(true);
+
+            mBinding.webView.getSettings().setBuiltInZoomControls(true);
+            mBinding.webView.getSettings().setDisplayZoomControls(false);
+
+            mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+            mBinding.webView.setScrollbarFadingEnabled(false);
+
             String val = sessionManager.getLocation();
             boolean isDelete = sessionManager.getCardDeleted();
             File f = new File(val);
@@ -270,7 +270,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX")) {
                         File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                         if (mainFile.exists()) {
-                            mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                           mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+
                             if (!isDelete)
                                 deleteCard();
                         } else {
@@ -279,12 +280,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             File file3 = new File(sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + ".html");
 
                             if (file2.exists()) {
-                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                                    mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
 
                                 if (!isDelete)
                                     deleteCard();
                             } else if (file3.exists()) {
-                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + ".html");
+                                  mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + ".html");
+
                                 if (!isDelete)
                                     deleteCard();
                             } else {
@@ -359,11 +361,23 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             @Override
             public void onPageFinished(WebView view, final String url) {
 
-                super.onPageFinished(view, url);
-                if (url.contains(Constraint.FILE)) {
-                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
-                }
+//                super.onPageFinished(view, url);
+//                if (url.contains(Constraint.FILE)) {
+//                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
+//                }
+                JSONArray jsonArray=new JSONArray();
+                JSONObject  jsonObject=new JSONObject();
+                try {
+                    jsonObject.put("priceA","100");
+                    jsonObject.put("priceB","1000");
+                    jsonObject.put("priceC","10000");
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+                jsonArray.put(jsonObject);
+                mBinding.webView.loadUrl("javascript:clickHandle("+jsonArray+")");
 
             }
 
@@ -597,15 +611,21 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-            Log.e("kali", consoleMessage.message());
-            return super.onConsoleMessage(consoleMessage);
+            Log.e("kali-check", consoleMessage.message());
+            return true;
+        }
+
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+        Log.e("title",title);
         }
 
 
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             Log.e("kali", message);
-            return super.onJsAlert(view, url, message, result);
+            return true;
         }
     }
 
