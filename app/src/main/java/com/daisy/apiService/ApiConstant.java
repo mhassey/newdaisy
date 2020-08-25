@@ -19,4 +19,5 @@ public class ApiConstant {
     public static final String SEND_LOGS = URL_PACK+"/create_log";
     public static final String UPDATE_POSITION = URL_PACK+"/update_screen_position";
     public static final String DELETE_CARD = URL_PACK + "/delete_cards";
+    public static final String PROMOTION_CHECK = "validate_promotions";
 }

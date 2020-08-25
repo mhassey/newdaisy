@@ -10,8 +10,24 @@ public class GetCardResponse {
     private List<Promotion> promotions;
     private PriceCardMain pricecard;
     private List<Pricing> pricing;
+    private String defaultPriceCard;
+    private boolean isDefault;
 
+    public boolean isDefault() {
+        return isDefault;
+    }
 
+    public String getDefaultPriceCard() {
+        return defaultPriceCard;
+    }
+
+    public void setDefaultPriceCard(String defaultPriceCard) {
+        this.defaultPriceCard = defaultPriceCard;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
+    }
 
     public List<Promotion> getPromotions() {
         return promotions;

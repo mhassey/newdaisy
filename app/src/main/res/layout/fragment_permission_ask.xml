@@ -1,240 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dp20"
-        android:layout_weight="0.3"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
-        <ImageView
-            android:layout_width="@dimen/dp150"
-            android:layout_height="@dimen/dp50"
-            android:src="@drawable/mainlogolargewidth" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp20"
-        android:gravity="center">
+        <ScrollView
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_marginStart="@dimen/dp40"
-                android:id="@+id/grandMediaPermission"
-                style="@style/fontRagular"
-                android:layout_width="@dimen/dp200"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/grant_permissions"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:layout_marginTop="@dimen/dp40"
+                android:layout_marginBottom="@dimen/dp20"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/grandMediaPermissionDone"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_marginStart="@dimen/dp10"
-                android:src="@drawable/ic_accept"
-                android:visibility="invisible" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="@dimen/dp150"
+                    android:layout_height="@dimen/dp50"
+                    android:src="@drawable/mainlogolargewidth" />
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp20"
-        android:gravity="center">
+            </LinearLayout>
 
-        <LinearLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_marginStart="@dimen/dp40"
-                android:id="@+id/displayOverTheApp"
-                style="@style/fontRagular"
-                android:layout_width="@dimen/dp200"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/display_over_other_apps"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/displayOverTheAppDone"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_marginStart="@dimen/dp10"
-                android:src="@drawable/ic_accept"
-                android:visibility="invisible" />
-        </LinearLayout>
+                <LinearLayout
 
-    </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp20"
-        android:gravity="center">
+                    <TextView
+                        android:id="@+id/grandMediaPermission"
+                        style="@style/fontRagular"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp40"
+                        android:background="@drawable/edit_text_format"
+                        android:gravity="center"
+                        android:padding="@dimen/dp10"
+                        android:text="@string/grant_permissions"
+                        android:textColor="?attr/textcolorblack"
+                        android:textSize="@dimen/sp15" />
 
-        <LinearLayout
+                    <ImageView
+                        android:id="@+id/grandMediaPermissionDone"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:src="@drawable/ic_accept"
+                        android:visibility="invisible" />
+                </LinearLayout>
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/usageAccess"
-                style="@style/fontRagular"
-                android:layout_marginStart="@dimen/dp40"
-                android:layout_width="@dimen/dp200"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/grand_usage_access"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/usageAccessDone"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_marginStart="@dimen/dp10"
-                android:src="@drawable/ic_accept"
-                android:visibility="invisible" />
-        </LinearLayout>
+                <LinearLayout
 
-    </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp20"
-        android:gravity="center">
+                    <TextView
+                        android:id="@+id/displayOverTheApp"
+                        style="@style/fontRagular"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp40"
+                        android:background="@drawable/edit_text_format"
+                        android:gravity="center"
+                        android:padding="@dimen/dp10"
+                        android:text="@string/display_over_other_apps"
+                        android:textColor="?attr/textcolorblack"
+                        android:textSize="@dimen/sp15" />
 
-        <LinearLayout
+                    <ImageView
+                        android:id="@+id/displayOverTheAppDone"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:src="@drawable/ic_accept"
+                        android:visibility="invisible" />
+                </LinearLayout>
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/modifySystemSettings"
-                style="@style/fontRagular"
-                android:layout_marginStart="@dimen/dp40"
-                android:layout_width="@dimen/dp200"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/modify_system_settings"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/modifySystemSettingsDone"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_marginStart="@dimen/dp10"
-                android:src="@drawable/ic_accept"
-                android:visibility="invisible" />
-        </LinearLayout>
+                <LinearLayout
 
-    </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/dontOptimizedBatteryHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp20"
-        android:gravity="center">
+                    <TextView
+                        android:id="@+id/usageAccess"
+                        style="@style/fontRagular"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp40"
+                        android:background="@drawable/edit_text_format"
+                        android:gravity="center"
+                        android:padding="@dimen/dp10"
+                        android:text="@string/grand_usage_access"
+                        android:textColor="?attr/textcolorblack"
+                        android:textSize="@dimen/sp15" />
 
-        <LinearLayout
+                    <ImageView
+                        android:id="@+id/usageAccessDone"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:src="@drawable/ic_accept"
+                        android:visibility="invisible" />
+                </LinearLayout>
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/dontOptimizedBattery"
-                style="@style/fontRagular"
-                android:layout_marginStart="@dimen/dp40"
-                android:layout_width="@dimen/dp200"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/don_t_optimized_battery"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/batteryUsages"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_marginStart="@dimen/dp10"
-                android:src="@drawable/ic_accept"
-                android:visibility="invisible" />
-        </LinearLayout>
+                <LinearLayout
 
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/miExtraHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp20"
-        android:gravity="center">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        <LinearLayout
+                    <TextView
+                        android:id="@+id/modifySystemSettings"
+                        style="@style/fontRagular"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp40"
+                        android:background="@drawable/edit_text_format"
+                        android:gravity="center"
+                        android:padding="@dimen/dp10"
+                        android:text="@string/modify_system_settings"
+                        android:textColor="?attr/textcolorblack"
+                        android:textSize="@dimen/sp15" />
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/modifySystemSettingsDone"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:src="@drawable/ic_accept"
+                        android:visibility="invisible" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/miExtra"
-                style="@style/fontRagular"
-                android:layout_marginStart="@dimen/dp40"
-                android:layout_width="@dimen/dp200"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dontOptimizedBatteryHeader"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
-                android:gravity="center"
-                android:padding="@dimen/dp10"
-                android:text="@string/mi_extra"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/miExtraRight"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_marginStart="@dimen/dp10"
-                android:src="@drawable/ic_accept"
-                android:visibility="invisible" />
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/dontOptimizedBattery"
+                        style="@style/fontRagular"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp40"
+                        android:background="@drawable/edit_text_format"
+                        android:gravity="center"
+                        android:padding="@dimen/dp10"
+                        android:text="@string/don_t_optimized_battery"
+                        android:textColor="?attr/textcolorblack"
+                        android:textSize="@dimen/sp15" />
+
+                    <ImageView
+                        android:id="@+id/batteryUsages"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:src="@drawable/ic_accept"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/miExtraHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center">
+
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/miExtra"
+                        style="@style/fontRagular"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp40"
+                        android:background="@drawable/edit_text_format"
+                        android:gravity="center"
+                        android:padding="@dimen/dp10"
+                        android:text="@string/mi_extra"
+                        android:textColor="?attr/textcolorblack"
+                        android:textSize="@dimen/sp15" />
+
+                    <ImageView
+                        android:id="@+id/miExtraRight"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:src="@drawable/ic_accept"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
         </LinearLayout>
-
+        </ScrollView>
     </LinearLayout>
-
-
-</LinearLayout>
 </layout>

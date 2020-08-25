@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
+        android:fillViewport="true"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -12,9 +19,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp40"
             android:gravity="center">
 
             <ImageView
@@ -27,8 +33,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.7"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -37,6 +42,7 @@
                 style="@style/fontRagular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
                 android:layout_marginBottom="@dimen/dp20"
                 android:text="@string/app_settings"
                 android:textColor="?attr/textcolorblack"
@@ -46,8 +52,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp25"
-                android:gravity="center|start"
+                android:layout_marginStart="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp25"                android:gravity="center|start"
                 android:orientation="horizontal">
 
                 <TextView
@@ -72,7 +79,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp25"
+                android:layout_marginStart="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp25"
+
+
                 android:gravity="center|start"
                 android:orientation="horizontal">
 
@@ -98,8 +109,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp25"
-                android:gravity="center|start"
+
+                android:layout_marginStart="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp25"                android:gravity="center|start"
                 android:orientation="horizontal">
 
                 <TextView
@@ -125,8 +138,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp25"
-                android:gravity="center|start"
+                android:layout_marginStart="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp25"                android:gravity="center|start"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -169,4 +183,5 @@
         </LinearLayout>
 
     </LinearLayout>
+    </ScrollView>
 </layout>

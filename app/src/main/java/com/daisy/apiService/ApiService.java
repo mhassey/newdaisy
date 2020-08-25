@@ -1,16 +1,16 @@
 package com.daisy.apiService;
 
+import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectRequest;
+import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectResponse;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
-import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectRequest;
-import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectResponse;
 import com.daisy.activity.updatePosition.vo.UpdatePositionResponse;
-import com.daisy.pojo.response.DeleteCardResponse;
-import com.daisy.utils.Constraint;
 import com.daisy.pojo.response.BlankResponse;
+import com.daisy.pojo.response.DeleteCardResponse;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.utils.Constraint;
 
 import java.util.HashMap;
 
@@ -52,4 +52,5 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.DELETE_CARD)
     Call<GlobalResponse<DeleteCardResponse>> deleteCard(@FieldMap  HashMap<String, String> hashMap,@Header(Constraint.TOKEN) String s);
-}
+
+ }

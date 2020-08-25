@@ -124,6 +124,10 @@ public class Constraint {
     public static final String BUILD_VERSION = "buildVersion";
     public static final String STORE_CODE = "store_code";
     public static final String PASSWORD_ID = "password";
+    public static final String PROMOTION = "promotion";
+    public static final String EXTENTION = ".html";
+    public static final String PROMOTION_ID = "promotionIds";
+    public static final String PRICING = "pricing";
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 
     public static  boolean IS_OVER_APP_SETTING = false;

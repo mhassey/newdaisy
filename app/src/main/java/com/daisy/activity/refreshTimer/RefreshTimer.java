@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,8 +26,11 @@ import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
+import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityRefreshTimerBinding;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.Pricing;
+import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Time;
 import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
@@ -34,6 +38,10 @@ import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.google.gson.JsonObject;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.xml.validation.ValidatorHandler;
@@ -140,7 +148,48 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                         showHideProgressDialog(false);
                         if (response.isApi_status()) {
                             if (response.getResult() != null) {
-                                redirectToMain();
+                                if (!response.getResult().isDefault()) {
+                                    if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
+
+                                        sessionManager.deleteLocation();
+                                        sessionManager.deletePromotions();
+                                        sessionManager.setPriceCard(response.getResult().getPricecard());
+                                        sessionManager.setPromotion(response.getResult().getPromotions());
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        sessionManager.setCardDeleted(false);
+                                        redirectToMain(response);
+
+                                    } else if (response.getResult().getPromotions() != null) {
+                                        sessionManager.setPromotion(response.getResult().getPromotions());
+
+                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                                        if (response.getResult().getPricing() != null) {
+                                            sessionManager.setPricing(response.getResult().getPricing());
+                                        }
+                                        i.putExtra(Constraint.PROMOTION, "true");
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                    }
+
+                                } else {
+
+                                    if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
+                                        sessionManager.setPromotion(response.getResult().getPromotions());
+
+                                        if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                                            sessionManager.setPricing(response.getResult().getPricing());
+                                        }
+                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                                        if (response.getResult().getPricing() != null) {
+                                            sessionManager.setPricing(response.getResult().getPricing());
+                                        }
+                                        i.putExtra(Constraint.PROMOTION, "true");
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                    }
+
+                                }
+
                             } else {
                                 ValidationHelper.showToast(context, getString(R.string.no_data_available));
                             }
@@ -156,11 +205,42 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         }
     }
 
-    private void redirectToMain() {
-        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+
+    private void redirectToMain(GlobalResponse<GetCardResponse> response) {
+        Utils.deleteDaisy();
+        String UrlPath = response.getResult().getPricecard().getFileName();
+        if (response.getResult().getPricecard().getFileName() != null) {
+            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+            File directory = new File(configFilePath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String path = Utils.getPath();
+            if (path != null) {
+                if (!path.equals(UrlPath)) {
+                    Utils.deleteCardFolder();
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    sessionManager.deleteLocation();
+
+                }
+            } else {
+                try {
+                    Utils.writeFile(configFilePath, UrlPath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Intent i = new Intent(RefreshTimer.this, MainActivity.class);
 // set the new task and clear flags
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
     }
 
     private HashMap<String, String> getCardRequest() {
@@ -172,11 +252,10 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setTimerClick() {
-        int hour=mBinding.timePicker.getHour();
-        int minute=mBinding.timePicker.getMinute();
-        if (hour==0 && minute==0)
-        {
-            ValidationHelper.showToast(context,getString(R.string.invald_time));
+        int hour = mBinding.timePicker.getHour();
+        int minute = mBinding.timePicker.getMinute();
+        if (hour == 0 && minute == 0) {
+            ValidationHelper.showToast(context, getString(R.string.invald_time));
             return;
         }
         Time time = new Time();
@@ -185,7 +264,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         sessionManager.setTimerToGetCard(time);
         BackgroundService.refreshTimer.cancel();
         BackgroundService.checkUpdate();
-        ValidationHelper.showToast(context,getString(R.string.refresh_time_set));
+        ValidationHelper.showToast(context, getString(R.string.refresh_time_set));
     }
+
+
 }
 

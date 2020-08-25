@@ -77,7 +77,7 @@
     <string name="update_baseurl">Update BaseUrl</string>
     <string name="baseurl_can_not_be_empty">Base Url can not be empty</string>
     <string name="enter_valid_url">Enter valid base url</string>
-    <string name="url_must_end_with_slash">Url must send with slash</string>
+    <string name="url_must_end_with_slash">Please enter a slash after entering the URL</string>
     <string name="configuration">Configuration</string>
     <string name="set_refresh_timer">Set Refresh Timer</string>
     <string name="set_refresh_time">Set Refresh Time</string>
@@ -109,4 +109,6 @@
     <string name="product_not_available">Product  not available</string>
     <string name="store_code_id">store_code</string>
     <string name="enter_base_url_for_server">Enter URL for the server</string>
+    <string name="product">Product</string>
+    <string name="carrier">Carrier</string>
 </resources>

@@ -34,6 +34,7 @@ import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
+import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.LogsDataPojo;
 
 import org.apache.commons.io.FileUtils;
@@ -704,6 +705,23 @@ public class Utils {
                 e.printStackTrace();
             }
 
+        }
+    }
+
+    public static void deletePromotion() {
+        SessionManager sessionManager=SessionManager.get();
+        String path=sessionManager.getMainFilePath() ;
+        if (path!=null && !path.equals("")) {
+            path+=Constraint.SLASH+Constraint.PROMOTION;
+            File dir = new File(path);
+            if (dir.isDirectory()) {
+                try {
+                    FileUtils.deleteDirectory(dir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     }
 }

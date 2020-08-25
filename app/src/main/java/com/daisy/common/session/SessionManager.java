@@ -15,8 +15,13 @@ import com.daisy.pojo.response.ScreenPosition;
 import com.daisy.pojo.response.Time;
 import com.daisy.utils.Constraint;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -743,6 +748,7 @@ public class SessionManager {
         pref.setBooleanData(PrefConstant.WIFI_GONE, b);
 
     }
+
     public boolean getWifiGone() {
         return pref.getBoolean(PrefConstant.WIFI_GONE);
     }
@@ -750,6 +756,7 @@ public class SessionManager {
     public void setUninstall(boolean b) {
         pref.setBooleanData(PrefConstant.UNINSTALL, b);
     }
+
     public boolean getUninstall() {
         return pref.getBoolean(PrefConstant.UNINSTALL);
     }
@@ -776,19 +783,19 @@ public class SessionManager {
 
     public void setSignUpData(LoginResponse signUpResponse) {
         Gson gson = new Gson();
-     String data=   gson.toJson(signUpResponse);
-        pref.setStringData(PrefConstant.LOGIN_RESPONSE,data);
+        String data = gson.toJson(signUpResponse);
+        pref.setStringData(PrefConstant.LOGIN_RESPONSE, data);
     }
-    public LoginResponse getLoginResponse()
-    {
-        Gson gson=new Gson();
-        String response=pref.getStringData(PrefConstant.LOGIN_RESPONSE);
-       LoginResponse loginResponse= gson.fromJson(response, LoginResponse.class);
+
+    public LoginResponse getLoginResponse() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.LOGIN_RESPONSE);
+        LoginResponse loginResponse = gson.fromJson(response, LoginResponse.class);
         return loginResponse;
     }
 
     public void setScreenID(int id) {
-        pref.setIntData(PrefConstant.SCREEN_ID,id);
+        pref.setIntData(PrefConstant.SCREEN_ID, id);
     }
 
 
@@ -799,76 +806,78 @@ public class SessionManager {
 
     public void setPriceCard(PriceCardMain pricecard) {
         Gson gson = new Gson();
-        String data=   gson.toJson(pricecard);
-        pref.setStringData(PrefConstant.PRICE_CARD,data);
+        String data = gson.toJson(pricecard);
+        pref.setStringData(PrefConstant.PRICE_CARD, data);
     }
 
 
     public void setPromotion(List<Promotion> promotions) {
         Gson gson = new Gson();
-        String data=   gson.toJson(promotions);
-        pref.setStringData(PrefConstant.PROMOTION,data);
+        String data = gson.toJson(promotions);
+        pref.setStringData(PrefConstant.PROMOTION, data);
     }
 
     public void setPricing(List<Pricing> pricing) {
         Gson gson = new Gson();
-        String data=   gson.toJson(pricing);
-        pref.setStringData(PrefConstant.PRICING,data);
+        String data = gson.toJson(pricing);
+        pref.setStringData(PrefConstant.PRICING, data);
     }
 
 
     public void setScreenPosition(ScreenPosition screenPosition) {
         Gson gson = new Gson();
-        String data=   gson.toJson(screenPosition);
-        pref.setStringData(PrefConstant.SCREEN_POSITION,data);
+        String data = gson.toJson(screenPosition);
+        pref.setStringData(PrefConstant.SCREEN_POSITION, data);
     }
 
-    public PriceCardMain getPriceCard()
-    {
-        Gson gson=new Gson();
-        String response=pref.getStringData(PrefConstant.PRICE_CARD);
-        PriceCardMain priceCard=gson.fromJson(response,PriceCardMain.class);
+    public PriceCardMain getPriceCard() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.PRICE_CARD);
+        PriceCardMain priceCard = gson.fromJson(response, PriceCardMain.class);
         return priceCard;
     }
+
     public ScreenPosition getPosition() {
-        Gson gson=new Gson();
-        String response=pref.getStringData(PrefConstant.SCREEN_POSITION);
-        ScreenPosition loginResponse= gson.fromJson(response, ScreenPosition.class);
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.SCREEN_POSITION);
+        ScreenPosition loginResponse = gson.fromJson(response, ScreenPosition.class);
         return loginResponse;
     }
+
     public List<Promotion> getPromotion() {
-        Gson gson=new Gson();
-        String response=pref.getStringData(PrefConstant.PROMOTION);
-        List<Promotion> promotion= gson.fromJson(response, new TypeToken<List<Promotion>>(){}.getType());
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.PROMOTION);
+        List<Promotion> promotion = gson.fromJson(response, new TypeToken<List<Promotion>>() {
+        }.getType());
         return promotion;
     }
 
     public String getBaseUrl() {
-    return  pref.getStringData(PrefConstant.BASE_URL);
+        return pref.getStringData(PrefConstant.BASE_URL);
     }
-    public void setBaseUrl(String baseUrl)
-    {
-        pref.setStringData(PrefConstant.BASE_URL,baseUrl);
+
+    public void setBaseUrl(String baseUrl) {
+        pref.setStringData(PrefConstant.BASE_URL, baseUrl);
     }
-    public void deleteAllSession()
-    {
+
+    public void deleteAllSession() {
         pref.clear();
     }
 
     public void removeBaseUrl() {
-    pref.removeBaseUrl();
+        pref.removeBaseUrl();
     }
 
     public void setTimerToGetCard(Time time) {
         Gson gson = new Gson();
-        String data=   gson.toJson(time);
-        pref.setStringData(PrefConstant.TIME,data);
+        String data = gson.toJson(time);
+        pref.setStringData(PrefConstant.TIME, data);
     }
-    public Time getTimeData()
-    {
-        Gson gson=new Gson();
-        String response=pref.getStringData(PrefConstant.TIME);
-        if (response!=null) {
+
+    public Time getTimeData() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.TIME);
+        if (response != null) {
             Time time = gson.fromJson(response, Time.class);
             return time;
         }
@@ -876,26 +885,87 @@ public class SessionManager {
     }
 
     public boolean getCardDeleted() {
-    return  pref.getBoolean(PrefConstant.DELETE_CARD);
+        return pref.getBoolean(PrefConstant.DELETE_CARD);
     }
-    public void setCardDeleted()
-    {
-        pref.setBooleanData(PrefConstant.DELETE_CARD,true);
+
+    public void setCardDeleted(boolean cardDeleted) {
+        pref.setBooleanData(PrefConstant.DELETE_CARD, cardDeleted);
     }
 
     public void setOSType(List<OsType> osTypes) {
         Gson gson = new Gson();
-        String data=   gson.toJson(osTypes);
-        pref.setStringData(PrefConstant.OS_TYPE,data);
+        String data = gson.toJson(osTypes);
+        pref.setStringData(PrefConstant.OS_TYPE, data);
 
     }
 
     public boolean getBaseUrlAdded() {
-   boolean b= pref.getBoolean(PrefConstant.BASE_URL_ENTER);
+        boolean b = pref.getBoolean(PrefConstant.BASE_URL_ENTER);
         return b;
     }
 
     public void setBaseUrlChange(boolean b) {
-    pref.setBooleanData(PrefConstant.BASE_URL_ENTER,b);
+        pref.setBooleanData(PrefConstant.BASE_URL_ENTER, b);
+    }
+
+    public List<Pricing> getPricing() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.PRICING);
+        List<Pricing> promotion = gson.fromJson(response, new TypeToken<List<Pricing>>() {
+        }.getType());
+        return promotion;
+    }
+
+    public void setPromotions(String s) {
+        String response = pref.getStringData(PrefConstant.PROMOTIONS);
+        JSONArray jsonArray = null;
+        try {
+            if (response!=null && !response.equals("")) {
+                jsonArray = new JSONArray(response);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("" + jsonArray.length(), s);
+                jsonArray.put(jsonObject);
+            }
+            else
+            {
+                jsonArray=new JSONArray();
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("" + jsonArray.length(), s);
+                jsonArray.put(jsonObject);
+
+            }
+            } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        pref.setStringData(PrefConstant.PROMOTIONS, jsonArray.toString());
+
+    }
+
+    public JSONArray getPromotions() {
+
+        String response = pref.getStringData(PrefConstant.PROMOTIONS);
+        try {
+            if (response!=null && !response.equals("")) {
+                JSONArray elements = new JSONArray(response);
+                return elements;
+            }
+            }
+        catch (Exception e)
+        {
+
+        }
+        return null;
+    }
+
+    public void setMainFilePath(String s) {
+        pref.setStringData(PrefConstant.MAIN_FILE_PATH,s);
+    }
+
+    public String getMainFilePath() {
+    return pref.getStringData(PrefConstant.MAIN_FILE_PATH);
+    }
+
+    public void deletePromotions() {
+    pref.removePromotions();
     }
 }

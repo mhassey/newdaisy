@@ -15,7 +15,10 @@ import java.util.zip.ZipInputStream;
 public class ZipManager {
     private static int BUFFER_SIZE = 6 * 1024;
 
+    private SessionManager sessionManager=SessionManager.get();
+    int i=0;
     public static void unzip(String zipFile, String location, CallBack callBack) throws IOException {
+
         try {
             File f = new File(location);
             if (!f.isDirectory()) {
@@ -80,11 +83,18 @@ public class ZipManager {
                 // it will generate an Exception...
                 if (ze.isDirectory()) {
                     File fmd = new File(file.getParent()+Constraint.SLASH + filename);
+
                     fmd.mkdirs();
+                    if (fmd.getAbsolutePath().contains(Constraint.PROMOTION)) {
+                        if (i == 0) {
+
+                            sessionManager.setPromotions(file.getParent() + Constraint.SLASH + filename);
+                            i++;
+                        }
+                    }
                     continue;
                 }
                 FileOutputStream fout = new FileOutputStream(file.getParent()+Constraint.SLASH +filename,false);
-
                 // cteni zipu a zapis
                 while ((count = zis.read(buffer)) != -1)
                 {

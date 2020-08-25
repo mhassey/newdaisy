@@ -20,6 +20,24 @@ public class Pricing {
     private String config2;
     private String config3;
     private String config4;
+    private String pricingPlanID;
+    private String isDefault;
+
+    public String getPricingPlanID() {
+        return pricingPlanID;
+    }
+
+    public void setPricingPlanID(String pricingPlanID) {
+        this.pricingPlanID = pricingPlanID;
+    }
+
+    public String getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
+    }
 
     public String getIdproductFluid() {
         return idproductFluid;

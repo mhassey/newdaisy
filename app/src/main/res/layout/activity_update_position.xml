@@ -110,7 +110,7 @@
 
         <Button
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp15"
             android:layout_width="@dimen/dp200"
             android:id="@+id/updatePosition"
             android:textAllCaps="false"

@@ -115,4 +115,6 @@ public interface PrefConstant {
 
     String OS_TYPE = "Os_Type";
     String BASE_URL_ENTER = "baseUrlEnter";
+    String PROMOTIONS = "prpmotions";
+    String MAIN_FILE_PATH = "main_file_path";
 }

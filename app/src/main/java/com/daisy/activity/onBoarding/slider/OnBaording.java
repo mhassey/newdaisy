@@ -168,7 +168,6 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         fragmentList.add(SecurityAsk.getInstance());
         fragmentList.add(SignUp.getInstance(OnBaording.this));
         fragmentList.add(AddScreen.getInstance());
-        fragmentList.add(DeviceDetection.getInstance());
 
 
     }
@@ -220,9 +219,15 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
             redirectToMainHandler(getCardResponseGlobalResponse);
 
-        } else
+        } else {
+            if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard()!=null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals(""))
+            {
+                redirectToMainHandler(getCardResponseGlobalResponse);
+            }
+            else
             ValidationHelper.showToast(context, getCardResponseGlobalResponse.getMessage());
-    }
+        }
+        }
 
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
@@ -312,6 +317,11 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             sessionManager.setDeviceToken(screenAddResponseGlobalResponse.getResult().getToken());
             sessionManager.setScreenPosition(screenAddResponseGlobalResponse.getResult().getScreenPosition());
 
+            getCardData();
+
+
+
+
         } else {
             ValidationHelper.showToast(context, screenAddResponseGlobalResponse.getMessage());
         }
@@ -365,6 +375,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                         Utils.deleteCardFolder();
                         Utils.writeFile(configFilePath,UrlPath);
                         sessionManager.deleteLocation();
+
                         DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
@@ -374,7 +385,31 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
                 redirectToMain();
 
-        } else {
+        } else if (response.getResult().getDefaultPriceCard()!=null && !response.getResult().getDefaultPriceCard().equals("")) {
+             UrlPath= response.getResult().getPricecard().getFileName();
+            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+            File directory = new File(configFilePath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String path = Utils.getPath();
+            if (path != null) {
+                if (!path.equals(UrlPath)) {
+                    Utils.deleteCardFolder();
+                    Utils.writeFile(configFilePath,UrlPath);
+                    sessionManager.deleteLocation();
+
+                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                }
+            } else {
+                Utils.writeFile(configFilePath, UrlPath);
+            }
+
+            redirectToMain();
+        }
+        else{
             ValidationHelper.showToast(context, getString(R.string.invalid_url));
         }
 
@@ -459,7 +494,9 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
             }
+
         });
+
     }
 
 

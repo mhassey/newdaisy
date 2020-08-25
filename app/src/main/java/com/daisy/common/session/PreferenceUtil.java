@@ -112,4 +112,8 @@ public class PreferenceUtil {
     public void removeBaseUrl() {
         mSpref.edit().remove(PrefConstant.BASE_URL);
     }
+
+    public void removePromotions() {
+        mSpref.edit().remove(PrefConstant.PROMOTIONS).commit();
+    }
 }

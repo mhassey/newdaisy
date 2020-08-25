@@ -41,26 +41,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.baseUrl.BaseUrlSettings">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activity.baseUrl.BaseUrlSettings" android:screenOrientation="portrait">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".activity.refreshTimer.RefreshTimer" />
-        <activity android:name=".activity.configSettings.ConfigSettings" />
-        <activity android:name=".activity.updateBaseUrl.UpdateBaseUrl" />
-        <activity android:name=".activity.updatePosition.UpdatePosition" />
-        <activity android:name=".activity.login.LoginActivity" />
-        <activity android:name=".activity.onBoarding.slider.OnBaording" />
+        <activity android:name=".activity.refreshTimer.RefreshTimer" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.configSettings.ConfigSettings" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.updateBaseUrl.UpdateBaseUrl" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.updatePosition.UpdatePosition" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.login.LoginActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.onBoarding.slider.OnBaording" android:screenOrientation="portrait" />
         <activity
             android:name=".activity.welcomeScreen.WelcomeScreen"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"

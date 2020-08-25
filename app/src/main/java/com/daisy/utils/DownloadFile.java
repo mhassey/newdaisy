@@ -34,11 +34,13 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     private  boolean promotion;
     private List<Download> downloads;
     int pathSetting=0;
+    private SessionManager sessionManager;
 
 
     public DownloadFile(Context c, CallBack callBack,List<Download> downloads) {
         context = c;
         this.callBack=callBack;
+        sessionManager=SessionManager.get();
         this.downloads=downloads;
     }
 
@@ -93,6 +95,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                     String file[] = f.list();
 
                     folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH+file[1]+Constraint.SLASH+context.getString(R.string.promotion)+Constraint.SLASH;
+
                 } else
                     folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH;
 
@@ -105,6 +108,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
 
                 // Output stream to write file
                 String path = folder + fileName;
+
                 OutputStream output = new FileOutputStream(path);
 
                 byte data[] = new byte[1024];
@@ -131,6 +135,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 File file=new File(path);
                 if (pathSetting==0) {
                         pathSetting++;
+                        if (!file.getAbsolutePath().contains(Constraint.PROMOTION))
                     SessionManager.get().setLocation(file.getParent());
                 }
                 new Thread(new Runnable() {

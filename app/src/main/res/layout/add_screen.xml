@@ -78,9 +78,20 @@
         android:hint="Position"
         android:textColorHint="@color/editTextLineColor"
         android:padding="@dimen/dp10" />
+
+
+    <TextView
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp20"
+        android:textColor="@color/black"
+        android:text="@string/carrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/dp15"
+        android:layout_marginStart="@dimen/dp15"
+        android:layout_marginEnd="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp5"
         android:layout_height="wrap_content">
         <Spinner
 
@@ -91,7 +102,7 @@
             android:inputType="text"
             android:textSize="@dimen/dp14"
             android:background="@drawable/edit_text_format"
-            android:hint="https://baseURL"
+
             android:textColorHint="@color/editTextLineColor"
             android:padding="@dimen/dp10" />
 
@@ -104,9 +115,18 @@
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>
+    <TextView
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp20"
+        android:textColor="@color/black"
+        android:text="@string/product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/dp15"
+        android:layout_marginStart="@dimen/dp15"
+        android:layout_marginEnd="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp5"
         android:layout_height="wrap_content">
     <Spinner
 

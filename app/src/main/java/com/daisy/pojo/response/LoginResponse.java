@@ -5,12 +5,21 @@ import java.util.List;
 public class LoginResponse extends GlobalResponse {
     private String idstore;
     private String idOU;
+    private String pricingPlanID;
     private String storeName;
     private String Phones;
     private String storeLocation;
     private String storeContact;
     private String storeHours;
     private List<Carrier> carrier;
+
+    public String getPricingPlanID() {
+        return pricingPlanID;
+    }
+
+    public void setPricingPlanID(String pricingPlanID) {
+        this.pricingPlanID = pricingPlanID;
+    }
 
     public List<Carrier> getCarrier() {
         return carrier;

@@ -22,7 +22,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.util.FloatMath;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -30,13 +29,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
@@ -50,7 +47,6 @@ import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -126,7 +122,10 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         appChecker.whenAny(new AppChecker.Listener() {
             @Override
             public void onForeground(String process) {
-
+                if (sessionManager==null)
+                {
+                    sessionManager=SessionManager.get();
+                }
                 if (!sessionManager.getUninstall()) {
                     if (process.equals("com.google.android.packageinstaller")) {
                         Intent intent = new Intent(getApplicationContext(), LockScreen.class);
@@ -272,8 +271,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        int hour = 1;
-        int minit = 0;
+        int hour = 0;
+        int minit = 10;
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
