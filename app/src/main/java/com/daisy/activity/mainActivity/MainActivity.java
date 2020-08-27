@@ -21,6 +21,7 @@ import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -82,6 +83,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private Context context;
     private boolean isRedirected;
     private int i = 0;
+    private   WebViewClient yourWebClient;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -153,11 +155,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     download.setPath(url);
                     download.setType("");
                     downloads.add(download);
-                    for (Promotion promotion : promotions) {
-                        Download downloadPromotion = new Download();
-                        downloadPromotion.setPath(promotion.getFileName());
-                        downloadPromotion.setType(getString(R.string.promotion));
-                        downloads.add(downloadPromotion);
+                    if (promotions!=null) {
+                        for (Promotion promotion : promotions) {
+                            Download downloadPromotion = new Download();
+                            downloadPromotion.setPath(promotion.getFileName());
+                            downloadPromotion.setType(getString(R.string.promotion));
+                            downloads.add(downloadPromotion);
+                        }
                     }
                     new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
 
@@ -247,22 +251,26 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-            mBinding.webView.clearCache(true);
-            mBinding.webView.clearHistory();
-            clearCookies(getApplicationContext());
+//            mBinding.webView.clearCache(true);
+//            mBinding.webView.clearHistory();
+          //  clearCookies(getApplicationContext());
             mBinding.webView.setWebChromeClient(new WebClient());
             setWebViewClient();
-            // mBinding.webView.setWebChromeClient(new WebChromeClient());
-            // mBinding.webView.setWebViewClient(new WebViewClient());
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(true);
+            mBinding.webView.getSettings().setAllowFileAccess(true);
+            mBinding.webView.setSoundEffectsEnabled(true);
+            mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
             mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+              mBinding.webView.getSettings().setAppCacheEnabled(true);
 
+//            mBinding.webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             mBinding.webView.getSettings().setAllowContentAccess(true);
             mBinding.webView.getSettings().setDomStorageEnabled(true);
             mBinding.webView.getSettings().setJavaScriptEnabled(true); // enable javascript
             mBinding.webView.getSettings().setBuiltInZoomControls(true);
-            mBinding.webView.getSettings().setSupportZoom(true);
-            mBinding.webView.getSettings().setLoadWithOverviewMode(true);
+            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+             mBinding.webView.getSettings().setLoadWithOverviewMode(true);
             mBinding.webView.getSettings().setUseWideViewPort(true);
 
             mBinding.webView.getSettings().setBuiltInZoomControls(true);
@@ -270,9 +278,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(false);
+            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+            mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+
+            if (Build.VERSION.SDK_INT >= 21) {
+                mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+                CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.webView, true);
+            }
+
+            mBinding.webView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+
 
             String val = sessionManager.getLocation();
             boolean isDelete = sessionManager.getCardDeleted();
+
             Log.e("ka;lio",isDelete+"");
             File f = new File(val);
             File file[] = f.listFiles();
@@ -322,22 +341,26 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             getDownloadData();
         }
 
+
+
     }
 
     private void deleteCard() {
-        Log.e("checking...","worki");
-        DeleteCardViewModel deleteCardViewModel = new ViewModelProvider(this).get(DeleteCardViewModel.class);
-        deleteCardViewModel.setMutableLiveData(getDeleteCardRequest());
-        LiveData<GlobalResponse<DeleteCardResponse>> liveData = deleteCardViewModel.getLiveData();
-        liveData.observe(this, new Observer<GlobalResponse<DeleteCardResponse>>() {
-            @Override
-            public void onChanged(GlobalResponse<DeleteCardResponse> deleteCardResponseGlobalResponse) {
-                Log.e("checking...","working");
+        if (!sessionManager.getCardDeleted()) {
+            Log.e("checking...", "worki");
+            DeleteCardViewModel deleteCardViewModel = new ViewModelProvider(this).get(DeleteCardViewModel.class);
+            deleteCardViewModel.setMutableLiveData(getDeleteCardRequest());
+            LiveData<GlobalResponse<DeleteCardResponse>> liveData = deleteCardViewModel.getLiveData();
+            liveData.observe(this, new Observer<GlobalResponse<DeleteCardResponse>>() {
+                @Override
+                public void onChanged(GlobalResponse<DeleteCardResponse> deleteCardResponseGlobalResponse) {
+                    Log.e("checking...", "working");
 
-                sessionManager.setCardDeleted(true);
-                handleDeleteResponse(deleteCardResponseGlobalResponse);
-            }
-        });
+                    sessionManager.setCardDeleted(true);
+                    handleDeleteResponse(deleteCardResponseGlobalResponse);
+                }
+            });
+        }
     }
 
 
@@ -377,7 +400,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private void setWebViewClient() {
 
 
-        WebViewClient yourWebClient = new WebViewClient() {
+         yourWebClient = new WebViewClient() {
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -398,7 +421,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 //                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
 //                }
 
-                    JSONArray jsonArray = new JSONArray();
+
+                JSONArray jsonArray = new JSONArray();
                     JSONObject jsonObject = new JSONObject();
                     try {
                         List<Pricing> pricing = sessionManager.getPricing();
@@ -419,38 +443,47 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                                 }
                             }
-                            jsonObject.put("idproductFluid", pricing1.getIdproductFluid());
-                            jsonObject.put("idproductStatic", pricing1.getIdproductStatic());
-                            jsonObject.put("dateEffective", pricing1.getDateEffective());
-                            jsonObject.put("timeEffective", pricing1.getTimeEffective());
-                            jsonObject.put("msrp", pricing1.getMsrp());
-                            jsonObject.put("ourprice", pricing1.getOurprice());
-                            jsonObject.put("saleprice", pricing1.getSaleprice());
-                            jsonObject.put("planAprice", pricing1.getPlanAprice());
-                            jsonObject.put("planBprice", pricing1.getPlanBprice());
-                            jsonObject.put("planCprice", pricing1.getPlanCprice());
-                            jsonObject.put("planDprice", pricing1.getPlanDprice());
-                            jsonObject.put("downprice", pricing1.getDownprice());
-                            jsonObject.put("monthlyprice", pricing1.getMonthlyprice());
-                            jsonObject.put("config1", pricing1.getConfig1());
-                            jsonObject.put("config2", pricing1.getConfig2());
-                            jsonObject.put("config3", pricing1.getConfig3());
-                            jsonObject.put("config4", pricing1.getConfig4());
-                            pricing1.getMsrp();
+                            if (pricing1!=null) {
+                                jsonObject.put("idproductFluid", pricing1.getIdproductFluid());
+                                jsonObject.put("idproductStatic", pricing1.getIdproductStatic());
+                                jsonObject.put("dateEffective", pricing1.getDateEffective());
+                                jsonObject.put("timeEffective", pricing1.getTimeEffective());
+                                jsonObject.put("msrp", pricing1.getMsrp());
+                                jsonObject.put("ourprice", pricing1.getOurprice());
+                                jsonObject.put("saleprice", pricing1.getSaleprice());
+                                jsonObject.put("planAprice", pricing1.getPlanAprice());
+                                jsonObject.put("planBprice", pricing1.getPlanBprice());
+                                jsonObject.put("planCprice", pricing1.getPlanCprice());
+                                jsonObject.put("planDprice", pricing1.getPlanDprice());
+                                jsonObject.put("downprice", pricing1.getDownprice());
+                                jsonObject.put("monthlyprice", pricing1.getMonthlyprice());
+                                jsonObject.put("config1", pricing1.getConfig1());
+                                jsonObject.put("config2", pricing1.getConfig2());
+                                jsonObject.put("config3", pricing1.getConfig3());
+                                jsonObject.put("config4", pricing1.getConfig4());
+                                jsonArray.put(jsonObject);
+
+                            }
+
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
 
                     }
 
-                    jsonArray.put(jsonObject);
-                    if (jsonArray.length() > 0)
+                     if (jsonArray.length() > 0)
                         mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
                     promotionSettings();
 
 
                 }
-       };
+                
+
+
+
+
+        };
         mBinding.webView.setWebViewClient(yourWebClient);
 
     }
@@ -469,7 +502,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     // get the value i care about
                     String value = promtotionJsonObect.optString(str_Name);
                     if (value.contains(Constraint.PROMOTION)) {
-                        File file = new File(Constraint.PROMOTION + Constraint.SLASH + value + Constraint.FILE_NAME);
+                        File file = new File(value + Constraint.FILE_NAME);
                          File check=new File(value);
                         File mainCheck=new File(value+check.getName()+Constraint.EXTENTION);
                         Log.e("kali", promotionsArray.get(i).toString());
@@ -730,10 +763,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     public class WebClient extends WebChromeClient {
 
+
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+            ;
+            if (consoleMessage.message().contains("MobilePriceCard is not defined"))
+            {
+                Log.e("time","to refresh");
+                loadURL();
+            }
             Log.e("kali-check", consoleMessage.message());
-            return true;
+            return false;
         }
 
 

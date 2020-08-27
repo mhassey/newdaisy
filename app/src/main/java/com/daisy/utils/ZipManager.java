@@ -1,5 +1,7 @@
 package com.daisy.utils;
 
+import android.util.Log;
+
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 
@@ -87,9 +89,10 @@ public class ZipManager {
                     fmd.mkdirs();
                     if (fmd.getAbsolutePath().contains(Constraint.PROMOTION)) {
                         if (i == 0) {
-
-                            sessionManager.setPromotions(file.getParent() + Constraint.SLASH + filename);
                             i++;
+                            Log.e("kali", file.getParent() + Constraint.SLASH + filename);
+                            sessionManager.setPromotions(file.getParent() + Constraint.SLASH + filename);
+
                         }
                     }
                     continue;

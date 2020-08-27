@@ -141,8 +141,11 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        new ZipManager().unpackZip(path,callBack);
-
+                      boolean isDone=  new ZipManager().unpackZip(path,callBack);
+                    if (isDone)
+                    {
+                        callBack.callBack(Constraint.SUCCESS);
+                    }
                     }
                 }).start();
 

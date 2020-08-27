@@ -180,12 +180,13 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                                             sessionManager.setPricing(response.getResult().getPricing());
                                         }
                                         Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                                        if (response.getResult().getPricing() != null) {
-                                            sessionManager.setPricing(response.getResult().getPricing());
-                                        }
                                         i.putExtra(Constraint.PROMOTION, "true");
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(i);
+                                    }
+                                    else
+                                    {
+                                        ValidationHelper.showToast(context, getString(R.string.no_data_available));
                                     }
 
                                 }
@@ -235,6 +236,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                     e.printStackTrace();
                 }
             }
+
+
+            sessionManager.onBoarding(true);
 
             Intent i = new Intent(RefreshTimer.this, MainActivity.class);
 // set the new task and clear flags

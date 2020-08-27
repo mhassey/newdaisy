@@ -222,7 +222,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         } else {
             if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard()!=null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals(""))
             {
-                redirectToMainHandler(getCardResponseGlobalResponse);
+                 redirectToMainHandler(getCardResponseGlobalResponse);
             }
             else
             ValidationHelper.showToast(context, getCardResponseGlobalResponse.getMessage());
@@ -386,7 +386,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 redirectToMain();
 
         } else if (response.getResult().getDefaultPriceCard()!=null && !response.getResult().getDefaultPriceCard().equals("")) {
-             UrlPath= response.getResult().getPricecard().getFileName();
+             UrlPath= response.getResult().getDefaultPriceCard();
             String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
             File directory = new File(configFilePath);
             if (!directory.exists()) {

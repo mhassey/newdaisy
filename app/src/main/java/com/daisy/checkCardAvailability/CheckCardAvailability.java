@@ -95,10 +95,6 @@ public class CheckCardAvailability {
                         } else {
                             if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                 sessionManager.setPromotion(response.getResult().getPromotions());
-
-                                if (response.getResult().getPricing() != null) {
-                                    sessionManager.setPricing(response.getResult().getPricing());
-                                }
                                 EventBus.getDefault().post(new Promotion());
                             }
                         }

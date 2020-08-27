@@ -124,6 +124,7 @@ public class SyncLogs {
         }
 
     private HashMap<String,String> getRequest(int count) {
+
         if (logsVOList == null)
             logsVOList = new ArrayList<>();
         HashMap<String,String> logSyncRequest = new HashMap<>();
@@ -148,7 +149,13 @@ public class SyncLogs {
             }
             logSyncRequest.put("log",getJsonObject(requests).toString());
             PriceCardMain priceCard= sessionManager.getPriceCard();
-            logSyncRequest.put("idpriceCard",priceCard.getIdpriceCard());
+            try {
+                logSyncRequest.put("idpriceCard", priceCard.getIdpriceCard());
+            }
+            catch (Exception e)
+            {
+
+            }
             logSyncRequest.put("idpromotion","1");
             logSyncRequest.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
 

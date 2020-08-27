@@ -272,7 +272,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
         int hour = 0;
-        int minit = 10;
+        int minit = 15;
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
