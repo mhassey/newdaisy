@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".activity.logs.LogsMainActivity">
+
+    <Button
+        android:layout_width="@dimen/dp200"
+        android:id="@+id/applicationLogs"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border_format"
+        android:text="@string/application_logs"
+        android:textColor="@color/white" />
+    <Button
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_width="@dimen/dp200"
+        android:id="@+id/cardLogs"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border_format"
+        android:text="@string/card_logs"
+        android:textColor="@color/white" />
+
+    <Button
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_width="@dimen/dp200"
+        android:textAllCaps="false"
+        android:id="@+id/promotionLogs"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border_format"
+        android:text="@string/promotion_logs"
+        android:textColor="@color/white" />
+    <Button
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_width="@dimen/dp200"
+        android:textAllCaps="false"
+        android:id="@+id/settings"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border_format"
+        android:text="@string/settings"
+        android:textColor="@color/white" />
+
+
+
+
+</LinearLayout>
+</layout>

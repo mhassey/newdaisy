@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".activity.updateBaseUrl.UpdateBaseUrl">
+
+
+    <EditText
+
+        android:id="@+id/baseUrl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp200"
+        android:textColor="?attr/editTextColor"
+        android:layout_margin="@dimen/dp5"
+        android:inputType="text"
+        android:textSize="@dimen/dp14"
+        android:background="@drawable/edit_text_format"
+        android:hint="https://baseURL"
+        android:textColorHint="@color/editTextLineColor"
+        android:padding="@dimen/dp10" />
+
+
+    <Button
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_width="@dimen/dp200"
+        android:id="@+id/saveAndLoad"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border_format"
+        android:text="@string/save_and_load"
+        android:textColor="@color/white" />
+
+
+
+
+
+</LinearLayout>
+</layout>

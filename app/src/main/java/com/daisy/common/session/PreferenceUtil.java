@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.daisy.common.Constraint;
+import com.daisy.utils.Constraint;
 
 
 public class PreferenceUtil {
@@ -74,6 +74,11 @@ public class PreferenceUtil {
         mSpref.edit().remove(PrefConstant.stripeAccountID).commit();
     }
 
+    public void removeLocation()
+    {
+
+        mSpref.edit().remove(PrefConstant.LOCATION).commit();
+    }
 
 
 
@@ -104,5 +109,11 @@ public class PreferenceUtil {
     }
 
 
+    public void removeBaseUrl() {
+        mSpref.edit().remove(PrefConstant.BASE_URL);
+    }
 
+    public void removePromotions() {
+        mSpref.edit().remove(PrefConstant.PROMOTIONS).commit();
+    }
 }

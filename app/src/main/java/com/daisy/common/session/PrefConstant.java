@@ -87,4 +87,34 @@ public interface PrefConstant {
     String INDUSTRY_DATA ="industryData" ;
     String STRIPE_CODE ="stripeCode" ;
     String CARD_DATA = "card_details";
+    String DARK_MODE = "dark_mode";
+    String POP_UP_PERMISSION = "popUpPermission";
+    String IN_FORGROUND = "in_forground";
+    String USE_CASE_PERMISSION = "use_case_permission";
+    String MODIFY_SYSTEM_SETTINGS = "modify_system_settings";
+    String DATA = "data";
+    String PROCESS_DATA = "process_data";
+    String PASSWORD_CORRECT = "password_correct";
+    String DELETE_PHOTO = "deletePhoto";
+    String LOCK = "lock";
+    String ON_BOARDING = "onBoarding";
+    String WIFI_GONE = "wifiGone";
+    String UNINSTALL = "uninstall";
+    String BROWSER_LOCK = "browser";
+    String MESSAGE_LOCK = "message";
+    String LOGIN_RESPONSE = "login_response";
+    String SCREEN_ID = "screenId";
+    String PRICE_CARD = "price_card";
+    String PROMOTION = "promotion";
+    String PRICING = "pricing";
+    String FOLDER_NAME = "folderName";
+    String SCREEN_POSITION = "screenPosition";
+    String BASE_URL = "baseUrl";
+    String TIME = "time";
+    public static final String DELETE_CARD = "deleteCard";
+
+    String OS_TYPE = "Os_Type";
+    String BASE_URL_ENTER = "baseUrlEnter";
+    String PROMOTIONS = "prpmotions";
+    String MAIN_FILE_PATH = "main_file_path";
 }

@@ -2,7 +2,28 @@ package com.daisy.common.session;
 
 import android.app.Application;
 
-import com.daisy.Daisy;
+import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
+import com.daisy.apiService.ApiConstant;
+import com.daisy.app.AppController;
+import com.daisy.pojo.response.LoginResponse;
+import com.daisy.pojo.response.OsType;
+import com.daisy.pojo.response.PriceCard;
+import com.daisy.pojo.response.PriceCardMain;
+import com.daisy.pojo.response.Pricing;
+import com.daisy.pojo.response.Promotion;
+import com.daisy.pojo.response.ScreenPosition;
+import com.daisy.pojo.response.Time;
+import com.daisy.utils.Constraint;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 
 public class SessionManager {
@@ -27,7 +48,7 @@ public class SessionManager {
     }
 
     public static SessionManager get() {
-        init(Daisy.getInstance());
+        init(AppController.getInstance());
         return sInstance;
     }
 
@@ -84,7 +105,6 @@ public class SessionManager {
     public void setEmailVerified(boolean b) {
         pref.setBooleanData(PrefConstant.IS_EMAIL_VERIFIED, b);
     }
-
 
 
     public int getNotificationOn() {
@@ -594,7 +614,6 @@ public class SessionManager {
     }
 
 
-
     public void setStripeCode(String stripeCode) {
         pref.setStringData(PrefConstant.STRIPE_CODE, stripeCode);
 
@@ -615,10 +634,338 @@ public class SessionManager {
 
 
     public void setFilePath(String location) {
-    pref.setStringData(PrefConstant.LOCATION,location);
+        pref.setStringData(PrefConstant.LOCATION, location);
     }
-    public String getFilePath()
-    {
+
+    public String getFilePath() {
         return pref.getStringData(PrefConstant.LOCATION);
+    }
+
+    public void deleteLocation() {
+        pref.removeLocation();
+    }
+
+    public void darkMode(boolean isChecked) {
+        pref.setBooleanData(PrefConstant.DARK_MODE, isChecked);
+    }
+
+    public boolean getDarkTheme() {
+        return pref.getBoolean(PrefConstant.DARK_MODE);
+    }
+
+    public void popUpPermission(boolean b) {
+        pref.setBooleanData(PrefConstant.POP_UP_PERMISSION, b);
+    }
+
+    public boolean getPopUpPermission() {
+        return pref.getBoolean(PrefConstant.POP_UP_PERMISSION);
+    }
+
+    public void setInForground(boolean b) {
+        pref.setBooleanData(PrefConstant.IN_FORGROUND, b);
+    }
+
+    public boolean getInForground() {
+        return pref.getBoolean(PrefConstant.IN_FORGROUND);
+    }
+
+    public void useCasePermission(boolean b) {
+        pref.setBooleanData(PrefConstant.USE_CASE_PERMISSION, b);
+
+    }
+
+    public boolean getUseCasePermission() {
+        return pref.getBoolean(PrefConstant.USE_CASE_PERMISSION);
+    }
+
+    public boolean getModifySystemSettings() {
+        return pref.getBoolean(PrefConstant.MODIFY_SYSTEM_SETTINGS);
+    }
+
+    public void setModifySystemSettings(boolean b) {
+        pref.setBooleanData(PrefConstant.MODIFY_SYSTEM_SETTINGS, b);
+
+    }
+
+    public void setData(String data) {
+        pref.setStringData(PrefConstant.DATA, data);
+
+    }
+
+    public String getData() {
+        return pref.getStringData(PrefConstant.DATA);
+
+    }
+
+    public void setProcessId(int myPid) {
+        pref.setIntData(PrefConstant.PROCESS_DATA, myPid);
+
+    }
+
+    public int getProcessId() {
+        return pref.getIntData(PrefConstant.PROCESS_DATA);
+
+    }
+
+    public void setPasswordCorrect(boolean b) {
+        pref.setBooleanData(PrefConstant.PASSWORD_CORRECT, b);
+
+    }
+
+    public boolean getPasswordCorrect() {
+        return pref.getBoolean(PrefConstant.PASSWORD_CORRECT);
+
+    }
+
+    public void setDeletePhoto(boolean b) {
+        pref.setBooleanData(PrefConstant.DELETE_PHOTO, b);
+
+    }
+
+    public boolean getDeletePhoto() {
+        return pref.getBoolean(PrefConstant.DELETE_PHOTO);
+    }
+
+    public void setLock(boolean b) {
+        pref.setBooleanData(PrefConstant.LOCK, b);
+
+    }
+
+    public void onBoarding(boolean b) {
+        pref.setBooleanData(PrefConstant.ON_BOARDING, b);
+    }
+
+    public boolean getOnBoarding() {
+        return pref.getBoolean(PrefConstant.ON_BOARDING);
+    }
+
+    public boolean getLock() {
+        return pref.getBoolean(PrefConstant.LOCK);
+    }
+
+    public void setWifiGone(boolean b) {
+
+        pref.setBooleanData(PrefConstant.WIFI_GONE, b);
+
+    }
+
+    public boolean getWifiGone() {
+        return pref.getBoolean(PrefConstant.WIFI_GONE);
+    }
+
+    public void setUninstall(boolean b) {
+        pref.setBooleanData(PrefConstant.UNINSTALL, b);
+    }
+
+    public boolean getUninstall() {
+        return pref.getBoolean(PrefConstant.UNINSTALL);
+    }
+
+    public String getAccessToken() {
+        return null;
+    }
+
+    public void setLockOnBrowser(boolean b) {
+        pref.setBooleanData(PrefConstant.BROWSER_LOCK, b);
+    }
+
+    public void setLockOnMessage(boolean b) {
+        pref.setBooleanData(PrefConstant.MESSAGE_LOCK, b);
+    }
+
+    public boolean getBrowserLock() {
+        return pref.getBoolean(PrefConstant.BROWSER_LOCK);
+    }
+
+    public boolean getMessageLock() {
+        return pref.getBoolean(PrefConstant.MESSAGE_LOCK);
+    }
+
+    public void setSignUpData(LoginResponse signUpResponse) {
+        Gson gson = new Gson();
+        String data = gson.toJson(signUpResponse);
+        pref.setStringData(PrefConstant.LOGIN_RESPONSE, data);
+    }
+
+    public LoginResponse getLoginResponse() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.LOGIN_RESPONSE);
+        LoginResponse loginResponse = gson.fromJson(response, LoginResponse.class);
+        return loginResponse;
+    }
+
+    public void setScreenID(int id) {
+        pref.setIntData(PrefConstant.SCREEN_ID, id);
+    }
+
+
+    public int getScreenId() {
+        return pref.getIntData(PrefConstant.SCREEN_ID);
+
+    }
+
+    public void setPriceCard(PriceCardMain pricecard) {
+        Gson gson = new Gson();
+        String data = gson.toJson(pricecard);
+        pref.setStringData(PrefConstant.PRICE_CARD, data);
+    }
+
+
+    public void setPromotion(List<Promotion> promotions) {
+        Gson gson = new Gson();
+        String data = gson.toJson(promotions);
+        pref.setStringData(PrefConstant.PROMOTION, data);
+    }
+
+    public void setPricing(List<Pricing> pricing) {
+        Gson gson = new Gson();
+        String data = gson.toJson(pricing);
+        pref.setStringData(PrefConstant.PRICING, data);
+    }
+
+
+    public void setScreenPosition(ScreenPosition screenPosition) {
+        Gson gson = new Gson();
+        String data = gson.toJson(screenPosition);
+        pref.setStringData(PrefConstant.SCREEN_POSITION, data);
+    }
+
+    public PriceCardMain getPriceCard() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.PRICE_CARD);
+        PriceCardMain priceCard = gson.fromJson(response, PriceCardMain.class);
+        return priceCard;
+    }
+
+    public ScreenPosition getPosition() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.SCREEN_POSITION);
+        ScreenPosition loginResponse = gson.fromJson(response, ScreenPosition.class);
+        return loginResponse;
+    }
+
+    public List<Promotion> getPromotion() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.PROMOTION);
+        List<Promotion> promotion = gson.fromJson(response, new TypeToken<List<Promotion>>() {
+        }.getType());
+        return promotion;
+    }
+
+    public String getBaseUrl() {
+        return pref.getStringData(PrefConstant.BASE_URL);
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        pref.setStringData(PrefConstant.BASE_URL, baseUrl);
+    }
+
+    public void deleteAllSession() {
+        pref.clear();
+    }
+
+    public void removeBaseUrl() {
+        pref.removeBaseUrl();
+    }
+
+    public void setTimerToGetCard(Time time) {
+        Gson gson = new Gson();
+        String data = gson.toJson(time);
+        pref.setStringData(PrefConstant.TIME, data);
+    }
+
+    public Time getTimeData() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.TIME);
+        if (response != null) {
+            Time time = gson.fromJson(response, Time.class);
+            return time;
+        }
+        return null;
+    }
+
+    public boolean getCardDeleted() {
+        return pref.getBoolean(PrefConstant.DELETE_CARD);
+    }
+
+    public void setCardDeleted(boolean cardDeleted) {
+        pref.setBooleanData(PrefConstant.DELETE_CARD, cardDeleted);
+    }
+
+    public void setOSType(List<OsType> osTypes) {
+        Gson gson = new Gson();
+        String data = gson.toJson(osTypes);
+        pref.setStringData(PrefConstant.OS_TYPE, data);
+
+    }
+
+    public boolean getBaseUrlAdded() {
+        boolean b = pref.getBoolean(PrefConstant.BASE_URL_ENTER);
+        return b;
+    }
+
+    public void setBaseUrlChange(boolean b) {
+        pref.setBooleanData(PrefConstant.BASE_URL_ENTER, b);
+    }
+
+    public List<Pricing> getPricing() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.PRICING);
+        List<Pricing> promotion = gson.fromJson(response, new TypeToken<List<Pricing>>() {
+        }.getType());
+        return promotion;
+    }
+
+    public void setPromotions(String s) {
+        String response = pref.getStringData(PrefConstant.PROMOTIONS);
+        JSONArray jsonArray = null;
+        try {
+            if (response!=null && !response.equals("")) {
+                jsonArray = new JSONArray(response);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("" + jsonArray.length(), s);
+                jsonArray.put(jsonObject);
+            }
+            else
+            {
+                jsonArray=new JSONArray();
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("" + jsonArray.length(), s);
+                jsonArray.put(jsonObject);
+
+            }
+            } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        pref.setStringData(PrefConstant.PROMOTIONS, jsonArray.toString());
+
+    }
+
+    public JSONArray getPromotions() {
+
+        String response = pref.getStringData(PrefConstant.PROMOTIONS);
+        try {
+            if (response!=null && !response.equals("")) {
+                JSONArray elements = new JSONArray(response);
+                return elements;
+            }
+            }
+        catch (Exception e)
+        {
+
+        }
+        return null;
+    }
+
+    public void setMainFilePath(String s) {
+        pref.setStringData(PrefConstant.MAIN_FILE_PATH,s);
+    }
+
+    public String getMainFilePath() {
+    return pref.getStringData(PrefConstant.MAIN_FILE_PATH);
+    }
+
+    public void deletePromotions() {
+    pref.removePromotions();
     }
 }

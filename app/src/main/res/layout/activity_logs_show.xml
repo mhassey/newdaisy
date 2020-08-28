@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/rootLayout"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.logs.logs_show.LogsShowActivity">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:fillViewport="true"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_width="match_parent"
+            android:id="@+id/logsList"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="?attr/textcolorblack"
+            android:visibility="gone"
+            android:text="@string/no_data_available" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp60">
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            >
+            <Button
+                android:id="@+id/backClick"
+                android:layout_width="@dimen/dp150"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_border_format"
+                android:text="@string/exit"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            >
+
+            <Button
+
+                android:layout_width="@dimen/dp150"
+                android:id="@+id/clear_and_back"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_border_format"
+                android:text="@string/clear_and_exit"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

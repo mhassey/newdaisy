@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "507296311468",
+    "firebase_url": "https://daisy-33682.firebaseio.com",
+    "project_id": "daisy-33682",
+    "storage_bucket": "daisy-33682.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507296311468:android:99629b9cfbdf6671939709",
+        "android_client_info": {
+          "package_name": "com.daisy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507296311468-9ehssd6qtmc2uq89407le9bpckg74ld9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daisy",
+            "certificate_hash": "8c2d2900034474a3cd99158a88f0076faad406a7"
+          }
+        },
+        {
+          "client_id": "507296311468-fhmtivg52c3v12nrihm6pqvs94qhdtg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR2Gva8bnTMPMAwIyA5tWKdowZWegVXuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507296311468-fhmtivg52c3v12nrihm6pqvs94qhdtg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
