@@ -103,12 +103,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
+
         setNoTitleBar(this);
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         context = this;
         FrontCameraRetriever.retrieveFor(this);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         sessionManager = SessionManager.get();
+        sessionManager.onBoarding(true);
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -142,35 +144,42 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
     private void getDownloadData() {
-        if (CheckForSDCard.isSDCardPresent()) {
+        try {
 
-            List<Promotion> promotions = sessionManager.getPromotion();
-            List<Download> downloads = new ArrayList<>();
-            //check if app has permission to write to the external storage.
-            if (checkPermission()) {
-                //Get the URL entered
-                final String url = Utils.getPath();
-                if (url != null) {
-                    Download download = new Download();
-                    download.setPath(url);
-                    download.setType("");
-                    downloads.add(download);
-                    if (promotions!=null) {
-                        for (Promotion promotion : promotions) {
-                            Download downloadPromotion = new Download();
-                            downloadPromotion.setPath(promotion.getFileName());
-                            downloadPromotion.setType(getString(R.string.promotion));
-                            downloads.add(downloadPromotion);
+            if (CheckForSDCard.isSDCardPresent()) {
+
+                List<Promotion> promotions = sessionManager.getPromotion();
+                List<Download> downloads = new ArrayList<>();
+                //check if app has permission to write to the external storage.
+                if (checkPermission()) {
+                    //Get the URL entered
+                    final String url = Utils.getPath();
+                    if (url != null) {
+                        Download download = new Download();
+                        download.setPath(url);
+                        download.setType("");
+                        downloads.add(download);
+                        if (promotions != null) {
+                            for (Promotion promotion : promotions) {
+                                Download downloadPromotion = new Download();
+                                downloadPromotion.setPath(promotion.getFileName());
+                                downloadPromotion.setType(getString(R.string.promotion));
+                                downloads.add(downloadPromotion);
+                            }
                         }
-                    }
-                    new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
+                        new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
 
-                } else {
-                    editorToolOpen();
+                    } else {
+                        editorToolOpen();
+                    }
                 }
+            } else {
+                ValidationHelper.showToast(this, getString(R.string.storage_not_available));
             }
-        } else {
-            ValidationHelper.showToast(this, getString(R.string.storage_not_available));
+        }
+        catch (Exception e)
+        {
+
         }
     }
 
@@ -415,69 +424,67 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             @Override
             public void onPageFinished(WebView view, final String url) {
-
-//                super.onPageFinished(view, url);
-//                if (url.contains(Constraint.FILE)) {
-//                    DBCaller.storeLogInDatabase(context, Constraint.WEB_PAGE_LOAD_FINISH, Constraint.WEBPAGE_LOAD_FINISH_DESCRIPTION, url, Constraint.CARD_LOGS);
-//                }
-
+            try {
 
                 JSONArray jsonArray = new JSONArray();
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        List<Pricing> pricing = sessionManager.getPricing();
-                        Pricing pricing1 = null;
-                        if (pricing != null && !pricing.isEmpty()) {
-                            for(int i=0;i<pricing.size();i++)
-                            {
-                            LoginResponse loginResponse= sessionManager.getLoginResponse();
-                            if (loginResponse.getPricingPlanID().equals(pricing.get(i).getPricingPlanID())){
-                                pricing1=pricing.get(i);
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    List<Pricing> pricing = sessionManager.getPricing();
+                    Pricing pricing1 = null;
+                    if (pricing != null && !pricing.isEmpty()) {
+                        for (int i = 0; i < pricing.size(); i++) {
+                            LoginResponse loginResponse = sessionManager.getLoginResponse();
+                            if (loginResponse.getPricingPlanID().equals(pricing.get(i).getPricingPlanID())) {
+                                pricing1 = pricing.get(i);
                             }
-                            }
-                            if (pricing1==null) {
-                                for (int i = 0; i < pricing.size(); i++) {
-                                    if (pricing.get(i).getIsDefault()!=null && pricing.get(i).getIsDefault().equals("1")) {
-                                        pricing1 = pricing.get(i);
-                                    }
-
+                        }
+                        if (pricing1 == null) {
+                            for (int i = 0; i < pricing.size(); i++) {
+                                if (pricing.get(i).getIsDefault() != null && pricing.get(i).getIsDefault().equals("1")) {
+                                    pricing1 = pricing.get(i);
                                 }
-                            }
-                            if (pricing1!=null) {
-                                jsonObject.put("idproductFluid", pricing1.getIdproductFluid());
-                                jsonObject.put("idproductStatic", pricing1.getIdproductStatic());
-                                jsonObject.put("dateEffective", pricing1.getDateEffective());
-                                jsonObject.put("timeEffective", pricing1.getTimeEffective());
-                                jsonObject.put("msrp", pricing1.getMsrp());
-                                jsonObject.put("ourprice", pricing1.getOurprice());
-                                jsonObject.put("saleprice", pricing1.getSaleprice());
-                                jsonObject.put("planAprice", pricing1.getPlanAprice());
-                                jsonObject.put("planBprice", pricing1.getPlanBprice());
-                                jsonObject.put("planCprice", pricing1.getPlanCprice());
-                                jsonObject.put("planDprice", pricing1.getPlanDprice());
-                                jsonObject.put("downprice", pricing1.getDownprice());
-                                jsonObject.put("monthlyprice", pricing1.getMonthlyprice());
-                                jsonObject.put("config1", pricing1.getConfig1());
-                                jsonObject.put("config2", pricing1.getConfig2());
-                                jsonObject.put("config3", pricing1.getConfig3());
-                                jsonObject.put("config4", pricing1.getConfig4());
-                                jsonArray.put(jsonObject);
 
                             }
-
+                        }
+                        if (pricing1 != null) {
+                            jsonObject.put("idproductFluid", pricing1.getIdproductFluid());
+                            jsonObject.put("idproductStatic", pricing1.getIdproductStatic());
+                            jsonObject.put("dateEffective", pricing1.getDateEffective());
+                            jsonObject.put("timeEffective", pricing1.getTimeEffective());
+                            jsonObject.put("msrp", pricing1.getMsrp());
+                            jsonObject.put("ourprice", pricing1.getOurprice());
+                            jsonObject.put("saleprice", pricing1.getSaleprice());
+                            jsonObject.put("planAprice", pricing1.getPlanAprice());
+                            jsonObject.put("planBprice", pricing1.getPlanBprice());
+                            jsonObject.put("planCprice", pricing1.getPlanCprice());
+                            jsonObject.put("planDprice", pricing1.getPlanDprice());
+                            jsonObject.put("downprice", pricing1.getDownprice());
+                            jsonObject.put("monthlyprice", pricing1.getMonthlyprice());
+                            jsonObject.put("config1", pricing1.getConfig1());
+                            jsonObject.put("config2", pricing1.getConfig2());
+                            jsonObject.put("config3", pricing1.getConfig3());
+                            jsonObject.put("config4", pricing1.getConfig4());
+                            jsonArray.put(jsonObject);
 
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
 
                     }
-
-                     if (jsonArray.length() > 0)
-                        mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
-                    promotionSettings();
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
 
                 }
+
+                if (jsonArray.length() > 0)
+                    mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
+                promotionSettings();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            }
                 
 
 

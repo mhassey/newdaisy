@@ -121,72 +121,80 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private void initPassword() {
         appChecker.whenAny(new AppChecker.Listener() {
             @Override
-            public void onForeground(String process) {
-                if (sessionManager==null)
-                {
-                    sessionManager=SessionManager.get();
-                }
-                if (!sessionManager.getUninstall()) {
-                    if (process.equals("com.google.android.packageinstaller")) {
-                        Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-                        intent.putExtra(Constraint.PACKAGE, Constraint.current_running_process);
-                        startActivity(intent);
-
-
-                    }
-                }
-                boolean b = sessionManager.getLock();
-                if (!Constraint.current_running_process.equals(process)) {
-
-                    storeProcess(process);
-                    if (process.equals(Constraint.PLAY_STORE_PATH)) {
-                        if (!b) {
-
-                            return;
+            public void onForeground(String process1) {
+                try {
+                    if (process1 != null) {
+                        String process= process1+"";
+                        if (sessionManager == null) {
+                            sessionManager = SessionManager.get();
                         }
-                    }
-                    boolean browserLock = sessionManager.getBrowserLock();
-                    if (process.equals(Constraint.CROME)) {
-                        if (!browserLock) {
-                            Log.e("browser..", process);
-
-                            return;
-                        }
-                    }
-                    boolean messageLock = sessionManager.getMessageLock();
-                    if (Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
-                        // true
-                        if (!messageLock) {
-                            Log.e("mms..", process);
-
-                            return;
-                        }
-                    }
-
-
-                    Constraint.current_running_process = process;
-                    if (!process.equals(getApplication().getPackageName())) {
-                        if (process.equals(Constraint.SETTING_PATH) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
-                            Log.e("password correct check", sessionManager.getPasswordCorrect() + "");
-                            if (!sessionManager.getPasswordCorrect()) {
-
+                        if (!sessionManager.getUninstall()) {
+                            if (process.equals("com.google.android.packageinstaller")) {
                                 Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                intent.putExtra(Constraint.PACKAGE, process);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
+                                intent.putExtra(Constraint.PACKAGE, Constraint.current_running_process);
                                 startActivity(intent);
-                            } else {
-                                sessionManager.setPasswordCorrect(false);
+
+
                             }
-                        } else {
-                            sessionManager.setPasswordCorrect(false);
                         }
+                        boolean b = sessionManager.getLock();
+                        if (!Constraint.current_running_process.equals(process)) {
 
+                            storeProcess(process);
+                            if (process.equals(Constraint.PLAY_STORE_PATH)) {
+                                if (!b) {
+
+                                    return;
+                                }
+                            }
+                            boolean browserLock = sessionManager.getBrowserLock();
+                            if (process.equals(Constraint.CROME)) {
+                                if (!browserLock) {
+                                    Log.e("browser..", process);
+
+                                    return;
+                                }
+                            }
+                            boolean messageLock = sessionManager.getMessageLock();
+                            if (Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
+                                // true
+                                if (!messageLock) {
+                                    Log.e("mms..", process);
+
+                                    return;
+                                }
+                            }
+
+
+                            Constraint.current_running_process = process;
+                            if (!process.equals(getApplication().getPackageName())) {
+                                if (process.equals(Constraint.SETTING_PATH) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
+                                    Log.e("password correct check", sessionManager.getPasswordCorrect() + "");
+                                    if (!sessionManager.getPasswordCorrect()) {
+
+                                        Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                        intent.putExtra(Constraint.PACKAGE, process);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        startActivity(intent);
+                                    } else {
+                                        sessionManager.setPasswordCorrect(false);
+                                    }
+                                } else {
+                                    sessionManager.setPasswordCorrect(false);
+                                }
+
+                            }
+
+
+                        }
                     }
-
+                }
+                catch (Exception e)
+                {
 
                 }
             }
@@ -299,17 +307,24 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             public void run() {
                 count++;
                 if (count == 30) {
-                    String value = appChecker.getForegroundApp(getApplicationContext());
+                    try {
+                        String value = appChecker.getForegroundApp(getApplicationContext());
+                        if (value != null) {
+                            if (!value.equals(getApplication().getPackageName())) {
+                                //  checkNetwork();
+                                if (!value.equals("com.google.android.packageinstaller")) {
 
-                    if (!value.equals(getApplication().getPackageName())) {
-                        //  checkNetwork();
-                        if (!value.equals("com.google.android.packageinstaller")) {
+                                    bringApplicationToFront(getApplicationContext());
+                                }
+                            }
+                            count = 0;
 
-                            bringApplicationToFront(getApplicationContext());
                         }
                     }
-                    count = 0;
+                    catch (Exception e)
+                    {
 
+                    }
                 }
                 checkWifiState();
 
