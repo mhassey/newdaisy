@@ -41,6 +41,7 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         mBinding.applicationLogs.setOnClickListener(this);
         mBinding.cardLogs.setOnClickListener(this);
         mBinding.settings.setOnClickListener(this);
+        mBinding.cancel.setOnClickListener(this::onClick);
     }
 
 
@@ -101,6 +102,11 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
             case R.id.settings:
             {
                 handleSettingClick();
+                break;
+            }
+            case R.id.cancel:
+            {
+                onBackPressed();
                 break;
             }
         }

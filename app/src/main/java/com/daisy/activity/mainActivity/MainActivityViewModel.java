@@ -1,17 +1,31 @@
 package com.daisy.activity.mainActivity;
 
 import android.app.Application;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
+
 public class MainActivityViewModel extends AndroidViewModel {
     private boolean isSettingVisible=false;
+    private JSONArray jsonArray;
+    private boolean isExceptionInHtml=false;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
     }
 
+    public boolean isExceptionInHtml() {
+        return isExceptionInHtml;
+    }
+
+    public void setExceptionInHtml(boolean exceptionInHtml) {
+        isExceptionInHtml = exceptionInHtml;
+    }
 
     public boolean isSettingVisible() {
         return isSettingVisible;
@@ -19,5 +33,13 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void setSettingVisible(boolean settingVisible) {
         isSettingVisible = settingVisible;
+    }
+
+    public JSONArray getJsonArray() {
+        return jsonArray;
+    }
+
+    public void setJsonArray(JSONArray jsonArray) {
+        this.jsonArray = jsonArray;
     }
 }

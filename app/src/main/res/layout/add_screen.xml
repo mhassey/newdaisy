@@ -4,39 +4,55 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center|left"
-        android:layout_marginTop="@dimen/dp20"
-        android:layout_marginStart="@dimen/dp10"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/dp250"
+        android:background="@color/purple"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/cancel"
+                    android:layout_width="@dimen/dp40"
+                    android:layout_height="@dimen/dp40"
+                    android:src="@drawable/ic_arrow_back" />
+            </LinearLayout>
 
 
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/dp120"
+            android:layout_height="@dimen/dp120"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_product_icon" />
+
+        <TextView
+            style="@style/fontMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/dp10"
+            android:text="@string/select_pro"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp25" />
 
 
-    <TextView
-        android:layout_marginStart="@dimen/dp5"
-         android:textSize="@dimen/sp15"
-        android:fontFamily="@font/rbold"
-        android:textColor="@color/black"
-        android:text="@string/add_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
-
-
-    <View
-        android:background="@color/gray"
-        android:layout_marginTop="@dimen/dp20"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
-
-
-
-        <EditText
+    <EditText
             android:visibility="gone"
             android:id="@+id/isle"
             android:text="1"
@@ -81,16 +97,16 @@
 
 
     <TextView
-        android:layout_marginTop="@dimen/dp10"
-        android:layout_marginStart="@dimen/dp20"
-        android:textColor="@color/black"
+
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp40"
         android:text="@string/carrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/dp15"
-        android:layout_marginEnd="@dimen/dp15"
+        android:layout_marginStart="@dimen/dp35"
+        android:layout_marginEnd="@dimen/dp55"
         android:layout_marginTop="@dimen/dp5"
         android:layout_height="wrap_content">
         <Spinner
@@ -98,9 +114,7 @@
             android:id="@+id/carrierName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/editTextColor"
             android:inputType="text"
-            android:textSize="@dimen/dp14"
             android:background="@drawable/edit_text_format"
 
             android:textColorHint="@color/editTextLineColor"
@@ -108,24 +122,23 @@
 
         <ImageView
             android:layout_marginEnd="@dimen/dp10"
-            android:src="@drawable/ic_dropdown"
+            android:src="@drawable/ic_down_arrow"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"/>
 
     </RelativeLayout>
     <TextView
         android:layout_marginTop="@dimen/dp10"
-        android:layout_marginStart="@dimen/dp20"
-        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/dp40"
         android:text="@string/product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/dp15"
-        android:layout_marginEnd="@dimen/dp15"
+        android:layout_marginStart="@dimen/dp35"
+        android:layout_marginEnd="@dimen/dp55"
         android:layout_marginTop="@dimen/dp5"
         android:layout_height="wrap_content">
     <Spinner
@@ -133,26 +146,53 @@
         android:id="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="?attr/editTextColor"
         android:inputType="text"
-        android:textSize="@dimen/dp14"
         android:background="@drawable/edit_text_format"
-        android:hint="https://baseURL"
         android:textColorHint="@color/editTextLineColor"
         android:padding="@dimen/dp10" />
 
         <ImageView
             android:layout_marginEnd="@dimen/dp10"
-            android:src="@drawable/ic_dropdown"
+            android:src="@drawable/ic_down_arrow"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"/>
 
     </RelativeLayout>
 
 
+    <TextView
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp40"
+        android:text="@string/webkit_orientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dp35"
+        android:layout_marginEnd="@dimen/dp55"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_height="wrap_content">
+        <Spinner
 
+            android:id="@+id/webkitOrientation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@drawable/edit_text_format"
+            android:textColorHint="@color/editTextLineColor"
+            android:padding="@dimen/dp10" />
+
+        <ImageView
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/ic_down_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
 </layout>

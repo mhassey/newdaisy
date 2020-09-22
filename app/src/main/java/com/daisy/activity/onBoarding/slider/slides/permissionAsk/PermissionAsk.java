@@ -10,8 +10,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -36,18 +38,13 @@ import org.greenrobot.eventbus.ThreadMode;
 public class PermissionAsk extends Fragment implements View.OnClickListener {
     private static ActivityOnBaordingBinding onBaordingBindingMain;
     private FragmentPermissionAskBinding permissionAskBinding;
-    private boolean grandMediaPermission = false;
-    private boolean grandDisplayOverTheApp = false;
-    private boolean grandModifySystemSettings = false;
-    private boolean grandUsageAccess = false;
-    private boolean grandBatteyOptimization = false;
-    private boolean grandExtraAccess = false;
+    private PermissionAskViewModel permissionAskViewModel;
     private Context context;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         permissionAskBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_permission_ask, container, false);
         return permissionAskBinding.getRoot();
     }
@@ -56,18 +53,24 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView();
         permissionSetter();
         initClick();
     }
 
-    private void initClick() {
+    private void initView() {
         context=requireContext();
+        permissionAskViewModel=new ViewModelProvider(this).get(PermissionAskViewModel.class);
+    }
+
+    private void initClick() {
         permissionAskBinding.grandMediaPermission.setOnClickListener(this);
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
         permissionAskBinding.miExtra.setOnClickListener(this::onClick);
+        permissionAskBinding.cancel.setOnClickListener(this::onClick);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -79,19 +82,16 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkForOnePlus();
         checkForMi();
         String name = Utils.getDeviceName();
-        if (name.contains(getString(R.string.onePlus))) {
 
-            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp && grandBatteyOptimization) {
-                onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
-            } else {
-                onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
-
-            }
-        }
-        else  if (name.contains(Constraint.REDME))
+          if (name.contains(Constraint.REDME))
         {
-            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp && grandExtraAccess) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandExtraAccess()) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red) );
+                } else {
+                    onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
+                }
             } else {
                 onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
 
@@ -99,7 +99,12 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
         else
         {
-            if (grandMediaPermission && grandModifySystemSettings && grandUsageAccess && grandDisplayOverTheApp) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization()) {
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red) );
+                } else {
+                    onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
+                }
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
             } else {
                 onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
@@ -119,16 +124,16 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     {
         permissionAskBinding.miExtraHeader.setVisibility(View.INVISIBLE);
     }
-    if (grandExtraAccess)
+    if (permissionAskViewModel.isGrandExtraAccess())
     {
 
-        permissionAskBinding.miExtraRight.setVisibility(View.VISIBLE);
+        permissionAskBinding.miExtraRight.setChecked(true);
         permissionAskBinding.miExtra.setEnabled(false);
 
     }
     else
     {
-        permissionAskBinding.miExtraRight.setVisibility(View.INVISIBLE);
+        permissionAskBinding.miExtraRight.setChecked(false);
         permissionAskBinding.miExtra.setEnabled(true);
 
 
@@ -137,37 +142,31 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkForOnePlus() {
-        String name = Utils.getDeviceName();
-        if (name.contains(getString(R.string.onePlus))) {
-            permissionAskBinding.dontOptimizedBatteryHeader.setVisibility(View.VISIBLE);
-            final PowerManager pm = (PowerManager) requireContext().getSystemService(Context.POWER_SERVICE);
+             final PowerManager pm = (PowerManager) requireContext().getSystemService(Context.POWER_SERVICE);
             if (!pm.isIgnoringBatteryOptimizations(getString(R.string.packageName))) {
-                grandBatteyOptimization=false;
-                permissionAskBinding.batteryUsages.setVisibility(View.INVISIBLE);
-                permissionAskBinding.dontOptimizedBattery.setEnabled(true);
+                permissionAskViewModel.setGrandBatteyOptimization(Constraint.FALSE);
+                permissionAskBinding.batteryUsages.setChecked(false);
+                permissionAskBinding.dontOptimizedBattery.setEnabled(Constraint.TRUE);
             } else {
-                grandBatteyOptimization=true;
-                permissionAskBinding.batteryUsages.setVisibility(View.VISIBLE);
-                permissionAskBinding.dontOptimizedBattery.setEnabled(false);
+                permissionAskViewModel.setGrandBatteyOptimization(Constraint.TRUE);
+                permissionAskBinding.batteryUsages.setChecked(true);
+                permissionAskBinding.dontOptimizedBattery.setEnabled(Constraint.FALSE);
 
             }
-        } else {
-            permissionAskBinding.dontOptimizedBatteryHeader.setVisibility(View.GONE);
 
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void mediaPermission() {
         boolean b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
         if (!b) {
-            permissionAskBinding.grandMediaPermissionDone.setVisibility(View.INVISIBLE);
-            permissionAskBinding.grandMediaPermission.setEnabled(true);
-            grandMediaPermission=false;
+            permissionAskBinding.grandMediaPermissionDone.setChecked(false);
+            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.TRUE);
+            permissionAskViewModel.setGrandMediaPermission(Constraint.FALSE);
         } else {
-            permissionAskBinding.grandMediaPermissionDone.setVisibility(View.VISIBLE);
-            permissionAskBinding.grandMediaPermission.setEnabled(false);
-            grandMediaPermission=true;
+            permissionAskBinding.grandMediaPermissionDone.setChecked(true);
+            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.FALSE);
+            permissionAskViewModel.setGrandMediaPermission(Constraint.TRUE);
 
         }
 
@@ -176,40 +175,39 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void modifySystemSettings() {
         if (!Settings.System.canWrite(requireContext())) {
-             permissionAskBinding.modifySystemSettingsDone.setVisibility(View.INVISIBLE);
-            permissionAskBinding.modifySystemSettings.setEnabled(true);
-            grandModifySystemSettings=false;
+             permissionAskBinding.modifySystemSettingsDone.setChecked(false);
+            permissionAskBinding.modifySystemSettings.setEnabled(Constraint.TRUE);
+            permissionAskViewModel.setGrandModifySystemSettings(Constraint.FALSE);
         } else {
-            permissionAskBinding.modifySystemSettingsDone.setVisibility(View.VISIBLE);
-            permissionAskBinding.modifySystemSettings.setEnabled(false);
-            grandModifySystemSettings=true;
+            permissionAskBinding.modifySystemSettingsDone.setChecked(true);
+            permissionAskBinding.modifySystemSettings.setEnabled(Constraint.FALSE);
+            permissionAskViewModel.setGrandModifySystemSettings(Constraint.TRUE);
         }
     }
 
     private void checkAccessUsage() {
         if (Utils.isAccessGranted(requireContext())) {
-            grandUsageAccess=true;
-            permissionAskBinding.usageAccessDone.setVisibility(View.VISIBLE);
-            permissionAskBinding.usageAccess.setEnabled(false);
+            permissionAskViewModel.setGrandUsageAccess(Constraint.TRUE);
+            permissionAskBinding.usageAccessDone.setChecked(true);
+            permissionAskBinding.usageAccess.setEnabled(Constraint.FALSE);
 
         } else {
-            grandUsageAccess=false;
-
-            permissionAskBinding.usageAccessDone.setVisibility(View.INVISIBLE);
-            permissionAskBinding.usageAccess.setEnabled(true);
+            permissionAskViewModel.setGrandUsageAccess(Constraint.FALSE);
+            permissionAskBinding.usageAccessDone.setChecked(false);
+            permissionAskBinding.usageAccess.setEnabled(Constraint.TRUE);
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkDisplayOverTheApp() {
         if (Settings.canDrawOverlays(requireContext())) {
-            permissionAskBinding.displayOverTheAppDone.setVisibility(View.VISIBLE);
-            permissionAskBinding.displayOverTheApp.setEnabled(false);
-            grandDisplayOverTheApp=true;
+            permissionAskBinding.displayOverTheAppDone.setChecked(true);
+            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.FALSE);
+            permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.TRUE);
         } else {
-            permissionAskBinding.displayOverTheAppDone.setVisibility(View.INVISIBLE);
-            permissionAskBinding.displayOverTheApp.setEnabled(true);
-            grandDisplayOverTheApp=false;
+            permissionAskBinding.displayOverTheAppDone.setChecked(false);
+            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.TRUE);
+            permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.FALSE);
 
         }
     }
@@ -250,6 +248,11 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 callMiExtraPopUp();
                 break;
             }
+            case R.id.cancel:
+            {
+                getActivity().onBackPressed();
+                break;
+            }
         }
     }
 
@@ -269,9 +272,15 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        String packageName = requireContext().getPackageName();
-                        if (!pm.isIgnoringBatteryOptimizations(packageName)) {
-                            requireActivity().startActivityForResult(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS), Constraint.BATTRY_OPTIMIZATION_CODE);
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            Intent intent = new Intent();
+                            String packageName = context.getPackageName();
+                            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                                intent.setData(Uri.parse("package:" + packageName));
+                                requireActivity().startActivityForResult(intent,Constraint.BATTRY_OPTIMIZATION_CODE);
+                            }
                         }
                     }
                 }
@@ -327,8 +336,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     public void permissionDone(PermissionDone permissionDone) {
         if (permissionDone.getPermissionName().equals(Constraint.REDME))
         {
-            grandExtraAccess=true;
+            permissionAskViewModel.setGrandExtraAccess(Constraint.TRUE);
+
         }
+
         permissionSetter();
     }
 
@@ -346,4 +357,19 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         if (EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        designWork();
+           }
+
+    private void designWork() {
+        onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
+        onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+    }
+
 }

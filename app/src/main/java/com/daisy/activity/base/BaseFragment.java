@@ -18,9 +18,8 @@ import com.daisy.R;
 import com.daisy.utils.DialogUtil;
 
 public class BaseFragment extends Fragment  {
-
     private ProgressDialog progressDialog;
-    private ProgressBar mProgressBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class BaseFragment extends Fragment  {
                 }
             } else {
                 progressDialog =new ProgressDialog(requireContext());
-                progressDialog.setMessage("Loading...");
+                progressDialog.setMessage(getString(R.string.loading));
                 showHideProgressDialog(iShow);
             }
         } catch (Exception e) {

@@ -34,6 +34,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     private  boolean promotion;
     private List<Download> downloads;
     int pathSetting=0;
+    int counter=0;
     private SessionManager sessionManager;
 
 
@@ -51,12 +52,18 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        this.progressDialog = new ProgressDialog(context);
-        this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        this.progressDialog.setMessage(Constraint.WAIT);
-        this.progressDialog.setCancelable(false);
-        this.progressDialog.show();
-    }
+        if (progressDialog!=null && progressDialog.isShowing())
+        {
+
+        }
+        else {
+            this.progressDialog = new ProgressDialog(context);
+            this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            this.progressDialog.setMessage(Constraint.WAIT);
+            this.progressDialog.setCancelable(false);
+            this.progressDialog.show();
+        }
+        }
 
     /**
      * Downloading file in background thread
@@ -141,10 +148,15 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                      boolean isDone=  new ZipManager().unpackZip(path,callBack);
+                      boolean isDone=  new ZipManager().unpackZip(path,callBack,download);
                     if (isDone)
                     {
+                        counter++;
+                    }
+                    if (counter==downloads.size())
+                    {
                         callBack.callBack(Constraint.SUCCESS);
+
                     }
                     }
                 }).start();
@@ -154,7 +166,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 e.printStackTrace();
             }
         }
-        callBack.callBack(Constraint.SUCCESS);
+       // callBack.callBack(Constraint.SUCCESS);
         return "Something went wrong";
     }
 

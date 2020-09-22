@@ -75,6 +75,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     private void initClick() {
         mBinding.setTime.setOnClickListener(this::onClick);
         mBinding.directUpdate.setOnClickListener(this::onClick);
+        mBinding.cancel.setOnClickListener(this::onClick);
     }
 
 
@@ -132,12 +133,19 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             }
             case R.id.directUpdate: {
                 directUpdate();
+                break;
+            }
+            case R.id.cancel:
+            {
+                onBackPressed();
+                break;
             }
         }
     }
 
     private void directUpdate() {
         if (Utils.getNetworkState(context)) {
+
             showHideProgressDialog(true);
             getCardViewModel.setMutableLiveData(getCardRequest());
             LiveData<GlobalResponse<GetCardResponse>> liveData = getCardViewModel.getLiveData();
@@ -159,19 +167,26 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                                         sessionManager.setCardDeleted(false);
                                         redirectToMain(response);
 
-                                    } else if (response.getResult().getPromotions() != null) {
+                                    } else if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                         sessionManager.setPromotion(response.getResult().getPromotions());
 
                                         Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                                        if (response.getResult().getPricing() != null) {
+                                        if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
                                             sessionManager.setPricing(response.getResult().getPricing());
                                         }
                                         i.putExtra(Constraint.PROMOTION, "true");
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(i);
                                     }
+                                    else  if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                                        i.putExtra(Constraint.PRICING, "true");
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
 
-                                } else {
+                                    }
+                                    } else {
 
                                     if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                         sessionManager.setPromotion(response.getResult().getPromotions());
@@ -183,6 +198,14 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                                         i.putExtra(Constraint.PROMOTION, "true");
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(i);
+                                    }
+                                    else  if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                                        i.putExtra(Constraint.PRICING, "true");
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+
                                     }
                                     else
                                     {
@@ -251,6 +274,8 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+        if (sessionManager.getPriceCard()!=null)
+            hashMap.put(Constraint.pricecardid,sessionManager.getPriceCard().getIdpriceCard());
         return hashMap;
     }
 

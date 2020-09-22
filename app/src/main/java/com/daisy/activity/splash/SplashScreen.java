@@ -1,9 +1,14 @@
 package com.daisy.activity.splash;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.View;
 
 import com.daisy.R;
@@ -28,6 +33,8 @@ public class SplashScreen extends BaseActivity {
     private void initView() {
         setNoTitleBar(this);
         sessionManager=SessionManager.get();
+        sessionManager.setUpdateNotShow(false);
+        sessionManager.uninstallShow(false);
           final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

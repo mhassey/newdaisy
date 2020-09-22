@@ -45,19 +45,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             </LinearLayout>
-            <AutoCompleteTextView
-                android:id="@+id/baseUrl"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp40"
-                android:layout_marginStart="@dimen/dp20"
-                android:layout_marginEnd="@dimen/dp20"
-                android:background="@drawable/edit_text_format"
-                android:hint="@string/enter_base_url_for_server"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:paddingStart="@dimen/dp10"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:layout_marginStart="@dimen/dp35"
+                android:layout_marginEnd="@dimen/dp55"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_height="wrap_content">
+                <Spinner
+
+                    android:id="@+id/baseUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:inputType="text"
+                    android:autofillHints="@string/enter_base_url_for_server"
+                    android:background="@drawable/edit_text_format"
+                    android:paddingStart="@dimen/dp10"
+                    android:textColor="?attr/textcolorblack"
+                    android:textColorHint="@color/editTextLineColor"
+                    android:padding="@dimen/dp10" />
+
+                <ImageView
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:src="@drawable/ic_down_arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"/>
+
+            </RelativeLayout>
+
 
 
         </LinearLayout>

@@ -1,12 +1,14 @@
 package com.daisy.service;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -35,14 +37,17 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.daisy.R;
+import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
+import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.OverLayResponse;
+import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
@@ -52,6 +57,7 @@ import com.rvalerio.fgchecker.AppChecker;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -124,81 +130,91 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             public void onForeground(String process1) {
                 try {
                     if (process1 != null) {
-                        String process= process1+"";
-                        if (sessionManager == null) {
-                            sessionManager = SessionManager.get();
-                        }
-                        if (!sessionManager.getUninstall()) {
-                            if (process.equals("com.google.android.packageinstaller")) {
-                                Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-                                intent.putExtra(Constraint.PACKAGE, Constraint.current_running_process);
-                                startActivity(intent);
-
-
+                        if (!sessionManager.getUninstallShow()) {
+                            String process = process1 + "";
+                            if (sessionManager == null) {
+                                sessionManager = SessionManager.get();
                             }
-                        }
-                        boolean b = sessionManager.getLock();
-                        if (!Constraint.current_running_process.equals(process)) {
 
-                            storeProcess(process);
-                            if (process.equals(Constraint.PLAY_STORE_PATH)) {
-                                if (!b) {
 
-                                    return;
-                                }
-                            }
-                            boolean browserLock = sessionManager.getBrowserLock();
-                            if (process.equals(Constraint.CROME)) {
-                                if (!browserLock) {
-                                    Log.e("browser..", process);
+                            if (!sessionManager.getUninstall()) {
 
-                                    return;
-                                }
-                            }
-                            boolean messageLock = sessionManager.getMessageLock();
-                            if (Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
-                                // true
-                                if (!messageLock) {
-                                    Log.e("mms..", process);
+                                if (process.equals("com.google.android.packageinstaller")) {
 
-                                    return;
+                                    Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                    intent.putExtra(Constraint.PACKAGE, process);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    startActivity(intent);
+
+
+                                } else {
+                                    sessionManager.setDefaultDownload(false);
                                 }
                             }
 
+                            boolean b = sessionManager.getLock();
+                            if (!Constraint.current_running_process.equals(process)) {
 
-                            Constraint.current_running_process = process;
-                            if (!process.equals(getApplication().getPackageName())) {
-                                if (process.equals(Constraint.SETTING_PATH) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
-                                    Log.e("password correct check", sessionManager.getPasswordCorrect() + "");
-                                    if (!sessionManager.getPasswordCorrect()) {
+                                storeProcess(process);
+                                if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains("sbrowser")) {
+                                    if (!b) {
 
-                                        Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                        intent.putExtra(Constraint.PACKAGE, process);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                        startActivity(intent);
+                                        return;
+                                    }
+                                }
+                                boolean browserLock = sessionManager.getBrowserLock();
+                                if (process.equals(Constraint.CROME)) {
+                                    if (!browserLock) {
+                                        Log.e("browser..", process);
+
+                                        return;
+                                    }
+                                }
+                                boolean messageLock = sessionManager.getMessageLock();
+                                if (Arrays.asList(messages).contains(process) || process.contains("sbrowser") || process.contains("messaging")) {
+                                    // true
+                                    if (!messageLock) {
+                                        Log.e("mms..", process);
+
+                                        return;
+                                    }
+                                }
+
+
+                                Constraint.current_running_process = process;
+
+                                if (!process.equals(getApplication().getPackageName())) {
+                                    if (process.equals(Constraint.SETTING_PATH) || process.contains("sbrowser") || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
+                                        Log.e("password correct check", sessionManager.getPasswordCorrect() + "");
+                                        if (!sessionManager.getPasswordCorrect()) {
+                                            sessionManager.setPasswordCorrect(true);
+                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                            intent.putExtra(Constraint.PACKAGE, process);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                            startActivity(intent);
+                                        } else {
+                                            sessionManager.setPasswordCorrect(false);
+                                        }
                                     } else {
                                         sessionManager.setPasswordCorrect(false);
                                     }
-                                } else {
-                                    sessionManager.setPasswordCorrect(false);
+
                                 }
 
+
                             }
-
-
                         }
                     }
-                }
-                catch (Exception e)
-                {
-
+                } catch (Exception e) {
+                e.printStackTrace();
                 }
             }
-        }).timeout(100).start(getApplicationContext());
+        }).timeout(200).start(getApplicationContext());
     }
 
     private void storeProcess(String process) {
@@ -259,6 +275,28 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         setDeleteTimer();
         sendLogTimer();
         checkUpdate();
+        checkPromotion();
+        updateAPk();
+    }
+
+    private void checkPromotion() {
+        try {
+            int hour = 0;
+            int minit = 1;
+
+
+            int second = ((hour * 3600) + (minit * 60)) * 1000;
+            refreshTimer = new Timer();
+            refreshTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                   EventBus.getDefault().post(new Promotions());
+                }
+            }, second, second);
+
+        } catch (Exception e) {
+
+        }
     }
 
     private void sendLogTimer() {
@@ -280,17 +318,18 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
         int hour = 0;
-        int minit = 15;
+        int minit = 2;
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
         }
 
-         int second = ((hour * 3600) + (minit * 60)) * 1000;
+        int second = ((hour * 3600) + (minit * 60)) * 1000;
         refreshTimer = new Timer();
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+
                 CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
                 checkCardAvailability.checkCard();
             }
@@ -299,37 +338,74 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     }
 
+
+    public static void updateAPk() {
+        try {
+            int hour = 0;
+            int minit = 1;
+
+
+            int second = ((hour * 3600) + (minit * 60)) * 1000;
+            refreshTimer = new Timer();
+            refreshTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    UpdateApk updateApk = new UpdateApk();
+                    updateApk.UpdateApk();
+                }
+            }, second, second);
+
+        } catch (Exception e) {
+
+        }
+    }
+
     private void bringApplicationTimer() {
 
-        Timer T = new Timer();
-        T.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                count++;
-                if (count == 30) {
-                    try {
-                        String value = appChecker.getForegroundApp(getApplicationContext());
-                        if (value != null) {
-                            if (!value.equals(getApplication().getPackageName())) {
-                                //  checkNetwork();
-                                if (!value.equals("com.google.android.packageinstaller")) {
+        try {
+            Timer T = new Timer();
+            T.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    count++;
+                    if (count == 30) {
+                        try {
+                            String value = appChecker.getForegroundApp(getApplicationContext());
+                            if (value != null) {
+                                if (!value.equals(getApplication().getPackageName())) {
+                                    //  checkNetwork();
+                                    if (!value.equals("com.google.android.packageinstaller")) {
 
-                                    bringApplicationToFront(getApplicationContext());
+                                        bringApplicationToFront(getApplicationContext());
+                                    }
                                 }
+                                else
+                                {
+                                    ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+                                    List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+                                    Log.d("topActivity", "CURRENT Activity ::" + taskInfo.get(0).topActivity.getClassName());
+                                    ComponentName componentInfo = taskInfo.get(0).topActivity;
+                                    String name=componentInfo.getClassName();
+                                    if (name.contains("LockScreen"))
+                                    {
+                                        bringApplicationToFront(getApplicationContext());
+
+                                    }
+                                 }
+                                count = 0;
+
                             }
-                            count = 0;
+                        } catch (Exception e) {
 
                         }
                     }
-                    catch (Exception e)
-                    {
+                    checkWifiState();
 
-                    }
                 }
-                checkWifiState();
+            }, 1000, 1000);
+        } catch (Exception e) {
 
-            }
-        }, 1000, 1000);
+        }
     }
 
     private void setDeleteTimer() {
@@ -480,6 +556,15 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         count = 0;
+        boolean value = sessionManager.getUpdateNotShow();
+        boolean isDialogOpen=sessionManager.getupdateDialog();
+        if (!isDialogOpen) {
+            if (!value) {
+                ApkDetails apkDetails = sessionManager.getApkDetails();
+                if (apkDetails != null)
+                    EventBus.getDefault().post(apkDetails);
+            }
+        }
         return true;
     }
 
@@ -586,7 +671,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
                 int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
                 int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
-                 if (z_digree ==90) {
+                if (z_digree == 90) {
                     counter++;
                     if (counter > 20) {
                         isPickedUp = false;
@@ -603,15 +688,15 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         if (!isPickedUpSucess) {
                             isPickedDown = false;
                             isPickedUpSucess = true;
-                         //   ValidationHelper.showToast(getApplicationContext(),"Device picked up");
+                            //   ValidationHelper.showToast(getApplicationContext(),"Device picked up");
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
                         }
                     } else {
                         if (!isPickedDown) {
                             isPickedDown = true;
                             isPickedUpSucess = false;
-                           // ValidationHelper.showToast(getApplicationContext(),"Device put down");
-                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked down", "", "", Constraint.APPLICATION_LOGS);
+                            // ValidationHelper.showToast(getApplicationContext(),"Device put down");
+                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
 
                         }
                     }

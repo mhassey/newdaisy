@@ -1,6 +1,7 @@
 package com.daisy.activity.editorTool;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,10 +16,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -27,10 +31,7 @@ import androidx.databinding.DataBindingUtil;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.configSettings.ConfigSettings;
-import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
-import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityEditorToolBinding;
@@ -62,10 +63,6 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
         setOnClickListener();
     }
 
-    private void startServices() {
-        startService(new Intent(getBaseContext(), StickyService.class));
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
@@ -79,6 +76,10 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
         if (path != null) {
             mBinding.baseUrl.setText(path);
         }
+    }
+
+    private void startServices() {
+        startService(new Intent(getBaseContext(), StickyService.class));
     }
 
 
@@ -166,8 +167,8 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == Constraint.RESPONSE_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                boolean showRationale = shouldShowRequestPermissionRationale(permissions[0]);
+            if (grantResults[Constraint.ZERO] == PackageManager.PERMISSION_DENIED) {
+                boolean showRationale = shouldShowRequestPermissionRationale(permissions[Constraint.ZERO]);
                 if (!showRationale) {
 
                 } else {
@@ -198,7 +199,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void handleOnActivtyResult(int requestCode) {
         if (requestCode == Constraint.CODE_WRITE_SETTINGS_PERMISSION) {
-            if (Settings.System.canWrite(this)) {
+            if (Settings.System.canWrite(context)) {
                 String name = Utils.getDeviceName();
                 if (name.contains(getString(R.string.onePlus))) {
                     batteryUsage();
@@ -207,7 +208,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                 }
             } else modifySystemSettings();
         } else if (requestCode == Constraint.POP_UP_RESPONSE) {
-            if (!Settings.canDrawOverlays(this)) {
+            if (!Settings.canDrawOverlays(context)) {
                 askForPopUpPermission();
             } else
                 callUsageAccessSettings();
@@ -242,7 +243,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     }
 
     private void callUsageAccessSettings() {
-        Utils.showAlertDialog(context,getString(R.string.allow_data_access), "Ok", new DialogInterface.OnClickListener() {
+        Utils.showAlertDialog(context, getString(R.string.allow_data_access), "Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
@@ -286,8 +287,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                 saveAndLoad();
                 break;
             }
-            case  R.id.configSettings:
-            {
+            case R.id.configSettings: {
                 openConfigSettings();
                 break;
             }
@@ -296,11 +296,43 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     }
 
     private void openConfigSettings() {
-        Intent intent=new Intent(EditorTool.this, ConfigSettings.class);
-        startActivity(intent);
+
+
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.password_layout, null);
+        final EditText password = alertLayout.findViewById(R.id.password);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getString(R.string.lock));
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                //Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.setPositiveButton(R.string.unlockk, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String passwordString = password.getText().toString();
+                String lockPassword=sessionManager.getPasswordLock();
+                if (passwordString.equals(lockPassword)) {
+                    dialog.dismiss();
+                    Intent intent = new Intent(EditorTool.this, ConfigSettings.class);
+                    startActivity(intent);
+                } else {
+                    ValidationHelper.showToast(context, getString(R.string.invalid_password));
+                }
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+
     }
-
-
 
 
     private void saveAndLoad() {
@@ -396,8 +428,6 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     }
 
 
-
-
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
@@ -425,10 +455,6 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void permissionWork() {
-//        boolean b = PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
-//        if (!b) {
-//            askForExternalPermission();
-//        }
         checkAndValidate();
     }
 

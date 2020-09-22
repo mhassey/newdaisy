@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
@@ -24,6 +25,7 @@ import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
+import com.daisy.utils.Constraint;
 
 import java.util.Locale;
 
@@ -45,6 +47,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         context = this;
         setNoTitleBar(this);
         sessionManager=SessionManager.get();
+        mBinding.appVersion.setText(BuildConfig.VERSION_NAME);
     }
 
     private void initClick() {
@@ -53,6 +56,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.updateBaseUrl.setOnClickListener(this);
         mBinding.updatePosition.setOnClickListener(this);
         mBinding.changeLanguage.setOnClickListener(this::onClick);
+        mBinding.cancel.setOnClickListener(this::onClick);
     }
 
 
@@ -110,6 +114,11 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 changeLanguage();
                 break;
             }
+            case R.id.cancel:
+            {
+               onBackPressed();
+                break;
+            }
         }
     }
 
@@ -142,43 +151,43 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         int pos=0;
         if (loadedLang!=null && !loadedLang.equals(""))
         {
-            if (loadedLang.equals("en"))
+            if (loadedLang.equals(Constraint.EN))
             {
-                pos=0;
+                pos=Constraint.ZERO;
             }
-            else if (loadedLang.equals("fr"))
+            else if (loadedLang.equals(Constraint.FR))
             {
-                pos=1;
+                pos=Constraint.ONE;
             }
-            else if (loadedLang.equals("es"))
+            else if (loadedLang.equals(Constraint.ES))
             {
-                pos=2;
+                pos=Constraint.TWO;
             }
-            else if (loadedLang.equals("pt"))
+            else if (loadedLang.equals(Constraint.PT))
             {
-                pos=3;
+                pos=Constraint.THREE;
             }
         }
 
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(context)
                 .setTitle(getString(R.string.choose_lang))
                 .setSingleChoiceItems(lang, pos, null)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
                         int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
-                        if (selectedPosition == 0) {
-                            setLang("en");
-                        } else if (selectedPosition == 1) {
-                            setLang("fr");
+                        if (selectedPosition == Constraint.ZERO) {
+                            setLang(Constraint.EN);
+                        } else if (selectedPosition == Constraint.ONE) {
+                            setLang(Constraint.FR);
                         }
-                        else if (selectedPosition==2)
+                        else if (selectedPosition==Constraint.TWO)
                         {
-                            setLang("es");
+                            setLang(Constraint.ES);
                         }
-                        else if (selectedPosition==3)
+                        else if (selectedPosition==Constraint.THREE)
                         {
-                            setLang("pt");
+                            setLang(Constraint.PT);
                         }
                         dialog.dismiss();
                     }
@@ -196,7 +205,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
         sessionManager.setLang(s);
         Intent i = new Intent(ConfigSettings.this, MainActivity.class);
-// set the new task and clear flags
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }

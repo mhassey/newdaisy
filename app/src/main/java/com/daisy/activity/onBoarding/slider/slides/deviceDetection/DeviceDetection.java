@@ -42,6 +42,7 @@ public class DeviceDetection extends Fragment {
     }
 
     private void initView() {
+        context=getContext();
         DBCaller.storeLogInDatabase(context, getString(R.string.load_add_screen),"","",Constraint.APPLICATION_LOGS);
 
     }

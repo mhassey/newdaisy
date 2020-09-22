@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
@@ -27,8 +28,6 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setNoTitleBar(this);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_lock_screen);
         initView();
         initClick();
     }
@@ -36,6 +35,13 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
         context = this;
+        setNoTitleBar(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_lock_screen);
+        sessionManager = SessionManager.get();
+        extraTaskForMakeAppWorkable();
+      }
+
+    private void extraTaskForMakeAppWorkable() {
         Constraint.current_running_process = "";
         current_running_path = String.valueOf(getIntent().getStringExtra(Constraint.PACKAGE));
         String uninstall = getIntent().getStringExtra(Constraint.UNINSTALL);
@@ -44,11 +50,12 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         } else {
             comeFromUninstall = true;
         }
-        sessionManager = SessionManager.get();
+
     }
 
     private void initClick() {
         binding.unlock.setOnClickListener(this);
+        binding.cancel.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -67,16 +74,64 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
             case R.id.unlock: {
                 Utils.hideKeyboard(context);
                 unlockPassword();
+                break;
+            }
+            case R.id.cancel:
+            {
+              redirectToMain();
+              break;
             }
         }
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+
+    }
+
+
+    private void hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
+        ViewGroup.LayoutParams params = binding.rootLayout.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        binding.rootLayout.requestLayout();
+
+    }
+
+
+    private void redirectToMain() {
+    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+    startActivity(intent);
+    finish();
     }
 
     private void unlockPassword() {
         String password = binding.password.getText().toString();
         if (password != null) {
-            if (password.equals(Constraint.PASSWORD)) {
+            String realPassword=sessionManager.getPasswordLock();
+            if (password.equals(realPassword)) {
                 if (!comeFromUninstall)
-                    sessionManager.setUninstall(true);
+                    sessionManager.setUninstall(Constraint.TRUE);
                 finish();
                 startLastActivity(current_running_path);
 
@@ -100,7 +155,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
             onBackToHome();
             Intent intent = new Intent(Intent.ACTION_DELETE);
-            intent.setData(Uri.parse("package:com.daisy"));
+            intent.setData(Uri.parse(Constraint.DAISY_PACKAGE));
             startActivity(intent);
         }
     }

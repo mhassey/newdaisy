@@ -10,20 +10,52 @@
         tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_weight="0.2"
-            android:gravity="center">
+            android:layout_height="@dimen/dp250"
+            android:background="@color/mettle_light_green"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/cancel"
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"
+                        android:src="@drawable/ic_arrow_back" />
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="@dimen/dp150"
-                android:layout_height="@dimen/dp50"
-                android:src="@drawable/mainlogolargewidth" />
+                android:layout_width="@dimen/dp120"
+                android:layout_height="@dimen/dp120"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_credentials_icon" />
+
+            <TextView
+                style="@style/fontMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/dp10"
+                android:text="@string/credentials"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp25" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,12 +69,15 @@
                 android:id="@+id/storeCode"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
-                android:layout_margin="@dimen/dp20"
+                android:layout_marginStart="@dimen/dp30"
+                android:layout_marginEnd="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp30"
                 android:background="@drawable/edit_text_format"
                 android:hint="@string/store_code"
                 android:textSize="@dimen/sp15"
                 android:inputType="text"
                 android:imeOptions="actionNext"
+
                 android:paddingStart="@dimen/dp10"
                 android:textColor="?attr/textcolorblack" />
 
@@ -51,9 +86,9 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
-                android:layout_marginStart="@dimen/dp20"
-                android:layout_marginTop="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp20"
+                android:layout_marginStart="@dimen/dp30"
+                android:layout_marginEnd="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp20"
                 android:background="@drawable/edit_text_format"
                 android:hint="@string/Password"
                 android:textSize="@dimen/sp15"
@@ -65,6 +100,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"

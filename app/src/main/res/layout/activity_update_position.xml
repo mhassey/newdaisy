@@ -5,37 +5,52 @@
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center|left"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginStart="@dimen/dp10"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/dp250"
+            android:background="@color/updatePosition"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/cancel"
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"
+                        android:src="@drawable/ic_arrow_back" />
+                </LinearLayout>
 
 
+            </LinearLayout>
 
+            <ImageView
+                android:layout_width="@dimen/dp120"
+                android:layout_height="@dimen/dp120"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_location_icon" />
 
             <TextView
-                android:layout_marginStart="@dimen/dp5"
-                android:textSize="@dimen/sp15"
-                android:fontFamily="@font/rbold"
-                android:textColor="@color/black"
-                android:text="@string/update_screen"
+                style="@style/fontMedium"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/dp10"
+                android:text="@string/update_position"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp25" />
 
 
-
-
-        <View
-            android:background="@color/gray"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
-
-
+        </RelativeLayout>
 
 
         <TextView
@@ -43,7 +58,6 @@
             android:layout_marginTop="@dimen/sp15"
             android:text="@string/isle"
             android:fontFamily="@font/rragular"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -66,7 +80,6 @@
             android:layout_marginStart="@dimen/dp20"
             android:text="@string/shelf"
             android:fontFamily="@font/rragular"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -88,7 +101,6 @@
             android:layout_marginStart="@dimen/dp20"
             android:text="@string/position"
             android:fontFamily="@font/rragular"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -108,16 +120,21 @@
             android:padding="@dimen/dp10" />
 
 
+        <LinearLayout
+            android:gravity="bottom|end"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <Button
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp15"
-            android:layout_width="@dimen/dp200"
+            android:layout_width="@dimen/dp150"
             android:id="@+id/updatePosition"
             android:textAllCaps="false"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_border_format"
-            android:text="@string/update_position"
+            android:background="@drawable/ovel_update_position"
+            android:text="@string/next"
+            android:textSize="@dimen/sp25"
             android:textColor="@color/white" />
+        </LinearLayout>
 
 
     </LinearLayout>

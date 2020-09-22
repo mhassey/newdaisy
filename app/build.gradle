@@ -13,7 +13,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,17 +23,17 @@ android {
 
         production {
             dimension "buildTypes"
-           // buildConfigField "String", "BASE_URL", '"http://13.126.127.160/oak_bitbucket/"'
-             buildConfigField "String", "BASE_URL", '"http://oak-dev.mobilepricecard.com"'
-           // buildConfigField "String", "BASE_URL", '"http://portal.mobilepricecard.com"'
+          //  buildConfigField "String", "BASE_URL", '"http://13.126.127.160/oak_bitbucket/"'
+           //  buildConfigField "String", "BASE_URL", '"http://oak-dev.mobilepricecard.com"'
+            buildConfigField "String", "BASE_URL", '"http://portal.mobilepricecard.com"'
         }
 
         development {
 
             dimension "buildTypes"
-          //  buildConfigField "String", "BASE_URL", '"http://13.126.127.160/oak_bitbucket/"'
-            buildConfigField "String", "BASE_URL", '"http://oak-dev.mobilepricecard.com"'
-           // buildConfigField "String", "BASE_URL", '"http://portal.mobilepricecard.com"'
+         //  buildConfigField "String", "BASE_URL", '"http://13.126.127.160/oak_bitbucket/"'
+          //  buildConfigField "String", "BASE_URL", '"http://oak-dev.mobilepricecard.com"'
+            buildConfigField "String", "BASE_URL", '"http://portal.mobilepricecard.com"'
         }
     }
 

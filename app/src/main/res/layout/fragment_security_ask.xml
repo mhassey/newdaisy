@@ -1,187 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
-        android:fillViewport="true"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1"
-        tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
+        android:fillViewport="true">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp40"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="@dimen/dp150"
-                android:layout_height="@dimen/dp50"
-                android:src="@drawable/mainlogolargewidth" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1"
+            tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
 
-            <TextView
-                style="@style/fontRagular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp10"
-                android:layout_marginBottom="@dimen/dp20"
-                android:text="@string/app_settings"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/dp20" />
-
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp25"
-                android:layout_marginEnd="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp25"                android:gravity="center|start"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lock_access_to_play_store"
-                    android:textColor="?attr/textcolorblack"
-                    android:textSize="@dimen/sp15" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/lock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp20"
-                    android:checked="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:theme="@style/SwitchCompatTheme" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp25"
-                android:layout_marginEnd="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp25"
-
-
-                android:gravity="center|start"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lock_access_to_browser"
-                    android:textColor="?attr/textcolorblack"
-                    android:textSize="@dimen/sp15" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/lockToBrowser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp20"
-                    android:checked="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:theme="@style/SwitchCompatTheme" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="@dimen/dp25"
-                android:layout_marginEnd="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp25"                android:gravity="center|start"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lock_access_to_message"
-                    android:textColor="?attr/textcolorblack"
-                    android:textSize="@dimen/sp15" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/lockToMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp20"
-                    android:checked="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:theme="@style/SwitchCompatTheme" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp25"
-                android:layout_marginEnd="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp25"                android:gravity="center|start"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/dp250"
+                android:background="@color/mettle_blue"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_margin="@dimen/dp10">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/manage_device_content"
+                        android:layout_weight="1">
 
-                        android:textColor="?attr/textcolorblack"
-                        android:textSize="@dimen/sp15" />
+                        <ImageView
+                            android:id="@+id/cancel"
+                            android:layout_width="@dimen/dp40"
+                            android:layout_height="@dimen/dp40"
+                            android:src="@drawable/ic_arrow_back" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp10"
-                        android:text="@string/only_disable_if_using_personal_device"
-
-                        android:textColor="?attr/textcolorblack"
-                        android:textSize="@dimen/sp12" />
 
                 </LinearLayout>
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/deletePhoto"
+                <ImageView
+                    android:layout_width="@dimen/dp120"
+                    android:layout_height="@dimen/dp120"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_settings_icon" />
+
+                <TextView
+                    style="@style/fontMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp20"
-                    android:checked="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:theme="@style/SwitchCompatTheme" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:text="@string/settings_cap"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp25" />
 
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp25"
+                    android:layout_marginEnd="@dimen/dp25"
+                    android:gravity="center|start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lock_access_to_play_store"
+                        android:textSize="@dimen/sp15" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/lock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp20"
+                        android:checked="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:theme="@style/SwitchCompatTheme" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp25"
+                    android:layout_marginTop="@dimen/dp25"
+                    android:layout_marginEnd="@dimen/dp25"
+
+
+                    android:gravity="center|start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lock_access_to_browser"
+                        android:textSize="@dimen/sp15" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/lockToBrowser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp20"
+                        android:checked="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:theme="@style/SwitchCompatTheme" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="@dimen/dp25"
+                    android:layout_marginTop="@dimen/dp25"
+                    android:layout_marginEnd="@dimen/dp25"
+                    android:gravity="center|start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lock_access_to_message"
+                        android:textSize="@dimen/sp15" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/lockToMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp20"
+                        android:checked="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:theme="@style/SwitchCompatTheme" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp25"
+                    android:layout_marginTop="@dimen/dp25"
+                    android:layout_marginEnd="@dimen/dp25"
+                    android:gravity="center|start"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/manage_device_content"
+
+                             android:textSize="@dimen/sp15" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:text="@string/only_disable_if_using_personal_device"
+
+                            android:textSize="@dimen/sp12" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/deletePhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp20"
+                        android:checked="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:theme="@style/SwitchCompatTheme" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
     </ScrollView>
 </layout>

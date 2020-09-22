@@ -1,27 +1,16 @@
 package com.daisy.checkCardAvailability;
 
-import android.content.Intent;
 import android.os.Environment;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.daisy.R;
-import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
-import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
 import com.daisy.common.session.SessionManager;
-import com.daisy.database.DBCaller;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
-import com.daisy.pojo.response.UpdateCards;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-import com.daisy.utils.ValidationHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,7 +23,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CheckCardAvailability {
-    private GetCardViewModel getCardViewModel;
     private SessionManager sessionManager;
 
     public void checkCard() {
@@ -48,7 +36,6 @@ public class CheckCardAvailability {
     }
 
     private void getCard() {
-        MutableLiveData<GlobalResponse<GetCardResponse>> liveData = new MutableLiveData<>();
         ApiService apiService = AppRetrofit.getInstance().getApiService();
         HashMap<String, String> hashMap = getCardRequest();
         Call<GlobalResponse<GetCardResponse>> globalResponseCall = apiService.getCard(hashMap, hashMap.get(Constraint.TOKEN));
@@ -83,20 +70,34 @@ public class CheckCardAvailability {
                                 sessionManager.setCardDeleted(false);
                                 redirectToMain(response);
 
-                            } else if (response.getResult().getPromotions() != null) {
+                            } else if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                 sessionManager.setPromotion(response.getResult().getPromotions());
 
-                                if (response.getResult().getPricing() != null) {
+                                if (response.getResult().getPricing() != null && !response.getResult().getPromotions().isEmpty()) {
                                     sessionManager.setPricing(response.getResult().getPricing());
                                 }
                                 EventBus.getDefault().post(new Promotion());
+                            }
+                            else if (response.getResult().getPricing()!=null && !response.getResult().getPricing().isEmpty())
+                            {
+                                sessionManager.setPricing(response.getResult().getPricing());
+                                EventBus.getDefault().post(new Pricing());
+
                             }
 
                         } else {
                             if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                 sessionManager.setPromotion(response.getResult().getPromotions());
                                 EventBus.getDefault().post(new Promotion());
+
                             }
+                             if (response.getResult().getPricing()!=null && !response.getResult().getPricing().isEmpty())
+                            {
+                                sessionManager.setPricing(response.getResult().getPricing());
+                                EventBus.getDefault().post(new Pricing());
+
+                            }
+
                         }
 
                     } else {
@@ -148,6 +149,8 @@ public class CheckCardAvailability {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+        if (sessionManager.getPriceCard()!=null)
+        hashMap.put(Constraint.pricecardid,sessionManager.getPriceCard().getIdpriceCard());
 //        hashMap.put(Constraint.SCREEN_ID, "47");
         return hashMap;
     }

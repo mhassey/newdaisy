@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
@@ -20,21 +21,28 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityBaseUrlSettingsBinding;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.Url;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BaseUrlSettings extends BaseActivity implements View.OnClickListener {
 
     private SessionManager sessionManager;
     private ActivityBaseUrlSettingsBinding mBinding;
     private Context context;
+    private BaseUrlSettingsViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_url_settings);
+        viewModel=new ViewModelProvider(this).get(BaseUrlSettingsViewModel.class);
         initView();
         initClick();
 
@@ -46,15 +54,6 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         sessionManager = SessionManager.get();
         setNoTitleBar(this);
         context = this;
-       String baseUrl= sessionManager.getBaseUrl();
-       if (baseUrl!=null && !baseUrl.equals(""))
-       {
-           mBinding.baseUrl.setText(baseUrl);
-       }
-       else
-       {
-           mBinding.baseUrl.setText(BuildConfig.BASE_URL);
-       }
         boolean b = sessionManager.getBaseUrlAdded();
         if (b) {
             Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
@@ -62,8 +61,16 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
             overridePendingTransition(0, 0);
             finish();
         }
+        viewModel.setDefaultUrls();
+        setDefaultUrlData();
+    }
 
 
+    private void setDefaultUrlData() {
+
+        ArrayAdapter<Url> orientationAdapter = new ArrayAdapter<Url>(context, android.R.layout.simple_spinner_item, viewModel.getUrls());
+        orientationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mBinding.baseUrl.setAdapter(orientationAdapter);
     }
 
 
@@ -99,17 +106,12 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
 
 
     private void initClick() {
-        mBinding.baseUrl.setOnClickListener(this::onClick);
         mBinding.nextSlide.setOnClickListener(this::onClick);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.baseUrl: {
-                mBinding.baseUrl.showDropDown();
-                break;
-            }
             case R.id.nextSlide: {
                 updateBaseUrl();
                 break;
@@ -119,10 +121,11 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
     }
 
     private void updateBaseUrl() {
-        String url = mBinding.baseUrl.getText().toString();
+        Url mainUrl = (Url) mBinding.baseUrl.getSelectedItem();
+        String url=mainUrl.getUrl();
         if (url != null) {
             String urlLastChar = url.substring(url.length() - 1);
-            if (urlLastChar.equals("/")) {
+            if (urlLastChar.equals(Constraint.SLASH)) {
                 boolean b = Utils.isValidUrl(url);
                 if (b) {
                     if (Utils.getNetworkState(context)) {
@@ -157,12 +160,11 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         showHideProgressDialog(false);
         if (generalResponseGlobalResponse != null) {
             if (generalResponseGlobalResponse.isApi_status()) {
-                sessionManager.deleteAllSession();
-                sessionManager.setBaseUrl(mBinding.baseUrl.getText().toString());
-                sessionManager.setBaseUrlChange(true);
+                //sessionManager.deleteAllSession();
+                 sessionManager.setBaseUrlChange(true);
                 Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("EXIT", true);
+                intent.putExtra(Constraint.EXIT_CAPITAL, true);
                 startActivity(intent);
             } else {
                 sessionManager.removeBaseUrl();

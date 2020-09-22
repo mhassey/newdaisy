@@ -17,9 +17,6 @@ import com.daisy.common.session.SessionManager;
 import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity {
-    private int brightness;
-    private ContentResolver cResolver;
-    private Window window;
     private SessionManager sessionManager;
     private ProgressDialog progressDialog;
 
@@ -27,14 +24,13 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionManager = SessionManager.get();
-        if (sessionManager.getLang() != null)
-            setLang(sessionManager.getLang());
         initView();
     }
 
     private void initView() {
         sessionManager = SessionManager.get();
+        if (sessionManager.getLang() != null)
+            setLang(sessionManager.getLang());
         boolean b = sessionManager.getDarkTheme();
         if (b)
             setTheme(R.style.AppThemeDark);
@@ -81,7 +77,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
             } else {
                 progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage("Loading...");
+                progressDialog.setMessage(getString(R.string.loading));
                 progressDialog.setCancelable(false);
                 showHideProgressDialog(iShow);
             }

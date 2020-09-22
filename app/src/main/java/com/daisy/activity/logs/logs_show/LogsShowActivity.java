@@ -1,27 +1,26 @@
 package com.daisy.activity.logs.logs_show;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.adapter.LogsAdapter;
 import com.daisy.database.DBCaller;
-import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityLogsShowBinding;
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
 import com.daisy.pojo.request.LogsRequest;
 import com.daisy.pojo.response.LogClearResponse;
-import com.daisy.utils.Utils;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ import java.util.List;
 public class LogsShowActivity extends BaseActivity implements View.OnClickListener {
     private ActivityLogsShowBinding mBinding;
     private Context context;
-    private List<Logs> list = new ArrayList<>();
+    private List<Logs> list =null;
     private LinearLayoutManager layoutManager;
     private LogsAdapter logsAdapter;
     private LogsShowViewModel viewModel;
@@ -48,17 +47,13 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     private void initView() {
         context = this;
         setNoTitleBar(this);
+        list= new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(LogsShowViewModel.class);
         viewModel.setType(getIntent().getStringExtra(Constraint.TYPEE));
         layoutManager = new LinearLayoutManager(context);
         mBinding.logsList.setLayoutManager(layoutManager);
 
 
-    }
-
-    private void setOnClickListener() {
-        mBinding.backClick.setOnClickListener(this);
-        mBinding.clearAndBack.setOnClickListener(this);
     }
 
     private void setDataInRecycleView() {
@@ -68,6 +63,13 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
         notifyItems();
 
     }
+
+    private void setOnClickListener() {
+        mBinding.backClick.setOnClickListener(this);
+        mBinding.clearAndBack.setOnClickListener(this);
+    }
+
+
 
 
     @Override

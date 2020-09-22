@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
+import com.daisy.pojo.response.Download;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -62,7 +63,7 @@ public class ZipManager {
             e.printStackTrace();
         }
     }
-    public boolean unpackZip(String path,CallBack callBack)
+    public boolean unpackZip(String path, CallBack callBack, Download download)
     {
         InputStream is;
         ZipInputStream zis;
@@ -91,7 +92,7 @@ public class ZipManager {
                         if (i == 0) {
                             i++;
                             Log.e("kali", file.getParent() + Constraint.SLASH + filename);
-                            sessionManager.setPromotions(file.getParent() + Constraint.SLASH + filename);
+                            sessionManager.setPromotions(file.getParent() + Constraint.SLASH + filename,download.getDateCreated(),download.getDateExpires());
 
                         }
                     }

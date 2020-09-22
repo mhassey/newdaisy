@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
+import com.daisy.activity.onBoarding.slider.OnBaording;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.AddScreenBinding;
 import com.daisy.pojo.response.Carrier;
@@ -27,19 +29,18 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AddScreen extends BaseFragment {
+public class AddScreen extends BaseFragment implements View.OnClickListener {
 
     public AddScreenBinding mBinding;
-    private AddScreenViewModel mViewModel;
+    public AddScreenViewModel mViewModel;
     private Context context;
-    public Product selectedProduct;
-    public Carrier selectedCarrier;
-    private List<Product> products;
-    private List<Carrier> carriers;
     private SessionManager sessionManager;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
+    private static  OnBaording  baording;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,13 +58,26 @@ public class AddScreen extends BaseFragment {
 
 
     private void initView() {
-        mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
-
         context = requireContext();
+        mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
+        addOrientationData();
+        ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, mViewModel.getOrientation());
+        orientationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mBinding.webkitOrientation.setAdapter(orientationAdapter);
+
 
     }
 
+    private void addOrientationData() {
+        ArrayList<String> orientation=new ArrayList<>();
+        orientation.add(getString(R.string.defaultt));
+        orientation.add(getString(R.string.landscape));
+        mViewModel.setOrientation(orientation);
+    }
+
     private void initClick() {
+        mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
     }
@@ -72,11 +86,12 @@ public class AddScreen extends BaseFragment {
     public void onResume() {
         super.onResume();
         sessionManager = SessionManager.get();
+        designWork();
         if (sessionManager.getLoginResponse() != null) {
             List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
             if (carriers != null) {
-                this.carriers = carriers;
-                ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, android.R.layout.simple_spinner_item, this.carriers);
+                mViewModel.setCarriers(carriers);
+                ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, android.R.layout.simple_spinner_item, mViewModel.getCarriers());
                 carrierArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mBinding.carrierName.setAdapter(carrierArrayAdapter);
 
@@ -84,11 +99,23 @@ public class AddScreen extends BaseFragment {
         }
     }
 
+    private void designWork() {
+        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple) );
+        } else {
+            baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
+        }
+        baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+    }
+
     private AdapterView.OnItemSelectedListener getProductNameListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedProduct = products.get(position);
+                mViewModel.setSelectedProduct(mViewModel.getProducts().get(position));
             }
 
             @Override
@@ -102,8 +129,8 @@ public class AddScreen extends BaseFragment {
         return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Carrier carrier = carriers.get(position);
-                selectedCarrier = carrier;
+                Carrier carrier = mViewModel.getCarriers().get(position);
+                mViewModel.setSelectedCarrier(carrier);
                 getGeneralResponse(carrier);
             }
 
@@ -117,6 +144,7 @@ public class AddScreen extends BaseFragment {
 
 
     private void getGeneralResponse(Carrier carrier) {
+
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
             HashMap<String, String> generalRequest = getGeneralRequest(carrier);
@@ -141,10 +169,9 @@ public class AddScreen extends BaseFragment {
         if (generalResponse != null) {
             if (generalResponse.isApi_status()) {
                 sessionManager.setOSType(generalResponse.getResult().getOsTypes());
-
-                products = (generalResponse.getResult().getProducts());
-                if (products != null) {
-                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, products);
+                mViewModel.setProducts(generalResponse.getResult().getProducts());
+                if (mViewModel.getProducts() != null) {
+                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, mViewModel.getProducts());
                     productArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mBinding.productName.setAdapter(productArrayAdapter);
                 }
@@ -166,9 +193,22 @@ public class AddScreen extends BaseFragment {
         return hashMap;
     }
 
-    public static AddScreen getInstance() {
+    public static AddScreen getInstance(OnBaording bording) {
+        baording=bording;
         return new AddScreen();
+
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.cancel:
+            {
+                getActivity().onBackPressed();
+                break;
+            }
+        }
+    }
 }

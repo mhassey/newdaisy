@@ -9,4 +9,5 @@
     <attr name="editTextColor" format="color"/>
     <attr name="layout_log" format="color"/>
     <attr name="toggle" format="color"/>
+
 </resources>

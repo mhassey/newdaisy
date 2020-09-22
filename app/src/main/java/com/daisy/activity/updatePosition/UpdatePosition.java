@@ -53,6 +53,7 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
 
     private void initClick() {
         mBinding.updatePosition.setOnClickListener(this::onClick);
+        mBinding.cancel.setOnClickListener(this::onClick);
     }
 
     private void setDefaultValue() {
@@ -68,6 +69,11 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
             case R.id.updatePosition: {
                 if (updateProfileValidationHelper.isValid())
                 updatePosition();
+                break;
+            }
+            case R.id.cancel:
+            {
+              onBackPressed();
                 break;
             }
         }

@@ -128,10 +128,50 @@ public class Constraint {
     public static final String EXTENTION = ".html";
     public static final String PROMOTION_ID = "promotionIds";
     public static final String PRICING = "pricing";
+    public static final String DEFAULT = "Default";
+    public static final String DAISYAPK = "Daisy.apk";
+    public static final int ONE_THOUSAND_TWENTY_FOUR = 1024;
+    public static final long HUNDERD = 100;
+    public static final String EXIT_CAPITAL = "EXIT";
+    public static final String EN = "en";
+    public static final String FR = "fr";
+    public static final String ES = "es";
+    public static final String PT = "pt";
+    public static final String DAISY_PACKAGE = "package:com.daisy";
+    public static final String PROVIDER = ".provider";
+    public static final String ANDROID_PACKAGE_ARCHIVE = "application/vnd.android.package-archive";
+    public static final int TWENTY_FOUR = 24;
+    public static final String GIVEN_BROWSER = "Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17";
+    public static final String HTML = ".html";
+    public static final String YYY_MM_DD = "yyyy-MM-dd HH:mm:ss";
+    public static final String HH_MM_SS = "HH:mm:ss";
+    public static final String ID_PRODUCT_FLUID = "idproductFluid";
+    public static final String DATE_EFFECTIVE = "dateEffective";
+    public static final String TIME_EFFECTIVE = "timeEffective";
+    public static final String MSRP = "msrp";
+    public static final String OUR_PRICE = "ourprice";
+    public static final String SALE_PRICE = "saleprice";
+    public static final String PLAN_A_PRICE = "planAprice";
+    public static final String PLAN_B_PRICE = "planBprice";
+    public static final String PLAN_C_PRICE = "planCprice";
+    public static final String PLAN_D_PRICE = "planDprice";
+    public static final String DOWN_PRICE = "downprice";
+    public static final String MONTHLY_PRICE = "monthlyprice";
+    public static final String CONFIG_ONE = "config1";
+    public static final String CONFIG_TWO = "config2";
+    public static final String CONFIG_THREE = "config3";
+    public static final String CONFIG_FOUR = "config4";
+    public static final String ONE_STRING = "1";
+    public static final int NINE_THOUSANT_NINE_HUNDRED = 9900;
+    public static final int SIXTY = 60;
+    public static final int TEN =10 ;
+    public static final CharSequence MOBILE_PRICE_CARD_NOT_DEFINE = "MobilePriceCard is not defined";
+
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 
     public static  boolean IS_OVER_APP_SETTING = false;
     public static  int CREENTBRIGHNESS  ;
     public static String current_running_process = "";
 
+    public static String pricecardid="pricecardid";
 }
