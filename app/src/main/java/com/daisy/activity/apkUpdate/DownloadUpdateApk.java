@@ -58,6 +58,7 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
         try {
             URL url = new URL(f_url[0]);
             URLConnection connection = url.openConnection();
+            //connection.setConnectTimeout(5000);
             connection.connect();
             // getting file length
             int lengthOfFile = connection.getContentLength();

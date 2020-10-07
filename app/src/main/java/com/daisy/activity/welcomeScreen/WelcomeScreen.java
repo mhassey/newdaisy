@@ -9,11 +9,13 @@ import androidx.databinding.DataBindingUtil;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.onBoarding.slider.OnBaording;
+import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
 
 public class WelcomeScreen extends BaseActivity implements View.OnClickListener {
 
     private ActivityWelcomeScreenBinding mBinding;
+    private SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
 
     private void initView()
     {
+     sessionManager=SessionManager.get();
         setNoTitleBar(this);
 
     }

@@ -12,6 +12,60 @@ public class LoginResponse extends GlobalResponse {
     private String storeContact;
     private String storeHours;
     private List<Carrier> carrier;
+    private String UTCOffset;
+    private String open;
+    private String closed;
+    private String currentDate;
+    private  String currentTime;
+    private String currentTimeH;
+
+    public String getUTCOffset() {
+        return UTCOffset;
+    }
+
+    public void setUTCOffset(String UTCOffset) {
+        this.UTCOffset = UTCOffset;
+    }
+
+    public String getOpen() {
+        return open;
+    }
+
+    public void setOpen(String open) {
+        this.open = open;
+    }
+
+    public String getClosed() {
+        return closed;
+    }
+
+    public void setClosed(String closed) {
+        this.closed = closed;
+    }
+
+    public String getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    public String getCurrentTimeH() {
+        return currentTimeH;
+    }
+
+    public void setCurrentTimeH(String currentTimeH) {
+        this.currentTimeH = currentTimeH;
+    }
 
     public String getPricingPlanID() {
         return pricingPlanID;

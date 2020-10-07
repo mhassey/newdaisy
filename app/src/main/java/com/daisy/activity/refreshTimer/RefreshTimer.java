@@ -156,6 +156,10 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                         showHideProgressDialog(false);
                         if (response.isApi_status()) {
                             if (response.getResult() != null) {
+                                sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
+                                sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
+                                sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
+
                                 if (!response.getResult().isDefault()) {
                                     if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
 
@@ -261,7 +265,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             }
 
 
-            sessionManager.onBoarding(true);
+            sessionManager.onBoarding(Constraint.TRUE);
 
             Intent i = new Intent(RefreshTimer.this, MainActivity.class);
 // set the new task and clear flags
@@ -291,8 +295,10 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         time.setHour(mBinding.timePicker.getHour());
         time.setMinit(mBinding.timePicker.getMinute());
         sessionManager.setTimerToGetCard(time);
-        BackgroundService.refreshTimer.cancel();
-        BackgroundService.checkUpdate();
+        if (BackgroundService.refreshTimer!=null) {
+            BackgroundService.refreshTimer.cancel();
+            BackgroundService.checkUpdate();
+        }
         ValidationHelper.showToast(context, getString(R.string.refresh_time_set));
     }
 

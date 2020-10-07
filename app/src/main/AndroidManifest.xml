@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
@@ -57,11 +58,7 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
         <activity android:name=".activity.baseUrl.BaseUrlSettings" android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.refreshTimer.RefreshTimer" android:screenOrientation="portrait"/>
         <activity android:name=".activity.configSettings.ConfigSettings" android:screenOrientation="portrait"/>
@@ -76,6 +73,11 @@
         <activity
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"

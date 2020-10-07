@@ -17,8 +17,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -28,7 +26,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -39,7 +36,6 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -66,6 +62,7 @@ import com.daisy.pojo.response.DeleteCardResponse;
 import com.daisy.pojo.response.Download;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.InternetResponse;
+import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
@@ -90,10 +87,8 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -107,14 +102,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private WebViewClient yourWebClient;
     boolean loadingFinished = true;
     boolean redirect = false;
-
+    private HashMap hashMap;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initService();
         setOnClickListener();
@@ -153,15 +147,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     private void intentWork() {
         String available = getIntent().getStringExtra(Constraint.PROMOTION);
-        String priceavailable = getIntent().getStringExtra(Constraint.PRICING);
+       // String priceavailable = getIntent().getStringExtra(Constraint.PRICING);
 
         if (available != null && !available.equals("")) {
             updatePromotion(new Promotion());
         }
-        if (priceavailable != null && !priceavailable.equals("")) {
-            loadURL();
-            deleteCard();
-        }
+//        if (priceavailable != null && !priceavailable.equals("")) {
+//            loadURL();
+//            deleteCard();
+//        }
 
     }
 
@@ -176,6 +170,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding.settingHeader.setOnClickListener(this);
         mBinding.setting.setOnClickListener(this);
         mBinding.offLineIcon.setOnClickListener(this);
+        mBinding.invert.setOnClickListener(this::onClick);
         mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 settingHeader();
@@ -207,7 +202,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 if (checkPermission()) {
                     final String url = Utils.getPath();
                     if (url != null) {
-                        downloadFiles(url, promotions, downloads);
+                        if (sessionManager.getPriceCard().getFileName1()!=null)
+                        downloadFiles(sessionManager.getPriceCard().getFileName1(), promotions, downloads);
+                        else
+                            downloadFiles(sessionManager.getPriceCard().getFileName(), promotions, downloads);
+
                     } else {
                         editorToolOpen();
                     }
@@ -224,15 +223,27 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         Download download = new Download();
         download.setPath(url);
         download.setType("");
+
         downloads.add(download);
         if (promotions != null) {
             for (Promotion promotion : promotions) {
                 Download downloadPromotion = new Download();
-                downloadPromotion.setPath(promotion.getFileName());
+                if (promotion.getFileName1()!=null)
+                {
+                    downloadPromotion.setPath(promotion.getFileName1());
+
+                }
+                else
+                {
+                    downloadPromotion.setPath(promotion.getFileName());
+
+                }
                 downloadPromotion.setDateCreated(promotion.getDateCreated());
                 downloadPromotion.setDateExpires(promotion.getDateExpires());
                 downloadPromotion.setType(getString(R.string.promotion));
+                downloadPromotion.setPromotionId(promotion.getIdpromotion());
                 downloads.add(downloadPromotion);
+
             }
         }
         new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
@@ -397,7 +408,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX")) {
                         File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                         if (mainFile.exists()) {
+                            //  mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                             mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+
                             sessionManager.setMainFilePath(file1.getAbsoluteFile().toString());
                             if (!isDelete)
                                 deleteCard();
@@ -477,7 +490,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                pricingUpdateStart();
+
 
 
             }
@@ -486,11 +499,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             @Override
             public void onPageFinished(WebView view, final String url) {
                 try {
+                    JSONArray jsonArray=pricingUpdateStart();
+                    if (jsonArray != null) {
+                        if (jsonArray.length() > 0) {
 
-                    if (mViewModel.getJsonArray() != null) {
-                        if (mViewModel.getJsonArray().length() > 0) {
-
-                            mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + mViewModel.getJsonArray() + ")");
+                            mBinding.webView.loadUrl("javascript:handlePriceDynamically(" +jsonArray+ ")");
                             mViewModel.setExceptionInHtml(false);
 
                         }
@@ -499,6 +512,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                     // pricingUpdate();
                     promotionSettings();
+//                    boolean b=Utils.getInvertedTime();
+//                    if (b) {
+//                        mBinding.webView.loadUrl("javascript:invert()");
+//                    }
+//                    else
+//                    {
+//                        mBinding.webView.loadUrl("javascript:normal()");
+//                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -511,7 +532,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
-    private void pricingUpdateStart() {
+    private JSONArray pricingUpdateStart() {
 
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -552,7 +573,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             }
                         }
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
                 }
 
@@ -592,78 +613,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             e.printStackTrace();
 
         }
-        mViewModel.setJsonArray(jsonArray);
+        return jsonArray;
     }
 
     private void pricingUpdate() {
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
-        try {
-            List<Pricing> pricing = sessionManager.getPricing();
-            Pricing pricing1 = null;
-            if (pricing != null && !pricing.isEmpty()) {
-                OUTER_LOOP:
-                for (int i = (pricing.size() - Constraint.ONE); i >= Constraint.ZERO; i--) {
-                    LoginResponse loginResponse = sessionManager.getLoginResponse();
-                    try {
-                        if (loginResponse.getPricingPlanID().equals(pricing.get(i).getPricingPlanID())) {
-                            SimpleDateFormat sdf = new SimpleDateFormat(Constraint.YYY_MM_DD);
-                            Date futureDate;
-                            futureDate = sdf.parse(pricing.get(i).getDateExpires());
-                            Date dateEffective;
-                            dateEffective = sdf.parse(pricing.get(i).getDateEffective());
-                            Date todayDate = new Date();
-
-                            if (!dateEffective.after(todayDate)) {
-                                if (futureDate.after(todayDate)) {
-                                    pricing1 = pricing.get(i);
-                                    break OUTER_LOOP;
-                                }
-
-                            }
-                        }
-                    } catch (Exception e) {
-
-                    }
-                }
-
-                if (pricing1 == null) {
-                    for (int i = 0; i < pricing.size(); i++) {
-                        if (pricing.get(i).getIsDefault() != null && pricing.get(i).getIsDefault().equals(Constraint.ONE_STRING)) {
-                            pricing1 = pricing.get(i);
-                        }
-
-                    }
-                }
-                if (pricing1 != null) {
-                    jsonObject.put(Constraint.ID_PRODUCT_FLUID, pricing1.getIdproductFluid());
-                    jsonObject.put(Constraint.ID_PRODUCT_STATIC, pricing1.getIdproductStatic());
-                    jsonObject.put(Constraint.DATE_EFFECTIVE, pricing1.getDateEffective());
-                    jsonObject.put(Constraint.TIME_EFFECTIVE, pricing1.getTimeEffective());
-                    jsonObject.put(Constraint.MSRP, pricing1.getMsrp());
-                    jsonObject.put(Constraint.OUR_PRICE, pricing1.getOurprice());
-                    jsonObject.put(Constraint.SALE_PRICE, pricing1.getSaleprice());
-                    jsonObject.put(Constraint.PLAN_A_PRICE, pricing1.getPlanAprice());
-                    jsonObject.put(Constraint.PLAN_B_PRICE, pricing1.getPlanBprice());
-                    jsonObject.put(Constraint.PLAN_C_PRICE, pricing1.getPlanCprice());
-                    jsonObject.put(Constraint.PLAN_D_PRICE, pricing1.getPlanDprice());
-                    jsonObject.put(Constraint.DOWN_PRICE, pricing1.getDownprice());
-                    jsonObject.put(Constraint.MONTHLY_PRICE, pricing1.getMonthlyprice());
-                    jsonObject.put(Constraint.CONFIG_ONE, pricing1.getConfig1());
-                    jsonObject.put(Constraint.CONFIG_TWO, pricing1.getConfig2());
-                    jsonObject.put(Constraint.CONFIG_THREE, pricing1.getConfig3());
-                    jsonObject.put(Constraint.CONFIG_FOUR, pricing1.getConfig4());
-                    jsonArray.put(jsonObject);
-
-                }
-
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-        }
-        Log.e("Working", jsonArray.toString());
+     JSONArray jsonArray=   pricingUpdateStart();
 
         if (jsonArray.length() > 0)
             mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
@@ -796,6 +750,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             case R.id.settingHeader: {
                 settingHeader();
                 break;
+            }
+            case R.id.invert:
+            {
+
+                mBinding.webView.loadUrl("javascript:invert()");
+                break;
+
             }
             case R.id.setting: {
                 settingClick();
@@ -937,6 +898,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         pricingUpdate();
         deleteCard();
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void inverted(Inversion inversion) {
+     if (inversion.isInvert())
+     {
+         mBinding.webView.loadUrl("javascript:invert()");
+
+
+     }
+     else
+     {
+         mBinding.webView.loadUrl("javascript:normal()");
+
+     }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setPromotion(Promotions promotion)
@@ -946,16 +921,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateApk(ApkDetails apk) {
-
-        sessionManager.dialogShow(true);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.update_available));
-        builder.setPositiveButton(getString(R.string.proceed), updatePerform(apk));
-        builder.setNegativeButton(getString(R.string.dismiss), dismissUpdate());
-        builder.setCancelable(false);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
+        if (!sessionManager.getupdateDialog()) {
+            sessionManager.dialogShow(true);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.update_available));
+            builder.setPositiveButton(getString(R.string.proceed), updatePerform(apk));
+            builder.setNegativeButton(getString(R.string.dismiss), dismissUpdate());
+            builder.setCancelable(false);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
 
     }
 
@@ -1000,23 +975,26 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updatePromotion(Promotion promotionss) {
         i = 0;
-        Utils.deletePromotion();
-        sessionManager.deletePromotions();
+       // Utils.deletePromotion();
+       // sessionManager.deletePromotions();
         List<Promotion> promotions = sessionManager.getPromotion();
         List<Download> downloads = new ArrayList<>();
         if (checkPermission()) {
             for (Promotion promotion : promotions) {
                 Download downloadPromotion = new Download();
-                downloadPromotion.setPath(promotion.getFileName());
+                if (promotion.getFileName1()!=null)
+                    downloadPromotion.setPath(promotion.getFileName1());
+                else
+                    downloadPromotion.setPath(promotion.getFileName());
+
                 downloadPromotion.setDateExpires(promotion.getDateExpires());
                 downloadPromotion.setDateCreated(promotion.getDateCreated());
+                downloadPromotion.setPromotionId(promotion.getIdpromotion());
                 downloadPromotion.setType(getString(R.string.promotion));
                 downloads.add(downloadPromotion);
-            }
-
+         }
             new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute();
             sessionManager.setCardDeleted(Constraint.FALSE);
-            deleteCard();
         }
     }
 

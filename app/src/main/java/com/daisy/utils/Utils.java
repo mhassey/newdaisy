@@ -33,9 +33,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
+import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.LogsDataPojo;
+import com.daisy.pojo.response.LoginResponse;
 
 import org.apache.commons.io.FileUtils;
 
@@ -55,7 +57,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
@@ -82,6 +86,99 @@ public class Utils {
         }
 
         return false;
+    }
+
+    public static boolean getInvertedTime()
+    {
+        SessionManager sessionManager=SessionManager.get();
+        LoginResponse loginResponse=sessionManager.getLoginResponse();
+
+        int serverTime=Integer.parseInt(getServerTime(loginResponse.getCurrentTime()));
+
+        int dateTime=Integer.parseInt(getTodayTime(sessionManager.getUTCOffset()));
+
+        int openTime=((Integer.parseInt(sessionManager.getOpen()))*100);
+
+        int closeTime=((Integer.parseInt(sessionManager.getClose()))*100);
+
+        int offcet=Integer.parseInt(sessionManager.getUTCOffset());
+        offcet=offcet*100;
+
+        int CF=0;
+        int dateTimeInUTC=0;
+        if (offcet<0) {
+            dateTimeInUTC = dateTime + (-offcet);
+            openTime=openTime+(-offcet);
+            closeTime=closeTime+(-offcet);
+        }
+         else {
+            dateTimeInUTC=dateTime-offcet;
+            openTime=openTime-offcet;
+            closeTime=closeTime-offcet;
+
+
+        }
+        if (dateTimeInUTC<serverTime)
+        {
+
+            CF=serverTime-dateTimeInUTC;
+        }
+        else
+        {
+            CF=dateTimeInUTC-serverTime;
+
+        }
+
+        int LT=dateTimeInUTC+CF;
+
+
+        if (LT>=openTime && LT<closeTime)
+        {
+            return false;
+        }
+        return true;
+
+    }
+
+    public  static String  getTodayTime(String offset)
+    {
+         Calendar rightNow = Calendar.getInstance();
+        rightNow.set(Calendar.SECOND, 0);
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY); // return the hour in 24 hrs format (ranging from 0-23)
+        int currentMINUTIn24Format = rightNow.get(Calendar.MINUTE);
+       String min;
+        if (currentMINUTIn24Format<9)
+        {
+            min="0"+currentMINUTIn24Format;
+        }
+        else
+        {
+            min=currentMINUTIn24Format+"";
+        }
+        return currentHourIn24Format+""+min;
+    }
+    public static Date localToGMT() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date gmt = new Date(sdf.format(date));
+        return gmt;
+    }
+
+    public  static String  getServerTime(String time)
+    {
+        Calendar rightNow = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+        try {
+            rightNow.setTime(sdf.parse(time));// all done
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY); // return the hour in 24 hrs format (ranging from 0-23)
+        int currentMINUTIn24Format = rightNow.get(Calendar.MINUTE);
+        return currentHourIn24Format+""+currentMINUTIn24Format;
     }
 
     public static HashMap<String, String> ConvertObjectToMap(Object obj) throws

@@ -124,4 +124,8 @@ public interface PrefConstant {
     String UPDATE_DIALOG = "update_dialog";
     String UNINSTALL_SHOW = "uninstall_show";
     String PASSWORD_LOCK = "password_lock";
+    String OPEN_TIME = "openTime";
+    String CLOSE_TIME="closeTime";
+    String OFF_SET="offset";
+    String SERVERTIME = "server_time";
 }

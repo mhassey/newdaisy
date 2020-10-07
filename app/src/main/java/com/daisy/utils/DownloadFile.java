@@ -5,8 +5,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.daisy.R;
+import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 import com.daisy.pojo.response.Download;
@@ -63,7 +65,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
             this.progressDialog.setCancelable(false);
             this.progressDialog.show();
         }
-        }
+    }
 
     /**
      * Downloading file in background thread
@@ -73,12 +75,14 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
         for (Download download:downloads) {
             int count;
             try {
+
                 URL url = new URL(download.getPath());
 
                 if (download.getType().equals(context.getString(R.string.promotion))) {
                     promotion = true;
                 }
                 URLConnection connection = url.openConnection();
+                connection.setConnectTimeout(10000);
                 connection.connect();
                 // getting file length
                 int lengthOfFile = connection.getContentLength();
@@ -93,7 +97,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 fileName = download.getPath().substring(download.getPath().lastIndexOf('/') + 1);
 
                 //Append timestamp to file name
-             //   fileName = timestamp + "_" + fileName;
+                //   fileName = timestamp + "_" + fileName;
 
                 //External directory path to save file
                 if (promotion) {
@@ -141,32 +145,31 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 input.close();
                 File file=new File(path);
                 if (pathSetting==0) {
-                        pathSetting++;
-                        if (!file.getAbsolutePath().contains(Constraint.PROMOTION))
-                    SessionManager.get().setLocation(file.getParent());
+                    pathSetting++;
+                    if (!file.getAbsolutePath().contains(Constraint.PROMOTION))
+                        SessionManager.get().setLocation(file.getParent());
                 }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                      boolean isDone=  new ZipManager().unpackZip(path,callBack,download);
-                    if (isDone)
-                    {
-                        counter++;
-                    }
-                    if (counter==downloads.size())
-                    {
-                        callBack.callBack(Constraint.SUCCESS);
+                        boolean isDone=  new ZipManager().unpackZip(path,download);
+                        if (isDone)
+                        {
+                            counter++;
+                        }
+                        if (counter==downloads.size())
+                        {
+                            callBack.callBack(Constraint.SUCCESS);
 
-                    }
+                        }
                     }
                 }).start();
 
             } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
                 e.printStackTrace();
             }
         }
-       // callBack.callBack(Constraint.SUCCESS);
+        // callBack.callBack(Constraint.SUCCESS);
         return "Something went wrong";
     }
 
@@ -186,7 +189,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     protected void onPostExecute(String path) {
         // dismiss the dialog after the file was downloaded
         try {
-        //    callBack.callBack(Constraint.SUCCESS);
+            //    callBack.callBack(Constraint.SUCCESS);
 
 
         } catch (Exception e) {

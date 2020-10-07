@@ -118,13 +118,16 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    private void handleResponse(SignUpResponse signUpResponse) {
+    private void  handleResponse(SignUpResponse signUpResponse) {
          // handleResponse
         showHideProgressDialog(false);
         if (signUpResponse!=null) {
             if (signUpResponse.isApi_status()) {
                 DBCaller.storeLogInDatabase(context,getString(R.string.login_success),"","",Constraint.APPLICATION_LOGS);
                 sessionManager.setPasswordForLock(loginBinding.password.getText().toString());
+                sessionManager.setOpenTime(signUpResponse.getData().getOpen());
+                sessionManager.setCloseTime(signUpResponse.getData().getClosed());
+                sessionManager.setOffset(signUpResponse.getData().getUTCOffset());
                 sessionManager.setSignUpData(signUpResponse.getData());
                 baording.counterPlus();
             } else {

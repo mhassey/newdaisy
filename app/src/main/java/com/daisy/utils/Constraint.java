@@ -88,7 +88,7 @@ public class Constraint {
    public static final int BATTRY_OPTIMIZATION_CODE = 232;
     public static final long FIVE = 5;
     public static final long TEN_MINUTES = 10000*60;
-    public static final long TWO_HOUR=1000*60;
+    public static final long TWO_HOUR=20000*60;
     public static final String SETTING_PATH = "com.android.settings";
     public static final String PLAY_STORE_PATH = "com.android.vending";
     public static final String PASSWORD = "12345";

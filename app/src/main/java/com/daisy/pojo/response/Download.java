@@ -5,6 +5,15 @@ public class Download {
     private String type;
     private String dateCreated;
     private String dateExpires;
+    private String promotionId;
+
+    public String getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
+    }
 
     public String getDateCreated() {
         return dateCreated;

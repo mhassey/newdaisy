@@ -213,8 +213,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
-            sessionManager.onBoarding(true);
-            sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
+             sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
             sessionManager.setPromotion(getCardResponseGlobalResponse.getResult().getPromotions());
             sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
             redirectToMainHandler(getCardResponseGlobalResponse);
@@ -269,13 +268,13 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             //mBinding.nextSlide.setVisibility(View.GONE);
         }
 
-        if (count==3)
+       else if (count==3)
         {
             SignUp signUp= (SignUp) fragmentList.get(Constraint.TWO);
 
             signUp.loginBinding.singup.performClick();
         }
-        if (count == 4) {
+        else if (count == 4) {
 
             if (Utils.getNetworkState(context)) {
                 AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
@@ -349,6 +348,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         hashMap.put(Constraint.DEVICE_NAME,Utils.getDeviceName());
         hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_CODE+"");
         LoginResponse loginResponse = sessionManager.getLoginResponse();
+        if (loginResponse!=null)
         hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
         return hashMap;
     }
@@ -435,6 +435,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
     private void redirectToMain() {
+        sessionManager.onBoarding(Constraint.TRUE);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

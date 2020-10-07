@@ -63,7 +63,7 @@ public class ZipManager {
             e.printStackTrace();
         }
     }
-    public boolean unpackZip(String path, CallBack callBack, Download download)
+    public boolean unpackZip(String path, Download download)
     {
         InputStream is;
         ZipInputStream zis;
@@ -91,8 +91,7 @@ public class ZipManager {
                     if (fmd.getAbsolutePath().contains(Constraint.PROMOTION)) {
                         if (i == 0) {
                             i++;
-                            Log.e("kali", file.getParent() + Constraint.SLASH + filename);
-                            sessionManager.setPromotions(file.getParent() + Constraint.SLASH + filename,download.getDateCreated(),download.getDateExpires());
+                           sessionManager.setPromotions(file.getParent() + Constraint.SLASH + filename,download.getPromotionId(),download.getDateCreated(),download.getDateExpires());
 
                         }
                     }

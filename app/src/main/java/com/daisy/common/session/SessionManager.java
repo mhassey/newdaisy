@@ -917,7 +917,7 @@ public class SessionManager {
         return promotion;
     }
 
-    public void setPromotions(String s,String datecreated,String dateExpire) {
+    public void setPromotions(String s,String promotionID,String datecreated,String dateExpire) {
         String response = pref.getStringData(PrefConstant.PROMOTIONS);
         JSONArray jsonArray = null;
         try {
@@ -925,6 +925,7 @@ public class SessionManager {
                 jsonArray = new JSONArray(response);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put(Constraint.PROMOTION, s);
+                jsonObject.put(Constraint.PROMOTION_ID,promotionID);
                 jsonObject.put("dateCreated",datecreated);
                 jsonObject.put("dateExpires",dateExpire);
 
@@ -935,6 +936,7 @@ public class SessionManager {
                 jsonArray=new JSONArray();
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put(Constraint.PROMOTION, s);
+                jsonObject.put(Constraint.PROMOTION_ID,promotionID);
                 jsonObject.put("dateCreated",datecreated);
                 jsonObject.put("dateExpires",dateExpire);
                 jsonArray.put(jsonObject);
@@ -944,6 +946,11 @@ public class SessionManager {
             e.printStackTrace();
         }
         pref.setStringData(PrefConstant.PROMOTIONS, jsonArray.toString());
+
+    }
+    public void setPromotions(JSONArray promotions)
+    {
+        pref.setStringData(PrefConstant.PROMOTIONS, promotions.toString());
 
     }
 
@@ -1038,4 +1045,39 @@ public class SessionManager {
     public String getPasswordLock() {
         return pref.getStringData(PrefConstant.PASSWORD_LOCK);
     }
+
+    public void setOpenTime(String open) {
+        pref.setStringData(PrefConstant.OPEN_TIME,open);
+    }
+
+    public void setCloseTime(String closed) {
+        pref.setStringData(PrefConstant.CLOSE_TIME,closed);
+
+    }
+
+    public void setOffset(String utcOffset) {
+        pref.setStringData(PrefConstant.OFF_SET,utcOffset);
+
+    }
+
+    public String getOpen() {
+        return pref.getStringData(PrefConstant.OPEN_TIME);
+    }
+
+    public String getClose() {
+        return pref.getStringData(PrefConstant.CLOSE_TIME);
+
+    }
+
+    public String getUTCOffset() {
+        return pref.getStringData(PrefConstant.OFF_SET);
+    }
+
+    public void setServerTime(String currentTime) {
+        pref.setStringData(PrefConstant.SERVERTIME,currentTime);
+    }
+    public String getServerTime() {
+        return pref.getStringData(PrefConstant.SERVERTIME);
+    }
+
 }

@@ -20,6 +20,7 @@ import retrofit2.Response;
 
 public class UpdateApk {
     private SessionManager sessionManager;
+
     public void UpdateApk() {
 
         new Thread(new Runnable() {
@@ -50,21 +51,30 @@ public class UpdateApk {
     }
 
     private void handleResponse(Response<GlobalResponse<GeneralResponse>> response) {
-        if (response!=null) {
+        if (response != null) {
             if (response.isSuccessful()) {
                 GlobalResponse<GeneralResponse> globalResponse = response.body();
                 if (globalResponse.isApi_status()) {
                     ApkDetails apkDetails = globalResponse.getResult().getApkDetails();
-
-                        if (!apkDetails.getAndroid().getVersion().equals(BuildConfig.VERSION_NAME)) {
-
+                    if (apkDetails != null) {
+                        if (apkDetails.getAndroid().getVersion() != null) {
                             if (sessionManager == null)
                                 sessionManager = SessionManager.get();
-                            sessionManager.setVersionDetails(apkDetails);
-                             EventBus.getDefault().post(apkDetails);
+                                double apkVersion=Double.parseDouble(apkDetails.getAndroid().getVersion());
+                                double ourVersion=Double.parseDouble(BuildConfig.VERSION_NAME);
+                            if (apkVersion>ourVersion) {
+
+
+                                sessionManager.setVersionDetails(apkDetails);
+                                EventBus.getDefault().post(apkDetails);
+                            }
+                            else
+                            {
+                                sessionManager.setVersionDetails(null);
+                            }
                         }
 
-
+                    }
                 }
 
             }

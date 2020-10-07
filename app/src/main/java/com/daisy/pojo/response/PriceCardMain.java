@@ -20,6 +20,15 @@ public class PriceCardMain {
     private String dateCreated;
     private String dateModified;
     private String dateExpires;
+    private String fileName1;
+
+    public String getFileName1() {
+        return fileName1;
+    }
+
+    public void setFileName1(String fileName1) {
+        this.fileName1 = fileName1;
+    }
 
     public String getIdpriceCard() {
         return idpriceCard;

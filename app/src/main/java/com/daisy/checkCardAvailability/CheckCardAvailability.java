@@ -61,6 +61,10 @@ public class CheckCardAvailability {
                 GlobalResponse<GetCardResponse> response = liveData.body();
                 if (response.isApi_status()) {
                     if (response.getResult() != null) {
+                        sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
+                        sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
+                        sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
+
                         if (!response.getResult().isDefault()) {
                             if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
                                 sessionManager.deleteLocation();

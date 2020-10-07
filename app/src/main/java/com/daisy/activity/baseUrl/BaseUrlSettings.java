@@ -43,6 +43,7 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_url_settings);
         viewModel=new ViewModelProvider(this).get(BaseUrlSettingsViewModel.class);
+
         initView();
         initClick();
 
@@ -52,6 +53,7 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
 
     private void initView() {
         sessionManager = SessionManager.get();
+
         setNoTitleBar(this);
         context = this;
         boolean b = sessionManager.getBaseUrlAdded();

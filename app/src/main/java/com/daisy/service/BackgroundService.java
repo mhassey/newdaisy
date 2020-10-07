@@ -41,11 +41,14 @@ import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.activity.refreshTimer.RefreshTimer;
+import com.daisy.activity.validatePromotion.ValidatePromotion;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.InternetResponse;
+import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.OverLayResponse;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Time;
@@ -92,6 +95,9 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private boolean isPickedUpSucess = false;
     private boolean isPickedDown = false;
     public static Timer refreshTimer;
+    public static Timer refreshTimer1;
+    public static Timer refreshTimer2;
+    public static Timer refreshTimer3;
 
 
     @Nullable
@@ -166,15 +172,14 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                                     }
                                 }
                                 boolean browserLock = sessionManager.getBrowserLock();
-                                if (process.equals(Constraint.CROME)) {
+                                if (process.equals(Constraint.CROME) || process.contains("sbrowser")) {
                                     if (!browserLock) {
-                                        Log.e("browser..", process);
 
                                         return;
                                     }
                                 }
                                 boolean messageLock = sessionManager.getMessageLock();
-                                if (Arrays.asList(messages).contains(process) || process.contains("sbrowser") || process.contains("messaging")) {
+                                if (Arrays.asList(messages).contains(process)  || process.contains("messaging")) {
                                     // true
                                     if (!messageLock) {
                                         Log.e("mms..", process);
@@ -211,7 +216,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         }
                     }
                 } catch (Exception e) {
-                e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
         }).timeout(200).start(getApplicationContext());
@@ -276,18 +281,47 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         sendLogTimer();
         checkUpdate();
         checkPromotion();
+        checkInversion();
         updateAPk();
+    }
+
+    private void checkInversion() {
+        try {
+            int hour = 1;
+            int minit = 30;
+
+
+            int second = ((hour * 3600) + (minit * 60)) * 1000;
+             refreshTimer1 = new Timer();
+            refreshTimer1.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+//                        Inversion inversion = new Inversion();
+//                        inversion.setInvert(Utils.getInvertedTime());
+//                        EventBus.getDefault().post(inversion);
+                        ValidatePromotion validatePromotion=new ValidatePromotion();
+                        validatePromotion.checkPromotion();
+                    } catch (Exception e) {
+
+                    }
+                }
+            }, second, second);
+
+        } catch (Exception e) {
+        e.printStackTrace();
+        }
     }
 
     private void checkPromotion() {
         try {
-            int hour = 0;
-            int minit = 1;
+            int hour = 1;
+            int minit = 0;
 
 
             int second = ((hour * 3600) + (minit * 60)) * 1000;
-            refreshTimer = new Timer();
-            refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            refreshTimer3 = new Timer();
+            refreshTimer3.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                    EventBus.getDefault().post(new Promotions());
@@ -317,21 +351,22 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        int hour = 0;
-        int minit = 2;
+        int hour = 5;
+        int minit = 0;
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
         }
 
         int second = ((hour * 3600) + (minit * 60)) * 1000;
-        refreshTimer = new Timer();
+         refreshTimer = new Timer();
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
 
                 CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
                 checkCardAvailability.checkCard();
+
             }
         }, second, second);
 
@@ -341,18 +376,18 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     public static void updateAPk() {
         try {
-            int hour = 0;
-            int minit = 1;
+            int hour = 4;
+            int minit =0;
 
 
             int second = ((hour * 3600) + (minit * 60)) * 1000;
-            refreshTimer = new Timer();
-            refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            refreshTimer2 = new Timer();
+            refreshTimer2.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     UpdateApk updateApk = new UpdateApk();
                     updateApk.UpdateApk();
-                }
+                                 }
             }, second, second);
 
         } catch (Exception e) {
@@ -378,20 +413,17 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
                                         bringApplicationToFront(getApplicationContext());
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
                                     List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
                                     Log.d("topActivity", "CURRENT Activity ::" + taskInfo.get(0).topActivity.getClassName());
                                     ComponentName componentInfo = taskInfo.get(0).topActivity;
-                                    String name=componentInfo.getClassName();
-                                    if (name.contains("LockScreen"))
-                                    {
+                                    String name = componentInfo.getClassName();
+                                    if (name.contains("LockScreen")) {
                                         bringApplicationToFront(getApplicationContext());
 
                                     }
-                                 }
+                                }
                                 count = 0;
 
                             }
@@ -556,13 +588,18 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         count = 0;
+//        Inversion inversion = new Inversion();
+//        inversion.setInvert(Utils.getInvertedTime());
+//        EventBus.getDefault().post(inversion);
         boolean value = sessionManager.getUpdateNotShow();
-        boolean isDialogOpen=sessionManager.getupdateDialog();
+        boolean isDialogOpen = sessionManager.getupdateDialog();
         if (!isDialogOpen) {
             if (!value) {
                 ApkDetails apkDetails = sessionManager.getApkDetails();
-                if (apkDetails != null)
+                if (apkDetails != null) {
                     EventBus.getDefault().post(apkDetails);
+                    sessionManager.setVersionDetails(null);
+                }
             }
         }
         return true;
@@ -644,17 +681,20 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     }
 
     private void checkWifiState() {
+        try {
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            InternetResponse internetResponse = new InternetResponse();
+            OverLayResponse overLayResponse = new OverLayResponse();
 
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        InternetResponse internetResponse = new InternetResponse();
-        OverLayResponse overLayResponse = new OverLayResponse();
+            if (wifiManager.isWifiEnabled()) {
+                internetResponse.setAvailable(false);
+                EventBus.getDefault().post(internetResponse);
+            } else {
+                internetResponse.setAvailable(true);
+                EventBus.getDefault().post(internetResponse);
+            }
+        } catch (Exception e) {
 
-        if (wifiManager.isWifiEnabled()) {
-            internetResponse.setAvailable(false);
-            EventBus.getDefault().post(internetResponse);
-        } else {
-            internetResponse.setAvailable(true);
-            EventBus.getDefault().post(internetResponse);
         }
     }
 
@@ -690,9 +730,13 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                             isPickedUpSucess = true;
                             //   ValidationHelper.showToast(getApplicationContext(),"Device picked up");
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
+
                         }
                     } else {
                         if (!isPickedDown) {
+//                            Inversion inversion = new Inversion();
+//                            inversion.setInvert(Utils.getInvertedTime());
+//                            EventBus.getDefault().post(inversion);
                             isPickedDown = true;
                             isPickedUpSucess = false;
                             // ValidationHelper.showToast(getApplicationContext(),"Device put down");
