@@ -44,6 +44,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    /**
+     * Initial data setup
+     */
     private void initView() {
         context = this;
         setNoTitleBar(this);
@@ -56,6 +59,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Initialize recycle view adapter
+     */
     private void setDataInRecycleView() {
         logsAdapter = new LogsAdapter(list, context);
         mBinding.logsList.setAdapter(logsAdapter);
@@ -64,6 +70,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Button clicks initializing
+     */
     private void setOnClickListener() {
         mBinding.backClick.setOnClickListener(this);
         mBinding.clearAndBack.setOnClickListener(this);
@@ -71,7 +80,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
 
 
-
+    /**
+     * Change system ui to full screen when any change perform in activity
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -81,7 +92,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-
+    /**
+     * Handle full screen mode
+     */
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -105,7 +118,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-
+    /**
+     * Get Log data from Room db
+     */
     private void getLogsData() {
         LogsRequest logsRequest = new LogsRequest();
         logsRequest.setContext(this);
@@ -145,7 +160,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
         }
     }
-
+    /**
+     * Handle Clicks listener
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -161,6 +178,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Clear log
+     */
     private void clearLogHandler() {
         LogClearRequest logClearRequest = new LogClearRequest();
         logClearRequest.setContext(context);

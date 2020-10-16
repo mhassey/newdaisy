@@ -172,6 +172,27 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/feedBack"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp30"
+            android:layout_marginStart="@dimen/dp30"
+            android:background="@drawable/edit_text_format"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10"
+                android:fontFamily="@font/rragular"
+                android:text="@string/feedback"
+                android:textSize="@dimen/sp15" />
+
+
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/changeLanguage"
             android:layout_marginTop="@dimen/dp20"
             android:layout_marginEnd="@dimen/dp30"
@@ -188,6 +209,50 @@
                 android:layout_margin="@dimen/dp10"
                 android:fontFamily="@font/rragular"
                 android:text="@string/change_language"
+                android:textSize="@dimen/sp15" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/lunchApp"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp30"
+            android:layout_marginStart="@dimen/dp30"
+            android:background="@drawable/edit_text_format"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10"
+                android:fontFamily="@font/rragular"
+                android:text="@string/launchotherApp"
+                android:textSize="@dimen/sp15" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/logout"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp30"
+            android:layout_marginStart="@dimen/dp30"
+            android:background="@drawable/edit_text_format"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10"
+                android:fontFamily="@font/rragular"
+                android:text="@string/logout"
                 android:textSize="@dimen/sp15" />
 
 

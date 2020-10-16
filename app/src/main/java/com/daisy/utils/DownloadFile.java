@@ -12,12 +12,17 @@ import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 import com.daisy.pojo.response.Download;
+import com.daisy.pojo.response.DownloadFail;
+import com.daisy.pojo.response.Url;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -74,14 +79,37 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     protected String doInBackground(String... f_url) {
         for (Download download:downloads) {
             int count;
+            String urlPath = null;
             try {
+                URL url1 = new URL(download.getPath());
 
-                URL url = new URL(download.getPath());
+                HttpURLConnection connectionHttp = (HttpURLConnection) url1.openConnection();
+                try {
+                    int code = connectionHttp.getResponseCode();
+
+                    if (code == 200) {
+                        urlPath=download.getPath();
+                        // reachable
+                    } else {
+                        urlPath=download.getPath1();
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    urlPath=download.getPath1();
+
+
+                }
+
+
 
                 if (download.getType().equals(context.getString(R.string.promotion))) {
                     promotion = true;
                 }
+               URL url = new URL(urlPath);
                 URLConnection connection = url.openConnection();
+
                 connection.setConnectTimeout(10000);
                 connection.connect();
                 // getting file length
@@ -166,6 +194,10 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 }).start();
 
             } catch (Exception e) {
+                if (download.getType().equals(""))
+                {
+                    EventBus.getDefault().post(new DownloadFail());
+                }
                 e.printStackTrace();
             }
         }
@@ -187,15 +219,13 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
      * */
     @Override
     protected void onPostExecute(String path) {
-        // dismiss the dialog after the file was downloaded
-        try {
-            //    callBack.callBack(Constraint.SUCCESS);
-
+         try {
+             this.progressDialog.dismiss();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.progressDialog.dismiss();
+
 
     }
 }

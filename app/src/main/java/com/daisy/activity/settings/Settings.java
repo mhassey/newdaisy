@@ -29,38 +29,46 @@ public class Settings extends BaseActivity implements SwitchCompat.OnCheckedChan
         initClick();
     }
 
-
+    /**
+     * Initial data setup
+     */
     private void initView() {
         context = this;
-        sessionManager=SessionManager.get();
-         boolean isChecked=sessionManager.getDarkTheme();
-         mBinding.switchButton.setChecked(isChecked);
+        sessionManager = SessionManager.get();
+        boolean isChecked = sessionManager.getDarkTheme();
+        mBinding.switchButton.setChecked(isChecked);
 
     }
-
+    /**
+     * Button clicks initializing
+     */
     private void initClick() {
         mBinding.switchButton.setOnCheckedChangeListener(this);
     }
 
+
+    /**
+     * Change checked listener
+     */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         sessionManager.darkMode(isChecked);
-        if (isChecked)
-        {
+        if (isChecked) {
             setTheme(R.style.AppThemeDark);
-        }
-        else
-        {
+        } else {
             setTheme(R.style.AppTheme);
 
         }
         restartApp();
     }
 
+    /**
+     * Restart app fro changing theme
+     */
     private void restartApp() {
-        Intent intent=new Intent(Settings.this, EditorTool.class);
-         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(Constraint.SETTINGS,Constraint.SETTINGS);
+        Intent intent = new Intent(Settings.this, EditorTool.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(Constraint.SETTINGS, Constraint.SETTINGS);
         startActivity(intent);
         finish();
     }

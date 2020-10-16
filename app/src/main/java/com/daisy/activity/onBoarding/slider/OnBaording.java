@@ -377,7 +377,17 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
         Utils.deleteDaisy();
-       String UrlPath= response.getResult().getPricecard().getFileName();
+        String UrlPath;
+
+        if (response.getResult().getPricecard().getFileName1()!=null && !response.getResult().getPricecard().getFileName1().equals(""))
+        {
+            UrlPath= response.getResult().getPricecard().getFileName1();
+        }
+        else
+        {
+            UrlPath= response.getResult().getPricecard().getFileName();
+        }
+
         if (response.getResult().getPricecard().getFileName() != null) {
                 String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory = new File(configFilePath);

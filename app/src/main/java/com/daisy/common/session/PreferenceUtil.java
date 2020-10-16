@@ -110,7 +110,7 @@ public class PreferenceUtil {
     }
 
     public void clear() {
-        mSpref.edit().clear().apply();
+        mSpref.edit().clear().commit();
     }
 
 

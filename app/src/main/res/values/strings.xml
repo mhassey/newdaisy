@@ -118,7 +118,7 @@
     <string name="proceed">Proceed</string>
     <string name="dismiss">Dismiss</string>
     <string name="something_went_wrong">Something went wrong</string>
-    <string name="face_detected" >Face detected</string>
+    <string name="face_detected">Face detected</string>
     <string name="cancel">Cancel</string>
     <string name="lock">Lock</string>
     <string name="unlockk">Unlock</string>
@@ -131,4 +131,18 @@
     <string name="app_version">APP VERSION :</string>
     <string name="PERMISSION">PERMISSIONS</string>
     <string name="settings_cap">SETTINGS</string>
+    <string name="logout">Logout</string>
+    <string name="file_has_issue">"Please contact your developer or try installing the app again later!"</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="feedback">FeedBack</string>
+    <string name="Bug">BUG</string>
+    <string name="ISSUE">ISSUE</string>
+    <string name="SUGGESION">SUGGESION</string>
+    <string name="OTHER">OTHER</string>
+    <string name="all_field_are_mendetory">All field are mendetory</string>
+    <string name="launchotherApp">Launch Other App</string>
+    <string name="screen_touched">Screen touched</string>
+    <string name="package_not_available">There is no package available in android</string>
 </resources>

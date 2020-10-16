@@ -25,6 +25,9 @@ public class BaseUrlSettingsViewModel extends AndroidViewModel {
         this.urls = urls;
     }
 
+    /**
+     * Set all default urls
+     */
     public void setDefaultUrls() {
 
         List<Url> urls = new ArrayList<>();
@@ -52,7 +55,6 @@ public class BaseUrlSettingsViewModel extends AndroidViewModel {
         url5.setName("Oak Test");
         urls.add(url4);
         urls.add(url5);
-
         Url url6 = new Url();
         url6.setName("Oak  Server");
         url6.setUrl("http://oak.mobilepricecard.com/");
@@ -61,6 +63,11 @@ public class BaseUrlSettingsViewModel extends AndroidViewModel {
         url7.setName("VZPROD");
         urls.add(url6);
         urls.add(url7);
+        Url url8 = new Url();
+
+        url8.setUrl("http://use.mobilepricecards.com/");
+        url8.setName("USE Server");
+        urls.add(url8);
 
         setUrls(urls);
     }

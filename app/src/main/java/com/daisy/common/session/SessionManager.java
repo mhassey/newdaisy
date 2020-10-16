@@ -1080,4 +1080,11 @@ public class SessionManager {
         return pref.getStringData(PrefConstant.SERVERTIME);
     }
 
+    public void setTimeInterval(String diffrence) {
+        pref.setStringData(PrefConstant.TIME_INVERVAL,diffrence);
+    }
+    public String  getTimeInverval()
+    {
+        return pref.getStringData(PrefConstant.TIME_INVERVAL);
+    }
 }

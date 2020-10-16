@@ -30,13 +30,18 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         initClickListener();
     }
 
-
+    /**
+     * Initial data setup
+     */
     private void initView() {
         setNoTitleBar(this);
         context = this;
 
     }
 
+    /**
+     * Button clicks initializing
+     */
     private void initClickListener() {
         mBinding.applicationLogs.setOnClickListener(this);
         mBinding.cardLogs.setOnClickListener(this);
@@ -45,7 +50,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-
+    /**
+     * Change system ui to full screen when any change perform in activity
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -55,7 +62,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-
+    /**
+     * Handle full screen mode
+     */
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -79,7 +88,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-
+    /**
+     * Handle Clicks listener
+     */
     @Override
     public void onClick(View v) {
 
@@ -113,6 +124,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    /**
+     * GO to settings activity
+     */
     private void handleSettingClick() {
         Intent intent=new Intent(context, Settings.class);
         startActivity(intent);
@@ -120,6 +134,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    /**
+     * Open Logs show activity
+     */
     void callLogsShowActivity(String type)
     {
         Intent intent=new Intent(context, LogsShowActivity.class);

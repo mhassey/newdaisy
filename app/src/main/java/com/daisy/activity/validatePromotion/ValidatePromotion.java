@@ -33,6 +33,9 @@ public class ValidatePromotion {
         }).start();
     }
 
+    /**
+     * Check promotion is removed from server
+     */
     private void checkPromotions() {
         ApiService apiService = AppRetrofit.getInstance().getApiService();
         HashMap<String, String> hashMap = getPromotionRequest();
@@ -40,7 +43,7 @@ public class ValidatePromotion {
         globalResponseCall.enqueue(new Callback<GlobalResponse<ValidatePromotionPojo>>() {
             @Override
             public void onResponse(Call<GlobalResponse<ValidatePromotionPojo>> call, Response<GlobalResponse<ValidatePromotionPojo>> response) {
-                    handleResponse(response);
+                handleResponse(response);
             }
 
             @Override
@@ -52,25 +55,28 @@ public class ValidatePromotion {
         });
     }
 
+    /**
+     * Handle validate promotion response
+     */
     private void handleResponse(Response<GlobalResponse<ValidatePromotionPojo>> liveData) {
         if (liveData != null) {
             if (liveData.isSuccessful()) {
                 GlobalResponse<ValidatePromotionPojo> response = liveData.body();
                 if (response.isApi_status()) {
-                    if (response.getResult() != null ) {
+                    if (response.getResult() != null) {
                         JSONArray updatedPromotion = new JSONArray();
                         JSONArray promotions = sessionManager.getPromotions();
                         for (int i = 0; i < promotions.length(); i++) {
 
                             for (Promotion promotion : response.getResult().getPromotions()) {
                                 try {
-                                    JSONObject pro=(JSONObject) promotions.get(i);
+                                    JSONObject pro = (JSONObject) promotions.get(i);
                                     if (pro.get(Constraint.PROMOTION_ID).equals(promotion.getIdpromotion())) {
                                         JSONObject jsonObject = new JSONObject();
                                         jsonObject.put(Constraint.PROMOTION, pro.getString(Constraint.PROMOTION));
                                         jsonObject.put(Constraint.PROMOTION_ID, promotion.getIdpromotion());
-                                        jsonObject.put("dateCreated", promotion.getDateCreated());
-                                        jsonObject.put("dateExpires", promotion.getDateExpires());
+                                        jsonObject.put(Constraint.DATE_CREATE, promotion.getDateCreated());
+                                        jsonObject.put(Constraint.DATE_EXPIRES, promotion.getDateExpires());
 
                                         updatedPromotion.put(jsonObject);
                                     }
@@ -92,26 +98,26 @@ public class ValidatePromotion {
     }
 
 
+    /**
+     * create validate promotion request
+     */
     private HashMap<String, String> getPromotionRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
-        JSONArray promotions=sessionManager.getPromotions();
-        String sendingId="";
+        JSONArray promotions = sessionManager.getPromotions();
+        String sendingId = "";
         try {
             for (int i = 0; i < promotions.length(); i++) {
-                JSONObject jsonObject =(JSONObject) promotions.get(i);
+                JSONObject jsonObject = (JSONObject) promotions.get(i);
                 sendingId += jsonObject.get(Constraint.PROMOTION_ID);
-                if (!(i==(promotions.length()-1)))
-                {
-                    sendingId+=",";
+                if (!(i == (promotions.length() - 1))) {
+                    sendingId += ",";
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         hashMap.put(Constraint.PROMOTION_ID, sendingId);
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
-         return hashMap;
+        return hashMap;
     }
 }

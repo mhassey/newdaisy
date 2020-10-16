@@ -35,6 +35,9 @@ public class CheckCardAvailability {
         }).start();
     }
 
+    /**
+     * Fire getCard api from background
+     */
     private void getCard() {
         ApiService apiService = AppRetrofit.getInstance().getApiService();
         HashMap<String, String> hashMap = getCardRequest();
@@ -55,6 +58,9 @@ public class CheckCardAvailability {
 
     }
 
+    /**
+     * Handle getcard api response
+     */
     private void handleResponse(Response<GlobalResponse<GetCardResponse>> liveData) {
         if (liveData != null) {
             if (liveData.isSuccessful()) {
@@ -115,6 +121,9 @@ public class CheckCardAvailability {
         }
     }
 
+    /**
+     * Redirect to main activity
+     */
     private void redirectToMain(GlobalResponse<GetCardResponse> response) {
         Utils.deleteDaisy();
         String UrlPath = response.getResult().getPricecard().getFileName();
@@ -149,13 +158,15 @@ public class CheckCardAvailability {
         }
     }
 
+    /**
+     * Create Card request
+     */
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         if (sessionManager.getPriceCard()!=null)
         hashMap.put(Constraint.pricecardid,sessionManager.getPriceCard().getIdpriceCard());
-//        hashMap.put(Constraint.SCREEN_ID, "47");
         return hashMap;
     }
 

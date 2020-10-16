@@ -50,7 +50,9 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
 
     }
 
-
+    /**
+     * Initial data setup
+     */
     private void initView() {
         sessionManager = SessionManager.get();
 
@@ -60,7 +62,7 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         if (b) {
             Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(Constraint.ZERO, Constraint.ZERO);
             finish();
         }
         viewModel.setDefaultUrls();
@@ -68,6 +70,9 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
     }
 
 
+    /**
+     * Add Adaptor to base url field
+     */
     private void setDefaultUrlData() {
 
         ArrayAdapter<Url> orientationAdapter = new ArrayAdapter<Url>(context, android.R.layout.simple_spinner_item, viewModel.getUrls());
@@ -76,6 +81,9 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
     }
 
 
+    /**
+     * Change system ui to full screen when any change perform in activity
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -85,6 +93,9 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
 
     }
 
+    /**
+     * Handle full screen mode
+     */
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -107,10 +118,16 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
     }
 
 
+    /**
+     * Button clicks initializing
+     */
     private void initClick() {
         mBinding.nextSlide.setOnClickListener(this::onClick);
     }
 
+    /**
+     * Button clicks handle
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -122,6 +139,9 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
 
     }
 
+    /**
+     * Fire update url api
+     */
     private void updateBaseUrl() {
         Url mainUrl = (Url) mBinding.baseUrl.getSelectedItem();
         String url=mainUrl.getUrl();
@@ -158,11 +178,13 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         }
     }
 
+    /**
+     * Handle General response
+     */
     private void handleGeneralResponse(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
         showHideProgressDialog(false);
         if (generalResponseGlobalResponse != null) {
             if (generalResponseGlobalResponse.isApi_status()) {
-                //sessionManager.deleteAllSession();
                  sessionManager.setBaseUrlChange(true);
                 Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

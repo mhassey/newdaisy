@@ -128,4 +128,5 @@ public interface PrefConstant {
     String CLOSE_TIME="closeTime";
     String OFF_SET="offset";
     String SERVERTIME = "server_time";
+    String TIME_INVERVAL = "time_interval";
 }

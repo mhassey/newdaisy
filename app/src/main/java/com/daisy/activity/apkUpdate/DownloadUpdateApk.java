@@ -58,21 +58,16 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
         try {
             URL url = new URL(f_url[0]);
             URLConnection connection = url.openConnection();
-            //connection.setConnectTimeout(5000);
             connection.connect();
-            // getting file length
             int lengthOfFile = connection.getContentLength();
-            // input stream to read file - with 8k buffer
             InputStream input = new BufferedInputStream(url.openStream(), 8192);
             folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-            //Create androiddeft folder if it does not exist
             File directory = new File(folder);
 
             if (!directory.exists()) {
                 directory.mkdirs();
             }
             fileName = Constraint.DAISYAPK;
-            // Output stream to write file
             String path = folder + fileName;
 
             OutputStream output = new FileOutputStream(path);
@@ -83,19 +78,11 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
 
             while ((count = input.read(data)) != -1) {
                 total += count;
-                // publishing the progress....
-                // After this onProgressUpdate will be called
                 publishProgress("" + (int) ((total * Constraint.HUNDERD) / lengthOfFile));
-
-                // writing data to file
                 output.write(data, Constraint.ZERO, count);
             }
 
-
-            // flushing output
             output.flush();
-
-            // closing streams
             output.close();
             input.close();
 
@@ -110,7 +97,6 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
      * Updating progress bar
      */
     protected void onProgressUpdate(String... progress) {
-        // setting progress percentage
         progressDialog.setProgress(Integer.parseInt(progress[0]));
     }
 

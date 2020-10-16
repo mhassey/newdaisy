@@ -41,7 +41,6 @@ import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
@@ -98,7 +97,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     public static Timer refreshTimer1;
     public static Timer refreshTimer2;
     public static Timer refreshTimer3;
-
+    public static Timer refreshTimer4;
 
     @Nullable
     @Override
@@ -109,8 +108,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sessionManager = SessionManager.get();
-        // do your jobs here
-
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -179,7 +176,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                                     }
                                 }
                                 boolean messageLock = sessionManager.getMessageLock();
-                                if (Arrays.asList(messages).contains(process)  || process.contains("messaging")) {
+                                if (Arrays.asList(messages).contains(process) || process.contains("messaging")) {
                                     // true
                                     if (!messageLock) {
                                         Log.e("mms..", process);
@@ -193,7 +190,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
                                 if (!process.equals(getApplication().getPackageName())) {
                                     if (process.equals(Constraint.SETTING_PATH) || process.contains("sbrowser") || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
-                                        Log.e("password correct check", sessionManager.getPasswordCorrect() + "");
                                         if (!sessionManager.getPasswordCorrect()) {
                                             sessionManager.setPasswordCorrect(true);
                                             Intent intent = new Intent(getApplicationContext(), LockScreen.class);
@@ -283,24 +279,22 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         checkPromotion();
         checkInversion();
         updateAPk();
+        validatePromotion();
     }
 
-    private void checkInversion() {
+    private void validatePromotion() {
         try {
             int hour = 1;
             int minit = 30;
 
 
             int second = ((hour * 3600) + (minit * 60)) * 1000;
-             refreshTimer1 = new Timer();
-            refreshTimer1.scheduleAtFixedRate(new TimerTask() {
+            refreshTimer4 = new Timer();
+            refreshTimer4.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     try {
-//                        Inversion inversion = new Inversion();
-//                        inversion.setInvert(Utils.getInvertedTime());
-//                        EventBus.getDefault().post(inversion);
-                        ValidatePromotion validatePromotion=new ValidatePromotion();
+                        ValidatePromotion validatePromotion = new ValidatePromotion();
                         validatePromotion.checkPromotion();
                     } catch (Exception e) {
 
@@ -309,7 +303,35 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             }, second, second);
 
         } catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
+        }
+
+    }
+
+    private void checkInversion() {
+        try {
+            int hour = 0;
+            int minit = 3;
+
+
+            int second = ((hour * 3600) + (minit * 60)) * 1000;
+            refreshTimer1 = new Timer();
+            refreshTimer1.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        Inversion inversion = new Inversion();
+                        inversion.setInvert(Utils.getInvertedTime());
+                        EventBus.getDefault().post(inversion);
+
+                    } catch (Exception e) {
+
+                    }
+                }
+            }, second, second);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -324,7 +346,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             refreshTimer3.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                   EventBus.getDefault().post(new Promotions());
+                    EventBus.getDefault().post(new Promotions());
                 }
             }, second, second);
 
@@ -359,7 +381,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         }
 
         int second = ((hour * 3600) + (minit * 60)) * 1000;
-         refreshTimer = new Timer();
+        refreshTimer = new Timer();
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -377,7 +399,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     public static void updateAPk() {
         try {
             int hour = 4;
-            int minit =0;
+            int minit = 0;
 
 
             int second = ((hour * 3600) + (minit * 60)) * 1000;
@@ -387,7 +409,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 public void run() {
                     UpdateApk updateApk = new UpdateApk();
                     updateApk.UpdateApk();
-                                 }
+                }
             }, second, second);
 
         } catch (Exception e) {
@@ -441,6 +463,12 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     }
 
     private void setDeleteTimer() {
+        int hour = 0;
+        int minit = 10;
+
+
+        int second = ((hour * 3600) + (minit * 60)) * 1000;
+
         Timer deletePhoto = new Timer();
         deletePhoto.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -450,7 +478,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
                 }
             }
-        }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
+        }, second, second);
 
     }
 
@@ -506,10 +534,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private BroadcastReceiver wifiStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            Log.e("wifi state", "changes");
             InternetResponse internetResponse = new InternetResponse();
-            OverLayResponse overLayResponse = new OverLayResponse();
             int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_ENABLED: {
@@ -528,7 +553,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     };
 
     private void showOverlayActivity(Context context) {
-        Log.e("kali", "inhance");
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -576,7 +600,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
-        Log.e("kali", "working");
         initService();
     }
 
@@ -587,10 +610,12 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        // DBCaller.storeLogInDatabase(getApplicationContext(), getString(R.string.screen_touched), "", "", Constraint.APPLICATION_LOGS);
+
         count = 0;
-//        Inversion inversion = new Inversion();
-//        inversion.setInvert(Utils.getInvertedTime());
-//        EventBus.getDefault().post(inversion);
+        Inversion inversion = new Inversion();
+        inversion.setInvert(Utils.getInvertedTime());
+        EventBus.getDefault().post(inversion);
         boolean value = sessionManager.getUpdateNotShow();
         boolean isDialogOpen = sessionManager.getupdateDialog();
         if (!isDialogOpen) {
@@ -598,7 +623,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 ApkDetails apkDetails = sessionManager.getApkDetails();
                 if (apkDetails != null) {
                     EventBus.getDefault().post(apkDetails);
-                    sessionManager.setVersionDetails(null);
                 }
             }
         }
@@ -612,7 +636,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         touchLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.e("kali", "checking;....");
                 return false;
             }
         });
@@ -734,9 +757,9 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         }
                     } else {
                         if (!isPickedDown) {
-//                            Inversion inversion = new Inversion();
-//                            inversion.setInvert(Utils.getInvertedTime());
-//                            EventBus.getDefault().post(inversion);
+                            Inversion inversion = new Inversion();
+                            inversion.setInvert(Utils.getInvertedTime());
+                            EventBus.getDefault().post(inversion);
                             isPickedDown = true;
                             isPickedUpSucess = false;
                             // ValidationHelper.showToast(getApplicationContext(),"Device put down");

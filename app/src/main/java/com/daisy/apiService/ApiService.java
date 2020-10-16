@@ -1,5 +1,7 @@
 package com.daisy.apiService;
 
+import androidx.lifecycle.LiveData;
+
 import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectRequest;
 import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectResponse;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
@@ -8,6 +10,7 @@ import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.activity.updatePosition.vo.UpdatePositionResponse;
 import com.daisy.pojo.response.BlankResponse;
 import com.daisy.pojo.response.DeleteCardResponse;
+import com.daisy.pojo.response.FeedBackResponse;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.Promotion;
@@ -60,4 +63,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API+ Constraint.SLASH +ApiConstant.PROMOTION_CHECK)
     Call<GlobalResponse<ValidatePromotionPojo>> checkPromotion(@FieldMap  HashMap<String, String> hashMap, @Header(Constraint.TOKEN) String s);
+
+    @FormUrlEncoded
+    @POST(ApiConstant.ADD_FEEDBACK)
+    Call<LiveData<GlobalResponse<FeedBackResponse>>> addFeedBack(@FieldMap HashMap<String, String> feedBackRequest,@Header(Constraint.TOKEN) String s);
 }

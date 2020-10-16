@@ -26,6 +26,7 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.common.session.SessionManager;
 import com.daisy.sync.SyncLogs;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
 import java.text.SimpleDateFormat;
@@ -47,22 +48,27 @@ public class SplashScreen extends BaseActivity {
 
 
 
+    /**
+     * Initial data setup
+     */
     private void initView() {
         setNoTitleBar(this);
         sessionManager=SessionManager.get();
-        sessionManager.setUpdateNotShow(false);
-        sessionManager.uninstallShow(false);
+        sessionManager.setUpdateNotShow(Constraint.FALSE);
+        sessionManager.uninstallShow(Constraint.FALSE);
           final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 redirectToWelcome();
             }
-        }, 4000);
+        }, Constraint.FOUR_THOUSAND);
 
     }
 
-
+    /**
+     * Redirect to welcome or editor tool
+     */
     private void redirectToWelcome() {
         if (sessionManager.getOnBoarding())
         {
@@ -76,6 +82,9 @@ public class SplashScreen extends BaseActivity {
         finish();
     }
 
+    /**
+     * Change system ui to full screen when any change perform in activity
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -85,19 +94,16 @@ public class SplashScreen extends BaseActivity {
 
     }
 
+    /**
+     * Handle full screen mode
+     */
     private void hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        // Set the content to appear under the system bars so that the
-                        // content doesn't resize when the system bars hide and show.
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
 

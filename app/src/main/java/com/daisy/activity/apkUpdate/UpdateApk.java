@@ -1,7 +1,5 @@
 package com.daisy.activity.apkUpdate;
 
-import android.util.Log;
-
 import com.daisy.BuildConfig;
 import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
@@ -9,8 +7,6 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -31,6 +27,9 @@ public class UpdateApk {
         }).start();
     }
 
+    /**
+     * Call update apk api
+     */
     private void updateApk() {
         ApiService apiService = AppRetrofit.getInstance().getApiService();
         HashMap<String, String> hashMap = new HashMap<>();
@@ -50,6 +49,9 @@ public class UpdateApk {
 
     }
 
+    /**
+     * Handle apk update response
+     */
     private void handleResponse(Response<GlobalResponse<GeneralResponse>> response) {
         if (response != null) {
             if (response.isSuccessful()) {
@@ -66,7 +68,6 @@ public class UpdateApk {
 
 
                                 sessionManager.setVersionDetails(apkDetails);
-                                EventBus.getDefault().post(apkDetails);
                             }
                             else
                             {

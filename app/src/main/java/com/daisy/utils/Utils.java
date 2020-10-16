@@ -67,7 +67,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class Utils {
 
 
-    public static void screenBrightness(int level,Context context) {
+    public static void screenBrightness(int level, Context context) {
         try {
             android.provider.Settings.System.putInt(
                     context.getContentResolver(),
@@ -78,6 +78,7 @@ public class Utils {
 
         }
     }
+
     public static boolean isValidUrl(String urlString) {
         try {
             return URLUtil.isValidUrl(urlString) && Patterns.WEB_URL.matcher(urlString).matches();
@@ -88,75 +89,79 @@ public class Utils {
         return false;
     }
 
-    public static boolean getInvertedTime()
-    {
-        SessionManager sessionManager=SessionManager.get();
-        LoginResponse loginResponse=sessionManager.getLoginResponse();
+    public static boolean getInvertedTime() {
+            try {
+                SessionManager sessionManager = SessionManager.get();
+                LoginResponse loginResponse = sessionManager.getLoginResponse();
 
-        int serverTime=Integer.parseInt(getServerTime(loginResponse.getCurrentTime()));
+                int serverTime = Integer.parseInt(getServerTime(loginResponse.getCurrentTime()));
 
-        int dateTime=Integer.parseInt(getTodayTime(sessionManager.getUTCOffset()));
+                int dateTime = Integer.parseInt(getTodayTime());
 
-        int openTime=((Integer.parseInt(sessionManager.getOpen()))*100);
+                int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
 
-        int closeTime=((Integer.parseInt(sessionManager.getClose()))*100);
+                int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
 
-        int offcet=Integer.parseInt(sessionManager.getUTCOffset());
-        offcet=offcet*100;
+                int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
 
-        int CF=0;
-        int dateTimeInUTC=0;
-        if (offcet<0) {
-            dateTimeInUTC = dateTime + (-offcet);
-            openTime=openTime+(-offcet);
-            closeTime=closeTime+(-offcet);
-        }
-         else {
-            dateTimeInUTC=dateTime-offcet;
-            openTime=openTime-offcet;
-            closeTime=closeTime-offcet;
+                int dateTimeInUTC = 0;
+                if (offcet < 0) {
+                    dateTimeInUTC = dateTime + (-offcet);
+                    openTime = openTime + (-offcet);
+                    closeTime = closeTime + (-offcet);
 
 
-        }
-        if (dateTimeInUTC<serverTime)
-        {
+                } else {
+                    dateTimeInUTC = dateTime - offcet;
+                    openTime = openTime - offcet;
+                    closeTime = closeTime - offcet;
+                }
+                int CF;
 
-            CF=serverTime-dateTimeInUTC;
-        }
-        else
-        {
-            CF=dateTimeInUTC-serverTime;
+                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+                    CF = Integer.parseInt(sessionManager.getTimeInverval());
+                } else {
+                    CF = serverTime - dateTimeInUTC;
 
-        }
-
-        int LT=dateTimeInUTC+CF;
+                }
 
 
-        if (LT>=openTime && LT<closeTime)
-        {
+                sessionManager.setTimeInterval(CF + "");
+                int LT = dateTimeInUTC + CF;
+
+
+                if (LT >= openTime && LT < closeTime) {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+
+            }
             return false;
-        }
-        return true;
 
     }
 
-    public  static String  getTodayTime(String offset)
-    {
-         Calendar rightNow = Calendar.getInstance();
-        rightNow.set(Calendar.SECOND, 0);
+    public static String getTodayTime() {
+//        Date date = localToGMT();
+        Calendar rightNow = Calendar.getInstance();
+        // rightNow.setTime(date);
         int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY); // return the hour in 24 hrs format (ranging from 0-23)
-        int currentMINUTIn24Format = rightNow.get(Calendar.MINUTE);
-       String min;
-        if (currentMINUTIn24Format<9)
+        int currentMinutesIn24Format=rightNow.get(Calendar.MINUTE);
+        String currentMinutes="";
+        if (currentMinutesIn24Format<=9)
         {
-            min="0"+currentMINUTIn24Format;
+            currentMinutes="0"+currentMinutesIn24Format;
         }
         else
         {
-            min=currentMINUTIn24Format+"";
+            currentMinutes=currentMinutesIn24Format+"";
         }
-        return currentHourIn24Format+""+min;
+
+        return currentHourIn24Format+""+currentMinutes;
     }
+
     public static Date localToGMT() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -165,10 +170,9 @@ public class Utils {
         return gmt;
     }
 
-    public  static String  getServerTime(String time)
-    {
+    public static String getServerTime(String time) {
         Calendar rightNow = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         try {
             rightNow.setTime(sdf.parse(time));// all done
         } catch (ParseException e) {
@@ -176,9 +180,19 @@ public class Utils {
         }
 
 
-        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY); // return the hour in 24 hrs format (ranging from 0-23)
-        int currentMINUTIn24Format = rightNow.get(Calendar.MINUTE);
-        return currentHourIn24Format+""+currentMINUTIn24Format;
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
+        int currentMinutesIn24Format=rightNow.get(Calendar.MINUTE);
+       String currentMinutes="";
+        if (currentMinutesIn24Format<=9)
+        {
+            currentMinutes="0"+currentMinutesIn24Format;
+        }
+        else
+        {
+            currentMinutes=currentMinutesIn24Format+"";
+        }
+        // return the hour in 24 hrs format (ranging from 0-23)
+        return currentHourIn24Format+""+currentMinutes;
     }
 
     public static HashMap<String, String> ConvertObjectToMap(Object obj) throws
@@ -205,11 +219,10 @@ public class Utils {
         int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
         if (id != 0) {
             try {
-                id= res.getInteger(id);
-                int val=((id*70)/100);
-                if (Utils.getDeviceName().contains("Pixel") || Utils.getDeviceName().contains("pixel"))
-                {
-                    val=((id*37)/100);
+                id = res.getInteger(id);
+                int val = ((id * 70) / 100);
+                if (Utils.getDeviceName().contains("Pixel") || Utils.getDeviceName().contains("pixel")) {
+                    val = ((id * 37) / 100);
                 }
                 return val;
             } catch (Resources.NotFoundException e) {
@@ -245,10 +258,10 @@ public class Utils {
     public static void deleteNags(Context context) {
         ContentResolver cr = context.getContentResolver();
 
-        Uri inbox = Uri.parse( "content://sms/inbox" );
+        Uri inbox = Uri.parse("content://sms/inbox");
         Cursor cursor = cr.query(
                 inbox,
-                new String[] { "_id", "thread_id", "body" },
+                new String[]{"_id", "thread_id", "body"},
                 null,
                 null,
                 null);
@@ -262,14 +275,14 @@ public class Utils {
         int count = 0;
 
         do {
-            String body = cursor.getString( 2 );
-            Log.e("kalo",body);
-            long thread_id = cursor.getLong( 1 );
-            Uri thread = Uri.parse( "content://sms/conversations/" + thread_id );
-            cr.delete( thread, null, null );
+            String body = cursor.getString(2);
+            Log.e("kalo", body);
+            long thread_id = cursor.getLong(1);
+            Uri thread = Uri.parse("content://sms/conversations/" + thread_id);
+            cr.delete(thread, null, null);
             count++;
-        } while ( cursor.moveToNext() );
-        Log.e( "Deleted: " , count+"" );
+        } while (cursor.moveToNext());
+        Log.e("Deleted: ", count + "");
     }
 
     public static boolean getNetworkState(Context context) {
@@ -279,6 +292,7 @@ public class Utils {
         return activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
     }
+
     public static boolean isInternetOn(Context context) {
 
         // get Connectivity Manager object to check connection
@@ -326,7 +340,7 @@ public class Utils {
 
     public static String getFileName(String configFilePath) {
         try {
-             File file1 = new File(configFilePath, Constraint.configFile);
+            File file1 = new File(configFilePath, Constraint.configFile);
             if (file1.exists()) {
                 Scanner input = null;
                 try {
@@ -371,7 +385,6 @@ public class Utils {
         }
         return null;
     }
-
 
 
     public static String getTimeStemp() {
@@ -481,13 +494,14 @@ public class Utils {
         return formattedDate;
     }
 
-    public static  String getTime(String time) throws ParseException {
+    public static String getTime(String time) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = format.parse(time);
         DateFormat format1 = new SimpleDateFormat("HH:mm:ss");
         String formattedDate = format1.format(date);
         return formattedDate;
     }
+
     public static String getTodayDateWithTime() {
         Date c = Calendar.getInstance().getTime();
         DateFormat date = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
@@ -512,8 +526,6 @@ public class Utils {
     }
 
 
-
-
     private static boolean isMIUI() {
         String device = Build.MANUFACTURER;
         if (device.equals("Xiaomi")) {
@@ -522,8 +534,6 @@ public class Utils {
         }
         return false;
     }
-
-
 
 
     public static void youDesirePermissionCode(Activity context) {
@@ -602,8 +612,7 @@ public class Utils {
                 // handle ...example.com
                 return "";
             }
-        }
-        catch(MalformedURLException e) {
+        } catch (MalformedURLException e) {
             return "";
         }
 
@@ -630,6 +639,13 @@ public class Utils {
     public static void constructJobForBackground(long timeMiles, Context context) {
         AlaramHelperBackground.scheduleRepeatingRTCNotification(context, timeMiles);
         AlaramHelperBackground.enableBootReceiver(context);
+    }
+
+
+    public static void stopService(long timeMiles, Context context) {
+        AlaramHelperBackground.cancelAlarmElapsed();
+        AlaramHelperBackground.cancelAlarmRTC();
+
     }
 
 
@@ -687,13 +703,11 @@ public class Utils {
             if (inFile.isDirectory()) {
                 try {
                     if (!inFile.getName().contains(Constraint.DAISY))
-                   FileUtils.deleteDirectory(inFile);
+                        FileUtils.deleteDirectory(inFile);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else
-            {
+            } else {
                 inFile.delete();
             }
         }
@@ -745,8 +759,8 @@ public class Utils {
                     String body = c.getString(5);
 
                     Log.e("Deleting SMS with id: ", threadId + "");
-                 int i=   context.getContentResolver().delete(Uri.parse("content://sms/"),"_id=? and thread_id=? and address=?",new String[] { String.valueOf(id),String.valueOf(threadId),String.valueOf(address) });
-                 } while (c.moveToNext());
+                    int i = context.getContentResolver().delete(Uri.parse("content://sms/"), "_id=? and thread_id=? and address=?", new String[]{String.valueOf(id), String.valueOf(threadId), String.valueOf(address)});
+                } while (c.moveToNext());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -755,8 +769,9 @@ public class Utils {
     }
 
     private static String getGalleryPath() {
-        return Environment.getExternalStorageDirectory()+"/";
+        return Environment.getExternalStorageDirectory() + "/";
     }
+
     public static void deleteDownloads() {
         final String path = getDownloadPath();
         File dir = new File(path);
@@ -771,7 +786,7 @@ public class Utils {
     }
 
     private static String getDownloadPath() {
-        return Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS ;
+        return Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS;
 
     }
 
@@ -793,7 +808,7 @@ public class Utils {
     }
 
     public static void deleteDaisy() {
-       String path= Environment.getExternalStorageDirectory()+Constraint.SLASH+Constraint.DAISY;
+        String path = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY;
         File dir = new File(path);
         if (dir.isDirectory()) {
             try {
@@ -806,10 +821,10 @@ public class Utils {
     }
 
     public static void deletePromotion() {
-        SessionManager sessionManager=SessionManager.get();
-        String path=sessionManager.getMainFilePath() ;
-        if (path!=null && !path.equals("")) {
-            path+=Constraint.SLASH+Constraint.PROMOTION;
+        SessionManager sessionManager = SessionManager.get();
+        String path = sessionManager.getMainFilePath();
+        if (path != null && !path.equals("")) {
+            path += Constraint.SLASH + Constraint.PROMOTION;
             File dir = new File(path);
             if (dir.isDirectory()) {
                 try {

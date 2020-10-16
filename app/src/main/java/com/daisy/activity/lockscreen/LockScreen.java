@@ -32,7 +32,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         initClick();
     }
 
-
+    /**
+     * Initial data setup
+     */
     private void initView() {
         context = this;
         setNoTitleBar(this);
@@ -41,6 +43,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         extraTaskForMakeAppWorkable();
       }
 
+    /**
+     * Do some extra stuff for making app perfect
+     */
     private void extraTaskForMakeAppWorkable() {
         Constraint.current_running_process = "";
         current_running_path = String.valueOf(getIntent().getStringExtra(Constraint.PACKAGE));
@@ -53,6 +58,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * Button clicks initializing
+     */
     private void initClick() {
         binding.unlock.setOnClickListener(this);
         binding.cancel.setOnClickListener(this::onClick);
@@ -68,6 +76,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
        LockScreen.this.finish();
     }
 
+    /**
+     * Handle Clicks listener
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -84,7 +95,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         }
     }
 
-
+    /**
+     * Change system ui to full screen when any change perform in activity
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -94,20 +107,16 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
     }
 
-
+    /**
+     * Handle full screen mode
+     */
     private void hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        View decorView = getWindow().getDecorView();
+            View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        // Set the content to appear under the system bars so that the
-                        // content doesn't resize when the system bars hide and show.
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
 
@@ -119,12 +128,18 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
 
+    /**
+     * Redirect to main screen
+     */
     private void redirectToMain() {
     Intent intent=new Intent(getApplicationContext(),MainActivity.class);
     startActivity(intent);
     finish();
     }
 
+    /**
+     * Handle Unlock work
+     */
     private void unlockPassword() {
         String password = binding.password.getText().toString();
         if (password != null) {
@@ -144,6 +159,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * open last activity according to package name
+     */
     private void startLastActivity(String packageName) {
         if (comeFromUninstall) {
             sessionManager.setPasswordCorrect(true);
@@ -160,6 +178,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * Back to home
+     */
     public void onBackToHome() {
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);

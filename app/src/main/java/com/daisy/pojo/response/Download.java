@@ -2,10 +2,19 @@ package com.daisy.pojo.response;
 
 public class Download {
     private String path;
+    private String path1;
     private String type;
     private String dateCreated;
     private String dateExpires;
     private String promotionId;
+
+    public String getPath1() {
+        return path1;
+    }
+
+    public void setPath1(String path1) {
+        this.path1 = path1;
+    }
 
     public String getPromotionId() {
         return promotionId;

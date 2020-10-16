@@ -166,6 +166,9 @@ public class Constraint {
     public static final int SIXTY = 60;
     public static final int TEN =10 ;
     public static final CharSequence MOBILE_PRICE_CARD_NOT_DEFINE = "MobilePriceCard is not defined";
+    public static final long FOUR_THOUSAND = 4000;
+    public static final String DATE_CREATE = "dateCreated";
+    public static final String DATE_EXPIRES = "dateExpires";
 
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 

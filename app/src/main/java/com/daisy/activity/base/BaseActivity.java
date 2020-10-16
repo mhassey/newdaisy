@@ -27,6 +27,9 @@ public class BaseActivity extends AppCompatActivity {
         initView();
     }
 
+    /**
+     * Initial data setup for hole activity
+     */
     private void initView() {
         sessionManager = SessionManager.get();
         if (sessionManager.getLang() != null)
@@ -40,6 +43,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Define no title bar for all activity
+     */
     public void setNoTitleBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             activity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
@@ -54,6 +60,9 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Set hole app language
+     */
     private void setLang(String s) {
         Locale locale = new Locale(s);
         Locale.setDefault(locale);
@@ -64,6 +73,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Show and hide progress dialog
+     */
     public void showHideProgressDialog(boolean iShow) {
         try {
             if (progressDialog != null) {
