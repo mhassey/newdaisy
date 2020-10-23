@@ -131,4 +131,5 @@ public interface PrefConstant {
     String TIME_INVERVAL = "time_interval";
     String PRICING_PLAIN_ID = "pricing_plan_id";
     String DEVICE_SANITISED = "device_sanitised";
+    String Sanitized = "Sanitised";
 }

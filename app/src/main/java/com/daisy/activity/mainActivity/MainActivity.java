@@ -68,6 +68,7 @@ import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
+import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
@@ -867,6 +868,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Sanitised(Sanitised sanitised) {
+        if (sessionManager.getSanitized()) {
+            sessionManager.setSanitized(false);
+            mBinding.sanitisedHeader.setVisibility(View.GONE);
+
+
+        }
+
+    }
 
     private class WebChromeClientCustomPoster extends WebChromeClient {
 

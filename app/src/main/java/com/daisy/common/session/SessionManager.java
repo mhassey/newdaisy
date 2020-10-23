@@ -42,7 +42,14 @@ public class SessionManager {
             sInstance = new SessionManager(application);
         }
     }
+    public void setSanitized(boolean b) {
+        pref.setBooleanData(PrefConstant.Sanitized,b);
+    }
+    public boolean getSanitized() {
+        return pref.getBoolean(PrefConstant.Sanitized);
+    }
 
+}
     public static SessionManager get(Application application) {
         init(application);
         return sInstance;

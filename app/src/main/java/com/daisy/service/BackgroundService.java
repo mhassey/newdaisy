@@ -50,6 +50,7 @@ import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.OverLayResponse;
 import com.daisy.pojo.response.Promotions;
+import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
@@ -607,6 +608,25 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         touchLayout = new LinearLayout(this);
     }
 
+    private void sanitisedWork() {
+        try {
+            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            String name = componentInfo.getClassName();
+            if (name.contains("MainActivity")) {
+                EventBus.getDefault().post(new Sanitised());
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -616,6 +636,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
         EventBus.getDefault().post(inversion);
+        sanitisedWork();
         boolean value = sessionManager.getUpdateNotShow();
         boolean isDialogOpen = sessionManager.getupdateDialog();
         if (!isDialogOpen) {

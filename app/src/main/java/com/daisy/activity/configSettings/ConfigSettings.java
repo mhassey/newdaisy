@@ -74,6 +74,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.cancel.setOnClickListener(this::onClick);
         mBinding.feedBack.setOnClickListener(this::onClick);
         mBinding.lunchApp.setOnClickListener(this::onClick);
+        mBinding.sanitisedHeader.setOnClickListener(this::onClick);
     }
 
 
@@ -159,6 +160,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             {
              launchApp();
                 break;
+            }
+            case R.id.sanitisedHeader: {
+                sessionManager.setSanitized(true);
+                 break;
             }
         }
     }
