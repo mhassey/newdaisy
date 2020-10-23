@@ -145,4 +145,5 @@
     <string name="launchotherApp">Launch Other App</string>
     <string name="screen_touched">Screen touched</string>
     <string name="package_not_available">There is no package available in android</string>
+    <string name="manufacturer">Manufacturer</string>
 </resources>

@@ -129,4 +129,6 @@ public interface PrefConstant {
     String OFF_SET="offset";
     String SERVERTIME = "server_time";
     String TIME_INVERVAL = "time_interval";
+    String PRICING_PLAIN_ID = "pricing_plan_id";
+    String DEVICE_SANITISED = "device_sanitised";
 }

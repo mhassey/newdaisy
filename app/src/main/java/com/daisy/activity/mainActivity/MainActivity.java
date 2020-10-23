@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -64,7 +65,6 @@ import com.daisy.pojo.response.DownloadFail;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
-import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
@@ -362,16 +362,22 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Override
     public void callBack(String data) {
-        mBinding.webView.post(new Runnable() {
-            @Override
-            public void run() {
-                if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        mBinding.webView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
+//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//
+//                }
+//                loadURL();
+//
+//            }
+//        });
 
-                }
-                loadURL();
-            }
-        });
+    Intent selfIntent=new Intent(getApplicationContext(),MainActivity.class);
+    startActivity(selfIntent);
+    finish();
+    overridePendingTransition(Constraint.ZERO,Constraint.ZERO);
 
     }
 
@@ -425,10 +431,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
+            setWebViewClient();
+
             mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "interface"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
 
             mBinding.webView.setWebChromeClient(new WebClient());
-            setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
             mBinding.webView.setSoundEffectsEnabled(Constraint.TRUE);
@@ -464,36 +471,73 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             if (file != null) {
                 for (File file1 : file) {
                     if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX")) {
-                        File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                        String fileName;
+                        if (sessionManager.getOrientation().equals(Constraint.PORTRAIT)) {
+                            fileName = Constraint.VERTICAL + Constraint.HTML;
+                        } else {
+                            fileName = Constraint.HORIZONTAL + Constraint.HTML;
+
+                        }
+                        File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + fileName);
+                        File mainFileMain = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+
                         if (mainFile.exists()) {
                             //  mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
-                            mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                            mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + fileName);
 
                             sessionManager.setMainFilePath(file1.getAbsoluteFile().toString());
                             if (!isDelete)
                                 deleteCard();
                         } else {
 
-                            File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
-                            File file3 = new File(sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + Constraint.HTML);
+                            File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + fileName);
+                            File file3 = new File(sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + fileName);
 
                             if (file2.exists()) {
-                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + fileName);
                                 sessionManager.setMainFilePath(sessionManager.getLocation());
 
                                 if (!isDelete)
                                     deleteCard();
                             } else if (file3.exists()) {
-                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + Constraint.HTML);
-                                sessionManager.setMainFilePath(sessionManager.getLocation() + Constraint.SLASH + file1.getName());
+                                mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + fileName);
+                                sessionManager.setMainFilePath(sessionManager.getLocation() + Constraint.SLASH + fileName);
 
                                 if (!isDelete)
                                     deleteCard();
+                            } else if (mainFileMain.exists()) {
+                                //  mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+                                mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
+
+                                sessionManager.setMainFilePath(file1.getAbsoluteFile().toString());
+                                if (!isDelete)
+                                    deleteCard();
                             } else {
-                                sessionManager.deleteLocation();
-                                getDownloadData();
+
+                                File file2Main = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                                File file3Main = new File(sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + Constraint.HTML);
+
+                                if (file2Main.exists()) {
+                                    mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
+                                    sessionManager.setMainFilePath(sessionManager.getLocation());
+
+                                    if (!isDelete)
+                                        deleteCard();
+                                } else if (file3Main.exists()) {
+                                    mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + Constraint.HTML);
+                                    sessionManager.setMainFilePath(sessionManager.getLocation() + Constraint.SLASH + file1.getName());
+
+                                    if (!isDelete)
+                                        deleteCard();
+                                } else {
+                                    sessionManager.deleteLocation();
+                                    getDownloadData();
+                                }
                             }
+
+
                         }
+
 
                         return;
                     }
@@ -511,6 +555,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
     }
+
 
 
     /**
@@ -561,6 +606,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                JSONArray jsonArray = pricingUpdateStart();
+                Log.e("kali",jsonArray.toString());
+                if (jsonArray != null) {
+                    if (jsonArray.length() > 0) {
+
+                        mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
+                        mViewModel.setExceptionInHtml(false);
+
+                    }
+                }
 
 
             }
@@ -570,6 +625,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             public void onPageFinished(WebView view, final String url) {
                 try {
                     JSONArray jsonArray = pricingUpdateStart();
+                    Log.e("kali",jsonArray.toString());
+
                     if (jsonArray != null) {
                         if (jsonArray.length() > 0) {
 
@@ -578,9 +635,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                         }
                     }
-
-
-                    // pricingUpdate();
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
                     if (b) {
@@ -613,9 +667,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             if (pricing != null && !pricing.isEmpty()) {
                 OUTER_LOOP:
                 for (int i = (pricing.size() - Constraint.ONE); i >= Constraint.ZERO; i--) {
-                    LoginResponse loginResponse = sessionManager.getLoginResponse();
                     try {
-                        if (loginResponse.getPricingPlanID().equals(pricing.get(i).getPricingPlanID())) {
+                        if (sessionManager.getPricingPlainId().equals(pricing.get(i).getPricingPlanID())) {
                             SimpleDateFormat sdf = new SimpleDateFormat(Constraint.YYY_MM_DD);
                             Date futureDate;
                             if (pricing.get(i).getTimeExpires() != null) {

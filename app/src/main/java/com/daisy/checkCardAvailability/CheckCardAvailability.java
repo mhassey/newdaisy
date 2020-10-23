@@ -70,7 +70,7 @@ public class CheckCardAvailability {
                         sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
                         sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
                         sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
-
+                        sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
                         if (!response.getResult().isDefault()) {
                             if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
                                 sessionManager.deleteLocation();

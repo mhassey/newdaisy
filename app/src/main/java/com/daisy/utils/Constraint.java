@@ -169,6 +169,10 @@ public class Constraint {
     public static final long FOUR_THOUSAND = 4000;
     public static final String DATE_CREATE = "dateCreated";
     public static final String DATE_EXPIRES = "dateExpires";
+    public static final String PORTRAIT = "Portrait";
+    public static final String VERTICAL = "vertical";
+    public static final String HORIZONTAL = "horizontal";
+    public static final String MANUFACTURE_ID = "mfgId";
 
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 

@@ -4,7 +4,16 @@ public class StoreDetails {
     private  int idstore;
     private  String UTCOffset;
     private String open;
+    private String pricingPlanID;
     private String  closed;
+
+    public String getPricingPlanID() {
+        return pricingPlanID;
+    }
+
+    public void setPricingPlanID(String pricingPlanID) {
+        this.pricingPlanID = pricingPlanID;
+    }
 
     public int getIdstore() {
         return idstore;

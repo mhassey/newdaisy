@@ -129,6 +129,40 @@
             android:layout_height="@dimen/dp20"/>
 
     </RelativeLayout>
+
+    <TextView
+
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp40"
+        android:text="@string/manufacturer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dp35"
+        android:layout_marginEnd="@dimen/dp55"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_height="wrap_content">
+        <Spinner
+
+            android:id="@+id/manufactureList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@drawable/edit_text_format"
+
+            android:textColorHint="@color/editTextLineColor"
+            android:padding="@dimen/dp10" />
+
+        <ImageView
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/ic_down_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"/>
+
+    </RelativeLayout>
     <TextView
         android:layout_marginTop="@dimen/dp10"
         android:layout_marginStart="@dimen/dp40"

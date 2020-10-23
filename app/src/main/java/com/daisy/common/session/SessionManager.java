@@ -1087,4 +1087,18 @@ public class SessionManager {
     {
         return pref.getStringData(PrefConstant.TIME_INVERVAL);
     }
+
+    public void setPricingPlainId(String pricingPlanID) {
+        pref.setStringData(PrefConstant.PRICING_PLAIN_ID,pricingPlanID);
+
+    }
+
+    public String getPricingPlainId() {
+        return pref.getStringData(PrefConstant.PRICING_PLAIN_ID);
+    }
+
+    public void setSenitized(String deviceSanitize) {
+        pref.setStringData(PrefConstant.DEVICE_SANITISED,deviceSanitize);
+
+    }
 }

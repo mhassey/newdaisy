@@ -24,6 +24,7 @@ import com.daisy.databinding.AddScreenBinding;
 import com.daisy.pojo.response.Carrier;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.Manufacture;
 import com.daisy.pojo.response.Product;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
@@ -67,6 +68,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.webkitOrientation.setAdapter(orientationAdapter);
 
 
+
     }
 
     private void addOrientationData() {
@@ -80,7 +82,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
+        mBinding.manufactureList.setOnItemSelectedListener(getManufactireListner());
     }
+
 
     @Override
     public void onResume() {
@@ -96,6 +100,15 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 mBinding.carrierName.setAdapter(carrierArrayAdapter);
 
             }
+            List<Manufacture> manufactures = sessionManager.getLoginResponse().getManufacturers();
+            if (manufactures != null) {
+                mViewModel.setManufactures(manufactures);
+                ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, android.R.layout.simple_spinner_item, mViewModel.getManufactures());
+                manufactureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
+
+            }
+
         }
     }
 
@@ -131,7 +144,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Carrier carrier = mViewModel.getCarriers().get(position);
                 mViewModel.setSelectedCarrier(carrier);
-                getGeneralResponse(carrier);
+                Manufacture manufacture=(Manufacture)mBinding.manufactureList.getSelectedItem();
+                mViewModel.setSelectedManufacture(manufacture);
+
+                getGeneralResponse(carrier,manufacture);
             }
 
             @Override
@@ -143,11 +159,29 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
-    private void getGeneralResponse(Carrier carrier) {
+    private AdapterView.OnItemSelectedListener getManufactireListner() {
+        return  new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Manufacture manufacture = mViewModel.getManufactures().get(position);
+                mViewModel.setSelectedManufacture(manufacture);
+                Carrier carrier=(Carrier)mBinding.carrierName.getSelectedItem();
+                mViewModel.setSelectedCarrier(carrier);
+
+                getGeneralResponse(carrier,manufacture);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+    }
+    private void getGeneralResponse(Carrier carrier,Manufacture manufacture) {
 
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
-            HashMap<String, String> generalRequest = getGeneralRequest(carrier);
+            HashMap<String, String> generalRequest = getGeneralRequest(carrier,manufacture);
             mViewModel.setGeneralRequest(generalRequest);
             LiveData<GlobalResponse<GeneralResponse>> liveData = mViewModel.getGeneralResponseLiveData();
             if (!liveData.hasActiveObservers()) {
@@ -186,10 +220,12 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
-    private HashMap<String, String> getGeneralRequest(Carrier carrier) {
+    private HashMap<String, String> getGeneralRequest(Carrier carrier,Manufacture manufacture) {
         HashMap<String, String> hashMap = new HashMap<>();
         if (carrier != null)
             hashMap.put(Constraint.CARRIER_ID, carrier.getIdcarrier() + "");
+        if (manufacture!=null)
+            hashMap.put(Constraint.MANUFACTURE_ID,manufacture.getIdterm());
         return hashMap;
     }
 

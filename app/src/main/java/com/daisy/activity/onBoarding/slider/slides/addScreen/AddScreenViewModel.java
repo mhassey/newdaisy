@@ -12,6 +12,7 @@ import androidx.lifecycle.Transformations;
 import com.daisy.pojo.response.Carrier;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.Manufacture;
 import com.daisy.pojo.response.Product;
 
 import java.util.HashMap;
@@ -27,6 +28,9 @@ public class AddScreenViewModel extends AndroidViewModel {
     private List<Product> products;
     private List<Carrier> carriers;
     private List<String> orientation;
+    private List<Manufacture> manufactures;
+    private Manufacture manufacture;
+
     public AddScreenViewModel(@NonNull Application application) {
         super(application);
         addScreenRepo=new AddScreenRepo();
@@ -37,6 +41,15 @@ public class AddScreenViewModel extends AndroidViewModel {
             }
         });
     }
+
+    public List<Manufacture> getManufactures() {
+        return manufactures;
+    }
+
+    public void setManufactures(List<Manufacture> manufactures) {
+        this.manufactures = manufactures;
+    }
+
     public void setGeneralRequest(HashMap<String,String> request)
     {
         generalRequest.setValue(request);
@@ -84,5 +97,17 @@ public class AddScreenViewModel extends AndroidViewModel {
 
     public void setOrientation(List<String> orientation) {
         this.orientation = orientation;
+    }
+
+    public void setSelectedManufacture(Manufacture selectedItem) {
+
+    }
+
+    public Manufacture getManufacture() {
+        return manufacture;
+    }
+
+    public void setManufacture(Manufacture manufacture) {
+        this.manufacture = manufacture;
     }
 }

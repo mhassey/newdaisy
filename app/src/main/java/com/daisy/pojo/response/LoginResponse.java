@@ -6,18 +6,36 @@ public class LoginResponse extends GlobalResponse {
     private String idstore;
     private String idOU;
     private String pricingPlanID;
+    private String deviceSanitize;
     private String storeName;
     private String Phones;
     private String storeLocation;
     private String storeContact;
     private String storeHours;
     private List<Carrier> carrier;
+    private List<Manufacture> manufacturers;
     private String UTCOffset;
     private String open;
     private String closed;
     private String currentDate;
     private  String currentTime;
     private String currentTimeH;
+
+    public String getDeviceSanitize() {
+        return deviceSanitize;
+    }
+
+    public void setDeviceSanitize(String deviceSanitize) {
+        this.deviceSanitize = deviceSanitize;
+    }
+
+    public List<Manufacture> getManufacturers() {
+        return manufacturers;
+    }
+
+    public void setManufacturers(List<Manufacture> manufacturers) {
+        this.manufacturers = manufacturers;
+    }
 
     public String getUTCOffset() {
         return UTCOffset;
