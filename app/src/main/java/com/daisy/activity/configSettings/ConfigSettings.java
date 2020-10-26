@@ -171,7 +171,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 break;
             }
             case R.id.sanitisedHeader: {
-               // sessionManager.setSanitized(true);
+                sessionManager.setSanitized(true);
 
                finish();
                 ValidationHelper.showToast(context,getString(R.string.sanitised));
