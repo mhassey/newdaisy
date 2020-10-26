@@ -173,6 +173,7 @@ public class Constraint {
     public static final String VERTICAL = "vertical";
     public static final String HORIZONTAL = "horizontal";
     public static final String MANUFACTURE_ID = "mfgId";
+    public static final String TRUE_STR = "true";
 
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 

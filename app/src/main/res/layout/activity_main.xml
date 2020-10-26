@@ -81,5 +81,19 @@
 
 
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/sanitisedHeader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/ic_launcher_background"
+                android:id="@+id/senaitised"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

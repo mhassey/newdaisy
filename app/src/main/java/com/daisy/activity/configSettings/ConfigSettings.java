@@ -57,6 +57,15 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         context = this;
         setNoTitleBar(this);
         sessionManager = SessionManager.get();
+        if (sessionManager.getDeviceSanitised().equals(Constraint.TRUE_STR))
+        {
+            mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            mBinding.sanitisedHeader.setVisibility(View.GONE);
+
+        }
         mBinding.appVersion.setText(BuildConfig.VERSION_NAME);
     }
 
@@ -162,7 +171,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 break;
             }
             case R.id.sanitisedHeader: {
-                sessionManager.setSanitized(true);
+               // sessionManager.setSanitized(true);
+
+               finish();
+                ValidationHelper.showToast(context,getString(R.string.sanitised));
                  break;
             }
         }

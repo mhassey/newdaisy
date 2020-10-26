@@ -45,6 +45,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.daisy.ObjectDetection.CameraSurfaceView;
 import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
 import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
@@ -129,6 +130,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         windowWork();
         loadURL();
         intentWork();
+        if (sessionManager.getSanitized()) {
+            Glide.with(this)
+                    .load(R.drawable.ani)
+                    .into(mBinding.senaitised);
+
+        } else {
+            mBinding.sanitisedHeader.setVisibility(View.GONE);
+        }
     }
 
 
@@ -200,6 +209,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
             }
+        }
+        if (sessionManager.getSanitized()) {
+            mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
+            Glide.with(this)
+                    .load(R.drawable.ani)
+                    .into(mBinding.senaitised);
         }
     }
 
@@ -626,8 +641,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             public void onPageFinished(WebView view, final String url) {
                 try {
                     JSONArray jsonArray = pricingUpdateStart();
-                    Log.e("kali",jsonArray.toString());
-
                     if (jsonArray != null) {
                         if (jsonArray.length() > 0) {
 

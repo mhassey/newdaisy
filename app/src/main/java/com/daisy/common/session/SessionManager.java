@@ -49,7 +49,7 @@ public class SessionManager {
         return pref.getBoolean(PrefConstant.Sanitized);
     }
 
-}
+
     public static SessionManager get(Application application) {
         init(application);
         return sInstance;
@@ -1103,9 +1103,11 @@ public class SessionManager {
     public String getPricingPlainId() {
         return pref.getStringData(PrefConstant.PRICING_PLAIN_ID);
     }
+    public String getDeviceSanitised() {
+        return pref.getStringData(PrefConstant.DEVICE_SANITISED);
+    }
 
     public void setSenitized(String deviceSanitize) {
-        pref.setStringData(PrefConstant.DEVICE_SANITISED,deviceSanitize);
+        pref.setStringData(PrefConstant.DEVICE_SANITISED,deviceSanitize);}
 
-    }
 }
