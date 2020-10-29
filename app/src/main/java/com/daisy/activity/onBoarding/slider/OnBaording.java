@@ -514,6 +514,12 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             permissionDone.setPermissionName(Constraint.REDME);
             EventBus.getDefault().post(permissionDone);
         }
+        else if (requestCode==Constraint.GPS_ENABLE)
+        {
+            PermissionDone permissionDone = new PermissionDone();
+            permissionDone.setPermissionName(Constraint.GPS);
+            EventBus.getDefault().post(permissionDone);
+        }
     }
 
 

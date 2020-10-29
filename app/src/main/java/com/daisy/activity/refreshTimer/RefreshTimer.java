@@ -194,7 +194,8 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                                         startActivity(i);
 
                                     }
-                                    } else {
+                                    }
+                                else {
 
                                     if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                         sessionManager.setPromotion(response.getResult().getPromotions());

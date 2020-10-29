@@ -116,6 +116,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     @Override
     public void onCreate() {
         super.onCreate();
+        securityService();
         showNotification();
         initWakeUpLock();
         registerReceiver();
@@ -125,6 +126,11 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         initWifi();
         initPassword();
         defineSensor();
+    }
+
+    private void securityService() {
+        startService(new Intent(getApplicationContext(), SecurityService.class));
+
     }
 
 
@@ -582,7 +588,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     }
 
     private void startForeground() {
-        Intent notificationIntent = new Intent(this, EditorTool.class);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0);
@@ -590,7 +596,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
                 .setOngoing(true)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText("Service is running background")
                 .setContentIntent(pendingIntent)

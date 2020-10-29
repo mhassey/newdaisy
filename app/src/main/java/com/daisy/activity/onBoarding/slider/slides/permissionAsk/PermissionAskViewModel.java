@@ -12,6 +12,25 @@ public class PermissionAskViewModel extends AndroidViewModel {
     private boolean grandUsageAccess = false;
     private boolean grandBatteyOptimization = false;
     private boolean grandExtraAccess = false;
+    private boolean grandAdminPermission=false;
+    private boolean grandGpsEnable=false;
+
+    public boolean isGrandGpsEnable() {
+        return grandGpsEnable;
+    }
+
+    public void setGrandGpsEnable(boolean grandGpsEnable) {
+        this.grandGpsEnable = grandGpsEnable;
+    }
+
+    public boolean isGrandAdminPermission() {
+        return grandAdminPermission;
+    }
+
+    public void setGrandAdminPermission(boolean grandAdminPermission) {
+        this.grandAdminPermission = grandAdminPermission;
+    }
+
     public PermissionAskViewModel(@NonNull Application application) {
         super(application);
     }

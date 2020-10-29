@@ -1,6 +1,10 @@
 package com.daisy.activity.onBoarding.slider.slides.securityAsk;
 
+import android.app.admin.DeviceAdminReceiver;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +17,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.daisy.R;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentSecurityAskBinding;
+import com.daisy.security.Admin;
 
 
 public class SecurityAsk extends Fragment implements View.OnClickListener {
@@ -25,6 +31,7 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
     private Context context;
     final int sdk = android.os.Build.VERSION.SDK_INT;
     private static ActivityOnBaordingBinding ActivityOnBaordingBinding;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,4 +93,5 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
             }
         }
     }
+
 }

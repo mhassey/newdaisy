@@ -79,6 +79,7 @@ public class Utils {
         }
     }
 
+
     public static boolean isValidUrl(String urlString) {
         try {
             return URLUtil.isValidUrl(urlString) && Patterns.WEB_URL.matcher(urlString).matches();

@@ -3,6 +3,7 @@ package com.daisy.activity.mainActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -71,6 +74,7 @@ import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
+import com.daisy.service.SecurityService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -109,6 +113,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initView();
         initService();
         setOnClickListener();
@@ -124,7 +129,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         context = this;
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        FrontCameraRetriever.retrieveFor(this);
+        //FrontCameraRetriever.retrieveFor(this);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
         windowWork();
@@ -255,6 +260,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             e.printStackTrace();
         }
     }
+
     /**
      * Create download file and send to download manager
      */
@@ -315,6 +321,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             hideSystemUI();
+            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+            sendBroadcast(closeDialog);
         }
 
     }
@@ -390,10 +398,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 //            }
 //        });
 
-    Intent selfIntent=new Intent(getApplicationContext(),MainActivity.class);
-    startActivity(selfIntent);
-    finish();
-    overridePendingTransition(Constraint.ZERO,Constraint.ZERO);
+        Intent selfIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(selfIntent);
+        finish();
+        overridePendingTransition(Constraint.ZERO, Constraint.ZERO);
 
     }
 
@@ -455,6 +463,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
             mBinding.webView.setSoundEffectsEnabled(Constraint.TRUE);
+            mBinding.webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
@@ -466,13 +475,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
             mBinding.webView.getSettings().setUseWideViewPort(Constraint.TRUE);
-
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setDisplayZoomControls(Constraint.FALSE);
-
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
-            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
 
             if (Build.VERSION.SDK_INT >= 21) {
@@ -525,6 +532,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 //  mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                                 mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
 
+                                // mBinding.webView.loadUrl("https://www.google.com/");
+
                                 sessionManager.setMainFilePath(file1.getAbsoluteFile().toString());
                                 if (!isDelete)
                                     deleteCard();
@@ -571,7 +580,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
     }
-
 
 
     /**
@@ -623,7 +631,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 JSONArray jsonArray = pricingUpdateStart();
-                Log.e("kali",jsonArray.toString());
+                Log.e("kali", jsonArray.toString());
                 if (jsonArray != null) {
                     if (jsonArray.length() > 0) {
 
@@ -635,7 +643,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
             }
-
 
             @Override
             public void onPageFinished(WebView view, final String url) {
@@ -660,6 +667,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
 
 
@@ -882,7 +890,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Sanitised(Sanitised sanitised) {
         if (sessionManager.getSanitized()) {
@@ -983,8 +990,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         startActivity(intent);
         finish();
     }
-
-
 
 
     /**
@@ -1303,7 +1308,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         final EditText password = alertLayout.findViewById(R.id.password);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(getString(R.string.lock));
-         alert.setView(alertLayout);
+        alert.setView(alertLayout);
         alert.setCancelable(false);
 
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

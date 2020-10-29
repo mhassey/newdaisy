@@ -1,6 +1,7 @@
 package com.daisy.utils;
 
 import android.Manifest;
+import android.net.Uri;
 
 public class Constraint {
     public static final String FILE_NAME = "index.html";
@@ -16,7 +17,7 @@ public class Constraint {
     public static final String SUCCESS = "success";
     public static final String INDEX = "index";
     public static final String CARD = "Card";
-    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
+    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
     public static final String ANDROID = "Android";
     public static final String FILE = "file://";
     public static final String WAIT = "Wait...";
@@ -174,6 +175,8 @@ public class Constraint {
     public static final String HORIZONTAL = "horizontal";
     public static final String MANUFACTURE_ID = "mfgId";
     public static final String TRUE_STR = "true";
+    public static final int GPS_ENABLE = 106;
+    public static final String GPS = "GPS";
 
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 
