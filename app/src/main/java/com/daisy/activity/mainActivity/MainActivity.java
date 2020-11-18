@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         new CountDownTimer(Constraint.THIRTY_THOUSAND, Constraint.THOUSAND) {
 
             public void onTick(long millisUntilFinished) {
-
+        Log.e("kali",millisUntilFinished+"");
             }
 
             public void onFinish() {

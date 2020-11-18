@@ -90,6 +90,7 @@
     <string name="open">Open</string>
     <string name="data_store">Data store</string>
     <string name="login_success">Login success</string>
+    <string name="direct_apk_update">Apk Update</string>
     <string name="screen_add">Screen add</string>
     <string name="position_update">Position updated</string>
     <string name="load_add_screen">Load add screen</string>
@@ -172,4 +173,5 @@
     <string name="admin_permission">Admin Permission</string>
     <string name="gpsEnable">Enable GPS</string>
     <string name="securityHeader">Security</string>
+    <string name="no_update_available">"Update not available "</string>
 </resources>

@@ -460,8 +460,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-//        int hour = Constraint.FIVE_INE;
-        int hour = Constraint.ZERO;
+        int hour = Constraint.FIVE_INE;
+//        int hour = Constraint.ZERO;
 
         int minit = Constraint.TWO;
         if (time != null) {
@@ -487,7 +487,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     public static void updateAPk() {
         try {
-            int hour = Constraint.ZERO;
+            int hour = Constraint.FIVE_INE;
             int minit = Constraint.ONE;
 
 

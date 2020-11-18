@@ -14,9 +14,14 @@ import android.widget.CompoundButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
+import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
+import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.baseUrl.BaseUrlSettings;
 import com.daisy.activity.editorTool.EditorTool;
@@ -29,12 +34,16 @@ import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
+import com.daisy.pojo.response.ApkDetails;
+import com.daisy.pojo.response.GeneralResponse;
+import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 public class ConfigSettings extends BaseActivity implements View.OnClickListener {
@@ -42,6 +51,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private ActivityConfigSettingsBinding mBinding;
     private Context context;
     private SessionManager sessionManager;
+    private ApkUpdateViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
      */
     private void initView() {
         context = this;
+        viewModel=new ViewModelProvider(this).get(ApkUpdateViewModel.class);
         setNoTitleBar(this);
         sessionWork();
         mBinding.appVersion.setText(BuildConfig.VERSION_NAME);
@@ -102,30 +113,34 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.cancel.setOnClickListener(this::onClick);
         mBinding.feedBack.setOnClickListener(this::onClick);
         mBinding.lunchApp.setOnClickListener(this::onClick);
+        mBinding.sanitisedHeader.setOnClickListener(this::onClick);
+        mBinding.directApkUpdate.setOnClickListener(this::onClick);
         mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwich());
+
     }
 
+
     private CompoundButton.OnCheckedChangeListener getSecuritySwich() {
-    return new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-                sessionManager.setStepCount(0);
-                sessionManager.deviceSecuried(Constraint.FALSE);
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    sessionManager.setStepCount(0);
+                    sessionManager.deviceSecuried(Constraint.FALSE);
 
-                finish();
+                    finish();
 
+                }
+                else
+                {
+                    sessionManager.deviceSecuried(Constraint.TRUE);
+                    finish();
+
+                }
             }
-            else
-            {
-                sessionManager.deviceSecuried(Constraint.TRUE);
-                finish();
-
-            }
-        }
-    };
+        };
     }
 
 
@@ -231,15 +246,65 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 launchApp();
                 break;
             }
-
+//            case R.id.sanitisedHeader: {
+//                sessionManager.setSanitized(true);
+//                finish();
+//                ValidationHelper.showToast(context, getString(R.string.sanitised));
+//                break;
+//            }
+            case R.id.direct_apk_update: {
+                handleApkUpdateDirectly();
+            }
         }
     }
+
+    /**
+     *
+     */
+    private void handleApkUpdateDirectly() {
+        showHideProgressDialog(true);
+        viewModel.setRequest(new HashMap());
+        LiveData<GlobalResponse<GeneralResponse>> liveData = viewModel.getResponseLiveData();
+        liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+            @Override
+            public void onChanged(GlobalResponse<GeneralResponse> response) {
+                showHideProgressDialog(false);
+                if (response != null) {
+
+                    GlobalResponse<GeneralResponse> globalResponse = response;
+                    if (globalResponse.isApi_status()) {
+                        ApkDetails apkDetails = globalResponse.getResult().getApkDetails();
+                        if (apkDetails != null) {
+                            if (apkDetails.getAndroid().getVersion() != null) {
+                                if (sessionManager == null)
+                                    sessionManager = SessionManager.get();
+                                double apkVersion = Double.parseDouble(apkDetails.getAndroid().getVersion());
+                                double ourVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
+                                if (apkVersion > ourVersion) {
+                                    sessionManager.setVersionDetails(apkDetails);
+                                    openMainActivity();
+                                }
+                                else
+                                {
+                                    ValidationHelper.showToast(context,getString(R.string.no_update_available));
+                                }
+                            }
+
+                        }
+
+
+                    }
+                }
+            }
+        });
+    }
+
 
 
     /**
      * Launch other app
      */
-    private void launchApp() {
+    private void launchApp () {
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
         if (launchIntent != null) {
             startActivity(launchIntent);
@@ -252,7 +317,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     /**
      * Go to feedback page
      */
-    private void feedBack() {
+    private void feedBack () {
         Intent intent = new Intent(ConfigSettings.this, FeedBackActivity.class);
         startActivity(intent);
     }
@@ -261,7 +326,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     /**
      * Do logout
      */
-    private void logout() {
+    private void logout () {
         sessionManager.removeSession();
 
         Intent intent = new Intent(ConfigSettings.this, BaseUrlSettings.class);
@@ -273,7 +338,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     /**
      * Open refresh timer activity
      */
-    private void openRefreshRate() {
+    private void openRefreshRate () {
         Intent intent = new Intent(ConfigSettings.this, RefreshTimer.class);
         startActivity(intent);
     }
@@ -282,7 +347,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     /**
      * Open UpdateBaseUrl activity
      */
-    private void updateBaseUrl() {
+    private void updateBaseUrl () {
         Intent intent = new Intent(ConfigSettings.this, UpdateBaseUrl.class);
         startActivity(intent);
 
@@ -292,7 +357,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     /**
      * Open UpdatePosition activity
      */
-    private void openUpdatePositionActivity() {
+    private void openUpdatePositionActivity () {
         Intent intent = new Intent(ConfigSettings.this, UpdatePosition.class);
         startActivity(intent);
     }
@@ -301,16 +366,24 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     /**
      * Open logs activity
      */
-    private void openLogActivity() {
+    private void openLogActivity () {
         Intent intent = new Intent(ConfigSettings.this, LogsMainActivity.class);
         startActivity(intent);
     }
 
 
     /**
+     * Open main activity
+     */
+    private void openMainActivity () {
+        Intent intent = new Intent(ConfigSettings.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * Handle change language popup
      */
-    private void changeLanguage() {
+    private void changeLanguage () {
         String[] lang = {getString(R.string.english), getString(R.string.french), getString(R.string.spanish), getString(R.string.postigues)};
         String loadedLang = sessionManager.getLang();
         int pos = 0;
@@ -354,7 +427,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     /**
      * Set language
      */
-    private void setLang(String s) {
+    private void setLang (String s){
         Locale locale = new Locale(s);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();
