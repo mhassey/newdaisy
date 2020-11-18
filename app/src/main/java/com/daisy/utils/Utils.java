@@ -10,6 +10,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -17,6 +18,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.CallLog;
@@ -78,6 +80,16 @@ public class Utils {
 
         }
     }
+    public static boolean isPlugged(Context context) {
+        boolean isPlugged= false;
+        Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        isPlugged = plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            isPlugged = isPlugged || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+        }
+        return isPlugged;
+    }
 
 
     public static boolean isValidUrl(String urlString) {
@@ -93,9 +105,8 @@ public class Utils {
     public static boolean getInvertedTime() {
             try {
                 SessionManager sessionManager = SessionManager.get();
-                LoginResponse loginResponse = sessionManager.getLoginResponse();
 
-                int serverTime = Integer.parseInt(getServerTime(loginResponse.getCurrentTime()));
+                int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
 
                 int dateTime = Integer.parseInt(getTodayTime());
 
@@ -487,11 +498,14 @@ public class Utils {
     }
 
     public static String getDate(String dateComming) throws ParseException {
+        Log.e("working1",dateComming);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = format.parse(dateComming);
 
-        DateFormat format1 = new SimpleDateFormat("yyyy-mm-dd");
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = format1.format(date);
+        Log.e("working1",formattedDate);
+
         return formattedDate;
     }
 
@@ -505,7 +519,7 @@ public class Utils {
 
     public static String getTodayDateWithTime() {
         Date c = Calendar.getInstance().getTime();
-        DateFormat date = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = date.format(c);
         return formattedDate;
     }
@@ -836,6 +850,37 @@ public class Utils {
 
             }
         }
+    }
+
+    public static void getInvertedTimeWithNewCorrectionFactor() {
+        try {
+            SessionManager sessionManager = SessionManager.get();
+
+            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
+
+            int dateTime = Integer.parseInt(getTodayTime());
+
+
+            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+
+            int dateTimeInUTC = 0;
+            if (offcet < 0) {
+                dateTimeInUTC = dateTime + (-offcet);
+
+
+            } else {
+                dateTimeInUTC = dateTime - offcet;
+            }
+            int CF;
+                CF = serverTime - dateTimeInUTC;
+
+            sessionManager.setTimeInterval(CF + "");
+        }
+        catch (Exception e)
+        {
+
+        }
+
     }
 }
 

@@ -7,6 +7,7 @@ import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.utils.Constraint;
@@ -24,8 +25,19 @@ import retrofit2.Response;
 
 public class CheckCardAvailability {
     private SessionManager sessionManager;
-
+    private String callFrom=null;
     public void checkCard() {
+        sessionManager = SessionManager.get();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getCard();
+            }
+        }).start();
+    }
+
+    public void checkCard(String callFrom) {
+        this.callFrom=callFrom;
         sessionManager = SessionManager.get();
         new Thread(new Runnable() {
             @Override
@@ -71,6 +83,10 @@ public class CheckCardAvailability {
                         sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
                         sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
                         sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
+                        if (callFrom!=null) {
+                            sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
+                            Utils.getInvertedTimeWithNewCorrectionFactor();
+                        }
                         if (!response.getResult().isDefault()) {
                             if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
                                 sessionManager.deleteLocation();
@@ -144,13 +160,13 @@ public class CheckCardAvailability {
                         e.printStackTrace();
                     }
                     sessionManager.deleteLocation();
-                    EventBus.getDefault().post(new Pricing());
+                    EventBus.getDefault().post(new PriceCard());
                 }
             } else {
                 try {
                     Utils.writeFile(configFilePath, UrlPath);
                     sessionManager.deleteLocation();
-                    EventBus.getDefault().post(new Pricing());
+                    EventBus.getDefault().post(new PriceCard());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

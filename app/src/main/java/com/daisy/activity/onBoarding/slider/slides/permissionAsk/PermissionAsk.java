@@ -13,6 +13,13 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,23 +29,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.PowerManager;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.daisy.R;
-import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.app.AppController;
-import com.daisy.database.DBCaller;
-import com.daisy.security.Admin;
-import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
 import com.daisy.pojo.response.PermissionDone;
+import com.daisy.security.Admin;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
@@ -86,6 +83,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         initClick();
     }
 
+
+    /**
+     * Perform admin task
+     */
     private void mainAdminAsk() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
@@ -106,11 +107,19 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
+
+    /**
+     * Initiate object
+     */
     private void initView() {
         context = requireContext();
         permissionAskViewModel = new ViewModelProvider(this).get(PermissionAskViewModel.class);
     }
 
+
+    /**
+     * Initiate all listener
+     */
     private void initClick() {
         permissionAskBinding.grandMediaPermission.setOnClickListener(this);
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
@@ -123,6 +132,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.gps.setOnClickListener(this::onClick);
     }
 
+
+    /**
+     * check all permission
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void permissionSetter() {
         checkDisplayOverTheApp();
@@ -167,7 +180,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void checkForGps() {
         final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+       // if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+         if (false)
+         {
             //if gps is disabled
             permissionAskViewModel.setGrandGpsEnable(Constraint.FALSE);
             permissionAskBinding.gpsUsages.setChecked(false);
@@ -183,7 +198,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void checkAdminPermission() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
-        if (!permissionAskViewModel.isGrandAdminPermission()) {
+      //  if (!permissionAskViewModel.isGrandAdminPermission()) {
+            if (false){
             permissionAskViewModel.setGrandAdminPermission(false);
             permissionAskBinding.adminMain.setEnabled(true);
             permissionAskBinding.adminUsages.setChecked(false);
@@ -233,19 +249,28 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void mediaPermission() {
-        boolean b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
-        if (!b) {
-            permissionAskBinding.grandMediaPermissionDone.setChecked(false);
-            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.TRUE);
-            permissionAskViewModel.setGrandMediaPermission(Constraint.FALSE);
+        boolean b;
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Do something for lollipop and above versions
+            b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
         } else {
-            permissionAskBinding.grandMediaPermissionDone.setChecked(true);
-            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.FALSE);
-            permissionAskViewModel.setGrandMediaPermission(Constraint.TRUE);
+            b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
+            // do something for phones running an SDK before lollipop
+        }
+            if (!b) {
+                permissionAskBinding.grandMediaPermissionDone.setChecked(false);
+                permissionAskBinding.grandMediaPermission.setEnabled(Constraint.TRUE);
+                permissionAskViewModel.setGrandMediaPermission(Constraint.FALSE);
+            } else {
+                permissionAskBinding.grandMediaPermissionDone.setChecked(true);
+                permissionAskBinding.grandMediaPermission.setEnabled(Constraint.FALSE);
+                permissionAskViewModel.setGrandMediaPermission(Constraint.TRUE);
+
+            }
 
         }
 
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void modifySystemSettings() {
@@ -293,12 +318,24 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
 
+
+    /**
+     * Handle click listener
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.grandMediaPermission: {
-                boolean b = PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
+
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    // Do something for lollipop and above versions
+                    PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
+                } else {
+                    PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
+                    // do something for phones running an SDK before lollipop
+                }
+
                 // mainAdminAsk();
                 break;
             }

@@ -56,7 +56,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     }
 
     /**
-     * Go to onboard screen
+     * Go to on board screen
      */
     private void goToOnBording() {
         Intent intent = new Intent(WelcomeScreen.this, OnBaording.class);

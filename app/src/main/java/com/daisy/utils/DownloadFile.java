@@ -104,7 +104,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
 
 
 
-                if (download.getType().equals(context.getString(R.string.promotion))) {
+                if (download.getType().equals(Constraint.PROMOTION)) {
                     promotion = true;
                 }
                URL url = new URL(urlPath);

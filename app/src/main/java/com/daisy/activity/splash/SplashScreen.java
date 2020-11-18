@@ -28,6 +28,7 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,9 +54,7 @@ public class SplashScreen extends BaseActivity {
      */
     private void initView() {
         setNoTitleBar(this);
-        sessionManager=SessionManager.get();
-        sessionManager.setUpdateNotShow(Constraint.FALSE);
-        sessionManager.uninstallShow(Constraint.FALSE);
+        handleSessionWork();
           final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -63,6 +62,16 @@ public class SplashScreen extends BaseActivity {
                 redirectToWelcome();
             }
         }, Constraint.FOUR_THOUSAND);
+
+    }
+
+    /**
+     * handle session work
+     */
+    private void handleSessionWork() {
+        sessionManager=SessionManager.get();
+        sessionManager.setUpdateNotShow(Constraint.FALSE);
+        sessionManager.uninstallShow(Constraint.FALSE);
 
     }
 

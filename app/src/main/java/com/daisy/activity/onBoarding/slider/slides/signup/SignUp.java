@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
             if (signUpValidationHelper.isValid()) {
                 showHideProgressDialog(true);
                 HashMap<String, String> signUpRequest = getSignUpRequest();
+                Log.e("kaliii",signUpRequest.toString());
                 signUpViewModel.setSignUpRequestMutableLiveData(signUpRequest);
                 LiveData<SignUpResponse> liveData = signUpViewModel.getResponseLiveData();
                 if (!liveData.hasActiveObservers()) {
@@ -130,6 +132,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 sessionManager.setOffset(signUpResponse.getData().getUTCOffset());
                 sessionManager.setSenitized(signUpResponse.getData().getDeviceSanitize());
                 sessionManager.setPricingPlainId(signUpResponse.getData().getPricingPlanID());
+                sessionManager.setServerTime(signUpResponse.getData().getCurrentTime());
                 sessionManager.setSignUpData(signUpResponse.getData());
                 baording.counterPlus();
             } else {

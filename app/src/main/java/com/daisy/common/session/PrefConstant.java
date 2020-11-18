@@ -132,4 +132,11 @@ public interface PrefConstant {
     String PRICING_PLAIN_ID = "pricing_plan_id";
     String DEVICE_SANITISED = "device_sanitised";
     String Sanitized = "Sanitised";
+    String DEVICE_SECURIED = "device_secured";
+    String COME_CONFIG = "come_config";
+    String STEPS = "steps";
+    String VERSION_NAME = "versionName";
+    String DEVICE_ID = "deviceid";
+    String OSID = "osId";
+    String MAV_ID = "mavId";
 }

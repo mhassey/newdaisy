@@ -18,6 +18,7 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityUpdateBaseUrlBinding;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -115,7 +116,7 @@ public class UpdateBaseUrl extends BaseActivity implements View.OnClickListener 
                 sessionManager.setBaseUrl(mBinding.baseUrl.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("EXIT", true);
+                intent.putExtra("EXIT", Constraint.TRUE);
                 startActivity(intent);
             } else {
                 sessionManager.removeBaseUrl();

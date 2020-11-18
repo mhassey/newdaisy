@@ -1007,6 +1007,10 @@ public class SessionManager {
     public void setVersionDetails(ApkDetails apkDetails) {
         Gson gson = new Gson();
         String data = gson.toJson(apkDetails);
+        if (apkDetails!=null && apkDetails.getAndroid()!=null) {
+            pref.setStringData(PrefConstant.OSID, apkDetails.getAndroid().getOsID());
+            pref.setStringData(PrefConstant.MAV_ID, apkDetails.getAndroid().getId() + "");
+        }
         pref.setStringData(PrefConstant.APK_DETAILS, data);
     }
 
@@ -1110,4 +1114,53 @@ public class SessionManager {
     public void setSenitized(String deviceSanitize) {
         pref.setStringData(PrefConstant.DEVICE_SANITISED,deviceSanitize);}
 
+    public void deviceSecuried(boolean b) {
+    pref.setBooleanData(PrefConstant.DEVICE_SECURIED,b);
+    }
+    public boolean getDeviceSecured()
+    {
+        return pref.getBoolean(PrefConstant.DEVICE_SECURIED);
+    }
+
+    public void setComeFromConfig(boolean b) {
+        pref.setBooleanData(PrefConstant.COME_CONFIG,b);
+
+    }
+    public boolean getComeConfig()
+    {
+        return pref.getBoolean(PrefConstant.COME_CONFIG);
+    }
+
+    public int getSteps() {
+    return pref.getIntData(PrefConstant.STEPS);
+    }
+
+    public void setStepCount(int stepCount) {
+        pref.setIntData(PrefConstant.STEPS,stepCount);
+    }
+
+    public void setApkVersion(String versionName) {
+        pref.setStringData(PrefConstant.VERSION_NAME,versionName);
+    }
+
+    public String getApkVersion() {
+        return pref.getStringData(PrefConstant.VERSION_NAME);
+    }
+
+    public void setDeviceId(int id) {
+        pref.setIntData(PrefConstant.DEVICE_ID,id);
+    }
+
+    public String getDeviceId() {
+    return pref.getIntData(PrefConstant.DEVICE_ID)+"";
+
+    }
+
+    public String getOS_ID() {
+        return pref.getStringData(PrefConstant.OSID);
+    }
+
+    public String getMavID() {
+        return pref.getStringData(PrefConstant.MAV_ID);
+    }
 }

@@ -88,7 +88,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
      * Handle full screen mode
      */
     private void hideSystemUI() {
-          View decorView = getWindow().getDecorView();
+        View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -135,8 +135,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                 directUpdate();
                 break;
             }
-            case R.id.cancel:
-            {
+            case R.id.cancel: {
                 onBackPressed();
                 break;
             }
@@ -158,74 +157,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                     public void onChanged(GlobalResponse<GetCardResponse> response) {
                         showHideProgressDialog(false);
                         if (response.isApi_status()) {
-                            if (response.getResult() != null) {
-                                sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
-                                sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
-                                sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
-                                sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
-
-                                if (!response.getResult().isDefault()) {
-                                    if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
-
-                                        sessionManager.deleteLocation();
-                                        sessionManager.deletePromotions();
-                                        sessionManager.setPriceCard(response.getResult().getPricecard());
-                                        sessionManager.setPromotion(response.getResult().getPromotions());
-                                        sessionManager.setPricing(response.getResult().getPricing());
-                                        sessionManager.setCardDeleted(false);
-                                        redirectToMain(response);
-
-                                    } else if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
-                                        sessionManager.setPromotion(response.getResult().getPromotions());
-
-                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                                        if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
-                                            sessionManager.setPricing(response.getResult().getPricing());
-                                        }
-                                        i.putExtra(Constraint.PROMOTION, "true");
-                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(i);
-                                    }
-                                    else  if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
-                                        sessionManager.setPricing(response.getResult().getPricing());
-                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                                        i.putExtra(Constraint.PRICING, "true");
-                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(i);
-
-                                    }
-                                    }
-                                else {
-
-                                    if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
-                                        sessionManager.setPromotion(response.getResult().getPromotions());
-
-                                        if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
-                                            sessionManager.setPricing(response.getResult().getPricing());
-                                        }
-                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                                        i.putExtra(Constraint.PROMOTION, "true");
-                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(i);
-                                    }
-                                    else  if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
-                                        sessionManager.setPricing(response.getResult().getPricing());
-                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                                        i.putExtra(Constraint.PRICING, "true");
-                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(i);
-
-                                    }
-                                    else
-                                    {
-                                        ValidationHelper.showToast(context, getString(R.string.no_data_available));
-                                    }
-
-                                }
-
-                            } else {
-                                ValidationHelper.showToast(context, getString(R.string.no_data_available));
-                            }
+                            handleRefreshTimeResponse(response);
                         } else {
                             ValidationHelper.showToast(context, getString(R.string.no_data_available));
 
@@ -235,6 +167,76 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             }
         } else {
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
+    /**
+     * handle direct update response
+     */
+
+    private void handleRefreshTimeResponse(GlobalResponse<GetCardResponse> response) {
+        if (response.getResult() != null) {
+            sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
+            sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
+            sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
+            sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
+
+            if (!response.getResult().isDefault()) {
+                if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
+
+                    sessionManager.deleteLocation();
+                    sessionManager.deletePromotions();
+                    sessionManager.setPriceCard(response.getResult().getPricecard());
+                    sessionManager.setPromotion(response.getResult().getPromotions());
+                    sessionManager.setPricing(response.getResult().getPricing());
+                    sessionManager.setCardDeleted(Constraint.FALSE);
+                    redirectToMain(response);
+
+                } else if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
+                    sessionManager.setPromotion(response.getResult().getPromotions());
+
+                    Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                    if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                        sessionManager.setPricing(response.getResult().getPricing());
+                    }
+                    i.putExtra(Constraint.PROMOTION, "true");
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                    sessionManager.setPricing(response.getResult().getPricing());
+                    Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                    i.putExtra(Constraint.PRICING, "true");
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+
+                }
+            } else {
+
+                if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
+                    sessionManager.setPromotion(response.getResult().getPromotions());
+
+                    if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                        sessionManager.setPricing(response.getResult().getPricing());
+                    }
+                    Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                    i.putExtra(Constraint.PROMOTION, "true");
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                    sessionManager.setPricing(response.getResult().getPricing());
+                    Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                    i.putExtra(Constraint.PRICING, "true");
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+
+                } else {
+                    ValidationHelper.showToast(context, getString(R.string.no_data_available));
+                }
+
+            }
+
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_data_available));
         }
     }
 
@@ -287,8 +289,8 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
-        if (sessionManager.getPriceCard()!=null)
-            hashMap.put(Constraint.pricecardid,sessionManager.getPriceCard().getIdpriceCard());
+        if (sessionManager.getPriceCard() != null)
+            hashMap.put(Constraint.pricecardid, sessionManager.getPriceCard().getIdpriceCard());
         return hashMap;
     }
 
@@ -307,7 +309,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         time.setHour(mBinding.timePicker.getHour());
         time.setMinit(mBinding.timePicker.getMinute());
         sessionManager.setTimerToGetCard(time);
-        if (BackgroundService.refreshTimer!=null) {
+        if (BackgroundService.refreshTimer != null) {
             BackgroundService.refreshTimer.cancel();
             BackgroundService.checkUpdate();
         }

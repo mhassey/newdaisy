@@ -3,7 +3,6 @@ package com.daisy.activity.mainActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +30,6 @@ import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -69,12 +66,13 @@ import com.daisy.pojo.response.DownloadFail;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
+import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
-import com.daisy.service.SecurityService;
+import com.daisy.service.BackgroundSoundService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -113,7 +111,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initService();
         setOnClickListener();
@@ -129,20 +126,49 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         context = this;
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        //FrontCameraRetriever.retrieveFor(this);
+      //  FrontCameraRetriever.retrieveFor(this);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
         windowWork();
         loadURL();
         intentWork();
         if (sessionManager.getSanitized()) {
+            mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
+
             Glide.with(this)
-                    .load(R.drawable.ani)
-                    .into(mBinding.senaitised);
+                    .load(R.drawable.ani);
 
         } else {
             mBinding.sanitisedHeader.setVisibility(View.GONE);
         }
+    }
+
+
+    /**
+     * Add sanitised cown down
+     */
+    private void setCownDownForSenitised() {
+        new CountDownTimer(Constraint.THIRTY_THOUSAND, Constraint.THOUSAND) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                try {
+                    sessionManager.setSanitized(true);
+                    mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
+                    Glide.with(MainActivity.this)
+                            .load(R.drawable.ani)
+                            .into(mBinding.senaitised);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+        }.start();
     }
 
 
@@ -216,10 +242,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             }
         }
         if (sessionManager.getSanitized()) {
-            mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
-            Glide.with(this)
-                    .load(R.drawable.ani)
-                    .into(mBinding.senaitised);
+            if (sessionManager.getComeConfig()) {
+                sessionManager.setComeFromConfig(false);
+                setCownDownForSenitised();
+            } else {
+
+                Glide.with(this)
+                        .load(R.drawable.ani)
+                        .into(mBinding.senaitised);
+            }
+        } else {
+            mBinding.sanitisedHeader.setVisibility(View.GONE);
         }
     }
 
@@ -321,8 +354,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             hideSystemUI();
-            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-            sendBroadcast(closeDialog);
         }
 
     }
@@ -355,17 +386,19 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (grantResults[Constraint.ZERO] == PackageManager.PERMISSION_DENIED) {
-            boolean showRationale = shouldShowRequestPermissionRationale(permissions[Constraint.ZERO]);
-            if (!showRationale) {
+        if (grantResults.length>0) {
+            if (grantResults[Constraint.ZERO] == PackageManager.PERMISSION_DENIED) {
+                boolean showRationale = shouldShowRequestPermissionRationale(permissions[Constraint.ZERO]);
+                if (!showRationale) {
+                } else {
+                    PermissionManager.checkPermission(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
+                }
             } else {
-                PermissionManager.checkPermission(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
-            }
-        } else {
-            if (grantResults.length > Constraint.ZERO
-                    && grantResults[Constraint.ZERO] == PackageManager.PERMISSION_GRANTED) {
-                getDownloadData();
+                if (grantResults.length > Constraint.ZERO
+                        && grantResults[Constraint.ZERO] == PackageManager.PERMISSION_GRANTED) {
+                    getDownloadData();
 
+                }
             }
         }
         return;
@@ -386,17 +419,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Override
     public void callBack(String data) {
-//        mBinding.webView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
-//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//
-//                }
-//                loadURL();
-//
-//            }
-//        });
 
         Intent selfIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(selfIntent);
@@ -449,21 +471,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
-    /**
-     * load url in webview
-     */
+
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-            setWebViewClient();
-
             mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "interface"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
 
             mBinding.webView.setWebChromeClient(new WebClient());
+            setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
             mBinding.webView.setSoundEffectsEnabled(Constraint.TRUE);
-            mBinding.webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
@@ -475,11 +493,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
             mBinding.webView.getSettings().setUseWideViewPort(Constraint.TRUE);
+
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setDisplayZoomControls(Constraint.FALSE);
+
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
-            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
             mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
 
             if (Build.VERSION.SDK_INT >= 21) {
@@ -532,8 +552,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 //  mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                                 mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
 
-                                // mBinding.webView.loadUrl("https://www.google.com/");
-
                                 sessionManager.setMainFilePath(file1.getAbsoluteFile().toString());
                                 if (!isDelete)
                                     deleteCard();
@@ -580,7 +598,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
     }
-
 
     /**
      * delete card
@@ -631,7 +648,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 JSONArray jsonArray = pricingUpdateStart();
-                Log.e("kali", jsonArray.toString());
                 if (jsonArray != null) {
                     if (jsonArray.length() > 0) {
 
@@ -996,19 +1012,25 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * hide setting icon
      */
     void hideSettingsIcon() {
-        Runnable mRunnable;
-        Handler mHandler = new Handler();
-        mRunnable = new Runnable() {
+        try {
+            Runnable mRunnable;
+            Handler mHandler = new Handler();
+            mRunnable = new Runnable() {
 
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                if (mBinding.setting.getVisibility() == View.VISIBLE) {
-                    mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    if (mBinding.setting.getVisibility() == View.VISIBLE) {
+                        mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
+                    }
                 }
-            }
-        };
-        mHandler.postDelayed(mRunnable, Constraint.TWENTY * Constraint.THOUSAND);
+            };
+            mHandler.postDelayed(mRunnable, Constraint.TWENTY * Constraint.THOUSAND);
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     @Override
@@ -1084,10 +1106,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void loadUrl(Pricing pricing) {
+
         pricingUpdate();
         deleteCard();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void loadUrl(PriceCard pricing) {
+        loadURL();
+        deleteCard();
+    }
     /**
      * invert price card
      */

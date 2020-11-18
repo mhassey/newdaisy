@@ -50,24 +50,27 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
     }
 
     private void resetCamera(SurfaceHolder holder) {
+        try {
+            camera.stopPreview();
+            try {
+                camera.setPreviewDisplay(null);
+            } catch (IOException ex) {
+            }
+            camera.release();
+            camera = null;
+            camera = Camera.open(getFrontFacingCameraId());
+            try {
+                camera.setPreviewDisplay(holder);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            camera.startPreview();
+            camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
+            camera.startFaceDetection();
+        }catch (Exception e)
+        {
 
-        camera.stopPreview();
-        try {
-            camera.setPreviewDisplay(null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
-        camera.release();
-        camera=null;
-        camera=Camera.open(getFrontFacingCameraId());
-        try {
-            camera.setPreviewDisplay(holder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        camera.startPreview();
-        camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
-        camera.startFaceDetection();
     }
 
     private int getFrontFacingCameraId() {

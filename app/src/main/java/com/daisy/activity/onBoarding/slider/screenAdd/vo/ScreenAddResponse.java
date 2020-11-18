@@ -4,8 +4,17 @@ import com.daisy.pojo.response.ScreenPosition;
 
 public class ScreenAddResponse {
     private int id;
+    private int iddevice;
     private String token;
     private ScreenPosition screenPosition;
+
+    public int getIddevice() {
+        return iddevice;
+    }
+
+    public void setIddevice(int iddevice) {
+        this.iddevice = iddevice;
+    }
 
     public String getToken() {
         return token;

@@ -16,6 +16,7 @@ public class GetCardResponse {
     private boolean isDefault;
     private StoreDetails storeDetails;
 
+
     public StoreDetails getStoreDetails() {
         return storeDetails;
     }

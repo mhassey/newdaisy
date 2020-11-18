@@ -8,16 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.daisy.R;
-import com.daisy.utils.DialogUtil;
 
-public class BaseFragment extends Fragment  {
+public class BaseFragment extends Fragment {
     private ProgressDialog progressDialog;
 
     @Nullable
@@ -25,6 +23,7 @@ public class BaseFragment extends Fragment  {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
     /**
      * Define no title bar for all fragment
      */
@@ -51,7 +50,7 @@ public class BaseFragment extends Fragment  {
                     }
                 }
             } else {
-                progressDialog =new ProgressDialog(requireContext());
+                progressDialog = new ProgressDialog(requireContext());
                 progressDialog.setMessage(getString(R.string.loading));
                 showHideProgressDialog(iShow);
             }

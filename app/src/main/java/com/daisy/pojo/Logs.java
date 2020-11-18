@@ -1,5 +1,6 @@
 package com.daisy.pojo;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -96,4 +97,6 @@ public class Logs {
     public void setClear(boolean clear) {
         isClear = clear;
     }
+
+
 }

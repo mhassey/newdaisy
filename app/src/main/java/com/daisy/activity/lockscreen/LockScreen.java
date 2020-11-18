@@ -70,6 +70,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     public void onBackPressed() {
     }
 
+    /**
+     * remove lock activity
+     */
     @Override
     protected void onStop() {
         super.onStop();

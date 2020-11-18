@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,17 +57,35 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void initView() {
         context = this;
         setNoTitleBar(this);
+        sessionWork();
+        mBinding.appVersion.setText(BuildConfig.VERSION_NAME);
+    }
+
+    /**
+     * Done all session work
+     */
+    private void sessionWork() {
         sessionManager = SessionManager.get();
-        if (sessionManager.getDeviceSanitised().equals(Constraint.TRUE_STR))
-        {
+        if (sessionManager.getDeviceSanitised().equals(Constraint.TRUE_STR)) {
             mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             mBinding.sanitisedHeader.setVisibility(View.GONE);
 
         }
-        mBinding.appVersion.setText(BuildConfig.VERSION_NAME);
+        if (sessionManager.getSanitized()) {
+            mBinding.sanitisedMain.setChecked(Constraint.TRUE);
+        } else {
+            mBinding.sanitisedMain.setChecked(Constraint.FALSE);
+        }
+        if (!sessionManager.getDeviceSecured())
+        {
+            mBinding.securitySwitch.setChecked(Constraint.TRUE);
+        }
+        else
+        {
+            mBinding.securitySwitch.setChecked(Constraint.FALSE);
+
+        }
     }
 
 
@@ -83,7 +102,52 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.cancel.setOnClickListener(this::onClick);
         mBinding.feedBack.setOnClickListener(this::onClick);
         mBinding.lunchApp.setOnClickListener(this::onClick);
-        mBinding.sanitisedHeader.setOnClickListener(this::onClick);
+        mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
+        mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwich());
+    }
+
+    private CompoundButton.OnCheckedChangeListener getSecuritySwich() {
+    return new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked)
+            {
+                sessionManager.setStepCount(0);
+                sessionManager.deviceSecuried(Constraint.FALSE);
+
+                finish();
+
+            }
+            else
+            {
+                sessionManager.deviceSecuried(Constraint.TRUE);
+                finish();
+
+            }
+        }
+    };
+    }
+
+
+
+    /**
+     * Sanitised switch listener
+     */
+    private CompoundButton.OnCheckedChangeListener getCheckedListener() {
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sessionManager.setSanitized(Constraint.TRUE);
+                    sessionManager.setComeFromConfig(Constraint.TRUE);
+                    finish();
+                    ValidationHelper.showToast(context, getString(R.string.sanitised));
+
+                }
+
+
+            }
+        };
     }
 
 
@@ -125,7 +189,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
 
-
     /**
      * Handle Clicks listener
      */
@@ -160,23 +223,15 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 logout();
                 break;
             }
-            case R.id.feedBack:
-            {
+            case R.id.feedBack: {
                 feedBack();
                 break;
             }
-            case R.id.lunchApp:
-            {
-             launchApp();
+            case R.id.lunchApp: {
+                launchApp();
                 break;
             }
-            case R.id.sanitisedHeader: {
-                sessionManager.setSanitized(true);
 
-               finish();
-                ValidationHelper.showToast(context,getString(R.string.sanitised));
-                 break;
-            }
         }
     }
 
@@ -210,7 +265,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         sessionManager.removeSession();
 
         Intent intent = new Intent(ConfigSettings.this, BaseUrlSettings.class);
-        ProcessPhoenix.triggerRebirth(ConfigSettings.this,intent);
+        ProcessPhoenix.triggerRebirth(ConfigSettings.this, intent);
 
     }
 
@@ -222,7 +277,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         Intent intent = new Intent(ConfigSettings.this, RefreshTimer.class);
         startActivity(intent);
     }
-
 
 
     /**

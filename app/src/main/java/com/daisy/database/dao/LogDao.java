@@ -22,5 +22,5 @@ public interface LogDao {
     void clearLog(boolean val,String type);
 
     @Query("delete from logs WHERE  id IN (:ids)")
-    void updateItemPlaces(List<Integer> ids);
+    void deleteItemPlaces(List<Integer> ids);
 }

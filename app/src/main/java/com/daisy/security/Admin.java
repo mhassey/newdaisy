@@ -14,7 +14,7 @@ public class Admin extends DeviceAdminReceiver {
 
     @Override
     public void onEnabled(Context context, Intent intent) {
-        showToast(context, "Device Administrator: Activated");
+//        showToast(context, "Device Administrator: Activated");
     }
 
     @Override
@@ -29,10 +29,7 @@ public class Admin extends DeviceAdminReceiver {
 
     @Override
     public void onPasswordFailed(Context context, Intent intent) {
-        showToast(context, "Sample Device Admin: pw failed");
-        Vibrator v = (Vibrator)context.getSystemService(context.VIBRATOR_SERVICE);
-        // Vibrate for 2 seconds
-        v.vibrate(2000);
+
     }
 
     @Override

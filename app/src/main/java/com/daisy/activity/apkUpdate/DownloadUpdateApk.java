@@ -54,6 +54,11 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
      */
     @Override
     protected String doInBackground(String... f_url) {
+      performDoInBackGroundTask(f_url);
+        return context.getString(R.string.something_went_wrong);
+    }
+
+    private void performDoInBackGroundTask(String... f_url) {
         int count;
         try {
             URL url = new URL(f_url[0]);
@@ -90,7 +95,7 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return context.getString(R.string.something_went_wrong);
+
     }
 
     /**

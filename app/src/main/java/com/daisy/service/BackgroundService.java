@@ -36,9 +36,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.UpdateApk;
-import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
@@ -48,13 +48,13 @@ import com.daisy.database.DBCaller;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
-import com.daisy.pojo.response.OverLayResponse;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,25 +65,24 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import static com.daisy.utils.Constraint.LOG;
+import static com.daisy.utils.Constraint.messages;
+
 public class BackgroundService extends Service implements View.OnTouchListener, SensorEventListener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private static final String ACTION_DEBUG = "daichan4649.lockoverlay.action.DEBUG";
     private String TAG = this.getClass().getSimpleName();
-    // window manager
     private WindowManager mWindowManager;
-    // linear layout will use to detect touch event
     private LinearLayout touchLayout;
     private int count = 0;
     private PowerManager.WakeLock mWakeLock;
     private WifiManager wifiManager;
     private AppChecker appChecker = new AppChecker();
     private static SessionManager sessionManager;
-    private String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     private SensorManager sensorMan;
     private Sensor accelerometer;
-
     private float[] mGravity;
     private double mAccel;
     private double mAccelCurrent;
@@ -99,6 +98,19 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     public static Timer refreshTimer2;
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
+    public static Timer refreshTimer5;
+    private Intent securityIntent;
+    private Sensor stepDetectorSensor;
+    private Sensor stepCounterSensor;
+
+    private Sensor magnetometer;
+
+    //Variables used in calculations
+
+    private long stepTimestamp = 0;
+    private double distance = 0;
+    private int uninstallIssue=0;
+
 
     @Nullable
     @Override
@@ -116,6 +128,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     @Override
     public void onCreate() {
         super.onCreate();
+        securityIntent = new Intent(getApplicationContext(), SecurityService.class);
         securityService();
         showNotification();
         initWakeUpLock();
@@ -128,12 +141,19 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         defineSensor();
     }
 
-    private void securityService() {
-        startService(new Intent(getApplicationContext(), SecurityService.class));
 
+    /**
+     * Start security service
+     */
+    private void securityService() {
+
+        //startService(securityIntent);
     }
 
 
+    /**
+     * show lock screen if browser or message app or play store or settings open
+     */
     private void initPassword() {
         appChecker.whenAny(new AppChecker.Listener() {
             @Override
@@ -149,18 +169,26 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
                             if (!sessionManager.getUninstall()) {
 
-                                if (process.equals("com.google.android.packageinstaller")) {
+                                if (process.equals(Constraint.PACKAGE_INSTALLER)) {
 
-                                    Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                    intent.putExtra(Constraint.PACKAGE, process);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
+                                    if (uninstallIssue==0)
+                                    {
+                                    uninstallIssue++;
+                                    }
+                                    else {
+                                        uninstallIssue=0;
+                                        Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                        intent.putExtra(Constraint.PACKAGE, process);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        startActivity(intent);
 
+                                    }
 
                                 } else {
+                                    uninstallIssue=0;
                                     sessionManager.setDefaultDownload(false);
                                 }
                             }
@@ -169,24 +197,23 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                             if (!Constraint.current_running_process.equals(process)) {
 
                                 storeProcess(process);
-                                if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains("sbrowser")) {
+                                if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
                                     if (!b) {
 
                                         return;
                                     }
                                 }
                                 boolean browserLock = sessionManager.getBrowserLock();
-                                if (process.equals(Constraint.CROME) || process.contains("sbrowser")) {
+                                if (process.equals(Constraint.CROME) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
                                     if (!browserLock) {
 
                                         return;
                                     }
                                 }
                                 boolean messageLock = sessionManager.getMessageLock();
-                                if (Arrays.asList(messages).contains(process) || process.contains("messaging")) {
+                                if (Arrays.asList(messages).contains(process) || process.contains(Constraint.MESSENGING)) {
                                     // true
                                     if (!messageLock) {
-                                        Log.e("mms..", process);
 
                                         return;
                                     }
@@ -196,9 +223,9 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                                 Constraint.current_running_process = process;
 
                                 if (!process.equals(getApplication().getPackageName())) {
-                                    if (process.equals(Constraint.SETTING_PATH) || process.contains("sbrowser") || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(messages).contains(process) || process.contains("mms") || process.contains("messaging")) {
+                                    if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
                                         if (!sessionManager.getPasswordCorrect()) {
-                                            sessionManager.setPasswordCorrect(true);
+                                            sessionManager.setPasswordCorrect(Constraint.TRUE);
                                             Intent intent = new Intent(getApplicationContext(), LockScreen.class);
                                             intent.putExtra(Constraint.PACKAGE, process);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -206,10 +233,10 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             startActivity(intent);
                                         } else {
-                                            sessionManager.setPasswordCorrect(false);
+                                            sessionManager.setPasswordCorrect(Constraint.FALSE);
                                         }
                                     } else {
-                                        sessionManager.setPasswordCorrect(false);
+                                        sessionManager.setPasswordCorrect(Constraint.FALSE);
                                     }
 
                                 }
@@ -219,10 +246,9 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
-        }).timeout(200).start(getApplicationContext());
+        }).timeout(100).start(getApplicationContext());
     }
 
     private void storeProcess(String process) {
@@ -235,15 +261,14 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                     DBCaller.storeLogInDatabase(getApplicationContext(), getApplicationContext().getString(R.string.open) + app_name, "", "", Constraint.APPLICATION_LOGS);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+         }
     }
 
     @SuppressLint("InvalidWakeLockTag")
     private void initWakeUpLock() {
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         int flags = PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP;
-        mWakeLock = powerManager.newWakeLock(flags, "wake_up_tag");
+        mWakeLock = powerManager.newWakeLock(flags, Constraint.WEAK_UP_TAG);
     }
 
     private void showNotification() {
@@ -261,7 +286,9 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private void defineSensor() {
         sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
+        stepDetectorSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        stepCounterSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        magnetometer = sensorMan.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         mAccel = 0.00f;
         mAccelCurrent = SensorManager.GRAVITY_EARTH;
@@ -269,6 +296,11 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         sensorMan.registerListener(this, accelerometer,
                 SensorManager.SENSOR_DELAY_UI);
         sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+        sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorMan.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorMan.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
@@ -285,17 +317,28 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         checkUpdate();
         checkPromotion();
         checkInversion();
+        //stopUninstall();
         updateAPk();
         validatePromotion();
     }
 
+    private boolean checkSensorAvailability() {
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        if (sensor == null) {
+            return false;
+        }
+
+        return true;
+    }
+
     private void validatePromotion() {
         try {
-            int hour = 1;
-            int minit = 30;
+            int hour = Constraint.ONE;
+            int minit = Constraint.THIRTY_INT;
 
 
-            int second = ((hour * 3600) + (minit * 60)) * 1000;
+            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer4 = new Timer();
             refreshTimer4.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -310,18 +353,15 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             }, second, second);
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }
 
     private void checkInversion() {
         try {
-            int hour = 0;
-            int minit = 3;
-
-
-            int second = ((hour * 3600) + (minit * 60)) * 1000;
+            int hour = Constraint.ZERO;
+            int minit = Constraint.THREE;
+            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer1 = new Timer();
             refreshTimer1.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -331,6 +371,24 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         inversion.setInvert(Utils.getInvertedTime());
                         EventBus.getDefault().post(inversion);
 
+                        String mainVersion=sessionManager.getApkVersion();
+                        if (mainVersion!=null && !mainVersion.equals(""))
+                        {
+                            Log.e("kali","mainVersion Not empty");
+                            try
+                            {
+                                double olderVersion=Double.parseDouble(mainVersion);
+                                double newVersion=Double.parseDouble(BuildConfig.VERSION_NAME);
+                                if (newVersion>olderVersion)
+                                {
+                                    new UpdateAppVersion().UpdateAppVersion();
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                            }
+                        }
+
                     } catch (Exception e) {
 
                     }
@@ -338,17 +396,39 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             }, second, second);
 
         } catch (Exception e) {
-            e.printStackTrace();
+        }
+    }
+
+    private void stopUninstall() {
+        try {
+
+
+            int second = Constraint.FIVE_HUNDRED;
+            refreshTimer5 = new Timer();
+            refreshTimer5.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                        sendBroadcast(closeDialog);
+
+
+                    } catch (Exception e) {
+
+                    }
+                }
+            }, second, second);
+
+        } catch (Exception e) {
         }
     }
 
     private void checkPromotion() {
         try {
-            int hour = 1;
-            int minit = 0;
+            int hour = Constraint.ONE;
+            int minit = Constraint.ZERO;
 
-
-            int second = ((hour * 3600) + (minit * 60)) * 1000;
+            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer3 = new Timer();
             refreshTimer3.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -380,14 +460,16 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        int hour = 0;
-        int minit = 1;
+//        int hour = Constraint.FIVE_INE;
+        int hour = Constraint.ZERO;
+
+        int minit = Constraint.TWO;
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
         }
 
-        int second = ((hour * 3600) + (minit * 60)) * 1000;
+        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
         refreshTimer = new Timer();
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -405,11 +487,11 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     public static void updateAPk() {
         try {
-            int hour = 4;
-            int minit = 0;
+            int hour = Constraint.ZERO;
+            int minit = Constraint.ONE;
 
 
-            int second = ((hour * 3600) + (minit * 60)) * 1000;
+            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer2 = new Timer();
             refreshTimer2.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -432,28 +514,26 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 @Override
                 public void run() {
                     count++;
-                    if (count == 30) {
+                    if (count == Constraint.THIRTY_INT) {
                         try {
                             String value = appChecker.getForegroundApp(getApplicationContext());
                             if (value != null) {
                                 if (!value.equals(getApplication().getPackageName())) {
-                                    //  checkNetwork();
-                                    if (!value.equals("com.google.android.packageinstaller")) {
+                                    if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
 
                                         bringApplicationToFront(getApplicationContext());
                                     }
                                 } else {
                                     ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
                                     List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-                                    Log.d("topActivity", "CURRENT Activity ::" + taskInfo.get(0).topActivity.getClassName());
                                     ComponentName componentInfo = taskInfo.get(0).topActivity;
                                     String name = componentInfo.getClassName();
-                                    if (name.contains("LockScreen")) {
+                                    if (name.contains(Constraint.LOCK_SCREEN)) {
                                         bringApplicationToFront(getApplicationContext());
 
                                     }
                                 }
-                                count = 0;
+                                count = Constraint.ZERO;
 
                             }
                         } catch (Exception e) {
@@ -463,18 +543,18 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                     checkWifiState();
 
                 }
-            }, 1000, 1000);
+            }, Constraint.THOUSAND, Constraint.THOUSAND);
         } catch (Exception e) {
 
         }
     }
 
     private void setDeleteTimer() {
-        int hour = 0;
-        int minit = 10;
+        int hour = Constraint.ZERO;
+        int minit = Constraint.TEN;
 
 
-        int second = ((hour * 3600) + (minit * 60)) * 1000;
+        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
 
         Timer deletePhoto = new Timer();
         deletePhoto.scheduleAtFixedRate(new TimerTask() {
@@ -497,7 +577,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             Runnable myRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(context, EditorTool.class);
+                    Intent intent = new Intent(context, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     context.startActivity(intent);
@@ -506,8 +586,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             mainHandler.post(myRunnable);
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+         }
 
     }
 
@@ -517,10 +596,35 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(ACTION_DEBUG);
         registerReceiver(overlayReceiver, filter);
-
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         registerReceiver(wifiStateReceiver, intentFilter);
+        IntentFilter s_intentFilter = new IntentFilter();
+        s_intentFilter.addAction(Intent.ACTION_TIME_TICK);
+        s_intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        s_intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
+        registerReceiver(m_timeChangedReceiver, s_intentFilter);
+
+
+    }
+
+    private final BroadcastReceiver m_timeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                timeChanged();
+            }
+        }
+    };
+
+    private void timeChanged() {
+
+        CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
+        checkCardAvailability.checkCard(Constraint.UPDATE_INVERSION);
+
     }
 
 
@@ -619,25 +723,18 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
             ComponentName componentInfo = taskInfo.get(0).topActivity;
             String name = componentInfo.getClassName();
-            if (name.contains("MainActivity")) {
+            if (name.contains(Constraint.MAIN_ACTIVITY)) {
                 EventBus.getDefault().post(new Sanitised());
             }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
 
     }
 
 
-
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        // DBCaller.storeLogInDatabase(getApplicationContext(), getString(R.string.screen_touched), "", "", Constraint.APPLICATION_LOGS);
-
-        count = 0;
+        count = Constraint.ZERO;
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
         EventBus.getDefault().post(inversion);
@@ -662,7 +759,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         touchLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                return false;
+                return Constraint.FALSE;
             }
         });
         touchLayout.setLongClickable(true);
@@ -681,8 +778,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                     PixelFormat.TRANSLUCENT);
 
             params.gravity = Gravity.START | Gravity.TOP;
-            params.x = 0;
-            params.y = 0;
+            params.x = Constraint.ZERO;
+            params.y = Constraint.ZERO;
             mWindowManager.addView(touchLayout, params);
         } else {
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -693,14 +790,14 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                             | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                             | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                             | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                           | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
                             | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     PixelFormat.TRANSLUCENT);
 
 
             params.gravity = Gravity.START | Gravity.TOP;
-            params.x = 0;
-            params.y = 0;
+            params.x = Constraint.ZERO;
+            params.y = Constraint.ZERO;
             mWindowManager.addView(touchLayout, params);
         }
     }
@@ -723,7 +820,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                     getContentResolver(),
                     android.provider.Settings.System.SCREEN_BRIGHTNESS, level);
         } catch (Exception e) {
-            e.printStackTrace();
+
 
 
         }
@@ -733,15 +830,23 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         try {
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             InternetResponse internetResponse = new InternetResponse();
-            OverLayResponse overLayResponse = new OverLayResponse();
+            try {
+                ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+                List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+                ComponentName componentInfo = taskInfo.get(0).topActivity;
+                String name = componentInfo.getClassName();
+                if (name.contains(Constraint.MAIN_ACTIVITY)) {
+                    if (wifiManager.isWifiEnabled()) {
+                        internetResponse.setAvailable(false);
+                        EventBus.getDefault().post(internetResponse);
+                    } else {
+                        internetResponse.setAvailable(true);
+                        EventBus.getDefault().post(internetResponse);
+                    }
+                }
+            } catch (Exception e) {
+             }
 
-            if (wifiManager.isWifiEnabled()) {
-                internetResponse.setAvailable(false);
-                EventBus.getDefault().post(internetResponse);
-            } else {
-                internetResponse.setAvailable(true);
-                EventBus.getDefault().post(internetResponse);
-            }
         } catch (Exception e) {
 
         }
@@ -750,6 +855,20 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+//        switch (event.sensor.getType()) {
+//            case (Sensor.TYPE_ACCELEROMETER):
+//                //Log.e("kali",event.values+"");
+//                accelValues = event.values;
+//                break;
+//            case (Sensor.TYPE_MAGNETIC_FIELD):
+//                magnetValues = event.values;
+//                break;
+//            case (Sensor.TYPE_STEP_DETECTOR):
+//                countSteps(event.values[0]);
+//                calculateSpeed(event.timestamp);
+//                break;
+//        }
+
         if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             mGravity = event.values.clone();
 
@@ -758,8 +877,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 float x = mGravity[0];
                 float y = mGravity[1];
                 int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
-                int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
-                int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
                 if (z_digree == 90) {
                     counter++;
                     if (counter > 20) {
@@ -777,7 +894,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         if (!isPickedUpSucess) {
                             isPickedDown = false;
                             isPickedUpSucess = true;
-                            //   ValidationHelper.showToast(getApplicationContext(),"Device picked up");
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
 
                         }
@@ -788,7 +904,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                             EventBus.getDefault().post(inversion);
                             isPickedDown = true;
                             isPickedUpSucess = false;
-                            // ValidationHelper.showToast(getApplicationContext(),"Device put down");
                             DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
 
                         }
@@ -803,4 +918,37 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+    private void countSteps(float step) {
+        int stepCount = sessionManager.getSteps();
+        //Step count
+        stepCount += (int) step;
+        ValidationHelper.showToast(getApplicationContext(), stepCount + "");
+
+        sessionManager.setStepCount(stepCount);
+        //Distance calculation
+        distance = stepCount * 0.8; //Average step length in an average adult
+        Log.e("distance", distance + "---");
+        if (!Utils.isPlugged(getApplicationContext())) {
+            if (stepCount >= 13) {
+                if (!sessionManager.getDeviceSecured()) {
+                    startService(securityIntent);
+                }
+
+            }
+        }
+        //Record achievement
+    }
+
+
+    //Calculated the amount of steps taken per minute at the current rate
+    private void calculateSpeed(long eventTimeStamp) {
+        long timestampDifference = eventTimeStamp - stepTimestamp;
+        stepTimestamp = eventTimeStamp;
+        double stepTime = timestampDifference / 1000000000.0;
+        int speed = (int) (60 / stepTime);
+        Log.e("speed", speed + "--");
+    }
+
+
 }

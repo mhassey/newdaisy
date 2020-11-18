@@ -49,9 +49,7 @@ public class BaseActivity extends AppCompatActivity {
     public void setNoTitleBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             activity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-
         }
-
     }
 
     @Override

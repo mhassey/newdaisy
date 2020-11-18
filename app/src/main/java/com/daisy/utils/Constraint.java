@@ -16,8 +16,32 @@ public class Constraint {
     public static final String APPNAME = "Daisy";
     public static final String SUCCESS = "success";
     public static final String INDEX = "index";
+    public static final String SUMSUNG_BROWSER_NAME = "sbrowser";
+    public static final String MESSENGING = "messaging";
+    public static final String WEAK_UP_TAG = "wake_up_tag";
+    public static final int THIRTY_INT = 30;
+    public static final int THIRTY_SIX_HUNDRED = 3600;
+    public static final int FIVE_HUNDRED = 500;
+    public static final int FOUR = 4;
+    public static final int FIVE_INE = 5;
+    public static final String PACKAGE_INSTALLER = "com.google.android.packageinstaller";
+    public static final String LOCK_SCREEN = "LockScreen";
+    public static final String MAIN_ACTIVITY = "MainActivity";
+    public static final String LOG = "log";
+    public static final String ID_PRICE_CARD = "idpriceCard";
+    public static final String ID_PROMOTION = "idpromotion";
+    public static final int THIRTY_THOUSAND = 30000;
+    public static final int SIXTY_THOUSAND = 60000;
+    public static final String IDDEVICE = "iddevice";
+    public static final String OS_ID = "osID";
+    public static final String OS_VER = "osVer";
+    public static final String MAV_ID = "mav_id";
+
+    public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     public static final String CARD = "Card";
-    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
+    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.ACTIVITY_RECOGNITION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
+    public static final String[] STORAGE_PERMISSION_WITHOUT_SENSOR = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
+
     public static final String ANDROID = "Android";
     public static final String FILE = "file://";
     public static final String WAIT = "Wait...";
@@ -89,7 +113,9 @@ public class Constraint {
    public static final int BATTRY_OPTIMIZATION_CODE = 232;
     public static final long FIVE = 5;
     public static final long TEN_MINUTES = 10000*60;
-    public static final long TWO_HOUR=20000*60;
+    //public static final long TWO_HOUR=20000*60;
+    public static final long TWO_HOUR=1000*60;
+
     public static final String SETTING_PATH = "com.android.settings";
     public static final String PLAY_STORE_PATH = "com.android.vending";
     public static final String PASSWORD = "12345";
@@ -177,6 +203,7 @@ public class Constraint {
     public static final String TRUE_STR = "true";
     public static final int GPS_ENABLE = 106;
     public static final String GPS = "GPS";
+    public static final String UPDATE_INVERSION = "update_inversion";
 
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 

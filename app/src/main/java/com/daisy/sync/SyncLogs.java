@@ -2,6 +2,7 @@ package com.daisy.sync;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -13,7 +14,6 @@ import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogServerRequest;
 import com.daisy.pojo.response.BlankResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.PriceCardMain;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
@@ -23,7 +23,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
@@ -41,10 +40,12 @@ public class SyncLogs {
     private int MAX_CONTACT_COUNT_FOR_EACH_CALL = 500;
     private int loopCount;
     private SessionManager sessionManager;
+
     private SyncLogs(Context context) {
         this.context = context;
         logsVOList = new ArrayList<>();
     }
+
 
     public static SyncLogs getLogsSyncing(Context context) {
         if (contactSyncing == null)
@@ -52,8 +53,12 @@ public class SyncLogs {
         return contactSyncing;
 
     }
+
+    /**
+     * Save contact api
+     */
     public void saveContactApi() {
-        sessionManager=SessionManager.get();
+        sessionManager = SessionManager.get();
         if (isSyncingInProgress)
             return;
         new Thread(new Runnable() {
@@ -75,14 +80,19 @@ public class SyncLogs {
     }
 
 
+
+    /**
+     * call api to sync
+     */
     private void callApiToSync(final int count) {
         ApiService apiService = AppRetrofit.getInstance().getApiService();
-        final HashMap<String,String> request = getRequest(count);
-        apiService.sendLogs(request,request.get(Constraint.TOKEN)).enqueue(new Callback<GlobalResponse<BlankResponse>>() {
+        final HashMap<String, String> request = getRequest(count);
+        Log.e("logs", request.toString());
+        apiService.sendLogs(request, request.get(Constraint.TOKEN)).enqueue(new Callback<GlobalResponse<BlankResponse>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<GlobalResponse<BlankResponse>> call, Response<GlobalResponse<BlankResponse>> response) {
-                 if (count >= loopCount - 1) {
+                if (count >= loopCount - 1) {
                     syncingComplete();
                 } else {
                     int cnt = count + 1;
@@ -93,17 +103,21 @@ public class SyncLogs {
 
             @Override
             public void onFailure(Call<GlobalResponse<BlankResponse>> call, Throwable t) {
-            t.printStackTrace();
+                t.printStackTrace();
             }
         });
     }
 
+
+    /**
+     * handle sync completed
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void syncingComplete() {
         // Do what ever you want
         int totalCount = logsVOList.size();
-        int counter=totalCount/MAX_CONTACT_COUNT_FOR_EACH_CALL;
-        for (int i=0;i<=counter;i++) {
+        int counter = totalCount / MAX_CONTACT_COUNT_FOR_EACH_CALL;
+        for (int i = 0; i <= counter; i++) {
             int startPosition = i * MAX_CONTACT_COUNT_FOR_EACH_CALL;
             int totalcontToSend = (i + 1) * MAX_CONTACT_COUNT_FOR_EACH_CALL;
             if (totalcontToSend > logsVOList.size())
@@ -111,7 +125,7 @@ public class SyncLogs {
             int countToSend = totalcontToSend - startPosition;
             int toPosition = startPosition + countToSend;
             List<Logs> logsList = new ArrayList<>(logsVOList.subList(startPosition, toPosition));
-            List<Integer> integers=  logsList.stream().map(Logs::getId).collect(Collectors.toList());
+            List<Integer> integers = logsList.stream().map(Logs::getId).collect(Collectors.toList());
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -120,14 +134,18 @@ public class SyncLogs {
                 }
             }).start();
         }
-        isSyncingInProgress=false;
-        }
+        isSyncingInProgress = false;
+    }
 
-    private HashMap<String,String> getRequest(int count) {
+
+    /**
+     * Create request
+     */
+    private HashMap<String, String> getRequest(int count) {
 
         if (logsVOList == null)
             logsVOList = new ArrayList<>();
-        HashMap<String,String> logSyncRequest = new HashMap<>();
+        HashMap<String, String> logSyncRequest = new HashMap<>();
         try {
             int startPosition = count * MAX_CONTACT_COUNT_FOR_EACH_CALL;
             int totalcontToSend = (count + 1) * MAX_CONTACT_COUNT_FOR_EACH_CALL;
@@ -136,10 +154,10 @@ public class SyncLogs {
             int countToSend = totalcontToSend - startPosition;
             int toPosition = startPosition + countToSend;
             List<Logs> logs = new ArrayList<>(logsVOList.subList(startPosition, toPosition));
-            List<LogServerRequest> requests=new ArrayList<>();
-            for (Logs logs1:logs)
-            {
-                LogServerRequest logServerRequest=new LogServerRequest();
+
+            List<LogServerRequest> requests = new ArrayList<>();
+            for (Logs logs1 : logs) {
+                LogServerRequest logServerRequest = new LogServerRequest();
                 logServerRequest.setLog(logs1.getEventName());
                 logServerRequest.setTimezone(TimeZone.getDefault().getID());
 
@@ -147,16 +165,14 @@ public class SyncLogs {
                 logServerRequest.setDate(Utils.getDate(logs1.getEventDateTime()));
                 requests.add(logServerRequest);
             }
-            logSyncRequest.put("log",getJsonObject(requests).toString());
-            PriceCardMain priceCard= sessionManager.getPriceCard();
+            logSyncRequest.put(Constraint.LOG, getJsonObject(requests).toString());
+            PriceCardMain priceCard = sessionManager.getPriceCard();
             try {
-                logSyncRequest.put("idpriceCard", priceCard.getIdpriceCard());
-            }
-            catch (Exception e)
-            {
+                logSyncRequest.put(Constraint.ID_PRICE_CARD, priceCard.getIdpriceCard());
+            } catch (Exception e) {
 
             }
-            logSyncRequest.put("idpromotion","1");
+            logSyncRequest.put(Constraint.ID_PROMOTION, "1");
             logSyncRequest.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
 
         } catch (Exception e) {
@@ -166,21 +182,30 @@ public class SyncLogs {
     }
 
 
-    public JsonArray getJsonObject(List<LogServerRequest> logs)
-    {
+
+    /**
+     * List to json
+     */
+    public JsonArray getJsonObject(List<LogServerRequest> logs) {
 
         Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(logs, new TypeToken<List<LogServerRequest>>() {}.getType());
+        JsonElement element = gson.toJsonTree(logs, new TypeToken<List<LogServerRequest>>() {
+        }.getType());
 
-        if (! element.isJsonArray() ) {
-         }
+        if (!element.isJsonArray()) {
+        }
 
         JsonArray jsonArray = element.getAsJsonArray();
         return jsonArray;
     }
 
+
+    /**
+     * get All logs from local db
+     */
     private void getAllLogs() {
-        logsVOList= DBCaller.getLogsFromDatabaseNotSync(context);
+        logsVOList = DBCaller.getLogsFromDatabaseNotSync(context);
+
     }
 
 

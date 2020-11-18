@@ -22,4 +22,5 @@ public class ApiConstant {
     public static final String PROMOTION_CHECK = "validate_promotions";
     public static final String API = "api";
     public static final String ADD_FEEDBACK = "/feedback";
+    public static final String CREATE_SCREEN_OS = URL_PACK+"/create_screen_os";
 }

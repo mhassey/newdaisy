@@ -182,7 +182,6 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             case R.id.saveAndStartMpc: {
 
                 getCardData();
-                // getDeviceZipFile();
             }
         }
     }
@@ -237,10 +236,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
     public void nextSlideClickHandler() {
-        count = count + 1;
+        count = count + Constraint.ONE;
 
-        if (count == 2) {
-            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
+        if (count == Constraint.TWO) {
+            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
             if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
                 sessionManager.setDeletePhoto(true);
             } else {
@@ -268,13 +267,13 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             //mBinding.nextSlide.setVisibility(View.GONE);
         }
 
-       else if (count==3)
+       else if (count==Constraint.THREE)
         {
             SignUp signUp= (SignUp) fragmentList.get(Constraint.TWO);
 
             signUp.loginBinding.singup.performClick();
         }
-        else if (count == 4) {
+        else if (count == Constraint.FOUR) {
 
             if (Utils.getNetworkState(context)) {
                 AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
@@ -294,19 +293,19 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                     }
                 }
                 else {
-                    count=3;
+                    count=Constraint.THREE;
                 }
             }
             else
             {
-                count=3;
+                count=Constraint.THREE;
                 ValidationHelper.showToast(context,getString(R.string.no_internet_available));
             }
 
 
         }
 
-        if (count == 1 || count == 2) {
+        if (count == Constraint.ONE || count == Constraint.TWO) {
             mBinding.pager.setCurrentItem(count);
         }
     }
@@ -317,6 +316,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.VISIBLE);
             mBinding.pager.setCurrentItem(count);
+            sessionManager.setDeviceId(screenAddResponseGlobalResponse.getResult().getIddevice());
             sessionManager.setScreenID(screenAddResponseGlobalResponse.getResult().getId());
             sessionManager.setDeviceToken(screenAddResponseGlobalResponse.getResult().getToken());
             sessionManager.setScreenPosition(screenAddResponseGlobalResponse.getResult().getScreenPosition());
@@ -355,8 +355,8 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
 
     public void counterPlus() {
-        count = count + 1;
-        if (count == 3) {
+        count = count + Constraint.ONE;
+        if (count == Constraint.THREE) {
             mBinding.nextSlide.setVisibility(View.VISIBLE);
 
         }
@@ -365,8 +365,8 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
     public void counterMinus() {
-        count = count - 1;
-        if (count == 3) {
+        count = count - Constraint.ONE;
+        if (count == Constraint.THREE) {
             mBinding.nextSlide.setVisibility(View.VISIBLE);
 
         }

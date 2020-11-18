@@ -58,6 +58,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * Initiate objects
+     */
     private void initView() {
         context = requireContext();
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
@@ -71,6 +74,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
     }
 
+
+    /**
+     * Add orientation
+     */
     private void addOrientationData() {
         ArrayList<String> orientation=new ArrayList<>();
         orientation.add(getString(R.string.defaultt));
@@ -78,6 +85,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mViewModel.setOrientation(orientation);
     }
 
+
+    /**
+     * Initiate all listener
+     */
     private void initClick() {
         mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
@@ -86,6 +97,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * onResume handler
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -112,6 +126,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         }
     }
 
+
+    /**
+     * Run time color change at bottom next
+     */
     private void designWork() {
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple) );
@@ -124,6 +142,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
     }
 
+
+    /**
+     * Handle product name selection
+     */
     private AdapterView.OnItemSelectedListener getProductNameListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
@@ -138,6 +160,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         };
     }
 
+
+    /**
+     * Handle carrier selection listener
+     */
     private AdapterView.OnItemSelectedListener getCarrierListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
@@ -159,6 +185,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * Handle Manufacture selection listener
+     */
     private AdapterView.OnItemSelectedListener getManufactireListner() {
         return  new AdapterView.OnItemSelectedListener() {
             @Override
@@ -177,6 +206,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             }
         };
     }
+
+    /**
+     * Fire general api
+     */
     private void getGeneralResponse(Carrier carrier,Manufacture manufacture) {
 
         if (Utils.getNetworkState(context)) {
@@ -198,10 +231,15 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         }
     }
 
+
+    /**
+     * Handle general response
+     */
     private void handleResponse(GlobalResponse<GeneralResponse> generalResponse) {
         showHideProgressDialog(false);
         if (generalResponse != null) {
             if (generalResponse.isApi_status()) {
+
                 sessionManager.setOSType(generalResponse.getResult().getOsTypes());
                 mViewModel.setProducts(generalResponse.getResult().getProducts());
                 if (mViewModel.getProducts() != null) {
@@ -220,6 +258,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * Create general request
+     */
     private HashMap<String, String> getGeneralRequest(Carrier carrier,Manufacture manufacture) {
         HashMap<String, String> hashMap = new HashMap<>();
         if (carrier != null)
@@ -236,6 +277,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * Handle click listener
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId())

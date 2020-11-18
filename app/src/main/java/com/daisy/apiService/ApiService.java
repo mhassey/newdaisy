@@ -15,6 +15,7 @@ import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.ValidatePromotionPojo;
+import com.daisy.pojo.response.VersionUpdate;
 import com.daisy.utils.Constraint;
 
 import java.io.File;
@@ -67,4 +68,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.ADD_FEEDBACK)
     Call<LiveData<GlobalResponse<FeedBackResponse>>> addFeedBack(@FieldMap HashMap<String, String> feedBackRequest,@Header(Constraint.TOKEN) String s);
+    @FormUrlEncoded
+    @POST(ApiConstant.CREATE_SCREEN_OS)
+    Call<GlobalResponse<VersionUpdate>> createScreenOs(@FieldMap HashMap<String, String> hashMap, @Header(Constraint.TOKEN) String s);
 }

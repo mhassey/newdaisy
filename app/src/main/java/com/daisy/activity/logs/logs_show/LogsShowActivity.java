@@ -139,6 +139,10 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+
+    /**
+     * check list data is empty and maintain list accordingly
+     */
     private void notifyItems() {
         if (list.isEmpty()) {
             mBinding.logsList.setVisibility(View.GONE);
@@ -149,6 +153,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Handle  exit log
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

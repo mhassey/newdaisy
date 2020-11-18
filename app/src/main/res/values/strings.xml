@@ -170,5 +170,6 @@
     <string name="expiration_status_past">Password expired %1$s ago</string>
     <string name="expiration_status_future">Password will expire %1$s from now</string>
     <string name="admin_permission">Admin Permission</string>
-    <string name="gpsEnable">Gps Enable</string>
+    <string name="gpsEnable">Enable GPS</string>
+    <string name="securityHeader">Security</string>
 </resources>

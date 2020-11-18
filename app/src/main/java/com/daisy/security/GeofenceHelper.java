@@ -19,10 +19,6 @@ public class GeofenceHelper extends ContextWrapper {
     {
         return new GeofencingRequest.Builder().addGeofence(geofence).setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_EXIT).build();
     }
-//    public Geofence getGeoFence(String ID, LatLng latLng, float radius , int transitionType)
-//    {
-//        return new Geofence.Builder().setCircularRegion(latLng.latitude,latLng.longitude,radius).setRequestId(ID).setTransitionTypes(transitionType).setLoiteringDelay(1000).setExpirationDuration(Geofence.NEVER_EXPIRE).build();
-//    }
     public PendingIntent getPendingIntent()
     {
         if (pendingIntent!=null)

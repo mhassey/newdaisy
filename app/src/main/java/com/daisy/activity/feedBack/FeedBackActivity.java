@@ -146,6 +146,9 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Create feedback request
+     */
     private HashMap<String, String> getFeedBackLRequest() {
     HashMap<String,String> hashMap=new HashMap<>();
     return hashMap;

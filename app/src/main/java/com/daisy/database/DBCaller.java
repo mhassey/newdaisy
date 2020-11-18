@@ -11,6 +11,10 @@ import com.daisy.utils.Utils;
 import java.util.List;
 
 public class DBCaller {
+
+    /**
+     * Store Log in local db
+     */
     public static void storeLogInDatabase(Context context, String eventName, String message, String eventUrl, String logType) {
         Logs logs = new Logs();
         logs.setEventName(eventName);
@@ -22,18 +26,36 @@ public class DBCaller {
         new AddLog().execute(logs, context);
 
     }
+
+
+    /**
+     * Get log from local db
+     */
     public static List<Logs> getLogsFromDatabase(Context context, String type) {
         List<Logs> logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAll(type, Constraint.FALSE);
         return logs;
     }
+
+    /**
+     * delete logs according to id
+     */
     public static void setLogData(Context context,List<Integer> integers) {
-        DatabaseClient.getInstance(context).getAppDatabase().logDao().updateItemPlaces(integers);
+        DatabaseClient.getInstance(context).getAppDatabase().logDao().deleteItemPlaces(integers);
     }
 
+
+    /**
+     * Get not sync logs
+     */
     public static List<Logs> getLogsFromDatabaseNotSync(Context context) {
         List<Logs> logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE);
         return logs;
     }
+
+
+    /**
+     * Clear logs
+     */
     public static boolean clearLog(LogClearRequest logClearRequest) {
         try {
             DatabaseClient.getInstance(logClearRequest.getContext()).getAppDatabase().logDao().clearLog(Constraint.TRUE, logClearRequest.getType());

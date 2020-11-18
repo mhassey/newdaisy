@@ -107,8 +107,8 @@
     <string name="product">Producto</string>
     <string name="carrier">Portadora</string>
     <string name="webkit_orientation">Orientación de Webkit</string>
-    <string name="defaultt">Defecto</string>
-    <string name="landscape">Paisaje</string>
+    <string name="defaultt">Portrait</string>
+    <string name="landscape">Landscape</string>
     <string name="update_available">Actualización disponible</string>
     <string name="proceed">Continuar</string>
     <string name="dismiss">Descartar</string>

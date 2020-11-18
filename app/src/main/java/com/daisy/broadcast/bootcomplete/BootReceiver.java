@@ -9,16 +9,15 @@ import com.daisy.activity.mainActivity.MainActivity;
 
 public class BootReceiver extends BroadcastReceiver {
 
-	private static final String TAG = "BootReceiver";
 
+	/**
+	 * Handle phone reboot
+	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
-		Log.e(TAG, "----BootReceiver---");
-		
+
 		if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-			
-			Log.e(TAG, "----BOOT_COMPLETED---");
 			Intent intent2 = new Intent(context, MainActivity.class);
 			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
             context.startActivity(intent2);  
