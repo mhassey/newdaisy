@@ -13,7 +13,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "2.6"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,17 +23,13 @@ android {
 
         production {
             dimension "buildTypes"
-           // buildConfigField "String", "BASE_URL", '"http://13.126.127.160/oak_bitbucket/"'
-             buildConfigField "String", "BASE_URL", '"http://oak-dev.mobilepricecard.com"'
-           // buildConfigField "String", "BASE_URL", '"http://portal.mobilepricecard.com"'
+            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
         }
 
         development {
 
             dimension "buildTypes"
-          //  buildConfigField "String", "BASE_URL", '"http://13.126.127.160/oak_bitbucket/"'
-            buildConfigField "String", "BASE_URL", '"http://oak-dev.mobilepricecard.com"'
-           // buildConfigField "String", "BASE_URL", '"http://portal.mobilepricecard.com"'
+            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
         }
     }
 
@@ -59,6 +55,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -76,4 +74,5 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.4.0"
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
     implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
+    implementation 'com.jakewharton:process-phoenix:2.0.0'
 }

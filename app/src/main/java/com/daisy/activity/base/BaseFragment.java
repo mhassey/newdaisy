@@ -18,14 +18,16 @@ import com.daisy.R;
 import com.daisy.utils.DialogUtil;
 
 public class BaseFragment extends Fragment  {
-
     private ProgressDialog progressDialog;
-    private ProgressBar mProgressBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+    /**
+     * Define no title bar for all fragment
+     */
     public void setNoTitleBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             activity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
@@ -33,6 +35,10 @@ public class BaseFragment extends Fragment  {
         }
 
     }
+
+    /**
+     * Show and hide progress dialog in fragment
+     */
     public void showHideProgressDialog(boolean iShow) {
         try {
             if (progressDialog != null) {
@@ -46,7 +52,7 @@ public class BaseFragment extends Fragment  {
                 }
             } else {
                 progressDialog =new ProgressDialog(requireContext());
-                progressDialog.setMessage("Loading...");
+                progressDialog.setMessage(getString(R.string.loading));
                 showHideProgressDialog(iShow);
             }
         } catch (Exception e) {

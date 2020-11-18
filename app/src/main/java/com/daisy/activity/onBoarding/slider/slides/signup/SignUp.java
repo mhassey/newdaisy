@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -31,11 +32,13 @@ import java.util.HashMap;
 
 public class SignUp extends BaseFragment implements View.OnClickListener {
     private static OnBaording baording;
-    private FragmentLoginBinding loginBinding;
+    public static FragmentLoginBinding loginBinding;
     private Context context;
     private SignUpViewModel signUpViewModel;
     private SessionManager sessionManager;
     private SignUpValidationHelper signUpValidationHelper;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,7 +61,9 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     }
 
     private void initClick() {
+
         loginBinding.singup.setOnClickListener(this);
+        loginBinding.cancel.setOnClickListener(this::onClick);
     }
 
     private void initView() {
@@ -75,6 +80,11 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
                doSignUp();
 
+                break;
+            }
+            case R.id.cancel:
+            {
+                getActivity().onBackPressed();
                 break;
             }
         }
@@ -97,26 +107,38 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                     });
                 }
             }
+            else{
+                baording.counterMinus();
+            }
         }
         else
         {
+            baording.counterMinus();
             ValidationHelper.showToast(context,getString(R.string.no_internet_available));
         }
     }
 
-    private void handleResponse(SignUpResponse signUpResponse) {
+    private void  handleResponse(SignUpResponse signUpResponse) {
          // handleResponse
         showHideProgressDialog(false);
         if (signUpResponse!=null) {
             if (signUpResponse.isApi_status()) {
                 DBCaller.storeLogInDatabase(context,getString(R.string.login_success),"","",Constraint.APPLICATION_LOGS);
+                sessionManager.setPasswordForLock(loginBinding.password.getText().toString());
+                sessionManager.setOpenTime(signUpResponse.getData().getOpen());
+                sessionManager.setCloseTime(signUpResponse.getData().getClosed());
+                sessionManager.setOffset(signUpResponse.getData().getUTCOffset());
                 sessionManager.setSignUpData(signUpResponse.getData());
                 baording.counterPlus();
             } else {
+
+                baording.counterMinus();
                 ValidationHelper.showToast(context, signUpResponse.getMessage());
             }
         }else
         {
+
+            baording.counterMinus();
             ValidationHelper.showToast(context,getString(R.string.no_internet_available));
         }
 
@@ -129,4 +151,22 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
         return hashMap;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+    desginWork();
+    }
+
+    private void desginWork() {
+        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green) );
+        } else {
+            baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
+        }
+        baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_green));
+        baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+    }
+
 }

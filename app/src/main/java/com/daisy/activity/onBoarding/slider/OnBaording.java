@@ -165,9 +165,9 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     private void addFragementList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        fragmentList.add(SecurityAsk.getInstance());
+        fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBaording.this));
-        fragmentList.add(AddScreen.getInstance());
+        fragmentList.add(AddScreen.getInstance(OnBaording.this));
 
 
     }
@@ -213,8 +213,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
-            sessionManager.onBoarding(true);
-            sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
+             sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
             sessionManager.setPromotion(getCardResponseGlobalResponse.getResult().getPromotions());
             sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
             redirectToMainHandler(getCardResponseGlobalResponse);
@@ -266,11 +265,16 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
             }
 
-            mBinding.nextSlide.setVisibility(View.GONE);
+            //mBinding.nextSlide.setVisibility(View.GONE);
         }
 
+       else if (count==3)
+        {
+            SignUp signUp= (SignUp) fragmentList.get(Constraint.TWO);
 
-        if (count == 4) {
+            signUp.loginBinding.singup.performClick();
+        }
+        else if (count == 4) {
 
             if (Utils.getNetworkState(context)) {
                 AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
@@ -284,7 +288,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                             @Override
                             public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
                                 showHideProgressDialog(false);
-                                handleScreenAddResponse(screenAddResponseGlobalResponse);
+                                handleScreenAddResponse(screenAddResponseGlobalResponse,addScreen);
                             }
                         });
                     }
@@ -307,7 +311,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
+    private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse,AddScreen addScreen) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
             DBCaller.storeLogInDatabase(context,screenAddResponseGlobalResponse.getResult().getId()+getString(R.string.screen_add),"","",Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
@@ -316,7 +320,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             sessionManager.setScreenID(screenAddResponseGlobalResponse.getResult().getId());
             sessionManager.setDeviceToken(screenAddResponseGlobalResponse.getResult().getToken());
             sessionManager.setScreenPosition(screenAddResponseGlobalResponse.getResult().getScreenPosition());
-
+            sessionManager.setOrientation(addScreen.mBinding.webkitOrientation.getSelectedItem().toString());
             getCardData();
 
 
@@ -332,9 +336,9 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
         hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
         hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
-        if (addScreen.selectedProduct!=null) {
-            if (addScreen.selectedProduct.getIdproductStatic() != null)
-                hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.selectedProduct.getIdproductStatic());
+        if (addScreen.mViewModel.getSelectedProduct()!=null) {
+            if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
+                hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
         }
         else
         {
@@ -344,6 +348,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         hashMap.put(Constraint.DEVICE_NAME,Utils.getDeviceName());
         hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_CODE+"");
         LoginResponse loginResponse = sessionManager.getLoginResponse();
+        if (loginResponse!=null)
         hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
         return hashMap;
     }
@@ -359,9 +364,30 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
+    public void counterMinus() {
+        count = count - 1;
+        if (count == 3) {
+            mBinding.nextSlide.setVisibility(View.VISIBLE);
+
+        }
+        mBinding.pager.setCurrentItem(count);
+
+    }
+
+
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
         Utils.deleteDaisy();
-       String UrlPath= response.getResult().getPricecard().getFileName();
+        String UrlPath;
+
+        if (response.getResult().getPricecard().getFileName1()!=null && !response.getResult().getPricecard().getFileName1().equals(""))
+        {
+            UrlPath= response.getResult().getPricecard().getFileName1();
+        }
+        else
+        {
+            UrlPath= response.getResult().getPricecard().getFileName();
+        }
+
         if (response.getResult().getPricecard().getFileName() != null) {
                 String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory = new File(configFilePath);
@@ -419,6 +445,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
     private void redirectToMain() {
+        sessionManager.onBoarding(Constraint.TRUE);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -437,6 +464,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 }
             }
         }
+
         if (request) {
             PermissionDone permissionDone = new PermissionDone();
 
@@ -456,7 +484,9 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 permissionDone.setPermissionName(Constraint.MODIFY_SYSTEM_SET);
                 EventBus.getDefault().post(permissionDone);
             }
-        } else if (requestCode == Constraint.POP_UP_RESPONSE) {
+        }
+
+        else if (requestCode == Constraint.POP_UP_RESPONSE) {
             if (Settings.canDrawOverlays(this)) {
                 PermissionDone permissionDone = new PermissionDone();
                 permissionDone.setPermissionName(Constraint.DISPLAY_OVER_THE_APP);
@@ -525,5 +555,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         deviceDetectRequest.setDeviceName(Utils.getDeviceName());
         return deviceDetectRequest;
     }
+
+
 
 }

@@ -15,6 +15,16 @@ public class Promotion {
     private String createdBy;
     private String version;
     private String fileName;
+    private String fileName1;
+
+    public String getFileName1() {
+        return fileName1;
+    }
+
+    public void setFileName1(String fileName1) {
+        this.fileName1 = fileName1;
+    }
+
     private String language;
     private String dateCreated;
     private String dateModified;

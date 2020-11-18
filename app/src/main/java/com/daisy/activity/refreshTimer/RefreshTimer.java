@@ -1,50 +1,37 @@
 package com.daisy.activity.refreshTimer;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.TimePicker;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
-import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
-import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityRefreshTimerBinding;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.pojo.response.Pricing;
-import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Time;
 import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
-import com.google.gson.JsonObject;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
-import javax.xml.validation.ValidatorHandler;
 
 public class RefreshTimer extends BaseActivity implements OnClickListener {
 
@@ -64,6 +51,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
 
+    /**
+     * Initial data setup
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
         context = this;
@@ -72,12 +62,19 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         setTimerValue();
     }
 
+    /**
+     * Button clicks initializing
+     */
     private void initClick() {
         mBinding.setTime.setOnClickListener(this::onClick);
         mBinding.directUpdate.setOnClickListener(this::onClick);
+        mBinding.cancel.setOnClickListener(this::onClick);
     }
 
 
+    /**
+     * Change system ui to full screen when any change perform in activity
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -87,18 +84,16 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
 
     }
 
-
+    /**
+     * Handle full screen mode
+     */
     private void hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        View decorView = getWindow().getDecorView();
+          View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
 
@@ -109,6 +104,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
 
     }
 
+    /**
+     * Set timer value
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setTimerValue() {
         mBinding.timePicker.setIs24HourView(true);
@@ -122,6 +120,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         }
     }
 
+    /**
+     * Handle button clicks
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -132,12 +133,22 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             }
             case R.id.directUpdate: {
                 directUpdate();
+                break;
+            }
+            case R.id.cancel:
+            {
+                onBackPressed();
+                break;
             }
         }
     }
 
+    /**
+     * Take direct update from server and handle response
+     */
     private void directUpdate() {
         if (Utils.getNetworkState(context)) {
+
             showHideProgressDialog(true);
             getCardViewModel.setMutableLiveData(getCardRequest());
             LiveData<GlobalResponse<GetCardResponse>> liveData = getCardViewModel.getLiveData();
@@ -148,6 +159,10 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                         showHideProgressDialog(false);
                         if (response.isApi_status()) {
                             if (response.getResult() != null) {
+                                sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
+                                sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
+                                sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
+
                                 if (!response.getResult().isDefault()) {
                                     if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
 
@@ -159,19 +174,26 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                                         sessionManager.setCardDeleted(false);
                                         redirectToMain(response);
 
-                                    } else if (response.getResult().getPromotions() != null) {
+                                    } else if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                         sessionManager.setPromotion(response.getResult().getPromotions());
 
                                         Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                                        if (response.getResult().getPricing() != null) {
+                                        if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
                                             sessionManager.setPricing(response.getResult().getPricing());
                                         }
                                         i.putExtra(Constraint.PROMOTION, "true");
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(i);
                                     }
+                                    else  if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                                        i.putExtra(Constraint.PRICING, "true");
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
 
-                                } else {
+                                    }
+                                    } else {
 
                                     if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
                                         sessionManager.setPromotion(response.getResult().getPromotions());
@@ -183,6 +205,14 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                                         i.putExtra(Constraint.PROMOTION, "true");
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(i);
+                                    }
+                                    else  if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                                        i.putExtra(Constraint.PRICING, "true");
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+
                                     }
                                     else
                                     {
@@ -206,7 +236,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         }
     }
 
-
+    /**
+     * Set path after take path and redirect to main
+     */
     private void redirectToMain(GlobalResponse<GetCardResponse> response) {
         Utils.deleteDaisy();
         String UrlPath = response.getResult().getPricecard().getFileName();
@@ -238,22 +270,29 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             }
 
 
-            sessionManager.onBoarding(true);
+            sessionManager.onBoarding(Constraint.TRUE);
 
             Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-// set the new task and clear flags
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
     }
 
+    /**
+     * Create card request
+     */
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+        if (sessionManager.getPriceCard()!=null)
+            hashMap.put(Constraint.pricecardid,sessionManager.getPriceCard().getIdpriceCard());
         return hashMap;
     }
 
+    /**
+     * Handle Timer click
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setTimerClick() {
         int hour = mBinding.timePicker.getHour();
@@ -266,8 +305,10 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         time.setHour(mBinding.timePicker.getHour());
         time.setMinit(mBinding.timePicker.getMinute());
         sessionManager.setTimerToGetCard(time);
-        BackgroundService.refreshTimer.cancel();
-        BackgroundService.checkUpdate();
+        if (BackgroundService.refreshTimer!=null) {
+            BackgroundService.refreshTimer.cancel();
+            BackgroundService.checkUpdate();
+        }
         ValidationHelper.showToast(context, getString(R.string.refresh_time_set));
     }
 

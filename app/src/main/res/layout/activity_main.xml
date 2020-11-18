@@ -42,6 +42,20 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="invert"
+                    android:id="@+id/invert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
 
                 android:id="@+id/offlineLayout"
                 android:visibility="gone"

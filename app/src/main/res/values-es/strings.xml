@@ -102,4 +102,27 @@
     <string name="french">Francesa</string>
     <string name="spanish">Española</string>
     <string name="postigues">Portuguesa</string>
+    <string name="product_not_available">Producto no disponible</string>
+    <string name="enter_base_url_for_server">Ingrese URL para el servidor</string>
+    <string name="product">Producto</string>
+    <string name="carrier">Portadora</string>
+    <string name="webkit_orientation">Orientación de Webkit</string>
+    <string name="defaultt">Defecto</string>
+    <string name="landscape">Paisaje</string>
+    <string name="update_available">Actualización disponible</string>
+    <string name="proceed">Continuar</string>
+    <string name="dismiss">Descartar</string>
+    <string name="something_went_wrong">Algo salió mal</string>
+    <string name="face_detected">Rostro detectado</string>
+    <string name="cancel">Cancelar</string>
+    <string name="lock">Bloquear</string>
+    <string name="unlockk">desbloquear</string>
+    <string name="permission">Permiso</string>
+    <string name="credentials">CARTAS CREDENCIALES</string>
+    <string name="select_pro">SELECCIONAR PRODUCTO</string>
+    <string name="access_locked">ACCESO BLOQUEADO</string>
+    <string name="update_time">Tiempo de actualizacion</string>
+    <string name="app_version">VERSION DE APLICACION :</string>
+    <string name="PERMISSION">Permiso</string>
+    <string name="settings_cap">AJUSTES</string>
 </resources>

@@ -73,6 +73,11 @@ public class PreferenceUtil {
 
         mSpref.edit().remove(PrefConstant.stripeAccountID).commit();
     }
+    public void removeApkDetails()
+    {
+
+        mSpref.edit().remove(PrefConstant.APK_DETAILS).commit();
+    }
 
     public void removeLocation()
     {
@@ -105,7 +110,7 @@ public class PreferenceUtil {
     }
 
     public void clear() {
-        mSpref.edit().clear().apply();
+        mSpref.edit().clear().commit();
     }
 
 

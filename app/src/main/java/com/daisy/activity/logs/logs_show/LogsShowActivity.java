@@ -1,27 +1,26 @@
 package com.daisy.activity.logs.logs_show;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.adapter.LogsAdapter;
 import com.daisy.database.DBCaller;
-import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityLogsShowBinding;
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
 import com.daisy.pojo.request.LogsRequest;
 import com.daisy.pojo.response.LogClearResponse;
-import com.daisy.utils.Utils;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ import java.util.List;
 public class LogsShowActivity extends BaseActivity implements View.OnClickListener {
     private ActivityLogsShowBinding mBinding;
     private Context context;
-    private List<Logs> list = new ArrayList<>();
+    private List<Logs> list =null;
     private LinearLayoutManager layoutManager;
     private LogsAdapter logsAdapter;
     private LogsShowViewModel viewModel;
@@ -45,9 +44,13 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    /**
+     * Initial data setup
+     */
     private void initView() {
         context = this;
         setNoTitleBar(this);
+        list= new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(LogsShowViewModel.class);
         viewModel.setType(getIntent().getStringExtra(Constraint.TYPEE));
         layoutManager = new LinearLayoutManager(context);
@@ -56,11 +59,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    private void setOnClickListener() {
-        mBinding.backClick.setOnClickListener(this);
-        mBinding.clearAndBack.setOnClickListener(this);
-    }
-
+    /**
+     * Initialize recycle view adapter
+     */
     private void setDataInRecycleView() {
         logsAdapter = new LogsAdapter(list, context);
         mBinding.logsList.setAdapter(logsAdapter);
@@ -69,7 +70,19 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Button clicks initializing
+     */
+    private void setOnClickListener() {
+        mBinding.backClick.setOnClickListener(this);
+        mBinding.clearAndBack.setOnClickListener(this);
+    }
 
+
+
+    /**
+     * Change system ui to full screen when any change perform in activity
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -79,7 +92,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-
+    /**
+     * Handle full screen mode
+     */
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -103,7 +118,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-
+    /**
+     * Get Log data from Room db
+     */
     private void getLogsData() {
         LogsRequest logsRequest = new LogsRequest();
         logsRequest.setContext(this);
@@ -143,7 +160,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
         }
     }
-
+    /**
+     * Handle Clicks listener
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -159,6 +178,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Clear log
+     */
     private void clearLogHandler() {
         LogClearRequest logClearRequest = new LogClearRequest();
         logClearRequest.setContext(context);

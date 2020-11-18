@@ -5,12 +5,13 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -22,6 +23,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
@@ -42,17 +44,48 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
-        <activity android:name=".activity.baseUrl.BaseUrlSettings" android:screenOrientation="portrait">
+        <activity android:name=".activity.feedBack.FeedBackActivity"   android:screenOrientation="portrait" >
+
 
         </activity>
-        <activity android:name=".activity.refreshTimer.RefreshTimer" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.configSettings.ConfigSettings" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.updateBaseUrl.UpdateBaseUrl" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.updatePosition.UpdatePosition" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.login.LoginActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.onBoarding.slider.OnBaording" android:screenOrientation="portrait" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".activity.baseUrl.BaseUrlSettings"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activity.refreshTimer.RefreshTimer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.configSettings.ConfigSettings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.updateBaseUrl.UpdateBaseUrl"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.updatePosition.UpdatePosition"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.onBoarding.slider.OnBaording"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.welcomeScreen.WelcomeScreen"
             android:screenOrientation="portrait" />
@@ -64,6 +97,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"
@@ -83,9 +117,7 @@
         <activity
             android:name=".activity.logs.logs_show.LogsShowActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.logs.LogsMainActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".activity.logs.LogsMainActivity" />
         <activity
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />

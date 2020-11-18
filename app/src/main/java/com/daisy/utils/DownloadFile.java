@@ -5,17 +5,24 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.daisy.R;
+import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 import com.daisy.pojo.response.Download;
+import com.daisy.pojo.response.DownloadFail;
+import com.daisy.pojo.response.Url;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -34,6 +41,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     private  boolean promotion;
     private List<Download> downloads;
     int pathSetting=0;
+    int counter=0;
     private SessionManager sessionManager;
 
 
@@ -51,11 +59,17 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        this.progressDialog = new ProgressDialog(context);
-        this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        this.progressDialog.setMessage(Constraint.WAIT);
-        this.progressDialog.setCancelable(false);
-        this.progressDialog.show();
+        if (progressDialog!=null && progressDialog.isShowing())
+        {
+
+        }
+        else {
+            this.progressDialog = new ProgressDialog(context);
+            this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            this.progressDialog.setMessage(Constraint.WAIT);
+            this.progressDialog.setCancelable(false);
+            this.progressDialog.show();
+        }
     }
 
     /**
@@ -65,13 +79,38 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     protected String doInBackground(String... f_url) {
         for (Download download:downloads) {
             int count;
+            String urlPath = null;
             try {
-                URL url = new URL(download.getPath());
+                URL url1 = new URL(download.getPath());
+
+                HttpURLConnection connectionHttp = (HttpURLConnection) url1.openConnection();
+                try {
+                    int code = connectionHttp.getResponseCode();
+
+                    if (code == 200) {
+                        urlPath=download.getPath();
+                        // reachable
+                    } else {
+                        urlPath=download.getPath1();
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    urlPath=download.getPath1();
+
+
+                }
+
+
 
                 if (download.getType().equals(context.getString(R.string.promotion))) {
                     promotion = true;
                 }
+               URL url = new URL(urlPath);
                 URLConnection connection = url.openConnection();
+
+                connection.setConnectTimeout(10000);
                 connection.connect();
                 // getting file length
                 int lengthOfFile = connection.getContentLength();
@@ -86,7 +125,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 fileName = download.getPath().substring(download.getPath().lastIndexOf('/') + 1);
 
                 //Append timestamp to file name
-             //   fileName = timestamp + "_" + fileName;
+                //   fileName = timestamp + "_" + fileName;
 
                 //External directory path to save file
                 if (promotion) {
@@ -134,27 +173,35 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 input.close();
                 File file=new File(path);
                 if (pathSetting==0) {
-                        pathSetting++;
-                        if (!file.getAbsolutePath().contains(Constraint.PROMOTION))
-                    SessionManager.get().setLocation(file.getParent());
+                    pathSetting++;
+                    if (!file.getAbsolutePath().contains(Constraint.PROMOTION))
+                        SessionManager.get().setLocation(file.getParent());
                 }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                      boolean isDone=  new ZipManager().unpackZip(path,callBack);
-                    if (isDone)
-                    {
-                        callBack.callBack(Constraint.SUCCESS);
-                    }
+                        boolean isDone=  new ZipManager().unpackZip(path,download);
+                        if (isDone)
+                        {
+                            counter++;
+                        }
+                        if (counter==downloads.size())
+                        {
+                            callBack.callBack(Constraint.SUCCESS);
+
+                        }
                     }
                 }).start();
 
             } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
+                if (download.getType().equals(""))
+                {
+                    EventBus.getDefault().post(new DownloadFail());
+                }
                 e.printStackTrace();
             }
         }
-        callBack.callBack(Constraint.SUCCESS);
+        // callBack.callBack(Constraint.SUCCESS);
         return "Something went wrong";
     }
 
@@ -172,15 +219,13 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
      * */
     @Override
     protected void onPostExecute(String path) {
-        // dismiss the dialog after the file was downloaded
-        try {
-        //    callBack.callBack(Constraint.SUCCESS);
-
+         try {
+             this.progressDialog.dismiss();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.progressDialog.dismiss();
+
 
     }
 }

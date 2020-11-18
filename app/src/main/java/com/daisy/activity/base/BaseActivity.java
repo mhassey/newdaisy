@@ -17,9 +17,6 @@ import com.daisy.common.session.SessionManager;
 import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity {
-    private int brightness;
-    private ContentResolver cResolver;
-    private Window window;
     private SessionManager sessionManager;
     private ProgressDialog progressDialog;
 
@@ -27,14 +24,16 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionManager = SessionManager.get();
-        if (sessionManager.getLang() != null)
-            setLang(sessionManager.getLang());
         initView();
     }
 
+    /**
+     * Initial data setup for hole activity
+     */
     private void initView() {
         sessionManager = SessionManager.get();
+        if (sessionManager.getLang() != null)
+            setLang(sessionManager.getLang());
         boolean b = sessionManager.getDarkTheme();
         if (b)
             setTheme(R.style.AppThemeDark);
@@ -44,6 +43,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Define no title bar for all activity
+     */
     public void setNoTitleBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             activity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
@@ -58,6 +60,9 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Set hole app language
+     */
     private void setLang(String s) {
         Locale locale = new Locale(s);
         Locale.setDefault(locale);
@@ -68,6 +73,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Show and hide progress dialog
+     */
     public void showHideProgressDialog(boolean iShow) {
         try {
             if (progressDialog != null) {
@@ -81,7 +89,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
             } else {
                 progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage("Loading...");
+                progressDialog.setMessage(getString(R.string.loading));
                 progressDialog.setCancelable(false);
                 showHideProgressDialog(iShow);
             }

@@ -55,5 +55,11 @@
     <color name="crop__selector_focused">#77000000</color>
     <color name="color_progress_end">#00ffffff</color>
     <color name="red">#e74c3c</color>
+    <color name="purple">#8e66ac</color>
+    <color name="mettle_blue">#54a0ff</color>
+    <color name="mettle_light_green">#95cfb3</color>
+    <color name="red_light">#f1706b</color>
+    <color name="updatePosition">#589ced</color>
+
 </resources>
 

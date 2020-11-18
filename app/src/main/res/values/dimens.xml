@@ -162,7 +162,7 @@
     <dimen name="dp6">6dp</dimen>
     <dimen name="dp48">48dp</dimen>
     <!-- Extra size!-->
-    <dimen name="dp200">200dp</dimen>
+    <dimen name="dp200">250dp</dimen>
     <dimen name="dp20">20dp</dimen>
     <dimen name="dp50">50dp</dimen>
     <dimen name="dp10">10dp</dimen>

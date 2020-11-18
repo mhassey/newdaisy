@@ -5,6 +5,7 @@ import android.app.Application;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.apiService.ApiConstant;
 import com.daisy.app.AppController;
+import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.OsType;
 import com.daisy.pojo.response.PriceCard;
@@ -916,21 +917,28 @@ public class SessionManager {
         return promotion;
     }
 
-    public void setPromotions(String s) {
+    public void setPromotions(String s,String promotionID,String datecreated,String dateExpire) {
         String response = pref.getStringData(PrefConstant.PROMOTIONS);
         JSONArray jsonArray = null;
         try {
             if (response!=null && !response.equals("")) {
                 jsonArray = new JSONArray(response);
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("" + jsonArray.length(), s);
+                jsonObject.put(Constraint.PROMOTION, s);
+                jsonObject.put(Constraint.PROMOTION_ID,promotionID);
+                jsonObject.put("dateCreated",datecreated);
+                jsonObject.put("dateExpires",dateExpire);
+
                 jsonArray.put(jsonObject);
             }
             else
             {
                 jsonArray=new JSONArray();
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("" + jsonArray.length(), s);
+                jsonObject.put(Constraint.PROMOTION, s);
+                jsonObject.put(Constraint.PROMOTION_ID,promotionID);
+                jsonObject.put("dateCreated",datecreated);
+                jsonObject.put("dateExpires",dateExpire);
                 jsonArray.put(jsonObject);
 
             }
@@ -938,6 +946,11 @@ public class SessionManager {
             e.printStackTrace();
         }
         pref.setStringData(PrefConstant.PROMOTIONS, jsonArray.toString());
+
+    }
+    public void setPromotions(JSONArray promotions)
+    {
+        pref.setStringData(PrefConstant.PROMOTIONS, promotions.toString());
 
     }
 
@@ -967,5 +980,111 @@ public class SessionManager {
 
     public void deletePromotions() {
     pref.removePromotions();
+    }
+
+    public void setDefaultDownload(boolean b) {
+        pref.setBooleanData(PrefConstant.DEFAULT_DOWNLOAD,b);
+    }
+    public boolean getDefaultDownload() {
+       return pref.getBoolean(PrefConstant.DEFAULT_DOWNLOAD);
+    }
+
+    public void setOrientation(String selectedItem) {
+        pref.setStringData(PrefConstant.ORIENTATION,selectedItem);
+    }
+    public String getOrientation()
+    {
+        return pref.getStringData(PrefConstant.ORIENTATION);
+    }
+
+    public void setVersionDetails(ApkDetails apkDetails) {
+        Gson gson = new Gson();
+        String data = gson.toJson(apkDetails);
+        pref.setStringData(PrefConstant.APK_DETAILS, data);
+    }
+
+    public void deleteApkVersion() {
+        pref.removeApkDetails();
+    }
+
+    public ApkDetails getApkDetails() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.APK_DETAILS);
+        ApkDetails apkDetails = gson.fromJson(response, ApkDetails.class);
+        return apkDetails;
+    }
+
+    public void setUpdateNotShow(boolean b) {
+        pref.setBooleanData(PrefConstant.APK_SHOW,b);
+    }
+
+    public boolean getUpdateNotShow() {
+        return pref.getBoolean(PrefConstant.APK_SHOW);
+    }
+
+    public void dialogShow(boolean b) {
+    pref.setBooleanData(PrefConstant.UPDATE_DIALOG,b);
+    }
+
+    public boolean getupdateDialog() {
+        return pref.getBoolean(PrefConstant.UPDATE_DIALOG);
+    }
+
+    public void uninstallShow(boolean b) {
+    pref.setBooleanData(PrefConstant.UNINSTALL_SHOW,b);
+    }
+    public boolean getUninstallShow()
+    {
+        return pref.getBoolean(PrefConstant.UNINSTALL_SHOW);
+    }
+
+    public void setPasswordForLock(String toString) {
+    pref.setStringData(PrefConstant.PASSWORD_LOCK,toString);
+    }
+
+    public String getPasswordLock() {
+        return pref.getStringData(PrefConstant.PASSWORD_LOCK);
+    }
+
+    public void setOpenTime(String open) {
+        pref.setStringData(PrefConstant.OPEN_TIME,open);
+    }
+
+    public void setCloseTime(String closed) {
+        pref.setStringData(PrefConstant.CLOSE_TIME,closed);
+
+    }
+
+    public void setOffset(String utcOffset) {
+        pref.setStringData(PrefConstant.OFF_SET,utcOffset);
+
+    }
+
+    public String getOpen() {
+        return pref.getStringData(PrefConstant.OPEN_TIME);
+    }
+
+    public String getClose() {
+        return pref.getStringData(PrefConstant.CLOSE_TIME);
+
+    }
+
+    public String getUTCOffset() {
+        return pref.getStringData(PrefConstant.OFF_SET);
+    }
+
+    public void setServerTime(String currentTime) {
+        pref.setStringData(PrefConstant.SERVERTIME,currentTime);
+    }
+    public String getServerTime() {
+        return pref.getStringData(PrefConstant.SERVERTIME);
+    }
+
+    public void setTimeInterval(String diffrence) {
+        pref.setStringData(PrefConstant.TIME_INVERVAL,diffrence);
+    }
+    public String  getTimeInverval()
+    {
+        return pref.getStringData(PrefConstant.TIME_INVERVAL);
     }
 }

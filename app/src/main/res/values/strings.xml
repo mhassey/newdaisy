@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Daisy</string>
+    <string name="app_name">MPC</string>
     <string name="storage_not_available">Storage not available</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -34,7 +34,7 @@
     <string name="welcome">WELCOME</string>
     <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">This app requires several special permissions to perform properly. Pressing \'begin\' below will start guiding you through the process.</string>
     <string name="begin">BEGIN</string>
-    <string name="next">Next</string>
+    <string name="next">NEXT</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -51,7 +51,7 @@
     <string name="device_detected">Device Detected:</string>
     <string name="use_detected_device">Use Detected Device</string>
     <string name="score_code">Score Code</string>
-    <string name="don_t_optimized_battery">Don\'t Optimized Battery</string>
+    <string name="don_t_optimized_battery">Disable Battery optimization</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
     <string name="save_and_start_mpc"><![CDATA[Save and start MPC >]]></string>
     <string name="store_code">Store Code</string>
@@ -93,11 +93,11 @@
     <string name="screen_add">Screen add</string>
     <string name="position_update">Position updated</string>
     <string name="load_add_screen">Load add screen</string>
-    <string name="display_over_the_app">Please allow Daisy to display over other apps on your device.</string>
-    <string name="allow_data_access">Please allow Usage Data Access to Daisy in your device\'s settings.</string>
-    <string name="modify_system_settings_text">Please allow Daisy to modify system settings in your device.</string>
+    <string name="display_over_the_app">Please allow MPC to display over other apps on your device.</string>
+    <string name="allow_data_access">Please allow Usage Data Access to MPC in your device\'s settings.</string>
+    <string name="modify_system_settings_text">Please allow MPC to modify system settings in your device.</string>
     <string name="permission_req">Permission Required</string>
-    <string name="battery_optimized">Please allow Daisy battery  to not optimized in your device\'s settings</string>
+    <string name="battery_optimized">Please allow MPC to disable battery optimization in your device.</string>
     <string name="position">Position</string>
     <string name="ok">Ok</string>
     <string name="cancle">Cancel</string>
@@ -111,4 +111,38 @@
     <string name="enter_base_url_for_server">Enter URL for the server</string>
     <string name="product">Product</string>
     <string name="carrier">Carrier</string>
+    <string name="webkit_orientation">Orientation</string>
+    <string name="defaultt">Portrait</string>
+    <string name="landscape">Landscape</string>
+    <string name="update_available">Update Available</string>
+    <string name="proceed">Proceed</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="face_detected">Face detected</string>
+    <string name="cancel">Cancel</string>
+    <string name="lock">Lock</string>
+    <string name="unlockk">Unlock</string>
+    <string name="permission">Permission</string>
+    <string name="credentials">CREDENTIALS</string>
+    <string name="select_pro">SELECT PRODUCT</string>
+    <string name="access_locked">ACCESS LOCKED</string>
+    <string name="unlock_with_arrow"><![CDATA[UNLOCK >]]></string>
+    <string name="update_time">Update TIme</string>
+    <string name="app_version">APP VERSION :</string>
+    <string name="PERMISSION">PERMISSIONS</string>
+    <string name="settings_cap">SETTINGS</string>
+    <string name="logout">Logout</string>
+    <string name="file_has_issue">"Please contact your developer or try installing the app again later!"</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="feedback">FeedBack</string>
+    <string name="Bug">BUG</string>
+    <string name="ISSUE">ISSUE</string>
+    <string name="SUGGESION">SUGGESION</string>
+    <string name="OTHER">OTHER</string>
+    <string name="all_field_are_mendetory">All field are mendetory</string>
+    <string name="launchotherApp">Launch Other App</string>
+    <string name="screen_touched">Screen touched</string>
+    <string name="package_not_available">There is no package available in android</string>
 </resources>

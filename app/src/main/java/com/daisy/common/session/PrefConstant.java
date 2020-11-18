@@ -117,4 +117,16 @@ public interface PrefConstant {
     String BASE_URL_ENTER = "baseUrlEnter";
     String PROMOTIONS = "prpmotions";
     String MAIN_FILE_PATH = "main_file_path";
+    String DEFAULT_DOWNLOAD = "default_download";
+    public static final String ORIENTATION = "orientation";
+    String APK_DETAILS = "apk_details";
+    String APK_SHOW = "apk_show";
+    String UPDATE_DIALOG = "update_dialog";
+    String UNINSTALL_SHOW = "uninstall_show";
+    String PASSWORD_LOCK = "password_lock";
+    String OPEN_TIME = "openTime";
+    String CLOSE_TIME="closeTime";
+    String OFF_SET="offset";
+    String SERVERTIME = "server_time";
+    String TIME_INVERVAL = "time_interval";
 }

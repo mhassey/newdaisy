@@ -20,93 +20,92 @@
 
 
         <LinearLayout
-            android:visibility="visible"
             android:id="@+id/tabDots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginBottom="@dimen/dp30"
+            android:gravity="center"
             android:orientation="vertical"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:clickable="false"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabDotsLayout"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:tabBackground="@drawable/tab_selector"
-                    app:tabIndicatorHeight="0dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
 
                 <LinearLayout
-                    android:id="@+id/nextSlide"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:gravity="center">
 
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/fontRagular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/next"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dp20" />
-
-                    <TextView
-                        style="@style/fontRagular"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabDotsLayout"
+                        app:tabPaddingStart="0dp"
+                        app:tabPaddingEnd="0dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp5"
-                        android:text=">"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sp18" />
+                        app:tabIndicatorHeight="0dp" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="@dimen/dp150"
+                    android:layout_height="@dimen/dp50">
+                <LinearLayout
+                    android:id="@+id/nextSlide"
+                    android:layout_width="@dimen/dp150"
+                    android:layout_height="@dimen/dp50"
+                    android:background="@drawable/ovel_purple"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/fontRagular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/next"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp25" />
+
+                        <TextView
+                            style="@style/fontRagular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp10"
+                            android:text=">"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp25" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/saveAndStartMpcHeader"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp55"
                 android:gravity="center"
                 android:orientation="horizontal"
-               >
+                android:visibility="gone">
 
 
                 <TextView
-                    android:textColor="?attr/textcolorblack"
-                    android:textSize="@dimen/sp20"
-                    android:padding="@dimen/dp10"
                     android:id="@+id/saveAndStartMpc"
-                    android:text="@string/save_and_start_mpc"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp10"
+                    android:text="@string/save_and_start_mpc"
+                    android:textColor="?attr/textcolorblack"
+                    android:textSize="@dimen/sp20" />
             </LinearLayout>
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

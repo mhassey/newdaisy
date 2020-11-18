@@ -18,10 +18,12 @@ import retrofit2.Response;
 public class DeleteCardRepo {
     private ApiService apiService;
     private MutableLiveData<GlobalResponse<DeleteCardResponse>> liveData=new MutableLiveData<>();
+
     public DeleteCardRepo()
     {
         apiService= AppRetrofit.getInstance().getApiService();
     }
+
     public LiveData<GlobalResponse<DeleteCardResponse>> deleteCard(HashMap<String,String> hashMap)
     {
         Call<GlobalResponse<DeleteCardResponse>> call=apiService.deleteCard(hashMap,hashMap.get(Constraint.TOKEN));

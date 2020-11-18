@@ -1,14 +1,13 @@
 package com.daisy.activity.updatePosition;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
@@ -41,6 +40,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
     }
 
 
+    /**
+     * Initial data setup
+     */
     private void initView() {
         setNoTitleBar(this);
         context = this;
@@ -51,10 +53,17 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
 
     }
 
+    /**
+     * Button clicks initializing
+     */
     private void initClick() {
         mBinding.updatePosition.setOnClickListener(this::onClick);
+        mBinding.cancel.setOnClickListener(this::onClick);
     }
 
+    /**
+     * Set some default values
+     */
     private void setDefaultValue() {
         ScreenPosition screenPosition = sessionManager.getPosition();
         mBinding.isle.setText(screenPosition.getIsle());
@@ -62,6 +71,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
         mBinding.shelf.setText(screenPosition.getShelf());
     }
 
+    /**
+     * Handle Clicks listener
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -70,9 +82,17 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
                 updatePosition();
                 break;
             }
+            case R.id.cancel:
+            {
+              onBackPressed();
+                break;
+            }
         }
     }
 
+    /**
+     * Update position api hit
+     */
     private void updatePosition() {
         if (Utils.getNetworkState(context)) {
             HashMap<String, String> request = getRequest();
@@ -90,6 +110,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Handle Update position response
+     */
     private void handleResponse(GlobalResponse<UpdatePositionResponse> updatePositionResponse) {
         showHideProgressDialog(false);
         if (updatePositionResponse != null) {
@@ -103,6 +126,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Create update position request
+     */
     private HashMap<String, String> getRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.ISLE, mBinding.isle.getText().toString());

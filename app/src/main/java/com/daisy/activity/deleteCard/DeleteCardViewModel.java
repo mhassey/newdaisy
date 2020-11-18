@@ -18,6 +18,7 @@ public class DeleteCardViewModel extends AndroidViewModel {
     private MutableLiveData<HashMap<String,String>> mutableLiveData=new MutableLiveData<>();
     private LiveData<GlobalResponse<DeleteCardResponse>> liveData;
     private DeleteCardRepo deleteCardRepo=new DeleteCardRepo();
+
     public DeleteCardViewModel(@NonNull Application application) {
         super(application);
         liveData= Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<DeleteCardResponse>>>() {

@@ -9,22 +9,52 @@
         android:orientation="vertical"
         tools:context=".activity.editorTool.EditorTool">
 
-        <LinearLayout
+        <RelativeLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp150"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:background="@color/red_light"
+            android:layout_height="@dimen/dp250"
+            android:layout_marginBottom="@dimen/dp20"
+            >
 
+            <LinearLayout
+                android:layout_margin="@dimen/dp10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/cancel"
+                        android:src="@drawable/ic_arrow_back"
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/dp120"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_lock_icon"
+                android:layout_height="@dimen/dp120"/>
             <TextView
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
+                style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/enter_password"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/dp20" />
+                android:text="@string/access_locked"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp25" />
 
 
 
-        </LinearLayout>
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/editTextColor"
-                    android:layout_margin="@dimen/dp10"
+                    android:layout_margin="@dimen/dp30"
                     android:inputType="textPassword"
                     android:textSize="@dimen/dp14"
                     android:background="@drawable/edit_text_format"
@@ -60,17 +90,19 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="bottom|end">
 
 
             <Button
-                android:layout_width="@dimen/dp200"
+                android:layout_marginBottom="@dimen/dp20"
+                android:layout_width="@dimen/dp150"
                 android:id="@+id/unlock"
                 android:textAllCaps="false"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_border_format"
-                android:text="@string/unlock"
+                android:background="@drawable/ovel_light_red"
+                android:text="@string/unlock_with_arrow"
                 android:textColor="@color/white" />
+
         </LinearLayout>
 
 
