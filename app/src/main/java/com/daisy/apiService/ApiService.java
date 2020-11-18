@@ -67,4 +67,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.ADD_FEEDBACK)
     Call<LiveData<GlobalResponse<FeedBackResponse>>> addFeedBack(@FieldMap HashMap<String, String> feedBackRequest,@Header(Constraint.TOKEN) String s);
+
+    @FormUrlEncoded
+    @POST(ApiConstant.ADD_FEEDBACK)
+    Call<GlobalResponse<GeneralResponse>> updateApk(HashMap<String, String> input, String s);
 }

@@ -13,9 +13,14 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
+import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
+import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.baseUrl.BaseUrlSettings;
 import com.daisy.activity.editorTool.EditorTool;
@@ -28,12 +33,16 @@ import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
+import com.daisy.pojo.response.ApkDetails;
+import com.daisy.pojo.response.GeneralResponse;
+import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 public class ConfigSettings extends BaseActivity implements View.OnClickListener {
@@ -41,6 +50,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private ActivityConfigSettingsBinding mBinding;
     private Context context;
     private SessionManager sessionManager;
+    private ApkUpdateViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +66,11 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void initView() {
         context = this;
         setNoTitleBar(this);
+        viewModel = new ViewModelProvider(this).get(ApkUpdateViewModel.class);
         sessionManager = SessionManager.get();
-        if (sessionManager.getDeviceSanitised().equals(Constraint.TRUE_STR))
-        {
+        if (sessionManager.getDeviceSanitised().equals(Constraint.TRUE_STR)) {
             mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             mBinding.sanitisedHeader.setVisibility(View.GONE);
 
         }
@@ -84,6 +92,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.feedBack.setOnClickListener(this::onClick);
         mBinding.lunchApp.setOnClickListener(this::onClick);
         mBinding.sanitisedHeader.setOnClickListener(this::onClick);
+        mBinding.directApkUpdate.setOnClickListener(this::onClick);
     }
 
 
@@ -125,7 +134,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
 
-
     /**
      * Handle Clicks listener
      */
@@ -160,156 +168,204 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 logout();
                 break;
             }
-            case R.id.feedBack:
-            {
+            case R.id.feedBack: {
                 feedBack();
                 break;
             }
-            case R.id.lunchApp:
-            {
-             launchApp();
+            case R.id.lunchApp: {
+                launchApp();
                 break;
             }
             case R.id.sanitisedHeader: {
                 sessionManager.setSanitized(true);
-
-               finish();
-                ValidationHelper.showToast(context,getString(R.string.sanitised));
-                 break;
+                finish();
+                ValidationHelper.showToast(context, getString(R.string.sanitised));
+                break;
+            }
+            case R.id.direct_apk_update: {
+                handleApkUpdateDirectly();
             }
         }
     }
 
-
     /**
-     * Launch other app
+     *
      */
-    private void launchApp() {
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
-        if (launchIntent != null) {
-            startActivity(launchIntent);
-        } else {
-            ValidationHelper.showToast(ConfigSettings.this, "There is no package available in android");
-        }
-    }
+    private void handleApkUpdateDirectly() {
+
+        viewModel.setRequest(new HashMap());
+        LiveData<GlobalResponse<GeneralResponse>> liveData = viewModel.getResponseLiveData();
+        liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<GeneralResponse> response) {
+                        if (response != null) {
+
+                            GlobalResponse<GeneralResponse> globalResponse = response;
+                            if (globalResponse.isApi_status()) {
+                                ApkDetails apkDetails = globalResponse.getResult().getApkDetails();
+                                if (apkDetails != null) {
+                                    if (apkDetails.getAndroid().getVersion() != null) {
+                                        if (sessionManager == null)
+                                            sessionManager = SessionManager.get();
+                                        double apkVersion = Double.parseDouble(apkDetails.getAndroid().getVersion());
+                                        double ourVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
+                                        if (apkVersion > ourVersion) {
+                                            sessionManager.setVersionDetails(apkDetails);
+                                            openMainActivity();
+                                        }
+                                        else
+                                        {
+                                            ValidationHelper.showToast(context,getString(R.string.no_update_available));
+                                        }
+                                    }
+
+                                }
 
 
-    /**
-     * Go to feedback page
-     */
-    private void feedBack() {
-        Intent intent = new Intent(ConfigSettings.this, FeedBackActivity.class);
-        startActivity(intent);
-    }
-
-
-    /**
-     * Do logout
-     */
-    private void logout() {
-        sessionManager.removeSession();
-
-        Intent intent = new Intent(ConfigSettings.this, BaseUrlSettings.class);
-        ProcessPhoenix.triggerRebirth(ConfigSettings.this,intent);
-
-    }
-
-
-    /**
-     * Open refresh timer activity
-     */
-    private void openRefreshRate() {
-        Intent intent = new Intent(ConfigSettings.this, RefreshTimer.class);
-        startActivity(intent);
-    }
-
-
-
-    /**
-     * Open UpdateBaseUrl activity
-     */
-    private void updateBaseUrl() {
-        Intent intent = new Intent(ConfigSettings.this, UpdateBaseUrl.class);
-        startActivity(intent);
-
-    }
-
-
-    /**
-     * Open UpdatePosition activity
-     */
-    private void openUpdatePositionActivity() {
-        Intent intent = new Intent(ConfigSettings.this, UpdatePosition.class);
-        startActivity(intent);
-    }
-
-
-    /**
-     * Open logs activity
-     */
-    private void openLogActivity() {
-        Intent intent = new Intent(ConfigSettings.this, LogsMainActivity.class);
-        startActivity(intent);
-    }
-
-
-    /**
-     * Handle change language popup
-     */
-    private void changeLanguage() {
-        String[] lang = {getString(R.string.english), getString(R.string.french), getString(R.string.spanish), getString(R.string.postigues)};
-        String loadedLang = sessionManager.getLang();
-        int pos = 0;
-        if (loadedLang != null && !loadedLang.equals("")) {
-            if (loadedLang.equals(Constraint.EN)) {
-                pos = Constraint.ZERO;
-            } else if (loadedLang.equals(Constraint.FR)) {
-                pos = Constraint.ONE;
-            } else if (loadedLang.equals(Constraint.ES)) {
-                pos = Constraint.TWO;
-            } else if (loadedLang.equals(Constraint.PT)) {
-                pos = Constraint.THREE;
-            }
-        }
-
-        new AlertDialog.Builder(context)
-                .setTitle(getString(R.string.choose_lang))
-                .setSingleChoiceItems(lang, pos, null)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                        if (selectedPosition == Constraint.ZERO) {
-                            setLang(Constraint.EN);
-                        } else if (selectedPosition == Constraint.ONE) {
-                            setLang(Constraint.FR);
-                        } else if (selectedPosition == Constraint.TWO) {
-                            setLang(Constraint.ES);
-                        } else if (selectedPosition == Constraint.THREE) {
-                            setLang(Constraint.PT);
+                            }
                         }
-                        dialog.dismiss();
                     }
-                })
-                .show();
+                    });
+                }
 
 
-    }
+
+                /**
+                 * Launch other app
+                 */
+        private void launchApp () {
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
+            if (launchIntent != null) {
+                startActivity(launchIntent);
+            } else {
+                ValidationHelper.showToast(ConfigSettings.this, "There is no package available in android");
+            }
+        }
+
+
+        /**
+         * Go to feedback page
+         */
+        private void feedBack () {
+            Intent intent = new Intent(ConfigSettings.this, FeedBackActivity.class);
+            startActivity(intent);
+        }
+
+
+        /**
+         * Do logout
+         */
+        private void logout () {
+            sessionManager.removeSession();
+
+            Intent intent = new Intent(ConfigSettings.this, BaseUrlSettings.class);
+            ProcessPhoenix.triggerRebirth(ConfigSettings.this, intent);
+
+        }
+
+
+        /**
+         * Open refresh timer activity
+         */
+        private void openRefreshRate () {
+            Intent intent = new Intent(ConfigSettings.this, RefreshTimer.class);
+            startActivity(intent);
+        }
+
+
+        /**
+         * Open UpdateBaseUrl activity
+         */
+        private void updateBaseUrl () {
+            Intent intent = new Intent(ConfigSettings.this, UpdateBaseUrl.class);
+            startActivity(intent);
+
+        }
+
+
+        /**
+         * Open UpdatePosition activity
+         */
+        private void openUpdatePositionActivity () {
+            Intent intent = new Intent(ConfigSettings.this, UpdatePosition.class);
+            startActivity(intent);
+        }
+
+
+        /**
+         * Open logs activity
+         */
+        private void openLogActivity () {
+            Intent intent = new Intent(ConfigSettings.this, LogsMainActivity.class);
+            startActivity(intent);
+        }
 
 
     /**
-     * Set language
+     * Open main activity
      */
-    private void setLang(String s) {
-        Locale locale = new Locale(s);
-        Locale.setDefault(locale);
-        Configuration configuration = new Configuration();
-        configuration.locale = locale;
-        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
-        sessionManager.setLang(s);
-        Intent i = new Intent(ConfigSettings.this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
+    private void openMainActivity () {
+        Intent intent = new Intent(ConfigSettings.this, MainActivity.class);
+        startActivity(intent);
     }
 
-}
+    /**
+         * Handle change language popup
+         */
+        private void changeLanguage () {
+            String[] lang = {getString(R.string.english), getString(R.string.french), getString(R.string.spanish), getString(R.string.postigues)};
+            String loadedLang = sessionManager.getLang();
+            int pos = 0;
+            if (loadedLang != null && !loadedLang.equals("")) {
+                if (loadedLang.equals(Constraint.EN)) {
+                    pos = Constraint.ZERO;
+                } else if (loadedLang.equals(Constraint.FR)) {
+                    pos = Constraint.ONE;
+                } else if (loadedLang.equals(Constraint.ES)) {
+                    pos = Constraint.TWO;
+                } else if (loadedLang.equals(Constraint.PT)) {
+                    pos = Constraint.THREE;
+                }
+            }
+
+            new AlertDialog.Builder(context)
+                    .setTitle(getString(R.string.choose_lang))
+                    .setSingleChoiceItems(lang, pos, null)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.dismiss();
+                            int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                            if (selectedPosition == Constraint.ZERO) {
+                                setLang(Constraint.EN);
+                            } else if (selectedPosition == Constraint.ONE) {
+                                setLang(Constraint.FR);
+                            } else if (selectedPosition == Constraint.TWO) {
+                                setLang(Constraint.ES);
+                            } else if (selectedPosition == Constraint.THREE) {
+                                setLang(Constraint.PT);
+                            }
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+
+
+        }
+
+
+        /**
+         * Set language
+         */
+        private void setLang (String s){
+            Locale locale = new Locale(s);
+            Locale.setDefault(locale);
+            Configuration configuration = new Configuration();
+            configuration.locale = locale;
+            getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+            sessionManager.setLang(s);
+            Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
+
+    }
