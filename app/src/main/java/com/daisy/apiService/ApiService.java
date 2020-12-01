@@ -71,4 +71,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.CREATE_SCREEN_OS)
     Call<GlobalResponse<VersionUpdate>> createScreenOs(@FieldMap HashMap<String, String> hashMap, @Header(Constraint.TOKEN) String s);
+    @FormUrlEncoded
+    @POST(ApiConstant.UPDATE_PRODUCT)
+    Call<GlobalResponse> updateProduct(@FieldMap HashMap<String, String> input,@Header(Constraint.TOKEN) String s);
 }

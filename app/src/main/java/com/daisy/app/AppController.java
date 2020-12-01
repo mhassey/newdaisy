@@ -2,6 +2,10 @@ package com.daisy.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.provider.Settings;
 
 import androidx.lifecycle.Lifecycle;
@@ -10,10 +14,14 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.configSettings.ConfigSettings;
+import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
+
+import java.util.Locale;
 
 public class AppController extends Application implements LifecycleObserver {
     public static AppController sInstance;
@@ -54,6 +62,27 @@ public class AppController extends Application implements LifecycleObserver {
     }
 
 
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    public void onStart()
+    {
+//        try {
+//            Locale locale;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                locale = Resources.getSystem().getConfiguration().getLocales().get(0);
+//            } else {
+//                //noinspection deprecation
+//                locale = Resources.getSystem().getConfiguration().locale;
+//            }
+//            setLang(locale.getLanguage());
+//
+//        }
+//        catch (Exception e)
+//        {
+//
+//        }
+    }
     /**
      * When app come in fore ground
      */
@@ -68,9 +97,32 @@ public class AppController extends Application implements LifecycleObserver {
         Constraint.CREENTBRIGHNESS = getScreenBrightness(this);
         setFullBrightNess();
 
+
+        }
+
+    /**
+     * Set language
+     */
+    private void setLang (String s){
+        if (!sessionManager.getLang().equals(""))
+        {
+            Locale locale = new Locale(sessionManager.getLang());
+            Locale.setDefault(locale);
+            Configuration configuration = new Configuration();
+            configuration.locale = locale;
+            getActivity().getResources().updateConfiguration(configuration, getActivity().getResources().getDisplayMetrics());
+
+
+        }
+        else {
+            Locale locale = new Locale(s);
+            Locale.setDefault(locale);
+            Configuration configuration = new Configuration();
+            configuration.locale = locale;
+            getActivity().getResources().updateConfiguration(configuration, getActivity().getResources().getDisplayMetrics());
+        }
+
     }
-
-
     /**
      * When application level on stop call
      */

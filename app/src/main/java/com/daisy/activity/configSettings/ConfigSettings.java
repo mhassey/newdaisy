@@ -31,6 +31,7 @@ import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
+import com.daisy.activity.updateProduct.UpdateProduct;
 import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
@@ -115,6 +116,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.lunchApp.setOnClickListener(this::onClick);
         mBinding.sanitisedHeader.setOnClickListener(this::onClick);
         mBinding.directApkUpdate.setOnClickListener(this::onClick);
+        mBinding.updateProduct.setOnClickListener(this::onClick);
         mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwich());
 
@@ -246,6 +248,11 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 launchApp();
                 break;
             }
+            case R.id.update_product:
+            {
+                openUpdateProductActivity();
+                break;
+            }
 //            case R.id.sanitisedHeader: {
 //                sessionManager.setSanitized(true);
 //                finish();
@@ -256,6 +263,11 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 handleApkUpdateDirectly();
             }
         }
+    }
+
+    private void openUpdateProductActivity() {
+    Intent intent=new Intent(context, UpdateProduct.class);
+    startActivity(intent);
     }
 
     /**

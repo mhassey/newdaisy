@@ -174,4 +174,7 @@
     <string name="gpsEnable">Enable GPS</string>
     <string name="securityHeader">Security</string>
     <string name="no_update_available">"Update not available "</string>
+    <string name="update_product">Update Product</string>
+    <string name="screen_update">Screen update</string>
+    <string name="enable_gps">Your GPS seems to be disabled, please enable it?</string>
 </resources>

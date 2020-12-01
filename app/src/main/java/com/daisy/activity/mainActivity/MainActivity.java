@@ -98,7 +98,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
+public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
@@ -126,7 +126,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         context = this;
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-      //  FrontCameraRetriever.retrieveFor(this);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
         windowWork();
@@ -861,49 +860,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.loadUrl("javascript:handlePrmotion(" + elements + ")");
     }
 
-    /**
-     * face detected log generation
-     */
-    @Override
-    public void onFaceDetected() {
-        DBCaller.storeLogInDatabase(context, getString(R.string.face_detected), "", "", Constraint.APPLICATION_LOGS);
-    }
 
-    @Override
-    public void onFaceTimedOut() {
-
-    }
-
-    @Override
-    public void onFaceDetectionNonRecoverableError() {
-
-    }
-
-    @Override
-    public void onLoaded(FaceDetectionCamera camera) {
-        try {
-            // When the front facing camera has been retrieved we still need to ensure our display is ready
-            // so we will let the camera surface view initialise the camera i.e turn face detection on
-            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-            // Add the surface view (i.e. camera preview to our layout)
-            runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    mBinding.helloWorldCameraPreview.addView(cameraSurface);
-                    // Stuff that updates the UI
-
-                }
-            });
-        } catch (Exception e) {
-
-        }
-    }
-
-    @Override
-    public void onFailedToLoadFaceDetectionCamera() {
-
-    }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -1020,10 +977,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
-                    if (mBinding.setting.getVisibility() == View.VISIBLE) {
-                        mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
+                    try {
+                        if (mBinding.setting.getVisibility() == View.VISIBLE) {
+                            mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
+                        }
+                    }catch (Exception e)
+                    {
+
                     }
                 }
+
             };
             mHandler.postDelayed(mRunnable, Constraint.TWENTY * Constraint.THOUSAND);
         }
@@ -1254,10 +1217,33 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-
+             Log.e("kali",consoleMessage.message());
             if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
                 loadURL();
             }
+//            else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE))
+//            {
+//                pricingUpdate();
+//            }
+            if (consoleMessage.message().contains(Constraint.PROMOTION))
+            {
+                try {
+                    Log.e("kali", consoleMessage.message());
+                    String promotionWithoutSpace[]=consoleMessage.message().split(" ");
+                    String promotionName[] = promotionWithoutSpace[1].split(Constraint.PROMOTION);
+                    Log.e("kali-------", (promotionName[1].split("/"))[2]);
+                  //  Promotions
+//                   String promotionNameReal= promotionName[1].replace(Constraint.EXTENTION,"");
+//                   String promotionWithoutAnySlash=promotionNameReal.replaceAll(Constraint.SLASH,"");
+//                    Log.e("promotion name ",promotionWithoutAnySlash);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+
             return false;
         }
 
@@ -1269,12 +1255,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @Override
         public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+            Log.e("kalijsconfirm",url);
+
             return true;
         }
 
         @Override
         public boolean onJsPrompt(WebView view, String url, String message,
                                   String defaultValue, final JsPromptResult result) {
+            Log.e("kaliprpmt",url);
             return true;
         }
 
@@ -1289,6 +1278,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         WebAppInterface(Context c) {
             mContext = c;
         }
+
 
         // Show a toast from the web page
         @JavascriptInterface
@@ -1310,7 +1300,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         public void callFromJS() {
             launchApp();
         }
-
+        @JavascriptInterface
+        public void callFromJS(String event) {
+            Log.e("kali",event);
+        }
     }
 
     /**
@@ -1339,7 +1332,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         alert.setView(alertLayout);
         alert.setCancelable(false);
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

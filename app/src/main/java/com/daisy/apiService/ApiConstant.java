@@ -23,4 +23,5 @@ public class ApiConstant {
     public static final String API = "api";
     public static final String ADD_FEEDBACK = "/feedback";
     public static final String CREATE_SCREEN_OS = URL_PACK+"/create_screen_os";
+    public static final String UPDATE_PRODUCT = URL_PACK+"/update_screen_product";
 }

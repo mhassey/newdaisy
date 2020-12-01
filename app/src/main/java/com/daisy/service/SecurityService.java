@@ -133,12 +133,18 @@ public class SecurityService extends Service {
     private BroadcastReceiver PhoneUnlockedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-            if (keyguardManager.isKeyguardSecure()) {
-                if (alarmIntent != null) {
-                    sessionManager.deviceSecuried(true);
-                    stopService(alarmIntent);
+            try {
+                KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                if (keyguardManager.isKeyguardSecure()) {
+                    if (alarmIntent != null) {
+                        sessionManager.deviceSecuried(true);
+                        stopService(alarmIntent);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+
             }
         }
     };

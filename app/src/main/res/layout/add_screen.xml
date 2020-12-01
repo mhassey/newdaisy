@@ -97,10 +97,11 @@
 
 
     <TextView
-
+        style="@style/fontRagular"
         android:layout_marginTop="@dimen/dp10"
         android:layout_marginStart="@dimen/dp40"
         android:text="@string/carrier"
+        android:textSize="@dimen/sp12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <RelativeLayout
@@ -135,6 +136,8 @@
         android:layout_marginTop="@dimen/dp10"
         android:layout_marginStart="@dimen/dp40"
         android:text="@string/manufacturer"
+        style="@style/fontRagular"
+        android:textSize="@dimen/sp12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <RelativeLayout
@@ -167,11 +170,14 @@
         android:layout_marginTop="@dimen/dp10"
         android:layout_marginStart="@dimen/dp40"
         android:text="@string/product"
+        style="@style/fontRagular"
+        android:textSize="@dimen/sp12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginStart="@dimen/dp35"
+
         android:layout_marginEnd="@dimen/dp55"
         android:layout_marginTop="@dimen/dp5"
         android:layout_height="wrap_content">
@@ -197,6 +203,8 @@
 
 
     <TextView
+        style="@style/fontRagular"
+        android:textSize="@dimen/sp12"
         android:layout_marginTop="@dimen/dp10"
         android:layout_marginStart="@dimen/dp40"
         android:text="@string/webkit_orientation"

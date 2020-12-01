@@ -180,9 +180,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void checkForGps() {
         final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
-       // if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-         if (false)
-         {
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+       //  if (false)
+        // {
             //if gps is disabled
             permissionAskViewModel.setGrandGpsEnable(Constraint.FALSE);
             permissionAskBinding.gpsUsages.setChecked(false);
@@ -198,8 +198,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void checkAdminPermission() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
-      //  if (!permissionAskViewModel.isGrandAdminPermission()) {
-            if (false){
+       if (!permissionAskViewModel.isGrandAdminPermission()) {
+      //      if (false){
             permissionAskViewModel.setGrandAdminPermission(false);
             permissionAskBinding.adminMain.setEnabled(true);
             permissionAskBinding.adminUsages.setChecked(false);
@@ -385,7 +385,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Your GPS seems to be disabled, please enable it?")
+        builder.setMessage(R.string.enable_gps)
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {

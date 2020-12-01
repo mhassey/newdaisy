@@ -41,7 +41,7 @@
                     android:layout_width="0dp"
                     android:gravity="end|center"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="4">
                     <TextView
                         style="@style/fontMedium"
                         android:textColor="@color/white"
@@ -53,6 +53,7 @@
                        style="@style/fontMedium"
                        android:textColor="@color/white"
                        android:text="1.0.0"
+
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -320,7 +321,7 @@
         <LinearLayout
             android:id="@+id/securityHeader"
             android:layout_marginTop="@dimen/dp20"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginEnd="@dimen/dp30"
             android:layout_marginStart="@dimen/dp30"
             android:background="@drawable/edit_text_format"
@@ -354,6 +355,27 @@
 
 
             </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/update_product"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp30"
+            android:layout_marginStart="@dimen/dp30"
+            android:background="@drawable/edit_text_format"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10"
+                android:fontFamily="@font/rragular"
+                android:text="@string/update_product"
+                android:textSize="@dimen/sp15" />
 
 
         </LinearLayout>

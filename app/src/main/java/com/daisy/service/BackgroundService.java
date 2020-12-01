@@ -27,6 +27,7 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -37,6 +38,9 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.daisy.BuildConfig;
+import com.daisy.ObjectDetection.CameraSurfaceView;
+import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
+import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.lockscreen.LockScreen;
@@ -68,7 +72,7 @@ import java.util.concurrent.TimeUnit;
 import static com.daisy.utils.Constraint.LOG;
 import static com.daisy.utils.Constraint.messages;
 
-public class BackgroundService extends Service implements View.OnTouchListener, SensorEventListener {
+public class BackgroundService extends Service implements View.OnTouchListener, SensorEventListener , FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
@@ -76,6 +80,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private String TAG = this.getClass().getSimpleName();
     private WindowManager mWindowManager;
     private LinearLayout touchLayout;
+    private LinearLayout touchLayoutforCamera;
+
     private int count = 0;
     private PowerManager.WakeLock mWakeLock;
     private WifiManager wifiManager;
@@ -129,6 +135,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     public void onCreate() {
         super.onCreate();
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
+        FrontCameraRetriever.retrieveFor(this);
+
         securityService();
         showNotification();
         initWakeUpLock();
@@ -147,7 +155,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
      */
     private void securityService() {
 
-        //startService(securityIntent);
+    //    startService(securityIntent);
     }
 
 
@@ -248,7 +256,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 } catch (Exception e) {
                 }
             }
-        }).timeout(100).start(getApplicationContext());
+        }).timeout(200).start(getApplicationContext());
     }
 
     private void storeProcess(String process) {
@@ -715,6 +723,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     private void handleClick() {
         touchLayout = new LinearLayout(this);
+        touchLayoutforCamera = new LinearLayout(this);
+
     }
 
     private void sanitisedWork() {
@@ -762,6 +772,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                 return Constraint.FALSE;
             }
         });
+        WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams(0, 0);
+        touchLayoutforCamera.setLayoutParams(lp1);
         touchLayout.setLongClickable(true);
 
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -799,6 +811,44 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             params.x = Constraint.ZERO;
             params.y = Constraint.ZERO;
             mWindowManager.addView(touchLayout, params);
+
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    0,
+                    0,
+                    WindowManager.LayoutParams.TYPE_PHONE,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    PixelFormat.TRANSLUCENT);
+
+            params.gravity = Gravity.START | Gravity.TOP;
+            params.x = Constraint.ZERO;
+            params.y = Constraint.ZERO;
+            mWindowManager.addView(touchLayoutforCamera, params);
+        } else {
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+//                    WindowManager.LayoutParams.WRAP_CONTENT,
+//                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    10,10,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                            | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    PixelFormat.TRANSLUCENT);
+
+
+            params.gravity = Gravity.START | Gravity.TOP;
+            params.x = Constraint.ZERO;
+            params.y = Constraint.ZERO;
+
+                mWindowManager.addView(touchLayoutforCamera, params);
+
         }
     }
 
@@ -855,19 +905,11 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-//        switch (event.sensor.getType()) {
-//            case (Sensor.TYPE_ACCELEROMETER):
-//                //Log.e("kali",event.values+"");
-//                accelValues = event.values;
-//                break;
-//            case (Sensor.TYPE_MAGNETIC_FIELD):
-//                magnetValues = event.values;
-//                break;
-//            case (Sensor.TYPE_STEP_DETECTOR):
-//                countSteps(event.values[0]);
-//                calculateSpeed(event.timestamp);
-//                break;
-//        }
+        switch (event.sensor.getType()) {
+            case (Sensor.TYPE_STEP_DETECTOR):
+                countSteps(event.values[0]);
+               break;
+        }
 
         if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             mGravity = event.values.clone();
@@ -922,15 +964,15 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private void countSteps(float step) {
         int stepCount = sessionManager.getSteps();
         //Step count
+        Log.e("kali","Step counted"+stepCount);
         stepCount += (int) step;
         ValidationHelper.showToast(getApplicationContext(), stepCount + "");
-
         sessionManager.setStepCount(stepCount);
         //Distance calculation
         distance = stepCount * 0.8; //Average step length in an average adult
         Log.e("distance", distance + "---");
         if (!Utils.isPlugged(getApplicationContext())) {
-            if (stepCount >= 13) {
+            if (stepCount >= 15) {
                 if (!sessionManager.getDeviceSecured()) {
                     startService(securityIntent);
                 }
@@ -941,14 +983,40 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     }
 
 
-    //Calculated the amount of steps taken per minute at the current rate
-    private void calculateSpeed(long eventTimeStamp) {
-        long timestampDifference = eventTimeStamp - stepTimestamp;
-        stepTimestamp = eventTimeStamp;
-        double stepTime = timestampDifference / 1000000000.0;
-        int speed = (int) (60 / stepTime);
-        Log.e("speed", speed + "--");
+    @Override
+    public void onFaceDetected() {
+        ValidationHelper.showToast(getApplicationContext(),"Face comes");
+Log.e("kali","face detected");
     }
 
+    @Override
+    public void onFaceTimedOut() {
 
+        ValidationHelper.showToast(getApplicationContext(),"Face goes out");
+        Log.e("kali","face time out");
+
+    }
+
+    @Override
+    public void onFaceDetectionNonRecoverableError() {
+
+    }
+
+    @Override
+    public void onLoaded(FaceDetectionCamera camera) {
+        try {
+            // When the front facing camera has been retrieved we still need to ensure our display is ready
+            // so we will let the camera surface view initialise the camera i.e turn face detection on
+            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
+
+                    touchLayoutforCamera.addView(cameraSurface);
+           } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public void onFailedToLoadFaceDetectionCamera() {
+
+    }
 }

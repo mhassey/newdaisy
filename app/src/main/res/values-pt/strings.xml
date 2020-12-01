@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Daisy</string>
+    <string name="app_name">MPC</string>
     <string name="v_01">V.01</string>
     <string name="storage_not_available">Armazenamento não disponível</string>
     <string name="daisyconfig">DaisyConfig</string>
@@ -124,4 +124,26 @@
     <string name="app_version">VERSÃO DO APP:</string>
     <string name="PERMISSION">Permissão</string>
     <string name="settings_cap">CONFIGURAÇÕES</string>
+    <string name="direct_apk_update">Atualização Apk</string>
+    <string name="logout">Sair</string>
+    <string name="file_has_issue">Entre em contato com seu desenvolvedor ou tente instalar o aplicativo novamente mais tarde!</string>
+    <string name="title">Título</string>
+    <string name="description">La description</string>
+    <string name="submit">Enviar</string>
+    <string name="feedback">Comentários</string>
+    <string name="Bug">ERRO</string>
+    <string name="ISSUE">QUESTÃO</string>
+    <string name="SUGGESION">SUGESTÃO</string>
+    <string name="OTHER">DE OUTROS</string>
+    <string name="all_field_are_mendetory">Todos os campos são mendórios</string>
+    <string name="sanitised">Sanitize Device</string>
+    <string name="gpsEnable">Habilitar GPS</string>
+    <string name="admin_permission">Permissão de administrador</string>
+    <string name="securityHeader">Segurança</string>
+    <string name="no_update_available">Atualização não disponível</string>
+    <string name="update_product">Produto de atualização</string>
+    <string name="screen_update">Mise à jour de l\'écran</string>
+    <string name="enable_gps">Seu GPS parece estar desabilitado, por favor habilite-o?</string>
+    <string name="manufacturer">Fabricante</string>
+
 </resources>

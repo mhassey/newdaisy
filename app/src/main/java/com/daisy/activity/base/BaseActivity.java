@@ -31,8 +31,9 @@ public class BaseActivity extends AppCompatActivity {
      * Initial data setup for hole activity
      */
     private void initView() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sessionManager = SessionManager.get();
-        if (sessionManager.getLang() != null)
+        if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))
             setLang(sessionManager.getLang());
         boolean b = sessionManager.getDarkTheme();
         if (b)

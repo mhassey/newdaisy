@@ -50,7 +50,7 @@
 
             <TextView
                 style="@style/fontMedium"
-                android:lineSpacingMultiplier="1.5"
+                    android:lineSpacingMultiplier="1.5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp25"

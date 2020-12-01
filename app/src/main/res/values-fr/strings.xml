@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Daisy</string>
+    <string name="app_name">MPC</string>
     <string name="welcome">BIENVENUE</string>
     <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">Cette application nécessite plusieurs autorisations spéciales pour fonctionner correctement. Appuyezsur « commencer » ci-dessous et vous serez guidé tout au long du processus.</string>
     <string name="begin">COMMENCER</string>
     <string name="next">Suivant</string>
     <string name="grant_media_permission">Accorder des autorisations</string>
     <string name="display_over_other_apps">Afficher sur d\'autres applications</string>
-    <string name="grand_usage_access">Accorder un accès d\'utilisation</string>
+    <string name="grand_usage_access">Accorder l\'accès à l\'utilisation</string>
     <string name="modify_system_settings">Modifier les paramètres du système</string>
     <string name="app_settings">Paramètres de l’application</string>
     <string name="lock_access_to_play_store">Verrouiller l’accès au Play Store</string>
@@ -18,16 +18,16 @@
     <string name="device_detected">Appareil détecté :</string>
     <string name="use_detected_device">Utiliser l\'appareil détecté</string>
     <string name="score_code">Score Code</string>
-    <string name="don_t_optimized_battery">Ne pas optimiser la batterie</string>
+    <string name="don_t_optimized_battery">désactiver l\'optimisation de la batterie</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
     <string name="save_and_start_mpc"><![CDATA[Sauvegarder et démarrer MPC >]]></string>
     <string name="store_code">Code du magasin</string>
     <string name="Password">Mot de passe</string>
     <string name="manage_device_content">Gérer le contenu de l’appareil</string>
-    <string name="grant_permissions">Grant Permissions</string>
+    <string name="grant_permissions">Accorder des autorisations</string>
     <string name="wifi">wifi</string>
     <string name="pixel_emulator">Google sdk_gphone_x86</string>
-    <string name="password">password</string>
+    <string name="password">mot de passe</string>
     <string name="store_id">store_id</string>
     <string name="please_enter_store_code">Veuillez saisir le code du magasin</string>
     <string name="please_enter_store_password">Veuillez saisir le mot de passe du magasin</string>
@@ -46,7 +46,7 @@
     <string name="enter_valid_url">Entrez une URL de base valide</string>
     <string name="url_must_end_with_slash">L\'URL doit être envoyée avec une barre oblique</string>
     <string name="configuration">Configuration</string>
-    <string name="set_refresh_timer">Régler la minuterie de rafraîchissement</string>
+    <string name="set_refresh_timer">Définir le minuteur de rafraîchissement</string>
     <string name="set_refresh_time">Définir l\'heure de rafraîchissement</string>
     <string name="set_timer">Régler la minuterie</string>
     <string name="direct_update">Mise à jour directe</string>
@@ -60,15 +60,15 @@
     <string name="chche">/cache</string>
     <string name="databse">/databases</string>
     <string name="some_issue_occur">Un problème se produit</string>
-    <string name="clear_and_exit">Effacer et quitter</string>
+    <string name="clear_and_exit">effacer et sortir</string>
     <string name="exit">Sortie</string>
     <string name="settings">Paramètres</string>
     <string name="no_data_available">Pas de données disponibles</string>
     <string name="_20_may_2020">20 mai 2020</string>
     <string name="back">Arrière</string>
     <string name="promotion_logs">Journaux de promotion</string>
-    <string name="card_logs">Journal de la carte</string>
-    <string name="application_logs">Journal des applications</string>
+    <string name="card_logs">Journaux de carte</string>
+    <string name="application_logs">journaux d\'application</string>
     <string name="logs">Journaux</string>
     <string name="invalid_url">URL invalide</string>
     <string name="loading">Chargement...</string>
@@ -124,4 +124,26 @@
     <string name="app_version">VERSION DE L\'APPLICATION :</string>
     <string name="PERMISSION">Autorisation</string>
     <string name="settings_cap">PARAMÈTRES</string>
+    <string name="direct_apk_update">Mise à jour Apk</string>
+    <string name="logout">Se déconnecter</string>
+    <string name="file_has_issue">Veuillez contacter votre développeur ou réessayer d\'installer l\'application plus tard!</string>
+    <string name="title">Titre</string>
+    <string name="description">La description</string>
+    <string name="submit">Soumettre</string>
+    <string name="feedback">Retour d\'information</string>
+    <string name="Bug">PUNAISE</string>
+    <string name="ISSUE">PROBLÈME</string>
+    <string name="SUGGESION">SUGGESION</string>
+    <string name="OTHER">AUTRE</string>
+    <string name="all_field_are_mendetory">Tous les champs sont réparateurs</string>
+    <string name="sanitised">Désinfecter l\'appareil</string>
+    <string name="gpsEnable">Activer le GPS</string>
+    <string name="admin_permission">Autorisation de l\'administrateur</string>
+    <string name="securityHeader">Sécurité</string>
+    <string name="no_update_available">Mise à jour non disponible</string>
+    <string name="update_product">Mettre à jour le produit</string>
+    <string name="screen_update">Actualización de pantalla</string>
+    <string name="enable_gps">Votre GPS semble être désactivé, veuillez l\'activer?</string>
+    <string name="manufacturer">Fabricante</string>
+
 </resources>
