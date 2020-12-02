@@ -42,6 +42,7 @@ import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.adapter.SliderAdapter;
 import com.daisy.database.DBCaller;
+import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityOnBaordingBinding;
@@ -484,6 +485,11 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 permissionDone.setPermissionName(Constraint.MODIFY_SYSTEM_SET);
                 EventBus.getDefault().post(permissionDone);
             }
+        }
+        else if (requestCode==Constraint.ADMIN)
+        {
+            Admin admin=new Admin();
+            EventBus.getDefault().post(admin);
         }
 
         else if (requestCode == Constraint.POP_UP_RESPONSE) {

@@ -90,9 +90,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void mainAdminAsk() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
-        permissionAskViewModel.setGrandAdminPermission(true);
-        permissionAskBinding.adminMain.setEnabled(false);
-        permissionAskBinding.adminUsages.setChecked(true);
+//        permissionAskViewModel.setGrandAdminPermission(true);
+//        permissionAskBinding.adminMain.setEnabled(false);
+//        permissionAskBinding.adminUsages.setChecked(true);
         permissionSetter();
         if (!mDPM.isAdminActive(mAdminName)) {
             // try to become active – must happen here in this activity, to get result
@@ -101,7 +101,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                     mAdminName);
 
             intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
-            PermissionAsk.this.startActivityForResult(intent, REQUEST_ENABLE);
+            getActivity().startActivityForResult(intent, REQUEST_ENABLE);
         }
 
 
@@ -195,11 +195,13 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+
+
     private void checkAdminPermission() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
-       if (!permissionAskViewModel.isGrandAdminPermission()) {
-      //      if (false){
+        if (!mDPM.isAdminActive(mAdminName)) {
+            //      if (false){
             permissionAskViewModel.setGrandAdminPermission(false);
             permissionAskBinding.adminMain.setEnabled(true);
             permissionAskBinding.adminUsages.setChecked(false);
@@ -486,6 +488,11 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
         permissionSetter();
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void adminSetter(Admin admin) {
+        permissionSetter();
+    }
+
 
     @Override
     public void onStart() {

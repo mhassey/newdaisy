@@ -37,6 +37,8 @@ public class Constraint {
     public static final String OS_VER = "osVer";
     public static final String MAV_ID = "mav_id";
     public static final String PRICING_NOT_DEFINE = "handlePriceDynamically";
+    public static final int ADMIN = 123;
+    public static final int FIFTEEN = 15;
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     public static final String CARD = "Card";

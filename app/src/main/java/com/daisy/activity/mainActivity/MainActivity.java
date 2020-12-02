@@ -20,7 +20,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -46,9 +45,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.daisy.ObjectDetection.CameraSurfaceView;
-import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
-import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.DownloadUpdateApk;
 import com.daisy.activity.base.BaseActivity;
@@ -208,6 +204,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
+           //  startService(new Intent(MainActivity.this, CaptureImageService.class));
     }
 
     /**

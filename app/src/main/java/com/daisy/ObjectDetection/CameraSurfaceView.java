@@ -2,6 +2,8 @@ package com.daisy.ObjectDetection;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.hardware.Camera;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -31,11 +33,11 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         // tell our camera to use this to show a preview
 
             camera.initialise(listener, holder);
-
-    }
+        }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        Log.e("kali","surface change");
         if (surfaceDoesNotExist()) {
             return;
         }

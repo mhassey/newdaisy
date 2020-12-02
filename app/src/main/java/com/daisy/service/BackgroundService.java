@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.hardware.Sensor;
@@ -21,6 +22,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -32,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -63,8 +66,15 @@ import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -902,58 +912,66 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         }
     }
 
-
+private double MagnitudePrevious;
     @Override
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
-            case (Sensor.TYPE_STEP_DETECTOR):
+            case (Sensor.TYPE_STEP_COUNTER):
                 countSteps(event.values[0]);
                break;
+
+            case Sensor.TYPE_GYROSCOPE:
+                handleGyro(event);
+                break;
+
         }
 
-        if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            mGravity = event.values.clone();
 
-            if (mGravity != null) {
-                float z = mGravity[2];
-                float x = mGravity[0];
-                float y = mGravity[1];
-                int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
-                if (z_digree == 90) {
-                    counter++;
-                    if (counter > 20) {
-                        isPickedUp = false;
-                    }
+    }
 
+    private void handleGyro(SensorEvent event) {
+        mGravity = event.values.clone();
 
-                } else {
-                    movement = 1;
-                    counter = 0;
-                    isPickedUp = true;
-                }
-                if (movement == 1) {
-                    if (isPickedUp) {
-                        if (!isPickedUpSucess) {
-                            isPickedDown = false;
-                            isPickedUpSucess = true;
-                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
-
-                        }
-                    } else {
-                        if (!isPickedDown) {
-                            Inversion inversion = new Inversion();
-                            inversion.setInvert(Utils.getInvertedTime());
-                            EventBus.getDefault().post(inversion);
-                            isPickedDown = true;
-                            isPickedUpSucess = false;
-                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
-
-                        }
-                    }
+        if (mGravity != null) {
+            float z = mGravity[2];
+            float x = mGravity[0];
+            float y = mGravity[1];
+            int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
+            if (z_digree == 90) {
+                counter++;
+                if (counter > 20) {
+                    isPickedUp = false;
                 }
 
+
+            } else {
+                movement = 1;
+                counter = 0;
+                isPickedUp = true;
             }
+            if (movement == 1) {
+                if (isPickedUp) {
+                    if (!isPickedUpSucess) {
+                        isPickedDown = false;
+                        isPickedUpSucess = true;
+                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
+
+                    }
+                } else {
+                    if (!isPickedDown) {
+                        Inversion inversion = new Inversion();
+                        inversion.setInvert(Utils.getInvertedTime());
+                        EventBus.getDefault().post(inversion);
+                        isPickedDown = true;
+                        isPickedUpSucess = false;
+                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
+
+                    }
+                }
+            }
+
         }
+
     }
 
     @Override
@@ -964,16 +982,14 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     private void countSteps(float step) {
         int stepCount = sessionManager.getSteps();
         //Step count
-        Log.e("kali","Step counted"+stepCount);
-        stepCount += (int) step;
-        ValidationHelper.showToast(getApplicationContext(), stepCount + "");
-        sessionManager.setStepCount(stepCount);
-        //Distance calculation
-        distance = stepCount * 0.8; //Average step length in an average adult
-        Log.e("distance", distance + "---");
-        if (!Utils.isPlugged(getApplicationContext())) {
-            if (stepCount >= 15) {
-                if (!sessionManager.getDeviceSecured()) {
+         if (!Utils.isPlugged(getApplicationContext())) {
+             if (!sessionManager.getDeviceSecured()) {
+            stepCount =stepCount+1;
+            ValidationHelper.showToast(getApplicationContext(), stepCount + "");
+            sessionManager.setStepCount(stepCount);
+            //Distance calculation
+            if (stepCount >= Constraint.FIFTEEN) {
+
                     startService(securityIntent);
                 }
 
@@ -983,10 +999,13 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
     }
 
 
+
+
     @Override
     public void onFaceDetected() {
         ValidationHelper.showToast(getApplicationContext(),"Face comes");
-Log.e("kali","face detected");
+
+
     }
 
     @Override
@@ -1001,16 +1020,19 @@ Log.e("kali","face detected");
     public void onFaceDetectionNonRecoverableError() {
 
     }
+    FaceDetectionCamera camera;
 
     @Override
     public void onLoaded(FaceDetectionCamera camera) {
         try {
+
             // When the front facing camera has been retrieved we still need to ensure our display is ready
             // so we will let the camera surface view initialise the camera i.e turn face detection on
             SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-
+            this.camera=  camera;
                     touchLayoutforCamera.addView(cameraSurface);
-           } catch (Exception e) {
+
+        } catch (Exception e) {
 
         }
     }
