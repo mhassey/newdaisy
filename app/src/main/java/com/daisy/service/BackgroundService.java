@@ -184,7 +184,10 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                                 sessionManager = SessionManager.get();
                             }
 
-
+                            if (process.equals(Constraint.Extra_pass_screen))
+                            {
+                                return;
+                            }
                             if (!sessionManager.getUninstall()) {
 
                                 if (process.equals(Constraint.PACKAGE_INSTALLER)) {
@@ -417,7 +420,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         }
     }
 
-    private void stopUninstall() {
+    private void stopShutdown() {
         try {
 
 
@@ -917,7 +920,7 @@ private double MagnitudePrevious;
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case (Sensor.TYPE_STEP_COUNTER):
-                countSteps(event.values[0]);
+               // countSteps(event.values[0]);
                break;
 
             case Sensor.TYPE_GYROSCOPE:
@@ -1003,7 +1006,6 @@ private double MagnitudePrevious;
 
     @Override
     public void onFaceDetected() {
-        ValidationHelper.showToast(getApplicationContext(),"Face comes");
 
 
     }
@@ -1011,8 +1013,6 @@ private double MagnitudePrevious;
     @Override
     public void onFaceTimedOut() {
 
-        ValidationHelper.showToast(getApplicationContext(),"Face goes out");
-        Log.e("kali","face time out");
 
     }
 

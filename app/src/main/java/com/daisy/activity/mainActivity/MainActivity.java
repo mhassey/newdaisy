@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.Settings;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -68,7 +70,6 @@ import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
-import com.daisy.service.BackgroundSoundService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -123,7 +124,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        PermissionManager.checkPermission(this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
+        boolean b;
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Do something for lollipop and above versions
+            b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
+        } else {
+            b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
+            // do something for phones running an SDK before lollipop
+        }
+
         windowWork();
         loadURL();
         intentWork();
@@ -137,6 +147,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.sanitisedHeader.setVisibility(View.GONE);
         }
     }
+
 
 
     /**
@@ -330,7 +341,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 downloadPromotion.setDateCreated(promotion.getDateCreated());
                 downloadPromotion.setDateExpires(promotion.getDateExpires());
-                downloadPromotion.setType(getString(R.string.promotion));
+                downloadPromotion.setType(Constraint.PROMOTION);
                 downloadPromotion.setPromotionId(promotion.getIdpromotion());
                 downloads.add(downloadPromotion);
 
@@ -387,8 +398,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 boolean showRationale = shouldShowRequestPermissionRationale(permissions[Constraint.ZERO]);
                 if (!showRationale) {
                 } else {
-                    PermissionManager.checkPermission(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE_MAIN);
-                }
+                    boolean b;
+
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        // Do something for lollipop and above versions
+                        b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
+                    } else {
+                        b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
+                        // do something for phones running an SDK before lollipop
+                    }
+
+                    }
             } else {
                 if (grantResults.length > Constraint.ZERO
                         && grantResults[Constraint.ZERO] == PackageManager.PERMISSION_GRANTED) {
@@ -495,14 +515,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
-            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+            //mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+
             mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
 
             if (Build.VERSION.SDK_INT >= 21) {
                 mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
                 CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.webView, Constraint.TRUE);
             }
-            mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
+           // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
             String val = sessionManager.getLocation();
             boolean isDelete = sessionManager.getCardDeleted();
             File f = new File(val);
@@ -643,11 +665,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                JSONArray jsonArray = pricingUpdateStart();
+                JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray != null) {
                     if (jsonArray.length() > 0) {
 
-                        mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
 
                     }
@@ -656,14 +678,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             }
 
+
             @Override
             public void onPageFinished(WebView view, final String url) {
                 try {
-                    JSONArray jsonArray = pricingUpdateStart();
+                    JSONObject jsonArray = pricingUpdateStart();
                     if (jsonArray != null) {
                         if (jsonArray.length() > 0) {
-
-                            mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
+                            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                             mViewModel.setExceptionInHtml(false);
 
                         }
@@ -671,9 +693,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
                     if (b) {
-                        mBinding.webView.loadUrl("javascript:invert()");
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
                     } else {
-                        mBinding.webView.loadUrl("javascript:normal()");
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
                     }
 
                 } catch (Exception e) {
@@ -691,7 +713,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     /**
      * change pricing in webview
      */
-    private JSONArray pricingUpdateStart() {
+    private JSONObject pricingUpdateStart() {
 
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -761,7 +783,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     jsonObject.put(Constraint.CONFIG_TWO, pricing1.getConfig2());
                     jsonObject.put(Constraint.CONFIG_THREE, pricing1.getConfig3());
                     jsonObject.put(Constraint.CONFIG_FOUR, pricing1.getConfig4());
-                    jsonArray.put(jsonObject);
+                 //   jsonArray.put(jsonObject);
 
                 }
 
@@ -771,17 +793,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             e.printStackTrace();
 
         }
-        return jsonArray;
+        Log.e("kali",jsonObject.toString());
+        return jsonObject;
     }
 
     /**
      * load pricing in webview
      */
     private void pricingUpdate() {
-        JSONArray jsonArray = pricingUpdateStart();
+        JSONObject jsonArray = pricingUpdateStart();
 
         if (jsonArray.length() > 0)
-            mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+
+//        mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
     }
 
 
@@ -789,12 +814,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * lcreate promotion that will load in webview
      */
     private void promotionSettings() {
-        JSONArray elements = new JSONArray();
+        ArrayList<String> pro=new ArrayList<>();
         try {
             JSONArray promotionsArray = sessionManager.getPromotions();
             if (promotionsArray != null) {
                 for (int i = 0; i < promotionsArray.length(); i++) {
-                    JSONObject jsonObject1 = new JSONObject();
                     JSONObject promtotionJsonObect = promotionsArray.getJSONObject(i);
                     String value = promtotionJsonObect.getString(Constraint.PROMOTION);
                     if (value.contains(Constraint.PROMOTION)) {
@@ -815,8 +839,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 Date todayDate = new Date();
                                 if (!dateEffective.after(todayDate)) {
                                     if (futureDate.after(todayDate)) {
-                                        jsonObject1.put(Constraint.PROMOTION + i, Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.FILE_NAME);
-                                        elements.put(jsonObject1);
+                                        pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.FILE_NAME);
                                     }
                                 }
                             } else if (mainCheck.exists()) {
@@ -828,20 +851,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 Date todayDate = new Date();
                                 if (!dateEffective.after(todayDate)) {
                                     if (futureDate.after(todayDate)) {
-                                        jsonObject1.put(Constraint.PROMOTION + i, Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION);
-                                        elements.put(jsonObject1);
-                                    }
+                                        pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION);
+                                        }
                                 }
 
                             }
                         } else {
                             if (file.exists()) {
-                                jsonObject1.put(Constraint.PROMOTION + i, Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.FILE_NAME);
-                                elements.put(jsonObject1);
-
-                            } else if (mainCheck.exists()) {
-                                jsonObject1.put(Constraint.PROMOTION + i, Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION);
-                                elements.put(jsonObject1);
+                                pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.FILE_NAME);
+                               } else if (mainCheck.exists()) {
+                                pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION);
                             }
                         }
 
@@ -853,9 +872,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
-        if (elements.length() > 0)
-            mBinding.webView.loadUrl("javascript:handlePrmotion(" + elements + ")");
+        Log.e("kaliiii","["+Utils.stringify(pro)+"]");
+        if (pro.size() > 0) {
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle(["+Utils.stringify(pro)+"])");
+        }
     }
+
+
 
 
 
@@ -891,7 +914,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             }
             case R.id.invert: {
 
-                mBinding.webView.loadUrl("javascript:invert()");
+                mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
                 break;
 
             }
@@ -1082,11 +1105,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void inverted(Inversion inversion) {
         if (inversion.isInvert()) {
-            mBinding.webView.loadUrl("javascript:invert()");
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
 
 
         } else {
-            mBinding.webView.loadUrl("javascript:normal()");
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
 
         }
     }
@@ -1193,7 +1216,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 downloadPromotion.setDateExpires(promotion.getDateExpires());
                 downloadPromotion.setDateCreated(promotion.getDateCreated());
                 downloadPromotion.setPromotionId(promotion.getIdpromotion());
-                downloadPromotion.setType(getString(R.string.promotion));
+                downloadPromotion.setType(Constraint.PROMOTION);
                 downloads.add(downloadPromotion);
             }
             if (listOfPromo != null)
@@ -1204,17 +1227,21 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateCards(UpdateCards updateCards) {
         getDownloadData();
     }
+
 
     public class WebClient extends WebChromeClient {
 
 
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-             Log.e("kali",consoleMessage.message());
+
+
+
             if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
                 loadURL();
             }
@@ -1225,10 +1252,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             if (consoleMessage.message().contains(Constraint.PROMOTION))
             {
                 try {
-                    Log.e("kali", consoleMessage.message());
-                    String promotionWithoutSpace[]=consoleMessage.message().split(" ");
-                    String promotionName[] = promotionWithoutSpace[1].split(Constraint.PROMOTION);
-                    Log.e("kali-------", (promotionName[1].split("/"))[2]);
+                    //Log.e("kali", consoleMessage.message());
+                    //String promotionWithoutSpace[]=consoleMessage.message().split(" ");
+                   // String promotionName[] = promotionWithoutSpace[1].split(Constraint.PROMOTION);
+                 //   Log.e("kali-------", (promotionName[1].split("/"))[2]);
                   //  Promotions
 //                   String promotionNameReal= promotionName[1].replace(Constraint.EXTENTION,"");
 //                   String promotionWithoutAnySlash=promotionNameReal.replaceAll(Constraint.SLASH,"");
@@ -1276,7 +1303,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mContext = c;
         }
 
-
+         @JavascriptInterface
+        public void apply(String[] toast) {
+            try {
+                if (toast!=null) {
+                    for (String val : toast) {
+                        Log.e("kali", val);
+                    }
+                }
+                }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            }
         // Show a toast from the web page
         @JavascriptInterface
         public void showToast(String toast) {

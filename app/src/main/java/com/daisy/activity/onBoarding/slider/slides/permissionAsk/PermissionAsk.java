@@ -108,6 +108,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
 
+
+
+
     /**
      * Initiate object
      */
@@ -181,7 +184,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-       //  if (false)
+      //   if (false)
         // {
             //if gps is disabled
             permissionAskViewModel.setGrandGpsEnable(Constraint.FALSE);

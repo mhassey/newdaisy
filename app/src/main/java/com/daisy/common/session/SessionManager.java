@@ -1163,4 +1163,22 @@ public class SessionManager {
     public String getMavID() {
         return pref.getStringData(PrefConstant.MAV_ID);
     }
+
+    public void setMarkDone(boolean b) {
+        pref.setBooleanData(PrefConstant.MARK_DONE,b);
+
+    }
+
+    public boolean addMarkIsDone() {
+        return pref.getBoolean(PrefConstant.MARK_DONE);
+    }
+
+    public void setMarkAdded(boolean b) {
+        pref.setBooleanData(PrefConstant.MARK_ADDED,b);
+    }
+
+
+    public boolean getMarkDone() {
+        return pref.getBoolean(PrefConstant.MARK_ADDED);
+    }
 }

@@ -49,18 +49,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.updateProduct.UpdateProduct"></activity>
+        <activity android:name=".activity.Maps.MapsActivity"></activity>
+        <activity android:name=".activity.updateProduct.UpdateProduct" />
 
         <service
             android:name=".service.SecurityService"
             android:enabled="true"
             android:exported="true" />
 
-
         <receiver
             android:name=".security.GeoFenceBroadCastReciever"
             android:enabled="true"
             android:exported="true" />
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".activity.feedBack.FeedBackActivity"
@@ -80,10 +82,17 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
@@ -108,13 +117,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"
             android:screenOrientation="portrait" />

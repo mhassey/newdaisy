@@ -67,7 +67,7 @@
     <string name="add_screen">Add Screen</string>
     <string name="isle">Aisle</string>
     <string name="shelf">Shelf</string>
-    <string name="isle_not_empty">Isle can not be empty</string>
+    <string name="isle_not_empty">Aisle can not be empty</string>
     <string name="position_not_empty">Position can not be empty</string>
     <string name="shelf_not_empty">Shelf can not be empty</string>
     <string name="mi_extra">Mi Extra Permission</string>
@@ -177,4 +177,5 @@
     <string name="update_product">Update Product</string>
     <string name="screen_update">Screen update</string>
     <string name="enable_gps">Your GPS seems to be disabled, please enable it?</string>
+    <string name="wait">Wait...</string>
 </resources>

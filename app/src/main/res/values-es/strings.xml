@@ -146,5 +146,6 @@
     <string name="screen_update">Actualización de pantalla</string>
     <string name="enable_gps">Su GPS parece estar desactivado, por favor, ¿activarlo?</string>
     <string name="manufacturer">Fabricante</string>
+    <string name="wait">Espere...</string>
 
 </resources>

@@ -11,13 +11,13 @@
     <string name="modify_system_settings">Modifier les paramètres du système</string>
     <string name="app_settings">Paramètres de l’application</string>
     <string name="lock_access_to_play_store">Verrouiller l’accès au Play Store</string>
-    <string name="lock_access_to_browser">Lock Access to Browser App</string>
-    <string name="lock_access_to_message">Lock Access to Message App</string>
-    <string name="delete_photos">Delete Photos</string>
+    <string name="lock_access_to_browser">Verrouiller l\'accès à l\'application de navigateur</string>
+    <string name="lock_access_to_message">Verrouiller l\'accès à l\'application de messagerie</string>
+    <string name="delete_photos">Supprimer des photos</string>
     <string name="only_disable_if_using_personal_device">* Désactiver uniquement en cas d\'utilisation d\'un appareil personnel</string>
     <string name="device_detected">Appareil détecté :</string>
     <string name="use_detected_device">Utiliser l\'appareil détecté</string>
-    <string name="score_code">Score Code</string>
+    <string name="score_code">Code de score</string>
     <string name="don_t_optimized_battery">désactiver l\'optimisation de la batterie</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
     <string name="save_and_start_mpc"><![CDATA[Sauvegarder et démarrer MPC >]]></string>
@@ -145,5 +145,6 @@
     <string name="screen_update">Actualización de pantalla</string>
     <string name="enable_gps">Votre GPS semble être désactivé, veuillez l\'activer?</string>
     <string name="manufacturer">Fabricante</string>
+    <string name="wait">Attendez...</string>
 
 </resources>

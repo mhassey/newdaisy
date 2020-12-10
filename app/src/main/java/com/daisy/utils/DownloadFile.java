@@ -66,7 +66,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
         else {
             this.progressDialog = new ProgressDialog(context);
             this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            this.progressDialog.setMessage(Constraint.WAIT);
+            this.progressDialog.setMessage(context.getString(R.string.wait));
             this.progressDialog.setCancelable(false);
             this.progressDialog.show();
         }
@@ -133,7 +133,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                     File f = new File(path);
                     String file[] = f.list();
 
-                    folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH+file[1]+Constraint.SLASH+context.getString(R.string.promotion)+Constraint.SLASH;
+                    folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH+file[1]+Constraint.SLASH+Constraint.PROMOTION+Constraint.SLASH;
 
                 } else
                     folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH;

@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
+import com.daisy.activity.Maps.MapsActivity;
 import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
 import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.base.BaseActivity;
@@ -261,6 +262,8 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 //            }
             case R.id.direct_apk_update: {
                 handleApkUpdateDirectly();
+//                Intent intent=new Intent(context, MapsActivity.class);
+//                startActivity(intent);
             }
         }
     }

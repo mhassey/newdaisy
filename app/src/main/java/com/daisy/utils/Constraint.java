@@ -215,4 +215,6 @@ public class Constraint {
     public static String current_running_process = "";
 
     public static String pricecardid="pricecardid";
+
+    public static  String Extra_pass_screen="com.lge.retailmode";
 }

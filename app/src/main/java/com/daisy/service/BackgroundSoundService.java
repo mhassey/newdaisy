@@ -79,21 +79,27 @@ public class BackgroundSoundService extends Service {
 
                     SessionManager.get().deviceSecuried(false);
                     player.start();
+                    try {
+                        mDPM = (DevicePolicyManager) getApplicationContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+                        mAdminName = new ComponentName(getApplicationContext(), Admin.class);
+                        KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
+                        if (keyguardManager.isKeyguardSecure()) {
+                            //it is password protected
+                        } else {
+                            //it is not password protected
+                            mDPM.resetPassword(SessionManager.get().getPasswordLock(), DevicePolicyManager.RESET_PASSWORD_REQUIRE_ENTRY);
 
-                    mDPM = (DevicePolicyManager) getApplicationContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
-                    mAdminName = new ComponentName(getApplicationContext(), Admin.class);
-                    KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
-                    if (keyguardManager.isKeyguardSecure()) {
-                        //it is password protected
-                    } else {
-                        //it is not password protected
-                        mDPM.resetPassword(SessionManager.get().getPasswordLock(), DevicePolicyManager.RESET_PASSWORD_REQUIRE_ENTRY);
+                        }
+                        if (keyguardManager.inKeyguardRestrictedInputMode()) {
+                            //it is locked
+                        } else {
+                            mDPM.lockNow();
+                        }
 
                     }
-                    if (keyguardManager.inKeyguardRestrictedInputMode()) {
-                        //it is locked
-                    } else {
-                        mDPM.lockNow();
+                    catch (Exception e)
+                    {
+
                     }
 
                 }
