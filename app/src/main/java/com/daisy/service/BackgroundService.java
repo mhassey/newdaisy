@@ -52,6 +52,7 @@ import com.daisy.activity.validatePromotion.ValidatePromotion;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
+import com.daisy.interfaces.SyncLogCallBack;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
@@ -82,7 +83,7 @@ import java.util.concurrent.TimeUnit;
 import static com.daisy.utils.Constraint.LOG;
 import static com.daisy.utils.Constraint.messages;
 
-public class BackgroundService extends Service implements View.OnTouchListener, SensorEventListener , FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
+public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
@@ -125,7 +126,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
 
     private long stepTimestamp = 0;
     private double distance = 0;
-    private int uninstallIssue=0;
+    private int uninstallIssue = 0;
 
 
     @Nullable
@@ -165,7 +166,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
      */
     private void securityService() {
 
-    //    startService(securityIntent);
+        //    startService(securityIntent);
     }
 
 
@@ -184,20 +185,17 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                                 sessionManager = SessionManager.get();
                             }
 
-                            if (process.equals(Constraint.Extra_pass_screen))
-                            {
+                            if (process.equals(Constraint.Extra_pass_screen)) {
                                 return;
                             }
                             if (!sessionManager.getUninstall()) {
 
                                 if (process.equals(Constraint.PACKAGE_INSTALLER)) {
 
-                                    if (uninstallIssue==0)
-                                    {
-                                    uninstallIssue++;
-                                    }
-                                    else {
-                                        uninstallIssue=0;
+                                    if (uninstallIssue == 0) {
+                                        uninstallIssue++;
+                                    } else {
+                                        uninstallIssue = 0;
                                         Intent intent = new Intent(getApplicationContext(), LockScreen.class);
                                         intent.putExtra(Constraint.PACKAGE, process);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -209,7 +207,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                                     }
 
                                 } else {
-                                    uninstallIssue=0;
+                                    uninstallIssue = 0;
                                     sessionManager.setDefaultDownload(false);
                                 }
                             }
@@ -282,7 +280,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                     DBCaller.storeLogInDatabase(getApplicationContext(), getApplicationContext().getString(R.string.open) + app_name, "", "", Constraint.APPLICATION_LOGS);
             }
         } catch (Exception e) {
-         }
+        }
     }
 
     @SuppressLint("InvalidWakeLockTag")
@@ -392,21 +390,16 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                         inversion.setInvert(Utils.getInvertedTime());
                         EventBus.getDefault().post(inversion);
 
-                        String mainVersion=sessionManager.getApkVersion();
-                        if (mainVersion!=null && !mainVersion.equals(""))
-                        {
-                            Log.e("kali","mainVersion Not empty");
-                            try
-                            {
-                                double olderVersion=Double.parseDouble(mainVersion);
-                                double newVersion=Double.parseDouble(BuildConfig.VERSION_NAME);
-                                if (newVersion>olderVersion)
-                                {
+                        String mainVersion = sessionManager.getApkVersion();
+                        if (mainVersion != null && !mainVersion.equals("")) {
+                            Log.e("kali", "mainVersion Not empty");
+                            try {
+                                double olderVersion = Double.parseDouble(mainVersion);
+                                double newVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
+                                if (newVersion > olderVersion) {
                                     new UpdateAppVersion().UpdateAppVersion();
                                 }
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                             }
                         }
 
@@ -468,13 +461,43 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+
+
                 if (Utils.getNetworkState(getApplicationContext())) {
                     SyncLogs syncLogs = SyncLogs.getLogsSyncing(getApplicationContext());
-                    syncLogs.saveContactApi();
+                    syncLogs.saveContactApi(Constraint.APPLICATION_LOGS,BackgroundService.this::syncDone);
+
+
                 }
             }
-        }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+            }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+    //    }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
 
+    }
+
+    @Override
+    public void syncDone(String val,int index) {
+        try {
+            List<Integer> integers = DBCaller.getPromotionCountByID(getApplicationContext());
+
+            if (val.equals(Constraint.APPLICATION_LOGS)) {
+                if (integers != null) {
+                    if (integers.size() > 0) {
+                        SyncLogs syncLogsPromotion = SyncLogs.getLogsSyncing(getApplicationContext());
+                        syncLogsPromotion.saveContactApi(Constraint.PROMOTION, integers.get(0));
+                    }
+                }
+
+            } else if (val.equals(Constraint.PROMOTION)) {
+                if (integers.size() > 0) {
+                    SyncLogs syncLogsPromotion = SyncLogs.getLogsSyncing(getApplicationContext());
+                    syncLogsPromotion.saveContactApi(Constraint.PROMOTION, integers.get(0));
+                }
+            }
+        }catch (Exception e)
+        {
+
+        }
     }
 
     public static void checkUpdate() {
@@ -607,7 +630,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             mainHandler.post(myRunnable);
 
         } catch (Exception e) {
-         }
+        }
 
     }
 
@@ -845,7 +868,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
 //                    WindowManager.LayoutParams.WRAP_CONTENT,
 //                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    10,10,
+                    10, 10,
                     WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                             | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -860,7 +883,7 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             params.x = Constraint.ZERO;
             params.y = Constraint.ZERO;
 
-                mWindowManager.addView(touchLayoutforCamera, params);
+            mWindowManager.addView(touchLayoutforCamera, params);
 
         }
     }
@@ -885,7 +908,6 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
         } catch (Exception e) {
 
 
-
         }
     }
 
@@ -908,20 +930,19 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
                     }
                 }
             } catch (Exception e) {
-             }
+            }
 
         } catch (Exception e) {
 
         }
     }
 
-private double MagnitudePrevious;
     @Override
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case (Sensor.TYPE_STEP_COUNTER):
-               // countSteps(event.values[0]);
-               break;
+                countSteps(event.values[0]);
+                break;
 
             case Sensor.TYPE_GYROSCOPE:
                 handleGyro(event);
@@ -985,13 +1006,13 @@ private double MagnitudePrevious;
     private void countSteps(float step) {
         int stepCount = sessionManager.getSteps();
         //Step count
-         if (!Utils.isPlugged(getApplicationContext())) {
-             if (!sessionManager.getDeviceSecured()) {
-            stepCount =stepCount+1;
-            ValidationHelper.showToast(getApplicationContext(), stepCount + "");
-            sessionManager.setStepCount(stepCount);
-            //Distance calculation
-            if (stepCount >= Constraint.FIFTEEN) {
+        if (!Utils.isPlugged(getApplicationContext())) {
+            if (!sessionManager.getDeviceSecured()) {
+                stepCount = stepCount + 1;
+                ValidationHelper.showToast(getApplicationContext(), stepCount + "");
+                sessionManager.setStepCount(stepCount);
+                //Distance calculation
+                if (stepCount >= Constraint.FIFTEEN) {
 
                     startService(securityIntent);
                 }
@@ -1002,16 +1023,25 @@ private double MagnitudePrevious;
     }
 
 
-
-
     @Override
     public void onFaceDetected() {
-
+        if (sessionManager==null)
+        {
+            sessionManager=SessionManager.get();
+        }
+        sessionManager.setFaceDetectedStore(true);
 
     }
 
     @Override
     public void onFaceTimedOut() {
+
+        if (sessionManager==null)
+        {
+            sessionManager=SessionManager.get();
+        }
+        sessionManager.setFaceDetectedStore(false);
+
 
 
     }
@@ -1020,6 +1050,7 @@ private double MagnitudePrevious;
     public void onFaceDetectionNonRecoverableError() {
 
     }
+
     FaceDetectionCamera camera;
 
     @Override
@@ -1029,8 +1060,8 @@ private double MagnitudePrevious;
             // When the front facing camera has been retrieved we still need to ensure our display is ready
             // so we will let the camera surface view initialise the camera i.e turn face detection on
             SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-            this.camera=  camera;
-                    touchLayoutforCamera.addView(cameraSurface);
+            this.camera = camera;
+            touchLayoutforCamera.addView(cameraSurface);
 
         } catch (Exception e) {
 
@@ -1041,4 +1072,5 @@ private double MagnitudePrevious;
     public void onFailedToLoadFaceDetectionCamera() {
 
     }
+
 }

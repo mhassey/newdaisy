@@ -50,12 +50,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+
                     android:layout_width="@dimen/dp150"
                     android:layout_height="@dimen/dp50">
                 <LinearLayout
                     android:id="@+id/nextSlide"
                     android:layout_width="@dimen/dp150"
                     android:layout_height="@dimen/dp50"
+                    android:layoutDirection="locale"
                     android:background="@drawable/ovel_purple"
                     android:gravity="center"
                     android:orientation="horizontal">

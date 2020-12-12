@@ -240,14 +240,20 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
     public void nextSlideClickHandler() {
+
         count = count + Constraint.ONE;
 
         if (count == Constraint.TWO) {
             SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
-            if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
-                sessionManager.setDeletePhoto(true);
-            } else {
-                sessionManager.setDeletePhoto(false);
+            try {
+                if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
+                    sessionManager.setDeletePhoto(true);
+                } else {
+                    sessionManager.setDeletePhoto(false);
+                }
+            }catch (Exception e)
+            {
+              e.printStackTrace();
             }
             if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
                 sessionManager.setLockOnBrowser(true);

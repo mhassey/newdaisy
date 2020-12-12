@@ -77,6 +77,7 @@
                 android:textSize="@dimen/sp15"
                 android:inputType="text"
                 android:imeOptions="actionNext"
+                android:textDirection="locale"
 
                 android:paddingStart="@dimen/dp10"
                 android:textColor="?attr/textcolorblack" />
@@ -91,6 +92,7 @@
                 android:layout_marginTop="@dimen/dp20"
                 android:background="@drawable/edit_text_format"
                 android:hint="@string/Password"
+                android:textAlignment="viewStart"
                 android:textSize="@dimen/sp15"
                 android:inputType="textPassword"
                 android:imeOptions="actionDone"

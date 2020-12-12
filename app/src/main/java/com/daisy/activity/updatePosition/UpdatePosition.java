@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -22,6 +23,7 @@ import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class UpdatePosition extends BaseActivity implements View.OnClickListener {
 
@@ -30,6 +32,7 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
     private SessionManager sessionManager;
     private UpdatePositionViewModel viewModel;
     private UpdateProfileValidationHelper updateProfileValidationHelper;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,4 +140,18 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
     }
+
+    @Override
+    protected void onStart() {
+        if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                mBinding.updatePosition.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_update_position_rtl) );
+            } else {
+                mBinding.updatePosition.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_update_position_rtl));
+            }
+        }
+        super.onStart();
+
+    }
+
 }

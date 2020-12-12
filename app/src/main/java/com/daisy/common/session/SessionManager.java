@@ -1181,4 +1181,13 @@ public class SessionManager {
     public boolean getMarkDone() {
         return pref.getBoolean(PrefConstant.MARK_ADDED);
     }
+
+    public void setFaceDetectedStore(boolean b) {
+        pref.setBooleanData(PrefConstant.FACE_DETERMINATION,b);
+    }
+
+    public boolean getUserFaceDetectionEnable() {
+      return pref.getBoolean(PrefConstant.FACE_DETERMINATION);
+
+    }
 }

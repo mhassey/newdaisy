@@ -16,7 +16,6 @@ public class PreferenceUtil {
 
     public PreferenceUtil(Context context) {
         this.context = context;
-        Log.e("kali",this.context+"");
         mSpref = this.context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
     }
 

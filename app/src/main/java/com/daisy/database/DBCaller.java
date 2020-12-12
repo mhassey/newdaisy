@@ -2,6 +2,7 @@ package com.daisy.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
@@ -47,11 +48,35 @@ public class DBCaller {
     /**
      * Get not sync logs
      */
-    public static List<Logs> getLogsFromDatabaseNotSync(Context context) {
-        List<Logs> logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE);
+    public static List<Logs> getLogsFromDatabaseNotSync(Context context,String type) {
+        List<Logs> logs=null;
+        if (type.equals(Constraint.PROMOTION))
+        {
+
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllPromotionLog(Constraint.FALSE);
+
+        }
+        else
+        {
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type);
+        }
         return logs;
     }
 
+    public static List<Logs> getLogsFromDatabaseNotSyncById(Context context,String type,Integer integer) {
+        List<Logs> logs=null;
+        if (type.equals(Constraint.PROMOTION))
+        {
+
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllPromotionLog(Constraint.FALSE,integer);
+
+        }
+        else
+        {
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type);
+        }
+        return logs;
+    }
 
     /**
      * Clear logs
@@ -65,6 +90,19 @@ public class DBCaller {
             return false;
         }
     }
+
+    public static List<Integer> getPromotionCountByID(Context context) {
+        try {
+          List<Integer>integers = DatabaseClient.getInstance(context).getAppDatabase().logDao().getPromotionCount();
+            return integers;
+        } catch (Exception e) {
+            e.printStackTrace();
+           // return false;
+        }
+        return null;
+
+    }
+
     public static class AddLog extends AsyncTask {
 
         @Override

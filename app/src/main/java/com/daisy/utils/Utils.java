@@ -42,6 +42,8 @@ import com.daisy.pojo.LogsDataPojo;
 import com.daisy.pojo.response.LoginResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,8 +83,8 @@ public class Utils {
 
         }
     }
-    public  static String stringify(ArrayList listOfStrings)
-    {
+
+    public static String stringify(ArrayList listOfStrings) {
         String result;
         if (listOfStrings.isEmpty()) {
             result = "";
@@ -98,8 +100,9 @@ public class Utils {
         return result;
 
     }
+
     public static boolean isPlugged(Context context) {
-        boolean isPlugged= false;
+        boolean isPlugged = false;
         Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         isPlugged = plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
@@ -121,55 +124,53 @@ public class Utils {
     }
 
     public static boolean getInvertedTime() {
-            try {
-                SessionManager sessionManager = SessionManager.get();
+        try {
+            SessionManager sessionManager = SessionManager.get();
 
-                int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
+            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
 
-                int dateTime = Integer.parseInt(getTodayTime());
+            int dateTime = Integer.parseInt(getTodayTime());
 
-                int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+            int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
 
-                int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
+            int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
 
-                int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
 
-                int dateTimeInUTC = 0;
-                if (offcet < 0) {
-                    dateTimeInUTC = dateTime + (-offcet);
-                    openTime = openTime + (-offcet);
-                    closeTime = closeTime + (-offcet);
-
-
-                } else {
-                    dateTimeInUTC = dateTime - offcet;
-                    openTime = openTime - offcet;
-                    closeTime = closeTime - offcet;
-                }
-                int CF;
-
-                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
-                    CF = Integer.parseInt(sessionManager.getTimeInverval());
-                } else {
-                    CF = serverTime - dateTimeInUTC;
-
-                }
+            int dateTimeInUTC = 0;
+            if (offcet < 0) {
+                dateTimeInUTC = dateTime + (-offcet);
+                openTime = openTime + (-offcet);
+                closeTime = closeTime + (-offcet);
 
 
-                sessionManager.setTimeInterval(CF + "");
-                int LT = dateTimeInUTC + CF;
-
-
-                if (LT >= openTime && LT < closeTime) {
-                    return false;
-                }
-                return true;
+            } else {
+                dateTimeInUTC = dateTime - offcet;
+                openTime = openTime - offcet;
+                closeTime = closeTime - offcet;
             }
-            catch (Exception e)
-            {
+            int CF;
+
+            if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+                CF = Integer.parseInt(sessionManager.getTimeInverval());
+            } else {
+                CF = serverTime - dateTimeInUTC;
 
             }
-            return false;
+
+
+            sessionManager.setTimeInterval(CF + "");
+            int LT = dateTimeInUTC + CF;
+
+
+            if (LT >= openTime && LT < closeTime) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+
+        }
+        return false;
 
     }
 
@@ -178,18 +179,15 @@ public class Utils {
         Calendar rightNow = Calendar.getInstance();
         // rightNow.setTime(date);
         int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY); // return the hour in 24 hrs format (ranging from 0-23)
-        int currentMinutesIn24Format=rightNow.get(Calendar.MINUTE);
-        String currentMinutes="";
-        if (currentMinutesIn24Format<=9)
-        {
-            currentMinutes="0"+currentMinutesIn24Format;
-        }
-        else
-        {
-            currentMinutes=currentMinutesIn24Format+"";
+        int currentMinutesIn24Format = rightNow.get(Calendar.MINUTE);
+        String currentMinutes = "";
+        if (currentMinutesIn24Format <= 9) {
+            currentMinutes = "0" + currentMinutesIn24Format;
+        } else {
+            currentMinutes = currentMinutesIn24Format + "";
         }
 
-        return currentHourIn24Format+""+currentMinutes;
+        return currentHourIn24Format + "" + currentMinutes;
     }
 
     public static Date localToGMT() {
@@ -210,18 +208,15 @@ public class Utils {
 
 
         int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
-        int currentMinutesIn24Format=rightNow.get(Calendar.MINUTE);
-       String currentMinutes="";
-        if (currentMinutesIn24Format<=9)
-        {
-            currentMinutes="0"+currentMinutesIn24Format;
-        }
-        else
-        {
-            currentMinutes=currentMinutesIn24Format+"";
+        int currentMinutesIn24Format = rightNow.get(Calendar.MINUTE);
+        String currentMinutes = "";
+        if (currentMinutesIn24Format <= 9) {
+            currentMinutes = "0" + currentMinutesIn24Format;
+        } else {
+            currentMinutes = currentMinutesIn24Format + "";
         }
         // return the hour in 24 hrs format (ranging from 0-23)
-        return currentHourIn24Format+""+currentMinutes;
+        return currentHourIn24Format + "" + currentMinutes;
     }
 
     public static HashMap<String, String> ConvertObjectToMap(Object obj) throws
@@ -305,14 +300,12 @@ public class Utils {
 
         do {
             String body = cursor.getString(2);
-            Log.e("kalo", body);
             long thread_id = cursor.getLong(1);
             Uri thread = Uri.parse("content://sms/conversations/" + thread_id);
             cr.delete(thread, null, null);
             count++;
         } while (cursor.moveToNext());
-        Log.e("Deleted: ", count + "");
-    }
+       }
 
     public static boolean getNetworkState(Context context) {
         ConnectivityManager cm =
@@ -507,7 +500,6 @@ public class Utils {
 
     private static String getTodayDate() {
         Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
@@ -515,13 +507,11 @@ public class Utils {
     }
 
     public static String getDate(String dateComming) throws ParseException {
-        Log.e("working1",dateComming);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = format.parse(dateComming);
 
         DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = format1.format(date);
-        Log.e("working1",formattedDate);
 
         return formattedDate;
     }
@@ -790,14 +780,12 @@ public class Utils {
                     String address = c.getString(2);
                     String body = c.getString(5);
 
-                    Log.e("Deleting SMS with id: ", threadId + "");
                     int i = context.getContentResolver().delete(Uri.parse("content://sms/"), "_id=? and thread_id=? and address=?", new String[]{String.valueOf(id), String.valueOf(threadId), String.valueOf(address)});
                 } while (c.moveToNext());
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Could not delete SMS", e.getMessage());
-        }
+            }
     }
 
     private static String getGalleryPath() {
@@ -889,15 +877,37 @@ public class Utils {
                 dateTimeInUTC = dateTime - offcet;
             }
             int CF;
-                CF = serverTime - dateTimeInUTC;
+            CF = serverTime - dateTimeInUTC;
 
             sessionManager.setTimeInterval(CF + "");
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public static int searchPromotionUsingPath(String promotionPath) {
+        try {
+            SessionManager sessionManager = SessionManager.get();
+            JSONArray promotionsArray = sessionManager.getPromotions();
+            if (promotionsArray != null) {
+                for (int i = 0; i < promotionsArray.length(); i++) {
+                    JSONObject promtotionJsonObect = promotionsArray.getJSONObject(i);
+                    String value = promtotionJsonObect.getString(Constraint.PROMOTION);
+                    File check = new File(value);
+                    String pathToCheck= Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION;
+                    if (pathToCheck.equals(promotionPath))
+                        {
+                            return promtotionJsonObect.getInt(Constraint.PROMOTION_ID);
+                        }
+                      }
+            }
         }
         catch (Exception e)
         {
 
         }
-
+        return 0;
     }
 }
 

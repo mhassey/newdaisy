@@ -1,5 +1,6 @@
 package com.daisy.activity.lockscreen;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -18,12 +19,15 @@ import com.daisy.databinding.ActivityLockScreenBinding;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
+import java.util.Locale;
+
 public class LockScreen extends BaseActivity implements View.OnClickListener {
     private ActivityLockScreenBinding binding;
     private Context context;
     private String current_running_path;
     private SessionManager sessionManager;
     private boolean comeFromUninstall = false;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +193,18 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+    }
+    @Override
+    protected void onStart() {
+        if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                binding.unlock.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_light_red_rtl) );
+            } else {
+                binding.unlock.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_light_red_rtl));
+            }
+        }
+        super.onStart();
+
     }
 
 }

@@ -39,6 +39,12 @@ public class Constraint {
     public static final String PRICING_NOT_DEFINE = "handlePriceDynamically";
     public static final int ADMIN = 123;
     public static final int FIFTEEN = 15;
+    public static final String AR = "ar";
+    public static final String SHOW_PROMOTION = "Promotion show";
+    public static final Object PRICECARD = "priceCard";
+    public static final String USER_SEEN_PRMOTION = "User seen promotion";
+    public static final String CLICK_ON_PRICE_CARD = "Click on price card";
+    public static final String CLICK_ON_PROMOTION = "Click on promotion";
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     public static final String CARD = "Card";
@@ -217,4 +223,7 @@ public class Constraint {
     public static String pricecardid="pricecardid";
 
     public static  String Extra_pass_screen="com.lge.retailmode";
+    public static String adFrameUrl="adFrameUrl";
+    public static String currentFrameName="currentFrameName";
+    public static String click="click";
 }

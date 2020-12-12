@@ -33,6 +33,7 @@ import com.daisy.utils.ValidationHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class AddScreen extends BaseFragment implements View.OnClickListener {
 
@@ -132,8 +133,16 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      */
     private void designWork() {
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple) );
+            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
+            else
+
+                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple) );
         } else {
+            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
+            else
+
             baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
         }
         baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));

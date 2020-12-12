@@ -57,10 +57,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp40"
                     android:inputType="text"
+                    android:textDirection="locale"
                     android:autofillHints="@string/enter_base_url_for_server"
                     android:background="@drawable/edit_text_format"
                     android:paddingStart="@dimen/dp10"
-                    android:textDirection="locale"
                     android:textColor="?attr/textcolorblack"
                     android:textColorHint="@color/editTextLineColor"
                     android:padding="@dimen/dp10" />
@@ -69,7 +69,7 @@
                     android:layout_marginEnd="@dimen/dp10"
                     android:src="@drawable/ic_down_arrow"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_width="@dimen/dp20"
                     android:layout_height="@dimen/dp20"/>
 

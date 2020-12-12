@@ -10,6 +10,7 @@ import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
+import com.daisy.interfaces.SyncLogCallBack;
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogServerRequest;
 import com.daisy.pojo.response.BlankResponse;
@@ -40,6 +41,7 @@ public class SyncLogs {
     private int MAX_CONTACT_COUNT_FOR_EACH_CALL = 500;
     private int loopCount;
     private SessionManager sessionManager;
+    SyncLogCallBack syncLogCallBack;
 
     private SyncLogs(Context context) {
         this.context = context;
@@ -55,16 +57,17 @@ public class SyncLogs {
     }
 
     /**
-     * Save contact api
+     * Save logs api
      */
-    public void saveContactApi() {
+    public void saveContactApi(String type,SyncLogCallBack syncLogCallBack) {
         sessionManager = SessionManager.get();
+        this.syncLogCallBack=syncLogCallBack;
         if (isSyncingInProgress)
             return;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getAllLogs();
+                getAllLogs(type);
                 isSyncingInProgress = true;
                 if (logsVOList == null || logsVOList.size() == 0) {
                     isSyncingInProgress = false;
@@ -74,29 +77,71 @@ public class SyncLogs {
                 loopCount = totalCount / MAX_CONTACT_COUNT_FOR_EACH_CALL;
                 if (totalCount % MAX_CONTACT_COUNT_FOR_EACH_CALL != 0)
                     loopCount = loopCount + 1;
-                callApiToSync(0);
+                if (type.equals(Constraint.PROMOTION))
+                {
+
+                }
+                else
+                callApiToSync(0,type,0);
+            }
+        }).start();
+    }
+
+    /**
+     * Save logs api
+     */
+    public void saveContactApi(String type,Integer integer) {
+        sessionManager = SessionManager.get();
+        if (isSyncingInProgress)
+            return;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getAllLogsBasedOnId(type,integer);
+                isSyncingInProgress = true;
+                if (logsVOList == null || logsVOList.size() == 0) {
+                    isSyncingInProgress = false;
+                    return;
+                }
+                int totalCount = logsVOList.size();
+                loopCount = totalCount / MAX_CONTACT_COUNT_FOR_EACH_CALL;
+                if (totalCount % MAX_CONTACT_COUNT_FOR_EACH_CALL != 0)
+                    loopCount = loopCount + 1;
+                    callApiToSync(0,type,integer);
             }
         }).start();
     }
 
 
-
     /**
      * call api to sync
      */
-    private void callApiToSync(final int count) {
+    private void callApiToSync(final int count,String type,int id) {
         ApiService apiService = AppRetrofit.getInstance().getApiService();
         final HashMap<String, String> request = getRequest(count);
-        Log.e("logs", request.toString());
+        if (type.equals(Constraint.APPLICATION_LOGS))
+        {
+            request.put(Constraint.ID_PROMOTION, sessionManager.getPriceCard().getIdpriceCard());
+
+        }
+        else if (type.equals(Constraint.PROMOTION))
+        {
+            request.put(Constraint.ID_PROMOTION, id+"");
+
+        }
         apiService.sendLogs(request, request.get(Constraint.TOKEN)).enqueue(new Callback<GlobalResponse<BlankResponse>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<GlobalResponse<BlankResponse>> call, Response<GlobalResponse<BlankResponse>> response) {
                 if (count >= loopCount - 1) {
-                    syncingComplete();
+                    syncingComplete(type,id);
                 } else {
                     int cnt = count + 1;
-                    callApiToSync(cnt);
+                    if (type.equals(Constraint.PROMOTION))
+                    callApiToSync(cnt,type,id);
+                    else
+                        callApiToSync(cnt,type,0);
+
                 }
 
             }
@@ -113,7 +158,7 @@ public class SyncLogs {
      * handle sync completed
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void syncingComplete() {
+    private void syncingComplete(String type,int id) {
         // Do what ever you want
         int totalCount = logsVOList.size();
         int counter = totalCount / MAX_CONTACT_COUNT_FOR_EACH_CALL;
@@ -131,6 +176,7 @@ public class SyncLogs {
                 public void run() {
 
                     DBCaller.setLogData(context, integers);
+                    syncLogCallBack.syncDone(type,id);
                 }
             }).start();
         }
@@ -172,7 +218,7 @@ public class SyncLogs {
             } catch (Exception e) {
 
             }
-            logSyncRequest.put(Constraint.ID_PROMOTION, "1");
+
             logSyncRequest.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
 
         } catch (Exception e) {
@@ -202,11 +248,15 @@ public class SyncLogs {
 
     /**
      * get All logs from local db
+     * @param type
      */
-    private void getAllLogs() {
-        logsVOList = DBCaller.getLogsFromDatabaseNotSync(context);
+    private void getAllLogs(String type) {
+        logsVOList = DBCaller.getLogsFromDatabaseNotSync(context,type);
 
     }
+    private void getAllLogsBasedOnId(String type,Integer integer) {
+        logsVOList = DBCaller.getLogsFromDatabaseNotSyncById(context,type,integer);
 
+    }
 
 }

@@ -1,28 +1,23 @@
 package com.daisy.activity.onBoarding.slider.slides.securityAsk;
 
-import android.app.admin.DeviceAdminReceiver;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.daisy.R;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentSecurityAskBinding;
-import com.daisy.security.Admin;
+import com.daisy.utils.Constraint;
+
+import java.util.Locale;
 
 
 public class SecurityAsk extends Fragment implements View.OnClickListener {
@@ -72,9 +67,16 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
     private void designWork() {
 
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            ActivityOnBaordingBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_blue) );
+            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                ActivityOnBaordingBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_blue_rtl));
+            else
+
+                ActivityOnBaordingBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_blue) );
         } else {
-            ActivityOnBaordingBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_blue));
+            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                ActivityOnBaordingBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_blue_rtl));
+            else
+                ActivityOnBaordingBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_blue));
         }
         ActivityOnBaordingBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
         ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selected_blue));

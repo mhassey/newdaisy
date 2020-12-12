@@ -30,6 +30,7 @@ import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class SignUp extends BaseFragment implements View.OnClickListener {
     private static OnBaording baording;
@@ -46,7 +47,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         loginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        return loginBinding.getRoot();
+         return loginBinding.getRoot();
     }
 
     public static SignUp getInstance(OnBaording onBaording) {
@@ -97,7 +98,6 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
             if (signUpValidationHelper.isValid()) {
                 showHideProgressDialog(true);
                 HashMap<String, String> signUpRequest = getSignUpRequest();
-                Log.e("kaliii",signUpRequest.toString());
                 signUpViewModel.setSignUpRequestMutableLiveData(signUpRequest);
                 LiveData<SignUpResponse> liveData = signUpViewModel.getResponseLiveData();
                 if (!liveData.hasActiveObservers()) {
@@ -164,14 +164,25 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
     private void desginWork() {
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green) );
+            if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
+                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
+            }
+                else
+
+                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green) );
         } else {
-            baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
+            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
+            else
+
+                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
         }
         baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_green));
         baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
     }
+
+
 
 }

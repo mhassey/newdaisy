@@ -179,11 +179,9 @@ public class OverlayFragment extends BaseFragment {
         InternetResponse internetResponse = new InternetResponse();
 
         if (wifiManager.isWifiEnabled()) {
-            Log.e("check","enabled");
             mBinding.offlineLayout.setVisibility(View.GONE);
 
         } else {
-            Log.e("check","disable");
             mBinding.offlineLayout.setVisibility(View.VISIBLE);
 
         }

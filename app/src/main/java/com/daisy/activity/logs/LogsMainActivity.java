@@ -46,6 +46,7 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         mBinding.applicationLogs.setOnClickListener(this);
         mBinding.cardLogs.setOnClickListener(this);
         mBinding.settings.setOnClickListener(this);
+        mBinding.promotionLogs.setOnClickListener(this::onClick);
         mBinding.cancel.setOnClickListener(this::onClick);
     }
 
@@ -109,6 +110,14 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
 
                 callLogsShowActivity(Constraint.CARD_LOGS);
                 break;
+            }
+            case R.id.promotionLogs:
+            {
+                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_PROMO_LOG,Constraint.REVIEW_PROMO_LOG_DESCRIPTION,"",Constraint.PROMOTION);
+
+                callLogsShowActivity(Constraint.PROMOTION);
+                break;
+
             }
             case R.id.settings:
             {

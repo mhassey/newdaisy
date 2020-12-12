@@ -141,4 +141,5 @@ public interface PrefConstant {
     String MAV_ID = "mavId";
     String MARK_DONE = "mark_done";
     String MARK_ADDED = "mark_added";
+    String FACE_DETERMINATION = "face_determine";
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class UpdateProduct extends BaseActivity implements View.OnClickListener {
     private Context context;
@@ -483,5 +485,19 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         }
         hashMap.put(Constraint.TOKEN,sessionManager.getDeviceToken());
         return hashMap;
+    }
+
+
+    @Override
+    protected void onStart() {
+        if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl) );
+            } else {
+                mBinding.nextSlide.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
+            }
+        }
+        super.onStart();
+
     }
 }

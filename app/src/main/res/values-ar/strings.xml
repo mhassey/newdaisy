@@ -161,7 +161,7 @@
     <string name="wipe_warning_second_ok">BOOM!</string>
     <string name="wipe_warning_second_no">Oops, run away!</string>
     <string name="encryption_not_supported">Encryption is not supported on this device.</string>
-    <string name="encryption_not_supported_ok">OK</string>
+    <string name="encryption_not_supported_ok">حسنا</string>
     <string name="encryption_status_unknown">unknown</string>
     <string name="encryption_status_unsupported">unsupported</string>
     <string name="encryption_status_inactive">inactive</string>

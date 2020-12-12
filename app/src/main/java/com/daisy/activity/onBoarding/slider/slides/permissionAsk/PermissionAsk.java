@@ -54,6 +54,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.Locale;
 
 public class PermissionAsk extends Fragment implements View.OnClickListener {
     private static ActivityOnBaordingBinding onBaordingBindingMain;
@@ -155,8 +156,14 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandExtraAccess()) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
+                    if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                        onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
+                    else
+                        onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
                 } else {
+                    if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                        onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
+                    else
                     onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
                 }
             } else {
@@ -166,9 +173,16 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         } else {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization()) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
+
+                    if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                        onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
+                    else
+                        onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
                 } else {
-                    onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
+                    if (Locale.getDefault().getLanguage().equals(Constraint.AR))
+                        onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
+                    else
+                        onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
                 }
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
             } else {

@@ -157,7 +157,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         new CountDownTimer(Constraint.THIRTY_THOUSAND, Constraint.THOUSAND) {
 
             public void onTick(long millisUntilFinished) {
-        Log.e("kali",millisUntilFinished+"");
             }
 
             public void onFinish() {
@@ -491,9 +490,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "interface"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
+            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
 
             mBinding.webView.setWebChromeClient(new WebClient());
+
             setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
@@ -793,7 +793,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             e.printStackTrace();
 
         }
-        Log.e("kali",jsonObject.toString());
         return jsonObject;
     }
 
@@ -872,7 +871,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
-        Log.e("kaliiii","["+Utils.stringify(pro)+"]");
         if (pro.size() > 0) {
             mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle(["+Utils.stringify(pro)+"])");
         }
@@ -974,6 +972,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onDestroy();
 
     }
+
 
     /**
      * open editor tool activity
@@ -1245,10 +1244,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
                 loadURL();
             }
-//            else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE))
-//            {
-//                pricingUpdate();
-//            }
+            else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE))
+            {
+                pricingUpdate();
+            }
             if (consoleMessage.message().contains(Constraint.PROMOTION))
             {
                 try {
@@ -1279,7 +1278,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @Override
         public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
-            Log.e("kalijsconfirm",url);
 
             return true;
         }
@@ -1287,8 +1285,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @Override
         public boolean onJsPrompt(WebView view, String url, String message,
                                   String defaultValue, final JsPromptResult result) {
-            Log.e("kaliprpmt",url);
-            return true;
+             return true;
         }
 
 
@@ -1303,35 +1300,33 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mContext = c;
         }
 
-         @JavascriptInterface
-        public void apply(String[] toast) {
-            try {
-                if (toast!=null) {
-                    for (String val : toast) {
-                        Log.e("kali", val);
-                    }
-                }
-                }
-            catch (Exception e)
+        @JavascriptInterface
+        public void logEvent(String cmd, String msg) {
+            if (cmd.equals(Constraint.adFrameUrl))
             {
-                e.printStackTrace();
+
+                maintainPromotionShowWithUrl(msg);
             }
+            else if (cmd.equals(Constraint.currentFrameName))
+            {
+                //storePriceCardOrPromotionLoad(msg);
             }
-        // Show a toast from the web page
-        @JavascriptInterface
-        public void showToast(String toast) {
-            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
-        }
+            else if (cmd.equals(Constraint.click))
+            {
+                storeClickOnPromotionOrPriceCard(msg);
+            }
+         }
 
         @JavascriptInterface
-        public int getAndroidVersion() {
-            return android.os.Build.VERSION.SDK_INT;
+        public void heartbeat( String msg) {
+           // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
         }
 
-        @JavascriptInterface
-        public void showAndroidVersion(String versionName) {
-            Toast.makeText(mContext, versionName, Toast.LENGTH_SHORT).show();
-        }
+
+
+
+
+
 
         @JavascriptInterface
         public void callFromJS() {
@@ -1339,8 +1334,51 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
         @JavascriptInterface
         public void callFromJS(String event) {
-            Log.e("kali",event);
+           }
+    }
+
+    private void storeClickOnPromotionOrPriceCard(String msg) {
+        try {
+            if (sessionManager != null) {
+                sessionManager = SessionManager.get();
+            }
+
+            if (msg.contains(Constraint.PROMOTION)) {
+                String promotionPath = msg.split("\\?")[0];
+                int id = Utils.searchPromotionUsingPath(promotionPath);
+
+                DBCaller.storeLogInDatabase(context, Constraint.CLICK_ON_PROMOTION, Constraint.CLICK_ON_PROMOTION + " " + id, msg, Constraint.PROMOTION);
+
+            } else {
+                DBCaller.storeLogInDatabase(context, Constraint.CLICK_ON_PRICE_CARD, Constraint.CLICK_ON_PRICE_CARD + " " + sessionManager.getPriceCard().getIdpriceCard(), msg, Constraint.APPLICATION_LOGS);
+            }
+        }catch (Exception e)
+        {
+
         }
+
+    }
+
+    private void maintainPromotionShowWithUrl(String msg) {
+        try {
+            String promotionPath=msg.split("\\?")[0];
+          int id =Utils.searchPromotionUsingPath(promotionPath);
+          if (id!=0)
+          {
+              if (sessionManager==null)
+              {
+                  sessionManager=SessionManager.get();
+              }
+            if (sessionManager.getUserFaceDetectionEnable())
+              DBCaller.storeLogInDatabase(context,Constraint.USER_SEEN_PRMOTION+" "+promotionPath+" "+id,id+"",promotionPath,Constraint.PROMOTION);
+//              DBCaller.storeLogInDatabase(context,Constraint.SHOW_PROMOTION+" "+promotionPath+" "+id,id+"",promotionPath,Constraint.PROMOTION);
+          }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     /**

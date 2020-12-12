@@ -2,8 +2,12 @@ package com.daisy.activity.welcomeScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.daisy.R;
@@ -11,16 +15,21 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.onBoarding.slider.OnBaording;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
+import com.daisy.utils.Constraint;
+
+import java.util.Locale;
 
 public class WelcomeScreen extends BaseActivity implements View.OnClickListener {
 
     private ActivityWelcomeScreenBinding mBinding;
     private SessionManager sessionManager;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
+
         initView();
         initClick();
     }
@@ -73,6 +82,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
             hideSystemUI();
         }
 
+
     }
 
     /**
@@ -89,5 +99,19 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
 
     }
+
+    @Override
+    protected void onStart() {
+        if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
+             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl) );
+            } else {
+                mBinding.curveLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
+            }
+        }
+        super.onStart();
+
+    }
+
 
 }
