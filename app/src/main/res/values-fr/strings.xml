@@ -146,5 +146,22 @@
     <string name="enable_gps">Votre GPS semble être désactivé, veuillez l\'activer?</string>
     <string name="manufacturer">Fabricante</string>
     <string name="wait">Attendez...</string>
-
+    <string name="select_language">Choisir la langue</string>
+    <string name="language">Langue</string>
+    <string name="confirm">Confirmer</string>
+    <string name="please_select_lang">Veuillez sélectionner la langue</string>
+    <string name="arabic">arabe</string>
+    <string name="danish">Danoise</string>
+    <string name="dutch">Néerlandaise</string>
+    <string name="finnish">Finlandaise</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">Italienne</string>
+    <string name="korean">Coréenne</string>
+    <string name="norwegian">Norvégienne</string>
+    <string name="polish">polonais</string>
+    <string name="portuguese">Portugais</string>
+    <string name="russian">russe</string>
+    <string name="swedish">Suédoise</string>
+    <string name="turkish">Turque</string>
+    <string name="ukrainian">Ukrainienne</string>
 </resources>

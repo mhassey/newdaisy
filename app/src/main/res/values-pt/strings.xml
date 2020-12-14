@@ -147,4 +147,26 @@
     <string name="manufacturer">Fabricante</string>
     <string name="wait">Esperar...</string>
 
+
+
+
+
+    <string name="select_language">Selecione o idioma</string>
+    <string name="language">Língua</string>
+    <string name="confirm">confirme</string>
+    <string name="please_select_lang">Selecione o idioma</string>
+    <string name="arabic">árabe</string>
+    <string name="danish">dinamarquês</string>
+    <string name="dutch">holandês</string>
+    <string name="finnish">Finlandesa</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">Italiana</string>
+    <string name="korean">Coreana</string>
+    <string name="norwegian">Norueguesa</string>
+    <string name="polish">polonês</string>
+    <string name="portuguese">Português</string>
+    <string name="russian">Russa</string>
+    <string name="swedish">Sueca</string>
+    <string name="turkish">Turca</string>
+    <string name="ukrainian">Ucraniana</string>
 </resources>

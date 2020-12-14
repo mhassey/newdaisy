@@ -39,6 +39,8 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         Log.e("kali","surface change");
         if (surfaceDoesNotExist()) {
+            Log.e("kali","surface not available");
+
             return;
         }
 
@@ -55,5 +57,9 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceDestroyed(SurfaceHolder holder) {
         // empty. Take care of releasing the Camera preview in your activity.
         // (done in FrontCameraRetriever for us)
+    }
+
+    public FaceDetectionCamera getCamera() {
+        return camera;
     }
 }

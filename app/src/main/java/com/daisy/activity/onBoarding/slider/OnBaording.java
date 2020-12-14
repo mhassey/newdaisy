@@ -324,7 +324,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         if (screenAddResponseGlobalResponse.isApi_status()) {
             DBCaller.storeLogInDatabase(context,screenAddResponseGlobalResponse.getResult().getId()+getString(R.string.screen_add),"","",Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
-            mBinding.saveAndStartMpcHeader.setVisibility(View.VISIBLE);
+            mBinding.saveAndStartMpcHeader.setVisibility(View.GONE);
             mBinding.pager.setCurrentItem(count);
             sessionManager.setDeviceId(screenAddResponseGlobalResponse.getResult().getIddevice());
             sessionManager.setScreenID(screenAddResponseGlobalResponse.getResult().getId());

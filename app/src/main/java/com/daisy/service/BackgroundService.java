@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.hardware.Sensor;
@@ -22,7 +21,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -34,7 +32,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -67,20 +64,12 @@ import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import static com.daisy.utils.Constraint.LOG;
 import static com.daisy.utils.Constraint.messages;
 
 public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
@@ -1025,6 +1014,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     @Override
     public void onFaceDetected() {
+        Log.e("kalqqqq","face detected");
         if (sessionManager==null)
         {
             sessionManager=SessionManager.get();
@@ -1035,6 +1025,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     @Override
     public void onFaceTimedOut() {
+        Log.e("working","timeout");
 
         if (sessionManager==null)
         {
@@ -1059,14 +1050,17 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
             // When the front facing camera has been retrieved we still need to ensure our display is ready
             // so we will let the camera surface view initialise the camera i.e turn face detection on
+            Log.e("onLoad","indised");
             SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
             this.camera = camera;
             touchLayoutforCamera.addView(cameraSurface);
 
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 
     @Override
     public void onFailedToLoadFaceDetectionCamera() {

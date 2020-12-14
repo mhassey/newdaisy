@@ -7,12 +7,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -20,28 +17,23 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
-import com.daisy.activity.Maps.MapsActivity;
 import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
-import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.baseUrl.BaseUrlSettings;
-import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.feedBack.FeedBackActivity;
+import com.daisy.activity.langSupport.LangSelectionActivity;
 import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.updateProduct.UpdateProduct;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
-import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
@@ -230,7 +222,8 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 break;
             }
             case R.id.changeLanguage: {
-                changeLanguage();
+                    startLangSupportActivity();
+                //changeLanguage();
                 break;
             }
             case R.id.cancel: {
@@ -266,6 +259,12 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 //                startActivity(intent);
             }
         }
+    }
+
+    private void startLangSupportActivity() {
+        Intent intent=new Intent(context, LangSelectionActivity.class);
+        startActivity(intent);
+
     }
 
     private void openUpdateProductActivity() {

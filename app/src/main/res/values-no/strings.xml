@@ -178,4 +178,25 @@
     <string name="screen_update">Skjermoppdatering</string>
     <string name="enable_gps">GPS-en din ser ut til å være deaktivert, vennligst aktiver den?</string>
     <string name="wait">Vente...</string>
+
+
+
+    <string name="select_language">Velg språk</string>
+    <string name="language">Språk</string>
+    <string name="confirm">Bekrefte</string>
+    <string name="please_select_lang">Velg språk</string>
+    <string name="arabic">Arabisk</string>
+    <string name="danish">dansk</string>
+    <string name="dutch">nederlandsk</string>
+    <string name="finnish">Finsk</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">Italiensk</string>
+    <string name="korean">Koreansk</string>
+    <string name="norwegian">norsk</string>
+    <string name="polish">Pusse</string>
+    <string name="portuguese">Portugisisk</string>
+    <string name="russian">Russisk</string>
+    <string name="swedish">svensk</string>
+    <string name="turkish">Tyrkisk</string>
+    <string name="ukrainian">Ukrainsk</string>
 </resources>

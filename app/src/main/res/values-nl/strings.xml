@@ -178,4 +178,27 @@
     <string name="screen_update">Schermupdate</string>
     <string name="enable_gps">Uw gps lijkt te zijn uitgeschakeld. Schakel deze in?</string>
     <string name="wait">Wait...</string>
+
+
+
+
+
+    <string name="select_language">Selecteer taal</string>
+    <string name="language">Taal</string>
+    <string name="confirm">Bevestigen</string>
+    <string name="please_select_lang">Selecteer taal</string>
+    <string name="arabic">Arabisch</string>
+    <string name="danish">Deens</string>
+    <string name="dutch">Nederlands</string>
+    <string name="finnish">Fins</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">Italiaans</string>
+    <string name="korean">Koreaans</string>
+    <string name="norwegian">Noors</string>
+    <string name="polish">Pools</string>
+    <string name="portuguese">Portugees</string>
+    <string name="russian">Russisch</string>
+    <string name="swedish">Zweeds</string>
+    <string name="turkish">Turks</string>
+    <string name="ukrainian">Oekraïens</string>
 </resources>

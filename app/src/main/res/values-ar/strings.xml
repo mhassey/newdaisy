@@ -178,4 +178,22 @@
     <string name="screen_update">تحديث الشاشة</string>
     <string name="enable_gps">يبدو أن GPS الخاص بك معطل ، يرجى تمكينه؟</string>
     <string name="wait">انتظر...</string>
+    <string name="select_language">اختار اللغة</string>
+    <string name="language">لغة</string>
+    <string name="confirm">تؤكد</string>
+    <string name="please_select_lang">الرجاء تحديد اللغة</string>
+    <string name="arabic">عربى</string>
+    <string name="danish">دانماركي</string>
+    <string name="dutch">هولندي</string>
+    <string name="finnish">الفنلندية</string>
+    <string name="hindi">هندي</string>
+    <string name="italian">إيطالي</string>
+    <string name="korean">الكورية</string>
+    <string name="norwegian">النرويجية</string>
+    <string name="polish">تلميع</string>
+    <string name="portuguese">البرتغالية</string>
+    <string name="russian">الروسية</string>
+    <string name="swedish">السويدية</string>
+    <string name="turkish">اللغة التركية</string>
+    <string name="ukrainian">الأوكرانية</string>
 </resources>

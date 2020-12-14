@@ -178,5 +178,22 @@
     <string name="screen_update">화면 업데이트</string>
     <string name="enable_gps">GPS가 비활성화 된 것 같습니다. 활성화 하시겠습니까?</string>
     <string name="wait">기다림...</string>
-
+    <string name="select_language">언어 선택</string>
+    <string name="language">언어</string>
+    <string name="confirm">확인</string>
+    <string name="please_select_lang">언어를 선택하세요</string>
+    <string name="arabic">아라비아 말</string>
+    <string name="danish">덴마크 말</string>
+    <string name="dutch">네덜란드 사람</string>
+    <string name="finnish">핀란드어</string>
+    <string name="hindi">힌디 어</string>
+    <string name="italian">이탈리아 사람</string>
+    <string name="korean">한국어</string>
+    <string name="norwegian">노르웨이 인</string>
+    <string name="polish">광택</string>
+    <string name="portuguese">포르투갈 인</string>
+    <string name="russian">러시아인</string>
+    <string name="swedish">스웨덴어</string>
+    <string name="turkish">터키어</string>
+    <string name="ukrainian">우크라이나 인</string>
 </resources>

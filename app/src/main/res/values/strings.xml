@@ -88,7 +88,7 @@
     <string name="refresh_time_set">Refresh time set</string>
     <string name="promotion">promotion</string>
     <string name="open">Open</string>
-    <string name="data_store">Data store</string>
+    <string name="data_store" translatable="false">Data store</string>
     <string name="login_success">Login success</string>
     <string name="direct_apk_update">Apk Update</string>
     <string name="screen_add">Screen add</string>
@@ -106,6 +106,7 @@
     <string name="english">English</string>
     <string name="french">French</string>
     <string name="spanish">Spanish</string>
+
     <string name="postigues">Portuguese</string>
     <string name="product_not_available">Product  not available</string>
     <string name="store_code_id">store_code</string>
@@ -178,4 +179,22 @@
     <string name="screen_update">Screen update</string>
     <string name="enable_gps">Your GPS seems to be disabled, please enable it?</string>
     <string name="wait">Wait...</string>
+    <string name="select_language">Select language</string>
+    <string name="language">Language</string>
+    <string name="confirm">Confirm</string>
+    <string name="please_select_lang">"Please select language "</string>
+    <string name="arabic">Arabic</string>
+    <string name="danish">Danish</string>
+    <string name="dutch">Dutch</string>
+    <string name="finnish">Finnish</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">Italian</string>
+    <string name="korean">Korean</string>
+    <string name="norwegian">Norwegian</string>
+    <string name="polish">Polish</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="russian">Russian</string>
+    <string name="swedish">Swedish</string>
+    <string name="turkish">Turkish</string>
+    <string name="ukrainian">Ukrainian</string>
 </resources>

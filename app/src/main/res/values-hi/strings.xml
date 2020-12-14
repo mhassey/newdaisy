@@ -178,4 +178,24 @@
     <string name="screen_update">स्क्रीन अपडेट</string>
     <string name="enable_gps">आपका GPS अक्षम प्रतीत हो रहा है, कृपया इसे सक्षम करें?</string>
     <string name="wait">रुको...</string>
+
+
+    <string name="select_language">भाषा का चयन करें</string>
+    <string name="language">भाषा: हिन्दी</string>
+    <string name="confirm">Confirm</string>
+    <string name="please_select_lang">कृपया भाषा का चयन करें</string>
+    <string name="arabic">अरबी</string>
+    <string name="danish">दानिश</string>
+    <string name="dutch">डच</string>
+    <string name="finnish">फिनिश</string>
+    <string name="hindi">हिंदी</string>
+    <string name="italian">इतालवी</string>
+    <string name="korean">कोरियाई</string>
+    <string name="norwegian">नार्वेजियन</string>
+    <string name="polish">पोलिश</string>
+    <string name="portuguese">पुर्तगाली</string>
+    <string name="russian">रूसी</string>
+    <string name="swedish">स्वीडिश</string>
+    <string name="turkish">तुर्की</string>
+    <string name="ukrainian">यूक्रेनी</string>
 </resources>

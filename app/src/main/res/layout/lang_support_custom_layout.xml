@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:id="@+id/headerLang"
+    android:orientation="vertical"
+    android:layout_height="@dimen/dp60">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50">
+    <LinearLayout
+
+        android:gravity="center|start"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/language"
+            android:layout_marginStart="@dimen/dp10"
+            android:fontFamily="@font/rmedium"
+            android:text="@string/language"
+            android:textSize="@dimen/sp15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:gravity="center|end"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:visibility="invisible"
+            android:src="@drawable/ic_right"
+            android:layout_marginEnd="@dimen/dp10"
+            android:id="@+id/selectLang"
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"/>
+</LinearLayout>
+</layout>

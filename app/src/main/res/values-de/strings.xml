@@ -178,4 +178,24 @@
     <string name="screen_update">Bildschirmaktualisierung</string>
     <string name="enable_gps">Ihr GPS scheint deaktiviert zu sein. Bitte aktivieren Sie es.</string>
     <string name="wait">Warten...</string>
+
+
+    <string name="select_language">Sprache auswählen</string>
+    <string name="language">Sprache</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="please_select_lang">Bitte wählen Sie die Sprache</string>
+    <string name="arabic">Arabisch</string>
+    <string name="danish">dänisch</string>
+    <string name="dutch">Niederländisch</string>
+    <string name="finnish">finnisch</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">Italienisch</string>
+    <string name="korean">Koreanisch</string>
+    <string name="norwegian">norwegisch</string>
+    <string name="polish">Polieren</string>
+    <string name="portuguese">Portugiesisch</string>
+    <string name="russian">Russisch</string>
+    <string name="swedish">Schwedisch</string>
+    <string name="turkish">Türkisch</string>
+    <string name="ukrainian">ukrainisch</string>
 </resources>

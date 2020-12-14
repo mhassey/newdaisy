@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.daisy.activity.mainActivity.MainActivity;
 
@@ -21,6 +22,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
         if (!(activity instanceof Listener)) {
             throw new IllegalStateException("Your activity needs to implement FrontCameraRetriever.Listener");
         }
+        Log.e("working","here");
         Listener listener = (Listener) activity;
         retrieve(activity, listener);
     }
@@ -28,6 +30,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
     private static void retrieve(Context context, Listener listener) {
         Application application = (Application) context.getApplicationContext();
         FrontCameraRetriever frontCameraRetriever = new FrontCameraRetriever(listener);
+        Log.e("register","camera");
         application.registerActivityLifecycleCallbacks(frontCameraRetriever);
     }
 

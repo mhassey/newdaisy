@@ -178,4 +178,24 @@
     <string name="screen_update">Näytön päivitys</string>
     <string name="enable_gps">GPS ei näytä olevan käytössä, ota se käyttöön?</string>
     <string name="wait">Odota...</string>
+
+
+    <string name="select_language">Valitse kieli</string>
+    <string name="language">Kieli</string>
+    <string name="confirm">Vahvistaa</string>
+    <string name="please_select_lang">Valitse kieli</string>
+    <string name="arabic">arabialainen</string>
+    <string name="danish">Tanskan kieli</string>
+    <string name="dutch">Hollannin kieli</string>
+    <string name="finnish">Suomalainen</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">italialainen</string>
+    <string name="korean">Korealainen</string>
+    <string name="norwegian">Norjan kieli</string>
+    <string name="polish">Kiillottaa</string>
+    <string name="portuguese">Portugalin kieli</string>
+    <string name="russian">Venäjän kieli</string>
+    <string name="swedish">Ruotsin kieli</string>
+    <string name="turkish">Turkki</string>
+    <string name="ukrainian">Ukraina</string>
 </resources>

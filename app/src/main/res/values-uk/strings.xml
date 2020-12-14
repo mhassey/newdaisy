@@ -178,4 +178,25 @@
     <string name="screen_update">Оновлення екрану</string>
     <string name="enable_gps">Здається, ваш GPS вимкнений, будь ласка, увімкніть його?</string>
     <string name="wait">Чекай...</string>
+
+
+
+    <string name="select_language">Оберіть мову</string>
+    <string name="language">Мова</string>
+    <string name="confirm">Підтвердити</string>
+    <string name="please_select_lang">Виберіть мову</string>
+    <string name="arabic">Арабська</string>
+    <string name="danish">Датська</string>
+    <string name="dutch">Голландська</string>
+    <string name="finnish">Фінська</string>
+    <string name="hindi">Хінді</string>
+    <string name="italian">Італійська</string>
+    <string name="korean">Корейська</string>
+    <string name="norwegian">Норвезька</string>
+    <string name="polish">Польська</string>
+    <string name="portuguese">Португальська</string>
+    <string name="russian">російський</string>
+    <string name="swedish">Swedish</string>
+    <string name="turkish">Турецька</string>
+    <string name="ukrainian">Український</string>
 </resources>

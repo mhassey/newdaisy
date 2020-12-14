@@ -33,6 +33,7 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
             camera.stopPreview();
 
         } catch (Exception swallow) {
+            swallow.printStackTrace();
             // ignore: tried to stop a non-existent preview
         }
         try {
@@ -43,6 +44,7 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
                 camera.startFaceDetection();
             }
             } catch (IOException e) {
+            e.printStackTrace();
                 resetCamera(holder);
 
             this.listener.onFaceDetectionNonRecoverableError();
@@ -83,6 +85,11 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
             }
         }
         return i;
+    }
+
+
+    public Camera getCamera() {
+        return camera;
     }
 
     @Override
