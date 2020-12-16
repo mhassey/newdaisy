@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MPC</string>
     <string name="storage_not_available">Speicher nicht verfügbar</string>
-    <string name="daisyconfig"></string>
+    <string name="daisyconfig">daisyconfig</string>
     <string name="v_01">V.01</string>
     <string name="baseurl">baseURL=</string>
     <string name="save_and_load">Speichern und laden</string>
@@ -17,8 +17,7 @@
     <string name="settings">die Einstellungen</string>
     <string name="exit">Ausgang</string>
     <string name="clear_and_exit">Löschen und beenden</string>
-    <string name="no_internet_available">Hoppla! \ n Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.
-    </string>
+    <string name="no_internet_available">Hoppla! \ n Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.</string>
     <string name="some_issue_occur">Einige Probleme treten auf</string>
     <string name="chche">/cache</string>
     <string name="databse">/databases</string>
@@ -26,17 +25,13 @@
     <string name="packageName">com.daisy</string>
     <string name="onePlus">OnePlus</string>
     <string name="enter_password">PASSWORT EINGEBEN</string>
-
     <style name="update_position">Position aktualisieren</style>
-
     <string name="unlock">FREISCHALTEN</string>
     <string name="invalid_password">UNGÜLTIGES PASSWORT</string>
     <string name="welcome">HERZLICH WILLKOMMEN</string>
     <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">Diese App erfordert mehrere spezielle Berechtigungen, um ordnungsgemäß zu funktionieren. Wenn Sie unten auf "Start" klicken, werden Sie durch den Vorgang geführt.</string>
     <string name="begin">START</string>
     <string name="next">NÄCHSTER</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="grant_media_permission">Medienerlaubnis erteilen</string>
     <string name="display_over_other_apps">Anzeige über anderen Apps</string>
@@ -100,15 +95,15 @@
     <string name="permission_req">Erlaubnis erforderlich</string>
     <string name="battery_optimized">Bitte erlauben Sie MPC, die Batterieoptimierung in Ihrem Gerät zu deaktivieren.</string>
     <string name="position">Position</string>
-    <string name="ok"></string>
+    <string name="ok">Ok</string>
     <string name="cancle">Stornieren</string>
     <string name="invald_time">Ungültige Zeit</string>
-    <string name="english">Englisch</string>
-    <string name="french">Französisch</string>
-    <string name="spanish">Spanisch</string>
-    <string name="postigues">Portugiesisch</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
+    <string name="spanish">Spanish</string>
+    <string name="postigues">Portuguese</string>
     <string name="product_not_available">Produkt nicht verfügbar</string>
-    <string name="store_code_id"></string>
+    <string name="store_code_id">store_code</string>
     <string name="enter_base_url_for_server">Geben Sie die URL für den Server ein</string>
     <string name="product">Produkt</string>
     <string name="carrier">Träger</string>
@@ -148,16 +143,13 @@
     <string name="package_not_available">Es ist kein Paket in Android verfügbar</string>
     <string name="manufacturer">Hersteller</string>
     <string name="sanitised">Gerät desinfizieren</string>
-    <!-- Strings used by the sample DeviceAdminReceiver -->
     <string name="admin_receiver_status">Sample Device Admin: %1$s</string>
     <string name="admin_receiver_status_enabled">enabled</string>
     <string name="admin_receiver_status_disabled">disabled</string>
     <string name="admin_receiver_status_pw_changed">pw changed</string>
     <string name="admin_receiver_status_pw_failed">pw failed</string>
     <string name="admin_receiver_status_pw_succeeded">pw succeeded</string>
-    <string name="admin_receiver_status_disable_warning">
-        This is an optional message to warn the user about disabling.</string>
-
+    <string name="admin_receiver_status_disable_warning">This is an optional message to warn the user about disabling.</string>
     <string name="wipe_warning_second_ok">BOOM!</string>
     <string name="wipe_warning_second_no">Oops, run away!</string>
     <string name="encryption_not_supported">Encryption is not supported on this device.</string>
@@ -178,24 +170,22 @@
     <string name="screen_update">Bildschirmaktualisierung</string>
     <string name="enable_gps">Ihr GPS scheint deaktiviert zu sein. Bitte aktivieren Sie es.</string>
     <string name="wait">Warten...</string>
-
-
     <string name="select_language">Sprache auswählen</string>
     <string name="language">Sprache</string>
     <string name="confirm">Bestätigen</string>
     <string name="please_select_lang">Bitte wählen Sie die Sprache</string>
-    <string name="arabic">Arabisch</string>
-    <string name="danish">dänisch</string>
-    <string name="dutch">Niederländisch</string>
-    <string name="finnish">finnisch</string>
+    <string name="arabic">Arabic</string>
+    <string name="danish">Danish</string>
+    <string name="dutch">Dutch</string>
+    <string name="finnish">Finnish</string>
     <string name="hindi">Hindi</string>
-    <string name="italian">Italienisch</string>
-    <string name="korean">Koreanisch</string>
-    <string name="norwegian">norwegisch</string>
-    <string name="polish">Polieren</string>
-    <string name="portuguese">Portugiesisch</string>
-    <string name="russian">Russisch</string>
-    <string name="swedish">Schwedisch</string>
-    <string name="turkish">Türkisch</string>
-    <string name="ukrainian">ukrainisch</string>
+    <string name="italian">Italian</string>
+    <string name="korean">Korean</string>
+    <string name="norwegian">Norwegian</string>
+    <string name="polish">Polish</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="russian">Russian</string>
+    <string name="swedish">Swedish</string>
+    <string name="turkish">Turkish</string>
+    <string name="ukrainian">Ukrainian</string>
 </resources>

@@ -151,7 +151,7 @@ public class Constraint {
     public static final int RETURN = 11;
    public static final int BATTRY_OPTIMIZATION_CODE = 232;
     public static final long FIVE = 5;
-    public static final long TEN_MINUTES = 10000*60;
+    public static final long TEN_MINUTES = 1000*60;
     public static final long TWO_HOUR=20000*60;
     //public static final long TWO_HOUR=120000*60;
 

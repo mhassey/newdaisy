@@ -59,7 +59,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
 
     }
-
     /**
      * Set hole app language
      */
@@ -71,7 +70,6 @@ public class BaseActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
         sessionManager.setLang(s);
     }
-
 
     /**
      * Show and hide progress dialog

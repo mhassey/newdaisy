@@ -167,12 +167,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             @Override
             public void onForeground(String process1) {
                 try {
-                    if (process1 != null) {
+                     if (process1 != null) {
                         if (!sessionManager.getUninstallShow()) {
                             String process = process1 + "";
                             if (sessionManager == null) {
                                 sessionManager = SessionManager.get();
                             }
+                            Log.e("kali/....",process);
 
                             if (process.equals(Constraint.Extra_pass_screen)) {
                                 return;
@@ -228,12 +229,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                 }
 
 
+
                                 Constraint.current_running_process = process;
 
                                 if (!process.equals(getApplication().getPackageName())) {
                                     if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
-                                        if (!sessionManager.getPasswordCorrect()) {
-                                            sessionManager.setPasswordCorrect(Constraint.TRUE);
+                                         if (!sessionManager.getPasswordCorrect()) {
+                                             Log.e("working",process+""+!(sessionManager.getPasswordCorrect()));
+
+                                             sessionManager.setPasswordCorrect(Constraint.TRUE);
                                             Intent intent = new Intent(getApplicationContext(), LockScreen.class);
                                             intent.putExtra(Constraint.PACKAGE, process);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -459,8 +463,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                 }
             }
-            }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
-    //    }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
+        //    }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+        }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
 
     }
 
@@ -994,11 +998,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     private void countSteps(float step) {
         int stepCount = sessionManager.getSteps();
+
         //Step count
         if (!Utils.isPlugged(getApplicationContext())) {
+          //if (true){
             if (!sessionManager.getDeviceSecured()) {
                 stepCount = stepCount + 1;
-                ValidationHelper.showToast(getApplicationContext(), stepCount + "");
                 sessionManager.setStepCount(stepCount);
                 //Distance calculation
                 if (stepCount >= Constraint.FIFTEEN) {

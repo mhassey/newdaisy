@@ -35,7 +35,9 @@ public class AppController extends Application implements LifecycleObserver {
         instanceCreation();
         DBCaller.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+        setLang();
     }
+
 
 
     /**
@@ -103,7 +105,7 @@ public class AppController extends Application implements LifecycleObserver {
     /**
      * Set language
      */
-    private void setLang (String s){
+    private void setLang (){
         if (!sessionManager.getLang().equals(""))
         {
             Locale locale = new Locale(sessionManager.getLang());
@@ -111,18 +113,21 @@ public class AppController extends Application implements LifecycleObserver {
             Configuration configuration = new Configuration();
             configuration.locale = locale;
             getActivity().getResources().updateConfiguration(configuration, getActivity().getResources().getDisplayMetrics());
-
+//            sessionManager.setLang(s);
 
         }
         else {
-            Locale locale = new Locale(s);
-            Locale.setDefault(locale);
-            Configuration configuration = new Configuration();
-            configuration.locale = locale;
-            getActivity().getResources().updateConfiguration(configuration, getActivity().getResources().getDisplayMetrics());
+//            Locale locale = new Locale(s);
+//            Locale.setDefault(locale);
+//            Configuration configuration = new Configuration();
+//            configuration.locale = locale;
+//            getActivity().getResources().updateConfiguration(configuration, getActivity().getResources().getDisplayMetrics());
         }
 
     }
+
+
+
     /**
      * When application level on stop call
      */

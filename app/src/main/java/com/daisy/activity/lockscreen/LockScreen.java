@@ -96,7 +96,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
             }
             case R.id.cancel:
             {
-              redirectToMain();
+                sessionManager.setPasswordCorrect(Constraint.FALSE);
+
+                redirectToMain();
               break;
             }
         }

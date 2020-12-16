@@ -17,9 +17,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
-import android.provider.Settings;
-import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +33,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -1242,7 +1238,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
             if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
-                loadURL();
+            //    loadURL();
             }
             else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE))
             {

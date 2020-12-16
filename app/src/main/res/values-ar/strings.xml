@@ -32,7 +32,7 @@
     <string name="unlock">الغاء القفل</string>
     <string name="invalid_password">رمز مرور خاطئ</string>
     <string name="welcome">أهلا بك</string>
-    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">يتطلب هذا التطبيق عدة أذونات خاصة للعمل بشكل صحيح. الضغط على "ابدأ" أدناه سيبدأ في إرشادك خلال العملية.</string>
+    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">يتطلب هذا التطبيق عدة أذونات خاصة للعمل بشكل صحيح. الضغط على زر ابدأ أدناه سيبدأ في إرشادك خلال العملية.</string>
     <string name="begin">ابدأ</string>
     <string name="next">التالى</string>
 
@@ -103,10 +103,11 @@
     <string name="ok">حسنا</string>
     <string name="cancle">إلغاء</string>
     <string name="invald_time">الوقت غير صحيح</string>
-    <string name="english">الإنجليزية</string>
-    <string name="french">فرنسي</string>
-    <string name="spanish">الأسبانية</string>
-    <string name="postigues">البرتغالية</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
+    <string name="spanish">Spanish</string>
+
+    <string name="postigues">Portuguese</string>
     <string name="product_not_available">المنتج غير متوفر</string>
     <string name="store_code_id">store_code</string>
     <string name="enter_base_url_for_server">أدخل URL للخادم</string>
@@ -182,18 +183,33 @@
     <string name="language">لغة</string>
     <string name="confirm">تؤكد</string>
     <string name="please_select_lang">الرجاء تحديد اللغة</string>
-    <string name="arabic">عربى</string>
-    <string name="danish">دانماركي</string>
-    <string name="dutch">هولندي</string>
-    <string name="finnish">الفنلندية</string>
-    <string name="hindi">هندي</string>
-    <string name="italian">إيطالي</string>
-    <string name="korean">الكورية</string>
-    <string name="norwegian">النرويجية</string>
-    <string name="polish">تلميع</string>
-    <string name="portuguese">البرتغالية</string>
-    <string name="russian">الروسية</string>
-    <string name="swedish">السويدية</string>
-    <string name="turkish">اللغة التركية</string>
-    <string name="ukrainian">الأوكرانية</string>
+<!--    <string name="arabic">عربى</string>-->
+<!--    <string name="danish">دانماركي</string>-->
+<!--    <string name="dutch">هولندي</string>-->
+<!--    <string name="finnish">الفنلندية</string>-->
+<!--    <string name="hindi">هندي</string>-->
+<!--    <string name="italian">إيطالي</string>-->
+<!--    <string name="korean">الكورية</string>-->
+<!--    <string name="norwegian">النرويجية</string>-->
+<!--    <string name="polish">تلميع</string>-->
+<!--    <string name="portuguese">البرتغالية</string>-->
+<!--    <string name="russian">الروسية</string>-->
+<!--    <string name="swedish">السويدية</string>-->
+<!--    <string name="turkish">اللغة التركية</string>-->
+<!--    <string name="ukrainian">الأوكرانية</string>-->
+
+    <string name="arabic">Arabic</string>
+    <string name="danish">Danish</string>
+    <string name="dutch">Dutch</string>
+    <string name="finnish">Finnish</string>
+    <string name="hindi">Hindi</string>
+    <string name="italian">Italian</string>
+    <string name="korean">Korean</string>
+    <string name="norwegian">Norwegian</string>
+    <string name="polish">Polish</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="russian">Russian</string>
+    <string name="swedish">Swedish</string>
+    <string name="turkish">Turkish</string>
+    <string name="ukrainian">Ukrainian</string>
 </resources>
