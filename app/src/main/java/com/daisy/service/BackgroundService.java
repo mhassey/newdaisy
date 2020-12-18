@@ -173,7 +173,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                             if (sessionManager == null) {
                                 sessionManager = SessionManager.get();
                             }
-                            Log.e("kali/....",process);
 
                             if (process.equals(Constraint.Extra_pass_screen)) {
                                 return;
@@ -229,15 +228,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                 }
 
 
-
                                 Constraint.current_running_process = process;
 
                                 if (!process.equals(getApplication().getPackageName())) {
                                     if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
-                                         if (!sessionManager.getPasswordCorrect()) {
-                                             Log.e("working",process+""+!(sessionManager.getPasswordCorrect()));
-
-                                             sessionManager.setPasswordCorrect(Constraint.TRUE);
+                                        if (!sessionManager.getPasswordCorrect()) {
+                                            sessionManager.setPasswordCorrect(Constraint.TRUE);
                                             Intent intent = new Intent(getApplicationContext(), LockScreen.class);
                                             intent.putExtra(Constraint.PACKAGE, process);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
