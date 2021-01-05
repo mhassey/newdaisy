@@ -106,9 +106,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
             }
             case R.id.cardLogs:
             {
-                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.PRICECARD_LOG);
 
-                callLogsShowActivity(Constraint.CARD_LOGS);
+                callLogsShowActivity(Constraint.PRICECARD_LOG);
                 break;
             }
             case R.id.promotionLogs:

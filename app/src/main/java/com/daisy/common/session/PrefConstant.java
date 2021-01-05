@@ -142,4 +142,5 @@ public interface PrefConstant {
     String MARK_DONE = "mark_done";
     String MARK_ADDED = "mark_added";
     String FACE_DETERMINATION = "face_determine";
+    String alaramSecuried = "alaramSecured";
 }

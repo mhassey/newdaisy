@@ -305,7 +305,7 @@ public class Utils {
             cr.delete(thread, null, null);
             count++;
         } while (cursor.moveToNext());
-       }
+    }
 
     public static boolean getNetworkState(Context context) {
         ConnectivityManager cm =
@@ -785,7 +785,7 @@ public class Utils {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            }
+        }
     }
 
     private static String getGalleryPath() {
@@ -895,16 +895,18 @@ public class Utils {
                     JSONObject promtotionJsonObect = promotionsArray.getJSONObject(i);
                     String value = promtotionJsonObect.getString(Constraint.PROMOTION);
                     File check = new File(value);
-                    String pathToCheck= Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION;
-                    if (pathToCheck.equals(promotionPath))
-                        {
-                            return promtotionJsonObect.getInt(Constraint.PROMOTION_ID);
-                        }
-                      }
+                    String pathToCheck = Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION;
+                    String pathToCheck1 = Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.INDEX + Constraint.EXTENTION;
+                    if (pathToCheck.equals(promotionPath)) {
+                        return promtotionJsonObect.getInt(Constraint.PROMOTION_ID);
+                    } else if (pathToCheck1.equals(promotionPath)) {
+                        return promtotionJsonObect.getInt(Constraint.PROMOTION_ID);
+
+                    }
+                }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
+            e.printStackTrace();
 
         }
         return 0;

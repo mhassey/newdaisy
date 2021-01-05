@@ -13,15 +13,13 @@ import com.daisy.activity.mainActivity.MainActivity;
  */
 public class FrontCameraRetriever implements Application.ActivityLifecycleCallbacks, LoadFrontCameraAsyncTask.Listener {
 
+    private static FrontCameraRetriever frontCameraRetriever;
     private final Listener listener;
 
     private FaceDetectionCamera camera;
     private Activity activity;
-
     public static void retrieveFor(Context activity) {
-        if (!(activity instanceof Listener)) {
-            throw new IllegalStateException("Your activity needs to implement FrontCameraRetriever.Listener");
-        }
+
         Log.e("working","here");
         Listener listener = (Listener) activity;
         retrieve(activity, listener);
@@ -29,9 +27,10 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     private static void retrieve(Context context, Listener listener) {
         Application application = (Application) context.getApplicationContext();
-        FrontCameraRetriever frontCameraRetriever = new FrontCameraRetriever(listener);
+         frontCameraRetriever = new FrontCameraRetriever(listener);
         Log.e("register","camera");
         application.registerActivityLifecycleCallbacks(frontCameraRetriever);
+
     }
 
     FrontCameraRetriever(Listener listener) {
@@ -41,55 +40,71 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         // not used
+        Log.e("working","created");
+
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
         // not used
+        Log.e("working","started");
+    }
+
+    public static FrontCameraRetriever getInstance()
+    {
+        return frontCameraRetriever;
+    }
+    public void load()
+    {
+        new LoadFrontCameraAsyncTask(FrontCameraRetriever.this).load();
+
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
         this.activity = activity;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (activity instanceof MainActivity)
-                    new LoadFrontCameraAsyncTask(FrontCameraRetriever.this).load();
-
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//              //  if (activity instanceof MainActivity)
+//                Log.e("working","onActivityResumed-------");
+//                    new LoadFrontCameraAsyncTask(FrontCameraRetriever.this).load();
+//
+//            }
+//        }).start();
     }
 
     @Override
     public void onLoaded(FaceDetectionCamera camera) {
         this.camera = camera;
+        Log.e("working","load-------");
+
         listener.onLoaded(camera);
 
     }
 
     @Override
     public void onFailedToLoadFaceDetectionCamera() {
-        if (activity instanceof MainActivity)
+        //if (activity instanceof MainActivity)
             listener.onFailedToLoadFaceDetectionCamera();
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (activity instanceof MainActivity) {
-                    if (camera != null) {
-                        camera.recycle();
-
-
-                    }
-                }
-
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (activity instanceof MainActivity) {
+//                    if (camera != null) {
+//                        camera.recycle();
+//
+//
+//                    }
+//                }
+//
+//            }
+//        }).start();
     }
 
     @Override
@@ -104,7 +119,6 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if (activity instanceof MainActivity)
             activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
 

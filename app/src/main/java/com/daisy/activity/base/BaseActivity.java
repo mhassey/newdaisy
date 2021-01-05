@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.daisy.R;
+import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 
 import java.util.Locale;
@@ -24,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppController.getInstance().setContext(getApplicationContext());
         initView();
 
     }
@@ -34,8 +36,7 @@ public class BaseActivity extends AppCompatActivity {
     private void initView() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sessionManager = SessionManager.get();
-        if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))
-            setLang(sessionManager.getLang());
+
         boolean b = sessionManager.getDarkTheme();
         if (b)
             setTheme(R.style.AppThemeDark);
@@ -96,5 +97,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onResume() {
+        if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))
+            setLang(sessionManager.getLang());
+        super.onResume();
+    }
 }

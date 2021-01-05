@@ -110,7 +110,7 @@
     <string name="postigues">Portuguese</string>
     <string name="product_not_available">Product  not available</string>
     <string name="store_code_id">store_code</string>
-    <string name="enter_base_url_for_server">Enter URL for the server</string>
+    <string name="enter_base_url_for_server">Enter url for the server</string>
     <string name="product">Product</string>
     <string name="carrier">Carrier</string>
     <string name="webkit_orientation">Orientation</string>
@@ -197,4 +197,5 @@
     <string name="swedish">Swedish</string>
     <string name="turkish">Turkish</string>
     <string name="ukrainian">Ukrainian</string>
+    <string name="alramHeader">Enable Alarm</string>
 </resources>

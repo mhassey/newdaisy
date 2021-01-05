@@ -12,6 +12,7 @@ import java.util.List;
 
 public class BaseUrlSettingsViewModel extends AndroidViewModel {
     private List<Url> urls;
+    private Url url;
 
     public BaseUrlSettingsViewModel(@NonNull Application application) {
         super(application);
@@ -71,4 +72,14 @@ public class BaseUrlSettingsViewModel extends AndroidViewModel {
 
         setUrls(urls);
     }
+
+    public Url getUrl() {
+        return url;
+    }
+
+    public void setUrl(Url url) {
+        this.url = url;
+    }
+
+
 }

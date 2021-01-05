@@ -196,20 +196,21 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     private void checkForGps() {
         final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        permissionAskViewModel.setGrandGpsEnable(Constraint.TRUE);
 
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-      //   if (false)
-        // {
-            //if gps is disabled
-            permissionAskViewModel.setGrandGpsEnable(Constraint.FALSE);
-            permissionAskBinding.gpsUsages.setChecked(false);
-            permissionAskBinding.gps.setEnabled(Constraint.TRUE);
-        } else {
-            permissionAskViewModel.setGrandGpsEnable(Constraint.TRUE);
-            permissionAskBinding.gpsUsages.setChecked(true);
-            permissionAskBinding.gps.setEnabled(Constraint.FALSE);
-
-        }
+//        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//      //   if (false)
+//        // {
+//            //if gps is disabled
+//            permissionAskViewModel.setGrandGpsEnable(Constraint.FALSE);
+//            permissionAskBinding.gpsUsages.setChecked(false);
+//            permissionAskBinding.gps.setEnabled(Constraint.TRUE);
+//        } else {
+//            permissionAskViewModel.setGrandGpsEnable(Constraint.TRUE);
+//            permissionAskBinding.gpsUsages.setChecked(true);
+//            permissionAskBinding.gps.setEnabled(Constraint.FALSE);
+//
+//        }
     }
 
 

@@ -3,6 +3,8 @@ package com.daisy.activity.mainActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +52,7 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.deleteCard.DeleteCardViewModel;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.common.session.SessionManager;
+import com.daisy.  common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
@@ -66,6 +69,7 @@ import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
+import com.daisy.security.Admin;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -80,7 +84,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -98,12 +101,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private Context context;
     private int i = 0;
     private WebViewClient yourWebClient;
+    private static final int REQUEST_ENABLE = 123;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkAdminPermission();
         initView();
         initService();
         setOnClickListener();
@@ -131,7 +136,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
 
         windowWork();
+        if (!sessionManager.getLocation().equals(Constraint.EMPTY))
         loadURL();
+        else
+            DownloadFail(new DownloadFail());
         intentWork();
         if (sessionManager.getSanitized()) {
             mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
@@ -766,19 +774,22 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     jsonObject.put(Constraint.ID_PRODUCT_STATIC, pricing1.getIdproductStatic());
                     jsonObject.put(Constraint.DATE_EFFECTIVE, pricing1.getDateEffective());
                     jsonObject.put(Constraint.TIME_EFFECTIVE, pricing1.getTimeEffective());
-                    jsonObject.put(Constraint.MSRP, pricing1.getMsrp());
-                    jsonObject.put(Constraint.OUR_PRICE, pricing1.getOurprice());
-                    jsonObject.put(Constraint.SALE_PRICE, pricing1.getSaleprice());
-                    jsonObject.put(Constraint.PLAN_A_PRICE, pricing1.getPlanAprice());
-                    jsonObject.put(Constraint.PLAN_B_PRICE, pricing1.getPlanBprice());
-                    jsonObject.put(Constraint.PLAN_C_PRICE, pricing1.getPlanCprice());
-                    jsonObject.put(Constraint.PLAN_D_PRICE, pricing1.getPlanDprice());
-                    jsonObject.put(Constraint.DOWN_PRICE, pricing1.getDownprice());
-                    jsonObject.put(Constraint.MONTHLY_PRICE, pricing1.getMonthlyprice());
-                    jsonObject.put(Constraint.CONFIG_ONE, pricing1.getConfig1());
-                    jsonObject.put(Constraint.CONFIG_TWO, pricing1.getConfig2());
-                    jsonObject.put(Constraint.CONFIG_THREE, pricing1.getConfig3());
-                    jsonObject.put(Constraint.CONFIG_FOUR, pricing1.getConfig4());
+                    jsonObject.put(Constraint.PFV1, pricing1.getPfv1());
+                    jsonObject.put(Constraint.PFV2, pricing1.getPfv2());
+                    jsonObject.put(Constraint.PFV3, pricing1.getPfv3());
+                    jsonObject.put(Constraint.PFV4, pricing1.getPfv4());
+                    jsonObject.put(Constraint.PFV5, pricing1.getPfv5());
+                    jsonObject.put(Constraint.PFV6, pricing1.getPfv6());
+                    jsonObject.put(Constraint.PFV7, pricing1.getPfv7());
+                    jsonObject.put(Constraint.PFV8, pricing1.getPfv8());
+                    jsonObject.put(Constraint.PFV9, pricing1.getPfv9());
+                    jsonObject.put(Constraint.PFV10, pricing1.getPfv10());
+                    jsonObject.put(Constraint.PFV11, pricing1.getPfv11());
+                    jsonObject.put(Constraint.PFV12, pricing1.getPfv12());
+                    jsonObject.put(Constraint.PFV13, pricing1.getPfv13());
+                    jsonObject.put(Constraint.PFV14, pricing1.getPfv14());
+                    jsonObject.put(Constraint.PFV15, pricing1.getPfv15());
+                    jsonObject.put(Constraint.PFV16, pricing1.getPfv16());
                  //   jsonArray.put(jsonObject);
 
                 }
@@ -1075,6 +1086,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         builder.setTitle(getString(R.string.file_has_issue));
         builder.setCancelable(false);
         AlertDialog alertDialog = builder.create();
+        if (!alertDialog.isShowing())
         alertDialog.show();
         alertDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, 400); //Controlling width and height.
     }
@@ -1301,14 +1313,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             if (cmd.equals(Constraint.adFrameUrl))
             {
 
-                maintainPromotionShowWithUrl(msg);
+                  maintainPromotionShowWithUrl(msg);
             }
             else if (cmd.equals(Constraint.currentFrameName))
             {
+                Log.e("kali","fileName"+msg);
+
                 //storePriceCardOrPromotionLoad(msg);
             }
             else if (cmd.equals(Constraint.click))
             {
+                Log.e("kali","click"+msg);
+
                 storeClickOnPromotionOrPriceCard(msg);
             }
          }
@@ -1343,10 +1359,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 String promotionPath = msg.split("\\?")[0];
                 int id = Utils.searchPromotionUsingPath(promotionPath);
 
-                DBCaller.storeLogInDatabase(context, Constraint.CLICK_ON_PROMOTION, Constraint.CLICK_ON_PROMOTION + " " + id, msg, Constraint.PROMOTION);
+                DBCaller.storeLogInDatabase(context, Constraint.Impression, id+"" , msg, Constraint.PROMOTION);
 
             } else {
-                DBCaller.storeLogInDatabase(context, Constraint.CLICK_ON_PRICE_CARD, Constraint.CLICK_ON_PRICE_CARD + " " + sessionManager.getPriceCard().getIdpriceCard(), msg, Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression , msg, Constraint.PRICECARD_LOG);
             }
         }catch (Exception e)
         {
@@ -1358,17 +1374,28 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private void maintainPromotionShowWithUrl(String msg) {
         try {
             String promotionPath=msg.split("\\?")[0];
+            Log.e("working",promotionPath);
           int id =Utils.searchPromotionUsingPath(promotionPath);
+            Log.e("working",id+"");
+
           if (id!=0)
           {
               if (sessionManager==null)
               {
                   sessionManager=SessionManager.get();
               }
-            if (sessionManager.getUserFaceDetectionEnable())
-              DBCaller.storeLogInDatabase(context,Constraint.USER_SEEN_PRMOTION+" "+promotionPath+" "+id,id+"",promotionPath,Constraint.PROMOTION);
+            if (sessionManager.getUserFaceDetectionEnable()) {
+                Log.e("working","true");
+                DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
+//
 //              DBCaller.storeLogInDatabase(context,Constraint.SHOW_PROMOTION+" "+promotionPath+" "+id,id+"",promotionPath,Constraint.PROMOTION);
-          }
+            }
+            else
+            {
+                      Log.e("working","false");
+
+            }
+            }
         }
         catch (Exception e)
         {
@@ -1426,6 +1453,28 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         AlertDialog dialog = alert.create();
         dialog.show();
 
+    }
+
+
+
+
+    private void checkAdminPermission() {
+
+        DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        ComponentName mAdminName = new ComponentName(this, Admin.class);
+        if (!mDPM.isAdminActive(mAdminName)) {
+            if (sessionManager==null)
+                sessionManager=SessionManager.get();
+            sessionManager.setPasswordCorrect(true);
+
+            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+                    mAdminName);
+
+            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
+            startActivityForResult(intent, REQUEST_ENABLE);
+
+        }
     }
 
 

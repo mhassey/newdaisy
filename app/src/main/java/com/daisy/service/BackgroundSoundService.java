@@ -32,83 +32,83 @@ public class BackgroundSoundService extends Service {
 
         return null;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        try {
-            if (player != null) {
-                if (player.isPlaying()) {
-                    return;
+        if (!SessionManager.get().getAlaramSecurity()) {
+            try {
+                if (player != null) {
+                    if (player.isPlaying()) {
+                        return;
+                    }
                 }
+                player = MediaPlayer.create(this, R.raw.ami);
+
+                player.setLooping(true); // Set looping
+                player.setVolume(Constraint.HUNDERD, Constraint.HUNDERD);
+                soundIncreseTimer = new Timer();
+                AudioManager audio = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        soundIncreseTimer.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+
+                                int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                                float percent = 0.8f;
+                                int seventyVolume = (int) (maxVolume * percent);
+                                int sb2value = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                                audio.setStreamVolume(AudioManager.STREAM_MUSIC, seventyVolume, Constraint.ZERO);
+                            }
+                        }, Constraint.THOUSAND, Constraint.THOUSAND);
+
+                    }
+                }).start();
+                if (player != null) {
+                    if (player.isPlaying()) {
+
+                    } else {
+
+                        player.start();
+                    }
+                }
+            } catch (Exception e) {
+
             }
-            player = MediaPlayer.create(this, R.raw.ami);
-
-            player.setLooping(true); // Set looping
-            player.setVolume(Constraint.HUNDERD, Constraint.HUNDERD);
-            soundIncreseTimer = new Timer();
-            AudioManager audio = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    soundIncreseTimer.scheduleAtFixedRate(new TimerTask() {
-                        @Override
-                        public void run() {
-
-                            int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                            float percent = 0.8f;
-                            int seventyVolume = (int) (maxVolume * percent);
-                            int sb2value = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                            audio.setStreamVolume(AudioManager.STREAM_MUSIC, seventyVolume, Constraint.ZERO);
-                        }
-                    }, Constraint.THOUSAND, Constraint.THOUSAND);
-
-                }
-            }).start();
         }
-        catch (Exception e)
-        {
+    }
 
-        }
-     }
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            if (player != null) {
-                if (player.isPlaying()) {
-
+            SessionManager.get().deviceSecuried(false);
+            try {
+                mDPM = (DevicePolicyManager) getApplicationContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+                mAdminName = new ComponentName(getApplicationContext(), Admin.class);
+                KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
+                if (keyguardManager.isKeyguardSecure()) {
+                    //it is password protected
                 } else {
-
-                    SessionManager.get().deviceSecuried(false);
-                    player.start();
-                    try {
-                        mDPM = (DevicePolicyManager) getApplicationContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
-                        mAdminName = new ComponentName(getApplicationContext(), Admin.class);
-                        KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
-                        if (keyguardManager.isKeyguardSecure()) {
-                            //it is password protected
-                        } else {
-                            //it is not password protected
-                            mDPM.resetPassword(SessionManager.get().getPasswordLock(), DevicePolicyManager.RESET_PASSWORD_REQUIRE_ENTRY);
-
-                        }
-                        if (keyguardManager.inKeyguardRestrictedInputMode()) {
-                            //it is locked
-                        } else {
-                            mDPM.lockNow();
-                        }
-
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
+                    //it is not password protected
+                    mDPM.resetPassword(SessionManager.get().getPasswordLock(), DevicePolicyManager.RESET_PASSWORD_REQUIRE_ENTRY);
 
                 }
+                if (keyguardManager.inKeyguardRestrictedInputMode()) {
+                    //it is locked
+                } else {
+                    mDPM.lockNow();
+                }
+
+            } catch (Exception e) {
+
             }
-        }
-        catch (Exception e)
-        {
+
+
+        } catch (Exception e) {
 
         }
+
 
         return START_STICKY;
     }
@@ -116,6 +116,7 @@ public class BackgroundSoundService extends Service {
     public void onStart(Intent intent, int startId) {
         // TO DO
     }
+
     public IBinder onUnBind(Intent arg0) {
         // TO DO Auto-generated method
         return null;
@@ -124,21 +125,23 @@ public class BackgroundSoundService extends Service {
     public void onStop() {
 
     }
+
     public void onPause() {
 
     }
+
     @Override
     public void onDestroy() {
         try {
-            soundIncreseTimer.cancel();
-            player.stop();
-            player.release();
-        }
-        catch (Exception e)
-        {
+            if (player.isPlaying()) {
+                soundIncreseTimer.cancel();
+                player.stop();
+                player.release();
+            }
+        } catch (Exception e) {
 
         }
-        }
+    }
 
     @Override
     public void onLowMemory() {

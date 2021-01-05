@@ -25,6 +25,6 @@ public class Url {
     @NonNull
     @Override
     public String toString() {
-        return name;
+        return url;
     }
 }

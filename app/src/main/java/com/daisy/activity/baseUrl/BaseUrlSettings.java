@@ -3,8 +3,11 @@ package com.daisy.activity.baseUrl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.databinding.DataBindingUtil;
@@ -75,8 +78,8 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
      */
     private void setDefaultUrlData() {
 
-        ArrayAdapter<Url> orientationAdapter = new ArrayAdapter<Url>(context, android.R.layout.simple_spinner_item, viewModel.getUrls());
-        orientationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<Url> orientationAdapter = new ArrayAdapter<Url>(context, R.layout.spinner_item, viewModel.getUrls());
+        orientationAdapter.setDropDownViewResource(R.layout.spinner_item);
         mBinding.baseUrl.setAdapter(orientationAdapter);
     }
 
@@ -123,7 +126,10 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
      */
     private void initClick() {
         mBinding.nextSlide.setOnClickListener(this::onClick);
-    }
+        mBinding.spinnerOpen.setOnClickListener(this::onClick);
+         }
+
+
 
     /**
      * Button clicks handle
@@ -135,6 +141,13 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
                 updateBaseUrl();
                 break;
             }
+            case R.id.spinnerOpen:
+            {
+                mBinding.baseUrl.showDropDown();
+                break;
+            }
+
+
         }
 
     }
@@ -143,8 +156,8 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
      * Fire update url api
      */
     private void updateBaseUrl() {
-        Url mainUrl = (Url) mBinding.baseUrl.getSelectedItem();
-        String url=mainUrl.getUrl();
+
+        String url= mBinding.baseUrl.getText().toString();
         if (url != null) {
             String urlLastChar = url.substring(url.length() - 1);
             if (urlLastChar.equals(Constraint.SLASH)) {
@@ -200,5 +213,6 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
             ValidationHelper.showToast(context, getString(R.string.enter_valid_url));
         }
     }
+
 
 }

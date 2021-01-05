@@ -16,7 +16,7 @@
         android:layout_height="0dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp20"
             android:layout_width="match_parent"
             android:id="@+id/logsList"
             android:layout_height="match_parent">

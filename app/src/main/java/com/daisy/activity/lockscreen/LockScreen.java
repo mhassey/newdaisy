@@ -3,6 +3,8 @@ package com.daisy.activity.lockscreen;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityLockScreenBinding;
@@ -45,7 +48,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_lock_screen);
         sessionManager = SessionManager.get();
         extraTaskForMakeAppWorkable();
-      }
+    }
 
     /**
      * Do some extra stuff for making app perfect
@@ -72,6 +75,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
+
     }
 
     /**
@@ -80,7 +84,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-       LockScreen.this.finish();
+        LockScreen.this.finish();
     }
 
     /**
@@ -94,12 +98,11 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
                 unlockPassword();
                 break;
             }
-            case R.id.cancel:
-            {
-                sessionManager.setPasswordCorrect(Constraint.TRUE);
+            case R.id.cancel: {
+                sessionManager.setPasswordCorrect(Constraint.FALSE);
 
                 redirectToMain();
-              break;
+                break;
             }
         }
     }
@@ -120,7 +123,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
      * Handle full screen mode
      */
     private void hideSystemUI() {
-            View decorView = getWindow().getDecorView();
+        View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -141,9 +144,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
      * Redirect to main screen
      */
     private void redirectToMain() {
-    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-    startActivity(intent);
-    finish();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**
@@ -152,10 +155,18 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     private void unlockPassword() {
         String password = binding.password.getText().toString();
         if (password != null) {
-            String realPassword=sessionManager.getPasswordLock();
+            String realPassword = sessionManager.getPasswordLock();
             if (password.equals(realPassword)) {
-                if (!comeFromUninstall)
+                if (!comeFromUninstall) {
+                    try {
+                        ComponentName devAdminReceiver = new ComponentName(this, Admin.class);
+                        DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+                        mDPM.removeActiveAdmin(devAdminReceiver);
+                    } catch (Exception e) {
+
+                    }
                     sessionManager.setUninstall(Constraint.TRUE);
+                }
                 finish();
                 startLastActivity(current_running_path);
 
@@ -196,11 +207,12 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
     }
+
     @Override
     protected void onStart() {
         if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                binding.unlock.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_light_red_rtl) );
+            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                binding.unlock.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_light_red_rtl));
             } else {
                 binding.unlock.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_light_red_rtl));
             }

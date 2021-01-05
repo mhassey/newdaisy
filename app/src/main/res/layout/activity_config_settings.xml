@@ -360,6 +360,47 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/alarmHeader"
+            android:layout_marginTop="@dimen/dp20"
+            android:visibility="visible"
+            android:layout_marginEnd="@dimen/dp30"
+            android:layout_marginStart="@dimen/dp30"
+            android:background="@drawable/edit_text_format"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10"
+                android:fontFamily="@font/rragular"
+                android:text="@string/alramHeader"
+                android:textSize="@dimen/sp15" />
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/alramSwitch"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:checked="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:theme="@style/SwitchCompatTheme" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/update_product"
             android:layout_marginTop="@dimen/dp20"
             android:layout_marginEnd="@dimen/dp30"

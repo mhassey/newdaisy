@@ -6,15 +6,18 @@ import android.content.Intent;
 import android.os.Vibrator;
 import android.widget.Toast;
 
+import com.daisy.common.session.SessionManager;
+
 public class Admin extends DeviceAdminReceiver {
 
     void showToast(Context context, CharSequence msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+         SessionManager.get().setPasswordCorrect(false);
     }
 
     @Override
     public void onEnabled(Context context, Intent intent) {
-//        showToast(context, "Device Administrator: Activated");
+
+        showToast(context, "Device Administrator: Activated");
     }
 
     @Override
@@ -24,7 +27,6 @@ public class Admin extends DeviceAdminReceiver {
 
     @Override
     public void onDisabled(Context context, Intent intent) {
-        showToast(context, "Device Administrator: Deactivated");
     }
 
     @Override
@@ -34,6 +36,5 @@ public class Admin extends DeviceAdminReceiver {
 
     @Override
     public void onPasswordSucceeded(Context context, Intent intent) {
-        showToast(context, "Welcome Device Owner");
     }
 }

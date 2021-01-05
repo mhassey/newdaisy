@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -108,11 +109,12 @@ public class AppController extends Application implements LifecycleObserver {
     private void setLang (){
         if (!sessionManager.getLang().equals(""))
         {
+            Log.e("working",sessionManager.getLang());
             Locale locale = new Locale(sessionManager.getLang());
             Locale.setDefault(locale);
             Configuration configuration = new Configuration();
             configuration.locale = locale;
-            getActivity().getResources().updateConfiguration(configuration, getActivity().getResources().getDisplayMetrics());
+            getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
 //            sessionManager.setLang(s);
 
         }
@@ -169,4 +171,6 @@ public class AppController extends Application implements LifecycleObserver {
         return baseActivity;
     }
 
+    public void setContext(Context applicationContext) {
+    }
 }

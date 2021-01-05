@@ -81,6 +81,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
             int count;
             String urlPath = null;
             try {
+                Log.e("Working",download.getPath()+"   "+download.getPath1());
                 URL url1 = new URL(download.getPath());
 
                 HttpURLConnection connectionHttp = (HttpURLConnection) url1.openConnection();
@@ -107,7 +108,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 if (download.getType().equals(Constraint.PROMOTION)) {
                     promotion = true;
                 }
-               URL url = new URL(urlPath);
+                URL url = new URL(urlPath);
                 URLConnection connection = url.openConnection();
 
                 connection.setConnectTimeout(10000);
@@ -196,6 +197,7 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
             } catch (Exception e) {
                 if (download.getType().equals(""))
                 {
+                    sessionManager.setLocation("empty");
                     EventBus.getDefault().post(new DownloadFail());
                 }
                 e.printStackTrace();
@@ -221,6 +223,8 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     protected void onPostExecute(String path) {
          try {
              this.progressDialog.dismiss();
+             callBack.callBack(Constraint.SUCCESS);
+
 
         } catch (Exception e) {
             e.printStackTrace();

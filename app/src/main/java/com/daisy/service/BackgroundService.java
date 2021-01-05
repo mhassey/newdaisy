@@ -79,6 +79,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private static final String ACTION_DEBUG = "daichan4649.lockoverlay.action.DEBUG";
     private String TAG = this.getClass().getSimpleName();
     private WindowManager mWindowManager;
+    private WindowManager mWindowManagerForCamera;
+
     private LinearLayout touchLayout;
     private LinearLayout touchLayoutforCamera;
 
@@ -135,7 +137,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public void onCreate() {
         super.onCreate();
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
-        FrontCameraRetriever.retrieveFor(this);
 
         securityService();
         showNotification();
@@ -147,6 +148,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWifi();
         initPassword();
         defineSensor();
+        try {
+            FrontCameraRetriever.retrieveFor(this);
+            FrontCameraRetriever.getInstance().load();
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
 
@@ -229,7 +238,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
 
                                 Constraint.current_running_process = process;
-
                                 if (!process.equals(getApplication().getPackageName())) {
                                     if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
                                         if (!sessionManager.getPasswordCorrect()) {
@@ -241,11 +249,18 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             startActivity(intent);
                                         } else {
+                                            Log.e("Working...","Password false");
+
                                             sessionManager.setPasswordCorrect(Constraint.FALSE);
                                         }
                                     } else {
                                         sessionManager.setPasswordCorrect(Constraint.FALSE);
                                     }
+
+                                }
+                                else
+                                {
+                                    sessionManager.setPasswordCorrect(Constraint.FALSE);
 
                                 }
 
@@ -459,8 +474,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                 }
             }
-        //    }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
-        }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
+            }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+        //}, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
 
     }
 
@@ -472,9 +487,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             if (val.equals(Constraint.APPLICATION_LOGS)) {
                 if (integers != null) {
                     if (integers.size() > 0) {
-                        SyncLogs syncLogsPromotion = SyncLogs.getLogsSyncing(getApplicationContext());
-                        syncLogsPromotion.saveContactApi(Constraint.PROMOTION, integers.get(0));
-                    }
+                            SyncLogs syncLogsPromotion = SyncLogs.getLogsSyncing(getApplicationContext());
+                            syncLogsPromotion.saveContactApi(Constraint.PROMOTION, integers.get(0));
+
+                        }
                 }
 
             } else if (val.equals(Constraint.PROMOTION)) {
@@ -549,7 +565,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     count++;
                     if (count == Constraint.THIRTY_INT) {
                         try {
-                            String value = appChecker.getForegroundApp(getApplicationContext());
+                            if (Utils.isPlugged(getApplicationContext())) {
+                            sessionManager.setStepCount(0);
+                            }
+                                String value = appChecker.getForegroundApp(getApplicationContext());
                             if (value != null) {
                                 if (!value.equals(getApplication().getPackageName())) {
                                     if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
@@ -802,6 +821,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         touchLayout.setLongClickable(true);
 
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        mWindowManagerForCamera = (WindowManager) getSystemService(WINDOW_SERVICE);
+
         // set layout parameter of window manager
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -852,11 +873,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             params.gravity = Gravity.START | Gravity.TOP;
             params.x = Constraint.ZERO;
             params.y = Constraint.ZERO;
-            mWindowManager.addView(touchLayoutforCamera, params);
+            mWindowManagerForCamera.addView(touchLayoutforCamera, params);
         } else {
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-//                    WindowManager.LayoutParams.WRAP_CONTENT,
-//                    WindowManager.LayoutParams.WRAP_CONTENT,
+              //      WindowManager.LayoutParams.WRAP_CONTENT,
+                //    WindowManager.LayoutParams.WRAP_CONTENT,
                     10, 10,
                     WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -872,7 +893,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             params.x = Constraint.ZERO;
             params.y = Constraint.ZERO;
 
-            mWindowManager.addView(touchLayoutforCamera, params);
+            mWindowManagerForCamera.addView(touchLayoutforCamera, params);
 
         }
     }
@@ -997,7 +1018,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
         //Step count
         if (!Utils.isPlugged(getApplicationContext())) {
-          //if (true){
+       //   if (true){
             if (!sessionManager.getDeviceSecured()) {
                 stepCount = stepCount + 1;
                 sessionManager.setStepCount(stepCount);
@@ -1008,6 +1029,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 }
 
             }
+        }
+        else
+        {
+            sessionManager.setStepCount(0);
         }
         //Record achievement
     }

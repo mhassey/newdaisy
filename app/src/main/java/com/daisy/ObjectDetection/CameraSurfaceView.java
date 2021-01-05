@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
+import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
 
@@ -31,7 +33,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceCreated(SurfaceHolder holder) {
         // When the surface is ready to be drawn on
         // tell our camera to use this to show a preview
-
+            Log.e("kali","work,inhace");
             camera.initialise(listener, holder);
         }
 
@@ -43,8 +45,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
             return;
         }
-
-        // When the surface changes we need to re-attach it to our camera
             camera.initialise(listener, holder);
 
     }

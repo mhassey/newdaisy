@@ -91,6 +91,15 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             mBinding.securitySwitch.setChecked(Constraint.FALSE);
 
         }
+        if (!sessionManager.getAlaramSecurity())
+        {
+            mBinding.alramSwitch.setChecked(Constraint.TRUE);
+        }
+        else
+        {
+            mBinding.alramSwitch.setChecked(Constraint.FALSE);
+
+        }
     }
 
 
@@ -112,7 +121,25 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.updateProduct.setOnClickListener(this::onClick);
         mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwich());
+        mBinding.alramSwitch.setOnCheckedChangeListener(getAlaramSwitch());
 
+
+    }
+
+    private CompoundButton.OnCheckedChangeListener getAlaramSwitch() {
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    sessionManager.alaramSecuried(Constraint.FALSE);
+                }
+                else
+                {
+                    sessionManager.alaramSecuried(Constraint.TRUE);
+                }
+            }
+        };
     }
 
 

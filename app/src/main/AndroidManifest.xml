@@ -98,6 +98,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
             android:screenOrientation="portrait" />
@@ -121,7 +122,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"
             android:screenOrientation="portrait" />

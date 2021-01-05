@@ -121,7 +121,7 @@ public class SyncLogs {
         final HashMap<String, String> request = getRequest(count);
         if (type.equals(Constraint.APPLICATION_LOGS))
         {
-            request.put(Constraint.ID_PROMOTION, sessionManager.getPriceCard().getIdpriceCard());
+            request.put(Constraint.ID_PRICE_CARD, sessionManager.getPriceCard().getIdpriceCard());
 
         }
         else if (type.equals(Constraint.PROMOTION))
@@ -129,6 +129,7 @@ public class SyncLogs {
             request.put(Constraint.ID_PROMOTION, id+"");
 
         }
+        Log.e("Working........",request.toString());
         apiService.sendLogs(request, request.get(Constraint.TOKEN)).enqueue(new Callback<GlobalResponse<BlankResponse>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -212,12 +213,12 @@ public class SyncLogs {
                 requests.add(logServerRequest);
             }
             logSyncRequest.put(Constraint.LOG, getJsonObject(requests).toString());
-            PriceCardMain priceCard = sessionManager.getPriceCard();
-            try {
-                logSyncRequest.put(Constraint.ID_PRICE_CARD, priceCard.getIdpriceCard());
-            } catch (Exception e) {
-
-            }
+//            PriceCardMain priceCard = sessionManager.getPriceCard();
+//            try {
+//                logSyncRequest.put(Constraint.ID_PRICE_CARD, priceCard.getIdpriceCard());
+//            } catch (Exception e) {
+//
+//            }
 
             logSyncRequest.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
 

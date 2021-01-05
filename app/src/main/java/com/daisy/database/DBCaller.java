@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
+import com.daisy.pojo.response.PriceCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
@@ -58,7 +59,7 @@ public class DBCaller {
         }
         else
         {
-            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type);
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type,Constraint.PRICECARD_LOG);
         }
         return logs;
     }
@@ -73,7 +74,7 @@ public class DBCaller {
         }
         else
         {
-            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type);
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type,Constraint.PRICECARD_LOG);
         }
         return logs;
     }

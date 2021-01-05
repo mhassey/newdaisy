@@ -44,7 +44,7 @@ public class Constraint {
     public static final String AR = "ar";
     public static final String SHOW_PROMOTION = "Promotion show";
     public static final Object PRICECARD = "priceCard";
-    public static final String USER_SEEN_PRMOTION = "User seen promotion";
+    public static final String USER_SEEN_PRMOTION = "Face detected";
     public static final String CLICK_ON_PRICE_CARD = "Click on price card";
     public static final String CLICK_ON_PROMOTION = "Click on promotion";
     public static final String ENGLISH = "ENGLISH";
@@ -77,6 +77,25 @@ public class Constraint {
     public static final String TURKISH = "TURKISH";
     public static final String UK = "uk";
     public static final String UKRAINIAN = "UKRAINIAN";
+    public static final String PRICECARD_LOG = "pricecardLogs";
+    public static final String EMPTY = "empty";
+    public static final String PFV1 = "pfv1";
+    public static final String PFV2 = "pfv2";
+    public static final String PFV3 = "pfv3";
+    public static final String PFV4 = "pfv4";
+    public static final String PFV5 = "pfv6";
+    public static final String PFV6 = "pfv6";
+    public static final String PFV7 = "pfv7";
+    public static final String PFV8 = "pfv8";
+    public static final String PFV9 = "pfv9";
+    public static final String PFV10 = "pfv10";
+    public static final String PFV11 = "pfv11";
+    public static final String PFV12 = "pfv12";
+    public static final String PFV13 = "pfv13";
+    public static final String PFV14 = "pfv14";
+    public static final String PFV15 = "pfv15";
+    public static final String PFV16 = "pfv16";
+
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     public static final String CARD = "Card";
@@ -216,19 +235,19 @@ public class Constraint {
     public static final String ID_PRODUCT_FLUID = "idproductFluid";
     public static final String DATE_EFFECTIVE = "dateEffective";
     public static final String TIME_EFFECTIVE = "timeEffective";
-    public static final String MSRP = "msrp";
-    public static final String OUR_PRICE = "ourprice";
-    public static final String SALE_PRICE = "saleprice";
-    public static final String PLAN_A_PRICE = "planAprice";
-    public static final String PLAN_B_PRICE = "planBprice";
-    public static final String PLAN_C_PRICE = "planCprice";
-    public static final String PLAN_D_PRICE = "planDprice";
-    public static final String DOWN_PRICE = "downprice";
-    public static final String MONTHLY_PRICE = "monthlyprice";
-    public static final String CONFIG_ONE = "config1";
-    public static final String CONFIG_TWO = "config2";
-    public static final String CONFIG_THREE = "config3";
-    public static final String CONFIG_FOUR = "config4";
+//    public static final String MSRP = "msrp";
+//    public static final String OUR_PRICE = "ourprice";
+//    public static final String SALE_PRICE = "saleprice";
+//    public static final String PLAN_A_PRICE = "planAprice";
+//    public static final String PLAN_B_PRICE = "planBprice";
+//    public static final String PLAN_C_PRICE = "planCprice";
+//    public static final String PLAN_D_PRICE = "planDprice";
+//    public static final String DOWN_PRICE = "downprice";
+//    public static final String MONTHLY_PRICE = "monthlyprice";
+//    public static final String CONFIG_ONE = "config1";
+//    public static final String CONFIG_TWO = "config2";
+//    public static final String CONFIG_THREE = "config3";
+//    public static final String CONFIG_FOUR = "config4";
     public static final String ONE_STRING = "1";
     public static final int NINE_THOUSANT_NINE_HUNDRED = 9900;
     public static final int SIXTY = 60;
@@ -258,4 +277,5 @@ public class Constraint {
     public static String adFrameUrl="adFrameUrl";
     public static String currentFrameName="currentFrameName";
     public static String click="click";
+    public static String Impression="Impression";
 }

@@ -71,7 +71,7 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
             camera.startFaceDetection();
         }catch (Exception e)
         {
-
+e.printStackTrace();
         }
     }
 

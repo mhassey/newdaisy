@@ -1190,4 +1190,13 @@ public class SessionManager {
       return pref.getBoolean(PrefConstant.FACE_DETERMINATION);
 
     }
+
+    public void alaramSecuried(boolean aTrue) {
+        pref.setBooleanData(PrefConstant.alaramSecuried,aTrue);
+
+    }
+
+    public boolean getAlaramSecurity() {
+        return pref.getBoolean(PrefConstant.alaramSecuried);
+    }
 }

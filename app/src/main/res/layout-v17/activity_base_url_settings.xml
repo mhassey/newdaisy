@@ -47,31 +47,44 @@
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginStart="@dimen/dp35"
-                android:layout_marginEnd="@dimen/dp55"
+                android:layout_marginStart="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp5"
                 android:layout_height="wrap_content">
-                <Spinner
+                <AutoCompleteTextView
 
                     android:id="@+id/baseUrl"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp40"
                     android:inputType="text"
+                    android:imeOptions="actionDone"
                     android:textDirection="locale"
-                    android:autofillHints="@string/enter_base_url_for_server"
+                    android:hint="@string/enter_base_url_for_server"
                     android:background="@drawable/edit_text_format"
-                    android:paddingStart="@dimen/dp10"
+                    android:textSize="@dimen/sp12"
                     android:textColor="?attr/textcolorblack"
                     android:textColorHint="@color/editTextLineColor"
-                    android:padding="@dimen/dp10" />
+                    android:paddingStart="@dimen/dp10"
 
-                <ImageView
-                    android:layout_marginEnd="@dimen/dp10"
-                    android:src="@drawable/ic_down_arrow"
+                    android:paddingEnd="@dimen/dp35"
+
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/spinnerOpen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp40"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="@dimen/dp20"
-                    android:layout_height="@dimen/dp20"/>
+                    android:gravity="center"
+                    android:padding="@dimen/dp10">
+
+                    <ImageView
+
+                        android:layout_width="@dimen/dp20"
+                        android:layout_height="@dimen/dp20"
+                        android:src="@drawable/ic_down_arrow" />
+                </RelativeLayout>
 
             </RelativeLayout>
 

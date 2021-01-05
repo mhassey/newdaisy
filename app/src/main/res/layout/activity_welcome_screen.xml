@@ -72,7 +72,7 @@
                 android:gravity="center"
                 android:background="@drawable/ovel_purple"
                 android:orientation="horizontal"
-                android:layout_width="@dimen/dp150"
+                android:layout_width="@dimen/dp180"
                 android:layout_height="@dimen/dp50">
 
             <TextView
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/begin"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dp20" />
+                android:textSize="@dimen/sp20" />
 
             <TextView
                 style="@style/fontRagular"
@@ -92,7 +92,7 @@
                 android:layout_marginStart="@dimen/dp10"
                 android:text=">"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp25" />
+                android:textSize="@dimen/sp20" />
             </LinearLayout>
         </LinearLayout>
 
