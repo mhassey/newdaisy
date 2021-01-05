@@ -774,23 +774,21 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     jsonObject.put(Constraint.ID_PRODUCT_STATIC, pricing1.getIdproductStatic());
                     jsonObject.put(Constraint.DATE_EFFECTIVE, pricing1.getDateEffective());
                     jsonObject.put(Constraint.TIME_EFFECTIVE, pricing1.getTimeEffective());
-                    jsonObject.put(Constraint.PFV1, pricing1.getPfv1());
-                    jsonObject.put(Constraint.PFV2, pricing1.getPfv2());
-                    jsonObject.put(Constraint.PFV3, pricing1.getPfv3());
-                    jsonObject.put(Constraint.PFV4, pricing1.getPfv4());
-                    jsonObject.put(Constraint.PFV5, pricing1.getPfv5());
-                    jsonObject.put(Constraint.PFV6, pricing1.getPfv6());
-                    jsonObject.put(Constraint.PFV7, pricing1.getPfv7());
-                    jsonObject.put(Constraint.PFV8, pricing1.getPfv8());
-                    jsonObject.put(Constraint.PFV9, pricing1.getPfv9());
-                    jsonObject.put(Constraint.PFV10, pricing1.getPfv10());
-                    jsonObject.put(Constraint.PFV11, pricing1.getPfv11());
-                    jsonObject.put(Constraint.PFV12, pricing1.getPfv12());
-                    jsonObject.put(Constraint.PFV13, pricing1.getPfv13());
-                    jsonObject.put(Constraint.PFV14, pricing1.getPfv14());
-                    jsonObject.put(Constraint.PFV15, pricing1.getPfv15());
-                    jsonObject.put(Constraint.PFV16, pricing1.getPfv16());
-                 //   jsonArray.put(jsonObject);
+                    jsonObject.put(Constraint.MSRP, pricing1.getMsrp());
+                    jsonObject.put(Constraint.OUR_PRICE, pricing1.getOurprice());
+                    jsonObject.put(Constraint.SALE_PRICE, pricing1.getSaleprice());
+                    jsonObject.put(Constraint.PLAN_A_PRICE, pricing1.getPlanAprice());
+                    jsonObject.put(Constraint.PLAN_B_PRICE, pricing1.getPlanBprice());
+                    jsonObject.put(Constraint.PLAN_C_PRICE, pricing1.getPlanCprice());
+                    jsonObject.put(Constraint.PLAN_D_PRICE, pricing1.getPlanDprice());
+                    jsonObject.put(Constraint.DOWN_PRICE, pricing1.getDownprice());
+                    jsonObject.put(Constraint.MONTHLY_PRICE, pricing1.getMonthlyprice());
+                    jsonObject.put(Constraint.CONFIG_ONE, pricing1.getConfig1());
+                    jsonObject.put(Constraint.CONFIG_TWO, pricing1.getConfig2());
+                    jsonObject.put(Constraint.CONFIG_THREE, pricing1.getConfig3());
+                    jsonObject.put(Constraint.CONFIG_FOUR, pricing1.getConfig4());
+
+                    //   jsonArray.put(jsonObject);
 
                 }
 

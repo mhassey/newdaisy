@@ -7,23 +7,19 @@ public class Pricing {
     private String timeEffective;
     private String dateExpires;
     private String timeExpires;
-    private String pfv1;
-    private String pfv2;
-    private String pfv3;
-    private String pfv4;
-    private String pfv5;
-    private String pfv6;
-    private String pfv7;
-    private String pfv8;
-    private String pfv9;
-    private String pfv10;
-    private String pfv11;
-    private String pfv12;
-    private String pfv13;
-    private String pfv14;
-
-    private String pfv15;
-    private String pfv16;
+    private String msrp;
+    private String ourprice;
+    private String saleprice;
+    private String planAprice;
+    private String planBprice;
+    private String planCprice;
+    private String planDprice;
+    private String downprice;
+    private String monthlyprice;
+    private String config1;
+    private String config2;
+    private String config3;
+    private String config4;
     private String isDefault;
     private String pricingPlanID;
 
@@ -91,131 +87,107 @@ public class Pricing {
         this.timeExpires = timeExpires;
     }
 
-    public String getPfv1() {
-        return pfv1;
+    public String getMsrp() {
+        return msrp;
     }
 
-    public void setPfv1(String pfv1) {
-        this.pfv1 = pfv1;
+    public void setMsrp(String msrp) {
+        this.msrp = msrp;
     }
 
-    public String getPfv2() {
-        return pfv2;
+    public String getOurprice() {
+        return ourprice;
     }
 
-    public void setPfv2(String pfv2) {
-        this.pfv2 = pfv2;
+    public void setOurprice(String ourprice) {
+        this.ourprice = ourprice;
     }
 
-    public String getPfv3() {
-        return pfv3;
+    public String getSaleprice() {
+        return saleprice;
     }
 
-    public void setPfv3(String pfv3) {
-        this.pfv3 = pfv3;
+    public void setSaleprice(String saleprice) {
+        this.saleprice = saleprice;
     }
 
-    public String getPfv4() {
-        return pfv4;
+    public String getPlanAprice() {
+        return planAprice;
     }
 
-    public void setPfv4(String pfv4) {
-        this.pfv4 = pfv4;
+    public void setPlanAprice(String planAprice) {
+        this.planAprice = planAprice;
     }
 
-    public String getPfv5() {
-        return pfv5;
+    public String getPlanBprice() {
+        return planBprice;
     }
 
-    public void setPfv5(String pfv5) {
-        this.pfv5 = pfv5;
+    public void setPlanBprice(String planBprice) {
+        this.planBprice = planBprice;
     }
 
-    public String getPfv6() {
-        return pfv6;
+    public String getPlanCprice() {
+        return planCprice;
     }
 
-    public void setPfv6(String pfv6) {
-        this.pfv6 = pfv6;
+    public void setPlanCprice(String planCprice) {
+        this.planCprice = planCprice;
     }
 
-    public String getPfv7() {
-        return pfv7;
+    public String getPlanDprice() {
+        return planDprice;
     }
 
-    public void setPfv7(String pfv7) {
-        this.pfv7 = pfv7;
+    public void setPlanDprice(String planDprice) {
+        this.planDprice = planDprice;
     }
 
-    public String getPfv8() {
-        return pfv8;
+    public String getDownprice() {
+        return downprice;
     }
 
-    public void setPfv8(String pfv8) {
-        this.pfv8 = pfv8;
+    public void setDownprice(String downprice) {
+        this.downprice = downprice;
     }
 
-    public String getPfv9() {
-        return pfv9;
+    public String getMonthlyprice() {
+        return monthlyprice;
     }
 
-    public void setPfv9(String pfv9) {
-        this.pfv9 = pfv9;
+    public void setMonthlyprice(String monthlyprice) {
+        this.monthlyprice = monthlyprice;
     }
 
-    public String getPfv10() {
-        return pfv10;
+    public String getConfig1() {
+        return config1;
     }
 
-    public void setPfv10(String pfv10) {
-        this.pfv10 = pfv10;
+    public void setConfig1(String config1) {
+        this.config1 = config1;
     }
 
-    public String getPfv11() {
-        return pfv11;
+    public String getConfig2() {
+        return config2;
     }
 
-    public void setPfv11(String pfv11) {
-        this.pfv11 = pfv11;
+    public void setConfig2(String config2) {
+        this.config2 = config2;
     }
 
-    public String getPfv12() {
-        return pfv12;
+    public String getConfig3() {
+        return config3;
     }
 
-    public void setPfv12(String pfv12) {
-        this.pfv12 = pfv12;
+    public void setConfig3(String config3) {
+        this.config3 = config3;
     }
 
-    public String getPfv13() {
-        return pfv13;
+    public String getConfig4() {
+        return config4;
     }
 
-    public void setPfv13(String pfv13) {
-        this.pfv13 = pfv13;
-    }
-
-    public String getPfv14() {
-        return pfv14;
-    }
-
-    public void setPfv14(String pfv14) {
-        this.pfv14 = pfv14;
-    }
-
-    public String getPfv15() {
-        return pfv15;
-    }
-
-    public void setPfv15(String pfv15) {
-        this.pfv15 = pfv15;
-    }
-
-    public String getPfv16() {
-        return pfv16;
-    }
-
-    public void setPfv16(String pfv16) {
-        this.pfv16 = pfv16;
+    public void setConfig4(String config4) {
+        this.config4 = config4;
     }
 }
