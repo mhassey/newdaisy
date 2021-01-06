@@ -29,7 +29,7 @@ public interface LogDao {
     @Query("SELECT * FROM "+ Constraint.LOGS+" where  isSync = :value AND eventDescription =:id  order by id  DESC")
     List<Logs> getAllPromotionLog(boolean value,int id);
 
-    @Query("SELECT MIN(eventDescription) as id FROM "+ Constraint.LOGS+"  GROUP BY eventUrl ")
+    @Query("SELECT MIN(eventDescription) as id FROM "+ Constraint.LOGS+"  where eventDescription !='0' GROUP BY eventUrl ")
     List<Integer> getPromotionCount();
 
 

@@ -136,10 +136,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
 
         windowWork();
-        if (!sessionManager.getLocation().equals(Constraint.EMPTY))
-        loadURL();
-        else
-            DownloadFail(new DownloadFail());
+         loadURL();
         intentWork();
         if (sessionManager.getSanitized()) {
             mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
@@ -1082,14 +1079,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void DownloadFail(DownloadFail internetResponse) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.file_has_issue));
-        builder.setCancelable(false);
-        AlertDialog alertDialog = builder.create();
-        if (!alertDialog.isShowing())
-        alertDialog.show();
-        alertDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, 400); //Controlling width and height.
-    }
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(getString(R.string.file_has_issue));
+            builder.setCancelable(false);
+            AlertDialog alertDialog = builder.create();
+            if (!alertDialog.isShowing())
+                alertDialog.show();
+            alertDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, 400); //Controlling width and height.
+        }
+        catch (Exception e)
+        {
+
+        }
+        }
 
     /**
      * change pricing
@@ -1357,12 +1360,25 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             if (msg.contains(Constraint.PROMOTION)) {
                 String promotionPath = msg.split("\\?")[0];
-                int id = Utils.searchPromotionUsingPath(promotionPath);
+                try {
 
+                    if (promotionPath.contains("file://")) {
+                        String data[] = promotionPath.split(Constraint.PROMOTION);
+                        if (data.length > 0) {
+                            promotionPath = Constraint.PROMOTION + "" + data[1];
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+                int id = Utils.searchPromotionUsingPath(promotionPath);
+                if (id!=0)
                 DBCaller.storeLogInDatabase(context, Constraint.Impression, id+"" , msg, Constraint.PROMOTION);
 
             } else {
-                DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression , msg, Constraint.PRICECARD_LOG);
+                    DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression , msg, Constraint.PRICECARD_LOG);
             }
         }catch (Exception e)
         {

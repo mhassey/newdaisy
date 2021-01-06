@@ -475,7 +475,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 }
             }
             }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
-        //}, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
+      //  }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
 
     }
 

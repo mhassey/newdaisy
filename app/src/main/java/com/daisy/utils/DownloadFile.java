@@ -84,8 +84,9 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                 Log.e("Working",download.getPath()+"   "+download.getPath1());
                 URL url1 = new URL(download.getPath());
 
-                HttpURLConnection connectionHttp = (HttpURLConnection) url1.openConnection();
+
                 try {
+                    HttpURLConnection connectionHttp = (HttpURLConnection) url1.openConnection();
                     int code = connectionHttp.getResponseCode();
 
                     if (code == 200) {
@@ -133,8 +134,13 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
                     String path=Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD;
                     File f = new File(path);
                     String file[] = f.list();
+                    String value=file[1];
+                    if (value.contains(Constraint.DOT_ZIP))
+                    {
+                        value=file[0];
+                    }
 
-                    folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH+file[1]+Constraint.SLASH+Constraint.PROMOTION+Constraint.SLASH;
+                    folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH+value+Constraint.SLASH+Constraint.PROMOTION+Constraint.SLASH;
 
                 } else
                     folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH;
@@ -197,14 +203,14 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
             } catch (Exception e) {
                 if (download.getType().equals(""))
                 {
-                    sessionManager.setLocation("empty");
-                    EventBus.getDefault().post(new DownloadFail());
+
+                    return  Constraint.SOMETHING_WENT_WRONG;
                 }
-                e.printStackTrace();
-            }
+             }
+
         }
         // callBack.callBack(Constraint.SUCCESS);
-        return "Something went wrong";
+        return "SUCCESS";
     }
 
     /**
@@ -222,9 +228,16 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String path) {
          try {
-             this.progressDialog.dismiss();
-             callBack.callBack(Constraint.SUCCESS);
+             if(progressDialog.isShowing())
+                 progressDialog.dismiss();
+             if (!path.equals(Constraint.SOMETHING_WENT_WRONG)) {
+                 callBack.callBack(Constraint.SUCCESS);
+             }
+             else
+             {
 
+                 EventBus.getDefault().post(new DownloadFail());
+             }
 
         } catch (Exception e) {
             e.printStackTrace();

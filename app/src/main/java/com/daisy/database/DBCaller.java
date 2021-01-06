@@ -10,6 +10,7 @@ import com.daisy.pojo.response.PriceCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DBCaller {
@@ -95,6 +96,8 @@ public class DBCaller {
     public static List<Integer> getPromotionCountByID(Context context) {
         try {
           List<Integer>integers = DatabaseClient.getInstance(context).getAppDatabase().logDao().getPromotionCount();
+          integers.removeAll(Collections.singleton(0));
+
             return integers;
         } catch (Exception e) {
             e.printStackTrace();

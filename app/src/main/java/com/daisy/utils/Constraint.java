@@ -95,6 +95,7 @@ public class Constraint {
     public static final String PFV14 = "pfv14";
     public static final String PFV15 = "pfv15";
     public static final String PFV16 = "pfv16";
+    public static final String SOMETHING_WENT_WRONG = "something went wrong";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
