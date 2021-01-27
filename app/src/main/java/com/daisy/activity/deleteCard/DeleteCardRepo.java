@@ -24,6 +24,7 @@ public class DeleteCardRepo {
         apiService= AppRetrofit.getInstance().getApiService();
     }
 
+    //TODO Handle delete card request
     public LiveData<GlobalResponse<DeleteCardResponse>> deleteCard(HashMap<String,String> hashMap)
     {
         Call<GlobalResponse<DeleteCardResponse>> call=apiService.deleteCard(hashMap,hashMap.get(Constraint.TOKEN));

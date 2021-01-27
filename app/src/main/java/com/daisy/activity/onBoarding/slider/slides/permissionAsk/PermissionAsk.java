@@ -91,25 +91,16 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void mainAdminAsk() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
-//        permissionAskViewModel.setGrandAdminPermission(true);
-//        permissionAskBinding.adminMain.setEnabled(false);
-//        permissionAskBinding.adminUsages.setChecked(true);
         permissionSetter();
         if (!mDPM.isAdminActive(mAdminName)) {
-            // try to become active – must happen here in this activity, to get result
             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-                    mAdminName);
-
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,mAdminName);
             intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
             getActivity().startActivityForResult(intent, REQUEST_ENABLE);
         }
 
 
     }
-
-
-
 
 
     /**
@@ -198,19 +189,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         permissionAskViewModel.setGrandGpsEnable(Constraint.TRUE);
 
-//        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//      //   if (false)
-//        // {
-//            //if gps is disabled
-//            permissionAskViewModel.setGrandGpsEnable(Constraint.FALSE);
-//            permissionAskBinding.gpsUsages.setChecked(false);
-//            permissionAskBinding.gps.setEnabled(Constraint.TRUE);
-//        } else {
-//            permissionAskViewModel.setGrandGpsEnable(Constraint.TRUE);
-//            permissionAskBinding.gpsUsages.setChecked(true);
-//            permissionAskBinding.gps.setEnabled(Constraint.FALSE);
-//
-//        }
     }
 
 

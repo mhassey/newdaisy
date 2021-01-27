@@ -1,6 +1,5 @@
 package com.daisy.activity.apkUpdate;
 
-import androidx.lifecycle.GeneratedAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -8,7 +7,6 @@ import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.utils.Constraint;
 
 import java.util.HashMap;
 
@@ -16,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// TODO Apk update repo that help to know latest apk version
 public class ApkUpdateRepo {
     private ApiService apiService;
     private MutableLiveData<GlobalResponse<GeneralResponse>> globalResponseMutableLiveData=new MutableLiveData<>();
@@ -23,6 +22,7 @@ public class ApkUpdateRepo {
     {
         apiService=AppRetrofit.getInstance().getApiService();
     }
+    // TODO getUpdate method help to get apk update from server
     public  LiveData<GlobalResponse<GeneralResponse>> getUpdate(HashMap<String, String> input) {
         Call<GlobalResponse<GeneralResponse>>  liveDataCall=apiService.getGeneralResponse(input);
         liveDataCall.enqueue(new Callback<GlobalResponse<GeneralResponse>>() {

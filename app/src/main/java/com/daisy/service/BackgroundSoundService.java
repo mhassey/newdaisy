@@ -36,7 +36,7 @@ public class BackgroundSoundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (!SessionManager.get().getAlaramSecurity()) {
+        if (SessionManager.get().getAlaramSecurity()) {
             try {
                 if (player != null) {
                     if (player.isPlaying()) {
@@ -56,11 +56,11 @@ public class BackgroundSoundService extends Service {
                             @Override
                             public void run() {
 
-                                int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                                float percent = 0.8f;
-                                int seventyVolume = (int) (maxVolume * percent);
-                                int sb2value = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                                audio.setStreamVolume(AudioManager.STREAM_MUSIC, seventyVolume, Constraint.ZERO);
+//                                int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+//                                float percent = 0.8f;
+//                                int seventyVolume = (int) (maxVolume * percent);
+//                                int sb2value = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+//                                audio.setStreamVolume(AudioManager.STREAM_MUSIC, seventyVolume, Constraint.ZERO);
                             }
                         }, Constraint.THOUSAND, Constraint.THOUSAND);
 

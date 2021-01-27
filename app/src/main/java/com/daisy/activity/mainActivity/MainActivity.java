@@ -52,7 +52,7 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.deleteCard.DeleteCardViewModel;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.  common.session.SessionManager;
+import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
@@ -84,6 +84,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -99,9 +100,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
     private Context context;
-    private int i = 0;
     private WebViewClient yourWebClient;
-    private static final int REQUEST_ENABLE = 123;
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -125,31 +125,24 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        boolean b;
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Do something for lollipop and above versions
-            b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
-        } else {
-            b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
-            // do something for phones running an SDK before lollipop
-        }
-
+        permissionAsking();
         windowWork();
-         loadURL();
+        loadURL();
         intentWork();
-        if (sessionManager.getSanitized()) {
-            mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
-
-            Glide.with(this)
-                    .load(R.drawable.ani);
-
-        } else {
-            mBinding.sanitisedHeader.setVisibility(View.GONE);
-        }
+        sanitisedWork();
     }
 
 
+    //TODO Check for permission
+    private void permissionAsking() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Do something for lollipop and above versions
+            PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
+        } else {
+            PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
+            // do something for phones running an SDK before lollipop
+        }
+    }
 
     /**
      * Add sanitised cown down
@@ -167,9 +160,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     Glide.with(MainActivity.this)
                             .load(R.drawable.ani)
                             .into(mBinding.senaitised);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
 
                 }
             }
@@ -209,13 +200,24 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+    private void sanitisedWork() {
+        if (sessionManager.getSanitized()) {
+            mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
+            Glide.with(this)
+                    .load(R.drawable.ani);
+
+        } else {
+            mBinding.sanitisedHeader.setVisibility(View.GONE);
+        }
+    }
+
     /**
      * Start Service permanently
      */
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
-           //  startService(new Intent(MainActivity.this, CaptureImageService.class));
+        //  startService(new Intent(MainActivity.this, CaptureImageService.class));
     }
 
     /**
@@ -241,11 +243,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
+        handleResumeWork();
+    }
 
+    //TODO Handle resume work
+    private void handleResumeWork() {
+        if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
             if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
             }
         }
         if (sessionManager.getSanitized()) {
@@ -253,7 +258,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 sessionManager.setComeFromConfig(false);
                 setCownDownForSenitised();
             } else {
-
                 Glide.with(this)
                         .load(R.drawable.ani)
                         .into(mBinding.senaitised);
@@ -304,7 +308,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     /**
      * Create download file and send to download manager
      */
-
     private void downloadFiles(String url, List<Promotion> promotions, List<Download> downloads) {
         Download download = new Download();
         download.setPath(url);
@@ -316,7 +319,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         if (promotions != null) {
             for (Promotion promotion : promotions) {
                 if (listOfPromo != null) {
-                    for (int promowork = 0; promowork < listOfPromo.length(); promowork++) {
+                    for (int promowork = Constraint.ZERO; promowork < listOfPromo.length(); promowork++) {
                         try {
                             JSONObject jsonObject = (JSONObject) listOfPromo.get(promowork);
                             if (promotion.getIdpromotion().equals(jsonObject.getString(Constraint.PROMOTION_ID))) {
@@ -393,7 +396,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (grantResults.length>0) {
+        if (grantResults.length > Constraint.ZERO) {
             if (grantResults[Constraint.ZERO] == PackageManager.PERMISSION_DENIED) {
                 boolean showRationale = shouldShowRequestPermissionRationale(permissions[Constraint.ZERO]);
                 if (!showRationale) {
@@ -408,7 +411,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         // do something for phones running an SDK before lollipop
                     }
 
-                    }
+                }
             } else {
                 if (grantResults.length > Constraint.ZERO
                         && grantResults[Constraint.ZERO] == PackageManager.PERMISSION_GRANTED) {
@@ -521,18 +524,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
 
-            if (Build.VERSION.SDK_INT >= 21) {
+            if (Build.VERSION.SDK_INT >= Constraint.TWENTY_ONE) {
                 mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
                 CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.webView, Constraint.TRUE);
             }
-           // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
+            // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
             String val = sessionManager.getLocation();
             boolean isDelete = sessionManager.getCardDeleted();
             File f = new File(val);
             File file[] = f.listFiles();
             if (file != null) {
                 for (File file1 : file) {
-                    if (file1.isDirectory() && !file1.getAbsolutePath().contains("_MACOSX")) {
+                    if (file1.isDirectory() && !file1.getAbsolutePath().contains(Constraint.MACOS)) {
                         String fileName;
                         if (sessionManager.getOrientation().equals(Constraint.PORTRAIT)) {
                             fileName = Constraint.VERTICAL + Constraint.HTML;
@@ -544,9 +547,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         File mainFileMain = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
 
                         if (mainFile.exists()) {
-                            //  mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                             mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + fileName);
-
                             sessionManager.setMainFilePath(file1.getAbsoluteFile().toString());
                             if (!isDelete)
                                 deleteCard();
@@ -568,9 +569,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 if (!isDelete)
                                     deleteCard();
                             } else if (mainFileMain.exists()) {
-                                //  mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
                                 mBinding.webView.loadUrl(Constraint.FILE + file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
-
                                 sessionManager.setMainFilePath(file1.getAbsoluteFile().toString());
                                 if (!isDelete)
                                     deleteCard();
@@ -716,7 +715,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     private JSONObject pricingUpdateStart() {
 
-        JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         try {
             List<Pricing> pricing = sessionManager.getPricing();
@@ -732,7 +730,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 futureDate = sdf.parse(pricing.get(i).getDateExpires() + " " + pricing.get(i).getTimeExpires());
 
                             } else {
-                                futureDate = sdf.parse(pricing.get(i).getDateExpires() + " " + "00:00:00");
+                                futureDate = sdf.parse(pricing.get(i).getDateExpires() + " " + Constraint.DEFAULT_HOURS_MINUTES);
 
                             }
                             Date dateEffective;
@@ -740,7 +738,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 dateEffective = sdf.parse(pricing.get(i).getDateEffective() + " " + pricing.get(i).getTimeEffective());
 
                             } else {
-                                dateEffective = sdf.parse(pricing.get(i).getDateEffective() + " " + "00:00:00");
+                                dateEffective = sdf.parse(pricing.get(i).getDateEffective() + " " + Constraint.DEFAULT_HOURS_MINUTES);
 
                             }
                             Date todayDate = new Date();
@@ -759,7 +757,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 }
 
                 if (pricing1 == null) {
-                    for (int i = 0; i < pricing.size(); i++) {
+                    for (int i = Constraint.ZERO; i < pricing.size(); i++) {
                         if (pricing.get(i).getIsDefault() != null && pricing.get(i).getIsDefault().equals(Constraint.ONE_STRING)) {
                             pricing1 = pricing.get(i);
                         }
@@ -787,8 +785,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     jsonObject.put(Constraint.PFV14, pricing1.getPfv14());
                     jsonObject.put(Constraint.PFV15, pricing1.getPfv15());
                     jsonObject.put(Constraint.PFV16, pricing1.getPfv16());
-                 //   jsonArray.put(jsonObject);
-
                 }
 
 
@@ -817,11 +813,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * lcreate promotion that will load in webview
      */
     private void promotionSettings() {
-        ArrayList<String> pro=new ArrayList<>();
+        ArrayList<String> pro = new ArrayList<>();
         try {
             JSONArray promotionsArray = sessionManager.getPromotions();
             if (promotionsArray != null) {
-                for (int i = 0; i < promotionsArray.length(); i++) {
+                for (int i = Constraint.ZERO; i < promotionsArray.length(); i++) {
                     JSONObject promtotionJsonObect = promotionsArray.getJSONObject(i);
                     String value = promtotionJsonObect.getString(Constraint.PROMOTION);
                     if (value.contains(Constraint.PROMOTION)) {
@@ -855,14 +851,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 if (!dateEffective.after(todayDate)) {
                                     if (futureDate.after(todayDate)) {
                                         pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION);
-                                        }
+                                    }
                                 }
 
                             }
                         } else {
                             if (file.exists()) {
                                 pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.FILE_NAME);
-                               } else if (mainCheck.exists()) {
+                            } else if (mainCheck.exists()) {
                                 pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + check.getName() + Constraint.EXTENTION);
                             }
                         }
@@ -876,13 +872,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             e.printStackTrace();
         }
         if (pro.size() > 0) {
-            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle(["+Utils.stringify(pro)+"])");
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle([" + Utils.stringify(pro) + "])");
         }
     }
-
-
-
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -896,13 +888,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
-    private class WebChromeClientCustomPoster extends WebChromeClient {
-
-        @Override
-        public Bitmap getDefaultVideoPoster() {
-            return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
-        }
-    }
 
     /**
      * Handle Clicks listener
@@ -1004,17 +989,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         if (mBinding.setting.getVisibility() == View.VISIBLE) {
                             mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
                         }
-                    }catch (Exception e)
-                    {
+                    } catch (Exception e) {
 
                     }
                 }
 
             };
             mHandler.postDelayed(mRunnable, Constraint.TWENTY * Constraint.THOUSAND);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
@@ -1087,12 +1069,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             if (!alertDialog.isShowing())
                 alertDialog.show();
             alertDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, 400); //Controlling width and height.
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
-        }
+    }
 
     /**
      * change pricing
@@ -1109,6 +1089,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         loadURL();
         deleteCard();
     }
+
     /**
      * invert price card
      */
@@ -1195,45 +1176,49 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updatePromotion(Promotion promotionss) {
-        i = 0;
-        // Utils.deletePromotion();
-        // sessionManager.deletePromotions();
-        List<Promotion> promotions = sessionManager.getPromotion();
-        JSONArray listOfPromo = sessionManager.getPromotions();
-        List<Download> downloads = new ArrayList<>();
-        if (checkPermission()) {
-            for (Promotion promotion : promotions) {
-                if (listOfPromo != null) {
-                    for (int promowork = 0; promowork < listOfPromo.length(); promowork++) {
-                        try {
-                            JSONObject jsonObject = (JSONObject) listOfPromo.get(promowork);
-                            if (promotion.getIdpromotion().equals(jsonObject.getString(Constraint.PROMOTION_ID))) {
-                                listOfPromo.remove(promowork);
-                            }
+        try {
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+            // Utils.deletePromotion();
+            // sessionManager.deletePromotions();
+            List<Promotion> promotions = sessionManager.getPromotion();
+            JSONArray listOfPromo = sessionManager.getPromotions();
+            List<Download> downloads = new ArrayList<>();
+            if (checkPermission()) {
+                for (Promotion promotion : promotions) {
+                    if (listOfPromo != null) {
+                        for (int promowork = 0; promowork < listOfPromo.length(); promowork++) {
+                            try {
+                                JSONObject jsonObject = (JSONObject) listOfPromo.get(promowork);
+                                if (promotion.getIdpromotion().equals(jsonObject.getString(Constraint.PROMOTION_ID))) {
+                                    listOfPromo.remove(promowork);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
+                    Download downloadPromotion = new Download();
+                    if (promotion.getFileName1() != null)
+                        downloadPromotion.setPath(promotion.getFileName1());
+                    else
+                        downloadPromotion.setPath(promotion.getFileName());
+
+                    downloadPromotion.setPath1(promotion.getFileName());
+                    downloadPromotion.setDateExpires(promotion.getDateExpires());
+                    downloadPromotion.setDateCreated(promotion.getDateCreated());
+                    downloadPromotion.setPromotionId(promotion.getIdpromotion());
+                    downloadPromotion.setType(Constraint.PROMOTION);
+                    downloads.add(downloadPromotion);
                 }
-                Download downloadPromotion = new Download();
-                if (promotion.getFileName1() != null)
-                    downloadPromotion.setPath(promotion.getFileName1());
-                else
-                    downloadPromotion.setPath(promotion.getFileName());
+                if (listOfPromo != null)
+                    sessionManager.setPromotions(listOfPromo);
 
-                downloadPromotion.setPath1(promotion.getFileName());
-                downloadPromotion.setDateExpires(promotion.getDateExpires());
-                downloadPromotion.setDateCreated(promotion.getDateCreated());
-                downloadPromotion.setPromotionId(promotion.getIdpromotion());
-                downloadPromotion.setType(Constraint.PROMOTION);
-                downloads.add(downloadPromotion);
+                new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute();
+                sessionManager.setCardDeleted(Constraint.FALSE);
             }
-            if (listOfPromo != null)
-                sessionManager.setPromotions(listOfPromo);
+        } catch (Exception e) {
 
-            new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute();
-            sessionManager.setCardDeleted(Constraint.FALSE);
         }
     }
 
@@ -1251,31 +1236,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
 
 
-
             if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
-            //    loadURL();
-            }
-            else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE))
-            {
+            } else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE)) {
                 pricingUpdate();
-            }
-            if (consoleMessage.message().contains(Constraint.PROMOTION))
-            {
-                try {
-                    //Log.e("kali", consoleMessage.message());
-                    //String promotionWithoutSpace[]=consoleMessage.message().split(" ");
-                   // String promotionName[] = promotionWithoutSpace[1].split(Constraint.PROMOTION);
-                 //   Log.e("kali-------", (promotionName[1].split("/"))[2]);
-                  //  Promotions
-//                   String promotionNameReal= promotionName[1].replace(Constraint.EXTENTION,"");
-//                   String promotionWithoutAnySlash=promotionNameReal.replaceAll(Constraint.SLASH,"");
-//                    Log.e("promotion name ",promotionWithoutAnySlash);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
             }
 
             return false;
@@ -1296,7 +1259,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @Override
         public boolean onJsPrompt(WebView view, String url, String message,
                                   String defaultValue, final JsPromptResult result) {
-             return true;
+            return true;
         }
 
 
@@ -1313,43 +1276,34 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
-            if (cmd.equals(Constraint.adFrameUrl))
-            {
+            if (cmd.equals(Constraint.adFrameUrl)) {
 
-                  maintainPromotionShowWithUrl(msg);
-            }
-            else if (cmd.equals(Constraint.currentFrameName))
-            {
-                Log.e("kali","fileName"+msg);
+                maintainPromotionShowWithUrl(msg);
+            } else if (cmd.equals(Constraint.currentFrameName)) {
+                Log.e("kali", "fileName" + msg);
 
                 //storePriceCardOrPromotionLoad(msg);
-            }
-            else if (cmd.equals(Constraint.click))
-            {
-                Log.e("kali","click"+msg);
+            } else if (cmd.equals(Constraint.click)) {
+                Log.e("kali", "click" + msg);
 
                 storeClickOnPromotionOrPriceCard(msg);
             }
-         }
-
-        @JavascriptInterface
-        public void heartbeat( String msg) {
-           // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
         }
 
-
-
-
-
+        @JavascriptInterface
+        public void heartbeat(String msg) {
+            // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
+        }
 
 
         @JavascriptInterface
         public void callFromJS() {
             launchApp();
         }
+
         @JavascriptInterface
         public void callFromJS(String event) {
-           }
+        }
     }
 
     private void storeClickOnPromotionOrPriceCard(String msg) {
@@ -1368,20 +1322,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             promotionPath = Constraint.PROMOTION + "" + data[1];
                         }
                     }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
 
                 }
                 int id = Utils.searchPromotionUsingPath(promotionPath);
-                if (id!=0)
-                DBCaller.storeLogInDatabase(context, Constraint.Impression, id+"" , msg, Constraint.PROMOTION);
+                if (id != Constraint.ZERO)
+                    DBCaller.storeLogInDatabase(context, Constraint.Impression, id + "", msg, Constraint.PROMOTION);
 
             } else {
-                    DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression , msg, Constraint.PRICECARD_LOG);
+                DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression, msg, Constraint.PRICECARD_LOG);
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
@@ -1389,32 +1340,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     private void maintainPromotionShowWithUrl(String msg) {
         try {
-            String promotionPath=msg.split("\\?")[0];
-            Log.e("working",promotionPath);
-          int id =Utils.searchPromotionUsingPath(promotionPath);
-            Log.e("working",id+"");
-
-          if (id!=0)
-          {
-              if (sessionManager==null)
-              {
-                  sessionManager=SessionManager.get();
-              }
-            if (sessionManager.getUserFaceDetectionEnable()) {
-                Log.e("working","true");
-                DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
-//
-//              DBCaller.storeLogInDatabase(context,Constraint.SHOW_PROMOTION+" "+promotionPath+" "+id,id+"",promotionPath,Constraint.PROMOTION);
+            String promotionPath = msg.split("\\?")[0];
+            int id = Utils.searchPromotionUsingPath(promotionPath);
+            if (id != Constraint.ZERO) {
+                if (sessionManager == null) {
+                    sessionManager = SessionManager.get();
+                }
+                if (sessionManager.getUserFaceDetectionEnable()) {
+                    DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
+                }
             }
-            else
-            {
-                      Log.e("working","false");
-
-            }
-            }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -1424,7 +1360,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * lunch other app
      */
     private void launchApp() {
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(Constraint.YOU_TUBE_PATH);
         if (launchIntent != null) {
             startActivity(launchIntent);
         } else {
@@ -1472,15 +1408,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-
-
     private void checkAdminPermission() {
 
         DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
         ComponentName mAdminName = new ComponentName(this, Admin.class);
         if (!mDPM.isAdminActive(mAdminName)) {
-            if (sessionManager==null)
-                sessionManager=SessionManager.get();
+            if (sessionManager == null)
+                sessionManager = SessionManager.get();
             sessionManager.setPasswordCorrect(true);
 
             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -1488,7 +1422,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     mAdminName);
 
             intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
-            startActivityForResult(intent, REQUEST_ENABLE);
+            startActivityForResult(intent, Constraint.ADMIN_REQUEST_CODE);
 
         }
     }

@@ -11,7 +11,6 @@ public class GetCardResponse {
     private List<Promotion> promotions;
     private PriceCardMain pricecard;
     private List<Pricing> pricing;
-
     private String defaultPriceCard;
     private boolean isDefault;
     private StoreDetails storeDetails;

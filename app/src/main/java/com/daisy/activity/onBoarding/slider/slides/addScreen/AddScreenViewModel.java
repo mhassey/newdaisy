@@ -20,7 +20,7 @@ import java.util.List;
 
 public class AddScreenViewModel extends AndroidViewModel {
 
-    private MutableLiveData<HashMap<String ,String>> generalRequest=new MutableLiveData<>();
+    private MutableLiveData<HashMap<String, String>> generalRequest = new MutableLiveData<>();
     private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveData;
     private AddScreenRepo addScreenRepo;
     public Product selectedProduct;
@@ -33,11 +33,11 @@ public class AddScreenViewModel extends AndroidViewModel {
 
     public AddScreenViewModel(@NonNull Application application) {
         super(application);
-        addScreenRepo=new AddScreenRepo();
-        generalResponseLiveData= Transformations.switchMap(generalRequest, new Function<HashMap<String, String>, LiveData<GlobalResponse<GeneralResponse>>>() {
+        addScreenRepo = new AddScreenRepo();
+        generalResponseLiveData = Transformations.switchMap(generalRequest, new Function<HashMap<String, String>, LiveData<GlobalResponse<GeneralResponse>>>() {
             @Override
             public LiveData<GlobalResponse<GeneralResponse>> apply(HashMap<String, String> input) {
-                return  addScreenRepo.getGenralResponse(input);
+                return addScreenRepo.getGeneralResponse(input);
             }
         });
     }
@@ -50,12 +50,11 @@ public class AddScreenViewModel extends AndroidViewModel {
         this.manufactures = manufactures;
     }
 
-    public void setGeneralRequest(HashMap<String,String> request)
-    {
+    public void setGeneralRequest(HashMap<String, String> request) {
         generalRequest.setValue(request);
     }
-    public LiveData<GlobalResponse<GeneralResponse>> getGeneralResponseLiveData()
-    {
+
+    public LiveData<GlobalResponse<GeneralResponse>> getGeneralResponseLiveData() {
         return generalResponseLiveData;
     }
 

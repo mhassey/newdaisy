@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.daisy.pojo.response.Url;
+import com.daisy.utils.Constraint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,41 +34,41 @@ public class BaseUrlSettingsViewModel extends AndroidViewModel {
 
         List<Url> urls = new ArrayList<>();
         Url url = new Url();
-        url.setName("SandBox Server");
-        url.setUrl("http://sandbox.mobilepricecard.com/");
+        url.setName(Constraint.SEND_BOX_SERVER_NAME);
+        url.setUrl(Constraint.SEND_BOX_SERVER_URL);
         urls.add(url);
         Url url1 = new Url();
-        url1.setName("VZ Server");
-        url1.setUrl("http://vz.mobilepricecards.com/");
+        url1.setName(Constraint.VZ_SERVER_NAME);
+        url1.setUrl(Constraint.VZ_SERVER_URL);
         urls.add(url1);
         Url url2 = new Url();
-        url2.setName("TM Server");
-        url2.setUrl("http://tm.mobilepricecards.com/");
+        url2.setName(Constraint.TM_SERVER_NAME);
+        url2.setUrl(Constraint.TM_SERVER_URL);
         urls.add(url2);
         Url url3 = new Url();
-        url3.setName("Demo Server");
-        url3.setUrl("http://demo.mobilepricecards.com/");
+        url3.setName(Constraint.DEMO_SERVER_NAME);
+        url3.setUrl(Constraint.DEMO_SERVER_URL);
         urls.add(url3);
         Url url4 = new Url();
-        url4.setName("Oak Dev Server");
-        url4.setUrl("http://oak-dev.mobilepricecard.com/");
+        url4.setName(Constraint.OAK_DEV_SERVER_NAME);
+        url4.setUrl(Constraint.OAK_DEV_SERVER_URL);
         Url url5 = new Url();
-        url5.setUrl("http://oak-test.mobilepricecard.com/");
-        url5.setName("Oak Test");
+        url5.setUrl(Constraint.OAK_TEST_SERVER_URL);
+        url5.setName(Constraint.OAK_TEST_SERVER_NAME);
         urls.add(url4);
         urls.add(url5);
         Url url6 = new Url();
-        url6.setName("Oak  Server");
-        url6.setUrl("http://oak.mobilepricecard.com/");
+        url6.setName(Constraint.OAK_SERVER_NAME);
+        url6.setUrl(Constraint.OAK_SERVER_URL);
         Url url7 = new Url();
-        url7.setUrl("http://vzprod.mobilepricecards.com/");
-        url7.setName("VZPROD");
+        url7.setUrl(Constraint.VZPROD_SERVER_URL);
+        url7.setName(Constraint.VZPROD_SERVER_NAME);
         urls.add(url6);
         urls.add(url7);
         Url url8 = new Url();
 
-        url8.setUrl("http://use.mobilepricecards.com/");
-        url8.setName("USE Server");
+        url8.setUrl(Constraint.USE_SERVER_URL);
+        url8.setName(Constraint.USE_SERVER_NAME);
         urls.add(url8);
 
         setUrls(urls);

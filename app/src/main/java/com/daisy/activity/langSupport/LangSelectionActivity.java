@@ -78,6 +78,7 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         return langSupportViewModel.getViewHolder();
     }
 
+    //TODO  Handle Item click
     @Override
     public void setLangPojo(LangPojo langPojo, RecyclerView.ViewHolder viewHolder) {
         langSupportViewModel.setViewHolder(viewHolder);
@@ -85,6 +86,7 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         binding.confirmLang.setVisibility(View.VISIBLE);
     }
 
+    //TODO Set Default language
     @Override
     public void setDefaultLang(LangPojo langPojo, RecyclerView.ViewHolder holder) {
         langSupportViewModel.setViewHolder(holder);
@@ -97,7 +99,7 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         {
             case R.id.confirmLang:
             {
-                performClick();
+                changeLang();
                 break;
             }
             case R.id.back:
@@ -108,7 +110,8 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         }
     }
 
-    private void performClick() {
+    //TODO  Change language
+    private void changeLang() {
        LangPojo langPojo= langSupportViewModel.getSelectedLanguage();
         if (langPojo!=null)
         {

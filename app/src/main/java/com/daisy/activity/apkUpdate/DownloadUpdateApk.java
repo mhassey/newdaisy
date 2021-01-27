@@ -61,11 +61,11 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
     private void performDoInBackGroundTask(String... f_url) {
         int count;
         try {
-            URL url = new URL(f_url[0]);
+            URL url = new URL(f_url[Constraint.ZERO]);
             URLConnection connection = url.openConnection();
             connection.connect();
             int lengthOfFile = connection.getContentLength();
-            InputStream input = new BufferedInputStream(url.openStream(), 8192);
+            InputStream input = new BufferedInputStream(url.openStream(), Constraint.FILE_SIZE);
             folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
             File directory = new File(folder);
 
@@ -81,7 +81,7 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
 
             long total = Constraint.ZERO;
 
-            while ((count = input.read(data)) != -1) {
+            while ((count = input.read(data)) != Constraint.MINUS_ONE) {
                 total += count;
                 publishProgress("" + (int) ((total * Constraint.HUNDERD) / lengthOfFile));
                 output.write(data, Constraint.ZERO, count);

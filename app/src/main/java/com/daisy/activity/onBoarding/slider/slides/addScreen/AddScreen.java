@@ -104,6 +104,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+      handleResumeWork();
+    }
+
+    private void handleResumeWork() {
         sessionManager = SessionManager.get();
         designWork();
         if (sessionManager.getLoginResponse() != null) {
@@ -117,6 +121,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             }
             List<Manufacture> manufactures = sessionManager.getLoginResponse().getManufacturers();
             if (manufactures != null) {
+
                 mViewModel.setManufactures(manufactures);
                 ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, android.R.layout.simple_spinner_item, mViewModel.getManufactures());
                 manufactureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

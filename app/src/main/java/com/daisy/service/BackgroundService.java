@@ -137,7 +137,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public void onCreate() {
         super.onCreate();
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
-
         securityService();
         showNotification();
         initWakeUpLock();
@@ -186,32 +185,30 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                             if (process.equals(Constraint.Extra_pass_screen)) {
                                 return;
                             }
-                            if (!sessionManager.getUninstall()) {
 
-                                if (process.equals(Constraint.PACKAGE_INSTALLER)) {
-
-                                    if (uninstallIssue == 0) {
-                                        uninstallIssue++;
-                                    } else {
-                                        uninstallIssue = 0;
-                                        Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                        intent.putExtra(Constraint.PACKAGE, process);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                        startActivity(intent);
-
-                                    }
-
-                                } else {
-                                    uninstallIssue = 0;
-                                    sessionManager.setDefaultDownload(false);
-                                }
-                            }
 
                             boolean b = sessionManager.getLock();
-                            if (!Constraint.current_running_process.equals(process)) {
+                           if (!Constraint.current_running_process.equals(process)) {
+                                Constraint.current_running_process = process;
+                                if (!sessionManager.getUninstall()) {
+
+                                    if (process.equals(Constraint.PACKAGE_INSTALLER)) {
+                                        if (!process.equals(getApplication().getPackageName())) {
+                                            Log.e("WorkOnPorgess....",process+"---"+getApplication().getPackageName());
+                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                            intent.putExtra(Constraint.PACKAGE, process);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                            startActivity(intent);
+
+                                        }
+                                    } else {
+                                        uninstallIssue = 0;
+                                        sessionManager.setDefaultDownload(false);
+                                    }
+                                }
 
                                 storeProcess(process);
                                 if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
@@ -237,7 +234,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                 }
 
 
-                                Constraint.current_running_process = process;
+
                                 if (!process.equals(getApplication().getPackageName())) {
                                     if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
                                         if (!sessionManager.getPasswordCorrect()) {
@@ -249,9 +246,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             startActivity(intent);
                                         } else {
-                                            Log.e("Working...","Password false");
-
-                                            sessionManager.setPasswordCorrect(Constraint.FALSE);
+                                           sessionManager.setPasswordCorrect(Constraint.FALSE);
                                         }
                                     } else {
                                         sessionManager.setPasswordCorrect(Constraint.FALSE);
@@ -565,9 +560,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     count++;
                     if (count == Constraint.THIRTY_INT) {
                         try {
-                            if (Utils.isPlugged(getApplicationContext())) {
-                            sessionManager.setStepCount(0);
-                            }
+//                            if (Utils.isPlugged(getApplicationContext())) {
+//                            sessionManager.setStepCount(0);
+//                            }
                                 String value = appChecker.getForegroundApp(getApplicationContext());
                             if (value != null) {
                                 if (!value.equals(getApplication().getPackageName())) {
@@ -1017,9 +1012,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         int stepCount = sessionManager.getSteps();
 
         //Step count
-        if (!Utils.isPlugged(getApplicationContext())) {
-       //   if (true){
-            if (!sessionManager.getDeviceSecured()) {
+     //   if (!Utils.isPlugged(getApplicationContext())) {
+         if (true){
+               if (sessionManager.getDeviceSecured()) {
                 stepCount = stepCount + 1;
                 sessionManager.setStepCount(stepCount);
                 //Distance calculation

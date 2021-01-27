@@ -18,20 +18,21 @@ import java.util.List;
 
 public class LogsShowViewModel extends AndroidViewModel {
     private String type;
-    private MutableLiveData<LogsRequest> mutableLiveData = new MutableLiveData<>();
-    private LiveData<List<Logs>> liveData;
+    private MutableLiveData<LogsRequest> logMutableLiveData = new MutableLiveData<>();
+    private LiveData<List<Logs>> logResponse;
     private LogsRepository logsRepository = new LogsRepository();
     private MutableLiveData<LogClearRequest> logClearRequestMutableLiveData = new MutableLiveData<>();
     private LiveData<LogClearResponse> logClearResponseLiveData;
 
     public LogsShowViewModel(@NonNull Application application) {
         super(application);
-        liveData = Transformations.switchMap(mutableLiveData, new Function<LogsRequest, LiveData<List<Logs>>>() {
+        logResponse = Transformations.switchMap(logMutableLiveData, new Function<LogsRequest, LiveData<List<Logs>>>() {
             @Override
             public LiveData<List<Logs>> apply(LogsRequest input) {
                 return logsRepository.getLogs(input);
             }
         });
+
         logClearResponseLiveData = Transformations.switchMap(logClearRequestMutableLiveData, new Function<LogClearRequest, LiveData<LogClearResponse>>() {
             @Override
             public LiveData<LogClearResponse> apply(LogClearRequest input) {
@@ -49,11 +50,11 @@ public class LogsShowViewModel extends AndroidViewModel {
     }
 
     public void setMutableLiveData(LogsRequest request) {
-        mutableLiveData.setValue(request);
+        logMutableLiveData.setValue(request);
     }
 
     public LiveData<List<Logs>> getLogResponse() {
-        return liveData;
+        return logResponse;
     }
 
     public void clearLogMutableRequest(LogClearRequest logClearRequest) {

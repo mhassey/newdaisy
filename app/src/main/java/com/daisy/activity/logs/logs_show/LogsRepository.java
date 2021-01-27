@@ -17,12 +17,15 @@ import java.util.List;
 public class LogsRepository {
     private MutableLiveData<List<Logs>> liveData=new MutableLiveData<>();
     private MutableLiveData<LogClearResponse> logClearResponseMutableLiveData=new MutableLiveData<>();
+
+    //TODO getLogs method is use for get all logs from db
     public LiveData<List<Logs>> getLogs(LogsRequest input) {
 
         new LogsShow().execute(input);
         return liveData;
     }
 
+    // TODO Clear log method is use for clearing logs from db
     public LiveData<LogClearResponse> clearLog(LogClearRequest input) {
         new clearLog().execute(input);
         return logClearResponseMutableLiveData;

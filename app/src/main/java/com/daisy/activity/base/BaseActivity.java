@@ -97,6 +97,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onResume() {
         if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))

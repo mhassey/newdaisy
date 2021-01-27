@@ -22,6 +22,8 @@ public class GetCardRepo {
     {
         apiService= AppRetrofit.getInstance().getApiService();
     }
+
+    //TODO getCard method is used for card response
     public LiveData<GlobalResponse<GetCardResponse>> getCard(HashMap<String, String> input) {
 
         Call<GlobalResponse<GetCardResponse>> globalResponseCall=apiService.getCard(input,input.get(Constraint.TOKEN));

@@ -83,7 +83,7 @@ public class Constraint {
     public static final String PFV2 = "pfv2";
     public static final String PFV3 = "pfv3";
     public static final String PFV4 = "pfv4";
-    public static final String PFV5 = "pfv6";
+    public static final String PFV5 = "pfv5";
     public static final String PFV6 = "pfv6";
     public static final String PFV7 = "pfv7";
     public static final String PFV8 = "pfv8";
@@ -96,6 +96,32 @@ public class Constraint {
     public static final String PFV15 = "pfv15";
     public static final String PFV16 = "pfv16";
     public static final String SOMETHING_WENT_WRONG = "something went wrong";
+    public static final String FALSE_STR = "false";
+    public static final int FILE_SIZE = 8192;
+    public static final int MINUS_ONE = -1;
+    public static final String SEND_BOX_SERVER_NAME = "SandBox Server";
+    public static final String SEND_BOX_SERVER_URL = "http://sandbox.mobilepricecard.com/";
+    public static final String VZ_SERVER_NAME = "VZ Server";
+    public static final String VZ_SERVER_URL = "http://vz.mobilepricecards.com/";
+    public static final String TM_SERVER_NAME = "TM Server";
+    public static final String TM_SERVER_URL = "http://tm.mobilepricecards.com/";
+    public static final String DEMO_SERVER_NAME = "Demo Server";
+    public static final String DEMO_SERVER_URL = "http://demo.mobilepricecards.com/";
+    public static final String OAK_DEV_SERVER_NAME = "Oak Dev Server";
+    public static final String OAK_DEV_SERVER_URL = "http://oak-dev.mobilepricecard.com/";
+    public static final String OAK_TEST_SERVER_NAME = "Oak Test";
+    public static final String OAK_TEST_SERVER_URL = "http://oak-test.mobilepricecard.com/";
+    public static final String OAK_SERVER_NAME = "Oak  Server";
+    public static final String OAK_SERVER_URL = "http://oak.mobilepricecard.com/";
+    public static final String VZPROD_SERVER_URL = "http://vzprod.mobilepricecards.com/";
+    public static final String VZPROD_SERVER_NAME = "VZPROD";
+    public static final String USE_SERVER_URL = "http://use.mobilepricecards.com/";
+    public static final String USE_SERVER_NAME = "USE Server";
+    public static final int ADMIN_REQUEST_CODE =  123;
+    public static final int TWENTY_ONE = 21;
+    public static final String MACOS ="_MACOSX";
+    public static final String DEFAULT_HOURS_MINUTES = "00:00:00";
+    public static final String YOU_TUBE_PATH = "com.google.android.youtube";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

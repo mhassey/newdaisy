@@ -20,6 +20,15 @@ public class LoginResponse extends GlobalResponse {
     private String currentDate;
     private  String currentTime;
     private String currentTimeH;
+    private String deviceSecurity;
+
+    public String getDeviceSecurity() {
+        return deviceSecurity;
+    }
+
+    public void setDeviceSecurity(String deviceSecurity) {
+        this.deviceSecurity = deviceSecurity;
+    }
 
     public String getDeviceSanitize() {
         return deviceSanitize;

@@ -1199,4 +1199,11 @@ public class SessionManager {
     public boolean getAlaramSecurity() {
         return pref.getBoolean(PrefConstant.alaramSecuried);
     }
+
+    public void setDeviceSecurity(String deviceSecurity) {
+        pref.setStringData(PrefConstant.DEVICE_SECUTIRY,deviceSecurity);
+    }
+    public String getDeviceSecurity() {
+             return pref.getStringData(PrefConstant.DEVICE_SECUTIRY);
+    }
 }

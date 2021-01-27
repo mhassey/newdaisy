@@ -98,7 +98,7 @@ public class SecurityService extends Service {
 //
 //                        double distance = currentLocation.distanceTo(location);
 //                        if (distance > 20) {
-                            if (!sessionManager.getDeviceSecured()) {
+                            if (sessionManager.getDeviceSecured()) {
                                 startService(alarmIntent);
                             }
 //                        }
@@ -137,7 +137,7 @@ public class SecurityService extends Service {
                 KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                 if (keyguardManager.isKeyguardSecure()) {
                     if (alarmIntent != null) {
-                        sessionManager.deviceSecuried(true);
+                        sessionManager.deviceSecuried(false);
                         stopService(alarmIntent);
                     }
                 }

@@ -7,6 +7,15 @@ public class StoreDetails {
     private String pricingPlanID;
     private String  closed;
     private String currentTime;
+    private String deviceSecurity;
+
+    public String getDeviceSecurity() {
+        return deviceSecurity;
+    }
+
+    public void setDeviceSecurity(String deviceSecurity) {
+        this.deviceSecurity = deviceSecurity;
+    }
 
     public String getCurrentTime() {
         return currentTime;

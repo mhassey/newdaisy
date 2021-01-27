@@ -198,18 +198,22 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
             liveData.observe(this, new Observer<LogClearResponse>() {
                 @Override
                 public void onChanged(LogClearResponse logClearResponse) {
-                    if (logClearResponse.isClear()) {
-                        if (viewModel.getType().equals(Constraint.APPLICATION_LOGS))
-                            DBCaller.storeLogInDatabase(context, Constraint.CLEAR_APPLICATION_LOG, Constraint.CLEAR_APPLICATION_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
-                        else if (viewModel.getType().equals(Constraint.CARD_LOGS))
-                            DBCaller.storeLogInDatabase(context, Constraint.CLEAR_CARD_LOG, Constraint.CLEAR_CARD_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
-
-                        finish();
-                    } else {
-                        ValidationHelper.showToast(context, getString(R.string.some_issue_occur));
-                    }
+                handleClearLogResponse(logClearResponse);
                 }
             });
+        }
+    }
+
+    private void handleClearLogResponse(LogClearResponse logClearResponse) {
+        if (logClearResponse.isClear()) {
+            if (viewModel.getType().equals(Constraint.APPLICATION_LOGS))
+                DBCaller.storeLogInDatabase(context, Constraint.CLEAR_APPLICATION_LOG, Constraint.CLEAR_APPLICATION_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+            else if (viewModel.getType().equals(Constraint.CARD_LOGS))
+                DBCaller.storeLogInDatabase(context, Constraint.CLEAR_CARD_LOG, Constraint.CLEAR_CARD_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+
+            finish();
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.some_issue_occur));
         }
     }
 }

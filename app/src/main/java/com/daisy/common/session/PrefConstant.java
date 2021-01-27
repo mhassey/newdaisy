@@ -143,4 +143,5 @@ public interface PrefConstant {
     String MARK_ADDED = "mark_added";
     String FACE_DETERMINATION = "face_determine";
     String alaramSecuried = "alaramSecured";
+    String DEVICE_SECUTIRY ="device_security" ;
 }

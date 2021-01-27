@@ -131,6 +131,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 sessionManager.setCloseTime(signUpResponse.getData().getClosed());
                 sessionManager.setOffset(signUpResponse.getData().getUTCOffset());
                 sessionManager.setSenitized(signUpResponse.getData().getDeviceSanitize());
+                sessionManager.setDeviceSecurity(signUpResponse.getData().getDeviceSecurity());
                 sessionManager.setPricingPlainId(signUpResponse.getData().getPricingPlanID());
                 sessionManager.setServerTime(signUpResponse.getData().getCurrentTime());
                 sessionManager.setSignUpData(signUpResponse.getData());

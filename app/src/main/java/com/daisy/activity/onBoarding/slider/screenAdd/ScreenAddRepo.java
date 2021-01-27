@@ -23,6 +23,8 @@ public class ScreenAddRepo {
     {
         apiService= AppRetrofit.getInstance().getApiService();
     }
+
+    // TODO addScreen method is used for add new Screen on server
     public LiveData<GlobalResponse<ScreenAddResponse>> addScreen(HashMap<String,String> input) {
         Call<GlobalResponse<ScreenAddResponse>> call=apiService.addScreen(input);
         call.enqueue(new Callback<GlobalResponse<ScreenAddResponse>>() {

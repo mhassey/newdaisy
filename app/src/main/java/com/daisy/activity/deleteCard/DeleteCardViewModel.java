@@ -29,10 +29,12 @@ public class DeleteCardViewModel extends AndroidViewModel {
         });
     }
 
+    // TODO Set delete card request
     public void setMutableLiveData(HashMap<String,String> request)
     {
         mutableLiveData.setValue(request);
     }
+    // TODO Get delete card response
     public LiveData<GlobalResponse<DeleteCardResponse>> getLiveData()
     {
         return liveData;

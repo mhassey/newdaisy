@@ -22,13 +22,13 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://3.7.220.254/oak_bitbucket/"'
+            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
         }
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://3.7.220.254/oak_bitbucket/"'
+            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
         }
     }
 

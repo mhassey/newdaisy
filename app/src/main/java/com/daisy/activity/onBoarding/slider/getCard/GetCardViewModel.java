@@ -27,6 +27,7 @@ public class GetCardViewModel extends AndroidViewModel {
             }
         });
     }
+
     public void setMutableLiveData(HashMap<String,String> request)
     {
         mutableLiveData.setValue(request);

@@ -124,6 +124,7 @@
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait" >
 
+
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"

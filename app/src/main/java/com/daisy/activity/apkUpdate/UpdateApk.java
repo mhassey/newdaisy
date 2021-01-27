@@ -16,7 +16,7 @@ import retrofit2.Response;
 
 public class UpdateApk {
     private SessionManager sessionManager;
-
+    // TODO Check apk update
     public void UpdateApk() {
 
         new Thread(new Runnable() {

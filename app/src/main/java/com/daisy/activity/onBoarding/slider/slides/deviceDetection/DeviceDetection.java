@@ -23,13 +23,14 @@ public class DeviceDetection extends Fragment {
 
     private FragmentDeviceDetectionBinding detectionBinding;
     private Context context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        detectionBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_device_detection, container, false);
-    return detectionBinding.getRoot();
+        detectionBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_detection, container, false);
+        return detectionBinding.getRoot();
     }
+
     public static DeviceDetection getInstance() {
         return new DeviceDetection();
     }
@@ -42,12 +43,12 @@ public class DeviceDetection extends Fragment {
     }
 
     private void initView() {
-        context=getContext();
-        DBCaller.storeLogInDatabase(context, getString(R.string.load_add_screen),"","",Constraint.APPLICATION_LOGS);
+        context = getContext();
+        DBCaller.storeLogInDatabase(context, getString(R.string.load_add_screen), "", "", Constraint.APPLICATION_LOGS);
 
     }
 
     private void setDefaultValues() {
-    detectionBinding.deviceName.setText(Utils.getDeviceName());
+        detectionBinding.deviceName.setText(Utils.getDeviceName());
     }
 }
