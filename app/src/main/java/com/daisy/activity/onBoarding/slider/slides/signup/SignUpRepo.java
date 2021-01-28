@@ -3,15 +3,11 @@ package com.daisy.activity.onBoarding.slider.slides.signup;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpRequest;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
-import com.daisy.utils.Utils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +29,6 @@ public class SignUpRepo {
                 {
                     liveData.setValue(response.body());
                 }
-
             }
 
             @Override

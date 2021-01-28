@@ -13,9 +13,6 @@ import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
 
-/**
- * Created by ptyagi on 4/17/17.
- */
 
 public class AlaramHelperBackground {
     public static int ALARM_TYPE_RTC = 100;

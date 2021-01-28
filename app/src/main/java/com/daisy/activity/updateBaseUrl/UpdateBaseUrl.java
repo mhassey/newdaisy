@@ -116,7 +116,7 @@ public class UpdateBaseUrl extends BaseActivity implements View.OnClickListener 
                 sessionManager.setBaseUrl(mBinding.baseUrl.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("EXIT", Constraint.TRUE);
+                intent.putExtra(Constraint.EXIT_UPPER, Constraint.TRUE);
                 startActivity(intent);
             } else {
                 sessionManager.removeBaseUrl();

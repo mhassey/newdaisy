@@ -55,12 +55,11 @@ public class BackgroundSoundService extends Service {
                         soundIncreseTimer.scheduleAtFixedRate(new TimerTask() {
                             @Override
                             public void run() {
-
-//                                int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-//                                float percent = 0.8f;
-//                                int seventyVolume = (int) (maxVolume * percent);
-//                                int sb2value = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-//                                audio.setStreamVolume(AudioManager.STREAM_MUSIC, seventyVolume, Constraint.ZERO);
+                                int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                                float percent = 0.8f;
+                                int seventyVolume = (int) (maxVolume * percent);
+                                int sb2value = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                                audio.setStreamVolume(AudioManager.STREAM_MUSIC, seventyVolume, Constraint.ZERO);
                             }
                         }, Constraint.THOUSAND, Constraint.THOUSAND);
 
@@ -115,19 +114,6 @@ public class BackgroundSoundService extends Service {
 
     public void onStart(Intent intent, int startId) {
         // TO DO
-    }
-
-    public IBinder onUnBind(Intent arg0) {
-        // TO DO Auto-generated method
-        return null;
-    }
-
-    public void onStop() {
-
-    }
-
-    public void onPause() {
-
     }
 
     @Override

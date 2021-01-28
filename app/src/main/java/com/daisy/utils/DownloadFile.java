@@ -81,7 +81,6 @@ public  class DownloadFile extends AsyncTask<String, String, String> {
             int count;
             String urlPath = null;
             try {
-                Log.e("Working",download.getPath()+"   "+download.getPath1());
                 URL url1 = new URL(download.getPath());
 
 

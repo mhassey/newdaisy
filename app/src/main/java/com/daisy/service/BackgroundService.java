@@ -72,6 +72,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.daisy.utils.Constraint.messages;
 
+// TODO Main service that handle hole background tasks
 public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
 
     private static final int NOTIF_ID = 1;
@@ -80,10 +81,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private String TAG = this.getClass().getSimpleName();
     private WindowManager mWindowManager;
     private WindowManager mWindowManagerForCamera;
-
     private LinearLayout touchLayout;
     private LinearLayout touchLayoutforCamera;
-
     private int count = 0;
     private PowerManager.WakeLock mWakeLock;
     private WifiManager wifiManager;
@@ -110,13 +109,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private Intent securityIntent;
     private Sensor stepDetectorSensor;
     private Sensor stepCounterSensor;
-
     private Sensor magnetometer;
-
-    //Variables used in calculations
-
-    private long stepTimestamp = 0;
-    private double distance = 0;
     private int uninstallIssue = 0;
 
 
@@ -137,7 +130,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public void onCreate() {
         super.onCreate();
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
-        securityService();
         showNotification();
         initWakeUpLock();
         registerReceiver();
@@ -157,14 +149,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
-
-    /**
-     * Start security service
-     */
-    private void securityService() {
-
-        //    startService(securityIntent);
-    }
 
 
     /**
@@ -194,7 +178,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                                     if (process.equals(Constraint.PACKAGE_INSTALLER)) {
                                         if (!process.equals(getApplication().getPackageName())) {
-                                            Log.e("WorkOnPorgess....",process+"---"+getApplication().getPackageName());
                                             Intent intent = new Intent(getApplicationContext(), LockScreen.class);
                                             intent.putExtra(Constraint.PACKAGE, process);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -205,8 +188,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                                         }
                                     } else {
-                                        uninstallIssue = 0;
-                                        sessionManager.setDefaultDownload(false);
+                                        uninstallIssue = Constraint.ZERO;
+                                        sessionManager.setDefaultDownload(Constraint.FALSE);
                                     }
                                 }
 
@@ -340,15 +323,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         validatePromotion();
     }
 
-    private boolean checkSensorAvailability() {
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        if (sensor == null) {
-            return false;
-        }
-
-        return true;
-    }
 
     private void validatePromotion() {
         try {
@@ -391,8 +365,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                         String mainVersion = sessionManager.getApkVersion();
                         if (mainVersion != null && !mainVersion.equals("")) {
-                            Log.e("kali", "mainVersion Not empty");
-                            try {
+                             try {
                                 double olderVersion = Double.parseDouble(mainVersion);
                                 double newVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
                                 if (newVersion > olderVersion) {
@@ -412,6 +385,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    // TODO Shutdown stop method but not accorate
     private void stopShutdown() {
         try {
 
@@ -436,6 +410,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    //TODO  Check for promotion
     private void checkPromotion() {
         try {
             int hour = Constraint.ONE;
@@ -455,6 +430,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    // TODO Send logs
     private void sendLogTimer() {
         Timer logsSync = new Timer();
         logsSync.scheduleAtFixedRate(new TimerTask() {
@@ -470,10 +446,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 }
             }
             }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
-      //  }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
 
     }
 
+    // TODO Sync Done start other one
     @Override
     public void syncDone(String val,int index) {
         try {
@@ -500,13 +476,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    // TODO Check for card update availability
     public static void checkUpdate() {
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
         int hour = Constraint.FIVE_INE;
-//        int hour = Constraint.ZERO;
-
         int minit = Constraint.TWO;
         if (time != null) {
             hour = time.getHour();
@@ -529,6 +504,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
+    // TODO Check for apk update availability
     public static void updateAPk() {
         try {
             int hour = Constraint.FIVE_INE;
@@ -550,6 +526,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    // TODO Open app in front
     private void bringApplicationTimer() {
 
         try {
@@ -560,9 +537,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     count++;
                     if (count == Constraint.THIRTY_INT) {
                         try {
-//                            if (Utils.isPlugged(getApplicationContext())) {
-//                            sessionManager.setStepCount(0);
-//                            }
+                            if (Utils.isPlugged(getApplicationContext())) {
+                            sessionManager.setStepCount(0);
+                            }
                                 String value = appChecker.getForegroundApp(getApplicationContext());
                             if (value != null) {
                                 if (!value.equals(getApplication().getPackageName())) {
@@ -596,6 +573,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    // TODO Set up delete timer
     private void setDeleteTimer() {
         int hour = Constraint.ZERO;
         int minit = Constraint.TEN;
@@ -617,6 +595,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
+    // TODO Open your Main to front
     private void bringApplicationToFront(final Context context) {
         try {
             // Get a handler that can be used to post to the main thread
@@ -638,6 +617,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
+    // TODO Register receiver
     private void registerReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -655,6 +635,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    // TODO Time change receiver
     private final BroadcastReceiver m_timeChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -667,6 +648,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     };
 
+    // TODO Perform check card when time changed
     private void timeChanged() {
 
         CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
@@ -674,6 +656,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+
+    // TODO Screen off  receiver
 
     private BroadcastReceiver overlayReceiver = new BroadcastReceiver() {
         @Override
@@ -688,6 +672,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     };
 
+
+    // TODO Wifi state change receiver
 
     private BroadcastReceiver wifiStateReceiver = new BroadcastReceiver() {
         @Override
@@ -710,6 +696,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     };
 
+    // TODO Open Main as Overlay on lock screen
     private void showOverlayActivity(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -719,8 +706,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startMyOwnForeground() {
-        String NOTIFICATION_CHANNEL_ID = "com.example.simpleapp";
-        String channelName = "My Background Service";
+//        String NOTIFICATION_CHANNEL_ID = "com.example.simpleapp";
+        String NOTIFICATION_CHANNEL_ID = getPackageName();
+
+        String channelName = Constraint.BACKGROUND_SERVICE;
         NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
         chan.setLightColor(Color.BLUE);
         chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
@@ -731,12 +720,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         Notification notification = notificationBuilder.setOngoing(true)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("App is running in background")
+                .setContentTitle(Constraint.APP_IS_RUNNING_IN_BACKGROUND)
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .build();
         startForeground(2, notification);
     }
+
 
     private void startForeground() {
         Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -748,7 +738,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 NOTIF_CHANNEL_ID) // don't forget create a notification channel first
                 .setOngoing(true)
                 .setContentTitle(getString(R.string.app_name))
-                .setContentText("Service is running background")
+                .setContentText(Constraint.SERVICE_RUNNING_IN_BACKGROUND)
                 .setContentIntent(pendingIntent)
                 .build());
     }
@@ -766,6 +756,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    // TODO Perform sanitised work
     private void sanitisedWork() {
         try {
             ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
@@ -781,6 +772,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
+    // TODO Handle touch event on phone
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         count = Constraint.ZERO;
@@ -801,6 +793,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         return true;
     }
 
+    // TODO Add invisible layout
     private void setWindowManager() {
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         touchLayout.setLayoutParams(lp);
@@ -905,6 +898,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
+    // TODO Set brightness
     private void screenBrightness(int level) {
         try {
             android.provider.Settings.System.putInt(
@@ -916,6 +910,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    // TODO Check wifi state
     private void checkWifiState() {
         try {
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -942,6 +937,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    // TODO Sensor change event
     @Override
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
@@ -958,6 +954,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    // TODO Handle gyro
     private void handleGyro(SensorEvent event) {
         mGravity = event.values.clone();
 
@@ -1008,12 +1005,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    // TODO Check count and start security service
     private void countSteps(float step) {
         int stepCount = sessionManager.getSteps();
 
         //Step count
-     //   if (!Utils.isPlugged(getApplicationContext())) {
-         if (true){
+        if (!Utils.isPlugged(getApplicationContext())) {
                if (sessionManager.getDeviceSecured()) {
                 stepCount = stepCount + 1;
                 sessionManager.setStepCount(stepCount);
@@ -1033,10 +1030,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
+    // TODO Face detection event
     @Override
     public void onFaceDetected() {
-        Log.e("kalqqqq","face detected");
-        if (sessionManager==null)
+          if (sessionManager==null)
         {
             sessionManager=SessionManager.get();
         }
@@ -1044,9 +1041,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    // TODO Face out handler
     @Override
     public void onFaceTimedOut() {
-        Log.e("working","timeout");
 
         if (sessionManager==null)
         {
@@ -1064,14 +1061,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
     FaceDetectionCamera camera;
-
+    // TODO Load camera on invisible screen
     @Override
     public void onLoaded(FaceDetectionCamera camera) {
         try {
 
             // When the front facing camera has been retrieved we still need to ensure our display is ready
             // so we will let the camera surface view initialise the camera i.e turn face detection on
-            Log.e("onLoad","indised");
             SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
             this.camera = camera;
             touchLayoutforCamera.addView(cameraSurface);

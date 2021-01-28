@@ -67,25 +67,7 @@ public class AppController extends Application implements LifecycleObserver {
 
 
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void onStart()
-    {
-//        try {
-//            Locale locale;
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                locale = Resources.getSystem().getConfiguration().getLocales().get(0);
-//            } else {
-//                //noinspection deprecation
-//                locale = Resources.getSystem().getConfiguration().locale;
-//            }
-//            setLang(locale.getLanguage());
-//
-//        }
-//        catch (Exception e)
-//        {
-//
-//        }
-    }
+
     /**
      * When app come in fore ground
      */

@@ -101,8 +101,7 @@ public class DBCaller {
             return integers;
         } catch (Exception e) {
             e.printStackTrace();
-           // return false;
-        }
+         }
         return null;
 
     }

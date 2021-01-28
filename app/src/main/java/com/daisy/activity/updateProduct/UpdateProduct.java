@@ -142,8 +142,12 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
+      resumeWork();
+    }
+
+    private void resumeWork() {
         sessionManager = SessionManager.get();
-         if (sessionManager.getLoginResponse() != null) {
+        if (sessionManager.getLoginResponse() != null) {
             List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
             if (carriers != null) {
                 mViewModel.setCarriers(carriers);
@@ -163,8 +167,6 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
         }
     }
-
-
 
 
     /**
@@ -316,6 +318,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    // TODO Handle price card request
     private void handlePriceCardGettingHandler() {
         showHideProgressDialog(true);
         updateProductViewModel.setMutableLiveData(getAddScreenRequest());
@@ -332,6 +335,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
     }
 
+    // TODO Handle screen add response
     private void handleScreenAddResponse(GlobalResponse screenAddResponseGlobalResponse) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
             mBinding.nextSlide.setVisibility(View.GONE);
@@ -344,6 +348,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
 
+    // TODO Handle card request
     private void getCardData() {
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
@@ -367,6 +372,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    //TODO Handle card response
     private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
@@ -387,6 +393,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
 
+    // TODO Handle main work
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
         Utils.deleteDaisy();
         String UrlPath;
@@ -456,6 +463,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         finish();
     }
 
+    // TODO Redirect to main activity
     private void redirectToMain() {
         sessionManager.onBoarding(Constraint.TRUE);
         Intent intent = new Intent(this, MainActivity.class);
@@ -464,6 +472,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
     }
 
+    // TODO Create card request
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
@@ -472,6 +481,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     }
 
 
+    // TODO Create add screen request
     private HashMap<String, String> getAddScreenRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
            if (mViewModel.getSelectedProduct()!=null) {

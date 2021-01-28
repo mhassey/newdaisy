@@ -200,13 +200,13 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                     if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
                         sessionManager.setPricing(response.getResult().getPricing());
                     }
-                    i.putExtra(Constraint.PROMOTION, "true");
+                    i.putExtra(Constraint.PROMOTION, Constraint.TRUE_STR);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
                     sessionManager.setPricing(response.getResult().getPricing());
                     Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                    i.putExtra(Constraint.PRICING, "true");
+                    i.putExtra(Constraint.PRICING, Constraint.TRUE_STR);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
 
@@ -220,13 +220,13 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                         sessionManager.setPricing(response.getResult().getPricing());
                     }
                     Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                    i.putExtra(Constraint.PROMOTION, "true");
+                    i.putExtra(Constraint.PROMOTION, Constraint.TRUE_STR);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
                     sessionManager.setPricing(response.getResult().getPricing());
                     Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-                    i.putExtra(Constraint.PRICING, "true");
+                    i.putExtra(Constraint.PRICING, Constraint.TRUE_STR);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
 
@@ -302,7 +302,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     private void setTimerClick() {
         int hour = mBinding.timePicker.getHour();
         int minute = mBinding.timePicker.getMinute();
-        if (hour == 0 && minute == 0) {
+        if (hour == Constraint.ZERO && minute == Constraint.ZERO) {
             ValidationHelper.showToast(context, getString(R.string.invald_time));
             return;
         }

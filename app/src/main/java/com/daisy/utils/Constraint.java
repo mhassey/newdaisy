@@ -122,6 +122,11 @@ public class Constraint {
     public static final String MACOS ="_MACOSX";
     public static final String DEFAULT_HOURS_MINUTES = "00:00:00";
     public static final String YOU_TUBE_PATH = "com.google.android.youtube";
+    public static final String EXIT_UPPER = "EXIT";
+    public static final int MAX_SYNC = 500;
+    public static final String BACKGROUND_SERVICE = "Daisy Background Service";
+    public static final String APP_IS_RUNNING_IN_BACKGROUND = "App is running in background";
+    public static final String SERVICE_RUNNING_IN_BACKGROUND = "Service is running background";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

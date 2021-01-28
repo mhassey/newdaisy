@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.daisy.BuildConfig;
 import com.daisy.common.session.SessionManager;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.LiveDataCallAdapterFactory;
 
 import java.io.IOException;
@@ -73,9 +74,9 @@ public class AppRetrofit {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.connectTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS);
+        httpClient.connectTimeout(Constraint.THIRTY, TimeUnit.SECONDS)
+                .writeTimeout(Constraint.THIRTY, TimeUnit.SECONDS)
+                .readTimeout(Constraint.THIRTY, TimeUnit.SECONDS);
        if (SessionManager.get().getDeviceToken() != null) {
             token = SessionManager.get().getDeviceToken();
         }
@@ -87,7 +88,7 @@ public class AppRetrofit {
                         .build();
                  Response response = chain.proceed(request);
 
-                if (response.isSuccessful() && response.code() == 202) {
+                if (response.isSuccessful() && response.code() == ApiResponseStatusCode.ERROR) {
 
                 }
                 return response;
@@ -99,19 +100,5 @@ public class AppRetrofit {
                 .client(httpClient.build()).build().create(ApiService.class);
     }
 
-
-
-  /*  private void logout(String message) {
-        if (AppController.getInstance().getActivity() != null) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    mAlertDialog = AppController.getInstance().getActivity().showLogoutDialog(message);
-                }
-            });
-        }
-    }
-
-*/
 
 }

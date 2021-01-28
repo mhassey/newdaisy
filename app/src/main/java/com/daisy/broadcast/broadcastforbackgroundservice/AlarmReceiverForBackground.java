@@ -13,9 +13,6 @@ import com.daisy.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by ptyagi on 4/17/17.
- */
 
 /**
  * AlarmReceiver handles the broadcast message and generates Notification

@@ -45,11 +45,11 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         loginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
          return loginBinding.getRoot();
     }
 
+    //TODO getInstance method is used for getting signup object
     public static SignUp getInstance(OnBaording onBaording) {
         baording = onBaording;
         return new SignUp();
@@ -62,12 +62,14 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         initClick();
     }
 
+    //TODO Initiate clicks
     private void initClick() {
 
         loginBinding.singup.setOnClickListener(this);
         loginBinding.cancel.setOnClickListener(this::onClick);
     }
 
+    // TODO Initiate objects
     private void initView() {
         context=requireContext();
         sessionManager=SessionManager.get();
@@ -92,6 +94,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    // TODO Perform signup
     private void doSignUp() {
         if (Utils.getNetworkState(context))
         {
@@ -120,9 +123,9 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    // TODO Handle signup response
     private void  handleResponse(SignUpResponse signUpResponse) {
-         // handleResponse
-        showHideProgressDialog(false);
+         showHideProgressDialog(false);
         if (signUpResponse!=null) {
             if (signUpResponse.isApi_status()) {
                 DBCaller.storeLogInDatabase(context,getString(R.string.login_success),"","",Constraint.APPLICATION_LOGS);
@@ -150,6 +153,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
     }
 
+    // TODO Create signup request
     private HashMap<String,String> getSignUpRequest() {
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put(Constraint.STORE_CODE,loginBinding.storeCode.getText().toString());
@@ -157,13 +161,15 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
         return hashMap;
     }
+
     @Override
     public void onResume() {
         super.onResume();
-    desginWork();
+        designWork();
     }
 
-    private void desginWork() {
+    //TODO Change design at run time
+    private void designWork() {
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
                 baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
@@ -178,12 +184,11 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
                 baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
         }
-        baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_green));
-        baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.selected_green));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.default_dot));
     }
-
 
 
 }

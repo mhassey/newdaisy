@@ -20,6 +20,7 @@ public class DeletePhotoService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    // TODO Delete all photo and data from storage
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sessionManager = SessionManager.get();

@@ -775,55 +775,13 @@ public class Utils {
 
     public static void deleteCallList(Context context) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+                return;
         }
         context.getContentResolver().delete(CallLog.Calls.CONTENT_URI, null, null);
     }
 
-//    public static boolean deleteSMS(Context context) {
-//        boolean isDeleted = false;
-//        try {
-//            Context mContext = context;
-//            Log.e("checking","deleteSMS");
-//            mContext.getContentResolver().delete(Uri.parse("content://sms/"), null, null);
-//
-//            isDeleted = true;
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            isDeleted = false;
-//        }
-//        return isDeleted;
-//    }
 
-    public static void deleteSMS(Context context) {
-        try {
 
-            Uri uriSms = Uri.parse("content://sms");
-            Cursor c = context.getContentResolver().query(uriSms,
-                    new String[]{"_id", "thread_id", "address",
-                            "person", "date", "body"}, null, null, null);
-
-            if (c != null && c.moveToFirst()) {
-                do {
-                    long id = c.getLong(0);
-                    long threadId = c.getLong(1);
-                    String address = c.getString(2);
-                    String body = c.getString(5);
-
-                    int i = context.getContentResolver().delete(Uri.parse("content://sms/"), "_id=? and thread_id=? and address=?", new String[]{String.valueOf(id), String.valueOf(threadId), String.valueOf(address)});
-                } while (c.moveToNext());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private static String getGalleryPath() {
         return Environment.getExternalStorageDirectory() + "/";

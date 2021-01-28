@@ -106,7 +106,7 @@ public class ValidatePromotion {
         JSONArray promotions = sessionManager.getPromotions();
         String sendingId = "";
         try {
-            for (int i = 0; i < promotions.length(); i++) {
+            for (int i = Constraint.ZERO; i < promotions.length(); i++) {
                 JSONObject jsonObject = (JSONObject) promotions.get(i);
                 sendingId += jsonObject.get(Constraint.PROMOTION_ID);
                 if (!(i == (promotions.length() - 1))) {

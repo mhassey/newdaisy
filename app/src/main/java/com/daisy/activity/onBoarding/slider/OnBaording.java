@@ -80,6 +80,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         initClick();
     }
 
+    // TODO  Initiate clicks
     private void initClick() {
 
         mBinding.nextSlide.setOnClickListener(this);
@@ -87,7 +88,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
-
+    // TODO Initiate objects
     private void initView() {
         context = this;
         mBinding.rootView.setVisibility(View.VISIBLE);
@@ -103,6 +104,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
+    // TODO setPager method is used for setup pager and its behaviour
     private void setPager() {
         mBinding.pager.setAdapter(new SliderAdapter(getSupportFragmentManager(), 1, fragmentList));
         mBinding.tabDotsLayout.setupWithViewPager(mBinding.pager);
@@ -127,9 +129,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
 
+    // TODO Disable swipe on view pager
     private void disableSwipeOnViewPager() {
         LinearLayout tabStrip = ((LinearLayout) mBinding.tabDotsLayout.getChildAt(0));
-        for (int i = 0; i < tabStrip.getChildCount(); i++) {
+        for (int i = Constraint.ZERO; i < tabStrip.getChildCount(); i++) {
             tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -138,6 +141,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             });
         }
     }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -148,6 +152,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
+    // TODO Handle system ui
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -167,6 +172,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
 
+    // TODO Add all fragment to list that should display on view pager
     private void addFragementList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
         fragmentList.add(SecurityAsk.getInstance(mBinding));
@@ -175,6 +181,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -190,6 +197,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    // TODO getCardData method is used for sending card request and accessing response
     private void getCardData() {
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
@@ -200,7 +208,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            DBCaller.storeLogInDatabase(context,getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName()+getString(R.string.data_store),"","",Constraint.APPLICATION_LOGS);
+                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -213,32 +221,32 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    // TODO Handle card response
     private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
-             sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
+            sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
             sessionManager.setPromotion(getCardResponseGlobalResponse.getResult().getPromotions());
             sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
             redirectToMainHandler(getCardResponseGlobalResponse);
 
         } else {
-            if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard()!=null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals(""))
-            {
-                 redirectToMainHandler(getCardResponseGlobalResponse);
-            }
-            else
-            ValidationHelper.showToast(context, getCardResponseGlobalResponse.getMessage());
+            if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard() != null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals("")) {
+                redirectToMainHandler(getCardResponseGlobalResponse);
+            } else
+                ValidationHelper.showToast(context, getCardResponseGlobalResponse.getMessage());
         }
-        }
+    }
 
+    // TODO Create card request
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
-        hashMap.put(Constraint.TOKEN,sessionManager.getDeviceToken());
-//        hashMap.put(Constraint.SCREEN_ID, "47");
+        hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
     }
 
+    // TODO Handle Slide click
     public void nextSlideClickHandler() {
 
         count = count + Constraint.ONE;
@@ -251,9 +259,8 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 } else {
                     sessionManager.setDeletePhoto(false);
                 }
-            }catch (Exception e)
-            {
-              e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
                 sessionManager.setLockOnBrowser(true);
@@ -274,20 +281,15 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
             }
 
-            //mBinding.nextSlide.setVisibility(View.GONE);
-        }
-
-       else if (count==Constraint.THREE)
-        {
-            SignUp signUp= (SignUp) fragmentList.get(Constraint.TWO);
+        } else if (count == Constraint.THREE) {
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.TWO);
 
             signUp.loginBinding.singup.performClick();
-        }
-        else if (count == Constraint.FOUR) {
+        } else if (count == Constraint.FOUR) {
 
             if (Utils.getNetworkState(context)) {
                 AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
-                ScreenAddValidationHelper screenAddValidationHelper=new ScreenAddValidationHelper(context,addScreen.mBinding);
+                ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
                 if (screenAddValidationHelper.isValid()) {
                     showHideProgressDialog(true);
                     screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen));
@@ -297,19 +299,16 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                             @Override
                             public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
                                 showHideProgressDialog(false);
-                                handleScreenAddResponse(screenAddResponseGlobalResponse,addScreen);
+                                handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
                             }
                         });
                     }
+                } else {
+                    count = Constraint.THREE;
                 }
-                else {
-                    count=Constraint.THREE;
-                }
-            }
-            else
-            {
-                count=Constraint.THREE;
-                ValidationHelper.showToast(context,getString(R.string.no_internet_available));
+            } else {
+                count = Constraint.THREE;
+                ValidationHelper.showToast(context, getString(R.string.no_internet_available));
             }
 
 
@@ -320,9 +319,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse,AddScreen addScreen) {
+    // TODO Handle screen add response
+    private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse, AddScreen addScreen) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-            DBCaller.storeLogInDatabase(context,screenAddResponseGlobalResponse.getResult().getId()+getString(R.string.screen_add),"","",Constraint.APPLICATION_LOGS);
+            DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.GONE);
             mBinding.pager.setCurrentItem(count);
@@ -334,36 +334,34 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             getCardData();
 
 
-
-
         } else {
             ValidationHelper.showToast(context, screenAddResponseGlobalResponse.getMessage());
         }
     }
 
+    // TODO Create add screen request
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
-         HashMap<String, String> hashMap = new HashMap<>();
+        HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
         hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
         hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
-        if (addScreen.mViewModel.getSelectedProduct()!=null) {
+        if (addScreen.mViewModel.getSelectedProduct() != null) {
             if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
                 hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
-        }
-        else
-        {
-         ValidationHelper.showToast(context,getString(R.string.product_not_available));
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.product_not_available));
 
         }
-        hashMap.put(Constraint.DEVICE_NAME,Utils.getDeviceName());
-        hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_CODE+"");
+        hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
+        hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_CODE + "");
         LoginResponse loginResponse = sessionManager.getLoginResponse();
-        if (loginResponse!=null)
-        hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
+        if (loginResponse != null)
+            hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
         return hashMap;
     }
 
 
+    // TODO Increase counter of pager
     public void counterPlus() {
         count = count + Constraint.ONE;
         if (count == Constraint.THREE) {
@@ -374,6 +372,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
+    // TODO Decrease counter of pager
     public void counterMinus() {
         count = count - Constraint.ONE;
         if (count == Constraint.THREE) {
@@ -384,45 +383,18 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
-
+    // TODO Redirect to main and perform some mandatory task
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
         Utils.deleteDaisy();
         String UrlPath;
 
-        if (response.getResult().getPricecard().getFileName1()!=null && !response.getResult().getPricecard().getFileName1().equals(""))
-        {
-            UrlPath= response.getResult().getPricecard().getFileName1();
-        }
-        else
-        {
-            UrlPath= response.getResult().getPricecard().getFileName();
+        if (response.getResult().getPricecard().getFileName1() != null && !response.getResult().getPricecard().getFileName1().equals("")) {
+            UrlPath = response.getResult().getPricecard().getFileName1();
+        } else {
+            UrlPath = response.getResult().getPricecard().getFileName();
         }
 
         if (response.getResult().getPricecard().getFileName() != null) {
-                String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-                File directory = new File(configFilePath);
-                if (!directory.exists()) {
-                    directory.mkdirs();
-                }
-
-                String path = Utils.getPath();
-                if (path != null) {
-                    if (!path.equals(UrlPath)) {
-                        Utils.deleteCardFolder();
-                        Utils.writeFile(configFilePath,UrlPath);
-                        sessionManager.deleteLocation();
-
-                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
-
-                    }
-                } else {
-                    Utils.writeFile(configFilePath, UrlPath);
-                }
-
-                redirectToMain();
-
-        } else if (response.getResult().getDefaultPriceCard()!=null && !response.getResult().getDefaultPriceCard().equals("")) {
-             UrlPath= response.getResult().getDefaultPriceCard();
             String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
             File directory = new File(configFilePath);
             if (!directory.exists()) {
@@ -433,7 +405,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             if (path != null) {
                 if (!path.equals(UrlPath)) {
                     Utils.deleteCardFolder();
-                    Utils.writeFile(configFilePath,UrlPath);
+                    Utils.writeFile(configFilePath, UrlPath);
                     sessionManager.deleteLocation();
 
                     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
@@ -444,8 +416,31 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             }
 
             redirectToMain();
-        }
-        else{
+
+        } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
+            UrlPath = response.getResult().getDefaultPriceCard();
+            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+            File directory = new File(configFilePath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String path = Utils.getPath();
+            if (path != null) {
+                if (!path.equals(UrlPath)) {
+                    Utils.deleteCardFolder();
+                    Utils.writeFile(configFilePath, UrlPath);
+                    sessionManager.deleteLocation();
+
+                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                }
+            } else {
+                Utils.writeFile(configFilePath, UrlPath);
+            }
+
+            redirectToMain();
+        } else {
             ValidationHelper.showToast(context, getString(R.string.invalid_url));
         }
 
@@ -454,6 +449,7 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         finish();
     }
 
+    // TODO redirectToMain method is used for call Main Activity
     private void redirectToMain() {
         sessionManager.onBoarding(Constraint.TRUE);
         Intent intent = new Intent(this, MainActivity.class);
@@ -494,14 +490,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 permissionDone.setPermissionName(Constraint.MODIFY_SYSTEM_SET);
                 EventBus.getDefault().post(permissionDone);
             }
-        }
-        else if (requestCode==Constraint.ADMIN)
-        {
-            Admin admin=new Admin();
+        } else if (requestCode == Constraint.ADMIN) {
+            Admin admin = new Admin();
             EventBus.getDefault().post(admin);
-        }
-
-        else if (requestCode == Constraint.POP_UP_RESPONSE) {
+        } else if (requestCode == Constraint.POP_UP_RESPONSE) {
             if (Settings.canDrawOverlays(this)) {
                 PermissionDone permissionDone = new PermissionDone();
                 permissionDone.setPermissionName(Constraint.DISPLAY_OVER_THE_APP);
@@ -522,20 +514,17 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
                 EventBus.getDefault().post(permissionDone);
 
             }
-        }
-        else if (requestCode==Constraint.MI_EXTRA_PERMISSION_CODE)
-        {
+        } else if (requestCode == Constraint.MI_EXTRA_PERMISSION_CODE) {
             PermissionDone permissionDone = new PermissionDone();
             permissionDone.setPermissionName(Constraint.REDME);
             EventBus.getDefault().post(permissionDone);
-        }
-        else if (requestCode==Constraint.GPS_ENABLE)
-        {
+        } else if (requestCode == Constraint.GPS_ENABLE) {
             PermissionDone permissionDone = new PermissionDone();
             permissionDone.setPermissionName(Constraint.GPS);
             EventBus.getDefault().post(permissionDone);
         }
     }
+
 
 
     private void stopSwipe() {
@@ -576,7 +565,6 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         deviceDetectRequest.setDeviceName(Utils.getDeviceName());
         return deviceDetectRequest;
     }
-
 
 
 }

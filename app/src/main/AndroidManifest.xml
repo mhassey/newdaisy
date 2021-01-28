@@ -152,7 +152,6 @@
             android:name=".activity.mainActivity.MainActivity"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true" />
-        <activity android:name=".overlay.OverlayActivity" />
 
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
         <receiver

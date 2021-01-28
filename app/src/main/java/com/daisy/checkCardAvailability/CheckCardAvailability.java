@@ -25,7 +25,8 @@ import retrofit2.Response;
 
 public class CheckCardAvailability {
     private SessionManager sessionManager;
-    private String callFrom=null;
+    private String callFrom = null;
+
     public void checkCard() {
         sessionManager = SessionManager.get();
         new Thread(new Runnable() {
@@ -37,7 +38,7 @@ public class CheckCardAvailability {
     }
 
     public void checkCard(String callFrom) {
-        this.callFrom=callFrom;
+        this.callFrom = callFrom;
         sessionManager = SessionManager.get();
         new Thread(new Runnable() {
             @Override
@@ -83,7 +84,7 @@ public class CheckCardAvailability {
                         sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
                         sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
                         sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
-                        if (callFrom!=null) {
+                        if (callFrom != null) {
                             sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
                             Utils.getInvertedTimeWithNewCorrectionFactor();
                         }
@@ -103,9 +104,7 @@ public class CheckCardAvailability {
                                     sessionManager.setPricing(response.getResult().getPricing());
                                 }
                                 EventBus.getDefault().post(new Promotion());
-                            }
-                            else if (response.getResult().getPricing()!=null && !response.getResult().getPricing().isEmpty())
-                            {
+                            } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
                                 sessionManager.setPricing(response.getResult().getPricing());
                                 EventBus.getDefault().post(new Pricing());
 
@@ -117,8 +116,7 @@ public class CheckCardAvailability {
                                 EventBus.getDefault().post(new Promotion());
 
                             }
-                             if (response.getResult().getPricing()!=null && !response.getResult().getPricing().isEmpty())
-                            {
+                            if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
                                 sessionManager.setPricing(response.getResult().getPricing());
                                 EventBus.getDefault().post(new Pricing());
 
@@ -181,8 +179,8 @@ public class CheckCardAvailability {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
-        if (sessionManager.getPriceCard()!=null)
-        hashMap.put(Constraint.pricecardid,sessionManager.getPriceCard().getIdpriceCard());
+        if (sessionManager.getPriceCard() != null)
+            hashMap.put(Constraint.pricecardid, sessionManager.getPriceCard().getIdpriceCard());
         return hashMap;
     }
 

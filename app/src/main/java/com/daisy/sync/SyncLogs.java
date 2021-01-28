@@ -38,7 +38,7 @@ public class SyncLogs {
     private static SyncLogs contactSyncing;
     public List<Logs> logsVOList;
     private boolean isSyncingInProgress;
-    private int MAX_CONTACT_COUNT_FOR_EACH_CALL = 500;
+    private int MAX_CONTACT_COUNT_FOR_EACH_CALL = Constraint.MAX_SYNC;
     private int loopCount;
     private SessionManager sessionManager;
     SyncLogCallBack syncLogCallBack;
@@ -69,20 +69,20 @@ public class SyncLogs {
             public void run() {
                 getAllLogs(type);
                 isSyncingInProgress = true;
-                if (logsVOList == null || logsVOList.size() == 0) {
+                if (logsVOList == null || logsVOList.size() == Constraint.ZERO) {
                     isSyncingInProgress = false;
                     return;
                 }
                 int totalCount = logsVOList.size();
                 loopCount = totalCount / MAX_CONTACT_COUNT_FOR_EACH_CALL;
-                if (totalCount % MAX_CONTACT_COUNT_FOR_EACH_CALL != 0)
-                    loopCount = loopCount + 1;
+                if (totalCount % MAX_CONTACT_COUNT_FOR_EACH_CALL != Constraint.ZERO)
+                    loopCount = loopCount + Constraint.ONE;
                 if (type.equals(Constraint.PROMOTION))
                 {
 
                 }
                 else
-                callApiToSync(0,type,0);
+                callApiToSync(Constraint.ZERO,type,Constraint.ZERO);
             }
         }).start();
     }
@@ -99,15 +99,15 @@ public class SyncLogs {
             public void run() {
                 getAllLogsBasedOnId(type,integer);
                 isSyncingInProgress = true;
-                if (logsVOList == null || logsVOList.size() == 0) {
+                if (logsVOList == null || logsVOList.size() == Constraint.ZERO) {
                     isSyncingInProgress = false;
                     return;
                 }
                 int totalCount = logsVOList.size();
                 loopCount = totalCount / MAX_CONTACT_COUNT_FOR_EACH_CALL;
-                if (totalCount % MAX_CONTACT_COUNT_FOR_EACH_CALL != 0)
-                    loopCount = loopCount + 1;
-                    callApiToSync(0,type,integer);
+                if (totalCount % MAX_CONTACT_COUNT_FOR_EACH_CALL != Constraint.ZERO)
+                    loopCount = loopCount + Constraint.ONE;
+                    callApiToSync(Constraint.ZERO,type,integer);
             }
         }).start();
     }
@@ -129,19 +129,18 @@ public class SyncLogs {
             request.put(Constraint.ID_PROMOTION, id+"");
 
         }
-        Log.e("Working........",request.toString());
-        apiService.sendLogs(request, request.get(Constraint.TOKEN)).enqueue(new Callback<GlobalResponse<BlankResponse>>() {
+         apiService.sendLogs(request, request.get(Constraint.TOKEN)).enqueue(new Callback<GlobalResponse<BlankResponse>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<GlobalResponse<BlankResponse>> call, Response<GlobalResponse<BlankResponse>> response) {
-                if (count >= loopCount - 1) {
+                if (count >= loopCount - Constraint.ONE) {
                     syncingComplete(type,id);
                 } else {
-                    int cnt = count + 1;
+                    int cnt = count + Constraint.ONE;
                     if (type.equals(Constraint.PROMOTION))
                     callApiToSync(cnt,type,id);
                     else
-                        callApiToSync(cnt,type,0);
+                        callApiToSync(cnt,type,Constraint.ZERO);
 
                 }
 
@@ -163,9 +162,9 @@ public class SyncLogs {
         // Do what ever you want
         int totalCount = logsVOList.size();
         int counter = totalCount / MAX_CONTACT_COUNT_FOR_EACH_CALL;
-        for (int i = 0; i <= counter; i++) {
+        for (int i = Constraint.ZERO; i <= counter; i++) {
             int startPosition = i * MAX_CONTACT_COUNT_FOR_EACH_CALL;
-            int totalcontToSend = (i + 1) * MAX_CONTACT_COUNT_FOR_EACH_CALL;
+            int totalcontToSend = (i + Constraint.ONE) * MAX_CONTACT_COUNT_FOR_EACH_CALL;
             if (totalcontToSend > logsVOList.size())
                 totalcontToSend = logsVOList.size();
             int countToSend = totalcontToSend - startPosition;
@@ -195,7 +194,7 @@ public class SyncLogs {
         HashMap<String, String> logSyncRequest = new HashMap<>();
         try {
             int startPosition = count * MAX_CONTACT_COUNT_FOR_EACH_CALL;
-            int totalcontToSend = (count + 1) * MAX_CONTACT_COUNT_FOR_EACH_CALL;
+            int totalcontToSend = (count + Constraint.ONE) * MAX_CONTACT_COUNT_FOR_EACH_CALL;
             if (totalcontToSend > logsVOList.size())
                 totalcontToSend = logsVOList.size();
             int countToSend = totalcontToSend - startPosition;
@@ -213,13 +212,6 @@ public class SyncLogs {
                 requests.add(logServerRequest);
             }
             logSyncRequest.put(Constraint.LOG, getJsonObject(requests).toString());
-//            PriceCardMain priceCard = sessionManager.getPriceCard();
-//            try {
-//                logSyncRequest.put(Constraint.ID_PRICE_CARD, priceCard.getIdpriceCard());
-//            } catch (Exception e) {
-//
-//            }
-
             logSyncRequest.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
 
         } catch (Exception e) {

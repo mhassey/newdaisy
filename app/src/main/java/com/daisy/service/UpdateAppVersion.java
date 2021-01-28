@@ -33,6 +33,7 @@ public class UpdateAppVersion {
         }).start();
     }
 
+    // TODO Fire update app version api request
     private void updateAppVersion() {
         sessionManager = SessionManager.get();
         ApiService apiService = AppRetrofit.getInstance().getApiService();
@@ -61,6 +62,7 @@ public class UpdateAppVersion {
 
     }
 
+    // TODO Create Update app version api request
     private HashMap<String, String> createRequest() {
         if (sessionManager == null)
             sessionManager = SessionManager.get();

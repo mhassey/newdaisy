@@ -251,14 +251,7 @@ public class ValidationHelper {
 
     }
 
-    /*private static void showAlert(EditText targetEditText, View parentLayout, String msg) {
-        View v = parentLayout == null ? targetEditText.getRootView() : parentLayout;
-        targetEditText.requestFocus();
-        *//*YoYo.with(Techniques.Shake)
-                .duration(1000)
-                .playOn((View) targetEditText.getParent());*//*
-        showSnackBar(v, msg);
-    }*/
+
 
     private static void showAlert(TextView targetEditText, ALERT_TYPE alertType, String msg) {
         //View v = parentLayout == null ? targetEditText.getRootView() : parentLayout;
@@ -301,25 +294,15 @@ public class ValidationHelper {
         }
 
 
-       /* YoYo.with(Techniques.Shake)
-                .duration(1000)
-                .playOn((View) targetEditText.getParent());*/
-
     }
 
     public static void showSnackBar(View parentLayout, String msg) {
-        //Toast.makeText(context.getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-        final Snackbar snackBar = Snackbar.make(parentLayout, msg, Snackbar.LENGTH_SHORT);
+          final Snackbar snackBar = Snackbar.make(parentLayout, msg, Snackbar.LENGTH_SHORT);
         snackBar.setActionTextColor(Color.WHITE);
         View view = snackBar.getView();
         TextView tv = view.findViewById(R.id.snackbar_text);
         tv.setTextColor(Color.WHITE);
-       /* snackBar.setAction(R.string.dismiss, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                snackBar.dismiss();
-            }
-        });*/
+
         snackBar.show();
 
     }
@@ -482,21 +465,6 @@ public class ValidationHelper {
 
     }
 
-//
-//    public boolean isProfileDataValid(EditText mUserNameET, EditText mNameET) {
-//
-//        if (isTextFieldEmpty(mUserNameET, mContext.getString(R.string.msg_empty) + " " + mUserNameET.getHint() + "."))
-//            return false;
-//        if (!isValidUserName(mUserNameET, mContext.getString(R.string.enter_valid_username), true))
-//            return false;
-//        if (isTextFieldEmpty(mNameET, mContext.getString(R.string.msg_empty) + " " + mNameET.getHint() + "."))
-//            return false;
-//        if (!isValidProfileName(mNameET))
-//            return false;
-//
-//
-//        return true;
-//    }
 
 
 

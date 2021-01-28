@@ -16,8 +16,6 @@ public class Admin extends DeviceAdminReceiver {
 
     @Override
     public void onEnabled(Context context, Intent intent) {
-
-        showToast(context, "Device Administrator: Activated");
     }
 
     @Override

@@ -7,9 +7,6 @@ import android.util.Log;
 
 import com.daisy.activity.mainActivity.MainActivity;
 
-/**
- * Created by ptyagi on 4/18/17.
- */
 
 public class AlarmBootBackgroundReceiver extends BroadcastReceiver {
     @Override
