@@ -17,6 +17,10 @@ import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityLogsMainBinding;
 import com.daisy.utils.Utils;
 
+/**
+ * Purpose -  LogsMainActivity is an activity that helps to show all type of logs redirect button
+ * Responsibility - Here when user clicks on any type of logs button then open logs list accordingly
+ **/
 public class LogsMainActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityLogsMainBinding mBinding;
@@ -31,8 +35,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         setNoTitleBar(this);
         context = this;
@@ -40,8 +45,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - initClickListener is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClickListener() {
         mBinding.applicationLogs.setOnClickListener(this);
         mBinding.cardLogs.setOnClickListener(this);
@@ -50,10 +56,10 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         mBinding.cancel.setOnClickListener(this::onClick);
     }
 
-
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -64,8 +70,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -90,8 +97,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Handle Clicks listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
 
@@ -134,8 +142,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * GO to settings activity
-     */
+     * Responsibility - HandleSettingClick open redirect app to settings page
+     * Parameters - No parameter
+     **/
     private void handleSettingClick() {
         Intent intent=new Intent(context, Settings.class);
         startActivity(intent);
@@ -144,8 +153,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
 
 
     /**
-     * Open Logs show activity
-     */
+     * Responsibility - callLogsShowActivity open list of logs according to its type
+     * Parameters - Its takes type that help to know which type of logs user want to seee
+     **/
     void callLogsShowActivity(String type)
     {
         Intent intent=new Intent(context, LogsShowActivity.class);

@@ -24,6 +24,9 @@ import com.daisy.utils.Utils;
 
 import java.util.Locale;
 
+/**
+ * AppController is an application class
+ **/
 public class AppController extends Application implements LifecycleObserver {
     public static AppController sInstance;
     public static final String TAG = AppController.class.getName();

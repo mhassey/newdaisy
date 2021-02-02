@@ -14,20 +14,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose -  UpdatePositionRepo is an class that calls update position api for change position of phone
+ * Responsibility - Its fire update position api using request and set response to live data
+ **/
 public class UpdatePositionRepo {
+
     private ApiService apiService;
-    public UpdatePositionRepo()
-    {
-        apiService= AppRetrofit.getInstance().getApiService();
+    private MutableLiveData<GlobalResponse<UpdatePositionResponse>> liveData = new MutableLiveData<>();
+
+    public UpdatePositionRepo() {
+        apiService = AppRetrofit.getInstance().getApiService();
     }
-    private MutableLiveData<GlobalResponse<UpdatePositionResponse>> liveData=new MutableLiveData<>();
+
+    /**
+     * Responsibility - update position method fire updatePosition api and if response is successful then set value to live data else set null on live data
+     * Parameters - Its take HashMap<String, String> and string header value
+     **/
     public LiveData<GlobalResponse<UpdatePositionResponse>> updatePosition(HashMap<String, String> input, String s) {
-        Call<GlobalResponse<UpdatePositionResponse>> call= apiService.updatePosition(input,s);
+        Call<GlobalResponse<UpdatePositionResponse>> call = apiService.updatePosition(input, s);
         call.enqueue(new Callback<GlobalResponse<UpdatePositionResponse>>() {
             @Override
             public void onResponse(Call<GlobalResponse<UpdatePositionResponse>> call, Response<GlobalResponse<UpdatePositionResponse>> response) {
-              if (response.isSuccessful())
-                liveData.setValue(response.body());
+                if (response.isSuccessful())
+                    liveData.setValue(response.body());
             }
 
             @Override

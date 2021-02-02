@@ -14,7 +14,10 @@ import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivitySettingsBinding;
-
+/**
+ * Purpose -  Settings class not in used
+ * Responsibility - Not in use
+ **/
 public class Settings extends BaseActivity implements SwitchCompat.OnCheckedChangeListener {
     private ActivitySettingsBinding mBinding;
     private Context context;

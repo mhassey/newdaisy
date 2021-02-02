@@ -129,7 +129,7 @@
     <string name="select_pro">SELECT PRODUCT</string>
     <string name="access_locked">ACCESS LOCKED</string>
     <string name="unlock_with_arrow"><![CDATA[UNLOCK >]]></string>
-    <string name="update_time">Update TIme</string>
+    <string name="update_time">Update time</string>
     <string name="app_version">APP VERSION :</string>
     <string name="PERMISSION">PERMISSIONS</string>
     <string name="settings_cap">SETTINGS</string>
@@ -199,4 +199,5 @@
     <string name="ukrainian">Ukrainian</string>
     <string name="alramHeader">Enable Silent Alarm</string>
     <string name="last_update_time">Last update time :</string>
+    <string name="empty_password">Please enter the password to access the configuration settings</string>
 </resources>

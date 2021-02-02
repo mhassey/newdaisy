@@ -33,6 +33,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * SyncLogs is an class that helps to send logs to server in background
+ */
 public class SyncLogs {
     private Context context;
     private static SyncLogs contactSyncing;

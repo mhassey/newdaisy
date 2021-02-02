@@ -14,9 +14,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose -  UpdateApk class help us to know any update is available or not
+ * Responsibility - Check Current version is less then server version if yes then tell app to further process
+ **/
 public class UpdateApk {
+
     private SessionManager sessionManager;
-    // TODO Check apk update
+
+
     public void UpdateApk() {
 
         new Thread(new Runnable() {
@@ -28,8 +34,9 @@ public class UpdateApk {
     }
 
     /**
-     * Call update apk api
-     */
+     * Responsibility - updateApk method call general api and  pass the output to handleResponse
+     * Parameters - No parameter
+     **/
     private void updateApk() {
         ApiService apiService = AppRetrofit.getInstance().getApiService();
         HashMap<String, String> hashMap = new HashMap<>();
@@ -50,8 +57,9 @@ public class UpdateApk {
     }
 
     /**
-     * Handle apk update response
-     */
+     * Responsibility - handleResponse method checks current apk version is less then server apk version if yes then update the version on session
+     * Parameters - Its take Response<GlobalResponse<GeneralResponse>> response that contains apk version json
+     **/
     private void handleResponse(Response<GlobalResponse<GeneralResponse>> response) {
         if (response != null) {
             if (response.isSuccessful()) {

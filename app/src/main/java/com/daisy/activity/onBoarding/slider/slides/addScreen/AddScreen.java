@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
-import com.daisy.activity.onBoarding.slider.OnBaording;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.AddScreenBinding;
 import com.daisy.pojo.response.Carrier;
@@ -35,6 +35,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Purpose -  AddScreen is an fragment that help to show all carrier and product and orientation
+ * Responsibility - Its show latest carrier , product name , orientation and manufacture to user for selection
+ **/
 public class AddScreen extends BaseFragment implements View.OnClickListener {
 
     public AddScreenBinding mBinding;
@@ -42,7 +46,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     private Context context;
     private SessionManager sessionManager;
     final int sdk = android.os.Build.VERSION.SDK_INT;
-    private static  OnBaording  baording;
+    private static OnBoarding baording;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,8 +64,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
 
     /**
-     * Initiate objects
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = requireContext();
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
@@ -77,8 +82,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
 
     /**
-     * Add orientation
-     */
+     * Responsibility - addOrientationData method is used for add data in orientation list set it to view model
+     * Parameters - No parameter
+     **/
     private void addOrientationData() {
         ArrayList<String> orientation=new ArrayList<>();
         orientation.add(getString(R.string.defaultt));
@@ -86,15 +92,15 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mViewModel.setOrientation(orientation);
     }
 
-
     /**
-     * Initiate all listener
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
-        mBinding.manufactureList.setOnItemSelectedListener(getManufactireListner());
+        mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
     }
 
 
@@ -133,9 +139,11 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+
     /**
-     * Run time color change at bottom next
-     */
+     * Responsibility - designWork method is used for run time color change at bottom next button
+     * Parameters - No parameter
+     **/
     private void designWork() {
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
@@ -157,9 +165,11 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+
     /**
-     * Handle product name selection
-     */
+     * Responsibility - getProductNameListener method is used for item selection of product
+     * Parameters - No parameter
+     **/
     private AdapterView.OnItemSelectedListener getProductNameListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
@@ -176,8 +186,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
 
     /**
-     * Handle carrier selection listener
-     */
+     * Responsibility - getCarrierListener method is used for item selection of carrier
+     * Parameters - No parameter
+     **/
     private AdapterView.OnItemSelectedListener getCarrierListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
@@ -199,10 +210,12 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+
     /**
-     * Handle Manufacture selection listener
-     */
-    private AdapterView.OnItemSelectedListener getManufactireListner() {
+     * Responsibility - getManufactureListener method is used for item selection of manufacture
+     * Parameters - No parameter
+     **/
+    private AdapterView.OnItemSelectedListener getManufactureListener() {
         return  new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -222,8 +235,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
     /**
-     * Fire general api
-     */
+     * Responsibility - getGeneralResponse method is used for fire general api and get response and send response to handleResponse method
+     * Parameters - Its takes Carrier,Manufacture object as parameter
+     **/
     private void getGeneralResponse(Carrier carrier,Manufacture manufacture) {
 
         if (Utils.getNetworkState(context)) {
@@ -246,9 +260,11 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
+
     /**
-     * Handle general response
-     */
+     * Responsibility - handleResponse method is called by getGeneralResponse method its check if response is correct then set value in adaptor
+     * Parameters - Its takes GlobalResponse<GeneralResponse> object as parameter
+     **/
     private void handleResponse(GlobalResponse<GeneralResponse> generalResponse) {
         showHideProgressDialog(false);
         if (generalResponse != null) {
@@ -273,8 +289,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
 
     /**
-     * Create general request
-     */
+     * Responsibility - getGeneralRequest method is used for create general api request
+     * Parameters - Its takes Carrier,Manufacture object as parameter
+     **/
     private HashMap<String, String> getGeneralRequest(Carrier carrier,Manufacture manufacture) {
         HashMap<String, String> hashMap = new HashMap<>();
         if (carrier != null)
@@ -284,7 +301,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         return hashMap;
     }
 
-    public static AddScreen getInstance(OnBaording bording) {
+    public static AddScreen getInstance(OnBoarding bording) {
         baording=bording;
         return new AddScreen();
 
@@ -292,8 +309,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
 
     /**
-     * Handle click listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId())

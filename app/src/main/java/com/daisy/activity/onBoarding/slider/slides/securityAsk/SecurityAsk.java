@@ -19,7 +19,10 @@ import com.daisy.utils.Constraint;
 
 import java.util.Locale;
 
-
+/**
+ * Purpose -  SecurityAsk is an fragment that ask for security checks
+ * Responsibility - Its ask for some security check example delete photo or not
+ **/
 public class SecurityAsk extends Fragment implements View.OnClickListener {
 
     public FragmentSecurityAskBinding securityAskBinding;

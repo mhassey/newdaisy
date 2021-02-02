@@ -2,23 +2,24 @@ package com.daisy.activity.welcomeScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.activity.onBoarding.slider.OnBaording;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.utils.Constraint;
 
 import java.util.Locale;
 
+/**
+ * Purpose -  WelcomeScreen is an activity that show some content as welcome page to user
+ * Responsibility - Its show some useful content for user and its also has begin method that redirect screen to on boarding
+ **/
 public class WelcomeScreen extends BaseActivity implements View.OnClickListener {
 
     private ActivityWelcomeScreenBinding mBinding;
@@ -35,8 +36,9 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         sessionManager = SessionManager.get();
         setNoTitleBar(this);
@@ -44,36 +46,40 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     }
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         mBinding.begin.setOnClickListener(this);
     }
 
     /**
-     * Handle Clicks listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.begin: {
-                goToOnBording();
+                goToOnBoarding();
                 break;
             }
         }
     }
 
     /**
-     * Go to on board screen
-     */
-    private void goToOnBording() {
-        Intent intent = new Intent(WelcomeScreen.this, OnBaording.class);
+     * Responsibility - goToOnBoarding method redirect screen to OnBaording activity
+     * Parameters - No parameter
+     **/
+    private void goToOnBoarding() {
+        Intent intent = new Intent(WelcomeScreen.this, OnBoarding.class);
         startActivity(intent);
     }
 
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -85,8 +91,9 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     }
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(

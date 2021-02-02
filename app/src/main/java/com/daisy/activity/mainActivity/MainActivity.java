@@ -94,7 +94,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
+/**
+ * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
+ * Responsibility - Its loads cards,promotion send pricing to js and its also handles logs related price card and promotions
+ **/
 public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
@@ -133,7 +136,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-    //TODO Check for permission
+    /**
+     * Check for permission
+     */
     private void permissionAsking() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // Do something for lollipop and above versions
@@ -238,7 +243,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
     /**
-     * On resume have a funtionality for making this screen landscape or potrait mode
+     * On resume have a functionality for making this screen landscape or portrait mode
      */
     @Override
     protected void onResume() {
@@ -810,7 +815,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
     /**
-     * lcreate promotion that will load in webview
+     * create promotion that will load in web view
      */
     private void promotionSettings() {
         ArrayList<String> pro = new ArrayList<>();
@@ -1280,11 +1285,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 maintainPromotionShowWithUrl(msg);
             } else if (cmd.equals(Constraint.currentFrameName)) {
-                Log.e("kali", "fileName" + msg);
 
                 //storePriceCardOrPromotionLoad(msg);
             } else if (cmd.equals(Constraint.click)) {
-                Log.e("kali", "click" + msg);
 
                 storeClickOnPromotionOrPriceCard(msg);
             }
@@ -1393,7 +1396,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             public void onClick(DialogInterface dialog, int which) {
                 String passwordString = password.getText().toString();
                 String lockPassword = sessionManager.getPasswordLock();
-                if (passwordString.equals(lockPassword)) {
+                if (passwordString.equals(""))
+                {
+                    ValidationHelper.showToast(context, getString(R.string.empty_password));
+
+                }
+                else if (passwordString.equals(lockPassword)) {
                     dialog.dismiss();
                     Intent intent = new Intent(MainActivity.this, ConfigSettings.class);
                     startActivity(intent);

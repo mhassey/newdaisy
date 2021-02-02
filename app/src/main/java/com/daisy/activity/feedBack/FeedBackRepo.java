@@ -25,17 +25,17 @@ public class FeedBackRepo {
     private MutableLiveData<GlobalResponse<FeedBackResponse>> feedBackResponseMutableLiveData = new MutableLiveData<>();
 
     public LiveData<GlobalResponse<FeedBackResponse>> getFeedBackResponse(HashMap<String, String> feedBackRequest) {
-        Call<LiveData<GlobalResponse<FeedBackResponse>>> call = apiService.addFeedBack(feedBackRequest, feedBackRequest.get(Constraint.TOKEN));
-        call.enqueue(new Callback<LiveData<GlobalResponse<FeedBackResponse>>>() {
+        Call<GlobalResponse<FeedBackResponse>> call = apiService.addFeedBack(feedBackRequest, feedBackRequest.get(Constraint.TOKEN));
+        call.enqueue(new Callback<GlobalResponse<FeedBackResponse>>() {
             @Override
-            public void onResponse(Call<LiveData<GlobalResponse<FeedBackResponse>>> call, Response<LiveData<GlobalResponse<FeedBackResponse>>> response) {
+            public void onResponse(Call<GlobalResponse<FeedBackResponse>> call, Response<GlobalResponse<FeedBackResponse>> response) {
                 if (response.isSuccessful()) {
-                    feedBackResponseMutableLiveData.setValue(response.body().getValue());
+                    feedBackResponseMutableLiveData.setValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<LiveData<GlobalResponse<FeedBackResponse>>> call, Throwable t) {
+            public void onFailure(Call<GlobalResponse<FeedBackResponse>> call, Throwable t) {
                 feedBackResponseMutableLiveData.setValue(null);
             }
         });

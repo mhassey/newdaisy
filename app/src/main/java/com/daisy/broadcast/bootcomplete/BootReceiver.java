@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.daisy.activity.mainActivity.MainActivity;
 
+/**
+ *  Broadcast receiver
+ */
 public class BootReceiver extends BroadcastReceiver {
 
 

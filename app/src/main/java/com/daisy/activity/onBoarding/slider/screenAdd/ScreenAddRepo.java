@@ -14,6 +14,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose -  ScreenAddRepo is an class that fire addScreen api and get response
+ * Responsibility - Its takes request data from view model and fire addScreen api and save response in live data
+ **/
 public class ScreenAddRepo {
 
     private ApiService apiService;
@@ -24,7 +28,7 @@ public class ScreenAddRepo {
         apiService= AppRetrofit.getInstance().getApiService();
     }
 
-    // TODO addScreen method is used for add new Screen on server
+    //  addScreen method is used for add new Screen on server
     public LiveData<GlobalResponse<ScreenAddResponse>> addScreen(HashMap<String,String> input) {
         Call<GlobalResponse<ScreenAddResponse>> call=apiService.addScreen(input);
         call.enqueue(new Callback<GlobalResponse<ScreenAddResponse>>() {

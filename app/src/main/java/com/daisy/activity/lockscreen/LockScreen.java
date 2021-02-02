@@ -24,6 +24,10 @@ import com.daisy.utils.ValidationHelper;
 
 import java.util.Locale;
 
+/**
+ * Purpose -  LockScreen is an activity that help to show when need to ask password in various conditions
+ * Responsibility - Its ask for password when user open play store ,settings ,browser and when we are going to uninstall the app
+ **/
 public class LockScreen extends BaseActivity implements View.OnClickListener {
     private ActivityLockScreenBinding binding;
     private Context context;
@@ -40,8 +44,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = this;
         setNoTitleBar(this);
@@ -51,8 +56,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Do some extra stuff for making app perfect
-     */
+     * Responsibility - extraTaskForMakeAppWorkable method do some extra stuff that help service to run perfectly
+     * Parameters - No parameter
+     **/
     private void extraTaskForMakeAppWorkable() {
         Constraint.current_running_process = "";
         current_running_path = String.valueOf(getIntent().getStringExtra(Constraint.PACKAGE));
@@ -66,21 +72,27 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         binding.unlock.setOnClickListener(this);
         binding.cancel.setOnClickListener(this::onClick);
     }
 
+    /**
+     * Responsibility - onBackPressed method is an override method that we use for stop back from lock screen
+     * Parameters - No parameter
+     **/
     @Override
     public void onBackPressed() {
 
     }
 
     /**
-     * remove lock activity
-     */
+     * Responsibility - onStop method is an override method that we use for finish lock screen
+     * Parameters - No parameter
+     **/
     @Override
     protected void onStop() {
         super.onStop();
@@ -88,8 +100,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Handle Clicks listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -108,8 +121,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -120,8 +134,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -141,8 +156,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
 
     /**
-     * Redirect to main screen
-     */
+     * Responsibility - redirectToMain method is an method that helps to open MainActivity class
+     * Parameters - No parameter
+     **/
     private void redirectToMain() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
@@ -150,8 +166,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Handle Unlock work
-     */
+     * Responsibility - unlockPassword method is used when we need to verify the fill password is correct or not if correct then open the last running page
+     * Parameters - No parameter
+     **/
     private void unlockPassword() {
         String password = binding.password.getText().toString();
         if (password != null) {
@@ -178,10 +195,10 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
             ValidationHelper.showToast(context, getString(R.string.enter_password));
         }
     }
-
     /**
-     * open last activity according to package name
-     */
+     * Responsibility - startLastActivity method is used when we need to open the last running page its takes packageName
+     * Parameters - Its takes packageName which help to redirect to last open app
+     **/
     private void startLastActivity(String packageName) {
         if (comeFromUninstall) {
             sessionManager.setPasswordCorrect(true);
@@ -199,8 +216,9 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * Back to home
-     */
+     * Responsibility - onBackToHome method is used when we need to go on home page
+     * Parameters - No parameter
+     **/
     public void onBackToHome() {
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);

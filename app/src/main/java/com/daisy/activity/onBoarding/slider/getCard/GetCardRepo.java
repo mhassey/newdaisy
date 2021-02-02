@@ -15,6 +15,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose -  GetCardRepo is an class that call getCard api for get new card details
+ * Responsibility - Its call getCard api and save response to live data
+ **/
 public class GetCardRepo {
     private MutableLiveData<GlobalResponse<GetCardResponse>> liveData=new MutableLiveData<>();
     private ApiService apiService;
@@ -23,7 +27,10 @@ public class GetCardRepo {
         apiService= AppRetrofit.getInstance().getApiService();
     }
 
-    //TODO getCard method is used for card response
+    /**
+     * Responsibility - getCard method is used for card response and save it to live data
+     * Parameters - Its takes HashMap<String, String> object as parameter
+     **/
     public LiveData<GlobalResponse<GetCardResponse>> getCard(HashMap<String, String> input) {
 
         Call<GlobalResponse<GetCardResponse>> globalResponseCall=apiService.getCard(input,input.get(Constraint.TOKEN));

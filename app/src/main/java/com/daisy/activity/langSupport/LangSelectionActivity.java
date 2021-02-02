@@ -29,6 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Purpose -  LangSelectionActivity is an activity that help to select lang that will reflect in hole app
+ * Responsibility - Its show all language in an screen and when user select any language and just click right icon then the selected language will reflect in hole app
+ **/
 public class LangSelectionActivity extends BaseActivity implements LangSupportCallBack, View.OnClickListener {
 
     private ActivityLangSelectionBinding binding;
@@ -47,10 +51,10 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
     }
 
 
-
     /**
-     * initialize variable
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = this;
         setNoTitleBar(this);
@@ -58,19 +62,26 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         langSupportViewModel.setLangData(context);
     }
 
+    /**
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         binding.back.setOnClickListener(this::onClick);
         binding.confirmLang.setOnClickListener(this::onClick);
     }
 
+    /**
+     * Responsibility - setLangAdaptor is an method that used for assigning the value to adaptor and pass it to lang recycle view
+     * Parameters - No parameter
+     **/
     private void setLangAdaptor() {
 
-        langSupportAdaptor = new LangSupportAdaptor(langSupportViewModel.getLangPojosForAdaptor(),this);
+        langSupportAdaptor = new LangSupportAdaptor(langSupportViewModel.getLangPojosForAdaptor(), this);
         binding.lang.setLayoutManager(new LinearLayoutManager(context));
         binding.lang.setAdapter(langSupportAdaptor);
 
     }
-
 
 
     @Override
@@ -78,7 +89,11 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         return langSupportViewModel.getViewHolder();
     }
 
-    //TODO  Handle Item click
+
+    /**
+     * Responsibility - setLangPojo is an call back method which help to get which language user select
+     * Parameters - No parameter
+     **/
     @Override
     public void setLangPojo(LangPojo langPojo, RecyclerView.ViewHolder viewHolder) {
         langSupportViewModel.setViewHolder(viewHolder);
@@ -86,47 +101,52 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         binding.confirmLang.setVisibility(View.VISIBLE);
     }
 
-    //TODO Set Default language
+    /**
+     * Responsibility - setDefaultLang is an call back method which help get default language
+     * Parameters - No parameter
+     **/
     @Override
     public void setDefaultLang(LangPojo langPojo, RecyclerView.ViewHolder holder) {
         langSupportViewModel.setViewHolder(holder);
 
     }
 
+    /**
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.confirmLang:
-            {
+        switch (v.getId()) {
+            case R.id.confirmLang: {
                 changeLang();
                 break;
             }
-            case R.id.back:
-            {
+            case R.id.back: {
                 finish();
                 break;
             }
         }
     }
 
-    //TODO  Change language
+    /**
+     * Responsibility - changeLang method help to get selected lang then pass to setLang method that will update app language
+     * Parameters - No parameter
+     **/
     private void changeLang() {
-       LangPojo langPojo= langSupportViewModel.getSelectedLanguage();
-        if (langPojo!=null)
-        {
+        LangPojo langPojo = langSupportViewModel.getSelectedLanguage();
+        if (langPojo != null) {
             setLang(langPojo.getKey());
-        }
-        else
-        {
-            ValidationHelper.showToast(context,getString(R.string.please_select_lang));
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.please_select_lang));
         }
     }
 
     /**
-     * Set language
-     */
-    private void setLang (String s){
+     * Responsibility - setLang method help to set app language
+     * Parameters - No parameter
+     **/
+    private void setLang(String s) {
         Locale locale = new Locale(s);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();
@@ -137,9 +157,11 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
+
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -151,8 +173,9 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
 
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.

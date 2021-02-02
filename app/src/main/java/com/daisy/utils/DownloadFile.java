@@ -4,16 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.daisy.R;
-import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 import com.daisy.pojo.response.Download;
 import com.daisy.pojo.response.DownloadFail;
-import com.daisy.pojo.response.Url;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +24,6 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public  class DownloadFile extends AsyncTask<String, String, String> {
 

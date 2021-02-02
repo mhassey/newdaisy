@@ -1,18 +1,17 @@
 package com.daisy.activity.configSettings;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
@@ -35,9 +34,22 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
-import java.util.HashMap;
-import java.util.Locale;
 
+import java.util.HashMap;
+
+/**
+ * Purpose -  ConfigSettings is an activity that contains all setting level works
+ * Responsibility - Its show app version and last updated time
+ * link for go to logs
+ * link for go to UpdatePosition
+ * link for go to SetRefreshTimer
+ * Enable and disable sanitised feature
+ * link for go to Change language
+ * Handle apk update
+ * Handle security feature
+ * Handle alarm feature
+ * Handle Update product
+ **/
 public class ConfigSettings extends BaseActivity implements View.OnClickListener {
 
     private ActivityConfigSettingsBinding mBinding;
@@ -51,11 +63,13 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_config_settings);
         initView();
         initClick();
+
     }
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = this;
         viewModel = new ViewModelProvider(this).get(ApkUpdateViewModel.class);
@@ -65,6 +79,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         getDefaultUpdateTime();
     }
 
+    /**
+     * Responsibility - getDefaultUpdateTime method is used for print last apk update time
+     * Parameters - No parameter
+     **/
     private void getDefaultUpdateTime() {
         try {
             String val = Utils.getLastUpdateDate(ConfigSettings.this);
@@ -75,8 +93,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
     /**
-     * Done all session work
-     */
+     * Responsibility -  sessionWork is an method that perform session work all items visibility maintained here
+     * Parameters - No parameter
+     **/
     private void sessionWork() {
         sessionManager = SessionManager.get();
         if (sessionManager.getDeviceSanitised().equals(Constraint.TRUE_STR)) {
@@ -114,8 +133,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         mBinding.logs.setOnClickListener(this::onClick);
         mBinding.setRefreshRate.setOnClickListener(this::onClick);
@@ -137,7 +157,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
 
-    // TODO Alarm checked , unchecked listener
+    /**
+     * Responsibility - getAlarmSwitch is an method that works when we switch alarm and here we store its state to session for future work
+     * Parameters - No parameter
+     **/
     private CompoundButton.OnCheckedChangeListener getAlarmSwitch() {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -152,7 +175,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
 
-    // TODO Security switch  checked listener
+    /**
+     * Responsibility - getSecuritySwitch is an method that works when we switch security switch and here we store its state to session for future work
+     * Parameters - No parameter
+     **/
     private CompoundButton.OnCheckedChangeListener getSecuritySwitch() {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -172,8 +198,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Sanitised switch listener
-     */
+     * Responsibility - getCheckedListener is an method that works when  sanitised switch changes and here we store its state to session for future work
+     * Parameters - No parameter
+     **/
     private CompoundButton.OnCheckedChangeListener getCheckedListener() {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -193,8 +220,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -206,8 +234,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -231,8 +260,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Handle Clicks listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -284,22 +314,30 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         }
     }
 
-    // TODO Start language support activity
+    /**
+     * Responsibility - startLangSupportActivity is an method to redirect page to  LangSelectionActivity
+     * Parameters - No parameter
+     **/
     private void startLangSupportActivity() {
         Intent intent = new Intent(context, LangSelectionActivity.class);
         startActivity(intent);
 
     }
 
-    // TODO Open update product activity
+    /**
+     * Responsibility - openUpdateProductActivity is an method to redirect page to  UpdateProduct
+     * Parameters - No parameter
+     **/
     private void openUpdateProductActivity() {
         Intent intent = new Intent(context, UpdateProduct.class);
         startActivity(intent);
     }
 
+
     /**
-     * Handle direct apk update
-     */
+     * Responsibility - handleApkUpdateDirectly is an method that check any apk update is available or not
+     * Parameters - No parameter
+     **/
     private void handleApkUpdateDirectly() {
         showHideProgressDialog(true);
         viewModel.setRequest(new HashMap());
@@ -313,6 +351,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         });
     }
 
+    /**
+     * Responsibility - handleAPkUpdateResponse is an method that takes response from handleApkUpdateDirectly and if any new version comes then change session value and redirect  to main
+     * Parameters - Its take GlobalResponse<GeneralResponse> response
+     **/
     private void handleAPkUpdateResponse(GlobalResponse<GeneralResponse> response) {
         if (response != null) {
 
@@ -342,8 +384,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Launch other app
-     */
+     * Responsibility - launchApp method is used for launch other application its just an demo
+     * Parameters - No parameter
+     **/
     private void launchApp() {
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
         if (launchIntent != null) {
@@ -355,8 +398,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Go to feedback page
-     */
+     * Responsibility - feedBack method is used for transfer controll to FeedBackActivity page
+     * Parameters - No parameter
+     **/
     private void feedBack() {
         Intent intent = new Intent(ConfigSettings.this, FeedBackActivity.class);
         startActivity(intent);
@@ -364,20 +408,20 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Do logout
-     */
+     * Responsibility - logout method is used for logout the app but not in used
+     * Parameters - No parameter
+     **/
     private void logout() {
         sessionManager.removeSession();
-
         Intent intent = new Intent(ConfigSettings.this, BaseUrlSettings.class);
         ProcessPhoenix.triggerRebirth(ConfigSettings.this, intent);
-
     }
 
 
     /**
-     * Open refresh timer activity
-     */
+     * Responsibility - openRefreshRate method is used for open RefreshTimer activity
+     * Parameters - No parameter
+     **/
     private void openRefreshRate() {
         Intent intent = new Intent(ConfigSettings.this, RefreshTimer.class);
         startActivity(intent);
@@ -385,8 +429,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Open UpdateBaseUrl activity
-     */
+     * Responsibility - updateBaseUrl method is used for open UpdateBaseUrl activity
+     * Parameters - No parameter
+     **/
     private void updateBaseUrl() {
         Intent intent = new Intent(ConfigSettings.this, UpdateBaseUrl.class);
         startActivity(intent);
@@ -395,8 +440,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Open UpdatePosition activity
-     */
+     * Responsibility - openUpdatePositionActivity method is used for open UpdatePosition activity
+     * Parameters - No parameter
+     **/
     private void openUpdatePositionActivity() {
         Intent intent = new Intent(ConfigSettings.this, UpdatePosition.class);
         startActivity(intent);
@@ -404,8 +450,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Open logs activity
-     */
+     * Responsibility - openLogActivity method is used for open LogsMainActivity activity
+     * Parameters - No parameter
+     **/
     private void openLogActivity() {
         Intent intent = new Intent(ConfigSettings.this, LogsMainActivity.class);
         startActivity(intent);
@@ -413,8 +460,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Open main activity
-     */
+     * Responsibility - openMainActivity method is used for open MainActivity activity
+     * Parameters - No parameter
+     **/
     private void openMainActivity() {
         Intent intent = new Intent(ConfigSettings.this, MainActivity.class);
         startActivity(intent);

@@ -15,10 +15,16 @@ import com.daisy.pojo.response.GlobalResponse;
 
 import java.util.HashMap;
 
+/**
+ * Purpose -  UpdateProductViewModel class in an view model class that connect UpdateProduct activity to UpdateProductRepo
+ * Responsibility - Its takes request from activity and call repository to call api and send the response to activity
+ **/
 public class UpdateProductViewModel extends AndroidViewModel {
+
     private MutableLiveData<HashMap<String,String>> mutableLiveData=new MutableLiveData<>();
     private LiveData<GlobalResponse> liveData;
     private UpdateProductRepo updateProductRepo=new UpdateProductRepo();
+
     public UpdateProductViewModel(@NonNull Application application) {
         super(application);
         liveData= Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse>>() {

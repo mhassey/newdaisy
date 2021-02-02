@@ -199,7 +199,7 @@ public class Utils {
             sessionManager.setTimeInterval(CF + "");
             int LT = dateTimeInUTC + CF;
 
-
+            Log.e("Working",LT+"--");
             if (LT >= openTime && LT < closeTime) {
                 return false;
             }

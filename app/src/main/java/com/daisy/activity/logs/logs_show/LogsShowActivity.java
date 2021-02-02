@@ -26,6 +26,10 @@ import com.daisy.utils.ValidationHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Purpose -  LogsShowActivity is an activity that help to show list of logs here user can clear logs and exit from list
+ * Responsibility - Main responsibility to show logs in recycle view according to request type and when user scroll the page then add new items in list
+ **/
 public class LogsShowActivity extends BaseActivity implements View.OnClickListener {
     private ActivityLogsShowBinding mBinding;
     private Context context;
@@ -45,8 +49,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = this;
         setNoTitleBar(this);
@@ -60,8 +65,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Initialize recycle view adapter
-     */
+     * Responsibility - setDataInRecycleView method is used for set list in adaptor and set adaptor to list
+     * Parameters - No parameter
+     **/
     private void setDataInRecycleView() {
         logsAdapter = new LogsAdapter(list, context);
         mBinding.logsList.setAdapter(logsAdapter);
@@ -71,18 +77,19 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - setOnClickListener is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void setOnClickListener() {
         mBinding.backClick.setOnClickListener(this);
         mBinding.clearAndBack.setOnClickListener(this);
     }
 
 
-
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -93,8 +100,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -119,8 +127,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Get Log data from Room db
-     */
+     * Responsibility - getLogsData is an method that used for get logs from database according to request data and set value to adaptor
+     * Parameters - No parameter
+     **/
     private void getLogsData() {
         LogsRequest logsRequest = new LogsRequest();
         logsRequest.setContext(this);
@@ -141,8 +150,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
 
     /**
-     * check list data is empty and maintain list accordingly
-     */
+     * Responsibility - notifyItems is an method that used for  check list data is empty and maintain list accordingly
+     * Parameters - No parameter
+     **/
     private void notifyItems() {
         if (list.isEmpty()) {
             mBinding.logsList.setVisibility(View.GONE);
@@ -167,9 +177,12 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
 
         }
     }
+
+
     /**
-     * Handle Clicks listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -186,8 +199,9 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * Clear log
-     */
+     * Responsibility - clearLogHandler is an method that use to clear logs of particular type
+     * Parameters - No parameter
+     **/
     private void clearLogHandler() {
         LogClearRequest logClearRequest = new LogClearRequest();
         logClearRequest.setContext(context);
@@ -204,6 +218,10 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Responsibility - handleClearLogResponse is an method that helps to enter a logs says user clear the logs if clear logs request is successfully performed
+     * Parameters - No parameter
+     **/
     private void handleClearLogResponse(LogClearResponse logClearResponse) {
         if (logClearResponse.isClear()) {
             if (viewModel.getType().equals(Constraint.APPLICATION_LOGS))

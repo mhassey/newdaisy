@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
+// Please ignore this class its an junk code
 public class EditorTool extends BaseActivity implements View.OnClickListener {
     private ActivityEditorToolBinding mBinding;
     private Context context;

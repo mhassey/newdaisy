@@ -11,7 +11,12 @@ import com.daisy.utils.Constraint;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Purpose -  BaseUrlSettingsViewModel is an model class that contains all predefine urls and if need then return to view
+ * Responsibility - BaseUrlSettingsViewModel contains url list that help to show all predefine url to view
+ **/
 public class BaseUrlSettingsViewModel extends AndroidViewModel {
+
     private List<Url> urls;
     private Url url;
 
@@ -19,17 +24,26 @@ public class BaseUrlSettingsViewModel extends AndroidViewModel {
         super(application);
     }
 
+    /**
+     * Responsibility - getUrls method is an method that returns list of urls
+     * Parameters - No parameter
+     **/
     public List<Url> getUrls() {
         return urls;
     }
 
+    /**
+     * Responsibility - setUrls method is an method that sets url in list
+     * Parameters - its take url list
+     **/
     public void setUrls(List<Url> urls) {
         this.urls = urls;
     }
 
     /**
-     * Set all default urls
-     */
+     * Responsibility - setDefaultUrls method is used for adding all static url
+     * Parameters - No parameters
+     **/
     public void setDefaultUrls() {
 
         List<Url> urls = new ArrayList<>();
@@ -74,10 +88,18 @@ public class BaseUrlSettingsViewModel extends AndroidViewModel {
         setUrls(urls);
     }
 
+    /**
+     * Responsibility - getUrl method is used for return selected url
+     * Parameters - No parameters
+     **/
     public Url getUrl() {
         return url;
     }
 
+    /**
+     * Responsibility - setUrl method is used for set selected url
+     * Parameters - Its take url object that selected by user from view
+     **/
     public void setUrl(Url url) {
         this.url = url;
     }

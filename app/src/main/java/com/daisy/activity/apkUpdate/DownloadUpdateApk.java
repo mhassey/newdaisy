@@ -19,6 +19,10 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * Purpose -  DownloadUpdateApk class help to download apk when any update comes
+ * Responsibility - DownloadUpdateApk class works as async and download apk file using url
+ **/
 public class DownloadUpdateApk extends AsyncTask<String, String, String> {
 
     private ProgressDialog progressDialog;
@@ -36,9 +40,9 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
     }
 
     /**
-     * Before starting background thread
-     * Show Progress Bar Dialog
-     */
+     * Responsibility - onPreExecute method runs before background thread and show progress dialog in front of screen
+     * Parameters - No parameter
+     **/
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -49,15 +53,21 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
         this.progressDialog.show();
     }
 
+
     /**
-     * Downloading file in background thread
-     */
+     * Responsibility - doInBackground method execute code in background
+     * Parameters - String array   here String array is list of url that contains apk
+     **/
     @Override
     protected String doInBackground(String... f_url) {
       performDoInBackGroundTask(f_url);
         return context.getString(R.string.something_went_wrong);
     }
 
+    /**
+     * Responsibility - performDoInBackGroundTask is an method call from doInBackground method and download apj file using urls
+     * Parameters - String array   here String array is list of url that contains apk
+     **/
     private void performDoInBackGroundTask(String... f_url) {
         int count;
         try {
@@ -99,16 +109,19 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
     }
 
     /**
-     * Updating progress bar
-     */
+     * Responsibility - onProgressUpdate method is used for updating progress value  for example 1%....100%
+     * Parameters - String array   here array first value contains how much file downloaded
+     **/
     protected void onProgressUpdate(String... progress) {
         progressDialog.setProgress(Integer.parseInt(progress[0]));
     }
 
 
+
     /**
-     * after download zip extract it in following path
-     */
+     * Responsibility - onPostExecute method is used when downloading done here we need to extract it in following path
+     * Parameters - String value its an value that return from doInBackground method
+     **/
     @Override
     protected void onPostExecute(String path) {
         try {

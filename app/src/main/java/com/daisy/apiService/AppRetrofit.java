@@ -1,7 +1,5 @@
 package com.daisy.apiService;
 
-import android.util.Log;
-
 import com.daisy.BuildConfig;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
@@ -18,6 +16,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * This class give all configuration for http request
+ **/
 public class AppRetrofit {
     private static AppRetrofit instance;
     private final ApiService apiService;

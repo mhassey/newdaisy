@@ -14,23 +14,38 @@ import com.daisy.utils.Utils;
 
 import java.util.List;
 
+/**
+ * Purpose -  LogsRepository is an class that help to connect with db and help to get and push logs in db
+ * Responsibility - Main task to get logs from database and pass to view model and save all logs that are coming from view model
+ **/
 public class LogsRepository {
     private MutableLiveData<List<Logs>> liveData=new MutableLiveData<>();
     private MutableLiveData<LogClearResponse> logClearResponseMutableLiveData=new MutableLiveData<>();
 
-    //TODO getLogs method is use for get all logs from db
+
+    /**
+     * Responsibility - getLogs method is help to get all logs according to request
+     * Parameters - It takes LogsRequest that help to determine what type of logs user want to see
+     **/
     public LiveData<List<Logs>> getLogs(LogsRequest input) {
 
         new LogsShow().execute(input);
         return liveData;
     }
 
-    // TODO Clear log method is use for clearing logs from db
+    /**
+     * Responsibility - clearLog method is use for clearing logs from db according to request
+     * Parameters - Its takes LogClearRequest that help to determine which type of logs we need to clear from list
+     **/
     public LiveData<LogClearResponse> clearLog(LogClearRequest input) {
         new clearLog().execute(input);
         return logClearResponseMutableLiveData;
     }
 
+    /**
+     * Purpose -  LogsShow is an Async class that help to get logs from db and pass to  view
+     * Responsibility - Its take an request that help of determine which kind of logs user wants and get data from database and set value in live data
+     **/
     class LogsShow extends AsyncTask
     {
 
@@ -42,6 +57,11 @@ public class LogsRepository {
             return null;
         }
     }
+
+    /**
+     * Purpose -  clearLog is an Async class that help to clear logs from db
+     * Responsibility - Its take an request that help of determine which kind of logs user wants and clear data from database
+     **/
     class clearLog extends AsyncTask{
 
         @Override

@@ -1,6 +1,5 @@
 package com.daisy.activity.onBoarding.slider.slides.permissionAsk;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
@@ -8,14 +7,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +27,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
-import com.daisy.app.AppController;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
 import com.daisy.pojo.response.PermissionDone;
@@ -38,24 +34,18 @@ import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
 import java.util.Locale;
 
+/**
+ * Purpose -  PermissionAsk is an fragment that ask for all permission from user
+ * Responsibility - Its ask for predefine permission and customized permission that our app is used
+ **/
 public class PermissionAsk extends Fragment implements View.OnClickListener {
     private static ActivityOnBaordingBinding onBaordingBindingMain;
     private FragmentPermissionAskBinding permissionAskBinding;
@@ -86,8 +76,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
 
     /**
-     * Perform admin task
-     */
+     * Responsibility - mainAdminAsk is an method that check is admin is activated if not ask for admin permission
+     * Parameters - No parameter
+     **/
     private void mainAdminAsk() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
@@ -104,8 +95,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
 
     /**
-     * Initiate object
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = requireContext();
         permissionAskViewModel = new ViewModelProvider(this).get(PermissionAskViewModel.class);
@@ -113,8 +105,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
 
     /**
-     * Initiate all listener
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         permissionAskBinding.grandMediaPermission.setOnClickListener(this);
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
@@ -129,8 +122,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
 
     /**
-     * check all permission
-     */
+     * Responsibility - check for kind of permission and maintain its visibility and clicking
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void permissionSetter() {
         checkDisplayOverTheApp();
@@ -185,6 +179,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Responsibility - Checks for gps
+     * Parameters - No parameter
+     **/
     private void checkForGps() {
         final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         permissionAskViewModel.setGrandGpsEnable(Constraint.TRUE);
@@ -192,7 +190,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
 
-
+    /**
+     * Responsibility - mainAdminAsk is an method that check is admin is activated then disable admin asking permission button else enable admin asking permission button
+     * Parameters - No parameter
+     **/
     private void checkAdminPermission() {
         mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mAdminName = new ComponentName(getActivity(), Admin.class);
@@ -210,6 +211,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - checkForMi is an method that check is mi permission is activated then disable mi asking permission button else enable mi asking permission button
+     * Parameters - No parameter
+     **/
     private void checkForMi() {
         if (Utils.getDeviceName().contains(Constraint.REDME)) {
             permissionAskBinding.miExtraHeader.setVisibility(View.VISIBLE);
@@ -229,6 +234,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - check for one plus specific permission
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkForOnePlus() {
         final PowerManager pm = (PowerManager) requireContext().getSystemService(Context.POWER_SERVICE);
@@ -245,6 +254,11 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
+
+    /**
+     * Responsibility - check for media permission
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void mediaPermission() {
         boolean b;
@@ -269,7 +283,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
         }
 
-
+    /**
+     * Responsibility - check for modify system settings  permission
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void modifySystemSettings() {
         if (!Settings.System.canWrite(requireContext())) {
@@ -283,6 +300,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - check for access usage  permission
+     * Parameters - No parameter
+     **/
     private void checkAccessUsage() {
         if (Utils.isAccessGranted(requireContext())) {
             permissionAskViewModel.setGrandUsageAccess(Constraint.TRUE);
@@ -296,6 +317,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - check for display over the app permission
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkDisplayOverTheApp() {
         if (Settings.canDrawOverlays(requireContext())) {
@@ -318,8 +343,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
 
     /**
-     * Handle click listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -372,6 +398,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - enable gps method check if gps is enable if not then buildAlertMessageNoGps method
+     * Parameters - No parameter
+     **/
     private void enableGps() {
         final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
@@ -381,6 +411,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - buildAlertMessageNoGps method is used for open alert for asking enable gps
+     * Parameters - No parameter
+     **/
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(R.string.enable_gps)
@@ -399,6 +433,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         alert.show();
     }
 
+    /**
+     * Responsibility - callMiExtraPopUp method is used for asking mi permission
+     * Parameters - No parameter
+     **/
     private void callMiExtraPopUp() {
         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
         intent.setClassName("com.miui.securitycenter",
@@ -407,6 +445,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         requireActivity().startActivityForResult(intent, Constraint.MI_EXTRA_PERMISSION_CODE);
     }
 
+    /**
+     * Responsibility - batteryUsage method is used for asking battery optimization permission
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void batteryUsage() {
         final PowerManager pm = (PowerManager) requireContext().getSystemService(Context.POWER_SERVICE);
@@ -432,6 +474,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - Open Usage data access alert dialog
+     * Parameters - No parameter
+     **/
     private void callUsageAccessSettings() {
         Utils.showAlertDialog(requireContext(), getString(R.string.allow_data_access), "Ok", new DialogInterface.OnClickListener() {
             @Override
@@ -444,6 +490,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Responsibility - Open modify System Settings alert dialog
+     * Parameters - No parameter
+     **/
     private void modifySystemSettingsAsk() {
         Utils.showAlertDialog(requireContext(), getString(R.string.modify_system_settings_text), "Ok", new DialogInterface.OnClickListener() {
             @Override
@@ -455,6 +505,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Responsibility - Open display over the app alert dialog
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     boolean askForPopUpPermission() {
 
@@ -519,90 +573,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
-
-    public static boolean checkGps(Activity activity) {
-
-        final LocationManager manager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(activity)) {
-            return true;
-        }
-        if (!hasGPSDevice(activity)) {
-            Toast.makeText(activity, "GPS not supported", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(activity)) {
-            enableLoc(activity);
-            return false;
-        }
-        return true;
-    }
-
-    private static boolean hasGPSDevice(Context context) {
-        final LocationManager mgr = (LocationManager) context
-                .getSystemService(Context.LOCATION_SERVICE);
-        if (mgr == null)
-            return false;
-        final List<String> providers = mgr.getAllProviders();
-        if (providers == null)
-            return false;
-        return providers.contains(LocationManager.GPS_PROVIDER);
-    }
-
-    private static void enableLoc(Activity activity) {
-
-        if (googleApiClient == null) {
-            googleApiClient = new GoogleApiClient.Builder(activity)
-                    .addApi(LocationServices.API)
-                    .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                        @Override
-                        public void onConnected(Bundle bundle) {
-
-                        }
-
-                        @Override
-                        public void onConnectionSuspended(int i) {
-                            googleApiClient.connect();
-                        }
-                    })
-                    .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-                        @Override
-                        public void onConnectionFailed(ConnectionResult connectionResult) {
-
-                            Log.d("Location error", "Location error " + connectionResult.getErrorCode());
-                        }
-                    }).build();
-            googleApiClient.connect();
-
-            LocationRequest locationRequest = LocationRequest.create();
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(30 * 1000);
-            locationRequest.setFastestInterval(5 * 1000);
-            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                    .addLocationRequest(locationRequest);
-
-            builder.setAlwaysShow(true);
-
-            PendingResult<LocationSettingsResult> result =
-                    LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
-            result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
-                @Override
-                public void onResult(LocationSettingsResult result) {
-                    final Status status = result.getStatus();
-                    switch (status.getStatusCode()) {
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                            try {
-                                // Show the dialog by calling startResolutionForResult(),
-                                // and check the result in onActivityResult().
-                                status.startResolutionForResult(AppController.getInstance().getActivity(), 101);
-                            } catch (IntentSender.SendIntentException e) {
-                                // Ignore the error.
-                            }
-                            break;
-                    }
-                }
-            });
-        }
-    }
 
     public static class DeviceAdminSampleReceiver extends DeviceAdminReceiver {
         void showToast(Context context, String msg) {

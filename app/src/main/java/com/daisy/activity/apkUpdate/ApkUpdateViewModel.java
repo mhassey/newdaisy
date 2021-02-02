@@ -14,10 +14,14 @@ import com.daisy.pojo.response.GlobalResponse;
 
 import java.util.HashMap;
 
-// TODO Apk update model class
+/**
+ * Purpose -  ApkUpdateViewModel is an view model that help to connect with ApkUpdateRepo to know is their any update is available or not
+ * Responsibility - ApkUpdateViewModel takes request and provide LiveData<GlobalResponse<GeneralResponse>> response and when api return output then return response to activity
+ **/
 public class ApkUpdateViewModel extends AndroidViewModel {
     private LiveData<GlobalResponse<GeneralResponse>> responseLiveData;
     private MutableLiveData<HashMap<String,String>> request=new MutableLiveData<>();
+
     public ApkUpdateViewModel(@NonNull Application application) {
         super(application);
         responseLiveData= Transformations.switchMap(request, new Function<HashMap<String, String>, LiveData<GlobalResponse<GeneralResponse>>>() {
@@ -27,13 +31,20 @@ public class ApkUpdateViewModel extends AndroidViewModel {
             }
         });
     }
-    // TODO Set new request for getting apk update from server
+
+    /**
+     * Responsibility - setRequest method set values in request mutable live data
+     * Parameters - Its takes HashMap object
+     **/
     public void setRequest(HashMap requestWork)
     {
         request.setValue(requestWork);
     }
 
-    // TODO Get response to view
+    /**
+     * Responsibility - getResponseLiveData method help to get  LiveData<GlobalResponse<GeneralResponse>>
+     * Parameters - No parameter
+     **/
     public LiveData<GlobalResponse<GeneralResponse>> getResponseLiveData()
     {
         return responseLiveData;

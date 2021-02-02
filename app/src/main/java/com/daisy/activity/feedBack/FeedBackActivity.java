@@ -12,13 +12,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityFeedBackBinding;
 import com.daisy.pojo.response.FeedBackResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.OsType;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class FeedBackActivity extends BaseActivity implements View.OnClickListener {
 
@@ -103,7 +107,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
             case R.id.submit:
             {
                 if (feedBackValidationHelper.isValid())
-                //handleFeedBackRequest();
+                handleFeedBackRequest();
                 break;
             }
             case R.id.cancel:
@@ -121,6 +125,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     private void handleFeedBackRequest() {
         if (Utils.getNetworkState(context))
         {
+            showHideProgressDialog(true);
             feedBackModelView.setFeedBackRequest(getFeedBackLRequest());
             LiveData<GlobalResponse<FeedBackResponse>> liveData=feedBackModelView.getLiveData();
             if (!liveData.hasActiveObservers())
@@ -128,17 +133,27 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 liveData.observe(this, new Observer<GlobalResponse<FeedBackResponse>>() {
                     @Override
                     public void onChanged(GlobalResponse<FeedBackResponse> feedBackResponseGlobalResponse) {
-                        if (feedBackResponseGlobalResponse!=null)
-                        {
-
-                        }
-                        else
-                        {
-                            ValidationHelper.showToast(context,getString(R.string.no_internet_available));
-                        }
+                     handleFeedBackResponse(feedBackResponseGlobalResponse);
                     }
                 });
             }
+        }
+        else
+        {
+            ValidationHelper.showToast(context,getString(R.string.no_internet_available));
+        }
+    }
+
+
+
+    private void handleFeedBackResponse(GlobalResponse<FeedBackResponse> feedBackResponseGlobalResponse) {
+        showHideProgressDialog(false);
+        if (feedBackResponseGlobalResponse!=null)
+        {
+            ValidationHelper.showToast(context,feedBackResponseGlobalResponse.getMessage());
+            if (feedBackResponseGlobalResponse.isApi_status())
+                finish();
+
         }
         else
         {
@@ -151,6 +166,17 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
      */
     private HashMap<String, String> getFeedBackLRequest() {
     HashMap<String,String> hashMap=new HashMap<>();
+    hashMap.put(Constraint.TITLE,(String) mBinding.title.getSelectedItem());
+    hashMap.put(Constraint.DESCRIPTION,mBinding.description.getText().toString());
+    hashMap.put(Constraint.TOKEN,SessionManager.get().getDeviceToken());
+    List<OsType> osTypes= SessionManager.get().getOsType();
+    for (OsType osType:osTypes)
+    {
+        if (osType.getOsName().equals(Constraint.ANDROID))
+        {
+            hashMap.put(Constraint.OS_ID,osType.getOsID()+"");
+        }
+    }
     return hashMap;
     }
 }

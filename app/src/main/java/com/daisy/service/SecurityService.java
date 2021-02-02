@@ -116,7 +116,7 @@ public class SecurityService extends Service {
 //        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationListener, Looper.myLooper());
     }
 
-    // TODO Define receiver  for lock open
+    //  Define receiver  for lock open
     private void handleReciver() {
         IntentFilter securityFilter = new IntentFilter("android.intent.action.USER_PRESENT");
         registerReceiver(PhoneUnlockedReceiver, securityFilter);
@@ -132,7 +132,7 @@ public class SecurityService extends Service {
         super.onDestroy();
     }
 
-    // TODO Lock open defination
+    //  Lock open defination
     private BroadcastReceiver PhoneUnlockedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

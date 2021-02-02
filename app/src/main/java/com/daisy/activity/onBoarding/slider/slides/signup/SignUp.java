@@ -7,20 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
-import com.daisy.activity.onBoarding.slider.OnBaording;
-import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpRequest;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -32,8 +29,13 @@ import com.daisy.utils.ValidationHelper;
 import java.util.HashMap;
 import java.util.Locale;
 
+/**
+ * Purpose -  SignUp is an activity that help to sign up with store code and password
+ * Responsibility - Its ask for store code and password and fire sign up api and handle response
+ *
+ **/
 public class SignUp extends BaseFragment implements View.OnClickListener {
-    private static OnBaording baording;
+    private static OnBoarding baording;
     public static FragmentLoginBinding loginBinding;
     private Context context;
     private SignUpViewModel signUpViewModel;
@@ -49,9 +51,9 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
          return loginBinding.getRoot();
     }
 
-    //TODO getInstance method is used for getting signup object
-    public static SignUp getInstance(OnBaording onBaording) {
-        baording = onBaording;
+    // getInstance method is used for getting signup object
+    public static SignUp getInstance(OnBoarding onBoarding) {
+        baording = onBoarding;
         return new SignUp();
     }
 
@@ -62,14 +64,14 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         initClick();
     }
 
-    //TODO Initiate clicks
+    // Initiate clicks
     private void initClick() {
 
         loginBinding.singup.setOnClickListener(this);
         loginBinding.cancel.setOnClickListener(this::onClick);
     }
 
-    // TODO Initiate objects
+    //  Initiate objects
     private void initView() {
         context=requireContext();
         sessionManager=SessionManager.get();
@@ -94,7 +96,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    // TODO Perform signup
+    // Perform signup
     private void doSignUp() {
         if (Utils.getNetworkState(context))
         {
@@ -123,7 +125,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    // TODO Handle signup response
+    //  Handle signup response
     private void  handleResponse(SignUpResponse signUpResponse) {
          showHideProgressDialog(false);
         if (signUpResponse!=null) {
@@ -153,7 +155,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
     }
 
-    // TODO Create signup request
+    //  Create signup request
     private HashMap<String,String> getSignUpRequest() {
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put(Constraint.STORE_CODE,loginBinding.storeCode.getText().toString());
@@ -168,7 +170,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         designWork();
     }
 
-    //TODO Change design at run time
+    // Change design at run time
     private void designWork() {
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {

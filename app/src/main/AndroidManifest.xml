@@ -115,7 +115,7 @@
             android:name=".activity.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.onBoarding.slider.OnBaording"
+            android:name=".activity.onBoarding.slider.OnBoarding"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.welcomeScreen.WelcomeScreen"

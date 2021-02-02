@@ -2,8 +2,6 @@ package com.daisy.apiService;
 
 import androidx.lifecycle.LiveData;
 
-import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectRequest;
-import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectResponse;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
@@ -13,30 +11,25 @@ import com.daisy.pojo.response.DeleteCardResponse;
 import com.daisy.pojo.response.FeedBackResponse;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.ValidatePromotionPojo;
 import com.daisy.pojo.response.VersionUpdate;
 import com.daisy.utils.Constraint;
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-
+/**
+ * This interface calls api and return result
+ **/
 public interface ApiService {
 
     @FormUrlEncoded
     @POST(ApiConstant.SIGN_UP)
     Call<SignUpResponse> signUp(@FieldMap HashMap<String,String> password);
-
-    @POST(ApiConstant.DETECT_DEVICE)
-    Call<DeviceDetectResponse> detectDevice(@Body  DeviceDetectRequest input);
 
     @FormUrlEncoded
     @POST(ApiConstant.GENERAL)
@@ -67,7 +60,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST(ApiConstant.ADD_FEEDBACK)
-    Call<LiveData<GlobalResponse<FeedBackResponse>>> addFeedBack(@FieldMap HashMap<String, String> feedBackRequest,@Header(Constraint.TOKEN) String s);
+    Call<GlobalResponse<FeedBackResponse>> addFeedBack(@FieldMap HashMap<String, String> feedBackRequest,@Header(Constraint.TOKEN) String s);
     @FormUrlEncoded
     @POST(ApiConstant.CREATE_SCREEN_OS)
     Call<GlobalResponse<VersionUpdate>> createScreenOs(@FieldMap HashMap<String, String> hashMap, @Header(Constraint.TOKEN) String s);

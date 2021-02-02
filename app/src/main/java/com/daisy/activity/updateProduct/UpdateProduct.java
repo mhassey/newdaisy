@@ -43,6 +43,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Purpose -  UpdateProduct is an activity that helps to update product in app
+ * Responsibility - Its shows all carriers product and orientation user select any one then activity tells server to update product to particular screen id then we got update
+ **/
 public class UpdateProduct extends BaseActivity implements View.OnClickListener {
     private Context context;
     public ActivityUpdateProductBinding mBinding;
@@ -51,21 +55,24 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     private SessionManager sessionManager;
     final int sdk = android.os.Build.VERSION.SDK_INT;
     private GetCardViewModel getCardViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         initClick();
     }
+
     /**
-         * Initiate objects
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = this;
         setNoTitleBar(this);
-        mBinding=DataBindingUtil.setContentView(this,R.layout.activity_update_product);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_product);
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
-        updateProductViewModel=new ViewModelProvider(this).get(UpdateProductViewModel.class);
+        updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         addOrientationData();
         ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, mViewModel.getOrientation());
@@ -75,10 +82,11 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Add orientation
-     */
+     * Responsibility - addOrientationData method is used for add orientation in array and pass it to view model
+     * Parameters - No parameter
+     **/
     private void addOrientationData() {
-        ArrayList<String> orientation=new ArrayList<>();
+        ArrayList<String> orientation = new ArrayList<>();
         orientation.add(getString(R.string.defaultt));
         orientation.add(getString(R.string.landscape));
         mViewModel.setOrientation(orientation);
@@ -86,21 +94,22 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Initiate all listener
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
-        mBinding.manufactureList.setOnItemSelectedListener(getManufactireListner());
+        mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
         mBinding.nextSlide.setOnClickListener(this::onClick);
     }
 
 
-
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -111,10 +120,10 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     }
 
 
-
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -142,9 +151,13 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
-      resumeWork();
+        resumeWork();
     }
 
+    /**
+     * Responsibility - When we resume the activity then we need to get all data again so  we again set carrier and product
+     * Parameters - No parameter
+     **/
     private void resumeWork() {
         sessionManager = SessionManager.get();
         if (sessionManager.getLoginResponse() != null) {
@@ -170,8 +183,9 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Handle product name selection
-     */
+     * Responsibility - getProductNameListener method is used when we select any new product in that case we need to change  selected product value in session
+     * Parameters - No parameter
+     **/
     private AdapterView.OnItemSelectedListener getProductNameListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
@@ -188,17 +202,18 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Handle carrier selection listener
-     */
+     * Responsibility - getCarrierListener method is used when we select any new carrier in that case we need to change  selected carrier value in session
+     * Parameters - No parameter
+     **/
     private AdapterView.OnItemSelectedListener getCarrierListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Carrier carrier = mViewModel.getCarriers().get(position);
                 mViewModel.setSelectedCarrier(carrier);
-                Manufacture manufacture=(Manufacture)mBinding.manufactureList.getSelectedItem();
+                Manufacture manufacture = (Manufacture) mBinding.manufactureList.getSelectedItem();
                 mViewModel.setSelectedManufacture(manufacture);
-                getGeneralResponse(carrier,manufacture);
+                getGeneralResponse(carrier, manufacture);
             }
 
             @Override
@@ -211,18 +226,19 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Handle Manufacture selection listener
-     */
-    private AdapterView.OnItemSelectedListener getManufactireListner() {
-        return  new AdapterView.OnItemSelectedListener() {
+     * Responsibility - getManufactureListener method is used when we select any new manufacture in that case we need to change  selected manufacture value in session
+     * Parameters - No parameter
+     **/
+    private AdapterView.OnItemSelectedListener getManufactureListener() {
+        return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Manufacture manufacture = mViewModel.getManufactures().get(position);
                 mViewModel.setSelectedManufacture(manufacture);
-                Carrier carrier=(Carrier)mBinding.carrierName.getSelectedItem();
+                Carrier carrier = (Carrier) mBinding.carrierName.getSelectedItem();
                 mViewModel.setSelectedCarrier(carrier);
 
-                getGeneralResponse(carrier,manufacture);
+                getGeneralResponse(carrier, manufacture);
             }
 
             @Override
@@ -233,13 +249,14 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     }
 
     /**
-     * Fire general api
-     */
-    private void getGeneralResponse(Carrier carrier,Manufacture manufacture) {
+     * Responsibility - getGeneralResponse method is used to get general response by firing general api
+     * Parameters - Its take carrier and manufacture object
+     **/
+    private void getGeneralResponse(Carrier carrier, Manufacture manufacture) {
 
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
-            HashMap<String, String> generalRequest = getGeneralRequest(carrier,manufacture);
+            HashMap<String, String> generalRequest = getGeneralRequest(carrier, manufacture);
             mViewModel.setGeneralRequest(generalRequest);
             LiveData<GlobalResponse<GeneralResponse>> liveData = mViewModel.getGeneralResponseLiveData();
             if (!liveData.hasActiveObservers()) {
@@ -258,8 +275,9 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Handle general response
-     */
+     * Responsibility - handleResponse method  takes GlobalResponse<GeneralResponse> as parameter and check if response is ok then set set value in product name adaptor
+     * Parameters - Its takes GlobalResponse<GeneralResponse> response that help to set value in product name adaptor
+     **/
     private void handleResponse(GlobalResponse<GeneralResponse> generalResponse) {
         showHideProgressDialog(false);
         if (generalResponse != null) {
@@ -284,44 +302,44 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Create general request
-     */
-    private HashMap<String, String> getGeneralRequest(Carrier carrier,Manufacture manufacture) {
+     * Responsibility - getGeneralRequest method  takes Carrier and Manufacture as parameter and create a request for general api
+     * Parameters - Its takes Carrier and Manufacture object as an parameter
+     **/
+    private HashMap<String, String> getGeneralRequest(Carrier carrier, Manufacture manufacture) {
         HashMap<String, String> hashMap = new HashMap<>();
         if (carrier != null)
             hashMap.put(Constraint.CARRIER_ID, carrier.getIdcarrier() + "");
-        if (manufacture!=null)
-            hashMap.put(Constraint.MANUFACTURE_ID,manufacture.getIdterm());
+        if (manufacture != null)
+            hashMap.put(Constraint.MANUFACTURE_ID, manufacture.getIdterm());
         return hashMap;
     }
 
 
-
-
     /**
-     * Handle click listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.cancel:
-            {
+        switch (v.getId()) {
+            case R.id.cancel: {
                 onBackPressed();
                 break;
             }
-            case R.id.nextSlide:
-            {
+            case R.id.nextSlide: {
                 handlePriceCardGettingHandler();
                 break;
             }
         }
     }
 
-    // TODO Handle price card request
+    /**
+     * Responsibility - handlePriceCardGettingHandler method helps  to fire update screen api and send response in handleScreenAddResponse  method
+     * Parameters - No parameter
+     **/
     private void handlePriceCardGettingHandler() {
         showHideProgressDialog(true);
-        updateProductViewModel.setMutableLiveData(getAddScreenRequest());
+        updateProductViewModel.setMutableLiveData(getUpdateScreenRequest());
         LiveData<GlobalResponse> liveData = updateProductViewModel.getLiveData();
         if (!liveData.hasActiveObservers()) {
             liveData.observe(this, new Observer<GlobalResponse>() {
@@ -335,7 +353,10 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
     }
 
-    // TODO Handle screen add response
+    /**
+     * Responsibility - handleScreenAddResponse is an method that check update screen response is ok if yes then call getCardData method
+     * Parameters - Its takes GlobalResponse object as an parameter
+     **/
     private void handleScreenAddResponse(GlobalResponse screenAddResponseGlobalResponse) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
             mBinding.nextSlide.setVisibility(View.GONE);
@@ -347,8 +368,10 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     }
 
 
-
-    // TODO Handle card request
+    /**
+     * Responsibility - getCardData method fire the getCard api and pass the response to handleCardGetResponse method
+     * Parameters - No parameter
+     **/
     private void getCardData() {
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
@@ -359,7 +382,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            DBCaller.storeLogInDatabase(context,getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName()+getString(R.string.data_store),"","",Constraint.APPLICATION_LOGS);
+                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -372,7 +395,10 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    //TODO Handle card response
+    /**
+     * Responsibility - handleCardGetResponse method handle response provided by getCardData method if response is ok then set new value of price card promotion and pricing in session and call redirectToMainHandler method
+     * Parameters - No parameter
+     **/
     private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
@@ -382,29 +408,26 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
             redirectToMainHandler(getCardResponseGlobalResponse);
 
         } else {
-            if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard()!=null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals(""))
-            {
+            if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard() != null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals("")) {
                 redirectToMainHandler(getCardResponseGlobalResponse);
-            }
-            else
+            } else
                 ValidationHelper.showToast(context, getCardResponseGlobalResponse.getMessage());
         }
     }
 
 
-
-    // TODO Handle main work
+    /**
+     * Responsibility - redirectToMainHandler method  delete daisy older data and set new file path from which app download the price card  and  call redirectToMain method
+     * Parameters - Its takes GlobalResponse response object
+     **/
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
         Utils.deleteDaisy();
         String UrlPath;
 
-        if (response.getResult().getPricecard().getFileName1()!=null && !response.getResult().getPricecard().getFileName1().equals(""))
-        {
-            UrlPath= response.getResult().getPricecard().getFileName1();
-        }
-        else
-        {
-            UrlPath= response.getResult().getPricecard().getFileName();
+        if (response.getResult().getPricecard().getFileName1() != null && !response.getResult().getPricecard().getFileName1().equals("")) {
+            UrlPath = response.getResult().getPricecard().getFileName1();
+        } else {
+            UrlPath = response.getResult().getPricecard().getFileName();
         }
 
         if (response.getResult().getPricecard().getFileName() != null) {
@@ -418,7 +441,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
             if (path != null) {
                 if (!path.equals(UrlPath)) {
                     Utils.deleteCardFolder();
-                    Utils.writeFile(configFilePath,UrlPath);
+                    Utils.writeFile(configFilePath, UrlPath);
                     sessionManager.deleteLocation();
 
                     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
@@ -430,8 +453,8 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
             redirectToMain();
 
-        } else if (response.getResult().getDefaultPriceCard()!=null && !response.getResult().getDefaultPriceCard().equals("")) {
-            UrlPath= response.getResult().getDefaultPriceCard();
+        } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
+            UrlPath = response.getResult().getDefaultPriceCard();
             String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
             File directory = new File(configFilePath);
             if (!directory.exists()) {
@@ -442,7 +465,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
             if (path != null) {
                 if (!path.equals(UrlPath)) {
                     Utils.deleteCardFolder();
-                    Utils.writeFile(configFilePath,UrlPath);
+                    Utils.writeFile(configFilePath, UrlPath);
                     sessionManager.deleteLocation();
 
                     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
@@ -453,8 +476,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
             }
 
             redirectToMain();
-        }
-        else{
+        } else {
             ValidationHelper.showToast(context, getString(R.string.invalid_url));
         }
 
@@ -463,7 +485,10 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         finish();
     }
 
-    // TODO Redirect to main activity
+    /**
+     * Responsibility -  redirectToMain method redirect screen to MainActivity
+     * Parameters - No parameter
+     **/
     private void redirectToMain() {
         sessionManager.onBoarding(Constraint.TRUE);
         Intent intent = new Intent(this, MainActivity.class);
@@ -472,28 +497,32 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
     }
 
-    // TODO Create card request
+    /**
+     * Responsibility -  getCardRequest method create card request
+     * Parameters - No parameter
+     **/
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
-        hashMap.put(Constraint.TOKEN,sessionManager.getDeviceToken());
+        hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
     }
 
 
-    // TODO Create add screen request
-    private HashMap<String, String> getAddScreenRequest() {
+    /**
+     * Responsibility -  getUpdateScreenRequest method create update screen request
+     * Parameters - No parameter
+     **/
+    private HashMap<String, String> getUpdateScreenRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
-           if (mViewModel.getSelectedProduct()!=null) {
+        if (mViewModel.getSelectedProduct() != null) {
             if (mViewModel.getSelectedProduct().getIdproductStatic() != null)
                 hashMap.put(Constraint.ID_PRODUCT_STATIC, mViewModel.getSelectedProduct().getIdproductStatic());
-        }
-        else
-        {
-            ValidationHelper.showToast(context,getString(R.string.product_not_available));
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.product_not_available));
 
         }
-        hashMap.put(Constraint.TOKEN,sessionManager.getDeviceToken());
+        hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
     }
 
@@ -501,8 +530,8 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onStart() {
         if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl) );
+            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             } else {
                 mBinding.nextSlide.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             }

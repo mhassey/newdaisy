@@ -20,6 +20,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose -  ValidatePromotion class in an class that check promotion is valid or not
+ * Responsibility - This class create a list of all promotion which is available on our app then fire  validate promotion api to check all promotion is valid or not if any promotion is not valid then remove that
+ **/
 public class ValidatePromotion {
     private SessionManager sessionManager;
 
@@ -66,7 +70,7 @@ public class ValidatePromotion {
                     if (response.getResult() != null) {
                         JSONArray updatedPromotion = new JSONArray();
                         JSONArray promotions = sessionManager.getPromotions();
-                        for (int i = 0; i < promotions.length(); i++) {
+                        for (int i = Constraint.ZERO; i < promotions.length(); i++) {
 
                             for (Promotion promotion : response.getResult().getPromotions()) {
                                 try {

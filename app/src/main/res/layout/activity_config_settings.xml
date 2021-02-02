@@ -240,7 +240,7 @@
                 android:layout_marginEnd="@dimen/dp30"
                 android:background="@drawable/edit_text_format"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
 
                 <TextView

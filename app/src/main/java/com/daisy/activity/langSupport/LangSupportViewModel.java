@@ -14,6 +14,10 @@ import com.daisy.utils.Constraint;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Purpose -  LangSupportViewModel is an view model class that help to set and get all language and selected language
+ * Responsibility - Its main role is to save selected language from user and provide selected language and contains all language which support is given by our app
+ **/
 public class LangSupportViewModel extends AndroidViewModel {
 
     private List<LangPojo> langPojos;
@@ -26,12 +30,19 @@ public class LangSupportViewModel extends AndroidViewModel {
 
     }
 
+    /**
+     * Responsibility - getLangPojosForAdaptor method is used for return list of language
+     * Parameters - No parameter
+     **/
     public List<LangPojo> getLangPojosForAdaptor() {
         return langPojos;
     }
 
 
-    // TODO Set language values
+    /**
+     * Responsibility - setLangData method is used for give support to predefine language
+     * Parameters - No parameter
+     **/
     public void setLangData(Context context)
     {
         List<LangPojo> langPojos=new ArrayList<>();
@@ -128,11 +139,18 @@ public class LangSupportViewModel extends AndroidViewModel {
     }
 
 
-
+    /**
+     * Responsibility - getViewHolder method is used for get recycle view viewholder object
+     * Parameters - No parameter
+     **/
     public RecyclerView.ViewHolder getViewHolder() {
         return viewHolder;
     }
 
+    /**
+     * Responsibility - getViewHolder method is used for set recycle view viewholder object
+     * Parameters - Its takes RecyclerView.ViewHolder viewHolder object as parameter
+     **/
     public void setViewHolder(RecyclerView.ViewHolder viewHolder) {
         this.viewHolder = viewHolder;
     }
@@ -145,10 +163,18 @@ public class LangSupportViewModel extends AndroidViewModel {
         this.langPojos = langPojos;
     }
 
+    /**
+     * Responsibility - getSelectedLanguage method is used for get selected language
+     * Parameters - No parameter
+     **/
     public LangPojo getSelectedLanguage() {
         return selectedLanguage;
     }
 
+    /**
+     * Responsibility - setSelectedLanguage method is used for set selected language
+     * Parameters - Its takes LangPojo object that contains selected language
+     **/
     public void setSelectedLanguage(LangPojo selectedLanguage) {
         this.selectedLanguage = selectedLanguage;
     }

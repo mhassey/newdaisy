@@ -21,6 +21,9 @@ import com.daisy.utils.Constraint;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * BackgroundSoundService is use to play sound in background and disable sound customization
+ */
 public class BackgroundSoundService extends Service {
     private static final String TAG = null;
     private MediaPlayer player;

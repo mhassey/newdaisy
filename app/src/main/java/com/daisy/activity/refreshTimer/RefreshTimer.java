@@ -33,6 +33,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * Purpose -  RefreshTimer is an activity that help to take card update or set a timer for new update request
+ * Responsibility - Its takes update directly by direct update button or set timer for firing request
+ **/
 public class RefreshTimer extends BaseActivity implements OnClickListener {
 
     private ActivityRefreshTimerBinding mBinding;
@@ -52,8 +56,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
 
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
         context = this;
@@ -63,8 +68,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         mBinding.setTime.setOnClickListener(this::onClick);
         mBinding.directUpdate.setOnClickListener(this::onClick);
@@ -73,8 +79,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
 
 
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -85,8 +92,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -105,8 +113,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Set timer value
-     */
+     * Responsibility - setTimerValue method is used for set timer value if session contains some previous value then show that if not then set timer to one hour
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setTimerValue() {
         mBinding.timePicker.setIs24HourView(true);
@@ -121,8 +130,10 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Handle button clicks
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -143,8 +154,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Take direct update from server and handle response
-     */
+     * Responsibility - directUpdate method is an method that create an card request and call an api for direct update and pass response to handleRefreshTimeResponse method
+     * Parameters - No parameter
+     **/
     private void directUpdate() {
         if (Utils.getNetworkState(context)) {
 
@@ -171,9 +183,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * handle direct update response
-     */
-
+     * Responsibility -  handleRefreshTimeResponse contains response coming from directUpdate  method here we set some default values and  if new price card promotions comes then pass the urls to download class for downloading
+     * Parameters - No parameter
+     **/
     private void handleRefreshTimeResponse(GlobalResponse<GetCardResponse> response) {
         if (response.getResult() != null) {
             sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
@@ -242,8 +254,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Set path after take path and redirect to main
-     */
+     * Responsibility -  redirectToMain checks the file path  if any new price card is available set its path to config file and redirect pagr to MainActivity
+     * Parameters - No parameter
+     **/
     private void redirectToMain(GlobalResponse<GetCardResponse> response) {
         Utils.deleteDaisy();
         String UrlPath = response.getResult().getPricecard().getFileName();
@@ -284,8 +297,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Create card request
-     */
+     * Responsibility -  getCardRequest  method create a card request with device token and screen id
+     * Parameters - No parameter
+     **/
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
@@ -296,8 +310,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * Handle Timer click
-     */
+     * Responsibility -  setTimerClick  method calls when user click on set timer button its take hours and minutes and store it to  session
+     * Parameters - No parameter
+     **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setTimerClick() {
         int hour = mBinding.timePicker.getHour();

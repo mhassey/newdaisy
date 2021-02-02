@@ -15,10 +15,16 @@ import com.daisy.utils.Constraint;
 
 import java.util.HashMap;
 
+/**
+ * Purpose -  UpdatePositionViewModel is an class that makes connection between UpdatePosition activity  and UpdatePositionRepo
+ * Responsibility - Its take request from activity call UpdatePositionRepo updatePosition method get response and send to activity
+ **/
 public class UpdatePositionViewModel extends AndroidViewModel {
+
     private MutableLiveData<HashMap<String,String>> mutableLiveData=new MutableLiveData<>();
     private LiveData<GlobalResponse<UpdatePositionResponse>> liveData;
     private UpdatePositionRepo positionRepo=new UpdatePositionRepo();
+
     public UpdatePositionViewModel(@NonNull Application application) {
         super(application);
         liveData= Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<UpdatePositionResponse>>>() {

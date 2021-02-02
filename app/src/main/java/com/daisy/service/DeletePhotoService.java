@@ -8,6 +8,9 @@ import android.util.Log;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Utils;
 
+/**
+ * DeletePhotoService is an service that help to delete content in background
+ */
 public class DeletePhotoService extends Service {
     private SessionManager sessionManager;
 

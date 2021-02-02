@@ -1,5 +1,8 @@
 package com.daisy.apiService;
 
+/**
+ * This class contains all api names content type
+ **/
 public class ApiConstant {
 
     public static final String URL_PACK = "api";
@@ -19,7 +22,7 @@ public class ApiConstant {
     public static final String DELETE_CARD = URL_PACK + "/delete_cards";
     public static final String PROMOTION_CHECK = "validate_promotions";
     public static final String API = "api";
-    public static final String ADD_FEEDBACK = "/feedback";
+    public static final String ADD_FEEDBACK = URL_PACK+"/report_bug";
     public static final String CREATE_SCREEN_OS = URL_PACK+"/create_screen_os";
     public static final String UPDATE_PRODUCT = URL_PACK+"/update_screen_product";
 }

@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.daisy.common.session.SessionManager;
 
+/**
+ * Admin class is called by os whenever admin permission changed
+ */
 public class Admin extends DeviceAdminReceiver {
 
     void showToast(Context context, CharSequence msg) {

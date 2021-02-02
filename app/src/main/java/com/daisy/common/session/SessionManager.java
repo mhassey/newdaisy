@@ -907,6 +907,13 @@ public class SessionManager {
 
     }
 
+    public List<OsType> getOsType() {
+        Gson gson = new Gson();
+        String response = pref.getStringData(PrefConstant.OS_TYPE);
+        List<OsType> osTypes = gson.fromJson(response, new TypeToken<List<OsType>>() {
+        }.getType());
+        return osTypes;
+    }
     public boolean getBaseUrlAdded() {
         boolean b = pref.getBoolean(PrefConstant.BASE_URL_ENTER);
         return b;

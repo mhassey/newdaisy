@@ -15,6 +15,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose -  UpdateProductRepo is an class that help to call update screen api
+ * Responsibility - Its takes update screen request as parameter and call update product api and set response to mutable live data
+ **/
 public class UpdateProductRepo {
     private MutableLiveData<GlobalResponse> mutableLiveData = new MutableLiveData<>();
     private ApiService apiService;
@@ -23,6 +27,10 @@ public class UpdateProductRepo {
         apiService = AppRetrofit.getInstance().getApiService();
     }
 
+    /**
+     * Responsibility - updateScreen  method fire updateProduct api and set the response on mutable live data
+     * Parameters - Its takes HashMap<String, String> object as parameter
+     **/
     public LiveData<GlobalResponse> updateScreen(HashMap<String, String> input) {
         Call<GlobalResponse> responseCall = apiService.updateProduct(input, input.get(Constraint.TOKEN));
         responseCall.enqueue(new Callback<GlobalResponse>() {

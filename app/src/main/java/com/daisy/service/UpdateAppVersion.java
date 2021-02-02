@@ -20,6 +20,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * UpdateAppVersion is an class that check any update is available in background
+ */
 public class UpdateAppVersion {
     private SessionManager sessionManager;
 
@@ -33,7 +36,7 @@ public class UpdateAppVersion {
         }).start();
     }
 
-    // TODO Fire update app version api request
+    //  Fire update app version api request
     private void updateAppVersion() {
         sessionManager = SessionManager.get();
         ApiService apiService = AppRetrofit.getInstance().getApiService();
@@ -62,7 +65,7 @@ public class UpdateAppVersion {
 
     }
 
-    // TODO Create Update app version api request
+    //  Create Update app version api request
     private HashMap<String, String> createRequest() {
         if (sessionManager == null)
             sessionManager = SessionManager.get();

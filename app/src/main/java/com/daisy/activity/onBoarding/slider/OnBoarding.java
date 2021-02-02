@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -29,28 +27,24 @@ import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.activity.onBoarding.slider.deviceDetection.DeviceDetectionViewModel;
-import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectRequest;
-import com.daisy.activity.onBoarding.slider.deviceDetection.vo.DeviceDetectResponse;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddValidationHelper;
 import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddViewModel;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreen;
-import com.daisy.activity.onBoarding.slider.slides.deviceDetection.DeviceDetection;
 import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
 import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.adapter.SliderAdapter;
-import com.daisy.database.DBCaller;
-import com.daisy.security.Admin;
-import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
+import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.PermissionDone;
+import com.daisy.security.Admin;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -62,13 +56,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class OnBaording extends BaseActivity implements View.OnClickListener {
+/**
+ * Purpose -  OnBoarding is an activity that handle all onBoarding pages
+ * Responsibility - Its handle sign up and screen add  and card response
+ **/
+public class OnBoarding extends BaseActivity implements View.OnClickListener {
     private Context context;
     private List<Fragment> fragmentList = new ArrayList<>();
     private int count = 0;
     private SessionManager sessionManager;
     public ActivityOnBaordingBinding mBinding;
-    private DeviceDetectionViewModel deviceDetectionViewModel;
     private ScreenAddViewModel screenAddViewModel;
     private GetCardViewModel getCardViewModel;
 
@@ -80,7 +77,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         initClick();
     }
 
-    // TODO  Initiate clicks
+    /**
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
 
         mBinding.nextSlide.setOnClickListener(this);
@@ -88,23 +88,29 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
-    // TODO Initiate objects
+    /**
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = this;
         mBinding.rootView.setVisibility(View.VISIBLE);
         sessionManager = SessionManager.get();
-        //deviceDetectionViewModel=new ViewModelProvider(this).get(DeviceDetectionViewModel.class);
         screenAddViewModel = new ViewModelProvider(this).get(ScreenAddViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         setNoTitleBar(this);
         stopSwipe();
-        addFragementList();
+        addFragmentList();
         setPager();
         disableSwipeOnViewPager();
 
     }
 
-    // TODO setPager method is used for setup pager and its behaviour
+
+    /**
+     * Responsibility - setPager method is used for setup pager and its behaviour
+     * Parameters - No parameter
+     **/
     private void setPager() {
         mBinding.pager.setAdapter(new SliderAdapter(getSupportFragmentManager(), 1, fragmentList));
         mBinding.tabDotsLayout.setupWithViewPager(mBinding.pager);
@@ -129,9 +135,12 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
 
-    // TODO Disable swipe on view pager
+    /**
+     * Responsibility - Disable swipe on view pager
+     * Parameters - No parameter
+     **/
     private void disableSwipeOnViewPager() {
-        LinearLayout tabStrip = ((LinearLayout) mBinding.tabDotsLayout.getChildAt(0));
+        LinearLayout tabStrip = ((LinearLayout) mBinding.tabDotsLayout.getChildAt(Constraint.ZERO));
         for (int i = Constraint.ZERO; i < tabStrip.getChildCount(); i++) {
             tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -142,7 +151,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-
+    /**
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -152,7 +164,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
-    // TODO Handle system ui
+    /**
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -172,17 +187,23 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
 
-    // TODO Add all fragment to list that should display on view pager
-    private void addFragementList() {
+    /**
+     * Responsibility - Add all fragment to list that should display on view pager
+     * Parameters - No parameter
+     **/
+    private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
         fragmentList.add(SecurityAsk.getInstance(mBinding));
-        fragmentList.add(SignUp.getInstance(OnBaording.this));
-        fragmentList.add(AddScreen.getInstance(OnBaording.this));
+        fragmentList.add(SignUp.getInstance(OnBoarding.this));
+        fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
 
     }
 
-
+    /**
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -197,7 +218,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    // TODO getCardData method is used for sending card request and accessing response
+    /**
+     * Responsibility -getCardData method is used for sending card request and accessing response
+     * Parameters - No parameter
+     **/
     private void getCardData() {
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
@@ -221,7 +245,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    // TODO Handle card response
+    /**
+     * Responsibility -Handle card response if response is ok then set promotion ,pricing and promotion values and call redirectToMainHandler method
+     * Parameters - Its takes GlobalResponse<GetCardResponse> object as parameter
+     **/
     private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
@@ -238,7 +265,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    // TODO Create card request
+    /**
+     * Responsibility -getCardRequest method create card request
+     * Parameters - No parameter
+     **/
     private HashMap<String, String> getCardRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
@@ -246,7 +276,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         return hashMap;
     }
 
-    // TODO Handle Slide click
+    /**
+     * Responsibility -Handle Slide click
+     * Parameters - No parameter
+     **/
     public void nextSlideClickHandler() {
 
         count = count + Constraint.ONE;
@@ -319,7 +352,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    // TODO Handle screen add response
+    /**
+     * Responsibility - Handle screen add response and set value in session and call getCardData method
+     * Parameters - Its takes GlobalResponse<ScreenAddResponse> and AddScreen object as parameter
+     **/
     private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse, AddScreen addScreen) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
             DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
@@ -339,7 +375,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    // TODO Create add screen request
+    /**
+     * Responsibility - Create add screen request
+     * Parameters - Its takes AddScreen object as parameter
+     **/
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
@@ -361,7 +400,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
 
-    // TODO Increase counter of pager
+    /**
+     * Responsibility - Increase counter of pager
+     * Parameters - No parameter
+     **/
     public void counterPlus() {
         count = count + Constraint.ONE;
         if (count == Constraint.THREE) {
@@ -372,7 +414,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
-    // TODO Decrease counter of pager
+    /**
+     * Responsibility - Decrease counter of pager
+     * Parameters - No parameter
+     **/
     public void counterMinus() {
         count = count - Constraint.ONE;
         if (count == Constraint.THREE) {
@@ -383,7 +428,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
     }
 
-    // TODO Redirect to main and perform some mandatory task
+    /**
+     * Responsibility -  Its delete daisy data and check if new price card is available in response then add new file path and call redirectToMain method
+     * * Parameters -  Its takes GlobalResponse<GetCardResponse> object as parameter
+     **/
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
         Utils.deleteDaisy();
         String UrlPath;
@@ -444,12 +492,15 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
             ValidationHelper.showToast(context, getString(R.string.invalid_url));
         }
 
-        Intent intent = new Intent(OnBaording.this, EditorTool.class);
+        Intent intent = new Intent(OnBoarding.this, EditorTool.class);
         startActivity(intent);
         finish();
     }
 
-    // TODO redirectToMain method is used for call Main Activity
+    /**
+     * Responsibility - redirectToMain method is used for call Main Activity
+     * Parameters - No parameter
+     **/
     private void redirectToMain() {
         sessionManager.onBoarding(Constraint.TRUE);
         Intent intent = new Intent(this, MainActivity.class);
@@ -526,7 +577,10 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
     }
 
 
-
+    /**
+     * Responsibility - stopSwipe restrict the view pager to not swipe
+     * Parameters - No parameter
+     **/
     private void stopSwipe() {
 
         mBinding.pager.setOnTouchListener(new View.OnTouchListener() {
@@ -537,33 +591,6 @@ public class OnBaording extends BaseActivity implements View.OnClickListener {
 
         });
 
-    }
-
-
-    private void getDeviceZipFile() {
-        if (Utils.getNetworkState(context)) {
-            DeviceDetectRequest deviceDetectRequest = getDeviceRequest();
-            deviceDetectionViewModel.setDetectRequestMutableLiveData(deviceDetectRequest);
-            LiveData<DeviceDetectResponse> liveData = deviceDetectionViewModel.getResponseLiveData();
-            if (!liveData.hasActiveObservers()) {
-                liveData.observe(this, new Observer<DeviceDetectResponse>() {
-                    @Override
-                    public void onChanged(DeviceDetectResponse deviceDetectResponse) {
-                        handleDeviceDetectResponse(deviceDetectResponse);
-                    }
-                });
-            }
-        }
-    }
-
-    private void handleDeviceDetectResponse(DeviceDetectResponse deviceDetectResponse) {
-        // handleDetect
-    }
-
-    private DeviceDetectRequest getDeviceRequest() {
-        DeviceDetectRequest deviceDetectRequest = new DeviceDetectRequest();
-        deviceDetectRequest.setDeviceName(Utils.getDeviceName());
-        return deviceDetectRequest;
     }
 
 

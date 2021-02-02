@@ -23,6 +23,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ *  CheckCardAvailability works in background when ever service required to fire getCard api then service use CheckCardAvailability class
+ */
 public class CheckCardAvailability {
     private SessionManager sessionManager;
     private String callFrom = null;

@@ -25,6 +25,10 @@ import com.daisy.utils.ValidationHelper;
 import java.util.HashMap;
 import java.util.Locale;
 
+/**
+ * Purpose -  LockScreen is an activity that help to show when need to ask password in various conditions
+ * Responsibility - Its ask for password when user open play store ,settings ,browser and when we are going to uninstall the app
+ **/
 public class UpdatePosition extends BaseActivity implements View.OnClickListener {
 
     private ActivityUpdatePositionBinding mBinding;
@@ -44,8 +48,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         setNoTitleBar(this);
         context = this;
@@ -57,16 +62,18 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
     }
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         mBinding.updatePosition.setOnClickListener(this::onClick);
         mBinding.cancel.setOnClickListener(this::onClick);
     }
 
     /**
-     * Set some default values
-     */
+     * Responsibility - setDefaultValue is an method that used for set default value in all edittext
+     * Parameters - No parameter
+     **/
     private void setDefaultValue() {
         ScreenPosition screenPosition = sessionManager.getPosition();
         mBinding.isle.setText(screenPosition.getIsle());
@@ -75,8 +82,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
     }
 
     /**
-     * Handle Clicks listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -94,8 +102,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
     }
 
     /**
-     * Update position api hit
-     */
+     * Responsibility - updatePosition is an method that used for update position data on server
+     * Parameters - No parameter
+     **/
     private void updatePosition() {
         if (Utils.getNetworkState(context)) {
             HashMap<String, String> request = getRequest();
@@ -114,8 +123,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
     }
 
     /**
-     * Handle Update position response
-     */
+     * Responsibility - updatePosition is an method that used for handle response sanded by updatePosition method
+     * Parameters - No parameter
+     **/
     private void handleResponse(GlobalResponse<UpdatePositionResponse> updatePositionResponse) {
         showHideProgressDialog(false);
         if (updatePositionResponse != null) {
@@ -130,8 +140,9 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
     }
 
     /**
-     * Create update position request
-     */
+     * Responsibility - getRequest is an method that used for create update position request
+     * Parameters - No parameter
+     **/
     private HashMap<String, String> getRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.ISLE, mBinding.isle.getText().toString());

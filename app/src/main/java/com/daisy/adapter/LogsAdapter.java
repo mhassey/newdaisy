@@ -14,6 +14,9 @@ import com.daisy.pojo.Logs;
 
 import java.util.List;
 
+/**
+ * Its an adaptor that connect with logs list and what ever data it has show to user
+ **/
 public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.ViewHolder> {
 
     private List<Logs> list;

@@ -24,6 +24,10 @@ import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
 
+/**
+ * Purpose -  UpdateBaseUrl is an activity that help to change baseurl of app if we need to change server url just add our app will open with new baseurl
+ * Responsibility - Its ask for Url if its valid then change its to main server url and start welcome screen again
+ **/
 public class UpdateBaseUrl extends BaseActivity implements View.OnClickListener {
 
     private ActivityUpdateBaseUrlBinding mBinding;
@@ -40,23 +44,26 @@ public class UpdateBaseUrl extends BaseActivity implements View.OnClickListener 
 
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         context = this;
         sessionManager = SessionManager.get();
     }
 
     /**
-     * Button clicks initializing
-     */
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
     private void initClick() {
         mBinding.saveAndLoad.setOnClickListener(this);
     }
 
     /**
-     * Handle Clicks listener
-     */
+     * Responsibility - onClick is an predefine method that calls when any click perform
+     * Parameters - Its takes view that contains if from which we can know which item is clicked
+     **/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -68,8 +75,9 @@ public class UpdateBaseUrl extends BaseActivity implements View.OnClickListener 
     }
 
     /**
-     * Update base url
-     */
+     * Responsibility - updateBaseUrl method is used when user change server url its check that url is valid by firing general api
+     * Parameters - No parameter
+     **/
     private void updateBaseUrl() {
         String url = mBinding.baseUrl.getText().toString();
         if (url != null) {
@@ -106,8 +114,9 @@ public class UpdateBaseUrl extends BaseActivity implements View.OnClickListener 
     }
 
     /**
-     * Handle General response
-     */
+     * Responsibility - handleGeneralResponse method is called by updateBaseUrl method its check if response is correct then delete all session and redirect the screen to welcome screen
+     * Parameters - Its contains GlobalResponse<GeneralResponse> object
+     **/
     private void handleGeneralResponse(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
         showHideProgressDialog(false);
         if (generalResponseGlobalResponse != null) {

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
+
 public class SliderAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> fragmentList;
     public SliderAdapter(@NonNull FragmentManager fm, int behavior, List<Fragment> fragmentList) {

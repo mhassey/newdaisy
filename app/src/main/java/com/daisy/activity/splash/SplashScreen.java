@@ -20,6 +20,10 @@ import com.daisy.utils.Constraint;
 
 import java.util.Locale;
 
+/**
+ * Purpose - SplashScreen is an activity that show splash data
+ * Responsibility - Its use to hold screen to some second and show app logo
+ **/
 public class SplashScreen extends BaseActivity {
     private SessionManager sessionManager;
 
@@ -36,8 +40,9 @@ public class SplashScreen extends BaseActivity {
 
 
     /**
-     * Initial data setup
-     */
+     * Responsibility - initView method is used for initiate all object and perform some initial level task
+     * Parameters - No parameter
+     **/
     private void initView() {
         setNoTitleBar(this);
         handleSessionWork();
@@ -52,8 +57,9 @@ public class SplashScreen extends BaseActivity {
     }
 
     /**
-     * handle session work
-     */
+     * Responsibility - handleSessionWork method is used for perform some session work that will used in app
+     * Parameters - No parameter
+     **/
     private void handleSessionWork() {
         sessionManager=SessionManager.get();
         sessionManager.setUpdateNotShow(Constraint.FALSE);
@@ -62,8 +68,9 @@ public class SplashScreen extends BaseActivity {
     }
 
     /**
-     * Redirect to welcome or editor tool
-     */
+     * Responsibility - redirectToWelcome method is used to direct screen to Editor tool if onBoard is done id onBoarding is not done then redirect to WelcomeScreen
+     * Parameters - No parameter
+     **/
     private void redirectToWelcome() {
         if (sessionManager.getOnBoarding())
         {
@@ -78,8 +85,9 @@ public class SplashScreen extends BaseActivity {
     }
 
     /**
-     * Change system ui to full screen when any change perform in activity
-     */
+     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
+     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
+     **/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -91,8 +99,10 @@ public class SplashScreen extends BaseActivity {
 
 
     /**
-     * Handle full screen mode
-     */
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
+
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -105,6 +115,10 @@ public class SplashScreen extends BaseActivity {
 
     }
 
+    /**
+     * Responsibility - onBackPressed method is an override method that we use for stop back from splash screen
+     * Parameters - No parameter
+     **/
     @Override
     public void onBackPressed() {
 

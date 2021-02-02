@@ -15,7 +15,9 @@ import com.daisy.interfaces.LangSupportCallBack;
 import com.daisy.pojo.LangPojo;
 
 import java.util.List;
-
+/**
+ * Its an adaptor that connect with language list and what ever data it has show to user
+ **/
 public class LangSupportAdaptor extends RecyclerView.Adapter<LangSupportAdaptor.ViewHolder> {
     private LangSupportCallBack callBack;
     private List<LangPojo> langPojos;

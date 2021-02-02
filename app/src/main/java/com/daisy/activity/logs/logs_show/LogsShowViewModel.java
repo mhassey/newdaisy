@@ -16,7 +16,12 @@ import com.daisy.pojo.response.LogClearResponse;
 
 import java.util.List;
 
+/**
+ * Purpose -  LogsShowViewModel is an class that helps to connect view with repository
+ * Responsibility - Its helps to create LogsRepository object which help us to store log and return list of logs
+ **/
 public class LogsShowViewModel extends AndroidViewModel {
+
     private String type;
     private MutableLiveData<LogsRequest> logMutableLiveData = new MutableLiveData<>();
     private LiveData<List<Logs>> logResponse;
@@ -41,9 +46,11 @@ public class LogsShowViewModel extends AndroidViewModel {
         });
     }
 
+
     public String getType() {
         return type;
     }
+
 
     public void setType(String type) {
         this.type = type;

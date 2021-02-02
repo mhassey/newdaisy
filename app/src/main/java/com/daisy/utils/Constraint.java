@@ -127,6 +127,8 @@ public class Constraint {
     public static final String BACKGROUND_SERVICE = "Daisy Background Service";
     public static final String APP_IS_RUNNING_IN_BACKGROUND = "App is running in background";
     public static final String SERVICE_RUNNING_IN_BACKGROUND = "Service is running background";
+    public static final String TITLE = "title";
+    public static final String DESCRIPTION = "description";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
