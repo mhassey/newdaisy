@@ -472,7 +472,14 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
                 }
             } else {
+                Utils.deleteCardFolder();
+                sessionManager.deletePriceCard();
+                sessionManager.deletePromotions();
+                sessionManager.setPricing(null);
+                sessionManager.deleteLocation();
+
                 Utils.writeFile(configFilePath, UrlPath);
+
             }
 
             redirectToMain();
@@ -484,6 +491,8 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         startActivity(intent);
         finish();
     }
+
+
 
     /**
      * Responsibility -  redirectToMain method redirect screen to MainActivity

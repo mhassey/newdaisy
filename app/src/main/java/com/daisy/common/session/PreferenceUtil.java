@@ -120,4 +120,9 @@ public class PreferenceUtil {
     public void removePromotions() {
         mSpref.edit().remove(PrefConstant.PROMOTIONS).commit();
     }
+
+    public void removePriceCard() {
+        mSpref.edit().remove(PrefConstant.PRICE_CARD).commit();
+
+    }
 }

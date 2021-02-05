@@ -1213,4 +1213,8 @@ public class SessionManager {
     public String getDeviceSecurity() {
              return pref.getStringData(PrefConstant.DEVICE_SECUTIRY);
     }
+
+    public void deletePriceCard() {
+    pref.removePriceCard();
+    }
 }

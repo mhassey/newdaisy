@@ -37,7 +37,6 @@ public class FeedBackModelView extends AndroidViewModel {
 
     private void addFeedBackData(Application application) {
         feedbackTitle.add(application.getApplicationContext().getString(R.string.Bug));
-        feedbackTitle.add(application.getApplicationContext().getString(R.string.ISSUE));
         feedbackTitle.add(application.getApplicationContext().getString(R.string.SUGGESION));
         feedbackTitle.add(application.getApplicationContext().getString(R.string.OTHER));
 

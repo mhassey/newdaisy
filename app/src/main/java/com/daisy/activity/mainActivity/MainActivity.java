@@ -12,6 +12,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.hardware.SensorManager;
+import android.hardware.display.DisplayManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -19,9 +21,13 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.OrientationEventListener;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -37,6 +43,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -125,6 +132,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         setNoTitleBar(this);
         context = this;
+        handleScreenRotation();
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
@@ -134,6 +142,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         intentWork();
         sanitisedWork();
     }
+
 
 
     /**
@@ -359,6 +368,19 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             sessionManager.setPromotions(listOfPromo);
         new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
     }
+
+
+
+    /**
+     * Handle orientation to 180 degree
+     */
+    private void handleScreenRotation() {
+
+
+
+
+    }
+
 
 
     /**

@@ -947,6 +947,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 handleGyro(event);
                 break;
 
+
         }
 
 

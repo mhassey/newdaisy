@@ -90,7 +90,7 @@
     <string name="open">Open</string>
     <string name="data_store" translatable="false">Data store</string>
     <string name="login_success">Login success</string>
-    <string name="direct_apk_update">Apk Update</string>
+    <string name="direct_apk_update">Check version updates</string>
     <string name="screen_add">Screen add</string>
     <string name="position_update">Position updated</string>
     <string name="load_add_screen">Load add screen</string>
@@ -130,7 +130,7 @@
     <string name="access_locked">ACCESS LOCKED</string>
     <string name="unlock_with_arrow"><![CDATA[UNLOCK >]]></string>
     <string name="update_time">Update time</string>
-    <string name="app_version">APP VERSION :</string>
+    <string name="app_version">VERSION: </string>
     <string name="PERMISSION">PERMISSIONS</string>
     <string name="settings_cap">SETTINGS</string>
     <string name="logout">Logout</string>
@@ -138,12 +138,12 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="submit">Submit</string>
-    <string name="feedback">FeedBack</string>
+    <string name="feedback">Feedback</string>
     <string name="Bug">BUG</string>
     <string name="ISSUE">ISSUE</string>
-    <string name="SUGGESION">SUGGESION</string>
+    <string name="SUGGESION">SUGGESTION</string>
     <string name="OTHER">OTHER</string>
-    <string name="all_field_are_mendetory">All field are mendetory</string>
+    <string name="all_field_are_mendetory">All fields are mandatory</string>
     <string name="launchotherApp">Launch Other App</string>
     <string name="screen_touched">Screen touched</string>
     <string name="package_not_available">There is no package available in android</string>
@@ -198,6 +198,6 @@
     <string name="turkish">Turkish</string>
     <string name="ukrainian">Ukrainian</string>
     <string name="alramHeader">Enable Silent Alarm</string>
-    <string name="last_update_time">Last update time :</string>
+    <string name="last_update_time">Last updated: </string>
     <string name="empty_password">Please enter the password to access the configuration settings</string>
 </resources>

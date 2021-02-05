@@ -99,7 +99,7 @@ public class Utils {
             String appFile = appInfo.sourceDir;
             updateTimeInMilliseconds = new File(appFile).lastModified();
 
-            updateDateString  = getDate(updateTimeInMilliseconds, "dd-MMM-yyyy hh:mm:ss");
+            updateDateString  = getDate(updateTimeInMilliseconds, "dd MMMM,yyyy | hh:mm:ss");
 
         }
         catch (PackageManager.NameNotFoundException e) {
