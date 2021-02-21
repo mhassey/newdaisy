@@ -104,6 +104,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             mBinding.sanitisedHeader.setVisibility(View.GONE);
 
         }
+
         if (sessionManager.getSanitized()) {
             mBinding.sanitisedMain.setChecked(Constraint.TRUE);
         } else {

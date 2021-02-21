@@ -40,6 +40,7 @@ public class FeedBackModelView extends AndroidViewModel {
         feedbackTitle.add(application.getApplicationContext().getString(R.string.SUGGESION));
         feedbackTitle.add(application.getApplicationContext().getString(R.string.OTHER));
 
+
     }
 
     public ArrayList<String> getFeedbackTitle() {

@@ -12,8 +12,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.hardware.SensorManager;
-import android.hardware.display.DisplayManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -21,13 +19,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.OrientationEventListener;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,7 +36,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -82,6 +74,7 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
 import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
+import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -111,6 +104,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private MainActivityViewModel mViewModel;
     private Context context;
     private WebViewClient yourWebClient;
+    private CountDownTimer sanitisedTimer;
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -144,7 +138,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-
     /**
      * Check for permission
      */
@@ -162,25 +155,38 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Add sanitised cown down
      */
     private void setCownDownForSenitised() {
-        new CountDownTimer(Constraint.THIRTY_THOUSAND, Constraint.THOUSAND) {
+        SanitisedSingletonObject sanitisedSingletonObject = SanitisedSingletonObject.getInstance();
+        CountDownTimer countDownTimer = sanitisedSingletonObject.getSanitisedCoundownTimer();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer.start();
 
-            public void onTick(long millisUntilFinished) {
-            }
+        }
+        else {
+            countDownTimer = new CountDownTimer(Constraint.THIRTY_THOUSAND, Constraint.THOUSAND) {
 
-            public void onFinish() {
-                try {
-                    sessionManager.setSanitized(true);
-                    mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
-                    Glide.with(MainActivity.this)
-                            .load(R.drawable.ani)
-                            .into(mBinding.senaitised);
-                } catch (Exception e) {
+                public void onTick(long millisUntilFinished) {
+
 
                 }
-            }
 
-        }.start();
-    }
+                public void onFinish() {
+                    try {
+                        sessionManager.setSanitized(true);
+                        mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
+                        Glide.with(MainActivity.this)
+                                .load(R.drawable.ani)
+                                .into(mBinding.senaitised);
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            };
+            sanitisedSingletonObject.setCOunter(countDownTimer);
+            countDownTimer.start();
+        }
+        }
 
 
     /**
@@ -264,7 +270,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private void handleResumeWork() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
             if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             }
         }
         if (sessionManager.getSanitized()) {
@@ -370,17 +376,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-
     /**
      * Handle orientation to 180 degree
      */
     private void handleScreenRotation() {
 
 
-
-
     }
-
 
 
     /**
@@ -1375,6 +1377,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1418,12 +1421,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             public void onClick(DialogInterface dialog, int which) {
                 String passwordString = password.getText().toString();
                 String lockPassword = sessionManager.getPasswordLock();
-                if (passwordString.equals(""))
-                {
+                if (passwordString.equals("")) {
                     ValidationHelper.showToast(context, getString(R.string.empty_password));
 
-                }
-                else if (passwordString.equals(lockPassword)) {
+                } else if (passwordString.equals(lockPassword)) {
                     dialog.dismiss();
                     Intent intent = new Intent(MainActivity.this, ConfigSettings.class);
                     startActivity(intent);

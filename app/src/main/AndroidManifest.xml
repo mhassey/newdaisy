@@ -149,8 +149,9 @@
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".activity.mainActivity.MainActivity"
-            android:screenOrientation="portrait"
             android:showOnLockScreen="true" />
 
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />

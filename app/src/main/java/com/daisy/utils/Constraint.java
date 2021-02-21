@@ -25,7 +25,9 @@ public class Constraint {
     public static final int THIRTY_SIX_HUNDRED = 3600;
     public static final int FIVE_HUNDRED = 500;
     public static final int FOUR = 4;
-    public static final int FIVE_INE = 5;
+  // need to change
+      public static final int FIVE_INE_REAL = 5;
+    public static final int FIVE_INE = 0;
     public static final String PACKAGE_INSTALLER = "com.google.android.packageinstaller";
     public static final String LOCK_SCREEN = "LockScreen";
     public static final String MAIN_ACTIVITY = "MainActivity";
@@ -129,6 +131,7 @@ public class Constraint {
     public static final String SERVICE_RUNNING_IN_BACKGROUND = "Service is running background";
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
+    public static final String USER_SEEN_PRICECARD__ = "User seen price card";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

@@ -504,7 +504,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Check for apk update availability
     public static void updateAPk() {
         try {
-            int hour = Constraint.FIVE_INE;
+            int hour = Constraint.FIVE_INE_REAL;
             int minit = Constraint.ONE;
 
 
@@ -1030,6 +1030,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Face detection event
     @Override
     public void onFaceDetected() {
+
+            DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__,  "", "", Constraint.PRICECARD_LOG);
         if (sessionManager == null) {
             sessionManager = SessionManager.get();
         }
