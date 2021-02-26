@@ -12,7 +12,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "2.9"
+        versionName "2.95"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,13 +22,13 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://p7.mobilepricecards.com/"'
         }
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://p7.mobilepricecards.com/"'
         }
     }
 

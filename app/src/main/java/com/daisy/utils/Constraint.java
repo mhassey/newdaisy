@@ -131,7 +131,7 @@ public class Constraint {
     public static final String SERVICE_RUNNING_IN_BACKGROUND = "Service is running background";
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
-    public static final String USER_SEEN_PRICECARD__ = "User seen price card";
+    public static final String USER_SEEN_PRICECARD__ = "Face detected";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -315,4 +315,5 @@ public class Constraint {
     public static String currentFrameName="currentFrameName";
     public static String click="click";
     public static String Impression="Impression";
+    public static String price="price";
 }

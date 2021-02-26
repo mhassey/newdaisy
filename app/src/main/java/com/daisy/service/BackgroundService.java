@@ -1031,8 +1031,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public void onFaceDetected() {
 
-            DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__,  "", "", Constraint.PRICECARD_LOG);
-        if (sessionManager == null) {
+      if (sessionManager == null) {
             sessionManager = SessionManager.get();
         }
         sessionManager.setFaceDetectedStore(true);

@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -1305,16 +1306,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
+            Log.e("Cjeclomg",cmd+"--"+msg);
             if (cmd.equals(Constraint.adFrameUrl)) {
 
                 maintainPromotionShowWithUrl(msg);
-            } else if (cmd.equals(Constraint.currentFrameName)) {
+            } else if (msg.contains(Constraint.price)) {
 
-                //storePriceCardOrPromotionLoad(msg);
+                storePriceCardIfFaceDetected(msg);
             } else if (cmd.equals(Constraint.click)) {
 
                 storeClickOnPromotionOrPriceCard(msg);
             }
+
         }
 
         @JavascriptInterface
@@ -1331,6 +1334,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @JavascriptInterface
         public void callFromJS(String event) {
         }
+    }
+
+    private void storePriceCardIfFaceDetected(String msg) {
+        if (sessionManager.getUserFaceDetectionEnable()) {
+            DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
+        }
+
     }
 
     private void storeClickOnPromotionOrPriceCard(String msg) {
@@ -1369,6 +1379,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         try {
             String promotionPath = msg.split("\\?")[0];
             int id = Utils.searchPromotionUsingPath(promotionPath);
+
             if (id != Constraint.ZERO) {
                 if (sessionManager == null) {
                     sessionManager = SessionManager.get();
@@ -1377,6 +1388,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
                 }
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
