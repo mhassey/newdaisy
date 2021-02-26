@@ -491,7 +491,8 @@ public class BackgroundService extends Service implements View.OnTouchListener, 
             int minit = Constraint.ONE;
 
 
-            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+           // int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+            int second=36000;
             refreshTimer2 = new Timer();
             refreshTimer2.scheduleAtFixedRate(new TimerTask() {
                 @Override

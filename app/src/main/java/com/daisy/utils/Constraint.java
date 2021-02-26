@@ -21,6 +21,7 @@ public class Constraint {
     public static final String WEAK_UP_TAG = "wake_up_tag";
     public static final int THIRTY_INT = 30;
     public static final int THIRTY_SIX_HUNDRED = 3600;
+
     public static final int FIVE_HUNDRED = 500;
     public static final int FOUR = 4;
     public static final int FIVE_INE = 5;
