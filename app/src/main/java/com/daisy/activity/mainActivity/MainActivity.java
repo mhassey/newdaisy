@@ -730,11 +730,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
 
 
-                    if (!SessionManager.get().isNewApk()) {
-                        CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
-                        checkCardAvailability.checkCard();
-                        SessionManager.get().setNewApk(true);
-                    }
+//                    if (!SessionManager.get().isNewApk()) {
+//                        CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
+//                        checkCardAvailability.checkCard();
+//                        SessionManager.get().setNewApk(true);
+//                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
