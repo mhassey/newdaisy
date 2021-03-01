@@ -73,10 +73,17 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
         sessionManager = SessionManager.get();
         Constraint.IS_OVER_APP_SETTING = true;
         handleBandleData();
-        String path = Utils.getPath();
-        if (path != null) {
-            mBinding.baseUrl.setText(path);
-        }
+            try {
+                String path = Utils.getPath();
+
+                if (path != null) {
+                    mBinding.baseUrl.setText(path);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
     }
 
     private void startServices() {
