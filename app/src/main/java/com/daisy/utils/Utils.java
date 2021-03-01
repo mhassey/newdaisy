@@ -311,6 +311,7 @@ public class Utils {
                 return url;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
         return null;
