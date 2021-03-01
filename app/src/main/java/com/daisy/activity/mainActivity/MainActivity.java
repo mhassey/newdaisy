@@ -52,6 +52,7 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.deleteCard.DeleteCardViewModel;
 import com.daisy.activity.editorTool.EditorTool;
+import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
@@ -728,6 +729,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
                     }
 
+
+                    if (!SessionManager.get().isNewApk()) {
+                        CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
+                        checkCardAvailability.checkCard();
+                        SessionManager.get().setNewApk(true);
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -736,6 +744,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
         };
+
         mBinding.webView.setWebViewClient(yourWebClient);
 
     }

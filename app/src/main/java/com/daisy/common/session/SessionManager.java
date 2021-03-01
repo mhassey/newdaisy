@@ -1217,4 +1217,12 @@ public class SessionManager {
     public void deletePriceCard() {
     pref.removePriceCard();
     }
+
+    public boolean isNewApk() {
+       return pref.getBoolean(Constraint.NEWAPK);
+    }
+
+    public void setNewApk(boolean b) {
+        pref.setBooleanData(Constraint.NEWAPK,b);
+    }
 }

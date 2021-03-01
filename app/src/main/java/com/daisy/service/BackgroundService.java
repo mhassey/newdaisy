@@ -478,8 +478,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        int hour = Constraint.FIVE_INE;
+        //int hour = Constraint.FIVE_INE;
+        //int minit = Constraint.TWO;
+        int hour = 0;
         int minit = Constraint.TWO;
+
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
