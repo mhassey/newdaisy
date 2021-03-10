@@ -60,7 +60,7 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
      **/
     @Override
     protected String doInBackground(String... f_url) {
-      performDoInBackGroundTask(f_url);
+        performDoInBackGroundTask(f_url);
         return context.getString(R.string.something_went_wrong);
     }
 
@@ -84,6 +84,14 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
             }
             fileName = Constraint.DAISYAPK;
             String path = folder + fileName;
+            try {
+                File file = new File(path);
+                if (file.exists()) {
+                    file.delete();
+                }
+            } catch (Exception e) {
+
+            }
 
             OutputStream output = new FileOutputStream(path);
 
@@ -115,7 +123,6 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
     protected void onProgressUpdate(String... progress) {
         progressDialog.setProgress(Integer.parseInt(progress[0]));
     }
-
 
 
     /**

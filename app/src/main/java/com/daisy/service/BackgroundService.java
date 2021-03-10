@@ -478,10 +478,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        //int hour = Constraint.FIVE_INE;
-        //int minit = Constraint.TWO;
-        int hour = Constraint.ONE;
-        int minit = Constraint.ONE;
+        int hour = Constraint.FIVE_INE;
+        int minit = Constraint.TWO;
+
 
         if (time != null) {
             hour = time.getHour();
@@ -507,7 +506,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Check for apk update availability
     public static void updateAPk() {
         try {
+            //int hour = Constraint.FIVE_INE_REAL;
             int hour = Constraint.FIVE_INE_REAL;
+
             int minit = Constraint.ONE;
 
 
