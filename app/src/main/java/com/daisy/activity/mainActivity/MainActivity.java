@@ -739,10 +739,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
 
 
-                    if (!SessionManager.get().isNewApk()) {
-                        handlePriceCardGettingHandler();
-                           SessionManager.get().setNewApk(true);
-                    }
+
+//                    if (!SessionManager.get().isNewApk()) {
+//                        handlePriceCardGettingHandler();
+//                           SessionManager.get().setNewApk(true);
+//                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();

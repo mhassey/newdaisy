@@ -443,7 +443,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                 }
             }
-        }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+      //  }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+        }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
 
     }
 
@@ -478,7 +479,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        int hour = Constraint.FIVE_INE;
+        //int hour = Constraint.FIVE_INE;
+        int hour = 0;
+
         int minit = Constraint.TWO;
 
 
