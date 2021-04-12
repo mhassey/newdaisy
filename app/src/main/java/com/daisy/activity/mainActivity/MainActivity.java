@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -172,8 +173,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             countDownTimer.cancel();
             countDownTimer.start();
 
-        }
-        else {
+        } else {
             countDownTimer = new CountDownTimer(Constraint.THIRTY_THOUSAND, Constraint.THOUSAND) {
 
                 public void onTick(long millisUntilFinished) {
@@ -197,7 +197,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             sanitisedSingletonObject.setCOunter(countDownTimer);
             countDownTimer.start();
         }
-        }
+    }
 
 
     /**
@@ -503,31 +503,58 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     private void installApk() {
         try {
-            String PATH = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
-            File file = new File(PATH);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
-                Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
-                intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
-                List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                for (ResolveInfo resolveInfo : resInfoList) {
-                    getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                String PATH = Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
+                File file = new File(getExternalFilesDir(""), PATH);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
+                    Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
+                    intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+                } else {
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
+                    intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
                 }
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(intent);
             } else {
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-                intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                String PATH = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
+                File file = new File(PATH);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
+                    Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
+                    intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+                } else {
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
+                    intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
+                }
+                startActivity(intent);
             }
-            startActivity(intent);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -703,8 +730,51 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         yourWebClient = new WebViewClient() {
 
             @Override
+            public void onFormResubmission(WebView view, Message dontResend, Message resend) {
+                JSONObject jsonArray = pricingUpdateStart();
+                if (jsonArray != null) {
+                    if (jsonArray.length() > 0) {
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                    }
+                }
+                super.onFormResubmission(view, dontResend, resend);
+
+
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                 JSONObject jsonArray = pricingUpdateStart();
+                if (jsonArray != null) {
+                    if (jsonArray.length() > 0) {
+
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                        mViewModel.setExceptionInHtml(false);
+
+                    }
+                }
+                super.onLoadResource(view, url);
+
+            }
+
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
+                 JSONObject jsonArray = pricingUpdateStart();
+                if (jsonArray != null) {
+                    if (jsonArray.length() > 0) {
+
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                        mViewModel.setExceptionInHtml(false);
+
+                    }
+                }
+                super.onPageCommitVisible(view, url);
+
+            }
+
+            @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
+
                 JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray != null) {
                     if (jsonArray.length() > 0) {
@@ -714,6 +784,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                     }
                 }
+                super.onPageStarted(view, url, favicon);
+
 
 
             }
@@ -737,7 +809,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     } else {
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
                     }
-
 
 
 //                    if (!SessionManager.get().isNewApk()) {
@@ -879,7 +950,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      **/
     private HashMap<String, String> getUpdateScreenRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put(Constraint.ID_PRODUCT_STATIC,SessionManager.get().getPriceCard().getIdproductStatic());
+        hashMap.put(Constraint.ID_PRODUCT_STATIC, SessionManager.get().getPriceCard().getIdproductStatic());
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
     }
@@ -891,7 +962,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      **/
     private void handleScreenAddResponse(GlobalResponse screenAddResponseGlobalResponse) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-                   getCardData();
+            getCardData();
         } else {
             ValidationHelper.showToast(context, screenAddResponseGlobalResponse.getMessage());
         }
@@ -1104,6 +1175,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
         if (pro.size() > 0) {
             mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle([" + Utils.stringify(pro) + "])");
+        } else {
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle()");
+
         }
     }
 
@@ -1507,7 +1581,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
-            Log.e("Cjeclomg",cmd+"--"+msg);
+            Log.e("Cjeclomg", cmd + "--" + msg);
             if (cmd.equals(Constraint.adFrameUrl)) {
 
                 maintainPromotionShowWithUrl(msg);

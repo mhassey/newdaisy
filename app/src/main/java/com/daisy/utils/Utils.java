@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
+import com.daisy.app.AppController;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.LogsDataPojo;
@@ -87,7 +88,7 @@ public class Utils {
     // get last update date
     public static String getLastUpdateDate(Activity activity) {
 
-        PackageManager packageManager =  activity.getPackageManager();
+        PackageManager packageManager = activity.getPackageManager();
         long updateTimeInMilliseconds; // install time is conveniently provided in milliseconds
 
         Date updateDate = null;
@@ -99,10 +100,9 @@ public class Utils {
             String appFile = appInfo.sourceDir;
             updateTimeInMilliseconds = new File(appFile).lastModified();
 
-            updateDateString  = getDate(updateTimeInMilliseconds, "dd MMMM,yyyy | hh:mm:ss");
+            updateDateString = getDate(updateTimeInMilliseconds, "dd MMMM,yyyy | hh:mm:ss");
 
-        }
-        catch (PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             // an error occurred, so display the Unix epoch
             updateDate = new Date(0);
             updateDateString = updateDate.toString();
@@ -111,8 +111,7 @@ public class Utils {
         return updateDateString;
     }
 
-    public static String getDate(long milliSeconds, String dateFormat)
-    {
+    public static String getDate(long milliSeconds, String dateFormat) {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 
@@ -121,6 +120,7 @@ public class Utils {
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
+
     public static String stringify(ArrayList listOfStrings) {
         String result;
         if (listOfStrings.isEmpty()) {
@@ -199,7 +199,7 @@ public class Utils {
             sessionManager.setTimeInterval(CF + "");
             int LT = dateTimeInUTC + CF;
 
-            Log.e("Working",LT+"--");
+            Log.e("Working", LT + "--");
             if (LT >= openTime && LT < closeTime) {
                 return false;
             }
@@ -296,19 +296,52 @@ public class Utils {
 
     public static String getPath() {
         try {
-            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
 
-            File file1 = new File(configFilePath, Constraint.configFile);
-            if (file1.exists()) {
-                Scanner input = null;
-                try {
-                    input = new Scanner(file1);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                File file1;
+
+                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                    file1 = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath + Constraint.configFile);
+                } else {
+                    file1 = new File(configFilePath, Constraint.configFile);
+
+
                 }
 
-                String url = input.next();
-                return url;
+                if (file1.exists()) {
+                    Scanner input = null;
+                    try {
+                        input = new Scanner(file1);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    String url = input.next();
+                    return url;
+                }
+            } else {
+                try {
+                    String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+
+                    File file1 = new File(configFilePath, Constraint.configFile);
+                    if (file1.exists()) {
+                        Scanner input = null;
+                        try {
+                            input = new Scanner(file1);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        String url = input.next();
+                        return url;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                return null;
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -570,7 +603,14 @@ public class Utils {
     }
 
     public static void writeFile(String configFilePath, String message) throws IOException {
-        File gpxfile = new File(configFilePath, Constraint.configFile);
+        File gpxfile;
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            gpxfile = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath + Constraint.configFile);
+        } else {
+            gpxfile = new File(configFilePath, Constraint.configFile);
+
+        }
+
         FileWriter writer = new FileWriter(gpxfile);
         writer.append(message);
         writer.flush();
@@ -744,7 +784,11 @@ public class Utils {
     }
 
     public static void deleteCardFolder() {
-        File dir = new File(Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
+        File dir;
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            dir = new File(AppController.getInstance().getExternalFilesDir(""), Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
+        } else
+            dir = new File(Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
         if (dir.isDirectory()) {
             try {
                 FileUtils.deleteDirectory(dir);
@@ -776,12 +820,10 @@ public class Utils {
 
     public static void deleteCallList(Context context) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-                return;
+            return;
         }
         context.getContentResolver().delete(CallLog.Calls.CONTENT_URI, null, null);
     }
-
-
 
 
     private static String getGalleryPath() {
@@ -824,15 +866,28 @@ public class Utils {
     }
 
     public static void deleteDaisy() {
-        String path = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY;
-        File dir = new File(path);
-        if (dir.isDirectory()) {
-            try {
-                FileUtils.deleteDirectory(dir);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            String path = Constraint.SLASH + Constraint.DAISY;
+            File dir = new File(AppController.getInstance().getExternalFilesDir(""), path);
+            if (dir.isDirectory()) {
+                try {
+                    FileUtils.deleteDirectory(dir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+            }
+        } else {
+            String path = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY;
+            File dir = new File(path);
+            if (dir.isDirectory()) {
+                try {
+                    FileUtils.deleteDirectory(dir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     }
 

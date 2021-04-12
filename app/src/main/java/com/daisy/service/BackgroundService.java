@@ -323,9 +323,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
     private void validatePromotion() {
         try {
-            int hour = Constraint.ONE;
-            int minit = Constraint.THIRTY_INT;
-
+            //          int hour = Constraint.ONE;
+            //        int minit = Constraint.THIRTY_INT;
+            int hour = 4;
+            int minit = 0;
 
             int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer4 = new Timer();
@@ -431,6 +432,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Send logs
     private void sendLogTimer() {
         Timer logsSync = new Timer();
+        int second = ((10 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
+
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -443,8 +446,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                 }
             }
-      //  }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
-        }, Constraint.TEN_MINUTES, Constraint.TEN_MINUTES);
+            //  }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
+        }, second, second);
 
     }
 
@@ -479,10 +482,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        //int hour = Constraint.FIVE_INE;
-        int hour = 0;
+        int hour = Constraint.FIVE_INE_REAL;
+//        int hour = 0;
 
-        int minit = Constraint.TWO;
+        int minit = Constraint.ONE;
 
 
         if (time != null) {
@@ -510,7 +513,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public static void updateAPk() {
         try {
             //int hour = Constraint.FIVE_INE_REAL;
-            int hour = Constraint.FIVE_INE_REAL;
+            int hour = Constraint.FOUR;
 
             int minit = Constraint.ONE;
 
@@ -590,7 +593,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             @Override
             public void run() {
                 if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
-                    startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+
+
+                    } else {
+                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+                    }
 
                 }
             }
@@ -1038,7 +1046,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public void onFaceDetected() {
 
-      if (sessionManager == null) {
+        if (sessionManager == null) {
             sessionManager = SessionManager.get();
         }
         sessionManager.setFaceDetectedStore(true);

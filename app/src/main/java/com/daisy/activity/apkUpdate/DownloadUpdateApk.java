@@ -70,20 +70,66 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
      **/
     private void performDoInBackGroundTask(String... f_url) {
         int count;
-        try {
-            URL url = new URL(f_url[Constraint.ZERO]);
-            URLConnection connection = url.openConnection();
-            connection.connect();
-            int lengthOfFile = connection.getContentLength();
-            InputStream input = new BufferedInputStream(url.openStream(), Constraint.FILE_SIZE);
-            folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-            File directory = new File(folder);
 
-            if (!directory.exists()) {
-                directory.mkdirs();
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            try {
+                URL url = new URL(f_url[Constraint.ZERO]);
+                URLConnection connection = url.openConnection();
+                connection.connect();
+                int lengthOfFile = connection.getContentLength();
+                InputStream input = new BufferedInputStream(url.openStream(), Constraint.FILE_SIZE);
+                folder = Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(context.getExternalFilesDir(""), folder);
+
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                fileName = Constraint.DAISYAPK;
+                String path = context.getExternalFilesDir("") +"/"+ folder + fileName;
+            try {
+                File file = new File(context.getExternalFilesDir(""),path);
+                if (file.exists()) {
+                    file.delete();
+                }
+            } catch (Exception e) {
+
             }
-            fileName = Constraint.DAISYAPK;
-            String path = folder + fileName;
+
+                OutputStream output = new FileOutputStream(path);
+
+                byte data[] = new byte[Constraint.ONE_THOUSAND_TWENTY_FOUR];
+
+                long total = Constraint.ZERO;
+
+                while ((count = input.read(data)) != Constraint.MINUS_ONE) {
+                    total += count;
+                    publishProgress("" + (int) ((total * Constraint.HUNDERD) / lengthOfFile));
+                    output.write(data, Constraint.ZERO, count);
+                }
+
+                output.flush();
+                output.close();
+                input.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                URL url = new URL(f_url[Constraint.ZERO]);
+                URLConnection connection = url.openConnection();
+                connection.connect();
+                int lengthOfFile = connection.getContentLength();
+                InputStream input = new BufferedInputStream(url.openStream(), Constraint.FILE_SIZE);
+                folder = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(folder);
+
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                fileName = Constraint.DAISYAPK;
+                String path = folder + fileName;
 //            try {
 //                File file = new File(path);
 //                if (file.exists()) {
@@ -93,27 +139,27 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
 //
 //            }
 
-            OutputStream output = new FileOutputStream(path);
+                OutputStream output = new FileOutputStream(path);
 
-            byte data[] = new byte[Constraint.ONE_THOUSAND_TWENTY_FOUR];
+                byte data[] = new byte[Constraint.ONE_THOUSAND_TWENTY_FOUR];
 
-            long total = Constraint.ZERO;
+                long total = Constraint.ZERO;
 
-            while ((count = input.read(data)) != Constraint.MINUS_ONE) {
-                total += count;
-                publishProgress("" + (int) ((total * Constraint.HUNDERD) / lengthOfFile));
-                output.write(data, Constraint.ZERO, count);
+                while ((count = input.read(data)) != Constraint.MINUS_ONE) {
+                    total += count;
+                    publishProgress("" + (int) ((total * Constraint.HUNDERD) / lengthOfFile));
+                    output.write(data, Constraint.ZERO, count);
+                }
+
+                output.flush();
+                output.close();
+                input.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            output.flush();
-            output.close();
-            input.close();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
     }
 
     /**

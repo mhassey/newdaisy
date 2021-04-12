@@ -73,7 +73,7 @@ public class Constraint {
     public static final String PORTUGUESE = "PORTUGUESE";
     public static final String RU = "ru";
     public static final String RUSSIAN = "RUSSIAN";
-    public static final String SV = "sv";
+    public static final String SV = "sv ";
     public static final String SWEDISH = "SWEDISH";
     public static final String TR = "tr";
     public static final String TURKISH = "TURKISH";
@@ -210,8 +210,12 @@ public class Constraint {
     public static final int RETURN = 11;
    public static final int BATTRY_OPTIMIZATION_CODE = 232;
     public static final long FIVE = 5;
-    public static final long TEN_MINUTES = 1000*60;
+    public static final long TEN_MINUTES = 10000*60;
+    public static final long TEN_HOURS = 10000*60;
+
     public static final long TWO_HOUR=20000*60;
+    public static final long ONE_DAY = 10000*60;
+
     //public static final long TWO_HOUR=120000*60;
 
     public static final String SETTING_PATH = "com.android.settings";

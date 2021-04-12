@@ -5,6 +5,7 @@ import android.os.Environment;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
+import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.PriceCard;
@@ -24,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- *  CheckCardAvailability works in background when ever service required to fire getCard api then service use CheckCardAvailability class
+ * CheckCardAvailability works in background when ever service required to fire getCard api then service use CheckCardAvailability class
  */
 public class CheckCardAvailability {
     private SessionManager sessionManager;
@@ -142,34 +143,68 @@ public class CheckCardAvailability {
      * Redirect to main activity
      */
     private void redirectToMain(GlobalResponse<GetCardResponse> response) {
-        Utils.deleteDaisy();
-        String UrlPath = response.getResult().getPricecard().getFileName();
-        if (response.getResult().getPricecard().getFileName() != null) {
-            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-            File directory = new File(configFilePath);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            String UrlPath = response.getResult().getPricecard().getFileName();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath =Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
 
-            String path = Utils.getPath();
-            if (path != null) {
-                if (!path.equals(UrlPath)) {
-                    Utils.deleteCardFolder();
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        try {
+                            Utils.writeFile(configFilePath, UrlPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        sessionManager.deleteLocation();
+                        EventBus.getDefault().post(new PriceCard());
+                    }
+                } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);
+                        sessionManager.deleteLocation();
+                        EventBus.getDefault().post(new PriceCard());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    sessionManager.deleteLocation();
-                    EventBus.getDefault().post(new PriceCard());
                 }
-            } else {
-                try {
-                    Utils.writeFile(configFilePath, UrlPath);
-                    sessionManager.deleteLocation();
-                    EventBus.getDefault().post(new PriceCard());
-                } catch (IOException e) {
-                    e.printStackTrace();
+            }
+        } else {
+
+            Utils.deleteDaisy();
+            String UrlPath = response.getResult().getPricecard().getFileName();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        try {
+                            Utils.writeFile(configFilePath, UrlPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        sessionManager.deleteLocation();
+                        EventBus.getDefault().post(new PriceCard());
+                    }
+                } else {
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                        sessionManager.deleteLocation();
+                        EventBus.getDefault().post(new PriceCard());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

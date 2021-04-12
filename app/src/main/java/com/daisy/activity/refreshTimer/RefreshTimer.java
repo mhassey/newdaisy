@@ -20,6 +20,7 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
+import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityRefreshTimerBinding;
 import com.daisy.pojo.response.GlobalResponse;
@@ -263,41 +264,81 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
      * Parameters - No parameter
      **/
     private void redirectToMain(GlobalResponse<GetCardResponse> response) {
-        Utils.deleteDaisy();
-        String UrlPath = response.getResult().getPricecard().getFileName();
-        if (response.getResult().getPricecard().getFileName() != null) {
-            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-            File directory = new File(configFilePath);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            String UrlPath = response.getResult().getPricecard().getFileName();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(getExternalFilesDir(""),configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
 
-            String path = Utils.getPath();
-            if (path != null) {
-                if (!path.equals(UrlPath)) {
-                    Utils.deleteCardFolder();
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        try {
+                            Utils.writeFile(configFilePath, UrlPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        sessionManager.deleteLocation();
+
+                    }
+                } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    sessionManager.deleteLocation();
+                }
 
-                }
-            } else {
-                try {
-                    Utils.writeFile(configFilePath, UrlPath);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                sessionManager.onBoarding(Constraint.TRUE);
+
+                Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
             }
+        }
+        else {
+
+            Utils.deleteDaisy();
+            String UrlPath = response.getResult().getPricecard().getFileName();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        try {
+                            Utils.writeFile(configFilePath, UrlPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        sessionManager.deleteLocation();
+
+                    }
+                } else {
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
 
-            sessionManager.onBoarding(Constraint.TRUE);
+                sessionManager.onBoarding(Constraint.TRUE);
 
-            Intent i = new Intent(RefreshTimer.this, MainActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
+                Intent i = new Intent(RefreshTimer.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            }
         }
     }
 
