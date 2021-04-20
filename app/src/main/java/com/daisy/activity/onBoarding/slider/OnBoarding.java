@@ -392,7 +392,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         }
         hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
-        hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_CODE + "");
+        hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
         LoginResponse loginResponse = sessionManager.getLoginResponse();
         if (loginResponse != null)
             hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());

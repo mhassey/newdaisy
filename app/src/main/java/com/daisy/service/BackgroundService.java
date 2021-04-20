@@ -23,7 +23,9 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -58,6 +60,7 @@ import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,6 +71,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import static com.daisy.utils.Constraint.LOG;
 import static com.daisy.utils.Constraint.messages;
 
 
@@ -362,8 +366,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         inversion.setInvert(Utils.getInvertedTime());
                         EventBus.getDefault().post(inversion);
 
-                        String mainVersion = sessionManager.getApkVersion();
+                       String mainVersion = sessionManager.getApkVersion();
+
                         if (mainVersion != null && !mainVersion.equals("")) {
+
+
                             try {
                                 double olderVersion = Double.parseDouble(mainVersion);
                                 double newVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
@@ -371,16 +378,18 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                     new UpdateAppVersion().UpdateAppVersion();
                                 }
                             } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
 
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
                 }
             }, second, second);
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
