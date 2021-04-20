@@ -139,17 +139,17 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWakeUpLock();
         registerReceiver();
         handleClick();
-        setWindowManager();
+        //setWindowManager();
         setCounter();
         initWifi();
         initPassword();
-        defineSensor();
-        try {
-            FrontCameraRetriever.retrieveFor(this);
-            FrontCameraRetriever.getInstance().load();
-        } catch (Exception e) {
-
-        }
+        //defineSensor();
+//        try {
+//            FrontCameraRetriever.retrieveFor(this);
+//            FrontCameraRetriever.getInstance().load();
+//        } catch (Exception e) {
+//
+//        }
     }
 
 
@@ -294,14 +294,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         mAccel = 0.00f;
         mAccelCurrent = SensorManager.GRAVITY_EARTH;
         mAccelLast = SensorManager.GRAVITY_EARTH;
-        sensorMan.registerListener(this, accelerometer,
-                SensorManager.SENSOR_DELAY_UI);
-        sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-        sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorMan.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorMan.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan.registerListener(this, accelerometer,
+//                SensorManager.SENSOR_DELAY_UI);
+//        sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//
+//        sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
@@ -964,7 +964,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case (Sensor.TYPE_STEP_COUNTER):
-                countSteps(event.values[0]);
+              //  countSteps(event.values[0]);
                 break;
 
             case Sensor.TYPE_GYROSCOPE:
