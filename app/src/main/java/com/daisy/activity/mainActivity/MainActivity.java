@@ -2,6 +2,7 @@ package com.daisy.activity.mainActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -20,6 +21,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -75,6 +77,7 @@ import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
+import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -115,6 +118,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private UpdateProductViewModel updateProductViewModel;
     private GetCardViewModel getCardViewModel;
 
+    private long mLastClickTime = 0;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -744,7 +748,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             @Override
             public void onLoadResource(WebView view, String url) {
-                 JSONObject jsonArray = pricingUpdateStart();
+                JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray != null) {
                     if (jsonArray.length() > 0) {
 
@@ -759,7 +763,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
-                 JSONObject jsonArray = pricingUpdateStart();
+                JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray != null) {
                     if (jsonArray.length() > 0) {
 
@@ -785,7 +789,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
                 }
                 super.onPageStarted(view, url, favicon);
-
 
 
             }
@@ -1581,7 +1584,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
-            Log.e("Cjeclomg", cmd + "--" + msg);
             if (cmd.equals(Constraint.adFrameUrl)) {
 
                 maintainPromotionShowWithUrl(msg);
@@ -1589,10 +1591,28 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 storePriceCardIfFaceDetected(msg);
             } else if (cmd.equals(Constraint.click)) {
+                Log.e("Checking...", "Click perform.....");
 
-                storeClickOnPromotionOrPriceCard(msg);
+                SessionManager.get().clckPerform(true);
+                if (!isMyServiceRunning(LogGenerateService.class)) {
+                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+                }
+
+
+                //storeClickOnPromotionOrPriceCard(msg);
             }
 
+        }
+
+
+        private boolean isMyServiceRunning(Class<?> serviceClass) {
+            ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         @JavascriptInterface
@@ -1618,7 +1638,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
+
     private void storeClickOnPromotionOrPriceCard(String msg) {
+
         try {
             if (sessionManager != null) {
                 sessionManager = SessionManager.get();

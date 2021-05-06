@@ -133,6 +133,10 @@ public class Constraint {
     public static final String DESCRIPTION = "description";
     public static final String USER_SEEN_PRICECARD__ = "Face detected";
     public static final String NEWAPK = "newApk";
+    public static final String PICK_DOWN = "PickDown";
+    public static final String CLICK_PERFORM = "clickPerfrom";
+    public static final String USER_INTERACTION = "Interaction";
+    public static final String COLON = ":";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

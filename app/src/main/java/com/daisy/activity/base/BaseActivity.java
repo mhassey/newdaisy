@@ -10,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.R;
 import com.daisy.app.AppController;
@@ -46,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
      * Parameters - No parameter
      **/
     private void initView() {
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sessionManager = SessionManager.get();
 

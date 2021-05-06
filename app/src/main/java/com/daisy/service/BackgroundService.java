@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -116,6 +117,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private Sensor stepCounterSensor;
     private Sensor magnetometer;
     private int uninstallIssue = 0;
+    private long mLastClickTime = 0;
 
 
     @Nullable
@@ -144,6 +146,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWifi();
         initPassword();
         defineSensor();
+
         try {
             FrontCameraRetriever.retrieveFor(this);
             FrontCameraRetriever.getInstance().load();
@@ -365,9 +368,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         Inversion inversion = new Inversion();
                         inversion.setInvert(Utils.getInvertedTime());
                         EventBus.getDefault().post(inversion);
-
-                       String mainVersion = sessionManager.getApkVersion();
-
+                        String mainVersion = sessionManager.getApkVersion();
                         if (mainVersion != null && !mainVersion.equals("")) {
 
 
@@ -441,7 +442,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Send logs
     private void sendLogTimer() {
         Timer logsSync = new Timer();
-        int second = ((10 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
+        int second = ((1 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
 
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -979,6 +980,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     //  Handle gyro
     private void handleGyro(SensorEvent event) {
+
         mGravity = event.values.clone();
 
         if (mGravity != null) {
@@ -986,41 +988,70 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             float x = mGravity[0];
             float y = mGravity[1];
             int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
-            if (z_digree == 90) {
-                counter++;
-                if (counter > 20) {
-                    isPickedUp = false;
+            int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
+
+            int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
+
+            if (z_digree != 90 || y_digree != 90 || x_digree != 90) {
+
+                SessionManager.get().pickDown(false);
+                if (!isMyServiceRunning(LogGenerateService.class)) {
+                    startService(new Intent(getApplicationContext(), LogGenerateService.class));
                 }
-
-
             } else {
-                movement = 1;
-                counter = 0;
-                isPickedUp = true;
-            }
-            if (movement == 1) {
-                if (isPickedUp) {
-                    if (!isPickedUpSucess) {
-                        isPickedDown = false;
-                        isPickedUpSucess = true;
-                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
 
-                    }
-                } else {
-                    if (!isPickedDown) {
-                        Inversion inversion = new Inversion();
-                        inversion.setInvert(Utils.getInvertedTime());
-                        EventBus.getDefault().post(inversion);
-                        isPickedDown = true;
-                        isPickedUpSucess = false;
-                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
-
-                    }
-                }
+//                movement = 1;
+//                counter = 0;
+//                isPickedUp = true;
             }
+
+//            if (movement == 1) {
+//                if (isPickedUp) {
+//                    if (!isPickedUpSucess) {
+//
+//                        if (SessionManager.get().pickDOwn()) {
+//                            if (SystemClock.elapsedRealtime() - mLastClickTime < 30000) {
+//                                return;
+//                            } else
+//                                SessionManager.get().pickDown(false);
+//
+//                        }
+//                        isPickedDown = false;
+//                        isPickedUpSucess = true;
+//                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
+//
+//                    }
+//                } else {
+//                    if (!isPickedDown) {
+//                        if (!SessionManager.get().pickDOwn()) {
+//                            Inversion inversion = new Inversion();
+//
+//                            inversion.setInvert(Utils.getInvertedTime());
+//                            EventBus.getDefault().post(inversion);
+//                            isPickedDown = true;
+//                            isPickedUpSucess = false;
+//                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
+//                            SessionManager.get().pickDown(true);
+//                            mLastClickTime = SystemClock.elapsedRealtime();
+//                        }
+//
+//
+//                    }
+//                }
+//            }
 
         }
 
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -1059,6 +1090,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             sessionManager = SessionManager.get();
         }
         sessionManager.setFaceDetectedStore(true);
+//        DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
 
     }
 

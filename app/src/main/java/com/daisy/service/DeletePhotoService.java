@@ -20,7 +20,7 @@ public class DeletePhotoService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        throw null;
     }
 
     // TODO Delete all photo and data from storage
