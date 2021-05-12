@@ -786,8 +786,18 @@ public class Utils {
     public static void deleteCardFolder() {
         File dir;
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
-            dir = new File(AppController.getInstance().getExternalFilesDir(""), Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
+            String path = Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD;
+            dir = new File(AppController.getInstance().getExternalFilesDir(""), path);
+            if (dir.isDirectory()) {
+                try {
+                    FileUtils.deleteDirectory(dir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         } else
+
             dir = new File(Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
         if (dir.isDirectory()) {
             try {

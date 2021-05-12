@@ -275,7 +275,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
 
                 String path = Utils.getPath();
                 if (path != null) {
-                    if (!path.equals(UrlPath)) {
+                   // if (!path.equals(UrlPath)) {
                         Utils.deleteCardFolder();
                         try {
                             Utils.writeFile(configFilePath, UrlPath);
@@ -284,7 +284,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                         }
                         sessionManager.deleteLocation();
 
-                    }
+                 //   }
                 } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);

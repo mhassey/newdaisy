@@ -139,7 +139,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
-
         setNoTitleBar(this);
         context = this;
         handleScreenRotation();
@@ -1585,13 +1584,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
             if (cmd.equals(Constraint.adFrameUrl)) {
-
                 maintainPromotionShowWithUrl(msg);
             } else if (msg.contains(Constraint.price)) {
-
                 storePriceCardIfFaceDetected(msg);
             } else if (cmd.equals(Constraint.click)) {
-                Log.e("Checking...", "Click perform.....");
 
                 SessionManager.get().clckPerform(true);
                 if (!isMyServiceRunning(LogGenerateService.class)) {

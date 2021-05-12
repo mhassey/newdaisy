@@ -138,7 +138,7 @@ public class DownloadFile extends AsyncTask<String, String, String> {
                     //Create androiddeft folder if it does not exist
                     File directory = new File(context.getExternalFilesDir(""), folder);
 
-                    if (!directory.exists()) {
+                     if (!directory.exists()) {
                         directory.mkdirs();
                     }
 
