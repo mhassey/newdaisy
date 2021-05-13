@@ -17,9 +17,9 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.PREVENT_POWER_KEY" />
-    <uses-permission android:name="android.permission.DEVICE_POWER"
+    <uses-permission
+        android:name="android.permission.DEVICE_POWER"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -52,15 +52,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.langSupport.LangSelectionActivity"></activity>
+        <service
+            android:name=".service.LogGenerateService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".activity.langSupport.LangSelectionActivity" />
         <activity android:name=".activity.updateProduct.UpdateProduct" />
 
         <service
             android:name=".service.SecurityService"
             android:enabled="true"
             android:exported="true" />
-
-
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -90,10 +93,7 @@
 
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
             android:screenOrientation="portrait" />
@@ -111,15 +111,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.onBoarding.slider.OnBoarding"
-
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.welcomeScreen.WelcomeScreen"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="landscape" >
-
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -149,9 +147,9 @@
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".activity.mainActivity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true" />
 
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />

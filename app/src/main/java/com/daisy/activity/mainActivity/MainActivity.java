@@ -75,6 +75,7 @@ import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
+import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -1589,6 +1590,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 storePriceCardIfFaceDetected(msg);
             } else if (cmd.equals(Constraint.click)) {
+                SessionManager.get().clckPerform(true);
+                if (!Utils.isMyServiceRunning(LogGenerateService.class,context)) {
+                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+                }
 
                 storeClickOnPromotionOrPriceCard(msg);
             }

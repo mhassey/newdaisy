@@ -133,6 +133,8 @@ public class Constraint {
     public static final String DESCRIPTION = "description";
     public static final String USER_SEEN_PRICECARD__ = "Face detected";
     public static final String NEWAPK = "newApk";
+    public static final String USER_INTERACTION = "userInteraction";
+    public static final String COLON = ":";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -321,4 +323,7 @@ public class Constraint {
     public static String click="click";
     public static String Impression="Impression";
     public static String price="price";
+    public static String Click="click";
+
+
 }
