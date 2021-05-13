@@ -37,7 +37,7 @@ public class AppController extends Application implements LifecycleObserver {
     public void onCreate() {
         super.onCreate();
         instanceCreation();
-        DBCaller.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+       // DBCaller.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         setLang();
     }

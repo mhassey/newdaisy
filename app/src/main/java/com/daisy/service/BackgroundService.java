@@ -256,10 +256,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             String app_name = (String) getPackageManager().getApplicationLabel(
                     getPackageManager().getApplicationInfo(process
                             , PackageManager.GET_META_DATA));
-            if (app_name != null) {
-                if (!app_name.equals(Constraint.SYSTEM_LUNCHER) && !app_name.equals(Constraint.DAISYY))
-                    DBCaller.storeLogInDatabase(getApplicationContext(), getApplicationContext().getString(R.string.open) + app_name, "", "", Constraint.APPLICATION_LOGS);
-            }
+//            if (app_name != null) {
+//                if (!app_name.equals(Constraint.SYSTEM_LUNCHER) && !app_name.equals(Constraint.DAISYY))
+//                 //   DBCaller.storeLogInDatabase(getApplicationContext(), getApplicationContext().getString(R.string.open) + app_name, "", "", Constraint.APPLICATION_LOGS);
+//            }
         } catch (Exception e) {
         }
     }
@@ -1003,7 +1003,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     if (!isPickedUpSucess) {
                         isPickedDown = false;
                         isPickedUpSucess = true;
-                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
+                       // DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -1013,7 +1013,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         EventBus.getDefault().post(inversion);
                         isPickedDown = true;
                         isPickedUpSucess = false;
-                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
+                     //   DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
 
                     }
                 }

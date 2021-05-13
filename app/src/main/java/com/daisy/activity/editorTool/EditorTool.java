@@ -418,7 +418,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
                             Utils.deleteCardFolder();
                             Utils.writeFile(configFilePath, mBinding.baseUrl.getText().toString());
                             sessionManager.deleteLocation();
-                            DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, mBinding.baseUrl.getText().toString(), Constraint.APPLICATION_LOGS);
+                        //    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, mBinding.baseUrl.getText().toString(), Constraint.APPLICATION_LOGS);
 
                         }
                     } else {

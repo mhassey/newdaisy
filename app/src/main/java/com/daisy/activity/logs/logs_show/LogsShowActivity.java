@@ -170,10 +170,10 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         if (viewModel.getType().equals(Constraint.APPLICATION_LOGS)) {
-            DBCaller.storeLogInDatabase(context, Constraint.EXIT_APPLICATION_LOG, Constraint.EXIT_APPLICATION_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+  //          DBCaller.storeLogInDatabase(context, Constraint.EXIT_APPLICATION_LOG, Constraint.EXIT_APPLICATION_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
 
         } else if (viewModel.getType().equals(Constraint.CARD_LOGS)) {
-            DBCaller.storeLogInDatabase(context, Constraint.EXIT_CARD_LOG, Constraint.EXIT_CARD_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+    //        DBCaller.storeLogInDatabase(context, Constraint.EXIT_CARD_LOG, Constraint.EXIT_CARD_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
 
         }
     }
@@ -224,10 +224,10 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
      **/
     private void handleClearLogResponse(LogClearResponse logClearResponse) {
         if (logClearResponse.isClear()) {
-            if (viewModel.getType().equals(Constraint.APPLICATION_LOGS))
-                DBCaller.storeLogInDatabase(context, Constraint.CLEAR_APPLICATION_LOG, Constraint.CLEAR_APPLICATION_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
-            else if (viewModel.getType().equals(Constraint.CARD_LOGS))
-                DBCaller.storeLogInDatabase(context, Constraint.CLEAR_CARD_LOG, Constraint.CLEAR_CARD_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+//            if (viewModel.getType().equals(Constraint.APPLICATION_LOGS))
+//           //     DBCaller.storeLogInDatabase(context, Constraint.CLEAR_APPLICATION_LOG, Constraint.CLEAR_APPLICATION_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+//            else if (viewModel.getType().equals(Constraint.CARD_LOGS))
+//             //   DBCaller.storeLogInDatabase(context, Constraint.CLEAR_CARD_LOG, Constraint.CLEAR_CARD_LOG_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
 
             finish();
         } else {

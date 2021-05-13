@@ -4,6 +4,8 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,8 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         context = this;
 
     }
+
+
 
     /**
      * Responsibility - initClickListener is an method that used for initiate clicks
@@ -106,7 +110,7 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.applicationLogs:
             {
-                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_APPLICATION_LOG,Constraint.REVIEW_APPLICATION_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
+           //     DBCaller.storeLogInDatabase(context, Constraint.REVIEW_APPLICATION_LOG,Constraint.REVIEW_APPLICATION_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
 
                 callLogsShowActivity(Constraint.APPLICATION_LOGS);
 
@@ -114,14 +118,14 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
             }
             case R.id.cardLogs:
             {
-                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.PRICECARD_LOG);
+               // DBCaller.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.PRICECARD_LOG);
 
                 callLogsShowActivity(Constraint.PRICECARD_LOG);
                 break;
             }
             case R.id.promotionLogs:
             {
-                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_PROMO_LOG,Constraint.REVIEW_PROMO_LOG_DESCRIPTION,"",Constraint.PROMOTION);
+//                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_PROMO_LOG,Constraint.REVIEW_PROMO_LOG_DESCRIPTION,"",Constraint.PROMOTION);
 
                 callLogsShowActivity(Constraint.PROMOTION);
                 break;
@@ -165,3 +169,4 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
 
 
 }
+

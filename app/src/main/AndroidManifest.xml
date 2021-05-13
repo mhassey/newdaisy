@@ -111,13 +111,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.onBoarding.slider.OnBoarding"
-            android:screenOrientation="portrait" />
+
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.welcomeScreen.WelcomeScreen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

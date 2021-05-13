@@ -1049,7 +1049,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     Utils.writeFile(configFilePath, UrlPath);
                     sessionManager.deleteLocation();
 
-                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                //    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                 }
             } else {
@@ -1073,7 +1073,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     Utils.writeFile(configFilePath, UrlPath);
                     sessionManager.deleteLocation();
 
-                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                //    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                 }
             } else {
@@ -1242,7 +1242,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Setting icon click
      */
     private void settingClick() {
-        DBCaller.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+      //  DBCaller.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         openConfigSettings();
     }
 
@@ -1613,7 +1613,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     private void storePriceCardIfFaceDetected(String msg) {
         if (sessionManager.getUserFaceDetectionEnable()) {
-            DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
+          //  DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
         }
 
     }
@@ -1638,11 +1638,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 }
                 int id = Utils.searchPromotionUsingPath(promotionPath);
-                if (id != Constraint.ZERO)
-                    DBCaller.storeLogInDatabase(context, Constraint.Impression, id + "", msg, Constraint.PROMOTION);
+           //     if (id != Constraint.ZERO)
+                   // DBCaller.storeLogInDatabase(context, Constraint.Impression, id + "", msg, Constraint.PROMOTION);
 
             } else {
-                DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression, msg, Constraint.PRICECARD_LOG);
+               // DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression, msg, Constraint.PRICECARD_LOG);
             }
         } catch (Exception e) {
 
@@ -1660,7 +1660,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     sessionManager = SessionManager.get();
                 }
                 if (sessionManager.getUserFaceDetectionEnable()) {
-                    DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
+                //    DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
                 }
             }
 

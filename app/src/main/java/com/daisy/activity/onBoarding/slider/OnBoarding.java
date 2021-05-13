@@ -358,7 +358,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse, AddScreen addScreen) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-            DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
+          //  DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.GONE);
             mBinding.pager.setCurrentItem(count);
@@ -463,7 +463,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                   //     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -487,7 +487,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                       // DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -528,7 +528,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                      //  DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -552,7 +552,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                    //    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
