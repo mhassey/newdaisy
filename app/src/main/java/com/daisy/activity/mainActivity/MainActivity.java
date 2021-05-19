@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -151,10 +150,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         loadURL();
         intentWork();
         sanitisedWork();
-
     }
-
-
 
 
     /**
