@@ -75,23 +75,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
 
-    /**
-     * Responsibility - mainAdminAsk is an method that check is admin is activated if not ask for admin permission
-     * Parameters - No parameter
-     **/
-    private void mainAdminAsk() {
-        mDPM = (DevicePolicyManager) getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
-        mAdminName = new ComponentName(getActivity(), Admin.class);
-        permissionSetter();
-        if (!mDPM.isAdminActive(mAdminName)) {
-            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mAdminName);
-            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
-            getActivity().startActivityForResult(intent, REQUEST_ENABLE);
-        }
-
-
-    }
 
 
     /**
@@ -113,11 +96,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
-        permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
-        permissionAskBinding.miExtra.setOnClickListener(this::onClick);
         permissionAskBinding.cancel.setOnClickListener(this::onClick);
-        permissionAskBinding.adminMain.setOnClickListener(this::onClick);
-        permissionAskBinding.gps.setOnClickListener(this::onClick);
     }
 
 
@@ -131,8 +110,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkAccessUsage();
         modifySystemSettings();
         mediaPermission();
-        checkForOnePlus();
-        checkForMi();
+
         checkForGps();
         checkAdminPermission();
         String name = Utils.getDeviceName();
@@ -157,7 +135,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
             }
         } else {
-            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization()) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp()) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
@@ -201,59 +179,16 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         if (!mDPM.isAdminActive(mAdminName)) {
             //      if (false){
             permissionAskViewModel.setGrandAdminPermission(false);
-            permissionAskBinding.adminMain.setEnabled(true);
-            permissionAskBinding.adminUsages.setChecked(false);
-        } else {
+            } else {
 
             permissionAskViewModel.setGrandAdminPermission(true);
-            permissionAskBinding.adminMain.setEnabled(false);
-            permissionAskBinding.adminUsages.setChecked(true);
 
         }
     }
 
-    /**
-     * Responsibility - checkForMi is an method that check is mi permission is activated then disable mi asking permission button else enable mi asking permission button
-     * Parameters - No parameter
-     **/
-    private void checkForMi() {
-        if (Utils.getDeviceName().contains(Constraint.REDME)) {
-            permissionAskBinding.miExtraHeader.setVisibility(View.VISIBLE);
-        } else {
-            permissionAskBinding.miExtraHeader.setVisibility(View.INVISIBLE);
-        }
-        if (permissionAskViewModel.isGrandExtraAccess()) {
-
-            permissionAskBinding.miExtraRight.setChecked(true);
-            permissionAskBinding.miExtra.setEnabled(false);
-
-        } else {
-            permissionAskBinding.miExtraRight.setChecked(false);
-            permissionAskBinding.miExtra.setEnabled(true);
 
 
-        }
-    }
 
-    /**
-     * Responsibility - check for one plus specific permission
-     * Parameters - No parameter
-     **/
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void checkForOnePlus() {
-        final PowerManager pm = (PowerManager) requireContext().getSystemService(Context.POWER_SERVICE);
-        if (!pm.isIgnoringBatteryOptimizations(getString(R.string.packageName))) {
-            permissionAskViewModel.setGrandBatteyOptimization(Constraint.FALSE);
-            permissionAskBinding.batteryUsages.setChecked(false);
-            permissionAskBinding.dontOptimizedBattery.setEnabled(Constraint.TRUE);
-        } else {
-            permissionAskViewModel.setGrandBatteyOptimization(Constraint.TRUE);
-            permissionAskBinding.batteryUsages.setChecked(true);
-            permissionAskBinding.dontOptimizedBattery.setEnabled(Constraint.FALSE);
-
-        }
-
-    }
 
 
     /**
@@ -375,26 +310,12 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 modifySystemSettingsAsk();
                 break;
             }
-            case R.id.dontOptimizedBattery: {
-                batteryUsage();
-                break;
-            }
-            case R.id.miExtra: {
-                callMiExtraPopUp();
-                break;
-            }
+
             case R.id.cancel: {
                 getActivity().onBackPressed();
                 break;
             }
-            case R.id.adminMain: {
-                mainAdminAsk();
-                break;
-            }
-            case R.id.gps: {
-                enableGps();
-                break;
-            }
+
         }
     }
 

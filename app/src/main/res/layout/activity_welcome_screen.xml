@@ -6,16 +6,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="@color/white"
         android:weightSum="1"
         tools:context=".activity.welcomeScreen.WelcomeScreen">
 
 
-        <RelativeLayout
+        <LinearLayout
             android:background="@color/purple"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp250"
+            android:layout_width="@dimen/dp250"
+            android:gravity="center"
+            android:layout_height="match_parent"
             android:orientation="vertical"
            >
 
@@ -25,10 +26,7 @@
                 android:src="@drawable/ic_welcome_icon"
                 android:layout_height="@dimen/dp120"/>
             <TextView
-                android:layout_marginBottom="@dimen/dp10"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/dp20"
                 style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,64 +35,65 @@
                 android:textSize="@dimen/sp25" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
 
-            android:gravity="center|top"
             android:orientation="vertical">
 
-
-
             <TextView
+                android:layout_centerInParent="true"
                 style="@style/fontMedium"
-                    android:lineSpacingMultiplier="1.5"
+                android:lineSpacingMultiplier="1.5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp25"
                 android:gravity="center|left"
                 android:text="@string/this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process"
-               android:textSize="@dimen/dp15" />
+                android:textSize="@dimen/dp15" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:gravity="bottom|end">
 
             <LinearLayout
-                android:id="@+id/curve_layout"
-                android:layout_marginBottom="@dimen/dp20"
-                android:gravity="center"
-                android:background="@drawable/ovel_purple"
-                android:orientation="horizontal"
-                android:layout_width="@dimen/dp180"
-                android:layout_height="@dimen/dp50">
-
-            <TextView
-
-                android:id="@+id/begin"
-                style="@style/fontRagular"
-                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/begin"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp20" />
 
-            <TextView
-                style="@style/fontRagular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
-                android:text=">"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp20" />
+                android:gravity="bottom|end">
+
+                <LinearLayout
+                    android:id="@+id/curve_layout"
+                    android:gravity="center"
+                    android:background="@drawable/ovel_purple"
+                    android:orientation="horizontal"
+                    android:layout_width="@dimen/dp180"
+                    android:layout_height="@dimen/dp50">
+
+                    <TextView
+
+                        android:id="@+id/begin"
+                        style="@style/fontRagular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/begin"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp20" />
+
+                    <TextView
+                        style="@style/fontRagular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:text=">"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp20" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
+
+
 
 
     </LinearLayout>

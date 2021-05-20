@@ -7,55 +7,57 @@
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         tools:context=".activity.refreshTimer.RefreshTimer">
 
         <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dp250"
+            android:layout_height="match_parent"
             android:background="@color/mettle_blue"
-            android:layout_height="@dimen/dp250"
-            android:layout_marginBottom="@dimen/dp20"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_margin="@dimen/dp10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10">
+
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/cancel"
-                        android:src="@drawable/ic_arrow_back"
                         android:layout_width="@dimen/dp40"
-                        android:layout_height="@dimen/dp40"/>
+                        android:layout_height="@dimen/dp40"
+                        android:src="@drawable/ic_arrow_back" />
                 </LinearLayout>
 
             </LinearLayout>
 
             <ImageView
+
+                android:id="@+id/icon"
+
                 android:layout_width="@dimen/dp120"
+
+                android:layout_height="@dimen/dp120"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_refresh_icon"
-                android:layout_height="@dimen/dp120"/>
+                android:src="@drawable/ic_refresh_icon" />
+
             <TextView
-                android:layout_marginBottom="@dimen/dp10"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentBottom="true"
                 style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/icon"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dp10"
                 android:text="@string/update_time"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp25" />
 
 
-
         </RelativeLayout>
-
 
 
         <LinearLayout
@@ -74,25 +76,48 @@
 
                 android:timePickerMode="spinner" />
 
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/setTime"
-                android:layout_width="@dimen/dp200"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp20"
-                android:background="@drawable/button_border_format"
-                android:text="@string/set_timer"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-            <Button
-                android:id="@+id/directUpdate"
-                android:layout_width="@dimen/dp200"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp20"
-                android:background="@drawable/button_border_format"
-                android:text="@string/direct_update"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/setTime"
+                        android:layout_width="@dimen/dp170"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_border_format"
+                        android:text="@string/set_timer"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/directUpdate"
+                        android:layout_width="@dimen/dp170"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_border_format"
+                        android:text="@string/direct_update"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
 

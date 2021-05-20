@@ -11,9 +11,8 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/tabDots"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,17 +22,22 @@
             android:id="@+id/tabDots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp30"
+            android:layout_marginBottom="@dimen/dp10"
+            android:background="@color/transparent"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
+                android:background="@color/transparent"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:background="@color/transparent"
+
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -42,50 +46,52 @@
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabDotsLayout"
-                        app:tabPaddingStart="0dp"
-                        app:tabPaddingEnd="0dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:tabIndicatorHeight="0dp" />
+                        app:tabIndicatorHeight="0dp"
+                        app:tabPaddingEnd="0dp"
+                        app:tabPaddingStart="0dp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@color/transparent"
 
                     android:layout_width="@dimen/dp180"
                     android:layout_height="@dimen/dp50">
-                <LinearLayout
-                    android:id="@+id/nextSlide"
-                    android:layout_width="@dimen/dp180"
-                    android:layout_height="@dimen/dp50"
-                    android:layoutDirection="locale"
-                    android:background="@drawable/ovel_purple"
-                    android:gravity="center"
-                    android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/nextSlide"
+                        android:layout_width="@dimen/dp180"
+                        android:layout_height="@dimen/dp50"
+                        android:background="@drawable/ovel_purple"
+                        android:gravity="center"
+                        android:layoutDirection="locale"
+                        android:orientation="horizontal">
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        <LinearLayout
 
-                        <TextView
-                            style="@style/fontRagular"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/next"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp20" />
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:text=">"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp20" />
+                            <TextView
+                                style="@style/fontRagular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/next"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp20" />
+
+                            <TextView
+                                style="@style/fontRagular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp10"
+                                android:text=">"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp20" />
+                        </LinearLayout>
+
                     </LinearLayout>
-
-                </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

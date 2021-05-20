@@ -57,8 +57,8 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".activity.langSupport.LangSelectionActivity" />
-        <activity android:name=".activity.updateProduct.UpdateProduct" />
+        <activity android:name=".activity.langSupport.LangSelectionActivity"  android:screenOrientation="landscape"/>
+        <activity android:name=".activity.updateProduct.UpdateProduct" android:screenOrientation="landscape" />
 
         <service
             android:name=".service.SecurityService"
@@ -71,7 +71,7 @@
 
         <activity
             android:name=".activity.feedBack.FeedBackActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -96,16 +96,16 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.configSettings.ConfigSettings"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.updateBaseUrl.UpdateBaseUrl"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.updatePosition.UpdatePosition"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.login.LoginActivity"
             android:screenOrientation="portrait" />
@@ -126,7 +126,7 @@
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".service.DeletePhotoService"
@@ -141,8 +141,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.logs.logs_show.LogsShowActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.logs.LogsMainActivity" />
+            android:screenOrientation="landscape" />
+        <activity android:name=".activity.logs.LogsMainActivity"  android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />

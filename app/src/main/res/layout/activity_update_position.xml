@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <LinearLayout
 
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp250"
+            android:layout_width="@dimen/dp250"
+            android:layout_height="match_parent"
             android:background="@color/updatePosition"
             android:orientation="vertical">
 
@@ -34,6 +36,7 @@
             <ImageView
                 android:layout_width="@dimen/dp120"
                 android:layout_height="@dimen/dp120"
+                android:id="@+id/icon"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_location_icon" />
 
@@ -41,10 +44,9 @@
                 style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="@dimen/dp10"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_below="@+id/icon"
                 android:text="@string/update_position"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp25" />
@@ -52,91 +54,102 @@
 
         </RelativeLayout>
 
-
-        <TextView
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/sp15"
-            android:text="@string/isle"
-            android:fontFamily="@font/rragular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <EditText
-            android:id="@+id/isle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/editTextColor"
-            android:layout_marginStart="@dimen/dp15"
-            android:layout_marginEnd="@dimen/dp15"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_marginBottom="@dimen/dp15"
-            android:inputType="number"
-            android:textSize="@dimen/dp14"
-            android:background="@drawable/edit_text_format"
-            android:hint="@string/isle"
-            android:textColorHint="@color/editTextLineColor"
-            android:padding="@dimen/dp10" />
-        <TextView
-            android:layout_marginStart="@dimen/dp20"
-            android:text="@string/shelf"
-            android:fontFamily="@font/rragular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <EditText
-
-            android:id="@+id/shelf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/editTextColor"
-            android:layout_marginStart="@dimen/dp15"
-            android:layout_marginEnd="@dimen/dp15"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_marginBottom="@dimen/dp15"            android:inputType="number"
-            android:textSize="@dimen/dp14"
-            android:background="@drawable/edit_text_format"
-            android:hint="@string/shelf"
-            android:textColorHint="@color/editTextLineColor"
-            android:padding="@dimen/dp10" />
-        <TextView
-            android:layout_marginStart="@dimen/dp20"
-            android:text="@string/position"
-            android:fontFamily="@font/rragular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <EditText
-
-            android:id="@+id/position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/editTextColor"
-            android:layout_marginStart="@dimen/dp15"
-            android:layout_marginEnd="@dimen/dp15"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_marginBottom="@dimen/dp15"            android:inputType="number"
-            android:textSize="@dimen/dp14"
-            android:background="@drawable/edit_text_format"
-            android:hint="@string/position"
-            android:textColorHint="@color/editTextLineColor"
-            android:padding="@dimen/dp10" />
-
-
         <LinearLayout
-            android:gravity="bottom|end"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <Button
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            android:layout_marginTop="@dimen/dp15"
-            android:layout_width="@dimen/dp150"
-            android:id="@+id/updatePosition"
-            android:textAllCaps="false"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ovel_update_position"
-            android:text="@string/next"
-            android:textSize="@dimen/sp25"
-            android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/sp15"
+                android:fontFamily="@font/rragular"
+                android:text="@string/isle" />
+
+            <EditText
+                android:id="@+id/isle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp15"
+                android:background="@drawable/edit_text_format"
+                android:hint="@string/isle"
+                android:inputType="number"
+                android:padding="@dimen/dp10"
+                android:textColor="?attr/editTextColor"
+                android:textColorHint="@color/editTextLineColor"
+                android:textSize="@dimen/dp14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:fontFamily="@font/rragular"
+                android:text="@string/shelf" />
+
+            <EditText
+
+                android:id="@+id/shelf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp15"
+                android:background="@drawable/edit_text_format"
+                android:hint="@string/shelf"
+                android:inputType="number"
+                android:padding="@dimen/dp10"
+                android:textColor="?attr/editTextColor"
+                android:textColorHint="@color/editTextLineColor"
+                android:textSize="@dimen/dp14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:fontFamily="@font/rragular"
+                android:text="@string/position" />
+
+            <EditText
+
+                android:id="@+id/position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp15"
+                android:background="@drawable/edit_text_format"
+                android:hint="@string/position"
+                android:inputType="number"
+                android:padding="@dimen/dp10"
+                android:textColor="?attr/editTextColor"
+                android:textColorHint="@color/editTextLineColor"
+                android:textSize="@dimen/dp14" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|end">
+
+                <Button
+
+                    android:id="@+id/updatePosition"
+                    android:layout_width="@dimen/dp150"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:background="@drawable/ovel_update_position"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp25" />
+            </LinearLayout>
         </LinearLayout>
-
 
     </LinearLayout>
 </layout>

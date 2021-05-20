@@ -2,23 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:weightSum="1"
             tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp250"
+                android:layout_width="@dimen/dp250"
+                android:layout_height="match_parent"
                 android:background="@color/mettle_blue"
                 android:orientation="vertical">
 
@@ -43,6 +40,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/icon"
                     android:layout_width="@dimen/dp120"
                     android:layout_height="@dimen/dp120"
                     android:layout_centerInParent="true"
@@ -52,10 +50,10 @@
                     style="@style/fontMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/dp10"
+                    android:layout_below="@id/icon"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/dp10"
                     android:text="@string/settings_cap"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp25" />
@@ -202,5 +200,4 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
 </layout>

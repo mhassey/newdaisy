@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-        android:orientation="vertical"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rootLayout"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp250"
+            android:layout_width="@dimen/dp250"
+            android:layout_height="match_parent"
             android:background="@color/purple"
             android:orientation="vertical">
 
@@ -32,6 +34,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/icon"
                 android:layout_width="@dimen/dp120"
                 android:layout_height="@dimen/dp120"
                 android:layout_centerInParent="true"
@@ -41,9 +44,9 @@
                 style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_below="@+id/icon"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dp10"
                 android:layout_marginBottom="@dimen/dp10"
                 android:text="@string/select_pro"
                 android:textColor="@color/white"
@@ -52,266 +55,281 @@
 
         </RelativeLayout>
 
-
-        <EditText
-            android:visibility="gone"
-            android:id="@+id/isle"
-            android:text="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/editTextColor"
-            android:layout_margin="@dimen/dp15"
-            android:inputType="number"
-            android:textSize="@dimen/dp14"
-            android:background="@drawable/edit_text_format"
-            android:hint="@string/isle"
-            android:textColorHint="@color/editTextLineColor"
-            android:padding="@dimen/dp10" />
-        <EditText
-            android:visibility="gone"
-            android:id="@+id/shelf"
-            android:text="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/editTextColor"
-            android:layout_margin="@dimen/dp15"
-            android:inputType="number"
-            android:textSize="@dimen/dp14"
-            android:background="@drawable/edit_text_format"
-            android:hint="@string/shelf"
-            android:textColorHint="@color/editTextLineColor"
-            android:padding="@dimen/dp10" />
-        <EditText
-            android:visibility="gone"
-            android:text="1"
-            android:id="@+id/position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/editTextColor"
-            android:layout_margin="@dimen/dp15"
-            android:inputType="number"
-            android:textSize="@dimen/dp14"
-            android:background="@drawable/edit_text_format"
-            android:hint="Position"
-            android:textColorHint="@color/editTextLineColor"
-            android:padding="@dimen/dp10" />
-
-
-        <TextView
-
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginStart="@dimen/dp40"
-            android:text="@string/carrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginStart="@dimen/dp35"
-            android:layout_marginEnd="@dimen/dp55"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_height="wrap_content">
-            <Spinner
-
-                android:id="@+id/carrierName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:background="@drawable/edit_text_format"
-
-                android:textColorHint="@color/editTextLineColor"
-                android:padding="@dimen/dp10" />
-
-            <ImageView
-                android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/ic_down_arrow"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="@dimen/dp20"
-                android:layout_height="@dimen/dp20"/>
-
-        </RelativeLayout>
-
-        <TextView
-
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginStart="@dimen/dp40"
-            android:text="@string/manufacturer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginStart="@dimen/dp35"
-            android:layout_marginEnd="@dimen/dp55"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_height="wrap_content">
-            <Spinner
-
-                android:id="@+id/manufactureList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:background="@drawable/edit_text_format"
-
-                android:textColorHint="@color/editTextLineColor"
-                android:padding="@dimen/dp10" />
-
-            <ImageView
-                android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/ic_down_arrow"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="@dimen/dp20"
-                android:layout_height="@dimen/dp20"/>
-
-        </RelativeLayout>
-        <TextView
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginStart="@dimen/dp40"
-            android:text="@string/product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginStart="@dimen/dp35"
-            android:layout_marginEnd="@dimen/dp55"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_height="wrap_content">
-            <Spinner
-
-                android:id="@+id/productName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:background="@drawable/edit_text_format"
-                android:textColorHint="@color/editTextLineColor"
-                android:padding="@dimen/dp10" />
-
-            <ImageView
-                android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/ic_down_arrow"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="@dimen/dp20"
-                android:layout_height="@dimen/dp20"/>
-
-        </RelativeLayout>
-
-
-        <TextView
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginStart="@dimen/dp40"
-            android:text="@string/webkit_orientation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginStart="@dimen/dp35"
-            android:layout_marginEnd="@dimen/dp55"
-            android:layout_marginTop="@dimen/dp5"
-            android:layout_height="wrap_content">
-            <Spinner
-
-                android:id="@+id/webkitOrientation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:background="@drawable/edit_text_format"
-                android:textColorHint="@color/editTextLineColor"
-                android:padding="@dimen/dp10" />
-
-            <ImageView
-                android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/ic_down_arrow"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="@dimen/dp20"
-                android:layout_height="@dimen/dp20"/>
-
-        </RelativeLayout>
-
-
-
         <LinearLayout
-
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/isle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp15"
+                android:background="@drawable/edit_text_format"
+                android:hint="@string/isle"
+                android:inputType="number"
+                android:padding="@dimen/dp10"
+                android:text="1"
+                android:textColor="?attr/editTextColor"
+                android:textColorHint="@color/editTextLineColor"
+                android:textSize="@dimen/dp14"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/shelf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp15"
+                android:background="@drawable/edit_text_format"
+                android:hint="@string/shelf"
+                android:inputType="number"
+                android:padding="@dimen/dp10"
+                android:text="1"
+                android:textColor="?attr/editTextColor"
+                android:textColorHint="@color/editTextLineColor"
+                android:textSize="@dimen/dp14"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp15"
+                android:background="@drawable/edit_text_format"
+                android:hint="Position"
+                android:inputType="number"
+                android:padding="@dimen/dp10"
+                android:text="1"
+                android:textColor="?attr/editTextColor"
+                android:textColorHint="@color/editTextLineColor"
+                android:textSize="@dimen/dp14"
+                android:visibility="gone" />
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="@string/carrier" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp35"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp55">
+
+                <Spinner
+
+                    android:id="@+id/carrierName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_format"
+                    android:inputType="text"
+
+                    android:padding="@dimen/dp10"
+                    android:textColorHint="@color/editTextLineColor" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="@string/manufacturer" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp35"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp55">
+
+                <Spinner
+
+                    android:id="@+id/manufactureList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_format"
+                    android:inputType="text"
+
+                    android:padding="@dimen/dp10"
+                    android:textColorHint="@color/editTextLineColor" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="@string/product" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp35"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp55">
+
+                <Spinner
+
+                    android:id="@+id/productName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_format"
+                    android:inputType="text"
+                    android:padding="@dimen/dp10"
+                    android:textColorHint="@color/editTextLineColor" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="@string/webkit_orientation" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp35"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp55">
+
+                <Spinner
+
+                    android:id="@+id/webkitOrientation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_format"
+                    android:inputType="text"
+                    android:padding="@dimen/dp10"
+                    android:textColorHint="@color/editTextLineColor" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
 
 
             <LinearLayout
-                android:id="@+id/tabDots"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp30"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="visible"
-                android:layout_gravity="bottom">
+                android:layout_height="match_parent">
+
 
                 <LinearLayout
+                    android:id="@+id/tabDots"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/dp30"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <LinearLayout
-                        android:gravity="end"
-                        android:layout_gravity="end"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp50">
+                        android:layout_height="match_parent">
+
                         <LinearLayout
-                            android:id="@+id/nextSlide"
-                            android:layout_width="@dimen/dp150"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/dp50"
-                            android:background="@drawable/ovel_purple"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_gravity="end"
+                            android:gravity="end">
 
                             <LinearLayout
+                                android:id="@+id/nextSlide"
+                                android:layout_width="@dimen/dp150"
+                                android:layout_height="@dimen/dp50"
+                                android:background="@drawable/ovel_purple"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                <LinearLayout
 
-                                <TextView
-                                    style="@style/fontRagular"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:text="@string/next"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/sp25" />
+                                    android:layout_height="wrap_content">
 
-                                <TextView
-                                    style="@style/fontRagular"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/dp10"
-                                    android:text=">"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/sp25" />
+                                    <TextView
+                                        style="@style/fontRagular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:text="@string/next"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/sp25" />
+
+                                    <TextView
+                                        style="@style/fontRagular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dp10"
+                                        android:text=">"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/sp25" />
+                                </LinearLayout>
+
                             </LinearLayout>
-
                         </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/saveAndStartMpcHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp55"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:id="@+id/saveAndStartMpc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dp10"
+                            android:text="@string/save_and_start_mpc"
+                            android:textColor="?attr/textcolorblack"
+                            android:textSize="@dimen/sp20" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/saveAndStartMpcHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp55"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:id="@+id/saveAndStartMpc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/dp10"
-                        android:text="@string/save_and_start_mpc"
-                        android:textColor="?attr/textcolorblack"
-                        android:textSize="@dimen/sp20" />
-                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 </layout>
