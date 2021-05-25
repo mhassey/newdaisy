@@ -330,8 +330,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
     private void validatePromotion() {
         try {
-                      int hour = Constraint.ONE;
-                    int minit = Constraint.THIRTY_INT;
+            int hour = Constraint.ONE;
+            int minit = Constraint.THIRTY_INT;
 
 
             int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
@@ -369,18 +369,20 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         EventBus.getDefault().post(inversion);
                         String mainVersion = sessionManager.getApkVersion();
                         if (mainVersion != null && !mainVersion.equals("")) {
-
-
                             try {
                                 double olderVersion = Double.parseDouble(mainVersion);
                                 double newVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
                                 if (newVersion > olderVersion) {
                                     new UpdateAppVersion().UpdateAppVersion();
                                 }
+
                             } catch (Exception e) {
-                                e.printStackTrace();
+
                             }
+
+
                         }
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
