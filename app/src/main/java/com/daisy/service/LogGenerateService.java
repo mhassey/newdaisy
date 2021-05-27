@@ -50,7 +50,9 @@ public class LogGenerateService extends Service {
                 public void run() {
                     Log.e("increse counter",currentTime+"");
                     currentTime++;
-                    if (!SessionManager.get().pickDOwn() || SessionManager.get().clickPerform()) {
+                   // if (!SessionManager.get().pickDOwn() || SessionManager.get().clickPerform()) {
+                    if (SessionManager.get().clickPerform()) {
+
                         Log.e("increse counter","second become 0");
 
                         SessionManager.get().pickDown(true);

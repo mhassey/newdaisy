@@ -995,10 +995,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
             if (z_digree != 90 || y_digree != 90 || x_digree != 90) {
 
-                SessionManager.get().pickDown(false);
-                if (!isMyServiceRunning(LogGenerateService.class)) {
-                    startService(new Intent(getApplicationContext(), LogGenerateService.class));
-                }
+                //  SessionManager.get().pickDown(false);
+                // if (!isMyServiceRunning(LogGenerateService.class)) {
+                //   startService(new Intent(getApplicationContext(), LogGenerateService.class));
+                //   }
             } else {
 
 //                movement = 1;
