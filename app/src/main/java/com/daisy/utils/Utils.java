@@ -281,7 +281,7 @@ public class Utils {
         if (id != 0) {
             try {
                 id = res.getInteger(id);
-                int val = ((id * 70) / 100);
+                int val = ((id * 100) / 100);
                 if (Utils.getDeviceName().contains("Pixel") || Utils.getDeviceName().contains("pixel")) {
                     val = ((id * 37) / 100);
                 }

@@ -122,13 +122,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkAdminPermission();
+        //checkAdminPermission();
         initView();
         initService();
         setOnClickListener();
     }
 
-    /**
+    /**permi
      * Initial data setup
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -280,11 +280,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     //TODO Handle resume work
     private void handleResumeWork() {
-        if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-            if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-            }
-        }
+//        if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
+//            if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
+//                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+//            }
+//        }
         if (sessionManager.getSanitized()) {
             if (sessionManager.getComeConfig()) {
                 sessionManager.setComeFromConfig(false);

@@ -104,6 +104,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         setPager();
         disableSwipeOnViewPager();
 
+
     }
 
 
@@ -193,7 +194,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        fragmentList.add(SecurityAsk.getInstance(mBinding));
+        //  fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -284,44 +285,50 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
+//        if (count == Constraint.TWO) {
+//            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
+//            try {
+//                if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
+//                    sessionManager.setDeletePhoto(true);
+//                } else {
+//                    sessionManager.setDeletePhoto(false);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
+//                sessionManager.setLockOnBrowser(true);
+//            } else {
+//                sessionManager.setLockOnBrowser(false);
+//
+//            }
+//            if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
+//                sessionManager.setLockOnMessage(true);
+//            } else {
+//                sessionManager.setLockOnMessage(false);
+//
+//            }
+//            if (securityAsk.securityAskBinding.lock.isChecked()) {
+//                sessionManager.setLock(true);
+//            } else {
+//                sessionManager.setLock(false);
+//
+//            }
+//
+//        } else
         if (count == Constraint.TWO) {
-            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
-            try {
-                if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
-                    sessionManager.setDeletePhoto(true);
-                } else {
-                    sessionManager.setDeletePhoto(false);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
-                sessionManager.setLockOnBrowser(true);
-            } else {
-                sessionManager.setLockOnBrowser(false);
-
-            }
-            if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
-                sessionManager.setLockOnMessage(true);
-            } else {
-                sessionManager.setLockOnMessage(false);
-
-            }
-            if (securityAsk.securityAskBinding.lock.isChecked()) {
-                sessionManager.setLock(true);
-            } else {
-                sessionManager.setLock(false);
-
-            }
-
-        } else if (count == Constraint.THREE) {
-            SignUp signUp = (SignUp) fragmentList.get(Constraint.TWO);
+            sessionManager.setLockOnBrowser(true);
+            sessionManager.setLockOnMessage(true);
+                            sessionManager.setLock(true);
+//
+            //  sessionManager.setLock(true);
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.ONE);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count == Constraint.FOUR) {
+        } else if (count == Constraint.THREE) {
 
             if (Utils.getNetworkState(context)) {
-                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
                 ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
                 if (screenAddValidationHelper.isValid()) {
                     showHideProgressDialog(true);
@@ -347,7 +354,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         }
 
-        if (count == Constraint.ONE || count == Constraint.TWO) {
+        if (count == Constraint.ONE) {
             mBinding.pager.setCurrentItem(count);
         }
     }
@@ -358,7 +365,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse, AddScreen addScreen) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-          //  DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
+            //  DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.GONE);
             mBinding.pager.setCurrentItem(count);
@@ -406,7 +413,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     public void counterPlus() {
         count = count + Constraint.ONE;
-        if (count == Constraint.THREE) {
+        if (count == Constraint.TWO) {
             mBinding.nextSlide.setVisibility(View.VISIBLE);
 
         }
@@ -446,7 +453,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             if (response.getResult().getPricecard().getFileName() != null) {
                 String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory;
-                if (android.os.Build.VERSION.SDK_INT >=android.os.Build.VERSION_CODES.Q) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
                     directory = new File(getExternalFilesDir(""), configFilePath);
                 } else {
                     directory = new File(configFilePath);
@@ -463,7 +470,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                   //     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                        //     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -475,7 +482,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
                 UrlPath = response.getResult().getDefaultPriceCard();
                 String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
-                File directory = new File(getExternalFilesDir(""),configFilePath);
+                File directory = new File(getExternalFilesDir(""), configFilePath);
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
@@ -487,7 +494,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                       // DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                        // DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -528,7 +535,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                      //  DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                        //  DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -552,7 +559,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                    //    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                        //    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {

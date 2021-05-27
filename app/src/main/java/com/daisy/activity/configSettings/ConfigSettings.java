@@ -75,7 +75,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         viewModel = new ViewModelProvider(this).get(ApkUpdateViewModel.class);
         setNoTitleBar(this);
         sessionWork();
-//        mBinding.appVersion.setText(" "+BuildConfig.VERSION_NAME);
+       mBinding.appVersion.setText(getString(R.string.app_version)+" "+BuildConfig.VERSION_NAME);
         getDefaultUpdateTime();
     }
 
@@ -86,7 +86,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void getDefaultUpdateTime() {
         try {
             String val = Utils.getLastUpdateDate(ConfigSettings.this);
-        //    mBinding.updatetime.setText(" "+val);
+            mBinding.updatetime.setText(getString(R.string.last_update_time)+" "+val);
         } catch (Exception e) {
             e.printStackTrace();
         }

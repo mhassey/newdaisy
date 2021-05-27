@@ -57,8 +57,8 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".activity.langSupport.LangSelectionActivity"  android:screenOrientation="landscape"/>
-        <activity android:name=".activity.updateProduct.UpdateProduct" android:screenOrientation="landscape" />
+        <activity android:name=".activity.langSupport.LangSelectionActivity"  android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".activity.updateProduct.UpdateProduct" android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".service.SecurityService"
@@ -71,7 +71,7 @@
 
         <activity
             android:name=".activity.feedBack.FeedBackActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -96,28 +96,28 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.configSettings.ConfigSettings"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.updateBaseUrl.UpdateBaseUrl"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.updatePosition.UpdatePosition"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.onBoarding.slider.OnBoarding"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.welcomeScreen.WelcomeScreen"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -126,7 +126,7 @@
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".service.DeletePhotoService"
@@ -141,15 +141,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.logs.logs_show.LogsShowActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activity.logs.LogsMainActivity"  android:screenOrientation="landscape"/>
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".activity.logs.LogsMainActivity"  android:screenOrientation="sensorLandscape"/>
         <activity
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.mainActivity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="sensorPortrait"
+            android:screenOrientation="sensorLandscape"
             android:showOnLockScreen="true" />
 
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />

@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
         android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
 
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+
+
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
 
             <RelativeLayout
@@ -60,27 +66,187 @@
             </RelativeLayout>
 
 
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
             <LinearLayout
-                android:layout_width="0dp"
+
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/outerView"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/outerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/logs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp30"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp30"
+                            android:background="@drawable/edit_text_format"
+                            android:orientation="vertical">
+
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp10"
+                                android:fontFamily="@font/rragular"
+                                android:text="@string/logs"
+                                android:textSize="@dimen/sp15" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/updatePosition"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp30"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp30"
+                            android:background="@drawable/edit_text_format"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp10"
+                                android:fontFamily="@font/rragular"
+                                android:text="@string/update_position"
+                                android:textSize="@dimen/sp15" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/updateBaseUrl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp30"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp30"
+                            android:background="@drawable/edit_text_format"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp10"
+                                android:fontFamily="@font/rragular"
+                                android:text="@string/update_baseurl"
+                                android:textSize="@dimen/sp15" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/setRefreshRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp30"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp30"
+                            android:background="@drawable/edit_text_format"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/sp10"
+                                android:fontFamily="@font/rragular"
+                                android:text="@string/set_refresh_timer"
+                                android:textSize="@dimen/sp15" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/feedBack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp30"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp30"
+                            android:background="@drawable/edit_text_format"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp10"
+                                android:fontFamily="@font/rragular"
+                                android:text="@string/feedback"
+                                android:textSize="@dimen/sp15" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/logs"
+                        android:id="@+id/sanitisedHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp30"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp30"
+                        android:background="@drawable/edit_text_format"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp10"
+                            android:fontFamily="@font/rragular"
+                            android:text="@string/sanitised"
+                            android:textSize="@dimen/sp15" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center|end">
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/sanitisedMain"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp20"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:checked="true"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:theme="@style/SwitchCompatTheme" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/changeLanguage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp30"
@@ -91,38 +257,19 @@
 
 
                         <TextView
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp10"
                             android:fontFamily="@font/rragular"
-                            android:text="@string/logs"
+                            android:text="@string/change_language"
                             android:textSize="@dimen/sp15" />
+
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/updatePosition"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp30"
-                        android:layout_marginTop="@dimen/dp20"
-                        android:layout_marginEnd="@dimen/dp30"
-                        android:background="@drawable/edit_text_format"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/dp10"
-                            android:fontFamily="@font/rragular"
-                            android:text="@string/update_position"
-                            android:textSize="@dimen/sp15" />
-                    </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/updateBaseUrl"
+                        android:id="@+id/lunchApp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp30"
@@ -138,13 +285,121 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp10"
                             android:fontFamily="@font/rragular"
-                            android:text="@string/update_baseurl"
+                            android:text="@string/launchotherApp"
                             android:textSize="@dimen/sp15" />
+
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/setRefreshRate"
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp30"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp30"
+                        android:background="@drawable/edit_text_format"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp10"
+                            android:fontFamily="@font/rragular"
+                            android:text="@string/logout"
+                            android:textSize="@dimen/sp15" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/securityHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp30"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp30"
+                        android:background="@drawable/edit_text_format"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp10"
+                            android:fontFamily="@font/rragular"
+                            android:text="@string/securityHeader"
+                            android:textSize="@dimen/sp15" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center|end">
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/securitySwitch"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp20"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:checked="false"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:theme="@style/SwitchCompatTheme" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/alarmHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp30"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp30"
+                        android:background="@drawable/edit_text_format"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp10"
+                            android:fontFamily="@font/rragular"
+                            android:text="@string/alramHeader"
+                            android:textSize="@dimen/sp15" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center|end">
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/alramSwitch"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp20"
+                                android:layout_marginEnd="@dimen/dp10"
+                                android:checked="true"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:theme="@style/SwitchCompatTheme" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/update_product"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp30"
@@ -157,24 +412,23 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/sp10"
+                            android:layout_margin="@dimen/dp10"
                             android:fontFamily="@font/rragular"
-                            android:text="@string/set_refresh_timer"
+                            android:text="@string/update_product"
                             android:textSize="@dimen/sp15" />
 
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/feedBack"
+                        android:id="@+id/direct_apk_update"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp30"
                         android:layout_marginTop="@dimen/dp20"
                         android:layout_marginEnd="@dimen/dp30"
                         android:background="@drawable/edit_text_format"
-                        android:orientation="vertical"
-                        android:visibility="visible">
+                        android:orientation="vertical">
 
 
                         <TextView
@@ -182,7 +436,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp10"
                             android:fontFamily="@font/rragular"
-                            android:text="@string/feedback"
+                            android:text="@string/direct_apk_update"
                             android:textSize="@dimen/sp15" />
 
 
@@ -190,261 +444,40 @@
 
 
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/sanitisedHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/sanitised"
-                        android:textSize="@dimen/sp15" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|end">
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/sanitisedMain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp20"
-                            android:layout_marginEnd="@dimen/dp10"
-                            android:checked="true"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:theme="@style/SwitchCompatTheme" />
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/changeLanguage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/change_language"
-                        android:textSize="@dimen/sp15" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/lunchApp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/launchotherApp"
-                        android:textSize="@dimen/sp15" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/logout"
-                        android:textSize="@dimen/sp15" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/securityHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/securityHeader"
-                        android:textSize="@dimen/sp15" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|end">
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/securitySwitch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp20"
-                            android:layout_marginEnd="@dimen/dp10"
-                            android:checked="false"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:theme="@style/SwitchCompatTheme" />
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/alarmHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/alramHeader"
-                        android:textSize="@dimen/sp15" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|end">
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/alramSwitch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp20"
-                            android:layout_marginEnd="@dimen/dp10"
-                            android:checked="true"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:theme="@style/SwitchCompatTheme" />
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/update_product"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/update_product"
-                        android:textSize="@dimen/sp15" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/direct_apk_update"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp20"
-                    android:layout_marginEnd="@dimen/dp30"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rragular"
-                        android:text="@string/direct_apk_update"
-                        android:textSize="@dimen/sp15" />
-
-
-                </LinearLayout>
 
 
             </LinearLayout>
-
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:gravity="end"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    </LinearLayout>
+            android:layout_alignParentBottom="true">
 
+            <TextView
+                android:gravity="end"
+                android:id="@+id/appVersion"
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:gravity="end"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp5"
+                android:layout_below="@+id/appVersion"
+                android:id="@+id/updatetime"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp12" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 </layout>

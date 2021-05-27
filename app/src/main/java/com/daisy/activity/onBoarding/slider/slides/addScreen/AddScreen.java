@@ -87,8 +87,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      **/
     private void addOrientationData() {
         ArrayList<String> orientation=new ArrayList<>();
-        orientation.add(getString(R.string.defaultt));
         orientation.add(getString(R.string.landscape));
+        orientation.add(getString(R.string.defaultt));
+
         mViewModel.setOrientation(orientation);
     }
 
@@ -159,9 +160,9 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
         }
         baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+//        baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+       baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_purple));
     }
 
 
