@@ -46,12 +46,14 @@ import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.lockscreen.LockScreen;
+import com.daisy.activity.logs.LogSyncExtra;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.interfaces.SyncLogCallBack;
+import com.daisy.pojo.Logs;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
@@ -443,7 +445,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Send logs
     private void sendLogTimer() {
         Timer logsSync = new Timer();
-        int second = ((12 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
+        int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
 
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -451,9 +453,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
 
                 if (Utils.getNetworkState(getApplicationContext())) {
-                    SyncLogs syncLogs = SyncLogs.getLogsSyncing(getApplicationContext());
-                    syncLogs.saveContactApi(Constraint.APPLICATION_LOGS, BackgroundService.this::syncDone);
+                    List<Logs> logsVOList = DBCaller.getLogsFromDatabaseNotSync(getApplicationContext());
+                    if (logsVOList.isEmpty()) {
+                        new LogSyncExtra(getApplicationContext(), false).fireLogExtra();
 
+                    } else {
+                        SyncLogs syncLogs = SyncLogs.getLogsSyncing(getApplicationContext());
+                        syncLogs.saveContactApi(Constraint.APPLICATION_LOGS, BackgroundService.this::syncDone);
+                    }
 
                 }
             }

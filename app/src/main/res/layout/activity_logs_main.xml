@@ -92,6 +92,15 @@
                 android:text="@string/promotion_logs"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
+            <Button
+                android:id="@+id/syncAllLogs"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_width="@dimen/dp200"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_border_format"
+                android:text="@string/syncLogs"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/settings"

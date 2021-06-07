@@ -65,6 +65,15 @@ public class DBCaller {
         return logs;
     }
 
+    /**
+     * Get not sync logs
+     */
+    public static List<Logs> getLogsFromDatabaseNotSync(Context context) {
+        List<Logs> logs=null;
+        logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE);
+        return logs;
+    }
+
     public static List<Logs> getLogsFromDatabaseNotSyncById(Context context,String type,Integer integer) {
         List<Logs> logs=null;
         if (type.equals(Constraint.PROMOTION))
