@@ -7,6 +7,7 @@ import androidx.arch.core.util.Function;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 
 import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddRepo;
@@ -33,6 +34,8 @@ public class UpdateProductViewModel extends AndroidViewModel {
                 return updateProductRepo.updateScreen(input);
             }
         });
+
+
     }
 
     public void setMutableLiveData(HashMap<String,String> request)

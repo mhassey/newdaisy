@@ -78,7 +78,7 @@ import static com.daisy.utils.Constraint.messages;
 /**
  * Main service that handle hole background tasks
  */
-public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
+public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
@@ -139,7 +139,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWakeUpLock();
         registerReceiver();
         handleClick();
-        //setWindowManager();
+        setWindowManager();
         setCounter();
         initWifi();
         initPassword();
@@ -1051,57 +1051,5 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
-    //  Face detection event
-    @Override
-    public void onFaceDetected() {
-
-        if (sessionManager == null) {
-            sessionManager = SessionManager.get();
-        }
-        sessionManager.setFaceDetectedStore(true);
-
-    }
-
-    //  Face out handler
-    @Override
-    public void onFaceTimedOut() {
-
-        if (sessionManager == null) {
-            sessionManager = SessionManager.get();
-        }
-        sessionManager.setFaceDetectedStore(false);
-
-
-    }
-
-    @Override
-    public void onFaceDetectionNonRecoverableError() {
-
-    }
-
-    FaceDetectionCamera camera;
-
-    //  Load camera on invisible screen
-    @Override
-    public void onLoaded(FaceDetectionCamera camera) {
-        try {
-
-            // When the front facing camera has been retrieved we still need to ensure our display is ready
-            // so we will let the camera surface view initialise the camera i.e turn face detection on
-            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-            this.camera = camera;
-            touchLayoutforCamera.addView(cameraSurface);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void onFailedToLoadFaceDetectionCamera() {
-
-    }
 
 }

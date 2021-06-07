@@ -64,14 +64,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.lyfeCycle}"
     implementation "org.apache.commons:commons-io:${rootProject.ext.commons}"
     implementation "org.greenrobot:eventbus:${rootProject.ext.eventBus}"
-    // Room components
     implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomRuntime}"
     implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomComplier}"
     implementation "com.google.firebase:firebase-analytics:${rootProject.ext.analytics}"
-
-    // Add the Firebase Crashlytics SDK.
-
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.gson}"
     implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.interceptor}"
