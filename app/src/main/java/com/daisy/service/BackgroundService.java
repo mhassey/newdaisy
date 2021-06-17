@@ -23,10 +23,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.PowerManager;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -63,7 +60,6 @@ import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -74,7 +70,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import static com.daisy.utils.Constraint.LOG;
 import static com.daisy.utils.Constraint.messages;
 
 
@@ -332,10 +327,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
     private void validatePromotion() {
         try {
-            int hour = Constraint.ONE;
-            int minit = Constraint.THIRTY_INT;
+//            int hour = Constraint.ONE;
+//            int minit = Constraint.THIRTY_INT;
 
-
+            int hour = 0;
+            int minit = 2;
             int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer4 = new Timer();
             refreshTimer4.scheduleAtFixedRate(new TimerTask() {

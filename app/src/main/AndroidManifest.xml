@@ -17,7 +17,8 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.PREVENT_POWER_KEY" />
-    <uses-permission android:name="android.permission.DEVICE_POWER"
+    <uses-permission
+        android:name="android.permission.DEVICE_POWER"
         tools:ignore="ProtectedPermissions" />
 
     <uses-permission
@@ -61,7 +62,6 @@
             android:exported="true" />
 
 
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -92,8 +92,11 @@
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -119,12 +122,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:screenOrientation="portrait">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"
@@ -149,9 +149,9 @@
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".activity.mainActivity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true" />
 
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
@@ -180,6 +180,7 @@
         <service
             android:name=".service.LogGenerateService"
             android:stopWithTask="false" />
+
         <receiver
             android:name=".security.Admin"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
