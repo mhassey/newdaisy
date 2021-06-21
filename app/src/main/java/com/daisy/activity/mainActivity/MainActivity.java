@@ -387,7 +387,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         if (listOfPromo != null)
             sessionManager.setPromotions(listOfPromo);
         new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
-    }
+
+}
 
 
     /**
@@ -1536,96 +1537,97 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-    public class WebClient extends WebChromeClient {
+public class WebClient extends WebChromeClient {
 
 
-        @Override
-        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+    @Override
+    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
 
 
-            if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
-            } else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE)) {
-                pricingUpdate();
+        if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
+        } else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE)) {
+            pricingUpdate();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onJsAlert(WebView view, String url, String message,
+                             final JsResult result) {
+        return true;
+    }
+
+    @Override
+    public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+
+        return true;
+    }
+
+    @Override
+    public boolean onJsPrompt(WebView view, String url, String message,
+                              String defaultValue, final JsPromptResult result) {
+        return true;
+    }
+
+
+}
+
+
+public class WebAppInterface {
+    Context mContext;
+
+    // Instantiate the interface and set the context
+    WebAppInterface(Context c) {
+        mContext = c;
+    }
+
+    @JavascriptInterface
+    public void logEvent(String cmd, String msg) {
+        if (cmd.equals(Constraint.adFrameUrl)) {
+            maintainPromotionShowWithUrl(msg);
+        } else if (msg.contains(Constraint.price)) {
+            storePriceCardIfFaceDetected(msg);
+        } else if (cmd.equals(Constraint.click)) {
+
+            SessionManager.get().clckPerform(true);
+            if (!isMyServiceRunning(LogGenerateService.class)) {
+                startService(new Intent(MainActivity.this, LogGenerateService.class));
             }
 
-            return false;
+
+            //storeClickOnPromotionOrPriceCard(msg);
         }
-
-        @Override
-        public boolean onJsAlert(WebView view, String url, String message,
-                                 final JsResult result) {
-            return true;
-        }
-
-        @Override
-        public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
-
-            return true;
-        }
-
-        @Override
-        public boolean onJsPrompt(WebView view, String url, String message,
-                                  String defaultValue, final JsPromptResult result) {
-            return true;
-        }
-
 
     }
 
 
-    public class WebAppInterface {
-        Context mContext;
-
-        // Instantiate the interface and set the context
-        WebAppInterface(Context c) {
-            mContext = c;
-        }
-
-        @JavascriptInterface
-        public void logEvent(String cmd, String msg) {
-            if (cmd.equals(Constraint.adFrameUrl)) {
-                maintainPromotionShowWithUrl(msg);
-            } else if (msg.contains(Constraint.price)) {
-                storePriceCardIfFaceDetected(msg);
-            } else if (cmd.equals(Constraint.click)) {
-
-                SessionManager.get().clckPerform(true);
-                if (!isMyServiceRunning(LogGenerateService.class)) {
-                    startService(new Intent(MainActivity.this, LogGenerateService.class));
-                }
-
-
-                //storeClickOnPromotionOrPriceCard(msg);
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
             }
-
         }
-
-
-        private boolean isMyServiceRunning(Class<?> serviceClass) {
-            ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (serviceClass.getName().equals(service.service.getClassName())) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @JavascriptInterface
-        public void heartbeat(String msg) {
-            // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
-        }
-
-
-        @JavascriptInterface
-        public void callFromJS() {
-            launchApp();
-        }
-
-        @JavascriptInterface
-        public void callFromJS(String event) {
-        }
+        return false;
     }
+
+    @JavascriptInterface
+    public void heartbeat(String msg) {
+        // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
+    }
+
+
+    @JavascriptInterface
+    public void callFromJS() {
+        launchApp();
+    }
+
+    @JavascriptInterface
+    public void callFromJS(String event) {
+    }
+
+}
 
     private void storePriceCardIfFaceDetected(String msg) {
         if (sessionManager.getUserFaceDetectionEnable()) {
