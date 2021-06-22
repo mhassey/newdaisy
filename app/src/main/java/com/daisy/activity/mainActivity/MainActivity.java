@@ -1620,11 +1620,13 @@ public class WebAppInterface {
 
     @JavascriptInterface
     public void callFromJS() {
-        launchApp();
+
     }
 
     @JavascriptInterface
-    public void callFromJS(String event) {
+    public void openApplication(String event) {
+        Log.e("Kali",event);
+        launchApp(event);
     }
 
 }
@@ -1694,12 +1696,18 @@ public class WebAppInterface {
     /**
      * lunch other app
      */
-    private void launchApp() {
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(Constraint.YOU_TUBE_PATH);
-        if (launchIntent != null) {
-            startActivity(launchIntent);
-        } else {
-            ValidationHelper.showToast(MainActivity.this, getString(R.string.package_not_available));
+    private void launchApp(String name) {
+        try {
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(name);
+            if (launchIntent != null) {
+                startActivity(launchIntent);
+            } else {
+                ValidationHelper.showToast(MainActivity.this, getString(R.string.app_is_not_installed));
+            }
+        }
+        catch (Exception e)
+        {
+
         }
     }
 

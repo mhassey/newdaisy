@@ -201,4 +201,5 @@
     <string name="last_update_time">Last updated: </string>
     <string name="empty_password">Please enter the password to access the configuration settings</string>
     <string name="syncLogs">Sync Logs</string>
+    <string name="app_is_not_installed">"App is not installed "</string>
 </resources>
