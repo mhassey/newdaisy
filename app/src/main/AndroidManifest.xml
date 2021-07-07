@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.daisy">
 
+    <queries>
+        <package android:name="au.com.optus.android.gooptus" />
+        <package android:name="au.com.fetchtv" />
+        <package android:name="au.com.optus.optusstadium" />
+        <package android:name="com.spotify.music" />
+
+    </queries>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -92,11 +100,6 @@
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -125,6 +128,11 @@
             android:screenOrientation="portrait">
 
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"

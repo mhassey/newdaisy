@@ -11,8 +11,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 10
-        versionName "4.04"
+        versionCode 16
+        versionName "4.07"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,13 +22,13 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://us.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tm3.mobilepricecards.com/"'
         }
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://us.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tm3.mobilepricecards.com/"'
         }
     }
 
@@ -64,14 +64,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.lyfeCycle}"
     implementation "org.apache.commons:commons-io:${rootProject.ext.commons}"
     implementation "org.greenrobot:eventbus:${rootProject.ext.eventBus}"
-    // Room components
     implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomRuntime}"
     implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomComplier}"
     implementation "com.google.firebase:firebase-analytics:${rootProject.ext.analytics}"
-
-    // Add the Firebase Crashlytics SDK.
-
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.gson}"
     implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.interceptor}"
