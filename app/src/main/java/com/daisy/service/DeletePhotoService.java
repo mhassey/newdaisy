@@ -28,9 +28,9 @@ public class DeletePhotoService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         sessionManager = SessionManager.get();
         if (sessionManager.getDeletePhoto()) {
-           Utils.deleteGalaryPhoto();
+        //   Utils.deleteGalaryPhoto();
         }
-        Utils.deleteCallList(getApplicationContext());
+       // Utils.deleteCallList(getApplicationContext());
         stopSelf();
         return super.onStartCommand(intent, flags, startId);
 
