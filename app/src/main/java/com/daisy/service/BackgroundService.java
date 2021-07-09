@@ -313,7 +313,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     // set all main counters
     private void setCounter() {
-        bringApplicationTimer();
+        //bringApplicationTimer();
         setDeleteTimer();
         sendLogTimer();
         checkUpdate();
@@ -686,10 +686,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(Intent.ACTION_SCREEN_OFF)) {
-                showOverlayActivity(context);
-                wakePhoneUp();
+                //showOverlayActivity(context);
+               // wakePhoneUp();
             } else if (action.equals(ACTION_DEBUG)) {
-                showOverlayActivity(context);
+               // showOverlayActivity(context);
             }
         }
     };

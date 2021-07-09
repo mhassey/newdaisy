@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
-
+        startLockTask();
         setNoTitleBar(this);
         context = this;
         handleScreenRotation();
