@@ -164,7 +164,7 @@ public class Utils {
         try {
             SessionManager sessionManager = SessionManager.get();
 
-            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
+            int serverTime = Integer.parseInt( getServerTime(sessionManager.getServerTime()));
 
             int dateTime = Integer.parseInt(getTodayTime());
 
