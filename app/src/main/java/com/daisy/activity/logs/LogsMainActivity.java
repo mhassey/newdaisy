@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,9 +17,13 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.logs.logs_show.LogsShowActivity;
 import com.daisy.activity.settings.Settings;
 import com.daisy.database.DBCaller;
+import com.daisy.pojo.Logs;
+import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityLogsMainBinding;
 import com.daisy.utils.Utils;
+
+import java.util.List;
 
 /**
  * Purpose -  LogsMainActivity is an activity that helps to show all type of logs redirect button
@@ -58,6 +64,8 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         mBinding.settings.setOnClickListener(this);
         mBinding.promotionLogs.setOnClickListener(this::onClick);
         mBinding.cancel.setOnClickListener(this::onClick);
+        mBinding.syncAllLogs.setOnClickListener(this::onClick);
+
     }
 
     /**
@@ -108,41 +116,45 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.applicationLogs:
-            {
-           //     DBCaller.storeLogInDatabase(context, Constraint.REVIEW_APPLICATION_LOG,Constraint.REVIEW_APPLICATION_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
+            case R.id.applicationLogs: {
+                //     DBCaller.storeLogInDatabase(context, Constraint.REVIEW_APPLICATION_LOG,Constraint.REVIEW_APPLICATION_LOG_DESCRIPTION,"",Constraint.APPLICATION_LOGS);
 
                 callLogsShowActivity(Constraint.APPLICATION_LOGS);
 
                 break;
             }
-            case R.id.cardLogs:
-            {
-               // DBCaller.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.PRICECARD_LOG);
+            case R.id.cardLogs: {
+                // DBCaller.storeLogInDatabase(context, Constraint.REVIEW_CARD_LOG,Constraint.REVIEW_CARD_LOG_DESCRIPTION,"",Constraint.PRICECARD_LOG);
 
                 callLogsShowActivity(Constraint.PRICECARD_LOG);
                 break;
             }
-            case R.id.promotionLogs:
-            {
+            case R.id.promotionLogs: {
 //                DBCaller.storeLogInDatabase(context, Constraint.REVIEW_PROMO_LOG,Constraint.REVIEW_PROMO_LOG_DESCRIPTION,"",Constraint.PROMOTION);
 
                 callLogsShowActivity(Constraint.PROMOTION);
                 break;
 
             }
-            case R.id.settings:
-            {
+            case R.id.settings: {
                 handleSettingClick();
                 break;
             }
-            case R.id.cancel:
-            {
+            case R.id.cancel: {
                 onBackPressed();
                 break;
             }
-        }
+            case R.id.syncAllLogs: {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        handleSyncing();
+                    }
+                }).start();
+                break;
+            }
 
+        }
     }
 
     /**
@@ -152,6 +164,29 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     private void handleSettingClick() {
         Intent intent=new Intent(context, Settings.class);
         startActivity(intent);
+
+    }
+
+
+    private void handleSyncing() {
+        if (Utils.getNetworkState(getApplicationContext())) {
+
+            List<Logs> logsVOList = DBCaller.getLogsFromDatabaseNotSync(getApplicationContext());
+            if (logsVOList.isEmpty()) {
+
+                new LogSyncExtra(this,true).fireLogExtra();
+            } else {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        showHideProgressDialog(true);
+                    }
+                });
+                SyncLogs syncLogs = SyncLogs.getLogsSyncing(getApplicationContext());
+                syncLogs.saveContactApi(Constraint.APPLICATION_LOGS, this::syncDone);
+            }
+
+        }
 
     }
 
