@@ -141,7 +141,7 @@ public class Constraint {
     public static final String CARD = "Card";
     public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.ACTIVITY_RECOGNITION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
     public static final String[] STORAGE_PERMISSION_WITHOUT_SENSOR = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
-
+    public static final String IDLE = "Idle";
     public static final String ANDROID = "Android";
     public static final String FILE = "file://";
     public static final String WAIT = "Wait...";
