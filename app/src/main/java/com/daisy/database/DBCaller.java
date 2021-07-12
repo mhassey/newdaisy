@@ -65,6 +65,15 @@ public class DBCaller {
         return logs;
     }
 
+    /**
+     * Get not sync logs
+     */
+    public static List<Logs> getLogsFromDatabaseNotSync(Context context) {
+        List<Logs> logs=null;
+        logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE);
+        return logs;
+    }
+
     public static List<Logs> getLogsFromDatabaseNotSyncById(Context context,String type,Integer integer) {
         List<Logs> logs=null;
         if (type.equals(Constraint.PROMOTION))
@@ -95,13 +104,13 @@ public class DBCaller {
 
     public static List<Integer> getPromotionCountByID(Context context) {
         try {
-          List<Integer>integers = DatabaseClient.getInstance(context).getAppDatabase().logDao().getPromotionCount();
-          integers.removeAll(Collections.singleton(0));
+            List<Integer>integers = DatabaseClient.getInstance(context).getAppDatabase().logDao().getPromotionCount();
+            integers.removeAll(Collections.singleton(0));
 
             return integers;
         } catch (Exception e) {
             e.printStackTrace();
-         }
+        }
         return null;
 
     }

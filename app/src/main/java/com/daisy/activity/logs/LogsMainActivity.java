@@ -17,6 +17,7 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.logs.logs_show.LogsShowActivity;
 import com.daisy.activity.settings.Settings;
 import com.daisy.database.DBCaller;
+import com.daisy.interfaces.SyncLogCallBack;
 import com.daisy.pojo.Logs;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
@@ -29,7 +30,7 @@ import java.util.List;
  * Purpose -  LogsMainActivity is an activity that helps to show all type of logs redirect button
  * Responsibility - Here when user clicks on any type of logs button then open logs list accordingly
  **/
-public class LogsMainActivity extends BaseActivity implements View.OnClickListener {
+public class LogsMainActivity extends BaseActivity implements View.OnClickListener, SyncLogCallBack {
 
     private ActivityLogsMainBinding mBinding;
     private Context context;
@@ -203,5 +204,49 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+
+    @Override
+    public void syncDone(String val, int index) {
+        try {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    showHideProgressDialog(false);
+                }
+            });
+            List<Integer> integers = DBCaller.getPromotionCountByID(getApplicationContext());
+
+            if (val.equals(Constraint.APPLICATION_LOGS)) {
+                if (integers != null) {
+                    if (integers.size() > 0) {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                showHideProgressDialog(true);
+                            }
+                        });
+                        SyncLogs syncLogsPromotion = SyncLogs.getLogsSyncing(getApplicationContext());
+                        syncLogsPromotion.saveContactApi(Constraint.PROMOTION, integers.get(0));
+
+                    }
+                }
+
+            } else if (val.equals(Constraint.PROMOTION)) {
+                if (integers.size() > 0) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            showHideProgressDialog(true);
+                        }
+                    });
+
+                    SyncLogs syncLogsPromotion = SyncLogs.getLogsSyncing(getApplicationContext());
+                    syncLogsPromotion.saveContactApi(Constraint.PROMOTION, integers.get(0));
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }
 
