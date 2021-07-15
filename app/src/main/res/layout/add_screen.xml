@@ -107,6 +107,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/deviceName"
                 android:layout_marginTop="@dimen/dp10"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
@@ -118,16 +119,17 @@
             <Button
                 android:textSize="@dimen/sp14"
                 android:layout_marginTop="@dimen/dp5"
-                android:id="@+id/applicationLogs"
+                android:id="@+id/continuee"
                 android:layout_width="@dimen/dp200"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_border_format"
-                android:text="@string/application_logs"
+                android:background="@drawable/purple_ractangle"
+                android:text="@string/continuee"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
 
 
             <TextView
+                android:id="@+id/or"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp14"
                 android:layout_marginTop="@dimen/dp10"

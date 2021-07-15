@@ -27,9 +27,9 @@ import retrofit2.http.POST;
  **/
 public interface ApiService {
 
-    @FormUrlEncoded
-    @POST(ApiConstant.SIGN_UP)
-    Call<SignUpResponse> signUp(@FieldMap HashMap<String,String> password);
+        @FormUrlEncoded
+        @POST(ApiConstant.SIGN_UP)
+        Call<SignUpResponse> signUp(@FieldMap HashMap<String,String> password);
 
     @FormUrlEncoded
     @POST(ApiConstant.GENERAL)
