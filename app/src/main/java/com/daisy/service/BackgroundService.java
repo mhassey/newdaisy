@@ -76,7 +76,7 @@ import static com.daisy.utils.Constraint.messages;
 /**
  * Main service that handle hole background tasks
  */
-public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
+public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
@@ -138,18 +138,18 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWakeUpLock();
         registerReceiver();
         handleClick();
-        setWindowManager();
+        //setWindowManager();
         setCounter();
-        initWifi();
+        //initWifi();
         initPassword();
-        defineSensor();
+        //defineSensor();
 
-        try {
-            FrontCameraRetriever.retrieveFor(this);
-            FrontCameraRetriever.getInstance().load();
-        } catch (Exception e) {
-
-        }
+//        try {
+//            FrontCameraRetriever.retrieveFor(this);
+//            FrontCameraRetriever.getInstance().load();
+//        } catch (Exception e) {
+//
+//        }
     }
 
 
@@ -285,23 +285,23 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     // Define all sensors
     private void defineSensor() {
-        sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        stepDetectorSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        stepCounterSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        magnetometer = sensorMan.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        mAccel = 0.00f;
-        mAccelCurrent = SensorManager.GRAVITY_EARTH;
-        mAccelLast = SensorManager.GRAVITY_EARTH;
-        sensorMan.registerListener(this, accelerometer,
-                SensorManager.SENSOR_DELAY_UI);
-        sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-        sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorMan.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorMan.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        stepDetectorSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+//        stepCounterSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+//        magnetometer = sensorMan.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+//        Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+//        mAccel = 0.00f;
+//        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+//        mAccelLast = SensorManager.GRAVITY_EARTH;
+//        sensorMan.registerListener(this, accelerometer,
+//                SensorManager.SENSOR_DELAY_UI);
+//        sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//
+//        sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
@@ -585,7 +585,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                         }
                     }
-                    checkWifiState();
+                 //   checkWifiState();
 
                 }
             }, Constraint.THOUSAND, Constraint.THOUSAND);
@@ -596,27 +596,27 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     //  Set up delete timer
     private void setDeleteTimer() {
-        int hour = Constraint.ZERO;
-        int minit = Constraint.TEN;
-
-
-        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-
-        Timer deletePhoto = new Timer();
-        deletePhoto.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
-                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
-
-
-                    } else {
-                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
-                    }
-
-                }
-            }
-        }, second, second);
+//        int hour = Constraint.ZERO;
+//        int minit = Constraint.TEN;
+//
+//
+//        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+//
+//        Timer deletePhoto = new Timer();
+//        deletePhoto.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
+//                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+//
+//
+//                    } else {
+//                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+//                    }
+//
+//                }
+//            }
+//        }, second, second);
 
     }
 
@@ -649,9 +649,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(ACTION_DEBUG);
         registerReceiver(overlayReceiver, filter);
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        registerReceiver(wifiStateReceiver, intentFilter);
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+//        registerReceiver(wifiStateReceiver, intentFilter);
         IntentFilter s_intentFilter = new IntentFilter();
         s_intentFilter.addAction(Intent.ACTION_TIME_TICK);
         s_intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
@@ -702,26 +702,26 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     // Wifi state change receiver
 
-    private BroadcastReceiver wifiStateReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            InternetResponse internetResponse = new InternetResponse();
-            int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
-            switch (wifiState) {
-                case WifiManager.WIFI_STATE_ENABLED: {
-                    internetResponse.setAvailable(false);
-                    EventBus.getDefault().post(internetResponse);
-                    break;
-                }
-                case WifiManager.WIFI_STATE_DISABLED: {
-                    internetResponse.setAvailable(true);
-                    EventBus.getDefault().post(internetResponse);
-                    break;
-                }
-            }
-
-        }
-    };
+//    private BroadcastReceiver wifiStateReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            InternetResponse internetResponse = new InternetResponse();
+//            int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
+//            switch (wifiState) {
+//                case WifiManager.WIFI_STATE_ENABLED: {
+//                    internetResponse.setAvailable(false);
+//                    EventBus.getDefault().post(internetResponse);
+//                    break;
+//                }
+//                case WifiManager.WIFI_STATE_DISABLED: {
+//                    internetResponse.setAvailable(true);
+//                    EventBus.getDefault().post(internetResponse);
+//                    break;
+//                }
+//            }
+//
+//        }
+//    };
 
     //  Open Main as Overlay on lock screen
     private void showOverlayActivity(Context context) {
@@ -965,22 +965,22 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
     //  Sensor change event
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        switch (event.sensor.getType()) {
-            case (Sensor.TYPE_STEP_COUNTER):
-                countSteps(event.values[0]);
-                break;
-
-            case Sensor.TYPE_GYROSCOPE:
-                handleGyro(event);
-                break;
-
-
-        }
-
-
-    }
+//    @Override
+//    public void onSensorChanged(SensorEvent event) {
+////        switch (event.sensor.getType()) {
+////            case (Sensor.TYPE_STEP_COUNTER):
+////                countSteps(event.values[0]);
+////                break;
+////
+////            case Sensor.TYPE_GYROSCOPE:
+////                handleGyro(event);
+////                break;
+////
+////
+////        }
+//
+//
+//    }
 
     //  Handle gyro
     private void handleGyro(SensorEvent event) {
@@ -1058,10 +1058,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         return false;
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+//    @Override
+//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//    }
 
     //  Check count and start security service
     private void countSteps(float step) {
@@ -1086,58 +1086,58 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
-    //  Face detection event
-    @Override
-    public void onFaceDetected() {
-
-        if (sessionManager == null) {
-            sessionManager = SessionManager.get();
-        }
-        sessionManager.setFaceDetectedStore(true);
-//        DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
-
-    }
-
-    //  Face out handler
-    @Override
-    public void onFaceTimedOut() {
-
-        if (sessionManager == null) {
-            sessionManager = SessionManager.get();
-        }
-        sessionManager.setFaceDetectedStore(false);
-
-
-    }
-
-    @Override
-    public void onFaceDetectionNonRecoverableError() {
-
-    }
-
-    FaceDetectionCamera camera;
-
-    //  Load camera on invisible screen
-    @Override
-    public void onLoaded(FaceDetectionCamera camera) {
-        try {
-
-            // When the front facing camera has been retrieved we still need to ensure our display is ready
-            // so we will let the camera surface view initialise the camera i.e turn face detection on
-            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-            this.camera = camera;
-            touchLayoutforCamera.addView(cameraSurface);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void onFailedToLoadFaceDetectionCamera() {
-
-    }
+//    //  Face detection event
+//    @Override
+//    public void onFaceDetected() {
+//
+//        if (sessionManager == null) {
+//            sessionManager = SessionManager.get();
+//        }
+//        sessionManager.setFaceDetectedStore(true);
+////        DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
+//
+//    }
+//
+//    //  Face out handler
+//    @Override
+//    public void onFaceTimedOut() {
+//
+//        if (sessionManager == null) {
+//            sessionManager = SessionManager.get();
+//        }
+//        sessionManager.setFaceDetectedStore(false);
+//
+//
+//    }
+//
+//    @Override
+//    public void onFaceDetectionNonRecoverableError() {
+//
+//    }
+//
+//    FaceDetectionCamera camera;
+//
+//    //  Load camera on invisible screen
+//    @Override
+//    public void onLoaded(FaceDetectionCamera camera) {
+//        try {
+//
+//            // When the front facing camera has been retrieved we still need to ensure our display is ready
+//            // so we will let the camera surface view initialise the camera i.e turn face detection on
+//            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
+//            this.camera = camera;
+//            touchLayoutforCamera.addView(cameraSurface);
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//
+//    @Override
+//    public void onFailedToLoadFaceDetectionCamera() {
+//
+//    }
 
 }

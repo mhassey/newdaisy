@@ -1624,9 +1624,8 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public void openApplication(String event) {
-        Log.e("Kali",event);
-        launchApp(event);
+        public void openApplication(String event) {
+          launchApp(event);
     }
 
 }
