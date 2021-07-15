@@ -202,4 +202,7 @@
     <string name="empty_password">Please enter the password to access the configuration settings</string>
     <string name="syncLogs">Sync Logs</string>
     <string name="app_is_not_installed">"App is not installed "</string>
+    <string name="device_not_detected">Device not Detected</string>
+    <string name="or">-Or-</string>
+    <string name="select_product_below">Select product below</string>
 </resources>
