@@ -133,7 +133,7 @@ public class Constraint {
     public static final String DESCRIPTION = "description";
     public static final String USER_SEEN_PRICECARD__ = "Face detected";
     public static final String NEWAPK = "newApk";
-    public static final String USER_INTERACTION = "userInteraction";
+    public static final String USER_INTERACTION = "Interaction";
     public static final String COLON = ":";
 
 
