@@ -106,9 +106,7 @@
         <activity
             android:name=".activity.updatePosition.UpdatePosition"
             android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".activity.login.LoginActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.onBoarding.slider.OnBoarding"
             android:screenOrientation="sensorLandscape" />
