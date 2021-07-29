@@ -11,8 +11,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 16
-        versionName "4.07"
+        versionCode 18
+        versionName "4.08"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,7 +26,7 @@ android {
         }
 
         development {
-
+previoius
             dimension "buildTypes"
             buildConfigField "String", "BASE_URL", '"https://p3.mobilepricecards.com/"'
         }
