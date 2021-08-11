@@ -11,8 +11,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 18
-        versionName "4.08"
+        versionCode 19
+        versionName "4.09"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,13 +22,13 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://p3.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://nz.mobilepricecards.com/"'
         }
 
         development {
-previoius
+
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://p3.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://nz.mobilepricecards.com/"'
         }
     }
 
@@ -74,6 +74,7 @@ dependencies {
     implementation "com.jakewharton:process-phoenix:${rootProject.ext.phoenix}"
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
+    implementation 'com.google.firebase:firebase-messaging'
 
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
