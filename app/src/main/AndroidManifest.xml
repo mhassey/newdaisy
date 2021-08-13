@@ -101,6 +101,8 @@
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait">
 
+
+
         </activity>
 
         <activity
@@ -127,7 +129,6 @@
         <activity
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
