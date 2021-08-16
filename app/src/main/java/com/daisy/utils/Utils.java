@@ -159,7 +159,6 @@ public class Utils {
 
         return false;
     }
-
     public static boolean getInvertedTime() {
         try {
             SessionManager sessionManager = SessionManager.get();
@@ -173,34 +172,40 @@ public class Utils {
             int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
 
             int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+            int Lt=serverTime+offcet;
 
-            int dateTimeInUTC = 0;
-            if (offcet < 0) {
-                dateTimeInUTC = dateTime + (-offcet);
-                openTime = openTime + (-offcet);
-                closeTime = closeTime + (-offcet);
-
-
-            } else {
-                dateTimeInUTC = dateTime - offcet;
-                openTime = openTime - offcet;
-                closeTime = closeTime - offcet;
-            }
             int CF;
-
             if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
                 CF = Integer.parseInt(sessionManager.getTimeInverval());
             } else {
-                CF = serverTime - dateTimeInUTC;
+                if(dateTime >Lt)
+                {
+                    CF = Lt + dateTime;
+
+                }
+                else
+                {
+                    CF = Lt-dateTime;
+                }
 
             }
 
 
             sessionManager.setTimeInterval(CF + "");
-            int LT = dateTimeInUTC + CF;
+            int clt = dateTime+ CF;
+            System.out.println("clt value is "+clt);
+            String qualification = "";
+            if (clt > 2400) {
+                clt = clt - 2400;
+                System.out.println("if clt value is "+clt);
+                qualification = " next day";
+            } else if (clt < 0) {
+                clt = 2400 + clt;
+                System.out.println("else  clt value is "+clt);
+                qualification = " prior day";
+            }
 
-            Log.e("Working", LT + "--");
-            if (LT >= openTime && LT < closeTime) {
+            if (clt >= openTime && clt < closeTime) {
                 return false;
             }
             return true;
@@ -210,7 +215,6 @@ public class Utils {
         return false;
 
     }
-
     public static String getTodayTime() {
 //        Date date = localToGMT();
         Calendar rightNow = Calendar.getInstance();
