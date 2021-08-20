@@ -366,10 +366,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             if (globalResponse.isApi_status()) {
                 ApkDetails apkDetails = globalResponse.getResult().getApkDetails();
                 if (apkDetails != null) {
-                    if (apkDetails.getAndroid().getVersion() != null) {
+                    if (apkDetails.getAndroidGo().getVersion() != null) {
                         if (sessionManager == null)
                             sessionManager = SessionManager.get();
-                        double apkVersion = Double.parseDouble(apkDetails.getAndroid().getVersion());
+                        double apkVersion = Double.parseDouble(apkDetails.getAndroidGo().getVersion());
                         double ourVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
                         if (apkVersion > ourVersion) {
                             sessionManager.setApkVersion(BuildConfig.VERSION_NAME);
