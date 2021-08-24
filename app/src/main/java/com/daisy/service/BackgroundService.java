@@ -596,27 +596,28 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     //  Set up delete timer
     private void setDeleteTimer() {
-//        int hour = Constraint.ZERO;
-//        int minit = Constraint.TEN;
-//
-//
-//        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-//
-//        Timer deletePhoto = new Timer();
-//        deletePhoto.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
-//                if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
-//                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
-//
-//
-//                    } else {
-//                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
-//                    }
-//
-//                }
-//            }
-//        }, second, second);
+        int hour = Constraint.ONE;
+        int minit = Constraint.ZERO;
+
+
+        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+
+        Timer deletePhoto = new Timer();
+        deletePhoto.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
+                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+
+                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+
+                    } else {
+                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+                    }
+
+                }
+            }
+        }, second, second);
 
     }
 
