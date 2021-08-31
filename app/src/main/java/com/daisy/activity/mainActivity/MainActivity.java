@@ -131,6 +131,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         setOnClickListener();
     }
 
+
+
     /**
      * Initial data setup
      */
@@ -687,6 +689,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
     }
+
+
+
 
     /**
      * delete card
