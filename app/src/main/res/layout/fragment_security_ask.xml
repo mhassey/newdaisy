@@ -162,7 +162,8 @@
                     android:layout_marginTop="@dimen/dp25"
                     android:layout_marginEnd="@dimen/dp25"
                     android:gravity="center|start"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -175,7 +176,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/manage_device_content"
 
-                             android:textSize="@dimen/sp15" />
+                            android:textSize="@dimen/sp15" />
 
                         <TextView
                             android:layout_width="wrap_content"
