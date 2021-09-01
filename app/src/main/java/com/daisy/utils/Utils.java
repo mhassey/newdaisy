@@ -925,31 +925,35 @@ public class Utils {
     }
 
     public static void getInvertedTimeWithNewCorrectionFactor() {
-        try {
-            SessionManager sessionManager = SessionManager.get();
+        SessionManager sessionManager = SessionManager.get();
 
-            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
+        int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
 
-            int dateTime = Integer.parseInt(getTodayTime());
+        int dateTime = Integer.parseInt(getTodayTime());
 
+        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
 
-            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
 
-            int dateTimeInUTC = 0;
-            if (offcet < 0) {
-                dateTimeInUTC = dateTime + (-offcet);
+        int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+        int Lt = serverTime + offcet;
 
+        int CF;
+        if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+            CF = Integer.parseInt(sessionManager.getTimeInverval());
+        } else {
+            if (dateTime > Lt) {
+                CF = Lt + dateTime;
 
             } else {
-                dateTimeInUTC = dateTime - offcet;
+                CF = Lt - dateTime;
             }
-            int CF;
-            CF = serverTime - dateTimeInUTC;
-
-            sessionManager.setTimeInterval(CF + "");
-        } catch (Exception e) {
 
         }
+
+
+        sessionManager.setTimeInterval(CF + "");
+
 
     }
 
