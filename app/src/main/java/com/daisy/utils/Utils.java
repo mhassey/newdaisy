@@ -929,6 +929,9 @@ public class Utils {
 
         int dateTime = Integer.parseInt(getTodayTime());
 
+        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+
+        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
 
         int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
         int Lt = serverTime + offcet;
@@ -951,7 +954,6 @@ public class Utils {
 
 
     }
-
 
     public static int searchPromotionUsingPath(String promotionPath) {
         try {
