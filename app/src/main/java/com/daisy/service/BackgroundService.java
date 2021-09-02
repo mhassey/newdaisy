@@ -23,6 +23,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.IInterface;
 import android.os.PowerManager;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -162,6 +163,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             @Override
             public void onForeground(String process1) {
                 try {
+
                     if (process1 != null) {
                         if (!sessionManager.getUninstallShow()) {
                             String process = process1 + "";
@@ -252,6 +254,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }).timeout(200).start(getApplicationContext());
     }
 
+
     private void storeProcess(String process) {
         try {
             String app_name = (String) getPackageManager().getApplicationLabel(
@@ -328,9 +331,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
     private void validatePromotion() {
         try {
-            int hour = Constraint.ONE;
-            int minit = Constraint.THIRTY_INT;
-
+//            int hour = Constraint.ONE;
+//            int minit = Constraint.THIRTY_INT;
+            int hour = Constraint.ZERO;
+            int minit = Constraint.ONE;
 
             int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer4 = new Timer();

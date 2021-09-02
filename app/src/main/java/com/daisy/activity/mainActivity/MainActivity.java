@@ -21,8 +21,6 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +56,6 @@ import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.updateProduct.UpdateProductViewModel;
-import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
@@ -245,13 +242,22 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
+
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_POWER) {
+
+            return true;
+        }
+        return super.onKeyLongPress(keyCode, event);
+    }
+
     /**
      * Start Service permanently
      */
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
-        //  startService(new Intent(MainActivity.this, CaptureImageService.class));
     }
 
     /**
@@ -408,6 +414,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             hideSystemUI();
+        } else {
+           // Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+            //this.sendBroadcast(closeDialog);
         }
 
     }
@@ -1311,8 +1320,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
+
                 case KeyEvent.KEYCODE_BACK:
                     if (mBinding.webView.canGoBack()) {
                         mBinding.webView.goBack();
@@ -1771,8 +1782,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         }
     }
-
-
 
 
 }
