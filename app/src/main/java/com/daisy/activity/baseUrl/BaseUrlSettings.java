@@ -15,7 +15,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
