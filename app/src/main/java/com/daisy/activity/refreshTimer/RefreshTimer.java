@@ -192,7 +192,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
             sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
             sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
-           sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
+            sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
             sessionManager.setDeviceSecurity(response.getResult().getStoreDetails().getDeviceSecurity());
             sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
             Utils.getInvertedTimeWithNewCorrectionFactor();
@@ -268,23 +268,23 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             String UrlPath = response.getResult().getPricecard().getFileName();
             if (response.getResult().getPricecard().getFileName() != null) {
                 String configFilePath = File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-                File directory = new File(getExternalFilesDir(""),configFilePath);
+                File directory = new File(getExternalFilesDir(""), configFilePath);
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
 
                 String path = Utils.getPath();
                 if (path != null) {
-                   // if (!path.equals(UrlPath)) {
-                        Utils.deleteCardFolder();
-                        try {
-                            Utils.writeFile(configFilePath, UrlPath);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        sessionManager.deleteLocation();
+                    // if (!path.equals(UrlPath)) {
+                    Utils.deleteCardFolder();
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    sessionManager.deleteLocation();
 
-                 //   }
+                    //   }
                 } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);
@@ -300,8 +300,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             }
-        }
-        else {
+        } else {
 
             Utils.deleteDaisy();
             String UrlPath = response.getResult().getPricecard().getFileName();

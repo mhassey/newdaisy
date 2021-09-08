@@ -8,6 +8,8 @@
         <package android:name="au.com.fetchtv" />
         <package android:name="au.com.optus.optusstadium" />
         <package android:name="com.spotify.music" />
+        <package android:name="com.android.chrome" />
+        <package android:name="com.sec.android.app.sbrowser" />
 
     </queries>
 
