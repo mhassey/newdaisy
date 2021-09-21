@@ -99,7 +99,11 @@
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -127,11 +131,6 @@
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -190,21 +189,21 @@
             android:stopWithTask="false" />
 
         <!--        <receiver-->
-<!--            android:name=".broadcast.ShutDownBroadCast"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true"-->
-<!--            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">-->
-<!--            <intent-filter>-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--            android:name=".broadcast.ShutDownBroadCast"-->
+        <!--            android:enabled="true"-->
+        <!--            android:exported="true"-->
+        <!--            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">-->
+        <!--            <intent-filter>-->
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
 
-<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-<!--                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />-->
-<!--                <action android:name="android.intent.action.REBOOT" />-->
-<!--                <action android:name="android.intent.action.QUICKBOOT_POWERON" />-->
-<!--                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />-->
-<!--                <action android:name="android.intent.action.ACTION_SHUTDOWN" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+        <!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />-->
+        <!--                <action android:name="android.intent.action.REBOOT" />-->
+        <!--                <action android:name="android.intent.action.QUICKBOOT_POWERON" />-->
+        <!--                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />-->
+        <!--                <action android:name="android.intent.action.ACTION_SHUTDOWN" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
         <receiver
             android:name=".security.Admin"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
