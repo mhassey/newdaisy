@@ -742,12 +742,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     if (jsonArray.length() > 0) {
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                     } else {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                      //  mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
                 }
                 else {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                    //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
                 super.onFormResubmission(view, dontResend, resend);
@@ -765,13 +765,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mViewModel.setExceptionInHtml(false);
 
                     } else {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                  //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
                 }
                 else
                 {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                //    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
                 super.onLoadResource(view, url);
@@ -790,7 +790,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
                 }
                 else {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+              //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
                 super.onPageCommitVisible(view, url);
@@ -810,13 +810,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
                     else
                     {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                     //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
                 }
                 else
                 {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                   // mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
                 super.onPageStarted(view, url, favicon);
@@ -836,13 +836,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                         }
                         else {
-                            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                       //     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                         }
                     }
                     else
                     {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                     //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
                     promotionSettings();
@@ -1219,7 +1219,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         if (pro.size() > 0) {
             mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle([" + Utils.stringify(pro) + "])");
         } else {
-            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle([])");
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle()");
 
         }
     }

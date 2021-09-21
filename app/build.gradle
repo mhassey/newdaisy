@@ -11,8 +11,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 21
-        versionName "4.12"
+        versionCode 23
+        versionName "4.13"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,7 +32,7 @@ android {
         }
     }
 
-    // pinecone password for all
+    // pinecone password for all  key allie key0
     buildTypes {
         release {
             minifyEnabled false
@@ -78,4 +78,6 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
+    implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
+
 }
