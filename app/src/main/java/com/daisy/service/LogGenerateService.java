@@ -12,10 +12,12 @@ import androidx.annotation.Nullable;
 import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
+import com.daisy.pojo.EventHandler;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
 import org.apache.http.client.params.ClientPNames;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Timer;
@@ -34,7 +36,7 @@ public class LogGenerateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("increse counter","command start");
+        Log.e("increse counter", "command start");
 
         startCounterforLogs();
         return super.onStartCommand(intent, flags, startId);
@@ -48,23 +50,23 @@ public class LogGenerateService extends Service {
             T.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    Log.e("increse counter",currentTime+"");
+                    Log.e("increse counter", currentTime + "");
                     currentTime++;
-                   // if (!SessionManager.get().pickDOwn() || SessionManager.get().clickPerform()) {
+                    // if (!SessionManager.get().pickDOwn() || SessionManager.get().clickPerform()) {
                     if (SessionManager.get().clickPerform()) {
 
-                        Log.e("increse counter","second become 0");
+                        Log.e("increse counter", "second become 0");
 
                         SessionManager.get().pickDown(true);
                         SessionManager.get().clckPerform(false);
                         seconds = 0;
                     } else {
-                        Log.e("increse counter","second increse");
+                        Log.e("increse counter", "second increse");
 
                         seconds++;
                     }
                     if (seconds >= 16) {
-                        Log.e("increse counter","second become 16");
+                        Log.e("increse counter", "second become 16");
 
                         int day = (int) TimeUnit.SECONDS.toDays(currentTime);
                         long hours = TimeUnit.SECONDS.toHours(currentTime) - (day * 24);
@@ -87,7 +89,9 @@ public class LogGenerateService extends Service {
                             second_string = "0" + second;
                         } else
                             second_string = second + "";
-
+                        EventHandler eventHandler = new EventHandler();
+                        eventHandler.eventName(Constraint.PICK_UP);
+                        EventBus.getDefault().post(eventHandler);
                         DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_INTERACTION + "/" + hours_string + Constraint.COLON + minute_string + Constraint.COLON + second_string, "", "", Constraint.APPLICATION_LOGS);
                         T.cancel();
                         Intent lintent = new Intent(getApplicationContext(), LogGenerateService.class);

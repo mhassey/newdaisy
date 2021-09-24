@@ -138,12 +138,14 @@ public class Constraint {
     public static final String USER_INTERACTION = "Interaction";
     public static final String COLON = ":";
     public static final String IDLE = "Idle";
+    public static final String FACE_DETECTED = "faceDetected";
+    public static final String PICK_UP = "pickup";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     public static final String CARD = "Card";
-    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.ACTIVITY_RECOGNITION,Manifest.permission.BLUETOOTH, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
-    public static final String[] STORAGE_PERMISSION_WITHOUT_SENSOR = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
+    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.BLUETOOTH, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
+    public static final String[] STORAGE_PERMISSION_WITHOUT_SENSOR = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
 
     public static final String ANDROID = "Android";
     public static final String FILE = "file://";

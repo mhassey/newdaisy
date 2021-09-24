@@ -50,6 +50,7 @@ import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.interfaces.SyncLogCallBack;
+import com.daisy.pojo.EventHandler;
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.InternetResponse;
@@ -327,8 +328,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
     private void validatePromotion() {
         try {
-              int hour = Constraint.ONE;
-             int minit = Constraint.THIRTY_INT;
+            int hour = Constraint.ONE;
+            int minit = Constraint.THIRTY_INT;
 
 
             int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
@@ -802,6 +803,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         count = Constraint.ZERO;
+        EventHandler eventHandler = new EventHandler();
+        eventHandler.eventName(Constraint.PICK_DOWN);
+        EventBus.getDefault().post(eventHandler);
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
         EventBus.getDefault().post(inversion);
@@ -1093,6 +1097,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             sessionManager = SessionManager.get();
         }
         sessionManager.setFaceDetectedStore(true);
+        EventHandler eventHandler = new EventHandler();
+        eventHandler.eventName(Constraint.FACE_DETECTED);
+        EventBus.getDefault().post(eventHandler);
 //        DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
 
     }
