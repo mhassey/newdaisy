@@ -211,6 +211,7 @@ public class Utils {
                     qualification = " prior day";
                 }
 
+
                 if (clt >= openTime && clt < closeTime) {
                     return false;
                 }
