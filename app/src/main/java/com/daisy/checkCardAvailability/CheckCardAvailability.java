@@ -90,7 +90,7 @@ public class CheckCardAvailability {
                         sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
                         if (callFrom != null) {
                             sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
-                            Utils.getInvertedTimeWithNewCorrectionFactor();
+                            //   Utils.getInvertedTimeWithNewCorrectionFactor();
                         }
                         if (!response.getResult().isDefault()) {
                             if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
@@ -146,7 +146,7 @@ public class CheckCardAvailability {
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
             String UrlPath = response.getResult().getPricecard().getFileName();
             if (response.getResult().getPricecard().getFileName() != null) {
-                String configFilePath =Constraint.FOLDER_NAME + Constraint.SLASH;
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath);
                 if (!directory.exists()) {
                     directory.mkdirs();
@@ -155,15 +155,15 @@ public class CheckCardAvailability {
                 String path = Utils.getPath();
                 if (path != null) {
                     //if (!path.equals(UrlPath)) {
-                        Utils.deleteCardFolder();
-                        try {
-                            Utils.writeFile(configFilePath, UrlPath);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        sessionManager.deleteLocation();
-                        EventBus.getDefault().post(new PriceCard());
-                  //  }
+                    Utils.deleteCardFolder();
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    sessionManager.deleteLocation();
+                    EventBus.getDefault().post(new PriceCard());
+                    //  }
                 } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);

@@ -804,7 +804,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public boolean onTouch(View v, MotionEvent event) {
         count = Constraint.ZERO;
         EventHandler eventHandler = new EventHandler();
-        eventHandler.eventName(Constraint.PICK_DOWN);
+        eventHandler.eventName(Constraint.PICK_UP);
         EventBus.getDefault().post(eventHandler);
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());

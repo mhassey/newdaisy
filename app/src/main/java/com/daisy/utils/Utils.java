@@ -57,6 +57,8 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -64,6 +66,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -161,109 +164,166 @@ public class Utils {
     }
 
     public static boolean getInvertedTime() {
-        try {
-
-            SessionManager sessionManager = SessionManager.get();
-
-            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
-
-            int dateTime = Integer.parseInt(getTodayTime());
-
-            int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
-
-            int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
-
-            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
-            int Lt = serverTime + offcet;
-
-
-            if (offcet < 0) {
-                int CF;
-                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
-                    CF = Integer.parseInt(sessionManager.getTimeInverval());
-                } else {
-                    if (dateTime > Lt) {
-                        CF = dateTime - Lt;
-
-                    } else {
-                        CF = Lt - dateTime;
-                    }
-
-
-                }
-
-                sessionManager.setTimeInterval(CF + "");
-
-                int clt = dateTime - CF;
-                System.out.println("clt value is " + clt);
-                String qualification = "";
-                if (clt > 2400) {
-                    clt = clt - 2400;
-                    System.out.println("if clt value is " + clt);
-                    qualification = " next day";
-                    if (clt > 60 && clt < 100) {
-                        clt = clt - 60;
-                        clt = clt + 100;
-                    }
-                } else if (clt < 0) {
-                    clt = 2400 + clt;
-                    System.out.println("else  clt value is " + clt);
-                    qualification = " prior day";
-                }
-
-                if (clt >= openTime && clt < closeTime) {
-                    return false;
-                }
-                return true;
-            } else {
-                int CF;
-                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
-                    CF = Integer.parseInt(sessionManager.getTimeInverval());
-                } else {
-                    if (dateTime > Lt) {
-                        CF = Lt + dateTime;
-
-                    } else {
-                        CF = Lt - dateTime;
-                    }
-
-                }
-
-
-                sessionManager.setTimeInterval(CF + "");
-                int clt = dateTime + CF;
-                System.out.println("clt value is " + clt);
-                String qualification = "";
-                if (clt > 2400) {
-                    clt = clt - 2400;
-                    System.out.println("if clt value is " + clt);
-                    qualification = " next day";
-                    if (clt > 60 && clt < 100) {
-                        clt = clt - 60;
-                        clt = clt + 100;
-                    }
-                } else if (clt < 0) {
-                    clt = 2400 + clt;
-                    System.out.println("else  clt value is " + clt);
-                    qualification = " prior day";
-                }
-
-                if (clt >= openTime && clt < closeTime) {
-                    return false;
-                }
-                return true;
-            }
-        } catch (Exception e) {
-
+        SessionManager sessionManager = SessionManager.get();
+        int value = Integer.parseInt(sessionManager.getUTCOffset());
+        String mainValue = "";
+        if (value > 0) {
+            mainValue = "+" + value;
+        } else
+            mainValue = value + "";
+        String timezoneS = "GMT" + mainValue;
+        TimeZone tz = TimeZone.getTimeZone(timezoneS);
+        Calendar c = Calendar.getInstance(tz);
+        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
+        int mainTime = ((hour * 100) + c.get(Calendar.MINUTE));
+        if (mainTime >= openTime && mainTime < closeTime) {
+            return false;
         }
-        return false;
+        return true;
 
     }
 
+//    public static boolean getInvertedTime() {
+//        try {
+//
+//            SessionManager sessionManager = SessionManager.get();
+//
+//            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
+//
+//            int dateTime = Integer.parseInt(getTodayTime());
+//
+//            int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+//
+//            int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
+//
+//            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+//            int Lt = serverTime + offcet;
+//
+//
+//            if (offcet < 0) {
+//                int CF;
+//                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+//                    CF = Integer.parseInt(sessionManager.getTimeInverval());
+//                } else {
+//                    CF = dateTime - Lt;
+//                }
+//
+//                sessionManager.setTimeInterval(CF + "");
+//
+//                int clt = dateTime - CF;
+//                System.out.println("clt value is " + clt);
+//                String qualification = "";
+//                if (clt > 2400) {
+//                    clt = clt - 2400;
+//                    System.out.println("if clt value is " + clt);
+//                    qualification = " next day";
+//                    if (clt > 60 && clt < 100) {
+//                        clt = clt - 60;
+//                        clt = clt + 100;
+//                    }
+//                }
+//
+//
+////                else if (clt < 0) {
+////                    clt = 2400 + clt;
+////                    System.out.println("else  clt value is " + clt);
+////                    qualification = " prior day";
+////                }
+//
+//                String ctlValue = clt + "";
+//                clt = changeCltValue(ctlValue);
+//
+//
+//                if (clt >= openTime && clt < closeTime) {
+//                    return false;
+//                }
+//                return true;
+//            } else {
+//                int CF;
+//                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+//                    CF = Integer.parseInt(sessionManager.getTimeInverval());
+//                } else {
+//                    if (dateTime > Lt) {
+//                        CF = Lt + dateTime;
+//
+//                    } else {
+//                        CF = Lt - dateTime;
+//                    }
+//
+//                }
+//
+//
+//                sessionManager.setTimeInterval(CF + "");
+//                int clt = dateTime + CF;
+//                System.out.println("clt value is " + clt);
+//                String qualification = "";
+//                if (clt > 2400) {
+//                    clt = clt - 2400;
+//                    System.out.println("if clt value is " + clt);
+//                    qualification = " next day";
+//                    if (clt > 60 && clt < 100) {
+//                        clt = clt - 60;
+//                        clt = clt + 100;
+//                    }
+//                } else if (clt < 0) {
+//                    clt = 2400 + clt;
+//                    System.out.println("else  clt value is " + clt);
+//                    qualification = " prior day";
+//                }
+//
+//                String ctlValue = clt + "";
+//                //  clt = changeCltValue(ctlValue);
+//
+//                if (clt >= openTime && clt < closeTime) {
+//                    return false;
+//                }
+//                return true;
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//        return false;
+//
+//    }
 
-
-
-
+    private static int changeCltValue(String ctlValue) {
+        int returnValue = Integer.parseInt(ctlValue);
+        switch (ctlValue.length()) {
+            case 3: {
+                int cltFirst = Integer.parseInt(ctlValue.charAt(0) + "");
+                int lastTwo = Integer.parseInt(ctlValue.substring(1, 3));
+                if (lastTwo >= 60) {
+                    ++cltFirst;
+                    cltFirst = cltFirst * 100;
+                    returnValue = cltFirst + (lastTwo - 60);
+                }
+                break;
+            }
+            case 2: {
+                int cltFirst = 0;
+                int lastTwo = Integer.parseInt(ctlValue);
+                if (lastTwo >= 60) {
+                    ++cltFirst;
+                    cltFirst = cltFirst * 100;
+                    returnValue = cltFirst + (lastTwo - 60);
+                }
+                break;
+            }
+//            case 4: {
+//                int cltFirst = Integer.parseInt(ctlValue.substring(0, 2));
+//                int lastTwo = Integer.parseInt(ctlValue.substring(2, 4));
+//                if (lastTwo > 60) {
+//                    ++cltFirst;
+//                    cltFirst = cltFirst * 100;
+//                    returnValue = cltFirst + (lastTwo - 60);
+//                }
+//                break;
+//            }
+        }
+        return returnValue;
+    }
 
 
     public static String getTodayTime() {
@@ -990,12 +1050,12 @@ public class Utils {
         if (offcet < 0) {
             int CF;
 
-            if (dateTime > Lt) {
-                CF = dateTime - Lt;
+            //  if (dateTime > Lt) {
+            CF = dateTime - Lt;
 
-            } else {
-                CF = Lt - dateTime;
-            }
+//            } else {
+//                CF = Lt - dateTime;
+//            }
 
 
             sessionManager.setTimeInterval(CF + "");

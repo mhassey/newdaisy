@@ -90,7 +90,7 @@ public class LogGenerateService extends Service {
                         } else
                             second_string = second + "";
                         EventHandler eventHandler = new EventHandler();
-                        eventHandler.eventName(Constraint.PICK_UP);
+                        eventHandler.eventName(Constraint.PICK_DOWN);
                         EventBus.getDefault().post(eventHandler);
                         DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_INTERACTION + "/" + hours_string + Constraint.COLON + minute_string + Constraint.COLON + second_string, "", "", Constraint.APPLICATION_LOGS);
                         T.cancel();
