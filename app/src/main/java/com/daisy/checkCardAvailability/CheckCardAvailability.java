@@ -90,7 +90,7 @@ public class CheckCardAvailability {
                         sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
                         if (callFrom != null) {
                             sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
-                            Utils.getInvertedTimeWithNewCorrectionFactor();
+                         //   Utils.getInvertedTimeWithNewCorrectionFactor();
                         }
                         if (!response.getResult().isDefault()) {
                             if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
