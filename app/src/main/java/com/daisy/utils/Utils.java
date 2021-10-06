@@ -160,54 +160,26 @@ public class Utils {
         return false;
     }
 
+
     public static boolean getInvertedTime() {
-        try {
-            SessionManager sessionManager = SessionManager.get();
-
-            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
-
-            int dateTime = Integer.parseInt(getTodayTime());
-
-            int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
-
-            int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
-
-            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
-
-            int dateTimeInUTC = 0;
-            if (offcet < 0) {
-                dateTimeInUTC = dateTime + (-offcet);
-                openTime = openTime + (-offcet);
-                closeTime = closeTime + (-offcet);
-
-
-            } else {
-                dateTimeInUTC = dateTime - offcet;
-                openTime = openTime - offcet;
-                closeTime = closeTime - offcet;
-            }
-            int CF;
-
-            if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
-                CF = Integer.parseInt(sessionManager.getTimeInverval());
-            } else {
-                CF = serverTime - dateTimeInUTC;
-
-            }
-
-
-            sessionManager.setTimeInterval(CF + "");
-            int LT = dateTimeInUTC + CF;
-
-            Log.e("Working", LT + "--");
-            if (LT >= openTime && LT < closeTime) {
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-
+        SessionManager sessionManager = SessionManager.get();
+        int value = Integer.parseInt(sessionManager.getUTCOffset());
+        String mainValue = "";
+        if (value > 0) {
+            mainValue = "+" + value;
+        } else
+            mainValue = value + "";
+        String timezoneS = "GMT" + mainValue;
+        TimeZone tz = TimeZone.getTimeZone(timezoneS);
+        Calendar c = Calendar.getInstance(tz);
+        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
+        int mainTime = ((hour * 100) + c.get(Calendar.MINUTE));
+        if (mainTime >= openTime && mainTime < closeTime) {
+            return false;
         }
-        return false;
+        return true;
 
     }
 
@@ -908,38 +880,7 @@ public class Utils {
         }
     }
 
-    public static void getInvertedTimeWithNewCorrectionFactor() {
-        SessionManager sessionManager = SessionManager.get();
 
-        int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
-
-        int dateTime = Integer.parseInt(getTodayTime());
-
-        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
-
-        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
-
-        int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
-        int Lt = serverTime + offcet;
-
-        int CF;
-        if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
-            CF = Integer.parseInt(sessionManager.getTimeInverval());
-        } else {
-            if (dateTime > Lt) {
-                CF = Lt + dateTime;
-
-            } else {
-                CF = Lt - dateTime;
-            }
-
-        }
-
-
-        sessionManager.setTimeInterval(CF + "");
-
-
-    }
 
     public static int searchPromotionUsingPath(String promotionPath) {
         try {
