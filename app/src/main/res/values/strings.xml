@@ -206,4 +206,7 @@
     <string name="device_not_detected">Device not Detected</string>
     <string name="or">-Or-</string>
     <string name="select_product_below">Select product below</string>
+    <string name="befor_you_begin">Before you begin</string>
+    <string name="take_me_their">TAKE ME THEIR</string>
+    <string name="please_verify_the_time"><![CDATA[Please verify the time & time zone of your device is accorate in Date & Time settings of the device]]></string>
 </resources>

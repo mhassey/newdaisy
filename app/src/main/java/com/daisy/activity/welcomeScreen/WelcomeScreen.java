@@ -1,21 +1,32 @@
 package com.daisy.activity.welcomeScreen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.configSettings.ConfigSettings;
+import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
+import com.daisy.dialogFragment.DateTimePermissionDIalog;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -69,6 +80,16 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         sessionManager = SessionManager.get();
         setNoTitleBar(this);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean permissionAvailable = Utils.isTimeAutomatic(this);
+        if (!permissionAvailable) {
+            showAlertIfTimeIsNotCorrect();
+        }
     }
 
     /**
@@ -145,5 +166,16 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
 
     }
 
+
+    /**
+     * show alert if timezone is not correct
+     **/
+    public void showAlertIfTimeIsNotCorrect() {
+        DateTimePermissionDIalog dateTimePermissionDIalog = new DateTimePermissionDIalog();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        dateTimePermissionDIalog.show(ft, null);
+
+
+    }
 
 }
