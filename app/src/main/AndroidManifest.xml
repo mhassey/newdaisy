@@ -57,8 +57,12 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".activity.langSupport.LangSelectionActivity"  android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".activity.updateProduct.UpdateProduct" android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activity.langSupport.LangSelectionActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activity.updateProduct.UpdateProduct"
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".service.SecurityService"
@@ -93,7 +97,15 @@
 
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
             android:screenOrientation="sensorLandscape" />
@@ -116,11 +128,7 @@
         <activity
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="sensorLandscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.lockscreen.LockScreen"
@@ -140,7 +148,9 @@
         <activity
             android:name=".activity.logs.logs_show.LogsShowActivity"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".activity.logs.LogsMainActivity"  android:screenOrientation="sensorLandscape"/>
+        <activity
+            android:name=".activity.logs.LogsMainActivity"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />
