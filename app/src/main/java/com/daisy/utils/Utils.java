@@ -817,7 +817,7 @@ public class Utils {
     }
 
 
-    private static String getGalleryPath() {
+    public static String getGalleryPath() {
         return Environment.getExternalStorageDirectory() + "/";
     }
 
