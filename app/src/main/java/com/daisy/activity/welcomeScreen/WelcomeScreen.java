@@ -172,6 +172,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
      **/
     public void showAlertIfTimeIsNotCorrect() {
         DateTimePermissionDIalog dateTimePermissionDIalog = new DateTimePermissionDIalog();
+        dateTimePermissionDIalog.setCancelable(false);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         dateTimePermissionDIalog.show(ft, null);
 

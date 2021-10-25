@@ -11,8 +11,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 25
-        versionName "4.14"
+        versionCode 26
+        versionName "4.15"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
