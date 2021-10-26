@@ -6,13 +6,16 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
+import com.daisy.dialogFragment.DateTimePermissionDIalog;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.Utils;
 
 import java.util.Locale;
 
@@ -119,8 +122,8 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onStart() {
         if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl) );
+            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             } else {
                 mBinding.curveLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             }
