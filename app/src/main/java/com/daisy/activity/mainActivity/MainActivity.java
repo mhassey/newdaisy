@@ -742,11 +742,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     if (jsonArray.length() > 0) {
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                     } else {
-                      //  mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                        //  mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
-                }
-                else {
+                } else {
                     //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
@@ -765,13 +764,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mViewModel.setExceptionInHtml(false);
 
                     } else {
-                  //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                        //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
-                }
-                else
-                {
-                //    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                } else {
+                    //    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
                 super.onLoadResource(view, url);
@@ -788,9 +785,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mViewModel.setExceptionInHtml(false);
 
                     }
-                }
-                else {
-              //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                } else {
+                    //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
                 super.onPageCommitVisible(view, url);
@@ -807,16 +803,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
 
-                    }
-                    else
-                    {
-                     //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                    } else {
+                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
-                }
-                else
-                {
-                   // mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                } else {
+                    // mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                 }
                 super.onPageStarted(view, url, favicon);
@@ -834,15 +826,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                             mViewModel.setExceptionInHtml(false);
 
-                        }
-                        else {
-                       //     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                        } else {
+                            //     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                         }
-                    }
-                    else
-                    {
-                     //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                    } else {
+                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
                     }
                     promotionSettings();
@@ -1372,10 +1361,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
     public void onBackToHome() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startMain);
+        if (mBinding.supportWebViewLayout.getVisibility() == View.VISIBLE) {
+            openMainWebView();
+        } else {
+
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
+        }
     }
 
 
@@ -1666,9 +1660,73 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @JavascriptInterface
         public void openApplication(String event) {
             Log.e("Kali", event);
-            launchApp(event);
+            if (event.contains(Constraint.HTTP) || event.contains(Constraint.HTTPS)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onSupportWebView(event);
+                    }
+                });
+
+            } else
+                launchApp(event);
         }
 
+    }
+
+
+    private void onSupportWebView(String url) {
+
+        mBinding.supportWebView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setAllowFileAccess(Constraint.TRUE);
+        mBinding.supportWebView.setSoundEffectsEnabled(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setAppCacheEnabled(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        mBinding.supportWebView.getSettings().setAllowContentAccess(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setDomStorageEnabled(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setJavaScriptEnabled(Constraint.TRUE); // enable javascript
+        mBinding.supportWebView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
+        mBinding.supportWebView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setUseWideViewPort(Constraint.TRUE);
+
+        mBinding.supportWebView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setDisplayZoomControls(Constraint.FALSE);
+
+        mBinding.supportWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        mBinding.supportWebView.setScrollbarFadingEnabled(Constraint.FALSE);
+        //mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+        mBinding.supportWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
+
+        mBinding.supportWebView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
+
+        if (Build.VERSION.SDK_INT >= Constraint.TWENTY_ONE) {
+            mBinding.supportWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.supportWebView, Constraint.TRUE);
+        }
+        // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
+
+        mBinding.supportWebView.loadUrl(url);
+        mBinding.webViewLayout.setVisibility(View.GONE);
+        mBinding.supportWebViewLayout.setVisibility(View.VISIBLE);
+        mBinding.supportWebView.setWebChromeClient(new WebChromeClient() {
+            public void onProgressChanged(WebView view, int progress) {
+                showHideProgressDialog(true);
+
+                if (progress == Constraint.HUNDERD)
+                    showHideProgressDialog(false);
+
+            }
+        });
+
+
+    }
+
+    private void openMainWebView() {
+        mBinding.webViewLayout.setVisibility(View.VISIBLE);
+        mBinding.supportWebViewLayout.setVisibility(View.GONE);
     }
 
     private void storePriceCardIfFaceDetected(String msg) {
