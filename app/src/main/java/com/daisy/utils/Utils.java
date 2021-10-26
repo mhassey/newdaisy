@@ -85,6 +85,15 @@ public class Utils {
         }
     }
 
+
+    public static boolean isTimeAutomatic(Context c) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return Settings.Global.getInt(c.getContentResolver(), Settings.Global.AUTO_TIME, 0) == 1;
+        } else {
+            return android.provider.Settings.System.getInt(c.getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0) == 1;
+        }
+    }
+
     // get last update date
     public static String getLastUpdateDate(Activity activity) {
 
