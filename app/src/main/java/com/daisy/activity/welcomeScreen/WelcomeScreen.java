@@ -43,6 +43,16 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         sessionManager = SessionManager.get();
         setNoTitleBar(this);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean permissionAvailable = Utils.isTimeAutomatic(this);
+        if (!permissionAvailable) {
+            showAlertIfTimeIsNotCorrect();
+        }
     }
 
     /**
@@ -119,5 +129,17 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
 
     }
 
+
+    /**
+     * show alert if timezone is not correct
+     **/
+    public void showAlertIfTimeIsNotCorrect() {
+        DateTimePermissionDIalog dateTimePermissionDIalog = new DateTimePermissionDIalog();
+        dateTimePermissionDIalog.setCancelable(false);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        dateTimePermissionDIalog.show(ft, null);
+
+
+    }
 
 }
