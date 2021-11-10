@@ -77,6 +77,7 @@ import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
+import com.daisy.service.DeletePhotoService;
 import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
@@ -102,6 +103,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -1671,6 +1674,46 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             } else
                 launchApp(event);
         }
+
+        @JavascriptInterface
+        public void openBrowser(String event,int time) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    onSupportWebView(event);
+                    setDeleteTimer(time);
+                }
+            });
+
+
+        }
+
+    }
+
+
+
+    private void setDeleteTimer(int time) {
+
+
+
+        int second = time*1000;
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mBinding.supportWebViewLayout.getVisibility() == View.VISIBLE) {
+                            openMainWebView();
+                        }
+                    }
+                });
+
+                timer.cancel();
+            }
+        }, second, second);
 
     }
 

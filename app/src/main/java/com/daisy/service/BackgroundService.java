@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -801,6 +802,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         count = Constraint.ZERO;
+        Log.e("checkig","work");
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
         EventBus.getDefault().post(inversion);
@@ -854,8 +856,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             mWindowManager.addView(touchLayout, params);
         } else {
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                             | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
