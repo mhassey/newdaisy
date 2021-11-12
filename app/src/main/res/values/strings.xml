@@ -209,4 +209,12 @@
     <string name="befor_you_begin">Before you begin</string>
     <string name="take_me_their">TAKE ME THERE</string>
     <string name="please_verify_the_time"><![CDATA[Please verify the time & time zone of your device is accurate in Date & Time settings of the device]]></string>
+    <string name="title_activity_demo">DemoActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
