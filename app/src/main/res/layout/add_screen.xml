@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -13,6 +13,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/top_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp10">
@@ -36,6 +37,7 @@
                 android:id="@+id/icon"
                 android:layout_width="@dimen/dp120"
                 android:layout_height="@dimen/dp120"
+                android:layout_below="@+id/top_layout"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_product_icon" />
 
@@ -43,7 +45,6 @@
                 style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/icon"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginBottom="@dimen/dp10"
@@ -59,8 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center|start"
             android:layout_marginBottom="@dimen/dp15"
+            android:gravity="center|start"
             android:orientation="vertical">
 
             <EditText
@@ -223,22 +224,22 @@
 
 
             <TextView
-                android:visibility="gone"
                 style="@style/fontRagular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/webkit_orientation"
-                android:textSize="@dimen/sp12" />
+                android:textSize="@dimen/sp12"
+                android:visibility="gone" />
 
             <RelativeLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp35"
                 android:layout_marginTop="@dimen/dp5"
-                android:layout_marginEnd="@dimen/dp55">
+                android:layout_marginEnd="@dimen/dp55"
+                android:visibility="gone">
 
                 <Spinner
 

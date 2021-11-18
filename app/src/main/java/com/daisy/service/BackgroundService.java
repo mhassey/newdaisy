@@ -116,6 +116,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private Sensor stepCounterSensor;
     private Sensor magnetometer;
     private int uninstallIssue = 0;
+    private static BackgroundService backgroundService;
 
 
     @Nullable
@@ -134,6 +135,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public void onCreate() {
         super.onCreate();
+        backgroundService = this;
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
         showNotification();
         initWakeUpLock();
@@ -264,6 +266,19 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
+    public static BackgroundService getServiceObject() {
+        return backgroundService;
+    }
+
+    public void closeService() {
+        unregisterReceiver();
+        if (touchLayout != null)
+            mWindowManager.removeView(touchLayout);
+        if (touchLayoutforCamera != null)
+            mWindowManager.removeView(touchLayoutforCamera);
+    }
+
+
     @SuppressLint("InvalidWakeLockTag")
     private void initWakeUpLock() {
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -366,7 +381,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         inversion.setInvert(Utils.getInvertedTime());
                         EventBus.getDefault().post(inversion);
 
-                       String mainVersion = sessionManager.getApkVersion();
+                        String mainVersion = sessionManager.getApkVersion();
 
                         if (mainVersion != null && !mainVersion.equals("")) {
 
@@ -656,6 +671,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    private void unregisterReceiver() {
+        unregisterReceiver(overlayReceiver);
+        unregisterReceiver(wifiStateReceiver);
+        unregisterReceiver(m_timeChangedReceiver);
+    }
+
+
     // Time change receiver
     private final BroadcastReceiver m_timeChangedReceiver = new BroadcastReceiver() {
         @Override
@@ -687,9 +709,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             String action = intent.getAction();
             if (action.equals(Intent.ACTION_SCREEN_OFF)) {
                 //showOverlayActivity(context);
-               // wakePhoneUp();
+                // wakePhoneUp();
             } else if (action.equals(ACTION_DEBUG)) {
-               // showOverlayActivity(context);
+                // showOverlayActivity(context);
             }
         }
     };
@@ -797,6 +819,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Handle touch event on phone
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        Log.e("Working","Hance Proved");
         count = Constraint.ZERO;
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
@@ -964,7 +987,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case (Sensor.TYPE_STEP_COUNTER):
-              //  countSteps(event.values[0]);
+                //  countSteps(event.values[0]);
                 break;
 
             case Sensor.TYPE_GYROSCOPE:
@@ -1003,7 +1026,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     if (!isPickedUpSucess) {
                         isPickedDown = false;
                         isPickedUpSucess = true;
-                       // DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
+                        // DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -1013,7 +1036,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         EventBus.getDefault().post(inversion);
                         isPickedDown = true;
                         isPickedUpSucess = false;
-                     //   DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
+                        //   DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
 
                     }
                 }
@@ -1049,7 +1072,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
         //Record achievement
     }
-
 
 
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
 
 
@@ -24,6 +24,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/top_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp10">
@@ -47,6 +48,7 @@
                     android:id="@+id/icon"
                     android:layout_width="@dimen/dp120"
                     android:layout_height="@dimen/dp120"
+                    android:layout_below="@+id/top_layout"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_config_icon" />
 
@@ -54,7 +56,6 @@
                     style="@style/fontMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/icon"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/dp10"
                     android:layout_marginBottom="@dimen/dp10"
@@ -169,8 +170,29 @@
 
 
                         </LinearLayout>
-
                         <LinearLayout
+                            android:id="@+id/logout_app"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp30"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp30"
+                            android:background="@drawable/edit_text_format"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp10"
+                                android:fontFamily="@font/rragular"
+                                android:text="@string/logout"
+                                android:textSize="@dimen/sp15" />
+
+
+                        </LinearLayout>
+                        <LinearLayout
+
                             android:id="@+id/feedBack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -179,7 +201,7 @@
                             android:layout_marginEnd="@dimen/dp30"
                             android:background="@drawable/edit_text_format"
                             android:orientation="vertical"
-                            android:visibility="visible">
+                            android:visibility="gone">
 
 
                             <TextView
@@ -436,7 +458,29 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp10"
                             android:fontFamily="@font/rragular"
-                            android:text="@string/direct_apk_update"
+                            android:text="@string/apk_update"
+                            android:textSize="@dimen/sp15" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/close_app"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp30"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp30"
+                        android:background="@drawable/edit_text_format"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp10"
+                            android:fontFamily="@font/rragular"
+                            android:text="@string/close_app"
                             android:textSize="@dimen/sp15" />
 
 
@@ -451,30 +495,30 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:gravity="end"
-            android:layout_marginEnd="@dimen/dp10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/dp10"
 
-            android:layout_alignParentBottom="true">
+            android:gravity="end">
 
             <TextView
-                android:gravity="end"
                 android:id="@+id/appVersion"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
+                android:gravity="end"
                 android:textSize="@dimen/sp12" />
 
             <TextView
-                android:gravity="end"
-                android:layout_marginTop="@dimen/dp5"
-                android:layout_marginBottom="@dimen/dp5"
-                android:layout_below="@+id/appVersion"
                 android:id="@+id/updatetime"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/appVersion"
+                android:layout_marginTop="@dimen/dp5"
+
+                android:layout_marginBottom="@dimen/dp5"
+                android:gravity="end"
                 android:textSize="@dimen/sp12" />
 
         </RelativeLayout>

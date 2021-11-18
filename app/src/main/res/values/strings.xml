@@ -32,7 +32,8 @@
     <string name="unlock">UNLOCK</string>
     <string name="invalid_password">INVALID PASSWORD</string>
     <string name="welcome">WELCOME</string>
-    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">This app requires several special permissions to perform properly. Pressing \'begin\' below will start guiding you through the process.</string>
+<!--    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">This app requires several special permissions to perform properly. Pressing \'begin\' below will start guiding you through the process.</string>-->
+    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">To get started,you\'ll need your WiFi credentials and MPC store code and password</string>
     <string name="begin">BEGIN</string>
     <string name="next">NEXT</string>
 
@@ -204,5 +205,10 @@
     <string name="befor_you_begin">Before you begin</string>
     <string name="take_me_their">TAKE ME THERE</string>
     <string name="please_verify_the_time"><![CDATA[Please verify the time & time zone of your device is accurate in Date & Time settings of the device]]></string>
+    <string name="please_connect_to_wifi">Please connect to WiFi</string>
+    <string name="go">GO</string>
+    <string name="apk_update">Apk Update</string>
+    <string name="close_app">Close App</string>
+    <string name="please_wait_service_is_not_register_yet">Please wait service is not register yet.</string>
 
 </resources>

@@ -25,11 +25,13 @@ import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.updateProduct.UpdateProduct;
+import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
@@ -75,7 +77,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         viewModel = new ViewModelProvider(this).get(ApkUpdateViewModel.class);
         setNoTitleBar(this);
         sessionWork();
-       mBinding.appVersion.setText(getString(R.string.app_version)+" "+BuildConfig.VERSION_NAME);
+        mBinding.appVersion.setText(getString(R.string.app_version) + " " + BuildConfig.VERSION_NAME);
         getDefaultUpdateTime();
     }
 
@@ -86,7 +88,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void getDefaultUpdateTime() {
         try {
             String val = Utils.getLastUpdateDate(ConfigSettings.this);
-            mBinding.updatetime.setText(getString(R.string.last_update_time)+" "+val);
+            mBinding.updatetime.setText(getString(R.string.last_update_time) + " " + val);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -156,6 +158,8 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwitch());
         mBinding.alramSwitch.setOnCheckedChangeListener(getAlarmSwitch());
+        mBinding.closeApp.setOnClickListener(this::onClick);
+        mBinding.logoutApp.setOnClickListener(this);
 
 
     }
@@ -315,8 +319,31 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             case R.id.direct_apk_update: {
                 handleApkUpdateDirectly();
             }
+            case R.id.close_app: {
+                stopLockTask();
+                closeHoleApp();
+                break;
+            }
+            case R.id.logout_app: {
+                if (BackgroundService.getServiceObject() != null) {
+                    AlaramHelperBackground.cancelAlarmElapsed();
+                    AlaramHelperBackground.cancelAlarmRTC();
+                    BackgroundService.getServiceObject().closeService();
+                    stopService(new Intent(this, BackgroundService.class));
+                    SessionManager.get().clear();
+                    closeHoleApp();
+                } else {
+                    ValidationHelper.showToast(this, getString(R.string.please_wait_service_is_not_register_yet));
+                }
+            }
         }
     }
+
+    private void closeHoleApp() {
+        stopLockTask();
+        this.finishAffinity();
+    }
+
 
     /**
      * Responsibility - startLangSupportActivity is an method to redirect page to  LangSelectionActivity

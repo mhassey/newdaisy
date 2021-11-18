@@ -14,6 +14,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/top_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp10">
@@ -34,9 +35,10 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/icon"
                 android:layout_width="@dimen/dp120"
                 android:layout_height="@dimen/dp120"
-                android:id="@+id/icon"
+                android:layout_below="@+id/top_layout"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_location_icon" />
 
@@ -46,7 +48,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/dp10"
-                android:layout_below="@+id/icon"
                 android:text="@string/update_position"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp25" />
