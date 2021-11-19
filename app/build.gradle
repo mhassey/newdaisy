@@ -22,13 +22,13 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://nz.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://t1a.mobilepricecards.com/"'
         }
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://nz.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://t1a.mobilepricecards.com/"'
         }
     }
 

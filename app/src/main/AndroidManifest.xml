@@ -104,6 +104,7 @@
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait" >
+
         </activity>
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"

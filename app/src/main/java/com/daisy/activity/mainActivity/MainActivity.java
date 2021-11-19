@@ -144,6 +144,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         setNoTitleBar(this);
+        SessionManager.get().logout(false);
         context = this;
         handleScreenRotation();
         sessionWork();
@@ -1676,7 +1677,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
 
         @JavascriptInterface
-        public void openBrowser(String event,int time) {
+        public void openBrowser(String event, int time) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1691,12 +1692,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-
     private void setDeleteTimer(int time) {
 
 
-
-        int second = time*1000;
+        int second = time * 1000;
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -1752,6 +1751,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
 
         mBinding.supportWebView.loadUrl(url);
+
         mBinding.webViewLayout.setVisibility(View.GONE);
         mBinding.supportWebViewLayout.setVisibility(View.VISIBLE);
         mBinding.supportWebView.setWebChromeClient(new WebChromeClient() {

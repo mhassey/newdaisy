@@ -25,11 +25,14 @@ import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.updateProduct.UpdateProduct;
+import com.daisy.activity.welcomeScreen.WelcomeScreen;
+import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
@@ -75,7 +78,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         viewModel = new ViewModelProvider(this).get(ApkUpdateViewModel.class);
         setNoTitleBar(this);
         sessionWork();
-        mBinding.appVersion.setText(" "+BuildConfig.VERSION_NAME);
+        mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
         getDefaultUpdateTime();
     }
 
@@ -86,7 +89,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void getDefaultUpdateTime() {
         try {
             String val = Utils.getLastUpdateDate(ConfigSettings.this);
-            mBinding.updatetime.setText(" "+val);
+            mBinding.updatetime.setText(" " + val);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -156,6 +159,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwitch());
         mBinding.alramSwitch.setOnCheckedChangeListener(getAlarmSwitch());
+        mBinding.logoutApp.setOnClickListener(this::onClick);
 
 
     }
@@ -315,6 +319,28 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             case R.id.direct_apk_update: {
                 handleApkUpdateDirectly();
             }
+            case R.id.logout_app: {
+                handleLogout();
+            }
+        }
+    }
+
+    private void handleLogout() {
+        if (BackgroundService.getServiceObject() != null) {
+            AlaramHelperBackground.cancelAlarmElapsed();
+            AlaramHelperBackground.disableBootReceiver(this);
+            AlaramHelperBackground.cancelAlarmRTC();
+            BackgroundService.getServiceObject().closeService();
+            stopService(new Intent(this, BackgroundService.class));
+            SessionManager.get().clear();
+            SessionManager.get().logout(true);
+            Intent intent = new Intent(this, WelcomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            ValidationHelper.showToast(this, getString(R.string.please_wait_service_is_not_register_yet));
         }
     }
 
