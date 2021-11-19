@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +29,8 @@ import com.daisy.activity.updateProduct.UpdateProduct;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
+import com.daisy.dialogFragment.DateTimePermissionDIalog;
+import com.daisy.dialogFragment.LogoutDialog;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
@@ -325,18 +328,22 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 break;
             }
             case R.id.logout_app: {
-                if (BackgroundService.getServiceObject() != null) {
-                    AlaramHelperBackground.cancelAlarmElapsed();
-                    AlaramHelperBackground.cancelAlarmRTC();
-                    BackgroundService.getServiceObject().closeService();
-                    stopService(new Intent(this, BackgroundService.class));
-                    SessionManager.get().clear();
-                    closeHoleApp();
-                } else {
-                    ValidationHelper.showToast(this, getString(R.string.please_wait_service_is_not_register_yet));
-                }
+
+               logoutAlert();
             }
         }
+    }
+
+    /**
+     * show alert if timezone is not correct
+     **/
+    public void logoutAlert() {
+        LogoutDialog dateTimePermissionDIalog = new LogoutDialog();
+        dateTimePermissionDIalog.setCancelable(false);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        dateTimePermissionDIalog.show(ft, null);
+
+
     }
 
     private void closeHoleApp() {
