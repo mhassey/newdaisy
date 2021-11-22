@@ -24,7 +24,6 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         logoutBinding = DataBindingUtil.inflate(inflater, R.layout.logout, container, false);
-        getDialog().setCancelable(false);
         initClick();
         return logoutBinding.getRoot();
     }

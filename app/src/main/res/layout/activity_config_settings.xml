@@ -63,7 +63,36 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp25" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/dp10"
 
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/appVersion"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/white"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/sp12" />
+
+                    <TextView
+                        android:id="@+id/updatetime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/appVersion"
+                        android:layout_marginTop="@dimen/dp5"
+
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:gravity="center"
+                        android:visibility="visible"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp12" />
+
+                </RelativeLayout>
             </RelativeLayout>
 
 
@@ -494,34 +523,7 @@
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="@dimen/dp10"
 
-            android:gravity="end">
-
-            <TextView
-                android:id="@+id/appVersion"
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:textSize="@dimen/sp12" />
-
-            <TextView
-                android:id="@+id/updatetime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/appVersion"
-                android:layout_marginTop="@dimen/dp5"
-
-                android:layout_marginBottom="@dimen/dp5"
-                android:gravity="end"
-                android:textSize="@dimen/sp12" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

@@ -323,7 +323,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 handleApkUpdateDirectly();
             }
             case R.id.close_app: {
-                stopLockTask();
+               // stopLockTask();
                 closeHoleApp();
                 break;
             }
@@ -339,7 +339,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
      **/
     public void logoutAlert() {
         LogoutDialog dateTimePermissionDIalog = new LogoutDialog();
-        dateTimePermissionDIalog.setCancelable(false);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         dateTimePermissionDIalog.show(ft, null);
 
@@ -347,7 +346,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
     private void closeHoleApp() {
-        stopLockTask();
+       // stopLockTask();
         this.finishAffinity();
     }
 

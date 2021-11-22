@@ -32,7 +32,7 @@
     <string name="unlock">UNLOCK</string>
     <string name="invalid_password">INVALID PASSWORD</string>
     <string name="welcome">WELCOME</string>
-<!--    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">This app requires several special permissions to perform properly. Pressing \'begin\' below will start guiding you through the process.</string>-->
+    <!--    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">This app requires several special permissions to perform properly. Pressing \'begin\' below will start guiding you through the process.</string>-->
     <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">To get started, you\'ll need your WiFi credentials and MPC store code and password</string>
     <string name="begin">BEGIN</string>
     <string name="next">NEXT</string>
@@ -131,10 +131,12 @@
     <string name="access_locked">ACCESS LOCKED</string>
     <string name="unlock_with_arrow"><![CDATA[UNLOCK >]]></string>
     <string name="update_time">Update time</string>
-    <string name="app_version">VERSION: </string>
+    <string name="app_version">APP VERSION: </string>
     <string name="PERMISSION">PERMISSIONS</string>
     <string name="settings_cap">SETTINGS</string>
     <string name="logout">Logout</string>
+    <string name="logout_cap">LOGOUT</string>
+
     <string name="file_has_issue">"Please contact your developer or try installing the app again later!"</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -210,6 +212,6 @@
     <string name="apk_update">Apk Update</string>
     <string name="close_app">Close App</string>
     <string name="please_wait_service_is_not_register_yet">Please wait service is not register yet.</string>
-    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout</string>
+    <string name="are_you_sure_you_want_to_logout">Confirm Logout.\nThis will reset MPC</string>
 
 </resources>
