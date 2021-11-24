@@ -318,13 +318,20 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
             case R.id.direct_apk_update: {
                 handleApkUpdateDirectly();
+                break;
             }
             case R.id.logout_app: {
                 handleLogout();
+                break;
             }
         }
     }
 
+
+    /**
+     * Responsibility - handleLogout is an method that help to logout the app with stop all services
+     * Parameters - No parameter
+     **/
     private void handleLogout() {
         if (BackgroundService.getServiceObject() != null) {
             AlaramHelperBackground.cancelAlarmElapsed();

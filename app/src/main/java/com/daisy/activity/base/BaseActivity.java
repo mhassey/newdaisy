@@ -72,8 +72,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-
-
     /**
      * Responsibility -  setLang method need to set language of the app if customized from app
      * Parameters - its takes langName string value that contains selected language key
@@ -115,6 +113,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Responsibility -  When ever any activity got resumed then wer set our own lang
+     * Parameters - No argument
+     **/
     @Override
     protected void onResume() {
         if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))

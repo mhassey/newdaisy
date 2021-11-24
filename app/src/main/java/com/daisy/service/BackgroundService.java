@@ -470,6 +470,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Send logs
     private void sendLogTimer() {
         Timer logsSync = new Timer();
+     //   int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
         int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
 
         logsSync.scheduleAtFixedRate(new TimerTask() {
