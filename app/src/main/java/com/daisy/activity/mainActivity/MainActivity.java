@@ -1233,10 +1233,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
         } else if (eventHandler.getEventName().equals(Constraint.PICK_DOWN)) {
-            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('putdown')");
+            redirectToMain();
+          //  mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('putdown')");
 
         } else if (eventHandler.getEventName().equals(Constraint.PICK_UP)) {
-            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('pickup')");
+
+            //mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('pickup')");
 
         }
     }
@@ -1634,10 +1636,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 storePriceCardIfFaceDetected(msg);
             } else if (cmd.equals(Constraint.click)) {
 
-                SessionManager.get().clckPerform(true);
-                if (!isMyServiceRunning(LogGenerateService.class)) {
-                    startService(new Intent(MainActivity.this, LogGenerateService.class));
-                }
+//                if (!isMyServiceRunning(LogGenerateService.class)) {
+//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+//                }
 
 
                 //storeClickOnPromotionOrPriceCard(msg);

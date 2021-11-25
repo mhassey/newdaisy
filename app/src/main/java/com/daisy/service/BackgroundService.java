@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.hardware.Sensor;
@@ -24,6 +25,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -803,9 +806,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         count = Constraint.ZERO;
-        EventHandler eventHandler = new EventHandler();
-        eventHandler.eventName(Constraint.PICK_UP);
-        EventBus.getDefault().post(eventHandler);
+        SessionManager.get().clckPerform(true);
+
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
         EventBus.getDefault().post(inversion);
@@ -966,10 +968,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
         }
     }
-
+    int cameraOpen = 0;
+    int stableCounter = 0;
+    int unStableCounter = 0;
     //  Sensor change event
     @Override
     public void onSensorChanged(SensorEvent event) {
+
         switch (event.sensor.getType()) {
             case (Sensor.TYPE_STEP_COUNTER):
                 countSteps(event.values[0]);
@@ -989,7 +994,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private void handleGyro(SensorEvent event) {
 
         mGravity = event.values.clone();
-
+        int counter = 0;
         if (mGravity != null) {
             float z = mGravity[2];
             float x = mGravity[0];
@@ -998,18 +1003,40 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
 
             int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
+            Log.e(")kali", "---" + x_digree + "---" + y_digree + "----" + z_digree);
 
             if (z_digree != 90 || y_digree != 90 || x_digree != 90) {
+                unStableCounter=0;
+                movement = 0;
+                isPickedUp = false;
+                if (stableCounter > 13 ){
 
-                //  SessionManager.get().pickDown(false);
-                // if (!isMyServiceRunning(LogGenerateService.class)) {
-                //   startService(new Intent(getApplicationContext(), LogGenerateService.class));
-                //   }
+
+                    if (cameraOpen == 0) {
+                        SessionManager.get().pickDown(false);
+                        openCameraApp();
+                    }
+                    cameraOpen = 1;
+                }
+                stableCounter++;
+
+
             } else {
+                if (!SessionManager.get().pickDOwn()) {
 
-//                movement = 1;
-//                counter = 0;
-//                isPickedUp = true;
+                    unStableCounter++;
+                    if (unStableCounter >= 20) {
+                        cameraOpen=0;
+                        stableCounter=0;
+                        SessionManager.get().pickDown(true);
+
+                        showOverlayActivity(getApplicationContext());
+                    }
+                }
+                else
+                {
+                    stableCounter=0;
+                }
             }
 
 //            if (movement == 1) {
@@ -1049,6 +1076,26 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
         }
 
+    }
+
+
+    private void openCameraApp() {
+        Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            PackageManager pm = getPackageManager();
+
+            final ResolveInfo mInfo = pm.resolveActivity(i, 0);
+
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(mInfo.activityInfo.packageName, mInfo.activityInfo.name));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("TAG", "Unable to launch camera: " + e);
+        }
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
