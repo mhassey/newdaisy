@@ -1245,4 +1245,12 @@ public class SessionManager {
     public void clckPerform(boolean b) {
         pref.setBooleanData(Constraint.CLICK_PERFORM, b);
     }
+
+    public void setFileDownLoad(boolean b) {
+        pref.setBooleanData(Constraint.FILE_DOWNLOAD, b);
+    }
+
+    public boolean getFileDownloaded() {
+        return pref.getBoolean(Constraint.FILE_DOWNLOAD);
+    }
 }

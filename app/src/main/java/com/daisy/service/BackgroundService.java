@@ -968,9 +968,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
         }
     }
+
     int cameraOpen = 0;
     int stableCounter = 0;
     int unStableCounter = 0;
+
     //  Sensor change event
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -981,7 +983,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 break;
 
             case Sensor.TYPE_GYROSCOPE:
-                handleGyro(event);
+                if (!SessionManager.get().getFileDownloaded())
+                    handleGyro(event);
                 break;
 
 
@@ -1003,13 +1006,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
 
             int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
-            Log.e(")kali", "---" + x_digree + "---" + y_digree + "----" + z_digree);
-
+            Log.e("Kali",x_digree+"-"+y_digree+"-"+z_digree);
             if (z_digree != 90 || y_digree != 90 || x_digree != 90) {
-                unStableCounter=0;
+                unStableCounter = 0;
                 movement = 0;
                 isPickedUp = false;
-                if (stableCounter > 13 ){
+                if (stableCounter > 13) {
 
 
                     if (cameraOpen == 0) {
@@ -1026,16 +1028,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                     unStableCounter++;
                     if (unStableCounter >= 20) {
-                        cameraOpen=0;
-                        stableCounter=0;
+                        cameraOpen = 0;
+                        stableCounter = 0;
                         SessionManager.get().pickDown(true);
 
                         showOverlayActivity(getApplicationContext());
                     }
-                }
-                else
-                {
-                    stableCounter=0;
+                } else {
+                    stableCounter = 0;
                 }
             }
 

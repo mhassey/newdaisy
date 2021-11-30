@@ -311,7 +311,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         try {
 
             if (CheckForSDCard.isSDCardPresent()) {
-
+                SessionManager.get().setFileDownLoad(true);
                 List<Promotion> promotions = sessionManager.getPromotion();
                 List<Download> downloads = new ArrayList<>();
                 if (checkPermission()) {
@@ -484,7 +484,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Override
     public void callBack(String data) {
-
+        SessionManager.get().setFileDownLoad(false);
         Intent selfIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(selfIntent);
         finish();
@@ -1416,6 +1416,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void DownloadFail(DownloadFail internetResponse) {
         try {
+            SessionManager.get().setFileDownLoad(false);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(getString(R.string.file_has_issue));
             builder.setCancelable(false);

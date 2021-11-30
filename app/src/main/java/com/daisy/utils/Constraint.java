@@ -141,6 +141,7 @@ public class Constraint {
     public static final String FACE_DETECTED = "faceDetected";
     public static final String PICK_UP = "pickup";
     public static final String CAMERA_SHOW = "android.media.action.IMAGE_CAPTURE";
+    public static final String FILE_DOWNLOAD = "file_download";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
