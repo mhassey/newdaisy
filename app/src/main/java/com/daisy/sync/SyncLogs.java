@@ -124,8 +124,10 @@ public class SyncLogs {
         final HashMap<String, String> request = getRequest(count);
         if (type.equals(Constraint.APPLICATION_LOGS))
         {
+            if (sessionManager.getPriceCard()!=null)
             request.put(Constraint.ID_PRICE_CARD, sessionManager.getPriceCard().getIdpriceCard());
-
+            else
+                return;
         }
         else if (type.equals(Constraint.PROMOTION))
         {

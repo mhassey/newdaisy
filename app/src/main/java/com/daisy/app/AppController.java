@@ -35,13 +35,12 @@ public class AppController extends Application implements LifecycleObserver {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         instanceCreation();
+
         DBCaller.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         setLang();
     }
-
 
 
     /**
@@ -68,14 +67,12 @@ public class AppController extends Application implements LifecycleObserver {
     }
 
 
-
-
-
     /**
      * When app come in fore ground
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onAppForeground() {
+
         sessionManager = SessionManager.get();
         sessionManager.setInForground(true);
 
@@ -86,15 +83,14 @@ public class AppController extends Application implements LifecycleObserver {
         setFullBrightNess();
 
 
-        }
+    }
 
     /**
      * Set language
      */
-    private void setLang (){
-        if (!sessionManager.getLang().equals(""))
-        {
-            Log.e("working",sessionManager.getLang());
+    private void setLang() {
+        if (!sessionManager.getLang().equals("")) {
+            Log.e("working", sessionManager.getLang());
             Locale locale = new Locale(sessionManager.getLang());
             Locale.setDefault(locale);
             Configuration configuration = new Configuration();
@@ -102,8 +98,7 @@ public class AppController extends Application implements LifecycleObserver {
             getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
 //            sessionManager.setLang(s);
 
-        }
-        else {
+        } else {
 //            Locale locale = new Locale(s);
 //            Locale.setDefault(locale);
 //            Configuration configuration = new Configuration();
@@ -112,7 +107,6 @@ public class AppController extends Application implements LifecycleObserver {
         }
 
     }
-
 
 
     /**

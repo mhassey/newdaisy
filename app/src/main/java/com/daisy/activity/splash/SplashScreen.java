@@ -35,6 +35,7 @@ public class SplashScreen extends BaseActivity {
 
         initView();
 
+
     }
 
 

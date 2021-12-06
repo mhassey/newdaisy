@@ -6,6 +6,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.room/room-common/2.0.0/3589e7059b8f60bc2703c28ac2533c1e04e85eaf/room-common-2.0.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.room/room-common/2.0.0/3589e7059b8f60bc2703c28ac2533c1e04e85eaf/room-common-2.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

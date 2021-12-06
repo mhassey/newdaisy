@@ -3,6 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.daisy">
 
+    <queries>
+        <package android:name="au.com.optus.android.gooptus" />
+        <package android:name="au.com.fetchtv" />
+        <package android:name="au.com.optus.optusstadium" />
+        <package android:name="com.spotify.music" />
+        <package android:name="com.android.chrome" />
+        <package android:name="com.sec.android.app.sbrowser" />
+
+    </queries>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,7 +27,9 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.PREVENT_POWER_KEY" />
-    <uses-permission android:name="android.permission.DEVICE_POWER"
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission
+        android:name="android.permission.DEVICE_POWER"
         tools:ignore="ProtectedPermissions" />
 
     <uses-permission
@@ -32,7 +44,6 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
@@ -60,7 +71,6 @@
             android:name=".service.SecurityService"
             android:enabled="true"
             android:exported="true" />
-
 
 
         <meta-data
@@ -92,11 +102,7 @@
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -122,7 +128,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
@@ -149,9 +160,9 @@
             android:name=".activity.editorTool.EditorTool"
             android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".activity.mainActivity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true" />
 
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
@@ -177,6 +188,10 @@
             android:name=".service.BackgroundSoundService"
             android:stopWithTask="false" />
 
+        <service
+            android:name=".service.LogGenerateService"
+            android:stopWithTask="false" />
+
         <receiver
             android:name=".security.Admin"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
@@ -195,6 +210,13 @@
                 <action android:name="android.app.action.ACTION_PASSWORD_SUCCEEDED" />
             </intent-filter>
         </receiver>
+        <service
+            android:name=".service.FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

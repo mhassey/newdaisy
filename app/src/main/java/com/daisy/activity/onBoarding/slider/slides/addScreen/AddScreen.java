@@ -1,7 +1,10 @@
 package com.daisy.activity.onBoarding.slider.slides.addScreen;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,6 +137,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
 
             }
+                Log.e("kali..", BluetoothAdapter.getDefaultAdapter().getName());
+
 
         }
     }

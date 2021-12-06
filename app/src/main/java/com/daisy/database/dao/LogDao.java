@@ -17,6 +17,8 @@ public interface LogDao {
     List<Logs> getAll(String type,boolean value);
     @Query("SELECT * FROM "+ Constraint.LOGS+" where  logType = :applicationType or logType =:cardType and isSync = :value order by id DESC")
     List<Logs> getAllApplicationAndDeviceLog(boolean value,String applicationType,String cardType);
+    @Query("SELECT * FROM "+ Constraint.LOGS+" where  isSync = :value order by id DESC")
+    List<Logs> getAllApplicationAndDeviceLog(boolean value);
 
     @Query("UPDATE Logs SET isClear = :val where logType= :type")
     void clearLog(boolean val,String type);

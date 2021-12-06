@@ -32,6 +32,7 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         LogRecycleViewItemDesignBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.log_recycle_view_item_design, parent, false);
+
         return new ViewHolder(binding);
     }
 

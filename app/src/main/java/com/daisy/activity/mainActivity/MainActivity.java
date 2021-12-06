@@ -2,6 +2,7 @@ package com.daisy.activity.mainActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -19,6 +20,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +55,15 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.deleteCard.DeleteCardViewModel;
 import com.daisy.activity.editorTool.EditorTool;
+import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
+import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
+import com.daisy.activity.updateProduct.UpdateProductViewModel;
+import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
+import com.daisy.pojo.EventHandler;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.DeleteCardResponse;
 import com.daisy.pojo.response.Download;
@@ -69,6 +78,7 @@ import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
+import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DownloadFile;
@@ -86,6 +96,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -105,7 +116,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private Context context;
     private WebViewClient yourWebClient;
     private CountDownTimer sanitisedTimer;
+    private UpdateProductViewModel updateProductViewModel;
+    private GetCardViewModel getCardViewModel;
 
+    private long mLastClickTime = 0;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -118,12 +132,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         setOnClickListener();
     }
 
+
     /**
      * Initial data setup
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
+        updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
+        getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         setNoTitleBar(this);
         context = this;
         handleScreenRotation();
@@ -161,8 +178,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             countDownTimer.cancel();
             countDownTimer.start();
 
-        }
-        else {
+        } else {
             countDownTimer = new CountDownTimer(Constraint.THIRTY_THOUSAND, Constraint.THOUSAND) {
 
                 public void onTick(long millisUntilFinished) {
@@ -186,7 +202,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             sanitisedSingletonObject.setCOunter(countDownTimer);
             countDownTimer.start();
         }
-        }
+    }
 
 
     /**
@@ -295,7 +311,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         try {
 
             if (CheckForSDCard.isSDCardPresent()) {
-
+                SessionManager.get().setFileDownLoad(true);
                 List<Promotion> promotions = sessionManager.getPromotion();
                 List<Download> downloads = new ArrayList<>();
                 if (checkPermission()) {
@@ -373,6 +389,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         if (listOfPromo != null)
             sessionManager.setPromotions(listOfPromo);
         new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
+
     }
 
 
@@ -467,7 +484,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Override
     public void callBack(String data) {
-
+        SessionManager.get().setFileDownLoad(false);
         Intent selfIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(selfIntent);
         finish();
@@ -492,31 +509,58 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     private void installApk() {
         try {
-            String PATH = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
-            File file = new File(PATH);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
-                Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
-                intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
-                List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                for (ResolveInfo resolveInfo : resInfoList) {
-                    getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                String PATH = Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
+                File file = new File(getExternalFilesDir(""), PATH);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
+                    Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
+                    intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+                } else {
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
+                    intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
                 }
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(intent);
             } else {
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-                intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                String PATH = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
+                File file = new File(PATH);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
+                    Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
+                    intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+                } else {
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
+                    intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
+                }
+                startActivity(intent);
             }
-            startActivity(intent);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -646,6 +690,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
+
     /**
      * delete card
      */
@@ -692,8 +737,47 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         yourWebClient = new WebViewClient() {
 
             @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
+            public void onFormResubmission(WebView view, Message dontResend, Message resend) {
+                JSONObject jsonArray = pricingUpdateStart();
+                if (jsonArray != null) {
+                    if (jsonArray.length() > 0) {
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                    } else {
+                        //  mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
+                    }
+                } else {
+                    //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
+                }
+                super.onFormResubmission(view, dontResend, resend);
+
+
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                JSONObject jsonArray = pricingUpdateStart();
+                if (jsonArray != null) {
+                    if (jsonArray.length() > 0) {
+
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                        mViewModel.setExceptionInHtml(false);
+
+                    } else {
+                        //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
+                    }
+                } else {
+                    //    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
+                }
+                super.onLoadResource(view, url);
+
+            }
+
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
                 JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray != null) {
                     if (jsonArray.length() > 0) {
@@ -702,7 +786,33 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mViewModel.setExceptionInHtml(false);
 
                     }
+                } else {
+                    //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
                 }
+                super.onPageCommitVisible(view, url);
+
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+                JSONObject jsonArray = pricingUpdateStart();
+                if (jsonArray != null) {
+                    if (jsonArray.length() > 0) {
+
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                        mViewModel.setExceptionInHtml(false);
+
+                    } else {
+                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
+                    }
+                } else {
+                    // mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
+                }
+                super.onPageStarted(view, url, favicon);
 
 
             }
@@ -717,7 +827,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                             mViewModel.setExceptionInHtml(false);
 
+                        } else {
+                            //     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
                         }
+                    } else {
+                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+
                     }
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
@@ -727,6 +843,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
                     }
 
+
+//                    if (!SessionManager.get().isNewApk()) {
+//                        handlePriceCardGettingHandler();
+//                           SessionManager.get().setNewApk(true);
+//                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -735,6 +857,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
         };
+
         mBinding.webView.setWebViewClient(yourWebClient);
 
     }
@@ -838,6 +961,189 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+    private void handlePriceCardGettingHandler() {
+        showHideProgressDialog(true);
+        updateProductViewModel.setMutableLiveData(getUpdateScreenRequest());
+        LiveData<GlobalResponse> liveData = updateProductViewModel.getLiveData();
+        if (!liveData.hasActiveObservers()) {
+            liveData.observe(this, new Observer<GlobalResponse>() {
+                @Override
+                public void onChanged(GlobalResponse globalResponse) {
+                    showHideProgressDialog(false);
+                    handleScreenAddResponse(globalResponse);
+                }
+            });
+        }
+
+    }
+
+    /**
+     * Responsibility -  getUpdateScreenRequest method create update screen request
+     * Parameters - No parameter
+     **/
+    private HashMap<String, String> getUpdateScreenRequest() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.ID_PRODUCT_STATIC, SessionManager.get().getPriceCard().getIdproductStatic());
+        hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+        return hashMap;
+    }
+
+
+    /**
+     * Responsibility - handleScreenAddResponse is an method that check update screen response is ok if yes then call getCardData method
+     * Parameters - Its takes GlobalResponse object as an parameter
+     **/
+    private void handleScreenAddResponse(GlobalResponse screenAddResponseGlobalResponse) {
+        if (screenAddResponseGlobalResponse.isApi_status()) {
+            getCardData();
+        } else {
+            ValidationHelper.showToast(context, screenAddResponseGlobalResponse.getMessage());
+        }
+    }
+
+    private void getCardData() {
+        if (Utils.getNetworkState(context)) {
+            showHideProgressDialog(true);
+            getCardViewModel.setMutableLiveData(getCardRequest());
+            LiveData<GlobalResponse<GetCardResponse>> liveData = getCardViewModel.getLiveData();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse<GetCardResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
+                        try {
+                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
+                            handleCardGetResponse(getCardResponseGlobalResponse);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
+
+    /**
+     * Responsibility -  getCardRequest method create card request
+     * Parameters - No parameter
+     **/
+    private HashMap<String, String> getCardRequest() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
+        hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+        return hashMap;
+    }
+
+
+    /**
+     * Responsibility - handleCardGetResponse method handle response provided by getCardData method if response is ok then set new value of price card promotion and pricing in session and call redirectToMainHandler method
+     * Parameters - No parameter
+     **/
+    private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
+        showHideProgressDialog(false);
+        if (getCardResponseGlobalResponse.isApi_status()) {
+            sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
+            sessionManager.setPromotion(getCardResponseGlobalResponse.getResult().getPromotions());
+            sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
+            redirectToMainHandler(getCardResponseGlobalResponse);
+
+        } else {
+            if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard() != null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals("")) {
+                redirectToMainHandler(getCardResponseGlobalResponse);
+            } else
+                ValidationHelper.showToast(context, getCardResponseGlobalResponse.getMessage());
+        }
+    }
+
+
+    private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
+        Utils.deleteDaisy();
+        String UrlPath;
+
+        if (response.getResult().getPricecard().getFileName1() != null && !response.getResult().getPricecard().getFileName1().equals("")) {
+            UrlPath = response.getResult().getPricecard().getFileName1();
+        } else {
+            UrlPath = response.getResult().getPricecard().getFileName();
+        }
+
+        if (response.getResult().getPricecard().getFileName() != null) {
+            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+            File directory = new File(configFilePath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String path = Utils.getPath();
+            if (path != null) {
+                if (!path.equals(UrlPath)) {
+                    Utils.deleteCardFolder();
+                    Utils.writeFile(configFilePath, UrlPath);
+                    sessionManager.deleteLocation();
+
+                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                }
+            } else {
+                Utils.writeFile(configFilePath, UrlPath);
+            }
+
+            redirectToMain();
+
+        } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
+            UrlPath = response.getResult().getDefaultPriceCard();
+            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+            File directory = new File(configFilePath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String path = Utils.getPath();
+            if (path != null) {
+                if (!path.equals(UrlPath)) {
+                    Utils.deleteCardFolder();
+                    Utils.writeFile(configFilePath, UrlPath);
+                    sessionManager.deleteLocation();
+
+                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                }
+            } else {
+                Utils.deleteCardFolder();
+                sessionManager.deletePriceCard();
+                sessionManager.deletePromotions();
+                sessionManager.setPricing(null);
+                sessionManager.deleteLocation();
+
+                Utils.writeFile(configFilePath, UrlPath);
+
+            }
+
+            redirectToMain();
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.invalid_url));
+        }
+
+        Intent intent = new Intent(this, EditorTool.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+    /**
+     * Responsibility -  redirectToMain method redirect screen to MainActivity
+     * Parameters - No parameter
+     **/
+    private void redirectToMain() {
+        sessionManager.onBoarding(Constraint.TRUE);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+
     /**
      * create promotion that will load in web view
      */
@@ -902,6 +1208,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
         if (pro.size() > 0) {
             mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle([" + Utils.stringify(pro) + "])");
+        } else {
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle()");
+
         }
     }
 
@@ -917,6 +1226,22 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventHandler(EventHandler eventHandler) {
+        if (eventHandler.getEventName().equals(Constraint.FACE_DETECTED)) {
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('facedetected')");
+
+
+        } else if (eventHandler.getEventName().equals(Constraint.PICK_DOWN)) {
+            redirectToMain();
+          //  mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('putdown')");
+
+        } else if (eventHandler.getEventName().equals(Constraint.PICK_UP)) {
+
+            //mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('pickup')");
+
+        }
+    }
 
     /**
      * Handle Clicks listener
@@ -1091,6 +1416,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void DownloadFail(DownloadFail internetResponse) {
         try {
+            SessionManager.get().setFileDownLoad(false);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(getString(R.string.file_has_issue));
             builder.setCancelable(false);
@@ -1306,15 +1633,30 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
             if (cmd.equals(Constraint.adFrameUrl)) {
-
                 maintainPromotionShowWithUrl(msg);
-            } else if (cmd.equals(Constraint.currentFrameName)) {
-
-                //storePriceCardOrPromotionLoad(msg);
+            } else if (msg.contains(Constraint.price)) {
+                storePriceCardIfFaceDetected(msg);
             } else if (cmd.equals(Constraint.click)) {
 
-                storeClickOnPromotionOrPriceCard(msg);
+//                if (!isMyServiceRunning(LogGenerateService.class)) {
+//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+//                }
+
+
+                //storeClickOnPromotionOrPriceCard(msg);
             }
+
+        }
+
+
+        private boolean isMyServiceRunning(Class<?> serviceClass) {
+            ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         @JavascriptInterface
@@ -1325,15 +1667,27 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void callFromJS() {
-            launchApp();
+
         }
 
         @JavascriptInterface
-        public void callFromJS(String event) {
+        public void openApplication(String event) {
+            Log.e("Kali", event);
+            launchApp(event);
         }
+
     }
 
+    private void storePriceCardIfFaceDetected(String msg) {
+        if (sessionManager.getUserFaceDetectionEnable()) {
+            DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
+        }
+
+    }
+
+
     private void storeClickOnPromotionOrPriceCard(String msg) {
+
         try {
             if (sessionManager != null) {
                 sessionManager = SessionManager.get();
@@ -1369,6 +1723,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         try {
             String promotionPath = msg.split("\\?")[0];
             int id = Utils.searchPromotionUsingPath(promotionPath);
+
             if (id != Constraint.ZERO) {
                 if (sessionManager == null) {
                     sessionManager = SessionManager.get();
@@ -1377,6 +1732,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
                 }
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1387,12 +1743,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     /**
      * lunch other app
      */
-    private void launchApp() {
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(Constraint.YOU_TUBE_PATH);
-        if (launchIntent != null) {
-            startActivity(launchIntent);
-        } else {
-            ValidationHelper.showToast(MainActivity.this, getString(R.string.package_not_available));
+    private void launchApp(String name) {
+        try {
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(name);
+            if (launchIntent != null) {
+                startActivity(launchIntent);
+            } else {
+                ValidationHelper.showToast(MainActivity.this, getString(R.string.app_is_not_installed));
+            }
+        } catch (Exception e) {
+
         }
     }
 

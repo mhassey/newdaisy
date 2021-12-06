@@ -372,6 +372,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                         double apkVersion = Double.parseDouble(apkDetails.getAndroid().getVersion());
                         double ourVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
                         if (apkVersion > ourVersion) {
+                            sessionManager.setApkVersion(BuildConfig.VERSION_NAME);
                             sessionManager.setVersionDetails(apkDetails);
                             openMainActivity();
                         } else {

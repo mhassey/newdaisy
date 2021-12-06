@@ -2,8 +2,11 @@ package com.daisy.activity.welcomeScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
@@ -13,6 +16,9 @@ import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.utils.Constraint;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Locale;
 
@@ -32,6 +38,26 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
         initView();
         initClick();
+        firebaseConfiguration();
+    }
+
+    private void firebaseConfiguration() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        // String msg = getString(R.string.msg_token_fmt, token);
+                        Log.e("TAG", token);
+                    }
+                });
     }
 
 
@@ -109,8 +135,8 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onStart() {
         if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl) );
+            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             } else {
                 mBinding.curveLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             }

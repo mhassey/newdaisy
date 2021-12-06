@@ -42,9 +42,11 @@ public class SessionManager {
             sInstance = new SessionManager(application);
         }
     }
+
     public void setSanitized(boolean b) {
-        pref.setBooleanData(PrefConstant.Sanitized,b);
+        pref.setBooleanData(PrefConstant.Sanitized, b);
     }
+
     public boolean getSanitized() {
         return pref.getBoolean(PrefConstant.Sanitized);
     }
@@ -914,6 +916,7 @@ public class SessionManager {
         }.getType());
         return osTypes;
     }
+
     public boolean getBaseUrlAdded() {
         boolean b = pref.getBoolean(PrefConstant.BASE_URL_ENTER);
         return b;
@@ -931,39 +934,37 @@ public class SessionManager {
         return promotion;
     }
 
-    public void setPromotions(String s,String promotionID,String datecreated,String dateExpire) {
+    public void setPromotions(String s, String promotionID, String datecreated, String dateExpire) {
         String response = pref.getStringData(PrefConstant.PROMOTIONS);
         JSONArray jsonArray = null;
         try {
-            if (response!=null && !response.equals("")) {
+            if (response != null && !response.equals("")) {
                 jsonArray = new JSONArray(response);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put(Constraint.PROMOTION, s);
-                jsonObject.put(Constraint.PROMOTION_ID,promotionID);
-                jsonObject.put("dateCreated",datecreated);
-                jsonObject.put("dateExpires",dateExpire);
+                jsonObject.put(Constraint.PROMOTION_ID, promotionID);
+                jsonObject.put("dateCreated", datecreated);
+                jsonObject.put("dateExpires", dateExpire);
 
                 jsonArray.put(jsonObject);
-            }
-            else
-            {
-                jsonArray=new JSONArray();
+            } else {
+                jsonArray = new JSONArray();
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put(Constraint.PROMOTION, s);
-                jsonObject.put(Constraint.PROMOTION_ID,promotionID);
-                jsonObject.put("dateCreated",datecreated);
-                jsonObject.put("dateExpires",dateExpire);
+                jsonObject.put(Constraint.PROMOTION_ID, promotionID);
+                jsonObject.put("dateCreated", datecreated);
+                jsonObject.put("dateExpires", dateExpire);
                 jsonArray.put(jsonObject);
 
             }
-            } catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         pref.setStringData(PrefConstant.PROMOTIONS, jsonArray.toString());
 
     }
-    public void setPromotions(JSONArray promotions)
-    {
+
+    public void setPromotions(JSONArray promotions) {
         pref.setStringData(PrefConstant.PROMOTIONS, promotions.toString());
 
     }
@@ -972,49 +973,48 @@ public class SessionManager {
 
         String response = pref.getStringData(PrefConstant.PROMOTIONS);
         try {
-            if (response!=null && !response.equals("")) {
+            if (response != null && !response.equals("")) {
                 JSONArray elements = new JSONArray(response);
                 return elements;
             }
-            }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return null;
     }
 
     public void setMainFilePath(String s) {
-        pref.setStringData(PrefConstant.MAIN_FILE_PATH,s);
+        pref.setStringData(PrefConstant.MAIN_FILE_PATH, s);
     }
 
     public String getMainFilePath() {
-    return pref.getStringData(PrefConstant.MAIN_FILE_PATH);
+        return pref.getStringData(PrefConstant.MAIN_FILE_PATH);
     }
 
     public void deletePromotions() {
-    pref.removePromotions();
+        pref.removePromotions();
     }
 
     public void setDefaultDownload(boolean b) {
-        pref.setBooleanData(PrefConstant.DEFAULT_DOWNLOAD,b);
+        pref.setBooleanData(PrefConstant.DEFAULT_DOWNLOAD, b);
     }
+
     public boolean getDefaultDownload() {
-       return pref.getBoolean(PrefConstant.DEFAULT_DOWNLOAD);
+        return pref.getBoolean(PrefConstant.DEFAULT_DOWNLOAD);
     }
 
     public void setOrientation(String selectedItem) {
-        pref.setStringData(PrefConstant.ORIENTATION,selectedItem);
+        pref.setStringData(PrefConstant.ORIENTATION, selectedItem);
     }
-    public String getOrientation()
-    {
+
+    public String getOrientation() {
         return pref.getStringData(PrefConstant.ORIENTATION);
     }
 
     public void setVersionDetails(ApkDetails apkDetails) {
         Gson gson = new Gson();
         String data = gson.toJson(apkDetails);
-        if (apkDetails!=null && apkDetails.getAndroid()!=null) {
+        if (apkDetails != null && apkDetails.getAndroid() != null) {
             pref.setStringData(PrefConstant.OSID, apkDetails.getAndroid().getOsID());
             pref.setStringData(PrefConstant.MAV_ID, apkDetails.getAndroid().getId() + "");
         }
@@ -1033,7 +1033,7 @@ public class SessionManager {
     }
 
     public void setUpdateNotShow(boolean b) {
-        pref.setBooleanData(PrefConstant.APK_SHOW,b);
+        pref.setBooleanData(PrefConstant.APK_SHOW, b);
     }
 
     public boolean getUpdateNotShow() {
@@ -1041,7 +1041,7 @@ public class SessionManager {
     }
 
     public void dialogShow(boolean b) {
-    pref.setBooleanData(PrefConstant.UPDATE_DIALOG,b);
+        pref.setBooleanData(PrefConstant.UPDATE_DIALOG, b);
     }
 
     public boolean getupdateDialog() {
@@ -1049,15 +1049,15 @@ public class SessionManager {
     }
 
     public void uninstallShow(boolean b) {
-    pref.setBooleanData(PrefConstant.UNINSTALL_SHOW,b);
+        pref.setBooleanData(PrefConstant.UNINSTALL_SHOW, b);
     }
-    public boolean getUninstallShow()
-    {
+
+    public boolean getUninstallShow() {
         return pref.getBoolean(PrefConstant.UNINSTALL_SHOW);
     }
 
     public void setPasswordForLock(String toString) {
-    pref.setStringData(PrefConstant.PASSWORD_LOCK,toString);
+        pref.setStringData(PrefConstant.PASSWORD_LOCK, toString);
     }
 
     public String getPasswordLock() {
@@ -1065,16 +1065,16 @@ public class SessionManager {
     }
 
     public void setOpenTime(String open) {
-        pref.setStringData(PrefConstant.OPEN_TIME,open);
+        pref.setStringData(PrefConstant.OPEN_TIME, open);
     }
 
     public void setCloseTime(String closed) {
-        pref.setStringData(PrefConstant.CLOSE_TIME,closed);
+        pref.setStringData(PrefConstant.CLOSE_TIME, closed);
 
     }
 
     public void setOffset(String utcOffset) {
-        pref.setStringData(PrefConstant.OFF_SET,utcOffset);
+        pref.setStringData(PrefConstant.OFF_SET, utcOffset);
 
     }
 
@@ -1092,62 +1092,65 @@ public class SessionManager {
     }
 
     public void setServerTime(String currentTime) {
-        pref.setStringData(PrefConstant.SERVERTIME,currentTime);
+        pref.setStringData(PrefConstant.SERVERTIME, currentTime);
     }
+
     public String getServerTime() {
         return pref.getStringData(PrefConstant.SERVERTIME);
     }
 
     public void setTimeInterval(String diffrence) {
-        pref.setStringData(PrefConstant.TIME_INVERVAL,diffrence);
+        pref.setStringData(PrefConstant.TIME_INVERVAL, diffrence);
     }
-    public String  getTimeInverval()
-    {
+
+    public String getTimeInverval() {
         return pref.getStringData(PrefConstant.TIME_INVERVAL);
     }
 
     public void setPricingPlainId(String pricingPlanID) {
-        pref.setStringData(PrefConstant.PRICING_PLAIN_ID,pricingPlanID);
+        pref.setStringData(PrefConstant.PRICING_PLAIN_ID, pricingPlanID);
 
     }
 
     public String getPricingPlainId() {
         return pref.getStringData(PrefConstant.PRICING_PLAIN_ID);
     }
+
     public String getDeviceSanitised() {
         return pref.getStringData(PrefConstant.DEVICE_SANITISED);
     }
 
     public void setSenitized(String deviceSanitize) {
-        pref.setStringData(PrefConstant.DEVICE_SANITISED,deviceSanitize);}
+        pref.setStringData(PrefConstant.DEVICE_SANITISED, deviceSanitize);
+    }
 
     public void deviceSecuried(boolean b) {
-    pref.setBooleanData(PrefConstant.DEVICE_SECURIED,b);
+        pref.setBooleanData(PrefConstant.DEVICE_SECURIED, b);
     }
-    public boolean getDeviceSecured()
-    {
+
+    public boolean getDeviceSecured() {
         return pref.getBoolean(PrefConstant.DEVICE_SECURIED);
     }
 
     public void setComeFromConfig(boolean b) {
-        pref.setBooleanData(PrefConstant.COME_CONFIG,b);
+        pref.setBooleanData(PrefConstant.COME_CONFIG, b);
 
     }
-    public boolean getComeConfig()
-    {
+
+    public boolean getComeConfig() {
         return pref.getBoolean(PrefConstant.COME_CONFIG);
     }
 
     public int getSteps() {
-    return pref.getIntData(PrefConstant.STEPS);
+        return pref.getIntData(PrefConstant.STEPS);
     }
 
     public void setStepCount(int stepCount) {
-        pref.setIntData(PrefConstant.STEPS,stepCount);
+        pref.setIntData(PrefConstant.STEPS, stepCount);
     }
 
     public void setApkVersion(String versionName) {
-        pref.setStringData(PrefConstant.VERSION_NAME,versionName);
+        pref.setStringData(PrefConstant.VERSION_NAME, versionName);
     }
 
     public String getApkVersion() {
@@ -1155,11 +1158,11 @@ public class SessionManager {
     }
 
     public void setDeviceId(int id) {
-        pref.setIntData(PrefConstant.DEVICE_ID,id);
+        pref.setIntData(PrefConstant.DEVICE_ID, id);
     }
 
     public String getDeviceId() {
-    return pref.getIntData(PrefConstant.DEVICE_ID)+"";
+        return pref.getIntData(PrefConstant.DEVICE_ID) + "";
 
     }
 
@@ -1172,7 +1175,7 @@ public class SessionManager {
     }
 
     public void setMarkDone(boolean b) {
-        pref.setBooleanData(PrefConstant.MARK_DONE,b);
+        pref.setBooleanData(PrefConstant.MARK_DONE, b);
 
     }
 
@@ -1181,7 +1184,7 @@ public class SessionManager {
     }
 
     public void setMarkAdded(boolean b) {
-        pref.setBooleanData(PrefConstant.MARK_ADDED,b);
+        pref.setBooleanData(PrefConstant.MARK_ADDED, b);
     }
 
 
@@ -1190,16 +1193,16 @@ public class SessionManager {
     }
 
     public void setFaceDetectedStore(boolean b) {
-        pref.setBooleanData(PrefConstant.FACE_DETERMINATION,b);
+        pref.setBooleanData(PrefConstant.FACE_DETERMINATION, b);
     }
 
     public boolean getUserFaceDetectionEnable() {
-      return pref.getBoolean(PrefConstant.FACE_DETERMINATION);
+        return pref.getBoolean(PrefConstant.FACE_DETERMINATION);
 
     }
 
     public void alaramSecuried(boolean aTrue) {
-        pref.setBooleanData(PrefConstant.alaramSecuried,aTrue);
+        pref.setBooleanData(PrefConstant.alaramSecuried, aTrue);
 
     }
 
@@ -1208,13 +1211,46 @@ public class SessionManager {
     }
 
     public void setDeviceSecurity(String deviceSecurity) {
-        pref.setStringData(PrefConstant.DEVICE_SECUTIRY,deviceSecurity);
+        pref.setStringData(PrefConstant.DEVICE_SECUTIRY, deviceSecurity);
     }
+
     public String getDeviceSecurity() {
-             return pref.getStringData(PrefConstant.DEVICE_SECUTIRY);
+        return pref.getStringData(PrefConstant.DEVICE_SECUTIRY);
     }
 
     public void deletePriceCard() {
-    pref.removePriceCard();
+        pref.removePriceCard();
+    }
+
+    public boolean isNewApk() {
+        return pref.getBoolean(Constraint.NEWAPK);
+    }
+
+    public void setNewApk(boolean b) {
+        pref.setBooleanData(Constraint.NEWAPK, b);
+    }
+
+    public void pickDown(boolean b) {
+        pref.setBooleanData(Constraint.PICK_DOWN, b);
+    }
+
+    public boolean pickDOwn() {
+        return pref.getBoolean(Constraint.PICK_DOWN);
+    }
+
+    public boolean clickPerform() {
+        return pref.getBoolean(Constraint.CLICK_PERFORM);
+    }
+
+    public void clckPerform(boolean b) {
+        pref.setBooleanData(Constraint.CLICK_PERFORM, b);
+    }
+
+    public void setFileDownLoad(boolean b) {
+        pref.setBooleanData(Constraint.FILE_DOWNLOAD, b);
+    }
+
+    public boolean getFileDownloaded() {
+        return pref.getBoolean(Constraint.FILE_DOWNLOAD);
     }
 }

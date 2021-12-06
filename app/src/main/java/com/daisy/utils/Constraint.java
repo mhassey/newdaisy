@@ -20,13 +20,13 @@ public class Constraint {
     public static final String MESSENGING = "messaging";
     public static final String WEAK_UP_TAG = "wake_up_tag";
     public static final int THIRTY_INT = 30;
-  //public static final int THIRTY_INT = 1;
+    //public static final int THIRTY_INT = 1;
 
     public static final int THIRTY_SIX_HUNDRED = 3600;
     public static final int FIVE_HUNDRED = 500;
     public static final int FOUR = 4;
-  // need to change
-      public static final int FIVE_INE_REAL = 5;
+    // need to change
+    public static final int FIVE_INE_REAL = 5;
     public static final int FIVE_INE = 0;
     public static final String PACKAGE_INSTALLER = "com.google.android.packageinstaller";
     public static final String LOCK_SCREEN = "LockScreen";
@@ -73,7 +73,7 @@ public class Constraint {
     public static final String PORTUGUESE = "PORTUGUESE";
     public static final String RU = "ru";
     public static final String RUSSIAN = "RUSSIAN";
-    public static final String SV = "sv";
+    public static final String SV = "sv ";
     public static final String SWEDISH = "SWEDISH";
     public static final String TR = "tr";
     public static final String TURKISH = "TURKISH";
@@ -119,9 +119,9 @@ public class Constraint {
     public static final String VZPROD_SERVER_NAME = "VZPROD";
     public static final String USE_SERVER_URL = "http://use.mobilepricecards.com/";
     public static final String USE_SERVER_NAME = "USE Server";
-    public static final int ADMIN_REQUEST_CODE =  123;
+    public static final int ADMIN_REQUEST_CODE = 123;
     public static final int TWENTY_ONE = 21;
-    public static final String MACOS ="_MACOSX";
+    public static final String MACOS = "_MACOSX";
     public static final String DEFAULT_HOURS_MINUTES = "00:00:00";
     public static final String YOU_TUBE_PATH = "com.google.android.youtube";
     public static final String EXIT_UPPER = "EXIT";
@@ -131,13 +131,23 @@ public class Constraint {
     public static final String SERVICE_RUNNING_IN_BACKGROUND = "Service is running background";
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
-    public static final String USER_SEEN_PRICECARD__ = "User seen price card";
+    public static final String USER_SEEN_PRICECARD__ = "Face detected";
+    public static final String NEWAPK = "newApk";
+    public static final String PICK_DOWN = "PickDown";
+    public static final String CLICK_PERFORM = "clickPerfrom";
+    public static final String USER_INTERACTION = "Interaction";
+    public static final String COLON = ":";
+    public static final String IDLE = "Idle";
+    public static final String FACE_DETECTED = "faceDetected";
+    public static final String PICK_UP = "pickup";
+    public static final String CAMERA_SHOW = "android.media.action.IMAGE_CAPTURE";
+    public static final String FILE_DOWNLOAD = "file_download";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
     public static final String CARD = "Card";
-    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.ACTIVITY_RECOGNITION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
-    public static final String[] STORAGE_PERMISSION_WITHOUT_SENSOR = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_CALL_LOG,Manifest.permission.READ_SMS,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CAMERA};
+    public static final String[] STORAGE_PERMISSION = new String[]{Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.BLUETOOTH, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
+    public static final String[] STORAGE_PERMISSION_WITHOUT_SENSOR = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
 
     public static final String ANDROID = "Android";
     public static final String FILE = "file://";
@@ -203,14 +213,18 @@ public class Constraint {
     public static final boolean TRUE = true;
     public static final float BRIGHTNESS_LEVEL = 80;
 
-    public static final int CODE_WRITE_SETTINGS_PERMISSION =17 ;
+    public static final int CODE_WRITE_SETTINGS_PERMISSION = 17;
     public static final long THIRTY = 30;
     public static final int POP_UP_RESPONSE = 121;
     public static final int RETURN = 11;
-   public static final int BATTRY_OPTIMIZATION_CODE = 232;
+    public static final int BATTRY_OPTIMIZATION_CODE = 232;
     public static final long FIVE = 5;
-    public static final long TEN_MINUTES = 1000*60;
-    public static final long TWO_HOUR=20000*60;
+    public static final long TEN_MINUTES = 10000 * 60;
+    public static final long TEN_HOURS = 10000 * 60;
+
+    public static final long TWO_HOUR = 20000 * 60;
+    public static final long ONE_DAY = 10000 * 60;
+
     //public static final long TWO_HOUR=120000*60;
 
     public static final String SETTING_PATH = "com.android.settings";
@@ -227,13 +241,13 @@ public class Constraint {
     public static final String UNINSTALL = "uninstall";
     public static final String YES = "yes";
     public static final String PIXEL = "pixel";
-    public static final String CROME ="com.android.chrome" ;
+    public static final String CROME = "com.android.chrome";
     public static final String MMS = "mms";
     public static final int THREE = 3;
     public static final String IDSTORE = "idstore";
     public static final String ISLE = "isle";
     public static final String SHELF = "shelf";
-    public static final String POSITION ="position" ;
+    public static final String POSITION = "position";
     public static final String ID_PRODUCT_STATIC = "idproductStatic";
     public static final String ID = "id";
     public static final String SCREEN_ID = "screen_id";
@@ -272,7 +286,7 @@ public class Constraint {
     public static final String ID_PRODUCT_FLUID = "idproductFluid";
     public static final String DATE_EFFECTIVE = "dateEffective";
     public static final String TIME_EFFECTIVE = "timeEffective";
-//    public static final String MSRP = "msrp";
+    //    public static final String MSRP = "msrp";
 //    public static final String OUR_PRICE = "ourprice";
 //    public static final String SALE_PRICE = "saleprice";
 //    public static final String PLAN_A_PRICE = "planAprice";
@@ -288,7 +302,7 @@ public class Constraint {
     public static final String ONE_STRING = "1";
     public static final int NINE_THOUSANT_NINE_HUNDRED = 9900;
     public static final int SIXTY = 60;
-    public static final int TEN =10 ;
+    public static final int TEN = 10;
     public static final CharSequence MOBILE_PRICE_CARD_NOT_DEFINE = "MobilePriceCard is not defined";
     public static final long FOUR_THOUSAND = 4000;
     public static final String DATE_CREATE = "dateCreated";
@@ -304,15 +318,16 @@ public class Constraint {
 
     public static String FILE_NAME_AFTER_DOWNLOAD = "filename";
 
-    public static  boolean IS_OVER_APP_SETTING = false;
-    public static  int CREENTBRIGHNESS  ;
+    public static boolean IS_OVER_APP_SETTING = false;
+    public static int CREENTBRIGHNESS;
     public static String current_running_process = "";
 
-    public static String pricecardid="pricecardid";
+    public static String pricecardid = "pricecardid";
 
-    public static  String Extra_pass_screen="com.lge.retailmode";
-    public static String adFrameUrl="adFrameUrl";
-    public static String currentFrameName="currentFrameName";
-    public static String click="click";
-    public static String Impression="Impression";
+    public static String Extra_pass_screen = "com.lge.retailmode";
+    public static String adFrameUrl = "adFrameUrl";
+    public static String currentFrameName = "currentFrameName";
+    public static String click = "click";
+    public static String Impression = "Impression";
+    public static String price = "price";
 }

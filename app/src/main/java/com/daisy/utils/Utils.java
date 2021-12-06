@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
+import com.daisy.app.AppController;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.LogsDataPojo;
@@ -56,6 +57,8 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,6 +66,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -87,7 +91,7 @@ public class Utils {
     // get last update date
     public static String getLastUpdateDate(Activity activity) {
 
-        PackageManager packageManager =  activity.getPackageManager();
+        PackageManager packageManager = activity.getPackageManager();
         long updateTimeInMilliseconds; // install time is conveniently provided in milliseconds
 
         Date updateDate = null;
@@ -99,10 +103,9 @@ public class Utils {
             String appFile = appInfo.sourceDir;
             updateTimeInMilliseconds = new File(appFile).lastModified();
 
-            updateDateString  = getDate(updateTimeInMilliseconds, "dd MMMM,yyyy | hh:mm:ss");
+            updateDateString = getDate(updateTimeInMilliseconds, "dd MMMM,yyyy | hh:mm:ss");
 
-        }
-        catch (PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             // an error occurred, so display the Unix epoch
             updateDate = new Date(0);
             updateDateString = updateDate.toString();
@@ -111,8 +114,7 @@ public class Utils {
         return updateDateString;
     }
 
-    public static String getDate(long milliSeconds, String dateFormat)
-    {
+    public static String getDate(long milliSeconds, String dateFormat) {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 
@@ -121,6 +123,7 @@ public class Utils {
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
+
     public static String stringify(ArrayList listOfStrings) {
         String result;
         if (listOfStrings.isEmpty()) {
@@ -161,55 +164,167 @@ public class Utils {
     }
 
     public static boolean getInvertedTime() {
-        try {
-            SessionManager sessionManager = SessionManager.get();
-
-            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
-
-            int dateTime = Integer.parseInt(getTodayTime());
-
-            int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
-
-            int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
-
-            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
-
-            int dateTimeInUTC = 0;
-            if (offcet < 0) {
-                dateTimeInUTC = dateTime + (-offcet);
-                openTime = openTime + (-offcet);
-                closeTime = closeTime + (-offcet);
-
-
-            } else {
-                dateTimeInUTC = dateTime - offcet;
-                openTime = openTime - offcet;
-                closeTime = closeTime - offcet;
-            }
-            int CF;
-
-            if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
-                CF = Integer.parseInt(sessionManager.getTimeInverval());
-            } else {
-                CF = serverTime - dateTimeInUTC;
-
-            }
-
-
-            sessionManager.setTimeInterval(CF + "");
-            int LT = dateTimeInUTC + CF;
-
-            Log.e("Working",LT+"--");
-            if (LT >= openTime && LT < closeTime) {
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-
+        SessionManager sessionManager = SessionManager.get();
+        int value = Integer.parseInt(sessionManager.getUTCOffset());
+        String mainValue = "";
+        if (value > 0) {
+            mainValue = "+" + value;
+        } else
+            mainValue = value + "";
+        String timezoneS = "GMT" + mainValue;
+        TimeZone tz = TimeZone.getTimeZone(timezoneS);
+        Calendar c = Calendar.getInstance(tz);
+        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
+        int mainTime = ((hour * 100) + c.get(Calendar.MINUTE));
+        if (mainTime >= openTime && mainTime < closeTime) {
+            return false;
         }
-        return false;
+        return true;
 
     }
+
+//    public static boolean getInvertedTime() {
+//        try {
+//
+//            SessionManager sessionManager = SessionManager.get();
+//
+//            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
+//
+//            int dateTime = Integer.parseInt(getTodayTime());
+//
+//            int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+//
+//            int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
+//
+//            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+//            int Lt = serverTime + offcet;
+//
+//
+//            if (offcet < 0) {
+//                int CF;
+//                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+//                    CF = Integer.parseInt(sessionManager.getTimeInverval());
+//                } else {
+//                    CF = dateTime - Lt;
+//                }
+//
+//                sessionManager.setTimeInterval(CF + "");
+//
+//                int clt = dateTime - CF;
+//                System.out.println("clt value is " + clt);
+//                String qualification = "";
+//                if (clt > 2400) {
+//                    clt = clt - 2400;
+//                    System.out.println("if clt value is " + clt);
+//                    qualification = " next day";
+//                    if (clt > 60 && clt < 100) {
+//                        clt = clt - 60;
+//                        clt = clt + 100;
+//                    }
+//                }
+//
+//
+////                else if (clt < 0) {
+////                    clt = 2400 + clt;
+////                    System.out.println("else  clt value is " + clt);
+////                    qualification = " prior day";
+////                }
+//
+//                String ctlValue = clt + "";
+//                clt = changeCltValue(ctlValue);
+//
+//
+//                if (clt >= openTime && clt < closeTime) {
+//                    return false;
+//                }
+//                return true;
+//            } else {
+//                int CF;
+//                if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+//                    CF = Integer.parseInt(sessionManager.getTimeInverval());
+//                } else {
+//                    if (dateTime > Lt) {
+//                        CF = Lt + dateTime;
+//
+//                    } else {
+//                        CF = Lt - dateTime;
+//                    }
+//
+//                }
+//
+//
+//                sessionManager.setTimeInterval(CF + "");
+//                int clt = dateTime + CF;
+//                System.out.println("clt value is " + clt);
+//                String qualification = "";
+//                if (clt > 2400) {
+//                    clt = clt - 2400;
+//                    System.out.println("if clt value is " + clt);
+//                    qualification = " next day";
+//                    if (clt > 60 && clt < 100) {
+//                        clt = clt - 60;
+//                        clt = clt + 100;
+//                    }
+//                } else if (clt < 0) {
+//                    clt = 2400 + clt;
+//                    System.out.println("else  clt value is " + clt);
+//                    qualification = " prior day";
+//                }
+//
+//                String ctlValue = clt + "";
+//                //  clt = changeCltValue(ctlValue);
+//
+//                if (clt >= openTime && clt < closeTime) {
+//                    return false;
+//                }
+//                return true;
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//        return false;
+//
+//    }
+
+    private static int changeCltValue(String ctlValue) {
+        int returnValue = Integer.parseInt(ctlValue);
+        switch (ctlValue.length()) {
+            case 3: {
+                int cltFirst = Integer.parseInt(ctlValue.charAt(0) + "");
+                int lastTwo = Integer.parseInt(ctlValue.substring(1, 3));
+                if (lastTwo >= 60) {
+                    ++cltFirst;
+                    cltFirst = cltFirst * 100;
+                    returnValue = cltFirst + (lastTwo - 60);
+                }
+                break;
+            }
+            case 2: {
+                int cltFirst = 0;
+                int lastTwo = Integer.parseInt(ctlValue);
+                if (lastTwo >= 60) {
+                    ++cltFirst;
+                    cltFirst = cltFirst * 100;
+                    returnValue = cltFirst + (lastTwo - 60);
+                }
+                break;
+            }
+//            case 4: {
+//                int cltFirst = Integer.parseInt(ctlValue.substring(0, 2));
+//                int lastTwo = Integer.parseInt(ctlValue.substring(2, 4));
+//                if (lastTwo > 60) {
+//                    ++cltFirst;
+//                    cltFirst = cltFirst * 100;
+//                    returnValue = cltFirst + (lastTwo - 60);
+//                }
+//                break;
+//            }
+        }
+        return returnValue;
+    }
+
 
     public static String getTodayTime() {
 //        Date date = localToGMT();
@@ -296,21 +411,55 @@ public class Utils {
 
     public static String getPath() {
         try {
-            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
 
-            File file1 = new File(configFilePath, Constraint.configFile);
-            if (file1.exists()) {
-                Scanner input = null;
-                try {
-                    input = new Scanner(file1);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                File file1;
+
+                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                    file1 = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath + Constraint.configFile);
+                } else {
+                    file1 = new File(configFilePath, Constraint.configFile);
+
+
                 }
 
-                String url = input.next();
-                return url;
+                if (file1.exists()) {
+                    Scanner input = null;
+                    try {
+                        input = new Scanner(file1);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    String url = input.next();
+                    return url;
+                }
+            } else {
+                try {
+                    String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+
+                    File file1 = new File(configFilePath, Constraint.configFile);
+                    if (file1.exists()) {
+                        Scanner input = null;
+                        try {
+                            input = new Scanner(file1);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        String url = input.next();
+                        return url;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                return null;
+
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
         return null;
@@ -569,7 +718,14 @@ public class Utils {
     }
 
     public static void writeFile(String configFilePath, String message) throws IOException {
-        File gpxfile = new File(configFilePath, Constraint.configFile);
+        File gpxfile;
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            gpxfile = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath + Constraint.configFile);
+        } else {
+            gpxfile = new File(configFilePath, Constraint.configFile);
+
+        }
+
         FileWriter writer = new FileWriter(gpxfile);
         writer.append(message);
         writer.flush();
@@ -743,7 +899,21 @@ public class Utils {
     }
 
     public static void deleteCardFolder() {
-        File dir = new File(Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
+        File dir;
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            String path = Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD;
+            dir = new File(AppController.getInstance().getExternalFilesDir(""), path);
+            if (dir.isDirectory()) {
+                try {
+                    FileUtils.deleteDirectory(dir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } else
+
+            dir = new File(Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD);
         if (dir.isDirectory()) {
             try {
                 FileUtils.deleteDirectory(dir);
@@ -775,12 +945,10 @@ public class Utils {
 
     public static void deleteCallList(Context context) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-                return;
+            return;
         }
         context.getContentResolver().delete(CallLog.Calls.CONTENT_URI, null, null);
     }
-
-
 
 
     private static String getGalleryPath() {
@@ -823,15 +991,28 @@ public class Utils {
     }
 
     public static void deleteDaisy() {
-        String path = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY;
-        File dir = new File(path);
-        if (dir.isDirectory()) {
-            try {
-                FileUtils.deleteDirectory(dir);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            String path = Constraint.SLASH + Constraint.DAISY;
+            File dir = new File(AppController.getInstance().getExternalFilesDir(""), path);
+            if (dir.isDirectory()) {
+                try {
+                    FileUtils.deleteDirectory(dir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+            }
+        } else {
+            String path = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY;
+            File dir = new File(path);
+            if (dir.isDirectory()) {
+                try {
+                    FileUtils.deleteDirectory(dir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     }
 
@@ -852,34 +1033,54 @@ public class Utils {
         }
     }
 
+
     public static void getInvertedTimeWithNewCorrectionFactor() {
-        try {
-            SessionManager sessionManager = SessionManager.get();
+        SessionManager sessionManager = SessionManager.get();
 
-            int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
+        int serverTime = Integer.parseInt(getServerTime(sessionManager.getServerTime()));
 
-            int dateTime = Integer.parseInt(getTodayTime());
+        int dateTime = Integer.parseInt(getTodayTime());
 
+        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
 
-            int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
 
-            int dateTimeInUTC = 0;
-            if (offcet < 0) {
-                dateTimeInUTC = dateTime + (-offcet);
-
-
-            } else {
-                dateTimeInUTC = dateTime - offcet;
-            }
+        int offcet = ((Integer.parseInt(sessionManager.getUTCOffset())) * 100);
+        int Lt = serverTime + offcet;
+        if (offcet < 0) {
             int CF;
-            CF = serverTime - dateTimeInUTC;
+
+            //  if (dateTime > Lt) {
+            CF = dateTime - Lt;
+
+//            } else {
+//                CF = Lt - dateTime;
+//            }
+
 
             sessionManager.setTimeInterval(CF + "");
-        } catch (Exception e) {
 
+        } else {
+            int CF;
+            if (sessionManager.getTimeInverval() != null && !sessionManager.getTimeInverval().equals("")) {
+                CF = Integer.parseInt(sessionManager.getTimeInverval());
+            } else {
+                if (dateTime > Lt) {
+                    CF = Lt + dateTime;
+
+                } else {
+                    CF = Lt - dateTime;
+                }
+
+            }
+
+
+            sessionManager.setTimeInterval(CF + "");
         }
 
+
     }
+
 
     public static int searchPromotionUsingPath(String promotionPath) {
         try {

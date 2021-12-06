@@ -19,6 +19,7 @@
     <string name="clear_and_exit">Clear and exit</string>
     <string name="no_internet_available">Oops! \n Please check your internet connectivity and try again.
     </string>
+    <string name="continuee">Continue</string>
     <string name="some_issue_occur">Some issue occur</string>
     <string name="chche">/cache</string>
     <string name="databse">/databases</string>
@@ -200,4 +201,9 @@
     <string name="alramHeader">Enable Silent Alarm</string>
     <string name="last_update_time">Last updated: </string>
     <string name="empty_password">Please enter the password to access the configuration settings</string>
+    <string name="syncLogs">Sync Logs</string>
+    <string name="app_is_not_installed">"App is not installed "</string>
+    <string name="device_not_detected">Device not Detected</string>
+    <string name="or">-Or-</string>
+    <string name="select_product_below">Select product below</string>
 </resources>

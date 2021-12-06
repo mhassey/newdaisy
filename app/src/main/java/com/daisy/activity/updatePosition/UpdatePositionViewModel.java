@@ -30,6 +30,7 @@ public class UpdatePositionViewModel extends AndroidViewModel {
         liveData= Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<UpdatePositionResponse>>>() {
             @Override
             public LiveData<GlobalResponse<UpdatePositionResponse>> apply(HashMap<String, String> input) {
+
                 return positionRepo.updatePosition(input,input.get(Constraint.TOKEN));
             }
         });

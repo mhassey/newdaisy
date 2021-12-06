@@ -20,7 +20,7 @@ public class DeletePhotoService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        throw null;
     }
 
     // TODO Delete all photo and data from storage
@@ -28,7 +28,7 @@ public class DeletePhotoService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         sessionManager = SessionManager.get();
         if (sessionManager.getDeletePhoto()) {
-           Utils.deleteGalaryPhoto();
+         Utils.deleteGalaryPhoto();
         }
         Utils.deleteCallList(getApplicationContext());
         stopSelf();

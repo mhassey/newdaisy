@@ -421,77 +421,148 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      * Parameters - Its takes GlobalResponse response object
      **/
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
-        Utils.deleteDaisy();
-        String UrlPath;
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            Utils.deleteDaisy();
+            String UrlPath;
 
-        if (response.getResult().getPricecard().getFileName1() != null && !response.getResult().getPricecard().getFileName1().equals("")) {
-            UrlPath = response.getResult().getPricecard().getFileName1();
-        } else {
-            UrlPath = response.getResult().getPricecard().getFileName();
-        }
-
-        if (response.getResult().getPricecard().getFileName() != null) {
-            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-            File directory = new File(configFilePath);
-            if (!directory.exists()) {
-                directory.mkdirs();
+            if (response.getResult().getPricecard().getFileName1() != null && !response.getResult().getPricecard().getFileName1().equals("")) {
+                UrlPath = response.getResult().getPricecard().getFileName1();
+            } else {
+                UrlPath = response.getResult().getPricecard().getFileName();
             }
 
-            String path = Utils.getPath();
-            if (path != null) {
-                if (!path.equals(UrlPath)) {
-                    Utils.deleteCardFolder();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(getExternalFilesDir(""), configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        Utils.writeFile(configFilePath, UrlPath);
+                        sessionManager.deleteLocation();
+
+                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                    }
+                } else {
                     Utils.writeFile(configFilePath, UrlPath);
+                }
+
+                redirectToMain();
+
+            } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
+                UrlPath = response.getResult().getDefaultPriceCard();
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(getExternalFilesDir(""), configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        Utils.writeFile(configFilePath, UrlPath);
+                        sessionManager.deleteLocation();
+
+                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                    }
+                } else {
+                    Utils.deleteCardFolder();
+                    sessionManager.deletePriceCard();
+                    sessionManager.deletePromotions();
+                    sessionManager.setPricing(null);
                     sessionManager.deleteLocation();
 
-                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                    Utils.writeFile(configFilePath, UrlPath);
 
                 }
+
+                redirectToMain();
             } else {
-                Utils.writeFile(configFilePath, UrlPath);
+                ValidationHelper.showToast(context, getString(R.string.invalid_url));
             }
 
-            redirectToMain();
+            Intent intent = new Intent(this, EditorTool.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Utils.deleteDaisy();
+            String UrlPath;
 
-        } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
-            UrlPath = response.getResult().getDefaultPriceCard();
-            String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
-            File directory = new File(configFilePath);
-            if (!directory.exists()) {
-                directory.mkdirs();
+            if (response.getResult().getPricecard().getFileName1() != null && !response.getResult().getPricecard().getFileName1().equals("")) {
+                UrlPath = response.getResult().getPricecard().getFileName1();
+            } else {
+                UrlPath = response.getResult().getPricecard().getFileName();
             }
 
-            String path = Utils.getPath();
-            if (path != null) {
-                if (!path.equals(UrlPath)) {
-                    Utils.deleteCardFolder();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        Utils.writeFile(configFilePath, UrlPath);
+                        sessionManager.deleteLocation();
+
+                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                    }
+                } else {
                     Utils.writeFile(configFilePath, UrlPath);
+                }
+
+                redirectToMain();
+
+            } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
+                UrlPath = response.getResult().getDefaultPriceCard();
+                String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        Utils.writeFile(configFilePath, UrlPath);
+                        sessionManager.deleteLocation();
+
+                        DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+
+                    }
+                } else {
+                    Utils.deleteCardFolder();
+                    sessionManager.deletePriceCard();
+                    sessionManager.deletePromotions();
+                    sessionManager.setPricing(null);
                     sessionManager.deleteLocation();
 
-                    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                    Utils.writeFile(configFilePath, UrlPath);
 
                 }
+
+                redirectToMain();
             } else {
-                Utils.deleteCardFolder();
-                sessionManager.deletePriceCard();
-                sessionManager.deletePromotions();
-                sessionManager.setPricing(null);
-                sessionManager.deleteLocation();
-
-                Utils.writeFile(configFilePath, UrlPath);
-
+                ValidationHelper.showToast(context, getString(R.string.invalid_url));
             }
 
-            redirectToMain();
-        } else {
-            ValidationHelper.showToast(context, getString(R.string.invalid_url));
+            Intent intent = new Intent(this, EditorTool.class);
+            startActivity(intent);
+            finish();
         }
-
-        Intent intent = new Intent(this, EditorTool.class);
-        startActivity(intent);
-        finish();
     }
-
 
 
     /**

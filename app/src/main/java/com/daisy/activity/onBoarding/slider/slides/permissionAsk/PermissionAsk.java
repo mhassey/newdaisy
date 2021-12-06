@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String android_id = Settings.Secure.getString(getContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        Log.e("Kali", android_id);
         initView();
         permissionSetter();
         initClick();
@@ -85,7 +89,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionSetter();
         if (!mDPM.isAdminActive(mAdminName)) {
             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,mAdminName);
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mAdminName);
             intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
             getActivity().startActivityForResult(intent, REQUEST_ENABLE);
         }
@@ -137,7 +141,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkAdminPermission();
         String name = Utils.getDeviceName();
 
-        if (name.contains(Constraint.REDME)) {
+        //if (name.contains(Constraint.REDME)) {
+        if (false) {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandExtraAccess()) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -149,7 +154,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                         onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
                     else
-                    onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
+                        onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
                 }
             } else {
                 onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
@@ -270,18 +275,18 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
             // do something for phones running an SDK before lollipop
         }
-            if (!b) {
-                permissionAskBinding.grandMediaPermissionDone.setChecked(false);
-                permissionAskBinding.grandMediaPermission.setEnabled(Constraint.TRUE);
-                permissionAskViewModel.setGrandMediaPermission(Constraint.FALSE);
-            } else {
-                permissionAskBinding.grandMediaPermissionDone.setChecked(true);
-                permissionAskBinding.grandMediaPermission.setEnabled(Constraint.FALSE);
-                permissionAskViewModel.setGrandMediaPermission(Constraint.TRUE);
-
-            }
+        if (!b) {
+            permissionAskBinding.grandMediaPermissionDone.setChecked(false);
+            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.TRUE);
+            permissionAskViewModel.setGrandMediaPermission(Constraint.FALSE);
+        } else {
+            permissionAskBinding.grandMediaPermissionDone.setChecked(true);
+            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.FALSE);
+            permissionAskViewModel.setGrandMediaPermission(Constraint.TRUE);
 
         }
+
+    }
 
     /**
      * Responsibility - check for modify system settings  permission
@@ -339,7 +344,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         onBaordingBindingMain = onBaordingBinding;
         return new PermissionAsk();
     }
-
 
 
     /**
@@ -438,11 +442,11 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void callMiExtraPopUp() {
-        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-        intent.setClassName("com.miui.securitycenter",
-                "com.miui.permcenter.permissions.PermissionsEditorActivity");
-        intent.putExtra("extra_pkgname", getActivity().getPackageName());
-        requireActivity().startActivityForResult(intent, Constraint.MI_EXTRA_PERMISSION_CODE);
+//        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+//        intent.setClassName("com.miui.securitycenter",
+//                "com.miui.permcenter.permissions.PermissionsEditorActivity");
+//        intent.putExtra("extra_pkgname", getActivity().getPackageName());
+//        requireActivity().startActivityForResult(intent, Constraint.MI_EXTRA_PERMISSION_CODE);
     }
 
     /**
@@ -538,6 +542,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
         permissionSetter();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void adminSetter(Admin admin) {
         permissionSetter();

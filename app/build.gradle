@@ -5,14 +5,14 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 31
+    buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "com.daisy"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "2.9"
+        targetSdkVersion 31
+        versionCode 3
+        versionName "1.02"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,16 +22,17 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://orange.mobilepricecards.com/"'
         }
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://orange.mobilepricecards.com/"'
         }
     }
 
+    // pinecone password for all  key allie key0
     buildTypes {
         release {
             minifyEnabled false
@@ -63,21 +64,20 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.lyfeCycle}"
     implementation "org.apache.commons:commons-io:${rootProject.ext.commons}"
     implementation "org.greenrobot:eventbus:${rootProject.ext.eventBus}"
-    // Room components
     implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomRuntime}"
     implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomComplier}"
     implementation "com.google.firebase:firebase-analytics:${rootProject.ext.analytics}"
-
-    // Add the Firebase Crashlytics SDK.
-
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.gson}"
     implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.interceptor}"
     implementation "com.jakewharton:process-phoenix:${rootProject.ext.phoenix}"
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
+    implementation 'com.google.firebase:firebase-messaging'
 
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
+    implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
+
 }

@@ -41,6 +41,7 @@ public class BaseFragment extends Fragment {
 
     }
 
+
     /**
      * Responsibility -  showHideProgressDialog method help to show progress bar from all fragment when app needed
      * Parameters - its takes iShow boolean value that define progress should display or hide
