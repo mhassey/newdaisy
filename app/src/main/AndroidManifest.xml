@@ -6,6 +6,7 @@
     <queries>
         <package android:name="au.com.optus.android.gooptus" />
         <package android:name="au.com.fetchtv" />
+        <package android:name="com.google.android.calculator"/>
         <package android:name="au.com.optus.optusstadium" />
         <package android:name="com.spotify.music" />
         <package android:name="com.android.chrome" />

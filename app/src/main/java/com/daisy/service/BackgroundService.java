@@ -1006,7 +1006,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
 
             int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
-            Log.e("Kali",x_digree+"-"+y_digree+"-"+z_digree);
             if (z_digree != 90 || y_digree != 90 || x_digree != 90) {
                 unStableCounter = 0;
                 movement = 0;
@@ -1039,40 +1038,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 }
             }
 
-//            if (movement == 1) {
-//                if (isPickedUp) {
-//                    if (!isPickedUpSucess) {
-//
-//                        if (SessionManager.get().pickDOwn()) {
-//                            if (SystemClock.elapsedRealtime() - mLastClickTime < 30000) {
-//                                return;
-//                            } else
-//                                SessionManager.get().pickDown(false);
-//
-//                        }
-//                        isPickedDown = false;
-//                        isPickedUpSucess = true;
-//                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
-//
-//                    }
-//                } else {
-//                    if (!isPickedDown) {
-//                        if (!SessionManager.get().pickDOwn()) {
-//                            Inversion inversion = new Inversion();
-//
-//                            inversion.setInvert(Utils.getInvertedTime());
-//                            EventBus.getDefault().post(inversion);
-//                            isPickedDown = true;
-//                            isPickedUpSucess = false;
-//                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
-//                            SessionManager.get().pickDown(true);
-//                            mLastClickTime = SystemClock.elapsedRealtime();
-//                        }
-//
-//
-//                    }
-//                }
-//            }
 
         }
 
