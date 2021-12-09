@@ -138,6 +138,7 @@ public class LogGenerateService extends Service {
             e.printStackTrace();
             Log.i("TAG", "Unable to launch camera: " + e);
         }
+
     }
 
 

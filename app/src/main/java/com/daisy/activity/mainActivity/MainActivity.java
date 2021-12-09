@@ -1241,6 +1241,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             //mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('pickup')");
 
         }
+        else if (eventHandler.getEventName().equals(Constraint.OPEN_APP))
+        {
+            mBinding.webView.loadUrl("javascript:MobilePriceCard.openApplication(defaultApp)");
+        }
     }
 
     /**
