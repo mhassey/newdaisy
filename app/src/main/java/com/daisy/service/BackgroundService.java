@@ -1011,7 +1011,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 unStableCounter = 0;
                 movement = 0;
                 isPickedUp = false;
-                if (stableCounter > 13) {
+                if (stableCounter > 8) {
 
 
                     if (cameraOpen == 0) {
@@ -1080,22 +1080,26 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
 
     private void openCameraApp() {
-        Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        try {
-            PackageManager pm = getPackageManager();
+//        Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//        try {
+//            PackageManager pm = getPackageManager();
+//
+//            final ResolveInfo mInfo = pm.resolveActivity(i, 0);
+//
+//            Intent intent = new Intent();
+//            intent.setComponent(new ComponentName(mInfo.activityInfo.packageName, mInfo.activityInfo.name));
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            intent.setAction(Intent.ACTION_MAIN);
+//            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+//            startActivity(intent);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.i("TAG", "Unable to launch camera: " + e);
+//        }
 
-            final ResolveInfo mInfo = pm.resolveActivity(i, 0);
-
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName(mInfo.activityInfo.packageName, mInfo.activityInfo.name));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setAction(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.i("TAG", "Unable to launch camera: " + e);
-        }
+        EventHandler eventHandler = new EventHandler();
+        eventHandler.eventName(Constraint.OPEN_APP);
+        EventBus.getDefault().post(eventHandler);
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
