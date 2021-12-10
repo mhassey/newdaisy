@@ -6,9 +6,10 @@
     <queries>
         <package android:name="au.com.optus.android.gooptus" />
         <package android:name="au.com.fetchtv" />
-        <package android:name="com.google.android.calculator"/>
+        <package android:name="com.google.android.calculator" />
         <package android:name="au.com.optus.optusstadium" />
         <package android:name="com.spotify.music" />
+        <package android:name="com.magenta.TacticDefense" />
         <package android:name="com.android.chrome" />
         <package android:name="com.sec.android.app.sbrowser" />
 
@@ -103,11 +104,7 @@
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -134,7 +131,11 @@
         <activity
             android:name=".activity.splash.SplashScreen"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
