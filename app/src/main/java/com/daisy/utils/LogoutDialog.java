@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
 import com.daisy.R;
+import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.LogoutBinding;
@@ -47,7 +48,7 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.curve_layout: {
-                handleClickEvent();
+                handleLogout();
                 break;
             }
         }
@@ -65,6 +66,29 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
             ValidationHelper.showToast(requireActivity(), getString(R.string.please_wait_service_is_not_register_yet));
         }
         dismiss();
+    }
+
+    /**
+     * Responsibility - handleLogout is an method that help to logout the app with stop all services
+     * Parameters - No parameter
+     **/
+    private void handleLogout() {
+        if (BackgroundService.getServiceObject() != null) {
+            AlaramHelperBackground.cancelAlarmElapsed();
+            AlaramHelperBackground.disableBootReceiver(getContext());
+            AlaramHelperBackground.cancelAlarmRTC();
+            BackgroundService.getServiceObject().closeService();
+            getActivity().stopService(new Intent(getActivity(), BackgroundService.class));
+            SessionManager.get().clear();
+            SessionManager.get().logout(true);
+            Intent intent = new Intent(getActivity(), WelcomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            ValidationHelper.showToast(getActivity(), getString(R.string.please_wait_service_is_not_register_yet));
+        }
     }
 
     private void closeHoleApp() {
