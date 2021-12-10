@@ -20,6 +20,8 @@ public class Constraint {
     public static final String MESSENGING = "messaging";
     public static final String WEAK_UP_TAG = "wake_up_tag";
     public static final int THIRTY_INT = 30;
+    public static final int SIXTY_INT = 60;
+
     //public static final int THIRTY_INT = 1;
 
     public static final int THIRTY_SIX_HUNDRED = 3600;
@@ -143,6 +145,7 @@ public class Constraint {
     public static final String CAMERA_SHOW = "android.media.action.IMAGE_CAPTURE";
     public static final String FILE_DOWNLOAD = "file_download";
     public static final String OPEN_APP = "openApp";
+    public static final String CAMERA = "Camera";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

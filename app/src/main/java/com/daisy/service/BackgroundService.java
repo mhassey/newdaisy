@@ -559,7 +559,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 @Override
                 public void run() {
                     count++;
-                    if (count == Constraint.THIRTY_INT) {
+                    if (count == Constraint.SIXTY_INT) {
                         try {
                             if (Utils.isPlugged(getApplicationContext())) {
                                 sessionManager.setStepCount(0);
@@ -1010,7 +1010,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 unStableCounter = 0;
                 movement = 0;
                 isPickedUp = false;
-                if (stableCounter > 8) {
+                if (stableCounter > 13) {
 
 
                     if (cameraOpen == 0) {
