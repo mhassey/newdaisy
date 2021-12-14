@@ -549,6 +549,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         stopSelf();
     }
 
+    void unregisterReceiver() {
+
+        unregisterReceiver(overlayReceiver);
+//        unregisterReceiver(wifiStateReceiver);
+        unregisterReceiver(m_timeChangedReceiver);
+    }
+
     //  Check for apk update availability
     public static void updateAPk() {
         try {
