@@ -141,6 +141,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         setNoTitleBar(this);
         context = this;
+        SessionManager.get().logout(false);
         handleScreenRotation();
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -300,6 +301,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.sanitisedHeader.setVisibility(View.GONE);
         }
     }
+
 
 
     /**

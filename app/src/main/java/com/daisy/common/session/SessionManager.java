@@ -1245,4 +1245,13 @@ public class SessionManager {
     public void clckPerform(boolean b) {
         pref.setBooleanData(Constraint.CLICK_PERFORM, b);
     }
+
+    public void logout(boolean b) {
+        pref.setBooleanData(Constraint.LOGOUT, b);
+    }
+
+    public boolean getLogout() {
+        return pref.getBoolean(Constraint.LOGOUT);
+    }
+
 }

@@ -338,6 +338,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
 
+
     /**
      * Responsibility - handleApkUpdateDirectly is an method that check any apk update is available or not
      * Parameters - No parameter
