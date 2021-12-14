@@ -138,6 +138,7 @@ public class Constraint {
     public static final String USER_INTERACTION = "Interaction";
     public static final String COLON = ":";
     public static final String IDLE = "Idle";
+    public static final String LOGOUT = "logout";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

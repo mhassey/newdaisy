@@ -137,6 +137,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
+        SessionManager.get().logout(false);
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         setNoTitleBar(this);
