@@ -116,6 +116,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private Sensor magnetometer;
     private int uninstallIssue = 0;
     private long mLastClickTime = 0;
+    private static BackgroundService backgroundService;
 
 
     @Nullable
@@ -134,6 +135,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public void onCreate() {
         super.onCreate();
+        backgroundService = this;
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
         showNotification();
         initWakeUpLock();
@@ -154,6 +156,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 //        }
     }
 
+    public static BackgroundService getServiceObject() {
+        return backgroundService;
+    }
 
     /**
      * show lock screen if browser or message app or play store or settings open
@@ -254,6 +259,24 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }).timeout(200).start(getApplicationContext());
     }
 
+    public void closeService() {
+        unregisterReceiver();
+        if (touchLayout != null)
+            mWindowManager.removeView(touchLayout);
+        if (touchLayoutforCamera != null)
+            mWindowManager.removeView(touchLayoutforCamera);
+        if (appChecker != null) {
+            appChecker.stop();
+        }
+        stopSelf();
+    }
+
+
+    void unregisterReceiver() {
+
+        unregisterReceiver(overlayReceiver);
+        unregisterReceiver(m_timeChangedReceiver);
+    }
 
     private void storeProcess(String process) {
         try {
@@ -342,8 +365,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 @Override
                 public void run() {
                     try {
-                        ValidatePromotion validatePromotion = new ValidatePromotion();
-                        validatePromotion.checkPromotion();
+                        if (!SessionManager.get().getLogout()) {
+                            ValidatePromotion validatePromotion = new ValidatePromotion();
+                            validatePromotion.checkPromotion();
+                        }
                     } catch (Exception e) {
 
                     }
@@ -366,25 +391,26 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 @Override
                 public void run() {
                     try {
-                        Inversion inversion = new Inversion();
-                        inversion.setInvert(Utils.getInvertedTime());
-                        EventBus.getDefault().post(inversion);
-                        String mainVersion = sessionManager.getApkVersion();
-                        if (mainVersion != null && !mainVersion.equals("")) {
-                            try {
-                                double olderVersion = Double.parseDouble(mainVersion);
-                                double newVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
-                                if (newVersion > olderVersion) {
-                                    new UpdateAppVersion().UpdateAppVersion();
+                        if (!SessionManager.get().getLogout()) {
+                            Inversion inversion = new Inversion();
+                            inversion.setInvert(Utils.getInvertedTime());
+                            EventBus.getDefault().post(inversion);
+                            String mainVersion = sessionManager.getApkVersion();
+                            if (mainVersion != null && !mainVersion.equals("")) {
+                                try {
+                                    double olderVersion = Double.parseDouble(mainVersion);
+                                    double newVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
+                                    if (newVersion > olderVersion) {
+                                        new UpdateAppVersion().UpdateAppVersion();
+                                    }
+
+                                } catch (Exception e) {
+
                                 }
 
-                            } catch (Exception e) {
 
                             }
-
-
                         }
-
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -433,7 +459,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             refreshTimer3.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    EventBus.getDefault().post(new Promotions());
+                    if (!SessionManager.get().getLogout()) {
+                        EventBus.getDefault().post(new Promotions());
+                    }
                 }
             }, second, second);
 
@@ -450,18 +478,18 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                if (!SessionManager.get().getLogout()) {
+                    if (Utils.getNetworkState(getApplicationContext())) {
+                        List<Logs> logsVOList = DBCaller.getLogsFromDatabaseNotSync(getApplicationContext());
+                        if (logsVOList.isEmpty()) {
+                            new LogSyncExtra(getApplicationContext(), false).fireLogExtra();
 
+                        } else {
+                            SyncLogs syncLogs = SyncLogs.getLogsSyncing(getApplicationContext());
+                            syncLogs.saveContactApi(Constraint.APPLICATION_LOGS, BackgroundService.this::syncDone);
+                        }
 
-                if (Utils.getNetworkState(getApplicationContext())) {
-                    List<Logs> logsVOList = DBCaller.getLogsFromDatabaseNotSync(getApplicationContext());
-                    if (logsVOList.isEmpty()) {
-                        new LogSyncExtra(getApplicationContext(), false).fireLogExtra();
-
-                    } else {
-                        SyncLogs syncLogs = SyncLogs.getLogsSyncing(getApplicationContext());
-                        syncLogs.saveContactApi(Constraint.APPLICATION_LOGS, BackgroundService.this::syncDone);
                     }
-
                 }
             }
             //  }, Constraint.TWO_HOUR, Constraint.TWO_HOUR);
@@ -516,9 +544,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-
-                CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
-                checkCardAvailability.checkCard();
+                if (!SessionManager.get().getLogout()) {
+                    CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
+                    checkCardAvailability.checkCard();
+                }
 
             }
         }, second, second);
@@ -541,8 +570,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             refreshTimer2.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    UpdateApk updateApk = new UpdateApk();
-                    updateApk.UpdateApk();
+                    if (!SessionManager.get().getLogout()) {
+                        UpdateApk updateApk = new UpdateApk();
+                        updateApk.UpdateApk();
+                    }
                 }
             }, second, second);
 
@@ -559,37 +590,40 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             T.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    count++;
-                    if (count == Constraint.THIRTY_INT) {
-                        try {
-                            if (Utils.isPlugged(getApplicationContext())) {
-                                sessionManager.setStepCount(0);
-                            }
-                            String value = appChecker.getForegroundApp(getApplicationContext());
-                            if (value != null) {
-                                if (!value.equals(getApplication().getPackageName())) {
-                                    if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
-
-                                        bringApplicationToFront(getApplicationContext());
-                                    }
-                                } else {
-                                    ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-                                    List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-                                    ComponentName componentInfo = taskInfo.get(0).topActivity;
-                                    String name = componentInfo.getClassName();
-                                    if (name.contains(Constraint.LOCK_SCREEN)) {
-                                        bringApplicationToFront(getApplicationContext());
-
-                                    }
+                    if (!SessionManager.get().getLogout()) {
+                        count++;
+                        if (count == Constraint.THIRTY_INT) {
+                            try {
+                                if (Utils.isPlugged(getApplicationContext())) {
+                                    sessionManager.setStepCount(0);
                                 }
-                                count = Constraint.ZERO;
+                                String value = appChecker.getForegroundApp(getApplicationContext());
+                                if (value != null) {
+                                    if (!value.equals(getApplication().getPackageName())) {
+                                        if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
+
+                                            bringApplicationToFront(getApplicationContext());
+                                        }
+                                    } else {
+                                        ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+                                        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+                                        ComponentName componentInfo = taskInfo.get(0).topActivity;
+                                        String name = componentInfo.getClassName();
+                                        if (name.contains(Constraint.LOCK_SCREEN)) {
+                                            bringApplicationToFront(getApplicationContext());
+
+                                        }
+                                    }
+                                    count = Constraint.ZERO;
+
+                                }
+                            } catch (Exception e) {
 
                             }
-                        } catch (Exception e) {
-
                         }
+                        //   checkWifiState();
                     }
-                    //   checkWifiState();
+
 
                 }
             }, Constraint.THOUSAND, Constraint.THOUSAND);
@@ -610,15 +644,17 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         deletePhoto.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
-                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                if (!SessionManager.get().getLogout()) {
+                    if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
+                        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
 
-                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+                            startService(new Intent(getApplicationContext(), DeletePhotoService.class));
 
-                    } else {
-                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+                        } else {
+                            startService(new Intent(getApplicationContext(), DeletePhotoService.class));
+                        }
+
                     }
-
                 }
             }
         }, second, second);
