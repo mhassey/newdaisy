@@ -115,6 +115,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private Sensor magnetometer;
     private int uninstallIssue = 0;
     private long mLastClickTime = 0;
+    private static BackgroundService backgroundService;
+
 
 
     @Nullable
@@ -134,6 +136,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public void onCreate() {
         super.onCreate();
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
+        backgroundService = this;
         showNotification();
         initWakeUpLock();
         registerReceiver();
@@ -263,6 +266,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             }
         } catch (Exception e) {
         }
+    }
+
+
+    public static BackgroundService getServiceObject() {
+        return backgroundService;
     }
 
     @SuppressLint("InvalidWakeLockTag")
