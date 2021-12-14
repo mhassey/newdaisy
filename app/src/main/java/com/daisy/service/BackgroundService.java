@@ -537,6 +537,18 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
+    public void closeService() {
+        unregisterReceiver();
+        if (touchLayout != null)
+            mWindowManager.removeView(touchLayout);
+        if (touchLayoutforCamera != null)
+            mWindowManager.removeView(touchLayoutforCamera);
+        if (appChecker != null) {
+            appChecker.stop();
+        }
+        stopSelf();
+    }
+
     //  Check for apk update availability
     public static void updateAPk() {
         try {
