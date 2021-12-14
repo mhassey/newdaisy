@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,6 +32,7 @@ import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.LogoutDialog;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
@@ -153,6 +155,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.sanitisedHeader.setOnClickListener(this::onClick);
         mBinding.directApkUpdate.setOnClickListener(this::onClick);
         mBinding.updateProduct.setOnClickListener(this::onClick);
+        mBinding.logoutApp.setOnClickListener(this::onClick);
         mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwitch());
         mBinding.alramSwitch.setOnCheckedChangeListener(getAlarmSwitch());
@@ -307,6 +310,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 launchApp();
                 break;
             }
+            case R.id.logout_app: {
+                logoutAlert();
+                break;
+            }
             case R.id.update_product: {
                 openUpdateProductActivity();
                 break;
@@ -325,6 +332,18 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void startLangSupportActivity() {
         Intent intent = new Intent(context, LangSelectionActivity.class);
         startActivity(intent);
+
+    }
+
+    /**
+     * Responsibility - logoutAlert is an method to redirect page to  logout alert popup
+     * Parameters - No parameter
+     **/
+    public void logoutAlert() {
+        LogoutDialog dateTimePermissionDIalog = new LogoutDialog();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        dateTimePermissionDIalog.show(ft, null);
+
 
     }
 
