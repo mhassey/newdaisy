@@ -303,7 +303,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-
     /**
      * Handle all downloaded data
      */
