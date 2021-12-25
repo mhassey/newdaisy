@@ -402,10 +402,15 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
-            sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
-            sessionManager.setPromotion(getCardResponseGlobalResponse.getResult().getPromotions());
-            sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
-            redirectToMainHandler(getCardResponseGlobalResponse);
+            try {
+
+                sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
+                sessionManager.setPromotion(getCardResponseGlobalResponse.getResult().getPromotions());
+                sessionManager.setPricing(getCardResponseGlobalResponse.getResult().getPricing());
+                redirectToMainHandler(getCardResponseGlobalResponse);
+            } catch (Exception e) {
+
+            }
 
         } else {
             if (getCardResponseGlobalResponse.getResult().getDefaultPriceCard() != null && !getCardResponseGlobalResponse.getResult().getDefaultPriceCard().equals("")) {

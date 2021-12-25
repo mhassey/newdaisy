@@ -21,7 +21,6 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -58,7 +57,6 @@ import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.updateProduct.UpdateProductViewModel;
-import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
@@ -77,7 +75,6 @@ import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
-import com.daisy.service.DeletePhotoService;
 import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
@@ -87,6 +84,8 @@ import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -106,6 +105,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+
 
 /**
  * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
@@ -135,6 +135,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+
     /**
      * Initial data setup
      */
@@ -155,6 +156,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         loadURL();
         intentWork();
         sanitisedWork();
+
     }
 
 
@@ -1652,6 +1654,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void heartbeat(String msg) {
+
+
             // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
         }
 

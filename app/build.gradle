@@ -80,9 +80,11 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
     implementation 'com.google.firebase:firebase-messaging'
-
+    implementation 'com.pusher:pusher-java-client:2.2.1'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
+    implementation 'com.google.firebase:firebase-database'
+
 
 }

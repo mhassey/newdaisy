@@ -170,22 +170,29 @@ public class Utils {
     }
 
     public static boolean getInvertedTime() {
-        SessionManager sessionManager = SessionManager.get();
-        int value = Integer.parseInt(sessionManager.getUTCOffset());
-        String mainValue = "";
-        if (value > 0) {
-            mainValue = "+" + value;
-        } else
-            mainValue = value + "";
-        String timezoneS = "GMT" + mainValue;
-        TimeZone tz = TimeZone.getTimeZone(timezoneS);
-        Calendar c = Calendar.getInstance(tz);
-        int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
-        int mainTime = ((hour * 100) + c.get(Calendar.MINUTE));
-        if (mainTime >= openTime && mainTime < closeTime) {
-            return false;
+        try {
+            SessionManager sessionManager = SessionManager.get();
+            int value = Integer.parseInt(sessionManager.getUTCOffset());
+            String mainValue = "";
+            if (value > 0) {
+                mainValue = "+" + value;
+            } else
+                mainValue = value + "";
+            String timezoneS = "GMT" + mainValue;
+            TimeZone tz = TimeZone.getTimeZone(timezoneS);
+            Calendar c = Calendar.getInstance(tz);
+            int openTime = (((Integer.parseInt(sessionManager.getOpen())) * 100));
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int closeTime = (((Integer.parseInt(sessionManager.getClose())) * 100));
+            int mainTime = ((hour * 100) + c.get(Calendar.MINUTE));
+            if (mainTime >= openTime && mainTime < closeTime) {
+                return false;
+            }
+            return true;
+        }
+        catch (Exception e)
+        {
+
         }
         return true;
 

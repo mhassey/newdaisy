@@ -27,6 +27,8 @@ import com.daisy.pojo.response.Url;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -49,6 +51,9 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_url_settings);
         viewModel = new ViewModelProvider(this).get(BaseUrlSettingsViewModel.class);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("page").child("pageCount");
+        myRef.push().setValue("1");
         initView();
         initClick();
     }

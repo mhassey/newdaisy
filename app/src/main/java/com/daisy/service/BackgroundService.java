@@ -19,7 +19,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
+import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -60,17 +63,29 @@ import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.DeviceList;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import static com.daisy.utils.Constraint.SERVER_PORT;
 import static com.daisy.utils.Constraint.messages;
 
 
@@ -82,6 +97,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private static final String ACTION_DEBUG = "daichan4649.lockoverlay.action.DEBUG";
+    private static PrintWriter output;
     private String TAG = this.getClass().getSimpleName();
     private WindowManager mWindowManager;
     private WindowManager mWindowManagerForCamera;
@@ -109,6 +125,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public static Timer refreshTimer2;
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
+    public static Timer refreshTimer6;
+
     public static Timer refreshTimer5;
     private Intent securityIntent;
     private Sensor stepDetectorSensor;
@@ -117,6 +135,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private int uninstallIssue = 0;
     private long mLastClickTime = 0;
     private static BackgroundService backgroundService;
+    private WifiP2pManager manager;
+    private WifiP2pManager.Channel channel;
+    BroadcastReceiver chatBroadCast;
+    IntentFilter chatIntentFilter;
+    private List<WifiP2pDevice> wifiP2pDevices = new ArrayList<>();
+    private BufferedReader input;
 
 
     @Nullable
@@ -146,12 +170,77 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWifi();
         initPassword();
         defineSensor();
-
         try {
             FrontCameraRetriever.retrieveFor(this);
             FrontCameraRetriever.getInstance().load();
         } catch (Exception e) {
 
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                reciever();
+            }
+        }).start();
+
+     //   startSearchingDevice();
+    }
+
+    private void startSearchingDevice() {
+        startService(new Intent(this, DeviceSearch.class));
+
+    }
+
+
+    public static void IpSearched() {
+        ArrayList<InetAddress> arrayList= DeviceList.devices;
+        for (InetAddress valie : arrayList)
+        {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Socket socket;
+                    try {
+                        socket = new Socket(valie.getHostAddress(), SERVER_PORT);
+                        output = new PrintWriter(socket.getOutputStream());
+                        output.println("babu bhai ho gya");
+                        output.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+
+    }
+
+    private void reciever() {
+        Socket socket;
+        try {
+            ServerSocket serverSocket = new ServerSocket(Constraint.SERVER_PORT);
+            socket = serverSocket.accept();
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            new Thread(new ReceiverThread()).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private class ReceiverThread implements Runnable {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    final String message = input.readLine();
+                    if (message != null) {
+
+                        Log.e("Kali", message);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -339,6 +428,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     // set all main counters
     private void setCounter() {
+        runDeviceSearch();
         bringApplicationTimer();
         setDeleteTimer();
         sendLogTimer();
@@ -374,6 +464,30 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
         } catch (Exception e) {
         }
+
+    }
+
+    private void runDeviceSearch() {
+//        try {
+//            int hour = Constraint.ZERO;
+//            int minit = (int) Constraint.ZERO;
+//
+//            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+//            refreshTimer6 = new Timer();
+//            refreshTimer6.scheduleAtFixedRate(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    try {
+//
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
+//            }, second, second);
+//
+//        } catch (Exception e) {
+//        }
+        // startService(new Intent(getApplicationContext(), DeviceSearch.class));
 
     }
 
@@ -470,7 +584,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Send logs
     private void sendLogTimer() {
         Timer logsSync = new Timer();
-     //   int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
+        //   int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
         int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
 
         logsSync.scheduleAtFixedRate(new TimerTask() {
@@ -1014,15 +1128,19 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Sensor change event
     @Override
     public void onSensorChanged(SensorEvent event) {
-        switch (event.sensor.getType()) {
-            case (Sensor.TYPE_STEP_COUNTER):
-                countSteps(event.values[0]);
-                break;
+        try {
+            switch (event.sensor.getType()) {
+                case (Sensor.TYPE_STEP_COUNTER):
+                    countSteps(event.values[0]);
+                    break;
 
-            case Sensor.TYPE_GYROSCOPE:
-                handleGyro(event);
-                break;
+                case Sensor.TYPE_GYROSCOPE:
+                    handleGyro(event);
+                    break;
 
+
+            }
+        } catch (Exception e) {
 
         }
 

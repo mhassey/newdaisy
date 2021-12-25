@@ -285,32 +285,37 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         count = count + Constraint.ONE;
 
         if (count == Constraint.TWO) {
+
             SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
-            try {
-                if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
-                    sessionManager.setDeletePhoto(true);
-                } else {
-                    sessionManager.setDeletePhoto(false);
+            if (securityAsk!=null) {
+                try {
+                    if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
+                        sessionManager.setDeletePhoto(true);
+                    } else {
+                        sessionManager.setDeletePhoto(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
-                sessionManager.setLockOnBrowser(true);
-            } else {
-                sessionManager.setLockOnBrowser(false);
 
-            }
-            if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
-                sessionManager.setLockOnMessage(true);
-            } else {
-                sessionManager.setLockOnMessage(false);
+                if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
+                    sessionManager.setLockOnBrowser(true);
+                } else {
+                    sessionManager.setLockOnBrowser(false);
 
-            }
-            if (securityAsk.securityAskBinding.lock.isChecked()) {
-                sessionManager.setLock(true);
-            } else {
-                sessionManager.setLock(false);
+                }
+                if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
+                    sessionManager.setLockOnMessage(true);
+                } else {
+                    sessionManager.setLockOnMessage(false);
+
+                }
+                if (securityAsk.securityAskBinding.lock.isChecked()) {
+                    sessionManager.setLock(true);
+                } else {
+                    sessionManager.setLock(false);
+
+                }
 
             }
 
@@ -380,23 +385,26 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - Its takes AddScreen object as parameter
      **/
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
-        hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
-        hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
-        if (addScreen.mViewModel.getSelectedProduct() != null) {
-            if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
-                hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
-        } else {
-            ValidationHelper.showToast(context, getString(R.string.product_not_available));
+        if (addScreen!=null) {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
+            hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
+            hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
+            if (addScreen.mViewModel.getSelectedProduct() != null) {
+                if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
+                    hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
+            } else {
+                ValidationHelper.showToast(context, getString(R.string.product_not_available));
 
+            }
+            hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
+            hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
+            LoginResponse loginResponse = sessionManager.getLoginResponse();
+            if (loginResponse != null)
+                hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
+            return hashMap;
         }
-        hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
-        hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
-        LoginResponse loginResponse = sessionManager.getLoginResponse();
-        if (loginResponse != null)
-            hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
-        return hashMap;
+        return new HashMap<>();
     }
 
 

@@ -141,6 +141,8 @@ public class Constraint {
     public static final String HTTP = "http";
     public static final String HTTPS = "https";
     public static final String LOGOUT = "logout";
+    public static final int STATIC_IP = 8899;
+    public static final int SERVER_PORT = 8899;
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

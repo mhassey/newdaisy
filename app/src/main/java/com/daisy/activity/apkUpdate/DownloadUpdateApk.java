@@ -179,10 +179,11 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
     protected void onPostExecute(String path) {
         try {
             callBack.callBackApkUpdate(Constraint.SUCCESS);
+            this.progressDialog.dismiss();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.progressDialog.dismiss();
 
     }
 }
