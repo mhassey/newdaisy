@@ -143,6 +143,7 @@ public class Constraint {
     public static final String LOGOUT = "logout";
     public static final int STATIC_IP = 8899;
     public static final int SERVER_PORT = 8899;
+    public static final String SEARCHED_DEVICE = "searchDevice";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -331,4 +332,6 @@ public class Constraint {
     public static String click = "click";
     public static String Impression = "Impression";
     public static String price = "price";
+    public static String Ip_SEARCHED = "IpSearched";
+
 }

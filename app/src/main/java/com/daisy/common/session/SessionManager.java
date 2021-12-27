@@ -24,7 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class SessionManager {
@@ -1252,5 +1255,31 @@ public class SessionManager {
 
     public boolean getLogout() {
         return pref.getBoolean(Constraint.LOGOUT);
+    }
+
+    public void addFilterDevice(ArrayList<String> hostAddress) {
+        Set<String> set = new HashSet<>();
+        set.addAll(hostAddress);
+        pref.setStringSetData(Constraint.SEARCHED_DEVICE, set);
+
+    }
+
+    public ArrayList<String> getFilterDevice() {
+        ArrayList<String> hostAddress = new ArrayList<>();
+        Set<String> devices = pref.getSetString(Constraint.SEARCHED_DEVICE);
+        if (devices != null) {
+            for (String str : devices)
+                hostAddress.add(str);
+        }
+        return hostAddress;
+
+    }
+
+    public void setIpSearched(boolean b) {
+        pref.setBooleanData(Constraint.Ip_SEARCHED, b);
+    }
+
+    public boolean getIpSearched() {
+        return pref.getBoolean(Constraint.Ip_SEARCHED);
     }
 }

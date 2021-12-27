@@ -1,5 +1,7 @@
 package com.daisy.service;
 
+import static com.daisy.utils.Constraint.messages;
+
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -19,7 +21,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -35,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -50,6 +52,7 @@ import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.logs.LogSyncExtra;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
+import com.daisy.app.AppController;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -60,12 +63,11 @@ import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
+import com.daisy.pojo.response.SocketEvent;
 import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
-import com.daisy.utils.DeviceList;
 import com.daisy.utils.Utils;
-import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -73,20 +75,14 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-
-import static com.daisy.utils.Constraint.SERVER_PORT;
-import static com.daisy.utils.Constraint.messages;
 
 
 /**
@@ -97,7 +93,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private static final String ACTION_DEBUG = "daichan4649.lockoverlay.action.DEBUG";
-    private static PrintWriter output;
     private String TAG = this.getClass().getSimpleName();
     private WindowManager mWindowManager;
     private WindowManager mWindowManagerForCamera;
@@ -126,6 +121,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
     public static Timer refreshTimer6;
+    private ServerSocket serverSocket;
 
     public static Timer refreshTimer5;
     private Intent securityIntent;
@@ -176,70 +172,55 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         } catch (Exception e) {
 
         }
+        handleReceiverSocket();
+
+    }
+
+    private void handleReceiverSocket() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                reciever();
+                receiver();
             }
         }).start();
-
-     //   startSearchingDevice();
-    }
-
-    private void startSearchingDevice() {
-        startService(new Intent(this, DeviceSearch.class));
-
     }
 
 
-    public static void IpSearched() {
-        ArrayList<InetAddress> arrayList= DeviceList.devices;
-        for (InetAddress valie : arrayList)
-        {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Socket socket;
-                    try {
-                        socket = new Socket(valie.getHostAddress(), SERVER_PORT);
-                        output = new PrintWriter(socket.getOutputStream());
-                        output.println("babu bhai ho gya");
-                        output.flush();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
-
-    }
-
-    private void reciever() {
+    private void receiver() {
         Socket socket;
         try {
-            ServerSocket serverSocket = new ServerSocket(Constraint.SERVER_PORT);
+            serverSocket = new ServerSocket(Constraint.SERVER_PORT);
             socket = serverSocket.accept();
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            new Thread(new ReceiverThread()).start();
+            receiverThread();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    private class ReceiverThread implements Runnable {
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    final String message = input.readLine();
-                    if (message != null) {
+    public void receiverThread() {
+        while (true) {
+            try {
+                final String message = input.readLine();
+                if (message != null) {
+                    AppController.getInstance().getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            SocketEvent socketEvent = new SocketEvent();
+                            socketEvent.setMessage(message);
+                            EventBus.getDefault().post(socketEvent);
+                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    input.close();
+                    serverSocket.close();
 
-                        Log.e("Kali", message);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    handleReceiverSocket();
+                    return;
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

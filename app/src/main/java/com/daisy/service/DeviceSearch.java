@@ -9,11 +9,16 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.daisy.common.session.SessionManager;
+import com.daisy.pojo.response.IpSearched;
 import com.daisy.utils.DeviceList;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 public class DeviceSearch extends Service {
     public DeviceSearch() {
@@ -34,6 +39,7 @@ public class DeviceSearch extends Service {
 
     private void getConnectDeviceList() {
         final InetAddress[] host = new InetAddress[1];
+        ArrayList<String> hostAddress = new ArrayList<>();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -47,16 +53,16 @@ public class DeviceSearch extends Service {
 
                     for (int i = 1; i <= 254; i++) {
                         ip[3] = (byte) i;
-                       InetAddress address = InetAddress.getByAddress(ip);
-                        if (address.isReachable(100)) {
-                            DeviceList.getInstance().setDevices(address);
+                        InetAddress address = InetAddress.getByAddress(ip);
+                        if (address.isReachable(200)) {
+                            hostAddress.add(address.getHostAddress());
                         } else if (!address.getHostAddress().equals(address.getHostName())) {
                             System.out.println(address + " machine is known in a DNS lookup");
                         }
 
                     }
-
-                    BackgroundService.IpSearched();
+                    SessionManager.get().addFilterDevice(hostAddress);
+                    EventBus.getDefault().post(new IpSearched());
 
                 } catch (UnknownHostException e1) {
                     e1.printStackTrace();

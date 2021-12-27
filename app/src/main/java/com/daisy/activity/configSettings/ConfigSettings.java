@@ -23,6 +23,7 @@ import com.daisy.activity.langSupport.LangSelectionActivity;
 import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.refreshTimer.RefreshTimer;
+import com.daisy.activity.socketConnection.SocketConnection;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.updateProduct.UpdateProduct;
@@ -162,6 +163,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwitch());
         mBinding.alramSwitch.setOnCheckedChangeListener(getAlarmSwitch());
         mBinding.logoutApp.setOnClickListener(this::onClick);
+        mBinding.socketConnection.setOnClickListener(this::onClick);
 
 
     }
@@ -280,6 +282,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 openLogActivity();
                 break;
             }
+            case R.id.socket_connection: {
+                handleSocketConnectionCall();
+                break;
+            }
             case R.id.setRefreshRate: {
                 openRefreshRate();
                 break;
@@ -327,6 +333,11 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 break;
             }
         }
+    }
+
+    private void handleSocketConnectionCall() {
+        Intent intent = new Intent(this, SocketConnection.class);
+        startActivity(intent);
     }
 
 

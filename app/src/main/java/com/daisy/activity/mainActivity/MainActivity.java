@@ -1,5 +1,7 @@
 package com.daisy.activity.mainActivity;
 
+import static com.daisy.utils.Constraint.SERVER_PORT;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -73,11 +75,13 @@ import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
+import com.daisy.pojo.response.SocketEvent;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
 import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.DeviceList;
 import com.daisy.utils.DownloadFile;
 import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
@@ -96,6 +100,9 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -120,6 +127,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private CountDownTimer sanitisedTimer;
     private UpdateProductViewModel updateProductViewModel;
     private GetCardViewModel getCardViewModel;
+    private static PrintWriter output;
 
     private long mLastClickTime = 0;
 
@@ -133,7 +141,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         initService();
         setOnClickListener();
     }
-
 
 
     /**
@@ -1232,6 +1239,29 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+    public void IpSearched(String sendsValue) {
+        if (SessionManager.get().getIpSearched()) {
+            ArrayList<String> arrayList = SessionManager.get().getFilterDevice();
+            for (String device : arrayList) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Socket socket;
+                        try {
+                            socket = new Socket(device, SERVER_PORT);
+                            output = new PrintWriter(socket.getOutputStream());
+                            output.println(sendsValue);
+                            output.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        }
+
+    }
+
     /**
      * Handle Clicks listener
      */
@@ -1402,6 +1432,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.offlineLayout.setVisibility(View.GONE);
 
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void SendCustomEvent(SocketEvent socketEvent) {
+        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('"+socketEvent.getMessage()+"')");
+
     }
 
     /**
@@ -1636,9 +1671,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 }
 
 
-                //storeClickOnPromotionOrPriceCard(msg);
+                //IpSearched("Some value");
             }
 
+
+        }
+        @JavascriptInterface
+        public void globalCustomEvent(String cardDetails,boolean b)
+        {
+            if (b)
+            {
+                mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('"+cardDetails+"')");
+
+            }
+            IpSearched(cardDetails);
         }
 
 

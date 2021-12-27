@@ -31,10 +31,15 @@ public class AppController extends Application implements LifecycleObserver {
     public static AppController sInstance;
     public static final String TAG = AppController.class.getName();
     private SessionManager sessionManager;
-    private BaseActivity baseActivity;
+    private static BaseActivity baseActivity;
+
+    public static void setActivity(BaseActivity baseActivity1) {
+     baseActivity=baseActivity1;
+    }
 
     @Override
     public void onCreate() {
+        super.onCreate();
         instanceCreation();
 
         DBCaller.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
@@ -152,4 +157,6 @@ public class AppController extends Application implements LifecycleObserver {
 
     public void setContext(Context applicationContext) {
     }
+
+
 }

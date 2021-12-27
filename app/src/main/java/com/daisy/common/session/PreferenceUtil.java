@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.daisy.utils.Constraint;
 
+import java.util.Set;
+
 
 public class PreferenceUtil {
 
@@ -48,6 +50,16 @@ public class PreferenceUtil {
         appInstallInfoEditor.apply();
     }
 
+    public void setStringSetData(String key, Set value) {
+        SharedPreferences.Editor appInstallInfoEditor = mSpref.edit();
+        appInstallInfoEditor.putStringSet(key, value);
+        appInstallInfoEditor.apply();
+    }
+    public Set<String> getSetString(String key) {
+        return mSpref.getStringSet(key,null);
+    }
+
+
     public boolean getBoolean(String key) {
         return mSpref.getBoolean(key, false);
     }
@@ -61,30 +73,26 @@ public class PreferenceUtil {
         return mSpref.getString(key, "0");
 
     }
-    public void removeSession()
-    {
+
+    public void removeSession() {
 
         mSpref.edit().clear().commit();
     }
 
-    public void removeStrpe()
-    {
+    public void removeStrpe() {
 
         mSpref.edit().remove(PrefConstant.stripeAccountID).commit();
     }
-    public void removeApkDetails()
-    {
+
+    public void removeApkDetails() {
 
         mSpref.edit().remove(PrefConstant.APK_DETAILS).commit();
     }
 
-    public void removeLocation()
-    {
+    public void removeLocation() {
 
         mSpref.edit().remove(PrefConstant.LOCATION).commit();
     }
-
-
 
 
     public void setBooleanData(String key, boolean value) {
