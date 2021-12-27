@@ -189,10 +189,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private void receiver() {
         Socket socket;
         try {
-            serverSocket = new ServerSocket(Constraint.SERVER_PORT);
-            socket = serverSocket.accept();
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            receiverThread();
+            if (!SessionManager.get().getIpSearched()) {
+                serverSocket = new ServerSocket(Constraint.SERVER_PORT);
+                socket = serverSocket.accept();
+                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                receiverThread();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

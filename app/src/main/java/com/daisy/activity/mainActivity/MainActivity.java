@@ -1681,7 +1681,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         {
             if (b)
             {
-                mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('"+cardDetails+"')");
+                mBinding.webView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('"+cardDetails+"')");
+
+                    }
+                });
 
             }
             IpSearched(cardDetails);
