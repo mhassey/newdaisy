@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.langSupport.LangSelectionActivity;
+import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivitySocketConnectionBinding;
 import com.daisy.pojo.response.IpSearched;
@@ -74,7 +76,9 @@ public class SocketConnection extends BaseActivity implements View.OnClickListen
     public void IpSearched(IpSearched ipSearched) {
         SessionManager.get().setIpSearched(true);
         ValidationHelper.showToast(this, getString(R.string.device_synced_sucessfully));
-        finish();
+        Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 
     @Override

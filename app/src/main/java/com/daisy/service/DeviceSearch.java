@@ -11,12 +11,15 @@ import androidx.annotation.Nullable;
 
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.response.IpSearched;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.DeviceList;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
@@ -54,7 +57,7 @@ public class DeviceSearch extends Service {
                     for (int i = 1; i <= 254; i++) {
                         ip[3] = (byte) i;
                         InetAddress address = InetAddress.getByAddress(ip);
-                        if (address.isReachable(200)) {
+                        if (isReachable(address.getHostAddress(), Constraint.SERVER_PORT,500)) {
                             hostAddress.add(address.getHostAddress());
                         } else if (!address.getHostAddress().equals(address.getHostName())) {
                             System.out.println(address + " machine is known in a DNS lookup");
@@ -76,6 +79,18 @@ public class DeviceSearch extends Service {
         }).start();
     }
 
+    private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
+        // Any Open port on other machine
+        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
+        try {
+            try (Socket soc = new Socket()) {
+                soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);
+            }
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
 
     public String intToIp(int i) {
         return (i & 0xFF) + "." +
