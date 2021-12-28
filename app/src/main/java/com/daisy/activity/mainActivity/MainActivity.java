@@ -1679,18 +1679,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @JavascriptInterface
         public void globalCustomEvent(String cardDetails,boolean b)
         {
-            if (b)
-            {
-                mBinding.webView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('"+cardDetails+"')");
+            if (SessionManager.get().getIpSearched()) {
+                if (b) {
+                    mBinding.webView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
+                        }
+                    });
 
-                    }
-                });
-
+                }
+                IpSearched(cardDetails);
             }
-            IpSearched(cardDetails);
         }
 
 

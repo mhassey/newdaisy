@@ -75,6 +75,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -190,10 +191,36 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         Socket socket;
         try {
             if (!SessionManager.get().getIpSearched()) {
-                serverSocket = new ServerSocket(Constraint.SERVER_PORT);
-                socket = serverSocket.accept();
-                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                receiverThread();
+               ServerSocket serverSocket = new ServerSocket();
+                serverSocket.setReuseAddress(true);
+                serverSocket.bind(new InetSocketAddress(Constraint.SERVER_PORT));
+                while (true) {
+                    try {
+                        socket = serverSocket.accept();
+                        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                        final String message = input.readLine();
+                        if (message != null) {
+                            AppController.getInstance().getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SocketEvent socketEvent = new SocketEvent();
+                                    socketEvent.setMessage(message);
+                                    EventBus.getDefault().post(socketEvent);
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            input.close();
+                            serverSocket.close();
+
+
+                           handleReceiverSocket();
+                            return;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -201,31 +228,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
-    public void receiverThread() {
-        while (true) {
-            try {
-                final String message = input.readLine();
-                if (message != null) {
-                    AppController.getInstance().getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            SocketEvent socketEvent = new SocketEvent();
-                            socketEvent.setMessage(message);
-                            EventBus.getDefault().post(socketEvent);
-                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    input.close();
-                    serverSocket.close();
 
-                    handleReceiverSocket();
-                    return;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
 
     /**
