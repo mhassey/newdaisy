@@ -1672,6 +1672,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
                 });
 
+            } else if (event.contains(Constraint.HOME_SCREEN)) {
+                moveTaskToBack(true);
             } else
                 launchApp(event);
         }
