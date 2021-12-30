@@ -15,6 +15,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.DhcpInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -1239,25 +1240,50 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+    public String intToIp(int i) {
+        return (i & 0xFF) + "." +
+                ((i >> 8) & 0xFF) + "." +
+                ((i >> 16) & 0xFF) + "." +
+                ((i >> 24) & 0xFF);
+    }
+
     public void IpSearched(String sendsValue) {
-        if (SessionManager.get().getIpSearched()) {
-            ArrayList<String> arrayList = SessionManager.get().getFilterDevice();
-            for (String device : arrayList) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Socket socket;
-                        try {
-                            socket = new Socket(device, SERVER_PORT);
-                            output = new PrintWriter(socket.getOutputStream());
-                            output.println(sendsValue);
-                            output.flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+        try {
+
+            if (SessionManager.get().getIpSearched()) {
+                WifiManager wifii = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                DhcpInfo dhcp = wifii.getDhcpInfo();
+                final InetAddress[] host = new InetAddress[1];
+
+                host[0] = InetAddress.getByName(intToIp(dhcp.dns1));
+                byte[] ip = host[0].getAddress();
+
+                for (int i = 1; i <= 254; i++) {
+                    ip[3] = (byte) i;
+                    InetAddress address = InetAddress.getByAddress(ip);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Socket socket;
+                            try {
+                                socket = new Socket(address.getHostAddress(), SERVER_PORT);
+                                PrintWriter output = new PrintWriter(socket.getOutputStream());
+                                output.println(sendsValue);
+                                output.flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+
+                }
+//            ArrayList<String> arrayList = SessionManager.get().getFilterDevice();
+//            for (String device : arrayList) {
+//
+//            }
             }
+        } catch (Exception e) {
+
         }
 
     }
@@ -1433,9 +1459,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void SendCustomEvent(SocketEvent socketEvent) {
-        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('"+socketEvent.getMessage()+"')");
+        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + socketEvent.getMessage() + "')");
 
     }
 
@@ -1676,9 +1703,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
         }
+
         @JavascriptInterface
-        public void globalCustomEvent(String cardDetails,boolean b)
-        {
+        public void globalCustomEvent(String cardDetails, boolean b) {
             if (SessionManager.get().getIpSearched()) {
                 if (b) {
                     mBinding.webView.post(new Runnable() {
@@ -1728,7 +1755,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
                 });
 
-            } else
+            }else if (event.contains(Constraint.HOME_SCREEN))
+            {
+                moveTaskToBack(true);
+            }
+            else
                 launchApp(event);
         }
 

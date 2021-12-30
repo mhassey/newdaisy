@@ -20,6 +20,9 @@ public class Constraint {
     public static final String MESSENGING = "messaging";
     public static final String WEAK_UP_TAG = "wake_up_tag";
     public static final int THIRTY_INT = 30;
+    public static final int SIXTY_INT = 30;
+    public static final int ONE_TWENTY = 120;
+
     //public static final int THIRTY_INT = 1;
 
     public static final int THIRTY_SIX_HUNDRED = 3600;
@@ -144,6 +147,7 @@ public class Constraint {
     public static final int STATIC_IP = 8899;
     public static final int SERVER_PORT = 8899;
     public static final String SEARCHED_DEVICE = "searchDevice";
+    public static final String HOME_SCREEN = "homeScreen";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

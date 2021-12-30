@@ -63,8 +63,9 @@ public class SocketConnection extends BaseActivity implements View.OnClickListen
 
     private void handleAdmin() {
         if (mBinding.becomeAdmin.getText().toString().equals(getString(R.string.become_admin))) {
-            mBinding.syncLoader.setVisibility(View.VISIBLE);
-            startService(new Intent(this, DeviceSearch.class));
+           // mBinding.syncLoader.setVisibility(View.VISIBLE);
+           // startService(new Intent(this, DeviceSearch.class));
+            IpSearched(new IpSearched());
         } else {
             SessionManager.get().setIpSearched(false);
             handleViewState();
