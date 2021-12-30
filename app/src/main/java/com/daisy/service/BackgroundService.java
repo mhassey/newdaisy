@@ -191,7 +191,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         Socket socket;
         try {
             if (!SessionManager.get().getIpSearched()) {
-               ServerSocket serverSocket = new ServerSocket();
+                ServerSocket serverSocket = new ServerSocket();
                 serverSocket.setReuseAddress(true);
                 serverSocket.bind(new InetSocketAddress(Constraint.SERVER_PORT));
                 while (true) {
@@ -214,7 +214,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                             serverSocket.close();
 
 
-                           handleReceiverSocket();
+                            handleReceiverSocket();
                             return;
                         }
                     } catch (IOException e) {
@@ -227,9 +227,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
 
     }
-
-
-
 
 
     /**
@@ -691,39 +688,49 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 public void run() {
 
                     if (!SessionManager.get().getLogout()) {
-                        count++;
-                        if (count == Constraint.ONE_TWENTY) {
-                            try {
-                                if (Utils.isPlugged(getApplicationContext())) {
-                                    sessionManager.setStepCount(0);
-                                }
-                                String value = appChecker.getForegroundApp(getApplicationContext());
 
-                                if (value != null) {
-                                    if (!value.equals(getApplication().getPackageName())) {
-                                        if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
-
-                                            bringApplicationToFront(getApplicationContext());
+                        String value1 = appChecker.getForegroundApp(getApplicationContext());
+                        if (value1 != null) {
+                            if (!value1.equals(getApplication().getPackageName())) {
+                                count++;
+                                if (count == Constraint.ONE_TWENTY) {
+                                    try {
+                                        if (Utils.isPlugged(getApplicationContext())) {
+                                            sessionManager.setStepCount(0);
                                         }
-                                    } else {
-                                        ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-                                        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-                                        ComponentName componentInfo = taskInfo.get(0).topActivity;
-                                        String name = componentInfo.getClassName();
-                                        if (name.contains(Constraint.LOCK_SCREEN)) {
-                                            bringApplicationToFront(getApplicationContext());
+                                        String value = appChecker.getForegroundApp(getApplicationContext());
+
+                                        if (value != null) {
+                                            if (!value.equals(getApplication().getPackageName())) {
+                                                if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
+
+                                                    bringApplicationToFront(getApplicationContext());
+                                                }
+                                            } else {
+                                                ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+                                                List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+                                                ComponentName componentInfo = taskInfo.get(0).topActivity;
+                                                String name = componentInfo.getClassName();
+                                                if (name.contains(Constraint.LOCK_SCREEN)) {
+                                                    bringApplicationToFront(getApplicationContext());
+
+                                                }
+                                            }
+                                            count = Constraint.ZERO;
 
                                         }
+
+                                    } catch (Exception e) {
+
                                     }
-                                    count = Constraint.ZERO;
-
                                 }
-
-                            } catch (Exception e) {
-
+                                checkWifiState();
+                            }
+                            else
+                            {
+                                count=0;
                             }
                         }
-                        checkWifiState();
                     }
 
                 }
