@@ -13,6 +13,7 @@ import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivitySocketConnectionBinding;
 import com.daisy.pojo.response.IpSearched;
+import com.daisy.service.BackgroundService;
 import com.daisy.service.DeviceSearch;
 import com.daisy.utils.ValidationHelper;
 
@@ -62,12 +63,17 @@ public class SocketConnection extends BaseActivity implements View.OnClickListen
     }
 
     private void handleAdmin() {
-        if (mBinding.becomeAdmin.getText().toString().equals(getString(R.string.become_admin))) {
-           // mBinding.syncLoader.setVisibility(View.VISIBLE);
-           // startService(new Intent(this, DeviceSearch.class));
+        if (!SessionManager.get().getIpSearched()) {
+            // mBinding.syncLoader.setVisibility(View.VISIBLE);
+            // startService(new Intent(this, DeviceSearch.class));
             IpSearched(new IpSearched());
         } else {
             SessionManager.get().setIpSearched(false);
+            try {
+                BackgroundService.receiver();
+            } catch (Exception e) {
+
+            }
             handleViewState();
 
         }

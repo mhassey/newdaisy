@@ -36,7 +36,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -52,7 +51,6 @@ import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.logs.LogSyncExtra;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
-import com.daisy.app.AppController;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -177,7 +175,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
-    private void handleReceiverSocket() {
+    public static void handleReceiverSocket() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -187,7 +185,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
-    private void receiver() {
+    public static void receiver() {
         Socket socket;
         try {
             if (!SessionManager.get().getIpSearched()) {
@@ -201,19 +199,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                         final String message = input.readLine();
                         if (message != null) {
-                            AppController.getInstance().getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    SocketEvent socketEvent = new SocketEvent();
-                                    socketEvent.setMessage(message);
-                                    EventBus.getDefault().post(socketEvent);
-                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                }
-                            });
+                            SocketEvent socketEvent = new SocketEvent();
+                            socketEvent.setMessage(message);
+                            EventBus.getDefault().post(socketEvent);
                             input.close();
                             serverSocket.close();
-
-
                             handleReceiverSocket();
                             return;
                         }
@@ -625,10 +615,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        int hour = Constraint.FIVE_INE_REAL;
-//        int hour = 0;
+       // int hour = Constraint.ONE;
+        int hour = 0;
 
-        int minit = Constraint.ONE;
+        int minit = Constraint.TWO;
 
 
         if (time != null) {
@@ -725,10 +715,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                     }
                                 }
                                 checkWifiState();
-                            }
-                            else
-                            {
-                                count=0;
+                            } else {
+                                count = 0;
                             }
                         }
                     }

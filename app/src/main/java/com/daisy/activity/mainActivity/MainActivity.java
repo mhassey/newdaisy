@@ -24,6 +24,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -1251,6 +1252,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         try {
 
             if (SessionManager.get().getIpSearched()) {
+                Context context = getApplicationContext();
+                WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                String myIp = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+
                 WifiManager wifii = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 DhcpInfo dhcp = wifii.getDhcpInfo();
                 final InetAddress[] host = new InetAddress[1];
@@ -1266,12 +1271,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         public void run() {
                             Socket socket;
                             try {
-                                socket = new Socket(address.getHostAddress(), SERVER_PORT);
-                                PrintWriter output = new PrintWriter(socket.getOutputStream());
-                                output.println(sendsValue);
-                                output.flush();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                 if (!myIp.equals(address.getHostAddress())) {
+                                   socket = new Socket(address.getHostAddress(), SERVER_PORT);
+                                   PrintWriter output = new PrintWriter(socket.getOutputStream());
+                                   output.println(sendsValue);
+                                   output.flush();
+                               }
+                               } catch (IOException e) {
                             }
                         }
                     }).start();
@@ -1755,11 +1761,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
                 });
 
-            }else if (event.contains(Constraint.HOME_SCREEN))
-            {
-                moveTaskToBack(true);
-            }
-            else
+            } else if (event.contains(Constraint.HOME_SCREEN)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        moveTaskToBack(true);
+                    }
+                });
+            } else
                 launchApp(event);
         }
 

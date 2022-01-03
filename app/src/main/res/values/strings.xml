@@ -224,6 +224,6 @@
     <string name="socket_connection">Socket connection</string>
     <string name="become_admin">Become Admin</string>
     <string name="device_synced">Device synced</string>
-    <string name="device_synced_sucessfully">Device synced successfully. Not you are the socket admin</string>
+    <string name="device_synced_sucessfully">Device synced successfully. Now you are the socket admin</string>
     <string name="disable_admin">Disable Admin</string>
 </resources>

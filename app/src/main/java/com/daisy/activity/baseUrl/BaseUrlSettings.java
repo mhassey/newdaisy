@@ -162,38 +162,42 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
      * Parameters - No parameter
      **/
     private void updateBaseUrl() {
+        try {
 
-        String url = mBinding.baseUrl.getText().toString();
-        if (url != null) {
-            String urlLastChar = url.substring(url.length() - 1);
-            if (urlLastChar.equals(Constraint.SLASH)) {
-                boolean b = Utils.isValidUrl(url);
-                if (b) {
-                    if (Utils.getNetworkState(context)) {
-                        sessionManager.setBaseUrl(url);
-                        AddScreenViewModel addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
-                        showHideProgressDialog(true);
-                        addScreenViewModel.setGeneralRequest(new HashMap<>());
-                        LiveData<GlobalResponse<GeneralResponse>> liveData = addScreenViewModel.getGeneralResponseLiveData();
-                        if (!liveData.hasActiveObservers()) {
-                            liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
-                                @Override
-                                public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
-                                    handleGeneralResponse(generalResponseGlobalResponse);
-                                }
-                            });
+            String url = mBinding.baseUrl.getText().toString();
+            if (url != null && !url.equals("")) {
+                String urlLastChar = url.substring(url.length() - 1);
+                if (urlLastChar.equals(Constraint.SLASH)) {
+                    boolean b = Utils.isValidUrl(url);
+                    if (b) {
+                        if (Utils.getNetworkState(context)) {
+                            sessionManager.setBaseUrl(url);
+                            AddScreenViewModel addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
+                            showHideProgressDialog(true);
+                            addScreenViewModel.setGeneralRequest(new HashMap<>());
+                            LiveData<GlobalResponse<GeneralResponse>> liveData = addScreenViewModel.getGeneralResponseLiveData();
+                            if (!liveData.hasActiveObservers()) {
+                                liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+                                    @Override
+                                    public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+                                        handleGeneralResponse(generalResponseGlobalResponse);
+                                    }
+                                });
+                            }
+                        } else {
+                            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
                         }
                     } else {
-                        ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+                        ValidationHelper.showToast(context, getString(R.string.enter_valid_url));
                     }
                 } else {
-                    ValidationHelper.showToast(context, getString(R.string.enter_valid_url));
+                    ValidationHelper.showToast(context, getString(R.string.url_must_end_with_slash));
                 }
             } else {
-                ValidationHelper.showToast(context, getString(R.string.url_must_end_with_slash));
+                ValidationHelper.showToast(context, getString(R.string.baseurl_can_not_be_empty));
             }
-        } else {
-            ValidationHelper.showToast(context, getString(R.string.baseurl_can_not_be_empty));
+        } catch (Exception e) {
+
         }
     }
 
