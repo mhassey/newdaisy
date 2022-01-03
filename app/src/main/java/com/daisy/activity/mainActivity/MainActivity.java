@@ -293,8 +293,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
+
         handleResumeWork();
+        mBinding.webView.resumeTimers();
+        mBinding.webView.onResume();
     }
+
+
 
     //TODO Handle resume work
     private void handleResumeWork() {
@@ -1308,7 +1313,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
                 break;
-
             }
             case R.id.setting: {
                 settingClick();
@@ -1364,6 +1368,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mBinding.webView.destroy();
 
     }
 
@@ -1713,6 +1718,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         @JavascriptInterface
         public void globalCustomEvent(String cardDetails, boolean b) {
             if (SessionManager.get().getIpSearched()) {
+                IpSearched(cardDetails);
                 if (b) {
                     mBinding.webView.post(new Runnable() {
                         @Override
@@ -1722,7 +1728,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     });
 
                 }
-                IpSearched(cardDetails);
             }
         }
 
@@ -1944,6 +1949,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         } catch (Exception e) {
 
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        mBinding.webView.onPause();
+        mBinding.webView.pauseTimers();
     }
 
     /**
