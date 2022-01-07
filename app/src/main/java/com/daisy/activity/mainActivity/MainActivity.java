@@ -61,6 +61,7 @@ import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.updateProduct.UpdateProductViewModel;
+import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
@@ -103,12 +104,17 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -298,7 +304,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
     }
-
 
 
     //TODO Handle resume work
@@ -1268,30 +1273,32 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 host[0] = InetAddress.getByName(intToIp(dhcp.dns1));
                 byte[] ip = host[0].getAddress();
 
-                for (int i = 1; i <= 254; i++) {
-                    ip[3] = (byte) i;
-                    InetAddress address = InetAddress.getByAddress(ip);
+//                for (int i = 1; i <= 254; i++) {
+//                    ip[3] = (byte) i;
+//                    InetAddress address = InetAddress.getByAddress(ip);
+//
+//                }
+                ArrayList<String> arrayList = SessionManager.get().getFilterDevice();
+                for (String device : arrayList) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             Socket socket;
                             try {
-                                 if (!myIp.equals(address.getHostAddress())) {
-                                   socket = new Socket(address.getHostAddress(), SERVER_PORT);
-                                   PrintWriter output = new PrintWriter(socket.getOutputStream());
-                                   output.println(sendsValue);
-                                   output.flush();
-                               }
-                               } catch (IOException e) {
+                            if (!myIp.equals(device)) {
+                                socket = new Socket(device, SERVER_PORT);
+                                PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+                                output.println(sendsValue);
+                                output.flush();
+
+
+                           }
+                            } catch (IOException e) {
                             }
                         }
                     }).start();
 
                 }
-//            ArrayList<String> arrayList = SessionManager.get().getFilterDevice();
-//            for (String device : arrayList) {
-//
-//            }
             }
         } catch (Exception e) {
 
@@ -1719,6 +1726,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         public void globalCustomEvent(String cardDetails, boolean b) {
             if (SessionManager.get().getIpSearched()) {
                 IpSearched(cardDetails);
+                //sendDataByDataGram(cardDetails);
                 if (b) {
                     mBinding.webView.post(new Runnable() {
                         @Override
@@ -1790,6 +1798,58 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         }
 
+    }
+
+    private void sendDataByDataGram(String cardDetails) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Open a random port to send the package
+                    DatagramSocket c = new DatagramSocket();
+                    c.setBroadcast(true);
+
+                    byte[] sendData = cardDetails.getBytes();
+
+                    //Try the 255.255.255.255 first
+                    try {
+                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), SERVER_PORT);
+                        c.send(sendPacket);
+                        System.out.println(getClass().getName() + ">>> Request packet sent to: 255.255.255.255 (DEFAULT)");
+                    } catch (Exception e) {
+                    }
+
+                    // Broadcast the message over all the network interfaces
+//                    Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
+//                    while (interfaces.hasMoreElements()) {
+//                        NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
+//
+//                        if (networkInterface.isLoopback() || !networkInterface.isUp()) {
+//                            continue; // Don't want to broadcast to the loopback interface
+//                        }
+//
+//                        for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+//                            InetAddress broadcast = interfaceAddress.getBroadcast();
+//                            if (broadcast == null) {
+//                                continue;
+//                            }
+//
+//                            // Send the broadcast package!
+//                            try {
+//                                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, 8888);
+//                                c.send(sendPacket);
+//                            } catch (Exception e) {
+//                            }
+//
+//                            System.out.println(getClass().getName() + ">>> Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
+//                        }
+//                    }
+                    c.close();
+                } catch (IOException ex) {
+//                    Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }).start();
     }
 
 

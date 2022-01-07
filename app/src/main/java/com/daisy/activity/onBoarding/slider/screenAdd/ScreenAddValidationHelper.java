@@ -16,11 +16,14 @@ public class ScreenAddValidationHelper {
     }
 
     public boolean isValid() {
-        if (binding.productName.getSelectedItem() != null)
-            return true;
-        else {
-            ValidationHelper.showToast(context, context.getString(R.string.please_select_product));
-            return false;
+        if (binding != null) {
+            if (binding.productName.getSelectedItem() != null)
+                return true;
+            else {
+                ValidationHelper.showToast(context, context.getString(R.string.please_select_product));
+                return false;
+            }
         }
+        return false;
     }
 }

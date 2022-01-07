@@ -51,6 +51,7 @@ import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.logs.LogSyncExtra;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
+import com.daisy.app.AppController;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -73,6 +74,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -180,10 +184,51 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             @Override
             public void run() {
                 receiver();
+                //receiver1();
             }
         }).start();
     }
 
+    public static void receiver1() {
+
+        try {
+
+            //Keep a socket open to listen to all the UDP trafic that is destined for this port
+            DatagramSocket socket = new DatagramSocket(null);
+            socket.setReuseAddress(true);
+            InetSocketAddress address = new InetSocketAddress(Constraint.SERVER_PORT);
+            socket.bind(address);
+
+
+            while (true) {
+                // socket.setBroadcast(true);
+
+                //Receive a packet
+                byte[] recvBuf = new byte[15000];
+                DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+                socket.receive(packet);
+
+                //Packet received
+
+                //See if the packet holds the right command (message)
+                if (!SessionManager.get().getIpSearched()) {
+                    String message = new String(packet.getData()).trim();
+                    SocketEvent socketEvent = new SocketEvent();
+                    socketEvent.setMessage(message);
+                    EventBus.getDefault().post(socketEvent);
+                }
+                socket.close();
+                handleReceiverSocket();
+
+
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+//                    Logger.getLogger(DiscoveryThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
 
     public static void receiver() {
         Socket socket;
@@ -195,6 +240,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 while (true) {
                     try {
                         socket = serverSocket.accept();
+
                         BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                         final String message = input.readLine();
@@ -347,10 +393,18 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
     void unregisterReceiver() {
-
-        unregisterReceiver(overlayReceiver);
-        unregisterReceiver(wifiStateReceiver);
-        unregisterReceiver(m_timeChangedReceiver);
+        try {
+            unregisterReceiver(overlayReceiver);
+        } catch (Exception e) {
+        }
+        try {
+            unregisterReceiver(wifiStateReceiver);
+        } catch (Exception e) {
+        }
+        try {
+            unregisterReceiver(m_timeChangedReceiver);
+        } catch (Exception e) {
+        }
     }
 
     @SuppressLint("InvalidWakeLockTag")
@@ -409,9 +463,38 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         checkUpdate();
         checkPromotion();
         checkInversion();
+        searchIpCounter();
         //stopUninstall();
         updateAPk();
         validatePromotion();
+    }
+
+    private void searchIpCounter() {
+        try {
+            int hour = Constraint.ZERO;
+            int minit = Constraint.TEN;
+
+            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+            refreshTimer4 = new Timer();
+            refreshTimer4.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        if (!SessionManager.get().getLogout()) {
+                            if (SessionManager.get().getIpSearched()) {
+                                Intent intent = new Intent(getApplicationContext(), DeviceSearch.class);
+                                intent.putExtra(Constraint.CALLFROM, Constraint.BACKGROUND_SERVICE);
+                                startService(intent);
+                            }
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            }, second, second);
+
+        } catch (Exception e) {
+        }
     }
 
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
@@ -615,10 +698,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-       // int hour = Constraint.ONE;
+        // int hour = Constraint.ONE;
         int hour = 0;
 
-        int minit = Constraint.TWO;
+        int minit = Constraint.FIFTEEN;
 
 
         if (time != null) {

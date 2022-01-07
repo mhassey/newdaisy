@@ -70,14 +70,20 @@ public class UpdateApk {
                         if (apkDetails.getAndroid().getVersion() != null) {
                             if (sessionManager == null)
                                 sessionManager = SessionManager.get();
-                            double apkVersion = Double.parseDouble(apkDetails.getAndroid().getVersion());
-                            double ourVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
-                            if (apkVersion > ourVersion) {
+                            try {
+                                double apkVersion = Double.parseDouble(apkDetails.getAndroid().getVersion());
+                                double ourVersion = Double.parseDouble(BuildConfig.VERSION_NAME);
+                                if (apkVersion > ourVersion) {
 
-                                sessionManager.setApkVersion(BuildConfig.VERSION_NAME);
-                                sessionManager.setVersionDetails(apkDetails);
-                            } else {
-                                sessionManager.setVersionDetails(null);
+                                    sessionManager.setApkVersion(BuildConfig.VERSION_NAME);
+                                    sessionManager.setVersionDetails(apkDetails);
+                                } else {
+                                    sessionManager.setVersionDetails(null);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+
                             }
                         }
 

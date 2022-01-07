@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 
 import androidx.annotation.Nullable;
 
+import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.response.IpSearched;
 import com.daisy.utils.Constraint;
@@ -25,6 +28,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class DeviceSearch extends Service {
+    private String callFrom = "";
+
     public DeviceSearch() {
     }
 
@@ -36,6 +41,7 @@ public class DeviceSearch extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        callFrom = intent.getStringExtra(Constraint.CALLFROM);
         getConnectDeviceList();
         return super.onStartCommand(intent, flags, startId);
 
@@ -58,15 +64,22 @@ public class DeviceSearch extends Service {
                     for (int i = 1; i <= 254; i++) {
                         ip[3] = (byte) i;
                         InetAddress address = InetAddress.getByAddress(ip);
-                        if (isReachable(address.getHostAddress(), Constraint.SERVER_PORT,500)) {
+                        if (isReachable(address.getHostAddress(), Constraint.SERVER_PORT, 500)) {
+//                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                                public void run() {
+//                                    ValidationHelper.showToast(getApplicationContext(),address.getHostAddress());
+//
+//                                }
+//                            });
                             hostAddress.add(address.getHostAddress());
                         } else if (!address.getHostAddress().equals(address.getHostName())) {
-                            System.out.println(address + " machine is known in a DNS lookup");
+//                            System.out.println(address + " machine is known in a DNS lookup");
                         }
 
                     }
                     SessionManager.get().addFilterDevice(hostAddress);
-                    EventBus.getDefault().post(new IpSearched());
+                    if (callFrom == null)
+                        EventBus.getDefault().post(new IpSearched());
 
                 } catch (UnknownHostException e1) {
                     e1.printStackTrace();

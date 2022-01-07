@@ -287,7 +287,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         if (count == Constraint.TWO) {
 
             SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
-            if (securityAsk!=null) {
+            if (securityAsk != null && securityAsk.securityAskBinding != null) {
                 try {
                     if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
                         sessionManager.setDeletePhoto(true);
@@ -385,7 +385,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - Its takes AddScreen object as parameter
      **/
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
-        if (addScreen!=null) {
+        if (addScreen != null) {
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
             hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
@@ -454,7 +454,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             if (response.getResult().getPricecard().getFileName() != null) {
                 String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory;
-                if (android.os.Build.VERSION.SDK_INT >=android.os.Build.VERSION_CODES.Q) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
                     directory = new File(getExternalFilesDir(""), configFilePath);
                 } else {
                     directory = new File(configFilePath);
@@ -483,7 +483,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             } else if (response.getResult().getDefaultPriceCard() != null && !response.getResult().getDefaultPriceCard().equals("")) {
                 UrlPath = response.getResult().getDefaultPriceCard();
                 String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
-                File directory = new File(getExternalFilesDir(""),configFilePath);
+                File directory = new File(getExternalFilesDir(""), configFilePath);
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
