@@ -382,7 +382,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
+                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + Constraint.DATA_STORE, "", "", Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();

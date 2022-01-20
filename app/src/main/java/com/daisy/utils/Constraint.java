@@ -148,6 +148,10 @@ public class Constraint {
     public static final int SERVER_PORT = 8899;
     public static final String SEARCHED_DEVICE = "searchDevice";
     public static final String HOME_SCREEN = "homeScreen";
+    public static final String SCREEN_ADD = "Screen add";
+    public static final String LOGIN_SUCCESSFULL = "Login success";
+    public static final String POSITION_UPDATE = "Position updated";
+    public static final String OPEN = "OPEN";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -165,6 +169,7 @@ public class Constraint {
     public static final int TWENTY = 20;
     public static final int THOUSAND = 1000;
     public static final String APPLICATION_LOGS = "applicationLogs";
+    public static  final String DATA_STORE=" Data store";
     public static final String CARD_LOGS = "cardLogs";
     public static final String LOGS = "logs";
     public static final String TEXT = ".txt";

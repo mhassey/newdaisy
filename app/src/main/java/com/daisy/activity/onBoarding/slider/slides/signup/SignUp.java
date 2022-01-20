@@ -130,7 +130,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
          showHideProgressDialog(false);
         if (signUpResponse!=null) {
             if (signUpResponse.isApi_status()) {
-                DBCaller.storeLogInDatabase(context,getString(R.string.login_success),"","",Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context,Constraint.LOGIN_SUCCESSFULL,"","",Constraint.APPLICATION_LOGS);
                 sessionManager.setPasswordForLock(loginBinding.password.getText().toString());
                 sessionManager.setOpenTime(signUpResponse.getData().getOpen());
                 sessionManager.setCloseTime(signUpResponse.getData().getClosed());

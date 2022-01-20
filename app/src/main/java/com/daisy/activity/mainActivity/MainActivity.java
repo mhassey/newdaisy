@@ -1035,7 +1035,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
+                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + Constraint.DATA_STORE, "", "", Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -1285,14 +1285,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         public void run() {
                             Socket socket;
                             try {
-                            if (!myIp.equals(device)) {
-                                socket = new Socket(device, SERVER_PORT);
-                                PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-                                output.println(sendsValue);
-                                output.flush();
+                                if (!myIp.equals(device)) {
+                                    socket = new Socket(device, SERVER_PORT);
+                                    PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+                                    output.println(sendsValue);
+                                    output.flush();
 
 
-                           }
+                                }
                             } catch (IOException e) {
                             }
                         }
@@ -1724,19 +1724,19 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void globalCustomEvent(String cardDetails, boolean b) {
-            if (SessionManager.get().getIpSearched()) {
-                IpSearched(cardDetails);
-                //sendDataByDataGram(cardDetails);
-                if (b) {
-                    mBinding.webView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
-                        }
-                    });
-
-                }
-            }
+//            if (SessionManager.get().getIpSearched()) {
+//                IpSearched(cardDetails);
+//                //sendDataByDataGram(cardDetails);
+//                if (b) {
+//                    mBinding.webView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
+//                        }
+//                    });
+//
+//                }
+//            }
         }
 
 
@@ -1765,7 +1765,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void openApplication(String event) {
-            Log.e("Kali", event);
             if (event.contains(Constraint.HTTP) || event.contains(Constraint.HTTPS)) {
                 runOnUiThread(new Runnable() {
                     @Override
@@ -1798,58 +1797,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         }
 
-    }
-
-    private void sendDataByDataGram(String cardDetails) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Open a random port to send the package
-                    DatagramSocket c = new DatagramSocket();
-                    c.setBroadcast(true);
-
-                    byte[] sendData = cardDetails.getBytes();
-
-                    //Try the 255.255.255.255 first
-                    try {
-                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), SERVER_PORT);
-                        c.send(sendPacket);
-                        System.out.println(getClass().getName() + ">>> Request packet sent to: 255.255.255.255 (DEFAULT)");
-                    } catch (Exception e) {
-                    }
-
-                    // Broadcast the message over all the network interfaces
-//                    Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
-//                    while (interfaces.hasMoreElements()) {
-//                        NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
-//
-//                        if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-//                            continue; // Don't want to broadcast to the loopback interface
-//                        }
-//
-//                        for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-//                            InetAddress broadcast = interfaceAddress.getBroadcast();
-//                            if (broadcast == null) {
-//                                continue;
-//                            }
-//
-//                            // Send the broadcast package!
-//                            try {
-//                                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, 8888);
-//                                c.send(sendPacket);
-//                            } catch (Exception e) {
-//                            }
-//
-//                            System.out.println(getClass().getName() + ">>> Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
-//                        }
-//                    }
-                    c.close();
-                } catch (IOException ex) {
-//                    Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
     }
 
 
@@ -1900,7 +1847,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         mBinding.supportWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         mBinding.supportWebView.setScrollbarFadingEnabled(Constraint.FALSE);
-        //mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+        mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
         mBinding.supportWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
 
         mBinding.supportWebView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
@@ -1909,7 +1856,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.supportWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
             CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.supportWebView, Constraint.TRUE);
         }
-        // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
+        mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
 
         mBinding.supportWebView.loadUrl(url);
 

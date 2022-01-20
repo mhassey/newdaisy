@@ -370,7 +370,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                             , PackageManager.GET_META_DATA));
             if (app_name != null) {
                 if (!app_name.equals(Constraint.SYSTEM_LUNCHER) && !app_name.equals(Constraint.DAISYY))
-                    DBCaller.storeLogInDatabase(getApplicationContext(), getApplicationContext().getString(R.string.open) + app_name, "", "", Constraint.APPLICATION_LOGS);
+                    DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.OPEN + app_name, "", "", Constraint.APPLICATION_LOGS);
             }
         } catch (Exception e) {
         }
@@ -456,14 +456,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     // set all main counters
     private void setCounter() {
-        runDeviceSearch();
         bringApplicationTimer();
         setDeleteTimer();
         sendLogTimer();
         checkUpdate();
         checkPromotion();
         checkInversion();
-        searchIpCounter();
+        //searchIpCounter();
         //stopUninstall();
         updateAPk();
         validatePromotion();
@@ -524,29 +523,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
-    private void runDeviceSearch() {
-//        try {
-//            int hour = Constraint.ZERO;
-//            int minit = (int) Constraint.ZERO;
-//
-//            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-//            refreshTimer6 = new Timer();
-//            refreshTimer6.scheduleAtFixedRate(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    try {
-//
-//                    } catch (Exception e) {
-//
-//                    }
-//                }
-//            }, second, second);
-//
-//        } catch (Exception e) {
-//        }
-        // startService(new Intent(getApplicationContext(), DeviceSearch.class));
-
-    }
 
     // its checks inversion in every three minutes
     private void checkInversion() {
@@ -698,10 +674,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        // int hour = Constraint.ONE;
-        int hour = 0;
+         int hour = Constraint.FOUR;
+      //  int hour = 0;
 
-        int minit = Constraint.FIFTEEN;
+        int minit = Constraint.ZERO;
 
 
         if (time != null) {

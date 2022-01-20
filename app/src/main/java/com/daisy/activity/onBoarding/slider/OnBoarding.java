@@ -232,7 +232,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
+                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + Constraint.DATA_STORE, "", "", Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -363,7 +363,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse, AddScreen addScreen) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-            DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
+            DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + Constraint.SCREEN_ADD, "", "", Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.GONE);
             mBinding.pager.setCurrentItem(count);
@@ -585,6 +585,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     private void redirectToMain() {
         sessionManager.onBoarding(Constraint.TRUE);
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
 
