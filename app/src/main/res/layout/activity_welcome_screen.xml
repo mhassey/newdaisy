@@ -8,23 +8,25 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:background="@color/white"
-        android:weightSum="1"
+
         tools:context=".activity.welcomeScreen.WelcomeScreen">
 
 
         <LinearLayout
             android:background="@color/purple"
-            android:layout_width="@dimen/dp250"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:gravity="center"
             android:layout_height="match_parent"
             android:orientation="vertical"
            >
 
             <ImageView
-                android:layout_width="@dimen/dp120"
+                android:layout_width="@dimen/dp100"
+                android:layout_height="@dimen/dp100"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_welcome_icon"
-                android:layout_height="@dimen/dp120"/>
+               />
             <TextView
                 android:layout_marginTop="@dimen/dp20"
                 style="@style/fontMedium"
@@ -32,13 +34,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/welcome"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp25" />
+                android:textSize="@dimen/sp20" />
 
 
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
 
             android:orientation="vertical">
@@ -71,7 +74,7 @@
                     android:gravity="center"
                     android:background="@drawable/ovel_purple"
                     android:orientation="horizontal"
-                    android:layout_width="@dimen/dp180"
+                    android:layout_width="@dimen/dp160"
                     android:layout_height="@dimen/dp50">
 
                     <TextView

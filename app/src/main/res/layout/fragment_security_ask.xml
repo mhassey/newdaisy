@@ -9,17 +9,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:weightSum="1"
             tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
 
             <RelativeLayout
-                android:layout_width="@dimen/dp250"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/mettle_blue"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/top_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp10">
@@ -41,28 +42,31 @@
 
                 <ImageView
                     android:id="@+id/icon"
-                    android:layout_width="@dimen/dp120"
-                    android:layout_height="@dimen/dp120"
+                    android:layout_width="@dimen/dp100"
+                    android:layout_height="@dimen/dp100"
+                    android:layout_below="@+id/top_layout"
+
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_settings_icon" />
 
                 <TextView
+
                     style="@style/fontMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp10"
-                    android:layout_below="@id/icon"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp10"
                     android:text="@string/settings_cap"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sp25" />
+                    android:textSize="@dimen/sp20" />
 
 
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_weight="1.5"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">

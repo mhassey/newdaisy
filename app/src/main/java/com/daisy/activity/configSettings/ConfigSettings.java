@@ -321,6 +321,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
             case R.id.direct_apk_update: {
                 handleApkUpdateDirectly();
+                break;
             }
             case R.id.close_app: {
                // stopLockTask();
@@ -412,7 +413,13 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                             ValidationHelper.showToast(context, getString(R.string.no_update_available));
                         }
                     }
+                    else {
+                        ValidationHelper.showToast(context, getString(R.string.no_update_available));
+                    }
 
+                }
+                else {
+                    ValidationHelper.showToast(context, getString(R.string.no_update_available));
                 }
 
 

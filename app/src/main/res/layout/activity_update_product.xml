@@ -8,7 +8,8 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="@dimen/dp250"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@color/purple"
             android:orientation="vertical">
@@ -36,8 +37,8 @@
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="@dimen/dp120"
-                android:layout_height="@dimen/dp120"
+                android:layout_width="@dimen/dp100"
+                android:layout_height="@dimen/dp100"
                 android:layout_below="@+id/top_layout"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_product_icon" />
@@ -49,15 +50,17 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginBottom="@dimen/dp10"
+                android:gravity="center"
                 android:text="@string/select_pro"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp25" />
+                android:textSize="@dimen/sp20" />
 
 
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -279,7 +282,7 @@
 
                             <LinearLayout
                                 android:id="@+id/nextSlide"
-                                android:layout_width="@dimen/dp150"
+                                android:layout_width="@dimen/dp160"
                                 android:layout_height="@dimen/dp50"
                                 android:background="@drawable/ovel_purple"
                                 android:gravity="center"

@@ -62,7 +62,7 @@
 
                     <LinearLayout
                         android:id="@+id/nextSlide"
-                        android:layout_width="@dimen/dp180"
+                        android:layout_width="@dimen/dp160"
                         android:layout_height="@dimen/dp50"
                         android:background="@drawable/ovel_purple"
                         android:gravity="center"

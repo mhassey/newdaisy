@@ -1580,8 +1580,27 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mContext = c;
         }
 
+//        @JavascriptInterface
+//        public void logEvent(String cmd, String msg) {
+//            Log.e("Cjeclomg", cmd + "--" + msg);
+//            if (cmd.equals(Constraint.adFrameUrl)) {
+//
+//                maintainPromotionShowWithUrl(msg);
+//            } else if (msg.contains(Constraint.price)) {
+//
+//                storePriceCardIfFaceDetected(msg);
+//            } else if (cmd.equals(Constraint.click)) {
+//                SessionManager.get().clckPerform(true);
+//                if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
+//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+//                }
+//
+//                storeClickOnPromotionOrPriceCard(msg);
+//            }
+//
+//        }
         @JavascriptInterface
-        public void logEvent(String cmd, String msg) {
+        public void systemEvent(String cmd, String msg) {
             Log.e("Cjeclomg", cmd + "--" + msg);
             if (cmd.equals(Constraint.adFrameUrl)) {
 

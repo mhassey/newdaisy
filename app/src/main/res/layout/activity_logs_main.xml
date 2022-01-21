@@ -12,7 +12,8 @@
         tools:context=".activity.logs.LogsMainActivity">
 
         <RelativeLayout
-            android:layout_width="@dimen/dp250"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@color/mettle_blue"
             android:orientation="vertical">
@@ -39,8 +40,8 @@
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="@dimen/dp120"
-                android:layout_height="@dimen/dp120"
+                android:layout_width="@dimen/dp100"
+                android:layout_height="@dimen/dp100"
                 android:layout_below="@id/top_layout"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_logs_icon" />
@@ -54,20 +55,21 @@
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/logs"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp25" />
+                android:textSize="@dimen/sp20" />
 
 
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/applicationLogs"
-                android:layout_width="@dimen/dp200"
+                android:layout_width="@dimen/dp160"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_border_format"
                 android:text="@string/application_logs"
@@ -76,7 +78,7 @@
 
             <Button
                 android:id="@+id/cardLogs"
-                android:layout_width="@dimen/dp200"
+                android:layout_width="@dimen/dp160"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp20"
                 android:background="@drawable/button_border_format"
@@ -86,7 +88,7 @@
 
             <Button
                 android:id="@+id/promotionLogs"
-                android:layout_width="@dimen/dp200"
+                android:layout_width="@dimen/dp160"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp20"
                 android:background="@drawable/button_border_format"
@@ -96,7 +98,7 @@
 
             <Button
                 android:id="@+id/syncAllLogs"
-                android:layout_width="@dimen/dp200"
+                android:layout_width="@dimen/dp160"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp20"
                 android:background="@drawable/button_border_format"
