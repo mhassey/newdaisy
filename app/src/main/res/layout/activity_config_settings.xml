@@ -206,27 +206,6 @@
 
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:id="@+id/logout_app"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp30"
-                                android:layout_marginTop="@dimen/dp20"
-                                android:layout_marginEnd="@dimen/dp30"
-                                android:background="@drawable/edit_text_format"
-                                android:orientation="vertical">
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="@dimen/dp10"
-                                    android:fontFamily="@font/rragular"
-                                    android:text="@string/logout"
-                                    android:textSize="@dimen/sp15" />
-
-
-                            </LinearLayout>
 
                             <LinearLayout
 
@@ -491,6 +470,28 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/logout_app"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp30"
+                                android:layout_marginTop="@dimen/dp20"
+                                android:layout_marginEnd="@dimen/dp30"
+                                android:background="@drawable/edit_text_format"
+                                android:orientation="vertical">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp10"
+                                    android:fontFamily="@font/rragular"
+                                    android:text="@string/logout"
+                                    android:textSize="@dimen/sp15" />
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_marginBottom="@dimen/dp10"
                                 android:id="@+id/close_app"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
