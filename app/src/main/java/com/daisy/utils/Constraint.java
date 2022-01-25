@@ -152,6 +152,7 @@ public class Constraint {
     public static final String LOGIN_SUCCESSFULL = "Login success";
     public static final String POSITION_UPDATE = "Position updated";
     public static final String OPEN = "OPEN";
+    public static final CharSequence PRICE_CARD = "PriceCard";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -343,4 +344,5 @@ public class Constraint {
     public static String price = "price";
     public static String Ip_SEARCHED = "IpSearched";
 
+    public static String adCard="adCard";
 }

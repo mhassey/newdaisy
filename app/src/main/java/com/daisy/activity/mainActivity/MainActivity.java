@@ -1702,26 +1702,46 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mContext = c;
         }
 
+//        @JavascriptInterface
+//        public void logEvent(String cmd, String msg) {
+//            if (cmd.equals(Constraint.adFrameUrl)) {
+//                maintainPromotionShowWithUrl(msg);
+//            } else if (msg.contains(Constraint.price)) {
+//                storePriceCardIfFaceDetected(msg);
+//            } else if (cmd.equals(Constraint.click)) {
+//
+//                SessionManager.get().clckPerform(true);
+//                if (!isMyServiceRunning(LogGenerateService.class)) {
+//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+//                }
+//
+//
+//                //IpSearched("Some value");
+//            }
+//
+//
+//        }
+
+
         @JavascriptInterface
-        public void logEvent(String cmd, String msg) {
-            if (cmd.equals(Constraint.adFrameUrl)) {
+        public void systemEvent(String cmd, String msg) {
+            Log.e("Cjeclomg", cmd + "--" + msg);
+            if (cmd.equals(Constraint.adCard)) {
+
                 maintainPromotionShowWithUrl(msg);
-            } else if (msg.contains(Constraint.price)) {
+            } else if (msg.contains(Constraint.PRICE_CARD)) {
+
                 storePriceCardIfFaceDetected(msg);
             } else if (cmd.equals(Constraint.click)) {
-
                 SessionManager.get().clckPerform(true);
-                if (!isMyServiceRunning(LogGenerateService.class)) {
+                if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
                     startService(new Intent(MainActivity.this, LogGenerateService.class));
                 }
 
-
-                //IpSearched("Some value");
+                storeClickOnPromotionOrPriceCard(msg);
             }
 
-
         }
-
         @JavascriptInterface
         public void globalCustomEvent(String cardDetails, boolean b) {
 //            if (SessionManager.get().getIpSearched()) {

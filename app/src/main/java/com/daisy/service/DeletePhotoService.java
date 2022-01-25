@@ -26,12 +26,16 @@ public class DeletePhotoService extends Service {
     // TODO Delete all photo and data from storage
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        sessionManager = SessionManager.get();
-        if (sessionManager.getDeletePhoto()) {
-         Utils.deleteGalaryPhoto();
+        try {
+            sessionManager = SessionManager.get();
+            if (sessionManager.getDeletePhoto()) {
+                Utils.deleteGalaryPhoto();
+            }
+            //    Utils.deleteCallList(getApplicationContext());
+            stopSelf();
+        } catch (Exception e) {
+
         }
-        Utils.deleteCallList(getApplicationContext());
-        stopSelf();
         return super.onStartCommand(intent, flags, startId);
 
     }
