@@ -1725,23 +1725,37 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void systemEvent(String cmd, String msg) {
-            Log.e("Cjeclomg", cmd + "--" + msg);
-            if (cmd.equals(Constraint.adCard)) {
+            try {
+                Log.e("Cjeclomg", cmd + "--" + msg);
 
-                maintainPromotionShowWithUrl(msg);
-            } else if (msg.contains(Constraint.PRICE_CARD)) {
+                if (cmd.equals(Constraint.click)) {
+                    SessionManager.get().clckPerform(true);
+                    if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
+                        startService(new Intent(MainActivity.this, LogGenerateService.class));
+                    }
+                    msg = msg.replaceAll("\"", "");
+                    storeClickOnPromotionOrPriceCard(msg);
+                } else {
+                    try {
 
-                storePriceCardIfFaceDetected(msg);
-            } else if (cmd.equals(Constraint.click)) {
-                SessionManager.get().clckPerform(true);
-                if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
-                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+                        JSONObject jsonObject = new JSONObject(msg);
+                        if (jsonObject.get("currentCardType").equals(Constraint.adCard)) {
+
+                            maintainPromotionShowWithUrl(jsonObject);
+                        } else if (jsonObject.get("currentCardType").equals(Constraint.PRICE_CARD)) {
+
+                            storePriceCardIfFaceDetected(jsonObject);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
+            } catch (Exception e) {
 
-                storeClickOnPromotionOrPriceCard(msg);
             }
-
         }
+
         @JavascriptInterface
         public void globalCustomEvent(String cardDetails, boolean b) {
 //            if (SessionManager.get().getIpSearched()) {
@@ -1900,7 +1914,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding.supportWebViewLayout.setVisibility(View.GONE);
     }
 
-    private void storePriceCardIfFaceDetected(String msg) {
+    private void storePriceCardIfFaceDetected(JSONObject msg) {
         if (sessionManager.getUserFaceDetectionEnable()) {
             DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
         }
@@ -1911,7 +1925,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private void storeClickOnPromotionOrPriceCard(String msg) {
 
         try {
-            if (sessionManager != null) {
+            if (sessionManager == null) {
                 sessionManager = SessionManager.get();
             }
 
@@ -1941,9 +1955,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
-    private void maintainPromotionShowWithUrl(String msg) {
+    private void maintainPromotionShowWithUrl(JSONObject msg) {
         try {
-            String promotionPath = msg.split("\\?")[0];
+            String promotionPath = msg.getString("adFrameUrl").split("\\?")[0];
+            ;
             int id = Utils.searchPromotionUsingPath(promotionPath);
 
             if (id != Constraint.ZERO) {
@@ -1951,7 +1966,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     sessionManager = SessionManager.get();
                 }
                 if (sessionManager.getUserFaceDetectionEnable()) {
-                    DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
+                    DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", "", Constraint.PROMOTION);
                 }
             }
 
