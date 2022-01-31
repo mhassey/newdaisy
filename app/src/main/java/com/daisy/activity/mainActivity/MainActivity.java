@@ -1962,7 +1962,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             int id = Utils.searchPromotionUsingPath(promotionPath);
 
             if (id != Constraint.ZERO) {
-                if (sessionManager == null) {
+                if (sessionManager != null) {
                     sessionManager = SessionManager.get();
                 }
                 if (sessionManager.getUserFaceDetectionEnable()) {
