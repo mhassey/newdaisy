@@ -575,10 +575,14 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void redirectToMain() {
-        sessionManager.onBoarding(Constraint.TRUE);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        try {
+            sessionManager.onBoarding(Constraint.TRUE);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+
+        }
 
     }
 

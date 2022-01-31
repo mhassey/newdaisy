@@ -164,7 +164,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWakeUpLock();
         registerReceiver();
         handleClick();
-        setWindowManager();
+        try {
+            setWindowManager();
+        } catch (Exception e) {
+
+        }
         setCounter();
         initWifi();
         initPassword();
@@ -674,8 +678,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-         int hour = Constraint.FOUR;
-      //  int hour = 0;
+        int hour = Constraint.FOUR;
+        //  int hour = 0;
 
         int minit = Constraint.ZERO;
 
@@ -820,7 +824,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Open your Main to front
     private void bringApplicationToFront(final Context context) {
         try {
-            Log.e("Suuuuuu", "---------Bring application in fromnt 651");
             // Get a handler that can be used to post to the main thread
             android.os.Handler mainHandler = new Handler(context.getMainLooper());
             Runnable myRunnable = new Runnable() {
@@ -922,12 +925,16 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     //  Open Main as Overlay on lock screen
     private void showOverlayActivity(Context context) {
-        Log.e("Suuuuuu", "---------Bring application in fromnt 753");
+        try {
+            Log.e("Suuuuuu", "---------Bring application in fromnt 753");
 
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception e) {
+
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -955,20 +962,22 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
 
     private void startForeground() {
-        Log.e("Suuuuuu", "---------Bring application in fromnt 786");
+        try {
+            Intent notificationIntent = new Intent(this, MainActivity.class);
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                    notificationIntent, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                notificationIntent, 0);
+            startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
+                    NOTIF_CHANNEL_ID) // don't forget create a notification channel first
+                    .setOngoing(true)
+                    .setContentTitle(getString(R.string.app_name))
+                    .setContentText(Constraint.SERVICE_RUNNING_IN_BACKGROUND)
+                    .setContentIntent(pendingIntent)
+                    .build());
+        } catch (Exception e) {
 
-        startForeground(NOTIF_ID, new NotificationCompat.Builder(this,
-                NOTIF_CHANNEL_ID) // don't forget create a notification channel first
-                .setOngoing(true)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText(Constraint.SERVICE_RUNNING_IN_BACKGROUND)
-                .setContentIntent(pendingIntent)
-                .build());
+        }
     }
 
 
@@ -1004,21 +1013,22 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         count = Constraint.ZERO;
-        Log.e("checkig", "work");
-        Inversion inversion = new Inversion();
-        inversion.setInvert(Utils.getInvertedTime());
-        EventBus.getDefault().post(inversion);
-        sanitisedWork();
-        boolean value = sessionManager.getUpdateNotShow();
-        boolean isDialogOpen = sessionManager.getupdateDialog();
-        if (!isDialogOpen) {
-            if (!value) {
-                ApkDetails apkDetails = sessionManager.getApkDetails();
-                if (apkDetails != null) {
-                    EventBus.getDefault().post(apkDetails);
-                }
-            }
-        }
+        // Not required
+//        Log.e("checkig", "work");
+//        Inversion inversion = new Inversion();
+//        inversion.setInvert(Utils.getInvertedTime());
+//        EventBus.getDefault().post(inversion);
+//        sanitisedWork();
+//        boolean value = sessionManager.getUpdateNotShow();
+//        boolean isDialogOpen = sessionManager.getupdateDialog();
+//        if (!isDialogOpen) {
+//            if (!value) {
+//                ApkDetails apkDetails = sessionManager.getApkDetails();
+//                if (apkDetails != null) {
+//                    EventBus.getDefault().post(apkDetails);
+//                }
+//            }
+//        }
         return true;
     }
 

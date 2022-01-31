@@ -143,7 +143,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
         //if (name.contains(Constraint.REDME)) {
         if (false) {
-            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandExtraAccess()) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandExtraAccess()) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
@@ -161,7 +161,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
             }
         } else {
-            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization()) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess()  && permissionAskViewModel.isGrandBatteyOptimization()) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))

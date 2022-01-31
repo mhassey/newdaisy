@@ -515,7 +515,31 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:gravity="center|end">
 
+                    <TextView
+                        style="@style/fontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/screen_id"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp12" />
+
+                    <TextView
+                        android:id="@+id/screen_id"
+                        style="@style/fontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.0.0"
+
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp12" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

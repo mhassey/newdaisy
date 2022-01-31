@@ -147,15 +147,19 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
      * Parameters - No parameter
      **/
     private void setLang(String s) {
-        Locale locale = new Locale(s);
-        Locale.setDefault(locale);
-        Configuration configuration = new Configuration();
-        configuration.locale = locale;
-        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
-        SessionManager.get().setLang(s);
-        Intent i = new Intent(LangSelectionActivity.this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
+        try {
+            Locale locale = new Locale(s);
+            Locale.setDefault(locale);
+            Configuration configuration = new Configuration();
+            configuration.locale = locale;
+            getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+            SessionManager.get().setLang(s);
+            Intent i = new Intent(LangSelectionActivity.this, MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        } catch (Exception e) {
+
+        }
     }
 
     /**

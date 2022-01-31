@@ -82,6 +82,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         setNoTitleBar(this);
         sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
+        mBinding.screenId.setText(SessionManager.get().getScreenId()+"");
         getDefaultUpdateTime();
     }
 
@@ -491,8 +492,12 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
      * Parameters - No parameter
      **/
     private void openLogActivity() {
-        Intent intent = new Intent(ConfigSettings.this, LogsMainActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(ConfigSettings.this, LogsMainActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+
+        }
     }
 
 
@@ -501,8 +506,12 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
      * Parameters - No parameter
      **/
     private void openMainActivity() {
-        Intent intent = new Intent(ConfigSettings.this, MainActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(ConfigSettings.this, MainActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+
+        }
     }
 
 }

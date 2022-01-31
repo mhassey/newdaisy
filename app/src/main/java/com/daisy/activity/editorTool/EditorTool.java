@@ -327,7 +327,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String passwordString = password.getText().toString();
-                String lockPassword=sessionManager.getPasswordLock();
+                String lockPassword = sessionManager.getPasswordLock();
                 if (passwordString.equals(lockPassword)) {
                     dialog.dismiss();
                     Intent intent = new Intent(EditorTool.this, ConfigSettings.class);
@@ -361,9 +361,13 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     }
 
     private void redirectToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        try {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+
+        }
 
     }
 

@@ -19,11 +19,16 @@ public class AlarmBootBackgroundReceiver extends BroadcastReceiver {
                 //only enabling one type of notifications for demo purposes
                 AlaramHelperBackground.scheduleRepeatingElapsedNotification(context);
             }
+            try {
+                if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+                    Intent intent2 = new Intent(context, MainActivity.class);
+                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent2);
+                }
+            }
+            catch (Exception e)
+            {
 
-            if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-                Intent intent2 = new Intent(context, MainActivity.class);
-                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent2);
             }
         }
     }

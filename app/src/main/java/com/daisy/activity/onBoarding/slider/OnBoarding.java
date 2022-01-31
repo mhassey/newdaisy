@@ -583,11 +583,16 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void redirectToMain() {
-        sessionManager.onBoarding(Constraint.TRUE);
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+        try {
+
+            sessionManager.onBoarding(Constraint.TRUE);
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+
+        }
 
     }
 

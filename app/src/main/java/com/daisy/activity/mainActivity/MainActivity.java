@@ -28,6 +28,7 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -126,7 +127,7 @@ import java.util.concurrent.TimeUnit;
  * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
  * Responsibility - Its loads cards,promotion send pricing to js and its also handles logs related price card and promotions
  **/
-public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
+public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener, View.OnTouchListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
@@ -289,6 +290,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
             }
         });
+        mBinding.webView.setOnTouchListener(this);
 
     }
 
@@ -508,11 +510,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Override
     public void callBack(String data) {
+        try {
+            Intent selfIntent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(selfIntent);
+            finish();
+            overridePendingTransition(Constraint.ZERO, Constraint.ZERO);
+        } catch (Exception e) {
 
-        Intent selfIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(selfIntent);
-        finish();
-        overridePendingTransition(Constraint.ZERO, Constraint.ZERO);
+        }
 
     }
 
@@ -1160,10 +1165,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Parameters - No parameter
      **/
     private void redirectToMain() {
-        sessionManager.onBoarding(Constraint.TRUE);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        try {
+            sessionManager.onBoarding(Constraint.TRUE);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+
+        }
 
     }
 
@@ -1329,6 +1338,22 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                 goToWifi();
                 break;
+            }
+
+        }
+    }
+
+    private void handleUiClick() {
+        Inversion inversion = new Inversion();
+        inversion.setInvert(Utils.getInvertedTime());
+        inverted(inversion);
+        sanitisedWork();
+        boolean value = sessionManager.getUpdateNotShow();
+        boolean isDialogOpen = sessionManager.getupdateDialog();
+        if (!isDialogOpen) {
+            if (!value) {
+                ApkDetails apkDetails = sessionManager.getApkDetails();
+                updateApk(apkDetails);
             }
         }
     }
@@ -1656,6 +1681,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         getDownloadData();
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction()==MotionEvent.ACTION_UP){
+            handleUiClick();
+
+        }
+
+        return false;
+    }
+
 
     public class WebClient extends WebChromeClient {
 
@@ -1702,58 +1737,58 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mContext = c;
         }
 
-//        @JavascriptInterface
-//        public void logEvent(String cmd, String msg) {
-//            if (cmd.equals(Constraint.adFrameUrl)) {
-//                maintainPromotionShowWithUrl(msg);
-//            } else if (msg.contains(Constraint.price)) {
-//                storePriceCardIfFaceDetected(msg);
-//            } else if (cmd.equals(Constraint.click)) {
-//
-//                SessionManager.get().clckPerform(true);
-//                if (!isMyServiceRunning(LogGenerateService.class)) {
-//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
-//                }
-//
-//
-//                //IpSearched("Some value");
-//            }
-//
-//
-//        }
+        @JavascriptInterface
+        public void logEvent(String cmd, String msg) {
+            if (cmd.equals(Constraint.adFrameUrl)) {
+                maintainPromotionShowWithUrl(msg);
+            } else if (msg.contains(Constraint.price)) {
+                storePriceCardIfFaceDetected(msg);
+            } else if (cmd.equals(Constraint.click)) {
+
+                SessionManager.get().clckPerform(true);
+                if (!isMyServiceRunning(LogGenerateService.class)) {
+                    startService(new Intent(MainActivity.this, LogGenerateService.class));
+                }
+
+
+                //IpSearched("Some value");
+            }
+
+
+        }
 
 
         @JavascriptInterface
         public void systemEvent(String cmd, String msg) {
-            try {
-                Log.e("Cjeclomg", cmd + "--" + msg);
-
-                if (cmd.equals(Constraint.click)) {
-                    SessionManager.get().clckPerform(true);
-                    if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
-                        startService(new Intent(MainActivity.this, LogGenerateService.class));
-                    }
-                    msg = msg.replaceAll("\"", "");
-                    storeClickOnPromotionOrPriceCard(msg);
-                } else {
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(msg);
-                        if (jsonObject.get("currentCardType").equals(Constraint.adCard)) {
-
-                            maintainPromotionShowWithUrl(jsonObject);
-                        } else if (jsonObject.get("currentCardType").equals(Constraint.PRICE_CARD)) {
-
-                            storePriceCardIfFaceDetected(jsonObject);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            } catch (Exception e) {
-
-            }
+//            try {
+//                Log.e("Cjeclomg", cmd + "--" + msg);
+//
+//                if (cmd.equals(Constraint.click)) {
+//                    SessionManager.get().clckPerform(true);
+//                    if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
+//                        startService(new Intent(MainActivity.this, LogGenerateService.class));
+//                    }
+//                    msg = msg.replaceAll("\"", "");
+//                    storeClickOnPromotionOrPriceCard(msg);
+//                } else {
+//                    try {
+//
+//                        JSONObject jsonObject = new JSONObject(msg);
+//                        if (jsonObject.get("currentCardType").equals(Constraint.adCard)) {
+//
+//                            maintainPromotionShowWithUrl(jsonObject);
+//                        } else if (jsonObject.get("currentCardType").equals(Constraint.PRICE_CARD)) {
+//
+//                            storePriceCardIfFaceDetected(jsonObject);
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//            } catch (Exception e) {
+//
+//            }
         }
 
         @JavascriptInterface
@@ -1914,7 +1949,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding.supportWebViewLayout.setVisibility(View.GONE);
     }
 
-    private void storePriceCardIfFaceDetected(JSONObject msg) {
+    private void storePriceCardIfFaceDetected(String msg) {
         if (sessionManager.getUserFaceDetectionEnable()) {
             DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
         }
@@ -1955,9 +1990,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
-    private void maintainPromotionShowWithUrl(JSONObject msg) {
+    private void maintainPromotionShowWithUrl(String msg) {
         try {
-            String promotionPath = msg.getString("adFrameUrl").split("\\?")[0];
+            String promotionPath = msg.split("\\?")[0];
             ;
             int id = Utils.searchPromotionUsingPath(promotionPath);
 
