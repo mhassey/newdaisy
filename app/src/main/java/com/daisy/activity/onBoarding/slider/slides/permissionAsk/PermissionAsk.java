@@ -116,7 +116,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.grandMediaPermission.setOnClickListener(this);
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
         permissionAskBinding.usageAccess.setOnClickListener(this);
-        permissionAskBinding.displayOverTheApp.setOnClickListener(this);
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
         permissionAskBinding.miExtra.setOnClickListener(this::onClick);
         permissionAskBinding.cancel.setOnClickListener(this::onClick);
@@ -131,7 +130,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
      **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void permissionSetter() {
-        checkDisplayOverTheApp();
         checkAccessUsage();
         modifySystemSettings();
         mediaPermission();
@@ -322,23 +320,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * Responsibility - check for display over the app permission
-     * Parameters - No parameter
-     **/
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void checkDisplayOverTheApp() {
-        if (Settings.canDrawOverlays(requireContext())) {
-            permissionAskBinding.displayOverTheAppDone.setChecked(true);
-            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.FALSE);
-            permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.TRUE);
-        } else {
-            permissionAskBinding.displayOverTheAppDone.setChecked(false);
-            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.TRUE);
-            permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.FALSE);
 
-        }
-    }
 
     public static PermissionAsk getInstance(ActivityOnBaordingBinding onBaordingBinding) {
         onBaordingBindingMain = onBaordingBinding;
@@ -367,10 +349,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 // mainAdminAsk();
                 break;
             }
-            case R.id.displayOverTheApp: {
-                askForPopUpPermission();
-                break;
-            }
+
             case R.id.usageAccess: {
                 callUsageAccessSettings();
                 break;
@@ -509,28 +488,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
-    /**
-     * Responsibility - Open display over the app alert dialog
-     * Parameters - No parameter
-     **/
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    boolean askForPopUpPermission() {
 
-        if (!Settings.canDrawOverlays(requireContext())) {
-            Utils.showAlertDialog(requireContext(), getString(R.string.display_over_the_app), "Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                            Uri.parse("package:" + requireContext().getPackageName()));
-                    requireActivity().startActivityForResult(intent, Constraint.POP_UP_RESPONSE);
-                }
-            }, false);
-
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Subscribe(threadMode = ThreadMode.MAIN)
