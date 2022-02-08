@@ -25,6 +25,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -66,6 +67,7 @@ import com.daisy.pojo.response.SocketEvent;
 import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.FaceDetectionSingalton;
 import com.daisy.utils.Utils;
 import com.rvalerio.fgchecker.AppChecker;
 
@@ -140,6 +142,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     IntentFilter chatIntentFilter;
     private List<WifiP2pDevice> wifiP2pDevices = new ArrayList<>();
     private BufferedReader input;
+    private CountDownTimer faceDetectTimer;
 
 
     @Nullable
@@ -307,7 +310,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                     }
                                 }
 
-                                storeProcess(process);
                                 if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
                                     if (!b) {
 
@@ -332,6 +334,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
 
                                 if (!process.equals(getApplication().getPackageName())) {
+                                    storeProcess(process);
                                     if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
                                         if (!sessionManager.getPasswordCorrect()) {
                                             sessionManager.setPasswordCorrect(Constraint.TRUE);
@@ -674,8 +677,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-         int hour = Constraint.FOUR;
-      //  int hour = 0;
+        int hour = Constraint.FOUR;
+        //  int hour = 0;
 
         int minit = Constraint.ZERO;
 
@@ -1295,25 +1298,63 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Face detection event
     @Override
     public void onFaceDetected() {
-
-        if (sessionManager == null) {
-            sessionManager = SessionManager.get();
+        if (!FaceDetectionSingalton.getFaceDetectionSingalton().isDetected()) {
+            FaceDetectionSingalton.getFaceDetectionSingalton().setDetected(true);
+            if (sessionManager == null) {
+                sessionManager = SessionManager.get();
+            }
+            sessionManager.setFaceDetectedStore(true);
+            setFaceDetectTimer();
         }
-        sessionManager.setFaceDetectedStore(true);
-//        DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
 
     }
+
+
+    //  Set up delete timer
+    private void setFaceDetectTimer() {
+
+        int hour = Constraint.ZERO;
+        int minit = Constraint.ONE;
+
+
+        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+
+        faceDetectTimer = new CountDownTimer(second, Constraint.THOUSAND) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                if (sessionManager == null)
+                    sessionManager = SessionManager.get();
+
+                if (sessionManager.getUserFaceDetectionEnable()) {
+                    sessionManager.setFaceDetectedStore(false);
+                }
+                FaceDetectionSingalton.getFaceDetectionSingalton().setDetected(false);
+            }
+
+        }.start();
+
+    }
+
 
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
+        try {
+            if (sessionManager == null) {
+                sessionManager = SessionManager.get();
+            }
+            if (faceDetectTimer != null) {
+                faceDetectTimer.cancel();
+                FaceDetectionSingalton.getFaceDetectionSingalton().setDetected(false);
+            }
+            sessionManager.setFaceDetectedStore(false);
+        } catch (Exception e) {
 
-        if (sessionManager == null) {
-            sessionManager = SessionManager.get();
         }
-        sessionManager.setFaceDetectedStore(false);
-
-
     }
 
     @Override

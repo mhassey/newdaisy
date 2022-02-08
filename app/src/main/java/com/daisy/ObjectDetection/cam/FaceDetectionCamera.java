@@ -23,7 +23,6 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
     /**
      * Use this to detect faces when you have a custom surface to display upon
      *
-     * @param listener the {@link com.blundell.tutorial.cam.FaceDetectionCamera.Listener} for when faces are detected
      * @param holder   the {@link android.view.SurfaceHolder} to display upon
      */
     public void initialise(Listener listener, SurfaceHolder holder) {
@@ -94,6 +93,7 @@ e.printStackTrace();
 
     @Override
     public void onFaceDetected() {
+
         listener.onFaceDetected();
     }
 

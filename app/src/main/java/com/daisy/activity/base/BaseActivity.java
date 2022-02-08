@@ -3,6 +3,7 @@ package com.daisy.activity.base;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,8 +15,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.R;
+import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.app.AppController;
+import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
+import com.daisy.service.BackgroundService;
+import com.daisy.utils.ValidationHelper;
 
 import java.util.Locale;
 
@@ -44,6 +49,28 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Responsibility - handleLogout is an method that help to logout the app with stop all services
+     * Parameters - No parameter
+     **/
+    public void handleLogout() {
+        if (BackgroundService.getServiceObject() != null) {
+            AlaramHelperBackground.cancelAlarmElapsed();
+            AlaramHelperBackground.disableBootReceiver(getApplicationContext());
+            AlaramHelperBackground.cancelAlarmRTC();
+            BackgroundService.getServiceObject().closeService();
+            getApplicationContext().stopService(new Intent(getApplicationContext(), BackgroundService.class));
+            SessionManager.get().clear();
+            SessionManager.get().logout(true);
+            Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            ValidationHelper.showToast(getApplicationContext(), getString(R.string.please_wait_service_is_not_register_yet));
+        }
+    }
 
     /**
      * Responsibility - initView helps app to always keep screen on and initialize work for all activity
