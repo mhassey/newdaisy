@@ -105,6 +105,7 @@
                 android:gravity="center">
 
                 <LinearLayout
+                    android:id="@+id/displayOverTheAppHeader"
                     android:background="@drawable/edit_text_format"
 
                     android:layout_width="wrap_content"

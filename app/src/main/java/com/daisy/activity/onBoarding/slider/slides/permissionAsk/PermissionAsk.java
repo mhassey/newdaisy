@@ -1,5 +1,6 @@
 package com.daisy.activity.onBoarding.slider.slides.permissionAsk;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
@@ -161,7 +162,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
             }
         } else {
-            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess()  && permissionAskViewModel.isGrandBatteyOptimization()) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization()) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
@@ -328,16 +329,25 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
      **/
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkDisplayOverTheApp() {
-        if (Settings.canDrawOverlays(requireContext())) {
-            permissionAskBinding.displayOverTheAppDone.setChecked(true);
-            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.FALSE);
-            permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.TRUE);
-        } else {
-            permissionAskBinding.displayOverTheAppDone.setChecked(false);
-            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.TRUE);
-            permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.FALSE);
+        if (!isLowRamDevice()) {
+            if (Settings.canDrawOverlays(requireContext())) {
+                permissionAskBinding.displayOverTheAppDone.setChecked(true);
+                permissionAskBinding.displayOverTheApp.setEnabled(Constraint.FALSE);
+                permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.TRUE);
+            } else {
+                permissionAskBinding.displayOverTheAppDone.setChecked(false);
+                permissionAskBinding.displayOverTheApp.setEnabled(Constraint.TRUE);
+                permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.FALSE);
 
+            }
+        } else {
+            permissionAskBinding.displayOverTheAppHeader.setVisibility(View.GONE);
         }
+    }
+
+    public boolean isLowRamDevice() {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        return am.isLowRamDevice();
     }
 
     public static PermissionAsk getInstance(ActivityOnBaordingBinding onBaordingBinding) {
