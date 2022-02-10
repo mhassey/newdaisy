@@ -11,8 +11,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 6
-        versionName "1.05"
+        versionCode 7
+        versionName "1.06"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,13 +22,13 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://digicel.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
         }
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"http://digicel.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://nz.mobilepricecards.com/"'
         }
     }
 
