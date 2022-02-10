@@ -86,6 +86,7 @@ import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.DeviceList;
 import com.daisy.utils.DownloadFile;
+import com.daisy.utils.DownloadJSFile;
 import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
@@ -581,6 +582,44 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 startActivity(intent);
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    void insertNewFile() {
+        try {
+            String val = sessionManager.getLocation();
+            File directory = new File(val);
+            File file[] = directory.listFiles();
+            if (file != null) {
+                for (File file1 : file) {
+                    if (file1.isDirectory() && !file1.getAbsolutePath().contains(Constraint.MACOS)) {
+                        File[] part = file1.listFiles();
+                        for (File internalFile : part) {
+                            if (internalFile.isDirectory() && internalFile.getAbsolutePath().contains(Constraint.hyperesources)) {
+                                File[] resourceFile = internalFile.listFiles();
+                                if (resourceFile != null) {
+                                    for (File internalFiles : resourceFile) {
+                                        if (internalFiles.getName().contains(Constraint.MobilePriceCard)) {
+                                            internalFiles.delete();
+                                        }
+                                    }
+                                    String filePathToWrite = internalFile.getAbsolutePath();
+                                    Download download = new Download();
+                                    download.setPath("https://mpc-android.s3.us-west-2.amazonaws.com/MobilePriceCard.zip");
+                                    download.setType("");
+                                    new DownloadJSFile(this
+                                            , this, download, filePathToWrite).execute();
+
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1251,61 +1290,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-    public String intToIp(int i) {
-        return (i & 0xFF) + "." +
-                ((i >> 8) & 0xFF) + "." +
-                ((i >> 16) & 0xFF) + "." +
-                ((i >> 24) & 0xFF);
-    }
-
-    public void IpSearched(String sendsValue) {
-        try {
-
-            if (SessionManager.get().getIpSearched()) {
-                Context context = getApplicationContext();
-                WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                String myIp = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-
-                WifiManager wifii = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                DhcpInfo dhcp = wifii.getDhcpInfo();
-                final InetAddress[] host = new InetAddress[1];
-
-                host[0] = InetAddress.getByName(intToIp(dhcp.dns1));
-                byte[] ip = host[0].getAddress();
-
-//                for (int i = 1; i <= 254; i++) {
-//                    ip[3] = (byte) i;
-//                    InetAddress address = InetAddress.getByAddress(ip);
-//
-//                }
-                ArrayList<String> arrayList = SessionManager.get().getFilterDevice();
-                for (String device : arrayList) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Socket socket;
-                            try {
-                                if (!myIp.equals(device)) {
-                                    socket = new Socket(device, SERVER_PORT);
-                                    PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-                                    output.println(sendsValue);
-                                    output.flush();
-
-
-                                }
-                            } catch (IOException e) {
-                            }
-                        }
-                    }).start();
-
-                }
-            }
-        } catch (Exception e) {
-
-        }
-
-    }
-
     /**
      * Handle Clicks listener
      */
@@ -1702,77 +1686,27 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mContext = c;
         }
 
-//        @JavascriptInterface
-//        public void logEvent(String cmd, String msg) {
-//            if (cmd.equals(Constraint.adFrameUrl)) {
-//                maintainPromotionShowWithUrl(msg);
-//            } else if (msg.contains(Constraint.price)) {
-//                storePriceCardIfFaceDetected(msg);
-//            } else if (cmd.equals(Constraint.click)) {
-//
-//                SessionManager.get().clckPerform(true);
-//                if (!isMyServiceRunning(LogGenerateService.class)) {
-//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
-//                }
-//
-//
-//                //IpSearched("Some value");
-//            }
-//
-//
-//        }
-
-
         @JavascriptInterface
-        public void systemEvent(String cmd, String msg) {
-            try {
-                Log.e("Cjeclomg", cmd + "--" + msg);
+        public void logEvent(String cmd, String msg) {
+            if (cmd.equals(Constraint.click)) {
 
-                if (cmd.equals(Constraint.click)) {
-                    SessionManager.get().clckPerform(true);
-                    if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
-                        startService(new Intent(MainActivity.this, LogGenerateService.class));
-                    }
-                    msg = msg.replaceAll("\"", "");
-                    storeClickOnPromotionOrPriceCard(msg);
-                } else {
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(msg);
-                        if (jsonObject.get("currentCardType").equals(Constraint.adCard)) {
-
-                            maintainPromotionShowWithUrl(jsonObject);
-                        } else if (jsonObject.get("currentCardType").equals(Constraint.PRICE_CARD)) {
-
-                            storePriceCardIfFaceDetected(jsonObject);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                SessionManager.get().clckPerform(true);
+                if (!isMyServiceRunning(LogGenerateService.class)) {
+                    startService(new Intent(MainActivity.this, LogGenerateService.class));
                 }
-            } catch (Exception e) {
 
+
+                //IpSearched("Some value");
             }
+
+
         }
 
         @JavascriptInterface
-        public void globalCustomEvent(String cardDetails, boolean b) {
-//            if (SessionManager.get().getIpSearched()) {
-//                IpSearched(cardDetails);
-//                //sendDataByDataGram(cardDetails);
-//                if (b) {
-//                    mBinding.webView.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
-//                        }
-//                    });
-//
-//                }
-//            }
-        }
+        public void systemEvent(String cmd, JSONArray msg) {
 
+
+        }
 
         private boolean isMyServiceRunning(Class<?> serviceClass) {
             ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -1914,68 +1848,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding.supportWebViewLayout.setVisibility(View.GONE);
     }
 
-    private void storePriceCardIfFaceDetected(JSONObject msg) {
-        if (sessionManager.getUserFaceDetectionEnable()) {
-            DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
-        }
-
-    }
-
-
-    private void storeClickOnPromotionOrPriceCard(String msg) {
-
-        try {
-            if (sessionManager == null) {
-                sessionManager = SessionManager.get();
-            }
-
-            if (msg.contains(Constraint.PROMOTION)) {
-                String promotionPath = msg.split("\\?")[0];
-                try {
-
-                    if (promotionPath.contains("file://")) {
-                        String data[] = promotionPath.split(Constraint.PROMOTION);
-                        if (data.length > 0) {
-                            promotionPath = Constraint.PROMOTION + "" + data[1];
-                        }
-                    }
-                } catch (Exception e) {
-
-                }
-                int id = Utils.searchPromotionUsingPath(promotionPath);
-                if (id != Constraint.ZERO)
-                    DBCaller.storeLogInDatabase(context, Constraint.Impression, id + "", msg, Constraint.PROMOTION);
-
-            } else {
-                DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression, msg, Constraint.PRICECARD_LOG);
-            }
-        } catch (Exception e) {
-
-        }
-
-    }
-
-    private void maintainPromotionShowWithUrl(JSONObject msg) {
-        try {
-            String promotionPath = msg.getString("adFrameUrl").split("\\?")[0];
-            ;
-            int id = Utils.searchPromotionUsingPath(promotionPath);
-
-            if (id != Constraint.ZERO) {
-                if (sessionManager != null) {
-                    sessionManager = SessionManager.get();
-                }
-                if (sessionManager.getUserFaceDetectionEnable()) {
-                    DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", "", Constraint.PROMOTION);
-                }
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     /**
      * lunch other app
@@ -2019,12 +1891,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         alert.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                insertNewFile();
+
                 dialog.dismiss();
             }
         });
         alert.setPositiveButton(R.string.unlockk, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 String passwordString = password.getText().toString();
                 String lockPassword = sessionManager.getPasswordLock();
                 if (passwordString.equals("")) {

@@ -29,6 +29,20 @@ public class DBCaller {
         new AddLog().execute(logs, context);
 
     }
+    /**
+     * Store Log in local db
+     */
+    public static void storeFaceDetectionLogInDatabase(Context context, String eventName, String message, String eventUrl, String logType) {
+        Logs logs = new Logs();
+        logs.setEventName(eventName);
+        logs.setEventDescription(message);
+        logs.setEventUrl(eventUrl);
+        logs.setLogType(logType);
+        logs.setEventDateTime(Utils.getTodayDateWithTime());
+        logs.setEventTimeStemp(Utils.getTimeStemp());
+        new AddLog().execute(logs, context);
+
+    }
 
 
     /**

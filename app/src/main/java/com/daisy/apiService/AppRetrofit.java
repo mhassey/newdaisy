@@ -87,8 +87,10 @@ public class AppRetrofit {
                         .build();
                 Response response = chain.proceed(request);
 
-                if (!response.isSuccessful() && response.code() == ApiResponseStatusCode.ERROR) {
+                if ( response.code() == ApiResponseStatusCode.ERROR) {
                     AppController.getInstance().getActivity().handleLogout();
+                    AppController.getInstance().getActivity().removeAdminRightPermission();
+
 
                 }
                 return response;

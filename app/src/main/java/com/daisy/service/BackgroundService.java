@@ -29,6 +29,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -127,6 +128,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public static Timer refreshTimer4;
     public static Timer refreshTimer6;
     private ServerSocket serverSocket;
+    private long lastFaceDetect = 0;
 
     public static Timer refreshTimer5;
     private Intent securityIntent;
@@ -177,92 +179,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             FrontCameraRetriever.getInstance().load();
         } catch (Exception e) {
 
-        }
-        handleReceiverSocket();
-
-    }
-
-    public static void handleReceiverSocket() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                receiver();
-                //receiver1();
-            }
-        }).start();
-    }
-
-    public static void receiver1() {
-
-        try {
-
-            //Keep a socket open to listen to all the UDP trafic that is destined for this port
-            DatagramSocket socket = new DatagramSocket(null);
-            socket.setReuseAddress(true);
-            InetSocketAddress address = new InetSocketAddress(Constraint.SERVER_PORT);
-            socket.bind(address);
-
-
-            while (true) {
-                // socket.setBroadcast(true);
-
-                //Receive a packet
-                byte[] recvBuf = new byte[15000];
-                DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
-                socket.receive(packet);
-
-                //Packet received
-
-                //See if the packet holds the right command (message)
-                if (!SessionManager.get().getIpSearched()) {
-                    String message = new String(packet.getData()).trim();
-                    SocketEvent socketEvent = new SocketEvent();
-                    socketEvent.setMessage(message);
-                    EventBus.getDefault().post(socketEvent);
-                }
-                socket.close();
-                handleReceiverSocket();
-
-
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-//                    Logger.getLogger(DiscoveryThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }
-
-    public static void receiver() {
-        Socket socket;
-        try {
-            if (!SessionManager.get().getIpSearched()) {
-                ServerSocket serverSocket = new ServerSocket();
-                serverSocket.setReuseAddress(true);
-                serverSocket.bind(new InetSocketAddress(Constraint.SERVER_PORT));
-                while (true) {
-                    try {
-                        socket = serverSocket.accept();
-
-                        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                        final String message = input.readLine();
-                        if (message != null) {
-                            SocketEvent socketEvent = new SocketEvent();
-                            socketEvent.setMessage(message);
-                            EventBus.getDefault().post(socketEvent);
-                            input.close();
-                            serverSocket.close();
-                            handleReceiverSocket();
-                            return;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }
@@ -1196,64 +1112,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
         mGravity = event.values.clone();
 
-        if (mGravity != null) {
-            float z = mGravity[2];
-            float x = mGravity[0];
-            float y = mGravity[1];
-            int z_digree = (int) Math.round(Math.toDegrees(Math.acos(z)));
-            int x_digree = (int) Math.round(Math.toDegrees(Math.acos(x)));
-
-            int y_digree = (int) Math.round(Math.toDegrees(Math.acos(y)));
-
-            if (z_digree != 90 || y_digree != 90 || x_digree != 90) {
-
-                //  SessionManager.get().pickDown(false);
-                // if (!isMyServiceRunning(LogGenerateService.class)) {
-                //   startService(new Intent(getApplicationContext(), LogGenerateService.class));
-                //   }
-            } else {
-
-//                movement = 1;
-//                counter = 0;
-//                isPickedUp = true;
-            }
-
-//            if (movement == 1) {
-//                if (isPickedUp) {
-//                    if (!isPickedUpSucess) {
-//
-//                        if (SessionManager.get().pickDOwn()) {
-//                            if (SystemClock.elapsedRealtime() - mLastClickTime < 30000) {
-//                                return;
-//                            } else
-//                                SessionManager.get().pickDown(false);
-//
-//                        }
-//                        isPickedDown = false;
-//                        isPickedUpSucess = true;
-//                        DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
-//
-//                    }
-//                } else {
-//                    if (!isPickedDown) {
-//                        if (!SessionManager.get().pickDOwn()) {
-//                            Inversion inversion = new Inversion();
-//
-//                            inversion.setInvert(Utils.getInvertedTime());
-//                            EventBus.getDefault().post(inversion);
-//                            isPickedDown = true;
-//                            isPickedUpSucess = false;
-//                            DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
-//                            SessionManager.get().pickDown(true);
-//                            mLastClickTime = SystemClock.elapsedRealtime();
-//                        }
-//
-//
-//                    }
-//                }
-//            }
-
-        }
 
     }
 
@@ -1298,44 +1156,22 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Face detection event
     @Override
     public void onFaceDetected() {
-        if (!FaceDetectionSingalton.getFaceDetectionSingalton().isDetected()) {
-            FaceDetectionSingalton.getFaceDetectionSingalton().setDetected(true);
-            if (sessionManager == null) {
-                sessionManager = SessionManager.get();
+        try {
+            if (SystemClock.elapsedRealtime() - lastFaceDetect < 2000) {
+                return;
             }
-            sessionManager.setFaceDetectedStore(true);
-            setFaceDetectTimer();
+            lastFaceDetect = SystemClock.elapsedRealtime();
+            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            String name = componentInfo.getClassName();
+            if (name.contains(Constraint.MAIN_ACTIVITY)) {
+                DBCaller.storeFaceDetectionLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.APPLICATION_LOGS);
+
+            }
+        } catch (Exception e) {
         }
 
-    }
-
-
-    //  Set up delete timer
-    private void setFaceDetectTimer() {
-
-        int hour = Constraint.ZERO;
-        int minit = Constraint.ONE;
-
-
-        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-
-        faceDetectTimer = new CountDownTimer(second, Constraint.THOUSAND) {
-
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            public void onFinish() {
-                if (sessionManager == null)
-                    sessionManager = SessionManager.get();
-
-                if (sessionManager.getUserFaceDetectionEnable()) {
-                    sessionManager.setFaceDetectedStore(false);
-                }
-                FaceDetectionSingalton.getFaceDetectionSingalton().setDetected(false);
-            }
-
-        }.start();
 
     }
 
@@ -1343,18 +1179,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
-        try {
-            if (sessionManager == null) {
-                sessionManager = SessionManager.get();
-            }
-            if (faceDetectTimer != null) {
-                faceDetectTimer.cancel();
-                FaceDetectionSingalton.getFaceDetectionSingalton().setDetected(false);
-            }
-            sessionManager.setFaceDetectedStore(false);
-        } catch (Exception e) {
 
-        }
     }
 
     @Override

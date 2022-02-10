@@ -2,7 +2,10 @@ package com.daisy.activity.base;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -19,6 +22,7 @@ import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.app.AppController;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
+import com.daisy.security.Admin;
 import com.daisy.service.BackgroundService;
 import com.daisy.utils.ValidationHelper;
 
@@ -63,12 +67,21 @@ public class BaseActivity extends AppCompatActivity {
             SessionManager.get().clear();
             SessionManager.get().logout(true);
             Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
             ValidationHelper.showToast(getApplicationContext(), getString(R.string.please_wait_service_is_not_register_yet));
+        }
+    }
+
+    public void removeAdminRightPermission()
+    {
+        try {
+            ComponentName devAdminReceiver = new ComponentName(this, Admin.class);
+            DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+            mDPM.removeActiveAdmin(devAdminReceiver);
+        } catch (Exception e) {
+
         }
     }
 

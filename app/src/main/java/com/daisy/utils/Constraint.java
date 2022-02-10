@@ -33,7 +33,7 @@ public class Constraint {
     public static final int FIVE_INE = 0;
     public static final String PACKAGE_INSTALLER = "com.google.android.packageinstaller";
     public static final String LOCK_SCREEN = "LockScreen";
-    public static final String MAIN_ACTIVITY = "MainActivity";
+    public static final String MAIN_ACTIVITY = "com.daisy.activity.mainActivity.MainActivity";
     public static final String LOG = "log";
     public static final String ID_PRICE_CARD = "idpriceCard";
     public static final String ID_PROMOTION = "idpromotion";
@@ -345,4 +345,8 @@ public class Constraint {
     public static String Ip_SEARCHED = "IpSearched";
 
     public static String adCard="adCard";
+    public static String hyperesources="hyperesources";
+
+
+    public static String MobilePriceCard ="MobilePriceCard";
 }

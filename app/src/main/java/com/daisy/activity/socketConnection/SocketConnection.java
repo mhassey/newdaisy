@@ -64,13 +64,12 @@ public class SocketConnection extends BaseActivity implements View.OnClickListen
 
     private void handleAdmin() {
         if (!SessionManager.get().getIpSearched()) {
-             mBinding.syncLoader.setVisibility(View.VISIBLE);
-             startService(new Intent(this, DeviceSearch.class));
-           // IpSearched(new IpSearched());
+            mBinding.syncLoader.setVisibility(View.VISIBLE);
+            startService(new Intent(this, DeviceSearch.class));
+            // IpSearched(new IpSearched());
         } else {
             SessionManager.get().setIpSearched(false);
             try {
-                BackgroundService.handleReceiverSocket();
             } catch (Exception e) {
                 e.printStackTrace();
             }
