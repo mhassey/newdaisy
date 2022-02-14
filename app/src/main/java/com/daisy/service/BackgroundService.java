@@ -835,7 +835,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 }
             }
         }
-        return true;
+        return false;
     }
 
     // Add invisible layout
