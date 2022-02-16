@@ -1,6 +1,7 @@
 package com.daisy.apiService;
 
 import com.daisy.BuildConfig;
+import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.LiveDataCallAdapterFactory;
@@ -24,18 +25,17 @@ public class AppRetrofit {
     private final ApiService apiService;
     String token = "";
     private static SessionManager sessionManager;
-    private AppRetrofit() {
-        sessionManager=SessionManager.get();
-       String baseUrl= sessionManager.getBaseUrl();
-       if (baseUrl!=null && baseUrl!="")
-       {
-           apiService = provideService(baseUrl);
 
-       }
-       else {
-           apiService = provideService(BuildConfig.BASE_URL);
-       }
-       }
+    private AppRetrofit() {
+        sessionManager = SessionManager.get();
+        String baseUrl = sessionManager.getBaseUrl();
+        if (baseUrl != null && baseUrl != "") {
+            apiService = provideService(baseUrl);
+
+        } else {
+            apiService = provideService(BuildConfig.BASE_URL);
+        }
+    }
 
     public AppRetrofit(String BaseUrl) {
         apiService = provideService(BaseUrl);
@@ -43,14 +43,12 @@ public class AppRetrofit {
 
 
     private static void initInstance() {
-        if (sessionManager==null)
-            sessionManager=SessionManager.get();
-      String baseUrl=  sessionManager.getBaseUrl();
-        if (baseUrl!=null && !baseUrl.equals(""))
-        {
+        if (sessionManager == null)
+            sessionManager = SessionManager.get();
+        String baseUrl = sessionManager.getBaseUrl();
+        if (baseUrl != null && !baseUrl.equals("")) {
             instance = new AppRetrofit();
-        }
-        else {
+        } else {
             if (instance == null) {
                 // Create the instance
                 instance = new AppRetrofit();
@@ -78,7 +76,7 @@ public class AppRetrofit {
         httpClient.connectTimeout(Constraint.THIRTY, TimeUnit.SECONDS)
                 .writeTimeout(Constraint.THIRTY, TimeUnit.SECONDS)
                 .readTimeout(Constraint.THIRTY, TimeUnit.SECONDS);
-       if (SessionManager.get().getDeviceToken() != null) {
+        if (SessionManager.get().getDeviceToken() != null) {
             token = SessionManager.get().getDeviceToken();
         }
         httpClient.addInterceptor(logging).addInterceptor(new Interceptor() {
@@ -87,11 +85,15 @@ public class AppRetrofit {
                 Request.Builder requestBuilder = chain.request().newBuilder().addHeader(ApiConstant.KEY_CONTENT_TYPE, ApiConstant.CONTENT_TYPE);
                 Request request = requestBuilder
                         .build();
-                 Response response = chain.proceed(request);
+                Response response = chain.proceed(request);
 
-                if (response.isSuccessful() && response.code() == ApiResponseStatusCode.ERROR) {
+                if (response.code() == ApiResponseStatusCode.ERROR) {
+                    AppController.getInstance().getActivity().handleLogout();
+                    AppController.getInstance().getActivity().removeAdminRightPermission();
+
 
                 }
+
                 return response;
             }
         });

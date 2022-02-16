@@ -35,8 +35,8 @@ public class AppController extends Application implements LifecycleObserver {
 
     @Override
     public void onCreate() {
-        instanceCreation();
 
+        instanceCreation();
         DBCaller.storeLogInDatabase(this, Constraint.APPLICATION_START, Constraint.APPLICATION_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         setLang();
@@ -148,6 +148,10 @@ public class AppController extends Application implements LifecycleObserver {
      */
     public BaseActivity getActivity() {
         return baseActivity;
+    }
+
+    public void setBaseActivity(BaseActivity baseActivity) {
+        this.baseActivity = baseActivity;
     }
 
     public void setContext(Context applicationContext) {
