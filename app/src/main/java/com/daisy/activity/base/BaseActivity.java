@@ -2,7 +2,11 @@ package com.daisy.activity.base;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,8 +18,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.R;
+import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.app.AppController;
+import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
+import com.daisy.security.Admin;
+import com.daisy.service.BackgroundService;
+import com.daisy.utils.ValidationHelper;
 
 import java.util.Locale;
 
@@ -37,11 +46,47 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppController.getInstance().setBaseActivity(this);
         AppController.getInstance().setContext(getApplicationContext());
         initView();
 
     }
 
+    /**
+     * Responsibility - handleLogout is an method that help to logout the app with stop all services
+     * Parameters - No parameter
+     **/
+    public void handleLogout() {
+        try {
+            if (BackgroundService.getServiceObject() != null) {
+                AlaramHelperBackground.cancelAlarmElapsed();
+                AlaramHelperBackground.disableBootReceiver(getApplicationContext());
+                AlaramHelperBackground.cancelAlarmRTC();
+                BackgroundService.getServiceObject().closeService();
+                getApplicationContext().stopService(new Intent(getApplicationContext(), BackgroundService.class));
+                SessionManager.get().clear();
+                SessionManager.get().logout(true);
+                Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } else {
+                ValidationHelper.showToast(getApplicationContext(), getString(R.string.please_wait_service_is_not_register_yet));
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    public void removeAdminRightPermission() {
+        try {
+            ComponentName devAdminReceiver = new ComponentName(this, Admin.class);
+            DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+            mDPM.removeActiveAdmin(devAdminReceiver);
+        } catch (Exception e) {
+
+        }
+    }
 
     /**
      * Responsibility - initView helps app to always keep screen on and initialize work for all activity
@@ -70,8 +115,6 @@ public class BaseActivity extends AppCompatActivity {
             activity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         }
     }
-
-
 
 
     /**

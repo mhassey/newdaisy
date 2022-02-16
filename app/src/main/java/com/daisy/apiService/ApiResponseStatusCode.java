@@ -10,6 +10,6 @@ public class ApiResponseStatusCode {
     public static final int SUCCESS_200 = 200;
     public static final int SUCCESS_300 = 300;
     public static final int INTERNET_ERROR = 503;
-    public static final int ERROR = 202;
+    public static final int ERROR = 201;
 
 }

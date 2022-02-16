@@ -1,6 +1,7 @@
 package com.daisy.apiService;
 
 import com.daisy.BuildConfig;
+import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.LiveDataCallAdapterFactory;
@@ -87,11 +88,15 @@ public class AppRetrofit {
                 Request.Builder requestBuilder = chain.request().newBuilder().addHeader(ApiConstant.KEY_CONTENT_TYPE, ApiConstant.CONTENT_TYPE);
                 Request request = requestBuilder
                         .build();
-                 Response response = chain.proceed(request);
+                Response response = chain.proceed(request);
 
-                if (response.isSuccessful() && response.code() == ApiResponseStatusCode.ERROR) {
+                if (response.code() == ApiResponseStatusCode.ERROR) {
+                    AppController.getInstance().getActivity().handleLogout();
+                    AppController.getInstance().getActivity().removeAdminRightPermission();
+
 
                 }
+
                 return response;
             }
         });
