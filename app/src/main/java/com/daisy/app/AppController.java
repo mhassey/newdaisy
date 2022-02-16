@@ -150,6 +150,10 @@ public class AppController extends Application implements LifecycleObserver {
         return baseActivity;
     }
 
+    public void setBaseActivity(BaseActivity baseActivity) {
+        this.baseActivity = baseActivity;
+    }
+
     public void setContext(Context applicationContext) {
     }
 }
