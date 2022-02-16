@@ -62,7 +62,10 @@ public class LangSupportAdaptor extends RecyclerView.Adapter<LangSupportAdaptor.
         });
 
     }
-
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     @Override
     public int getItemCount() {
