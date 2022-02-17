@@ -317,6 +317,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
             case R.id.direct_apk_update: {
                 handleApkUpdateDirectly();
+                break;
             }
             case R.id.logout_app: {
                 logoutAlert();
