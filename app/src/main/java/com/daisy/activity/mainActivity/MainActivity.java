@@ -1891,7 +1891,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         alert.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                insertNewFile();
 
                 dialog.dismiss();
             }
