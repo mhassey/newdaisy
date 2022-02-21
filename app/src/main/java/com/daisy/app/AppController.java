@@ -2,10 +2,7 @@ package com.daisy.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -15,10 +12,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.activity.configSettings.ConfigSettings;
-import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
-import com.daisy.database.DBCaller;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
@@ -34,7 +28,7 @@ public class AppController extends Application implements LifecycleObserver {
     private static BaseActivity baseActivity;
 
     public static void setActivity(BaseActivity baseActivity1) {
-     baseActivity=baseActivity1;
+        baseActivity = baseActivity1;
     }
 
     @Override

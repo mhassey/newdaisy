@@ -20,7 +20,6 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
-import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityRefreshTimerBinding;
 import com.daisy.pojo.response.GlobalResponse;
@@ -195,7 +194,6 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
             sessionManager.setDeviceSecurity(response.getResult().getStoreDetails().getDeviceSecurity());
             sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
-         //   Utils.getInvertedTimeWithNewCorrectionFactor();
             if (!response.getResult().isDefault()) {
                 if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
 
@@ -275,7 +273,6 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
 
                 String path = Utils.getPath();
                 if (path != null) {
-                    // if (!path.equals(UrlPath)) {
                     Utils.deleteCardFolder();
                     try {
                         Utils.writeFile(configFilePath, UrlPath);
@@ -284,7 +281,6 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
                     }
                     sessionManager.deleteLocation();
 
-                    //   }
                 } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);

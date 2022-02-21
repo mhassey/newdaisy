@@ -15,10 +15,13 @@ import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+/**
+ * Purpose - SignUpViewModel class helps to handle business logic
+ */
 public class SignUpViewModel extends AndroidViewModel {
-    private MutableLiveData<HashMap<String,String>> signUpRequestMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<HashMap<String, String>> signUpRequestMutableLiveData = new MutableLiveData<>();
     private LiveData<SignUpResponse> responseLiveData;
-    private SignUpRepo signUpRepo=new SignUpRepo();
+    private SignUpRepo signUpRepo = new SignUpRepo();
 
     public SignUpViewModel(@NonNull Application application) {
         super(application);
@@ -30,7 +33,7 @@ public class SignUpViewModel extends AndroidViewModel {
         });
     }
 
-    public void setSignUpRequestMutableLiveData(HashMap<String,String> request) {
+    public void setSignUpRequestMutableLiveData(HashMap<String, String> request) {
         signUpRequestMutableLiveData.setValue(request);
     }
 

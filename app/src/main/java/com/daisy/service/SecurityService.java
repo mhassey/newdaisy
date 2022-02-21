@@ -132,7 +132,6 @@ public class SecurityService extends Service {
         super.onDestroy();
     }
 
-    //  Lock open defination
     private BroadcastReceiver PhoneUnlockedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

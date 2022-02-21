@@ -65,15 +65,9 @@ public class DeviceSearch extends Service {
                         ip[3] = (byte) i;
                         InetAddress address = InetAddress.getByAddress(ip);
                         if (isReachable(address.getHostAddress(), Constraint.SERVER_PORT, 500)) {
-//                            new Handler(Looper.getMainLooper()).post(new Runnable() {
-//                                public void run() {
-//                                    ValidationHelper.showToast(getApplicationContext(),address.getHostAddress());
-//
-//                                }
-//                            });
+
                             hostAddress.add(address.getHostAddress());
                         } else if (!address.getHostAddress().equals(address.getHostName())) {
-//                            System.out.println(address + " machine is known in a DNS lookup");
                         }
 
                     }
@@ -94,8 +88,6 @@ public class DeviceSearch extends Service {
     }
 
     private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
-        // Any Open port on other machine
-        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
         try {
             try (Socket soc = new Socket()) {
                 soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);

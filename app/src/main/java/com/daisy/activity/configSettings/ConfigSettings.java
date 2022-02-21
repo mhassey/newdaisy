@@ -335,12 +335,18 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Purpose - handleSocketConnectionCall method open socket connection page
+     */
     private void handleSocketConnectionCall() {
         Intent intent = new Intent(this, SocketConnection.class);
         startActivity(intent);
     }
 
 
+    /**
+     * Purpose - logoutAlert method is used for open logout alert dialog
+     */
     public void logoutAlert() {
         LogoutDialog dateTimePermissionDIalog = new LogoutDialog();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

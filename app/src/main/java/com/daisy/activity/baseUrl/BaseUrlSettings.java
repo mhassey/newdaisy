@@ -3,11 +3,8 @@ package com.daisy.activity.baseUrl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.databinding.DataBindingUtil;
@@ -28,10 +25,7 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Purpose -  BaseUrlSettings is an activity that helps to select an an server
@@ -59,7 +53,6 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
      **/
     private void initView() {
         sessionManager = SessionManager.get();
-
         setNoTitleBar(this);
         context = this;
         boolean b = sessionManager.getBaseUrlAdded();

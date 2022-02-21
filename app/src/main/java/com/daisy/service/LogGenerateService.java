@@ -34,7 +34,6 @@ public class LogGenerateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("increse counter","command start");
 
         startCounterforLogs();
         return super.onStartCommand(intent, flags, startId);
@@ -48,24 +47,15 @@ public class LogGenerateService extends Service {
             T.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    Log.e("increse counter",currentTime+"");
                     currentTime++;
-                   // if (!SessionManager.get().pickDOwn() || SessionManager.get().clickPerform()) {
                     if (SessionManager.get().clickPerform()) {
-
-                        Log.e("increse counter","second become 0");
-
                         SessionManager.get().pickDown(true);
                         SessionManager.get().clckPerform(false);
                         seconds = 0;
                     } else {
-                        Log.e("increse counter","second increse");
-
                         seconds++;
                     }
                     if (seconds >= 16) {
-                        Log.e("increse counter","second become 16");
-
                         int day = (int) TimeUnit.SECONDS.toDays(currentTime);
                         long hours = TimeUnit.SECONDS.toHours(currentTime) - (day * 24);
                         String hours_string = "";

@@ -74,6 +74,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Responsibility - removeAdminRightPermission is an method that help to remove admin right permission
+     * Parameters - No parameter
+     **/
     public void removeAdminRightPermission()
     {
         try {

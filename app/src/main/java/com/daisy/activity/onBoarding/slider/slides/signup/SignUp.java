@@ -32,7 +32,6 @@ import java.util.Locale;
 /**
  * Purpose -  SignUp is an activity that help to sign up with store code and password
  * Responsibility - Its ask for store code and password and fire sign up api and handle response
- *
  **/
 public class SignUp extends BaseFragment implements View.OnClickListener {
     private static OnBoarding baording;
@@ -48,10 +47,16 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         loginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-         return loginBinding.getRoot();
+        return loginBinding.getRoot();
     }
 
-    // getInstance method is used for getting signup object
+
+    /**
+     * Purpose - getInstance method is used for getting signup object
+     *
+     * @param onBoarding
+     * @return
+     */
     public static SignUp getInstance(OnBoarding onBoarding) {
         baording = onBoarding;
         return new SignUp();
@@ -64,19 +69,25 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         initClick();
     }
 
-    // Initiate clicks
+
+    /**
+     * Purpose - Initiate clicks
+     */
     private void initClick() {
 
         loginBinding.singup.setOnClickListener(this);
         loginBinding.cancel.setOnClickListener(this::onClick);
     }
 
-    //  Initiate objects
+
+    /**
+     * Purpose - Initiate objects
+     */
     private void initView() {
-        context=requireContext();
-        sessionManager=SessionManager.get();
-        signUpValidationHelper=new SignUpValidationHelper(context,loginBinding);
-        signUpViewModel=new ViewModelProvider(this).get(SignUpViewModel.class);
+        context = requireContext();
+        sessionManager = SessionManager.get();
+        signUpValidationHelper = new SignUpValidationHelper(context, loginBinding);
+        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
     }
 
     @Override
@@ -84,22 +95,23 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.singup: {
 
-               doSignUp();
+                doSignUp();
 
                 break;
             }
-            case R.id.cancel:
-            {
+            case R.id.cancel: {
                 getActivity().onBackPressed();
                 break;
             }
         }
     }
 
-    // Perform signup
+
+    /**
+     * Purpose - doSignUp method handles sign up api
+     */
     private void doSignUp() {
-        if (Utils.getNetworkState(context))
-        {
+        if (Utils.getNetworkState(context)) {
             if (signUpValidationHelper.isValid()) {
                 showHideProgressDialog(true);
                 HashMap<String, String> signUpRequest = getSignUpRequest();
@@ -113,24 +125,25 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                         }
                     });
                 }
-            }
-            else{
+            } else {
                 baording.counterMinus();
             }
-        }
-        else
-        {
+        } else {
             baording.counterMinus();
-            ValidationHelper.showToast(context,getString(R.string.no_internet_available));
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
     }
 
-    //  Handle signup response
-    private void  handleResponse(SignUpResponse signUpResponse) {
-         showHideProgressDialog(false);
-        if (signUpResponse!=null) {
+    /**
+     * Purpose - handleResponse method handle sign up response
+     *
+     * @param signUpResponse
+     */
+    private void handleResponse(SignUpResponse signUpResponse) {
+        showHideProgressDialog(false);
+        if (signUpResponse != null) {
             if (signUpResponse.isApi_status()) {
-                DBCaller.storeLogInDatabase(context,Constraint.LOGIN_SUCCESSFULL,"","",Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context, Constraint.LOGIN_SUCCESSFULL, "", "", Constraint.APPLICATION_LOGS);
                 sessionManager.setPasswordForLock(loginBinding.password.getText().toString());
                 sessionManager.setOpenTime(signUpResponse.getData().getOpen());
                 sessionManager.setCloseTime(signUpResponse.getData().getClosed());
@@ -146,20 +159,24 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 baording.counterMinus();
                 ValidationHelper.showToast(context, signUpResponse.getMessage());
             }
-        }else
-        {
+        } else {
 
             baording.counterMinus();
-            ValidationHelper.showToast(context,getString(R.string.no_internet_available));
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
 
     }
 
-    //  Create signup request
-    private HashMap<String,String> getSignUpRequest() {
-        HashMap<String,String> hashMap=new HashMap<>();
-        hashMap.put(Constraint.STORE_CODE,loginBinding.storeCode.getText().toString());
-        hashMap.put(Constraint.PASSWORD_ID,loginBinding.password.getText().toString());
+
+    /**
+     * Purpose - Create signup request
+     *
+     * @return
+     */
+    private HashMap<String, String> getSignUpRequest() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.STORE_CODE, loginBinding.storeCode.getText().toString());
+        hashMap.put(Constraint.PASSWORD_ID, loginBinding.password.getText().toString());
 
         return hashMap;
     }
@@ -170,15 +187,17 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         designWork();
     }
 
-    // Change design at run time
+
+    /**
+     * Purpose - designWork method handles next button ui and background
+     */
     private void designWork() {
-        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
                 baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
-            }
-                else
+            } else
 
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green) );
+                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
         } else {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                 baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));

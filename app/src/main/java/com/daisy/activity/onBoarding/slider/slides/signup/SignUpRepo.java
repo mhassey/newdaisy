@@ -13,6 +13,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose - SignUpRepo class helps to fire sign up api and handle its response
+ */
 public class SignUpRepo {
     private MutableLiveData<SignUpResponse> liveData=new MutableLiveData<>();
     private ApiService apiService;

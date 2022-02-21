@@ -76,7 +76,7 @@ public class CheckCardAvailability {
     }
 
     /**
-     * Handle getcard api response
+     * Handle getCard api response
      */
     private void handleResponse(Response<GlobalResponse<GetCardResponse>> liveData) {
         if (liveData != null) {

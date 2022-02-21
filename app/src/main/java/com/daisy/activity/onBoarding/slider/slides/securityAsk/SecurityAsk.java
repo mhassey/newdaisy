@@ -40,6 +40,11 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
         return securityAskBinding.getRoot();
     }
 
+    /**
+     * Purpose - getInstance method set binding data and return object of SecurityAsk
+     * @param onBaordingBinding
+     * @return
+     */
     public static SecurityAsk getInstance(ActivityOnBaordingBinding onBaordingBinding) {
         ActivityOnBaordingBinding=onBaordingBinding;
         return new SecurityAsk();
@@ -51,6 +56,9 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
         initClick();
     }
 
+    /**
+     * Purpose - initClick method initiate the click listener
+     */
     private void initClick() {
     securityAskBinding.cancel.setOnClickListener(this);
     }
@@ -67,6 +75,10 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
 
     }
 
+
+    /**
+     * Purpose - designWork method set background of next button ui
+     */
     private void designWork() {
 
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -87,6 +99,10 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
         ActivityOnBaordingBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
     }
 
+    /**
+     * Purpose - onClick method is handle all click listener
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId())

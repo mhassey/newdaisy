@@ -6,6 +6,9 @@ import com.daisy.R;
 import com.daisy.databinding.FragmentLoginBinding;
 import com.daisy.utils.ValidationHelper;
 
+/**
+ * Purpose - SignUpValidationHelper class handles validation of sign up
+ */
 public class SignUpValidationHelper {
     private Context context;
     private FragmentLoginBinding loginBinding;
