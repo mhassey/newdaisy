@@ -78,6 +78,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Purpose - removeAdminRightPermission method remove admin right permission
+     */
     public void removeAdminRightPermission() {
         try {
             ComponentName devAdminReceiver = new ComponentName(this, Admin.class);
