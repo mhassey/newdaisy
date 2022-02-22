@@ -145,13 +145,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         setCounter();
         initWifi();
         initPassword();
-        //defineSensor();
-//        try {
-//            FrontCameraRetriever.retrieveFor(this);
-//            FrontCameraRetriever.getInstance().load();
-//        } catch (Exception e) {
-//
-//        }
+
     }
 
 
@@ -197,7 +191,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                     }
                                 }
 
-                                storeProcess(process);
                                 if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
                                     if (!b) {
 
@@ -253,18 +246,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }).timeout(200).start(getApplicationContext());
     }
 
-    private void storeProcess(String process) {
-        try {
-            String app_name = (String) getPackageManager().getApplicationLabel(
-                    getPackageManager().getApplicationInfo(process
-                            , PackageManager.GET_META_DATA));
-//            if (app_name != null) {
-//                if (!app_name.equals(Constraint.SYSTEM_LUNCHER) && !app_name.equals(Constraint.DAISYY))
-//                 //   DBCaller.storeLogInDatabase(getApplicationContext(), getApplicationContext().getString(R.string.open) + app_name, "", "", Constraint.APPLICATION_LOGS);
-//            }
-        } catch (Exception e) {
-        }
-    }
 
     public static BackgroundService getServiceObject() {
         return backgroundService;
@@ -298,43 +279,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
-    // Define all sensors
-    private void defineSensor() {
-        sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        stepDetectorSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        stepCounterSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        magnetometer = sensorMan.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        mAccel = 0.00f;
-        mAccelCurrent = SensorManager.GRAVITY_EARTH;
-        mAccelLast = SensorManager.GRAVITY_EARTH;
-//        sensorMan.registerListener(this, accelerometer,
-//                SensorManager.SENSOR_DELAY_UI);
-//        sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
-//
-//        sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
-//        sensorMan.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-//        sensorMan.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
-//        sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-    }
-
-    // Use to wake up phone
-    private void wakePhoneUp() {
-        mWakeLock.acquire();
-        mWakeLock.release();
-    }
 
     // set all main counters
     private void setCounter() {
-        //bringApplicationTimer();
         setDeleteTimer();
         sendLogTimer();
         checkUpdate();
         checkPromotion();
         checkInversion();
-        //stopUninstall();
         updateAPk();
         validatePromotion();
     }
@@ -408,30 +360,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     }
 
-    //  Shutdown stop method but not accorate
-    private void stopShutdown() {
-        try {
-
-
-            int second = Constraint.FIVE_HUNDRED;
-            refreshTimer5 = new Timer();
-            refreshTimer5.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-                        Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-                        sendBroadcast(closeDialog);
-
-
-                    } catch (Exception e) {
-
-                    }
-                }
-            }, second, second);
-
-        } catch (Exception e) {
-        }
-    }
 
     //  Check for promotion
     private void checkPromotion() {
@@ -740,17 +668,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
     };
 
-    //  Open Main as Overlay on lock screen
-    private void showOverlayActivity(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startMyOwnForeground() {
-//        String NOTIFICATION_CHANNEL_ID = "com.example.simpleapp";
         String NOTIFICATION_CHANNEL_ID = getPackageName();
 
         String channelName = Constraint.BACKGROUND_SERVICE;
@@ -819,7 +739,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Handle touch event on phone
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Log.e("Working","Hance Proved");
+        Log.e("Working", "Hance Proved");
         count = Constraint.ZERO;
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
@@ -938,10 +858,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         Utils.constructJobForBackground(time1, getApplicationContext());
     }
 
-    public void enableWifi() {
-        wifiManager.setWifiEnabled(true);
-    }
-
 
     // Set brightness
     private void screenBrightness(int level) {
@@ -987,7 +903,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case (Sensor.TYPE_STEP_COUNTER):
-                //  countSteps(event.values[0]);
                 break;
 
             case Sensor.TYPE_GYROSCOPE:
@@ -1026,7 +941,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     if (!isPickedUpSucess) {
                         isPickedDown = false;
                         isPickedUpSucess = true;
-                        // DBCaller.storeLogInDatabase(getApplicationContext(), "Device picked up", "", "", Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -1036,7 +950,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         EventBus.getDefault().post(inversion);
                         isPickedDown = true;
                         isPickedUpSucess = false;
-                        //   DBCaller.storeLogInDatabase(getApplicationContext(), "Device put down", "", "", Constraint.APPLICATION_LOGS);
 
                     }
                 }

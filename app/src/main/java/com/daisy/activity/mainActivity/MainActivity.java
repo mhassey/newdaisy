@@ -122,7 +122,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //checkAdminPermission();
         initView();
         initService();
         setOnClickListener();
@@ -233,6 +232,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+    /**
+     * Purpose - Handle sanitization
+     */
     private void sanitisedWork() {
         if (sessionManager.getSanitized()) {
             mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
@@ -250,7 +252,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
-        //  startService(new Intent(MainActivity.this, CaptureImageService.class));
     }
 
     /**
@@ -281,11 +282,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     //TODO Handle resume work
     private void handleResumeWork() {
-//        if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-//            if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
-//                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-//            }
-//        }
         if (sessionManager.getSanitized()) {
             if (sessionManager.getComeConfig()) {
                 sessionManager.setComeFromConfig(false);
@@ -811,12 +807,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
                     }
 
-
-//                    if (!SessionManager.get().isNewApk()) {
-//                        handlePriceCardGettingHandler();
-//                           SessionManager.get().setNewApk(true);
-//                    }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -924,8 +914,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         if (jsonArray.length() > 0)
             mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-
-//        mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
     }
 
 
@@ -1026,6 +1014,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+    /**
+     * Purpose - redirectToMainHandler method handle the conditions and open main activity
+     *
+     * @param response
+     * @throws IOException
+     */
     private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
         Utils.deleteDaisy();
         String UrlPath;
@@ -1243,7 +1237,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Setting icon click
      */
     private void settingClick() {
-        //  DBCaller.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         openConfigSettings();
     }
 
@@ -1483,9 +1476,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updatePromotion(Promotion promotionss) {
         try {
-
-            // Utils.deletePromotion();
-            // sessionManager.deletePromotions();
             List<Promotion> promotions = sessionManager.getPromotion();
             JSONArray listOfPromo = sessionManager.getPromotions();
             List<Download> downloads = new ArrayList<>();
@@ -1582,46 +1572,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
-            Log.e("Cjeclomg", cmd + "--" + msg);
-            if (cmd.equals(Constraint.adFrameUrl)) {
-
-                maintainPromotionShowWithUrl(msg);
-            } else if (msg.contains(Constraint.price)) {
-
-                storePriceCardIfFaceDetected(msg);
-            } else if (cmd.equals(Constraint.click)) {
+            if (cmd.equals(Constraint.click)) {
                 SessionManager.get().clckPerform(true);
                 if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
                     startService(new Intent(MainActivity.this, LogGenerateService.class));
                 }
-
-                storeClickOnPromotionOrPriceCard(msg);
             }
 
         }
-//        @JavascriptInterface
-//        public void systemEvent(String cmd, String msg) {
-//            Log.e("Cjeclomg", cmd + "--" + msg);
-//            if (cmd.equals(Constraint.adFrameUrl)) {
-//
-//                maintainPromotionShowWithUrl(msg);
-//            } else if (msg.contains(Constraint.price)) {
-//
-//                storePriceCardIfFaceDetected(msg);
-//            } else if (cmd.equals(Constraint.click)) {
-//                SessionManager.get().clckPerform(true);
-//                if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
-//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
-//                }
-//
-//                storeClickOnPromotionOrPriceCard(msg);
-//            }
-//
-//        }
+
 
         @JavascriptInterface
         public void heartbeat(String msg) {
-            // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
         }
 
 
@@ -1637,63 +1599,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     private void storePriceCardIfFaceDetected(String msg) {
         if (sessionManager.getUserFaceDetectionEnable()) {
-            //  DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.PRICECARD_LOG);
         }
 
     }
 
     private void storeClickOnPromotionOrPriceCard(String msg) {
-        try {
-            if (sessionManager != null) {
-                sessionManager = SessionManager.get();
-            }
 
-            if (msg.contains(Constraint.PROMOTION)) {
-                String promotionPath = msg.split("\\?")[0];
-                try {
-
-                    if (promotionPath.contains("file://")) {
-                        String data[] = promotionPath.split(Constraint.PROMOTION);
-                        if (data.length > 0) {
-                            promotionPath = Constraint.PROMOTION + "" + data[1];
-                        }
-                    }
-                } catch (Exception e) {
-
-                }
-                int id = Utils.searchPromotionUsingPath(promotionPath);
-                //     if (id != Constraint.ZERO)
-                // DBCaller.storeLogInDatabase(context, Constraint.Impression, id + "", msg, Constraint.PROMOTION);
-
-            } else {
-                // DBCaller.storeLogInDatabase(context, Constraint.Impression, Constraint.Impression, msg, Constraint.PRICECARD_LOG);
-            }
-        } catch (Exception e) {
-
-        }
 
     }
 
-    private void maintainPromotionShowWithUrl(String msg) {
-        try {
-            String promotionPath = msg.split("\\?")[0];
-            int id = Utils.searchPromotionUsingPath(promotionPath);
-
-            if (id != Constraint.ZERO) {
-                if (sessionManager == null) {
-                    sessionManager = SessionManager.get();
-                }
-                if (sessionManager.getUserFaceDetectionEnable()) {
-                    //    DBCaller.storeLogInDatabase(context, Constraint.USER_SEEN_PRMOTION, id + "", promotionPath, Constraint.PROMOTION);
-                }
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     /**
      * lunch other app
@@ -1749,25 +1663,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     }
 
-
-    private void checkAdminPermission() {
-
-        DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        ComponentName mAdminName = new ComponentName(this, Admin.class);
-        if (!mDPM.isAdminActive(mAdminName)) {
-            if (sessionManager == null)
-                sessionManager = SessionManager.get();
-            sessionManager.setPasswordCorrect(true);
-
-            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-                    mAdminName);
-
-            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
-            startActivityForResult(intent, Constraint.ADMIN_REQUEST_CODE);
-
-        }
-    }
 
 
 }

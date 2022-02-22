@@ -130,14 +130,6 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
                 }
                 fileName = Constraint.DAISYAPK;
                 String path = folder + fileName;
-//            try {
-//                File file = new File(path);
-//                if (file.exists()) {
-//                    file.delete();
-//                }
-//            } catch (Exception e) {
-//
-//            }
 
                 OutputStream output = new FileOutputStream(path);
 

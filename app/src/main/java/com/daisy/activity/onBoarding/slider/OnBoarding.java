@@ -194,7 +194,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        //  fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -285,43 +284,10 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-//        if (count == Constraint.TWO) {
-//            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
-//            try {
-//                if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
-//                    sessionManager.setDeletePhoto(true);
-//                } else {
-//                    sessionManager.setDeletePhoto(false);
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
-//                sessionManager.setLockOnBrowser(true);
-//            } else {
-//                sessionManager.setLockOnBrowser(false);
-//
-//            }
-//            if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
-//                sessionManager.setLockOnMessage(true);
-//            } else {
-//                sessionManager.setLockOnMessage(false);
-//
-//            }
-//            if (securityAsk.securityAskBinding.lock.isChecked()) {
-//                sessionManager.setLock(true);
-//            } else {
-//                sessionManager.setLock(false);
-//
-//            }
-//
-//        } else
         if (count == Constraint.TWO) {
             sessionManager.setLockOnBrowser(true);
             sessionManager.setLockOnMessage(true);
                             sessionManager.setLock(true);
-//
-            //  sessionManager.setLock(true);
             SignUp signUp = (SignUp) fragmentList.get(Constraint.ONE);
 
             signUp.loginBinding.singup.performClick();
@@ -365,7 +331,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse, AddScreen addScreen) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-            //  DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + getString(R.string.screen_add), "", "", Constraint.APPLICATION_LOGS);
             mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.GONE);
             mBinding.pager.setCurrentItem(count);
@@ -469,9 +434,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.deleteCardFolder();
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
-
-                        //     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
-
                     }
                 } else {
                     Utils.writeFile(configFilePath, UrlPath);
@@ -493,9 +455,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.deleteCardFolder();
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
-
-                        // DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
-
                     }
                 } else {
                     Utils.writeFile(configFilePath, UrlPath);
@@ -534,9 +493,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.deleteCardFolder();
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
-
-                        //  DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
-
                     }
                 } else {
                     Utils.writeFile(configFilePath, UrlPath);
@@ -558,9 +514,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         Utils.deleteCardFolder();
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
-
-                        //    DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
-
                     }
                 } else {
                     Utils.writeFile(configFilePath, UrlPath);

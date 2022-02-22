@@ -192,7 +192,6 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
             sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
             sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
             sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
-//            sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
             sessionManager.setDeviceSecurity(response.getResult().getStoreDetails().getDeviceSecurity());
             sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
 

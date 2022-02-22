@@ -16,6 +16,10 @@ import com.daisy.pojo.response.GlobalResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Purpose -  FeedBackModelView is an view model class that helps to send feedback
+ * Responsibility - Its helps to call getFeedBackResponse method of FeedBackRepo class
+ **/
 public class FeedBackModelView extends AndroidViewModel {
     private ArrayList<String> feedbackTitle;
     private LiveData<GlobalResponse<FeedBackResponse>> liveData;
@@ -35,6 +39,11 @@ public class FeedBackModelView extends AndroidViewModel {
 
     }
 
+    /**
+     * Purpose - addFeedBackData method add feedback title
+     *
+     * @param application
+     */
     private void addFeedBackData(Application application) {
         feedbackTitle.add(application.getApplicationContext().getString(R.string.Bug));
         feedbackTitle.add(application.getApplicationContext().getString(R.string.SUGGESION));
@@ -43,14 +52,23 @@ public class FeedBackModelView extends AndroidViewModel {
 
     }
 
+    /**
+     * Purpose - getFeedbackTitle method return feedback title list
+     */
     public ArrayList<String> getFeedbackTitle() {
         return feedbackTitle;
     }
 
+    /**
+     * Purpose - setFeedBackRequest method set  request for feedback api
+     */
     public void setFeedBackRequest(HashMap<String, String> request) {
         requestMutableLiveData.setValue(request);
     }
 
+    /**
+     * Purpose - getLiveData method return feedback response
+     */
     public LiveData<GlobalResponse<FeedBackResponse>> getLiveData() {
         return liveData;
     }

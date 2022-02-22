@@ -134,7 +134,6 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         showHideProgressDialog(false);
         if (signUpResponse != null) {
             if (signUpResponse.isApi_status()) {
-                //  DBCaller.storeLogInDatabase(context,getString(R.string.login_success),"","",Constraint.APPLICATION_LOGS);
                 sessionManager.setPasswordForLock(loginBinding.password.getText().toString());
                 sessionManager.setOpenTime(signUpResponse.getData().getOpen());
                 sessionManager.setCloseTime(signUpResponse.getData().getClosed());
@@ -227,7 +226,6 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
         }
         baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
-//        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.selected_green));
 
         baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));

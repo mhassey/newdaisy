@@ -115,7 +115,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkAdminPermission();
         String name = Utils.getDeviceName();
 
-        //if (name.contains(Constraint.REDME)) {
         if (false) {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandExtraAccess()) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
@@ -295,7 +294,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                     // do something for phones running an SDK before lollipop
                 }
 
-                // mainAdminAsk();
                 break;
             }
             case R.id.displayOverTheApp: {
@@ -354,17 +352,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         alert.show();
     }
 
-    /**
-     * Responsibility - callMiExtraPopUp method is used for asking mi permission
-     * Parameters - No parameter
-     **/
-    private void callMiExtraPopUp() {
-//        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-//        intent.setClassName("com.miui.securitycenter",
-//                "com.miui.permcenter.permissions.PermissionsEditorActivity");
-//        intent.putExtra("extra_pkgname", getActivity().getPackageName());
-//        requireActivity().startActivityForResult(intent, Constraint.MI_EXTRA_PERMISSION_CODE);
-    }
 
     /**
      * Responsibility - batteryUsage method is used for asking battery optimization permission
@@ -489,7 +476,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     private void designWork() {
         onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
-//        onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
         onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
         onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
 

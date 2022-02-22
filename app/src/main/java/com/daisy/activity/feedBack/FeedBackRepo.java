@@ -15,6 +15,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Purpose - FeedBackRepo class helps to call feedback api and return result
+ */
 public class FeedBackRepo {
     ApiService apiService;
 
@@ -24,6 +27,12 @@ public class FeedBackRepo {
 
     private MutableLiveData<GlobalResponse<FeedBackResponse>> feedBackResponseMutableLiveData = new MutableLiveData<>();
 
+    /**
+     * Purpose - getFeedBackResponse method helps to call feedback api and set its result to  mutable live data
+     *
+     * @param feedBackRequest
+     * @return
+     */
     public LiveData<GlobalResponse<FeedBackResponse>> getFeedBackResponse(HashMap<String, String> feedBackRequest) {
         Call<GlobalResponse<FeedBackResponse>> call = apiService.addFeedBack(feedBackRequest, feedBackRequest.get(Constraint.TOKEN));
         call.enqueue(new Callback<GlobalResponse<FeedBackResponse>>() {

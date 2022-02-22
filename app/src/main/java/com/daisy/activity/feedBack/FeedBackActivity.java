@@ -24,6 +24,10 @@ import com.daisy.utils.ValidationHelper;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Purpose -  FeedBackActivity is an activity that helps users to give feedback
+ * Responsibility - Its help user to send feedback
+ **/
 public class FeedBackActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityFeedBackBinding mBinding;
@@ -146,6 +150,9 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
 
 
+    /**
+     * handleFeedBackResponse is help us to get the response from server
+     */
     private void handleFeedBackResponse(GlobalResponse<FeedBackResponse> feedBackResponseGlobalResponse) {
         showHideProgressDialog(false);
         if (feedBackResponseGlobalResponse!=null)
