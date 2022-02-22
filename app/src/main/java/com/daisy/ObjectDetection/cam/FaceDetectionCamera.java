@@ -23,12 +23,12 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
     /**
      * Use this to detect faces when you have a custom surface to display upon
      *
-     * @param holder   the {@link android.view.SurfaceHolder} to display upon
+     * @param holder the {@link android.view.SurfaceHolder} to display upon
      */
     public void initialise(Listener listener, SurfaceHolder holder) {
         this.listener = listener;
         try {
-            surfaceHolder=holder;
+            surfaceHolder = holder;
             camera.stopPreview();
 
         } catch (Exception swallow) {
@@ -36,15 +36,15 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
             // ignore: tried to stop a non-existent preview
         }
         try {
-            if (camera!=null) {
+            if (camera != null) {
                 camera.setPreviewDisplay(holder);
                 camera.startPreview();
                 camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
                 camera.startFaceDetection();
             }
-            } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-                resetCamera(holder);
+            resetCamera(holder);
 
             this.listener.onFaceDetectionNonRecoverableError();
         }
@@ -68,9 +68,8 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
             camera.startPreview();
             camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
             camera.startFaceDetection();
-        }catch (Exception e)
-        {
-e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -106,7 +105,7 @@ e.printStackTrace();
         if (camera != null) {
 
             camera.release();
-            camera=null;
+            camera = null;
 
         }
 

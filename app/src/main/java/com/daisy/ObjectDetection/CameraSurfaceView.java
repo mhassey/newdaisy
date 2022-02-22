@@ -33,15 +33,12 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceCreated(SurfaceHolder holder) {
         // When the surface is ready to be drawn on
         // tell our camera to use this to show a preview
-            Log.e("kali","work,inhace");
             camera.initialise(listener, holder);
         }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.e("kali","surface change");
         if (surfaceDoesNotExist()) {
-            Log.e("kali","surface not available");
 
             return;
         }

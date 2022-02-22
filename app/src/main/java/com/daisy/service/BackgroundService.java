@@ -1222,7 +1222,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     @Override
     public void onFaceDetected() {
         try {
-            if (SystemClock.elapsedRealtime() - lastFaceDetect < 2000) {
+            if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.TEN_SECOND) {
                 return;
             }
             lastFaceDetect = SystemClock.elapsedRealtime();
