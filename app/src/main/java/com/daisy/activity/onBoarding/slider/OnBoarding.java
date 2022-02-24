@@ -193,7 +193,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void addFragmentList() {
-        fragmentList.add(PermissionAsk.getInstance(mBinding));
+        // fragmentList.add(PermissionAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -284,17 +284,17 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-        if (count == Constraint.TWO) {
+        if (count == Constraint.ONE) {
             sessionManager.setLockOnBrowser(true);
             sessionManager.setLockOnMessage(true);
-                            sessionManager.setLock(true);
-            SignUp signUp = (SignUp) fragmentList.get(Constraint.ONE);
+            sessionManager.setLock(true);
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.ZERO);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count == Constraint.THREE) {
+        } else if (count == Constraint.TWO) {
 
             if (Utils.getNetworkState(context)) {
-                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
+                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.ONE);
                 ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
                 if (screenAddValidationHelper.isValid()) {
                     showHideProgressDialog(true);
@@ -310,19 +310,19 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                         });
                     }
                 } else {
-                    count = Constraint.THREE;
+                    count = Constraint.TWO;
                 }
             } else {
-                count = Constraint.THREE;
+                count = Constraint.TWO;
                 ValidationHelper.showToast(context, getString(R.string.no_internet_available));
             }
 
 
         }
 
-        if (count == Constraint.ONE) {
-            mBinding.pager.setCurrentItem(count);
-        }
+//        if (count == Constraint.ONE) {
+//            mBinding.pager.setCurrentItem(count);
+//        }
     }
 
     /**
@@ -392,7 +392,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     public void counterMinus() {
         count = count - Constraint.ONE;
-        if (count == Constraint.THREE) {
+        if (count == Constraint.TWO) {
             mBinding.nextSlide.setVisibility(View.VISIBLE);
 
         }
