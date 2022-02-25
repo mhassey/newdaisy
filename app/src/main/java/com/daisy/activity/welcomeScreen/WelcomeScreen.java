@@ -1,6 +1,10 @@
 package com.daisy.activity.welcomeScreen;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,9 +18,13 @@ import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.dialogFragment.DateTimePermissionDIalog;
+import com.daisy.pojo.response.InternetResponse;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -57,6 +65,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
             showAlertIfTimeIsNotCorrect();
         }
     }
+
 
     /**
      * Responsibility - initClick is an method that used for initiate clicks

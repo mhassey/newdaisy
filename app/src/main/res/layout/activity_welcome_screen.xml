@@ -46,6 +46,8 @@
 
             android:orientation="vertical">
 
+
+
             <TextView
                 style="@style/fontMedium"
                 android:layout_width="wrap_content"

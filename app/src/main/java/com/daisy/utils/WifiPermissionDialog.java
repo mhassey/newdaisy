@@ -1,6 +1,7 @@
 package com.daisy.utils;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,11 +37,18 @@ public class WifiPermissionDialog extends DialogFragment implements View.OnClick
         super.onResume();
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
 
-        params.width = 900;
-        params.height = 600;
+        params.width = getScreenWidth();
+        params.height = getScreenHeight();
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
     }
 
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels / 1;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels / 2;
+    }
 
     @Override
     public void onClick(View v) {

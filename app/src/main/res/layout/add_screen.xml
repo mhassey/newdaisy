@@ -62,9 +62,8 @@
             android:layout_weight="1.5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/dp15"
-            android:gravity="center|start"
+            android:gravity="top|start"
             android:orientation="vertical">
 
             <EditText
@@ -153,12 +152,11 @@
             </RelativeLayout>
 
             <TextView
-
                 style="@style/fontRagular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp40"
-                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp20"
                 android:text="@string/manufacturer"
                 android:textSize="@dimen/sp12" />
 

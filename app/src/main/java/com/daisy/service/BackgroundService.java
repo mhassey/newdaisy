@@ -141,7 +141,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initWakeUpLock();
         registerReceiver();
         handleClick();
-        setWindowManager();
+        // setWindowManager();
         setCounter();
         initWifi();
         initPassword();
