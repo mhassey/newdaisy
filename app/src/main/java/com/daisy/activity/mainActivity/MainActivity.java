@@ -23,6 +23,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -106,7 +107,7 @@ import java.util.concurrent.TimeUnit;
  * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
  * Responsibility - Its loads cards,promotion send pricing to js and its also handles logs related price card and promotions
  **/
-public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
+public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener, View.OnTouchListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
@@ -267,6 +268,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
             }
         });
+        mBinding.webView.setOnTouchListener(this);
 
     }
 
@@ -1217,6 +1219,24 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
+    private void handleUiClick() {
+        Inversion inversion = new Inversion();
+        inversion.setInvert(Utils.getInvertedTime());
+        inverted(inversion);
+        sanitisedWork();
+        boolean value = sessionManager.getUpdateNotShow();
+        boolean isDialogOpen = sessionManager.getupdateDialog();
+        if (!isDialogOpen) {
+            if (!value) {
+                ApkDetails apkDetails = sessionManager.getApkDetails();
+
+                if (apkDetails != null) {
+                    updateApk(apkDetails);
+                }
+            }
+        }
+    }
+
     /**
      * Ge to wifi screen
      */
@@ -1524,6 +1544,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         getDownloadData();
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            handleUiClick();
+
+        }
+
+        return false;
+    }
 
     public class WebClient extends WebChromeClient {
 
@@ -1662,7 +1691,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         dialog.show();
 
     }
-
 
 
 }
