@@ -331,6 +331,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             case R.id.logout_app: {
 
                logoutAlert();
+               break;
             }
         }
     }

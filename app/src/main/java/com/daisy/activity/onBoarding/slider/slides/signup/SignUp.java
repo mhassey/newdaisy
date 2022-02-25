@@ -174,7 +174,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     }
 
     private void checkWifi() {
-        boolean b = checkWifiState();
+        boolean b = Utils.checkWifiState(getContext());
         if (!b) {
             WifiPermissionDialog dateTimePermissionDIalog = new WifiPermissionDialog();
             dateTimePermissionDIalog.setCancelable(false);
@@ -184,31 +184,6 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
     }
 
-    private boolean checkWifiState() {
-        try {
-            WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            InternetResponse internetResponse = new InternetResponse();
-            try {
-                ActivityManager am = (ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
-
-                if (wifiManager.isWifiEnabled()) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            } catch (Exception e) {
-                return false;
-
-            }
-
-        } catch (Exception e) {
-            return false;
-
-
-        }
-
-    }
 
     // Change design at run time
     private void designWork() {

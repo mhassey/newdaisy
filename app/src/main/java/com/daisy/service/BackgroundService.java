@@ -86,8 +86,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private String TAG = this.getClass().getSimpleName();
     private WindowManager mWindowManager;
     private WindowManager mWindowManagerForCamera;
-    private LinearLayout touchLayout;
-    private LinearLayout touchLayoutforCamera;
+
     private int count = 0;
     private PowerManager.WakeLock mWakeLock;
     private WifiManager wifiManager;
@@ -140,7 +139,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         showNotification();
         initWakeUpLock();
         registerReceiver();
-        handleClick();
         // setWindowManager();
         setCounter();
         initWifi();
@@ -253,10 +251,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     public void closeService() {
         unregisterReceiver();
-        if (touchLayout != null)
-            mWindowManager.removeView(touchLayout);
-        if (touchLayoutforCamera != null)
-            mWindowManager.removeView(touchLayoutforCamera);
+
     }
 
 
@@ -714,11 +709,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         initService();
     }
 
-    private void handleClick() {
-        touchLayout = new LinearLayout(this);
-        touchLayoutforCamera = new LinearLayout(this);
 
-    }
 
     //  Perform sanitised work
     private void sanitisedWork() {
@@ -758,98 +749,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         return false;
     }
 
-    // Add invisible layout
-    private void setWindowManager() {
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        touchLayout.setLayoutParams(lp);
-        touchLayout.setOnTouchListener(this);
-        touchLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return Constraint.FALSE;
-            }
-        });
-        WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams(0, 0);
-        touchLayoutforCamera.setLayoutParams(lp1);
-        touchLayout.setLongClickable(true);
 
-        mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        mWindowManagerForCamera = (WindowManager) getSystemService(WINDOW_SERVICE);
-
-        // set layout parameter of window manager
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_PHONE,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-            mWindowManager.addView(touchLayout, params);
-        } else {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-            mWindowManager.addView(touchLayout, params);
-
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    0,
-                    0,
-                    WindowManager.LayoutParams.TYPE_PHONE,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-            mWindowManagerForCamera.addView(touchLayoutforCamera, params);
-        } else {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    //      WindowManager.LayoutParams.WRAP_CONTENT,
-                    //    WindowManager.LayoutParams.WRAP_CONTENT,
-                    10, 10,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-
-            mWindowManagerForCamera.addView(touchLayoutforCamera, params);
-
-        }
-    }
 
     private void initService() {
         if (Constraint.IS_OVER_APP_SETTING)

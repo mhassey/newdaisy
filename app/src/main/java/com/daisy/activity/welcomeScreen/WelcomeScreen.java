@@ -1,9 +1,9 @@
 package com.daisy.activity.welcomeScreen;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
@@ -22,9 +22,6 @@ import com.daisy.pojo.response.InternetResponse;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -43,8 +40,34 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
         initView();
         initClick();
+        registerWifiReceiver();
     }
 
+    private void registerWifiReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        registerReceiver(wifiStateReceiver, intentFilter);
+    }
+
+
+    /**
+     * Purpose - wifiStateReceiver method handles wifi state change
+     */
+    private BroadcastReceiver wifiStateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            InternetResponse internetResponse = new InternetResponse();
+            int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
+            switch (wifiState) {
+                case WifiManager.WIFI_STATE_ENABLED:
+                case WifiManager.WIFI_STATE_DISABLED: {
+                    handleResumePermission();
+                    break;
+                }
+            }
+
+        }
+    };
 
     /**
      * Responsibility - initView method is used for initiate all object and perform some initial level task
@@ -60,9 +83,21 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onResume() {
         super.onResume();
+        handleResumePermission();
+    }
+
+    private void handleResumePermission() {
         boolean permissionAvailable = Utils.isTimeAutomatic(this);
+        boolean wifiPermission = Utils.checkWifiState(this);
+
         if (!permissionAvailable) {
             showAlertIfTimeIsNotCorrect();
+        }
+        if (!permissionAvailable || !wifiPermission) {
+            mBinding.curveLayout.setVisibility(View.GONE);
+        } else {
+            mBinding.curveLayout.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -73,6 +108,8 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
      **/
     private void initClick() {
         mBinding.begin.setOnClickListener(this);
+        mBinding.connectToWifi.setOnClickListener(this);
+        mBinding.setTimeZone.setOnClickListener(this);
     }
 
     /**
@@ -86,7 +123,40 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
                 goToOnBoarding();
                 break;
             }
+            case R.id.connect_to_wifi: {
+                goToWifi();
+                break;
+            }
+            case R.id.set_time_zone: {
+                handleTimeZoneCorrection();
+                break;
+            }
         }
+    }
+
+    /**
+     * Purpose - handleTimeZoneCorrection method handles the timezone redirection
+     */
+    private void handleTimeZoneCorrection() {
+        startActivityForResult(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS), 0);
+    }
+
+
+    /**
+     * Ge to wifi screen
+     */
+    private void goToWifi() {
+
+        Intent intent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
+        if (Utils.getDeviceName().contains(getString(R.string.onePlus))) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        }
+        this.startActivityForResult(intent, Constraint.NINE_THOUSANT_NINE_HUNDRED);
+
     }
 
     /**

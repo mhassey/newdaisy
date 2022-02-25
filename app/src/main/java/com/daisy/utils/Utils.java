@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
@@ -40,6 +41,7 @@ import com.daisy.app.AppController;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.LogsDataPojo;
+import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.LoginResponse;
 
 import org.apache.commons.io.FileUtils;
@@ -84,6 +86,33 @@ public class Utils {
 
         }
     }
+
+    public static boolean checkWifiState(Context context) {
+        try {
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            InternetResponse internetResponse = new InternetResponse();
+            try {
+                ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+
+                if (wifiManager.isWifiEnabled()) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (Exception e) {
+                return false;
+
+            }
+
+        } catch (Exception e) {
+            return false;
+
+
+        }
+
+    }
+
 
     public static boolean isTimeAutomatic(Context c) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {

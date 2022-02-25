@@ -347,7 +347,10 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                 @Override
                 public void onChanged(GlobalResponse globalResponse) {
                     showHideProgressDialog(false);
-                    handleScreenAddResponse(globalResponse);
+                    if (globalResponse != null)
+                        handleScreenAddResponse(globalResponse);
+                    else
+                        ValidationHelper.showToast(getApplicationContext(), getString(R.string.no_internet_available));
                 }
             });
         }
