@@ -1858,6 +1858,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             if (launchIntent != null) {
                 startActivity(launchIntent);
             } else {
+
                 ValidationHelper.showToast(MainActivity.this, getString(R.string.app_is_not_installed));
             }
         } catch (Exception e) {
