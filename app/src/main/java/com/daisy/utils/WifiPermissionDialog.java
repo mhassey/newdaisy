@@ -47,7 +47,7 @@ public class WifiPermissionDialog extends DialogFragment implements View.OnClick
     }
 
     public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels / 2;
+        return Resources.getSystem().getDisplayMetrics().heightPixels / 1;
     }
 
     @Override
