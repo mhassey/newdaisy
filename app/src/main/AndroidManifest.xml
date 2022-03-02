@@ -10,6 +10,18 @@
         <package android:name="com.spotify.music" />
         <package android:name="com.android.chrome" />
         <package android:name="com.sec.android.app.sbrowser" />
+        <package android:name="com.samsung.retailexperience.retailpalette" />
+        <package android:name="com.samsung.retailexperience.retailhubble" />
+        <package android:name="com.samsung.retailexperience.retailsmartswitch" />
+        <package android:name="com.samsung.rms.retailagent.global" />
+        <package android:name="com.samsung.sea.retail.appmonitor" />
+        <package android:name="com.samsung.rms.rtp.kinesis" />
+        <package android:name="com.galaxy.spec" />
+
+
+
+
+
     </queries>
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

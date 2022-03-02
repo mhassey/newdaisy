@@ -1749,6 +1749,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     }
                 });
             } else
+
                 launchApp(event);
         }
 
