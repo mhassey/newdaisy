@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +39,12 @@ public class WifiPermissionDialog extends DialogFragment implements View.OnClick
         super.onResume();
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
 
-        params.width = getScreenWidth();
-        params.height = getScreenHeight();
-        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        new Handler(Looper.getMainLooper()).postDelayed((Runnable) () -> {
+            params.width = getScreenWidth();
+            params.height = getScreenHeight();
+            getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
+        },200);
     }
 
     public static int getScreenWidth() {
