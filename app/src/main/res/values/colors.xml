@@ -60,6 +60,11 @@
     <color name="mettle_light_green">#95cfb3</color>
     <color name="red_light">#f1706b</color>
     <color name="updatePosition">#589ced</color>
-
+    <color name="pink">#E44C73</color>
+    <color name="orange">#FB6340</color>
+    <color name="purple_dark">#B25191</color>
+    <color name="dark_gray">#735793</color>
+    <color name="dark_purple">#40547C</color>
+    <color name="dark_blue">#353660</color>
 </resources>
 

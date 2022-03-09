@@ -213,7 +213,23 @@
     <string name="close_app">Close App</string>
     <string name="please_wait_service_is_not_register_yet">Please wait service is not register yet.</string>
     <string name="are_you_sure_you_want_to_logout">Confirm Logout.\nThis will reset MPC</string>
-    <string name="connect_to_wifi">Connect to Wifi</string>
+    <string name="connect_to_wifi">Connect to WiFi</string>
     <string name="set_time_zone">Set Time Zone</string>
+    <string name="get_started">Get started</string>
+    <string name="to_proceed_you_l_need_your_wifi_credentials_n_mpc_key_store_code_and_password">To proceed you\'l need your wifi credentials, MPC key store code and password</string>
+    <string name="tap_to_select_network">Tap to select network</string>
+    <string name="set_time_and_zone"><![CDATA[Set Time & Zone]]></string>
+    <string name="use_the_button_below_to_go_to_date_and_time_settings_page_and_return_here_when_connected">Use the button below to go to date &amp; time settings page, and return here when connected</string>
+    <string name="use_the_button_below_to_get_the_wifi_settings_page_n_and_return_here_when_connected"><![CDATA[Use the button below to get the wifi settings page, and return here when connected]]></string>
+    <string name="tab_to_set_time_and_zome">Tab to set time &amp; zone</string>
+    <string name="enter_mpc_key">ENTER MPC KEY</string>
+    <string name="connect">Connect</string>
+    <string name="connect_to_mpc">Connect to MPC</string>
+    <string name="login">Login</string>
+    <string name="enter_credential">Enter Credentials</string>
+    <string name="load">Load</string>
+    <string name="select_product">Select Product</string>
+    <string name="please_enter_server_code">"Please enter server code "</string>
+    <string name="wrong_server_code">Wrong server code</string>
 
 </resources>

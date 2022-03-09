@@ -33,9 +33,13 @@ import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddValidationHelper;
 import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddViewModel;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreen;
+import com.daisy.activity.onBoarding.slider.slides.coonect_to_mpc.ConnectToMpc;
 import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
 import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
+import com.daisy.activity.onBoarding.slider.slides.timezoneAsk.TimeZoneAsk;
+import com.daisy.activity.onBoarding.slider.slides.welcome.WelcomeAsk;
+import com.daisy.activity.onBoarding.slider.slides.wifiAsk.WifiAsk;
 import com.daisy.adapter.SliderAdapter;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -194,6 +198,11 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         // fragmentList.add(PermissionAsk.getInstance(mBinding));
+        fragmentList.add(WelcomeAsk.getInstance(OnBoarding.this));
+        fragmentList.add(WifiAsk.getInstance(OnBoarding.this));
+        fragmentList.add(TimeZoneAsk.getInstance(OnBoarding.this));
+        fragmentList.add(ConnectToMpc.getInstance(OnBoarding.this));
+
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -222,7 +231,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Responsibility -getCardData method is used for sending card request and accessing response
      * Parameters - No parameter
      **/
-    private void getCardData() {
+    public void getCardData() {
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
             getCardViewModel.setMutableLiveData(getCardRequest());
@@ -293,29 +302,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             signUp.loginBinding.singup.performClick();
         } else if (count == Constraint.TWO) {
 
-            if (Utils.getNetworkState(context)) {
-                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.ONE);
-                ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
-                if (screenAddValidationHelper.isValid()) {
-                    showHideProgressDialog(true);
-                    screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen));
-                    LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
-                    if (!liveData.hasActiveObservers()) {
-                        liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
-                            @Override
-                            public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
-                                showHideProgressDialog(false);
-                                handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
-                            }
-                        });
-                    }
-                } else {
-                    count = Constraint.TWO;
-                }
-            } else {
-                count = Constraint.TWO;
-                ValidationHelper.showToast(context, getString(R.string.no_internet_available));
-            }
+            handleAddScreen();
 
 
         }
@@ -323,6 +310,31 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 //        if (count == Constraint.ONE) {
 //            mBinding.pager.setCurrentItem(count);
 //        }
+    }
+
+    public void handleAddScreen() {
+        if (Utils.getNetworkState(context)) {
+            AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.FIVE_INE_REAL);
+            ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
+            if (screenAddValidationHelper.isValid()) {
+                showHideProgressDialog(true);
+                screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen));
+                LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
+                if (!liveData.hasActiveObservers()) {
+                    liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
+                        @Override
+                        public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
+                            showHideProgressDialog(false);
+                            handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
+                        }
+                    });
+                }
+            } else {
+            }
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+
     }
 
     /**
@@ -353,9 +365,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
-        hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
-        hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
+        hashMap.put(Constraint.ISLE, Constraint.ONE_STRING);
+        hashMap.put(Constraint.SHELF, Constraint.ONE_STRING);
+        hashMap.put(Constraint.POSITION, Constraint.ONE_STRING);
         if (addScreen.mViewModel.getSelectedProduct() != null) {
             if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
                 hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
@@ -378,10 +390,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     public void counterPlus() {
         count = count + Constraint.ONE;
-        if (count == Constraint.TWO) {
-            mBinding.nextSlide.setVisibility(View.VISIBLE);
-
-        }
         mBinding.pager.setCurrentItem(count);
 
     }

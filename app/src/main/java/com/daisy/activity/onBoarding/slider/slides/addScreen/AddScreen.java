@@ -97,10 +97,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void initClick() {
-        mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
+        mBinding.saveAndLoad.setOnClickListener(this);
     }
 
 
@@ -147,22 +147,14 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void designWork() {
-        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
-            else
 
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
-        } else {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
-            else
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.FOUR).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.FIVE_INE_REAL).setIcon(getResources().getDrawable(R.drawable.select_dot_dark_blue));
 
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
-        }
-        baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selected_purple));
-//        baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_purple));
     }
 
 
@@ -315,6 +307,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.cancel: {
                 getActivity().onBackPressed();
+                break;
+            }
+            case R.id.saveAndLoad: {
+                baording.handleAddScreen();
                 break;
             }
         }

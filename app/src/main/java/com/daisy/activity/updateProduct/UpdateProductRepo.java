@@ -24,7 +24,7 @@ public class UpdateProductRepo {
     private ApiService apiService;
 
     UpdateProductRepo() {
-        apiService = AppRetrofit.getInstance().getApiService();
+
     }
 
     /**
@@ -32,6 +32,7 @@ public class UpdateProductRepo {
      * Parameters - Its takes HashMap<String, String> object as parameter
      **/
     public LiveData<GlobalResponse> updateScreen(HashMap<String, String> input) {
+        apiService = AppRetrofit.getInstance().getApiService();
         Call<GlobalResponse> responseCall = apiService.updateProduct(input, input.get(Constraint.TOKEN));
         responseCall.enqueue(new Callback<GlobalResponse>() {
             @Override

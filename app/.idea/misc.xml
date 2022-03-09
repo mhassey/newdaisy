@@ -1,4 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="src/main/res/drawable/button_background.xml" value="0.209375" />
+        <entry key="src/main/res/drawable/corner_color.xml" value="0.209375" />
+        <entry key="src/main/res/drawable/edit_text_format.xml" value="0.1421875" />
+        <entry key="src/main/res/drawable/edittext_backgroud.xml" value="0.5025" />
+        <entry key="src/main/res/drawable/ic_down_arrow.xml" value="0.5025" />
+        <entry key="src/main/res/drawable/ic_palette.xml" value="0.209375" />
+        <entry key="src/main/res/drawable/select_dark_gray.xml" value="0.134375" />
+        <entry key="src/main/res/drawable/select_dot_dark_blue.xml" value="0.209375" />
+        <entry key="src/main/res/drawable/selected_dot_pink.xml" value="0.209375" />
+        <entry key="src/main/res/drawable/selected_dot_purple.xml" value="0.209375" />
+        <entry key="src/main/res/drawable/selected_dot_red.xml" value="0.209375" />
+        <entry key="src/main/res/drawable/selected_purple.xml" value="0.19375" />
+        <entry key="src/main/res/drawable/wifi_ask.xml" value="0.1" />
+        <entry key="src/main/res/layout-v17/activity_feed_back.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout-v17/activity_main.xml" value="0.17527173913043478" />
+        <entry key="src/main/res/layout-v17/activity_settings.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout-v17/activity_update_product.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout-v17/activity_welcome_screen.xml" value="0.18" />
+        <entry key="src/main/res/layout-v17/add_screen.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout-v17/fragment_overlay.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout-v17/log_recycle_view_item_design.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout-v17/spinner_item.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout-v26/wifi_ask.xml" value="0.1" />
+        <entry key="src/main/res/layout/activity_base_url_settings.xml" value="0.1" />
+        <entry key="src/main/res/layout/activity_config_settings.xml" value="0.12" />
+        <entry key="src/main/res/layout/activity_editor_tool.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_feed_back.xml" value="0.2" />
+        <entry key="src/main/res/layout/activity_lang_selection.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_lock_screen.xml" value="0.1" />
+        <entry key="src/main/res/layout/activity_logs_main.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_logs_show.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="src/main/res/layout/activity_maps.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_on_baording.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_refresh_timer.xml" value="0.14" />
+        <entry key="src/main/res/layout/activity_settings.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_socket_connection.xml" value="0.25" />
+        <entry key="src/main/res/layout/activity_splash_screen.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_update_base_url.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_update_position.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_update_product.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/activity_welcome_screen.xml" value="0.2" />
+        <entry key="src/main/res/layout/add_screen.xml" value="0.25" />
+        <entry key="src/main/res/layout/connect_to_mpc.xml" value="0.25" />
+        <entry key="src/main/res/layout/fragment_device_detection.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="src/main/res/layout/fragment_overlay.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/fragment_permission_ask.xml" value="0.22" />
+        <entry key="src/main/res/layout/fragment_security_ask.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/lang_support_custom_layout.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/layout_circular_progressbar.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/log_recycle_view_item_design.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/logout.xml" value="0.25434439178515006" />
+        <entry key="src/main/res/layout/password_layout.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/spinner_item.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/support_spinner.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/time_correct_permission_layout.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/timezone_ask.xml" value="0.25" />
+        <entry key="src/main/res/layout/welcome_ask.xml" value="0.18" />
+        <entry key="src/main/res/layout/wifi_alert_dialog.xml" value="0.16354166666666667" />
+        <entry key="src/main/res/layout/wifi_ask.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

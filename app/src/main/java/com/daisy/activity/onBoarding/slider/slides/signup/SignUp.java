@@ -77,7 +77,6 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     private void initClick() {
 
         loginBinding.singup.setOnClickListener(this);
-        loginBinding.cancel.setOnClickListener(this::onClick);
     }
 
     //  Initiate objects
@@ -120,11 +119,8 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                         }
                     });
                 }
-            } else {
-                baording.counterMinus();
             }
         } else {
-            baording.counterMinus();
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
     }
@@ -145,13 +141,10 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 sessionManager.setSignUpData(signUpResponse.getData());
                 baording.counterPlus();
             } else {
-
-                baording.counterMinus();
                 ValidationHelper.showToast(context, signUpResponse.getMessage());
             }
         } else {
 
-            baording.counterMinus();
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
 
@@ -187,21 +180,13 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
     // Change design at run time
     private void designWork() {
-        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
-            } else
 
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
-        } else {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
-            else
-
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
-        }
-        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.selected_green));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.FOUR).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+        baording.mBinding.tabDotsLayout.getTabAt(Constraint.FIVE_INE_REAL).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
 //        baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
     }

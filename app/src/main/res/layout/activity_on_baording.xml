@@ -30,23 +30,22 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
-                android:background="@color/transparent"
-
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+
+                android:layout_height="match_parent"
+                android:background="@color/transparent">
 
                 <LinearLayout
-                    android:background="@color/transparent"
-
                     android:layout_width="0dp"
+
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@color/transparent"
                     android:clickable="false"
                     android:gravity="center">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabDotsLayout"
-                        android:layout_marginStart="@dimen/dp250"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:tabIndicatorHeight="0dp"
@@ -55,12 +54,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@color/transparent"
-
                     android:layout_width="@dimen/dp160"
-                    android:layout_height="@dimen/dp50">
+                    android:layout_height="@dimen/dp50"
+                    android:background="@color/transparent"
+                    android:visibility="gone">
 
                     <LinearLayout
+
                         android:id="@+id/nextSlide"
                         android:layout_width="@dimen/dp160"
                         android:layout_height="@dimen/dp50"

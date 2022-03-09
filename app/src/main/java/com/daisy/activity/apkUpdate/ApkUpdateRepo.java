@@ -15,17 +15,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
-* Purpose -  ApkUpdateRepo is used for check any update is available
-* Responsibility - ApkUpdateRepo takes request  and get response using general api and pass the response to view models
-**/
+ * Purpose -  ApkUpdateRepo is used for check any update is available
+ * Responsibility - ApkUpdateRepo takes request  and get response using general api and pass the response to view models
+ **/
 public class ApkUpdateRepo {
 
     private ApiService apiService;
     private MutableLiveData<GlobalResponse<GeneralResponse>> globalResponseMutableLiveData = new MutableLiveData<>();
-
-    public ApkUpdateRepo() {
-        apiService = AppRetrofit.getInstance().getApiService();
-    }
 
 
     /**
@@ -33,19 +29,22 @@ public class ApkUpdateRepo {
      * Parameters - Its takes HashMap<String,String> object
      **/
     public LiveData<GlobalResponse<GeneralResponse>> getUpdate(HashMap<String, String> input) {
-        Call<GlobalResponse<GeneralResponse>> liveDataCall = apiService.getGeneralResponse(input);
-        liveDataCall.enqueue(new Callback<GlobalResponse<GeneralResponse>>() {
-            @Override
-            public void onResponse(Call<GlobalResponse<GeneralResponse>> call, Response<GlobalResponse<GeneralResponse>> response) {
-                if (response.isSuccessful())
-                    globalResponseMutableLiveData.setValue(response.body());
-            }
+        {
+            apiService = AppRetrofit.getInstance().getApiService();
+            Call<GlobalResponse<GeneralResponse>> liveDataCall = apiService.getGeneralResponse(input);
+            liveDataCall.enqueue(new Callback<GlobalResponse<GeneralResponse>>() {
+                @Override
+                public void onResponse(Call<GlobalResponse<GeneralResponse>> call, Response<GlobalResponse<GeneralResponse>> response) {
+                    if (response.isSuccessful())
+                        globalResponseMutableLiveData.setValue(response.body());
+                }
 
-            @Override
-            public void onFailure(Call<GlobalResponse<GeneralResponse>> call, Throwable t) {
-                globalResponseMutableLiveData.setValue(null);
-            }
-        });
-        return globalResponseMutableLiveData;
+                @Override
+                public void onFailure(Call<GlobalResponse<GeneralResponse>> call, Throwable t) {
+                    globalResponseMutableLiveData.setValue(null);
+                }
+            });
+            return globalResponseMutableLiveData;
+        }
     }
 }

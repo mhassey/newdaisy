@@ -17,19 +17,17 @@ import retrofit2.Response;
  * Purpose - SignUpRepo class helps to fire sign up api and handle its response
  */
 public class SignUpRepo {
-    private MutableLiveData<SignUpResponse> liveData=new MutableLiveData<>();
+    private MutableLiveData<SignUpResponse> liveData = new MutableLiveData<>();
     private ApiService apiService;
-    public SignUpRepo()
-    {
-        apiService= AppRetrofit.getInstance().getApiService();
-    }
-    public LiveData<SignUpResponse> signUp(HashMap<String,String> input) {
-         Call<SignUpResponse> call=apiService.signUp(input);
+
+    public LiveData<SignUpResponse> signUp(HashMap<String, String> input) {
+        apiService = AppRetrofit.getInstance().getApiService();
+
+        Call<SignUpResponse> call = apiService.signUp(input);
         call.enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
-                if (response.isSuccessful())
-                {
+                if (response.isSuccessful()) {
                     liveData.setValue(response.body());
                 }
             }
@@ -37,7 +35,7 @@ public class SignUpRepo {
             @Override
             public void onFailure(Call<SignUpResponse> call, Throwable t) {
                 t.printStackTrace();
-            liveData.setValue(null);
+                liveData.setValue(null);
             }
         });
         return liveData;

@@ -25,7 +25,7 @@ public class DeleteCardRepo {
 
     public DeleteCardRepo()
     {
-        apiService= AppRetrofit.getInstance().getApiService();
+
     }
 
     /**
@@ -34,6 +34,7 @@ public class DeleteCardRepo {
      **/
     public LiveData<GlobalResponse<DeleteCardResponse>> deleteCard(HashMap<String,String> hashMap)
     {
+        apiService= AppRetrofit.getInstance().getApiService();
         Call<GlobalResponse<DeleteCardResponse>> call=apiService.deleteCard(hashMap,hashMap.get(Constraint.TOKEN));
         call.enqueue(new Callback<GlobalResponse<DeleteCardResponse>>() {
             @Override

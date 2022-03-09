@@ -95,7 +95,12 @@ public class Utils {
                 ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
                 if (wifiManager.isWifiEnabled()) {
-                    return true;
+                    if (wifiManager.getConnectionInfo().getIpAddress()!=0) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }

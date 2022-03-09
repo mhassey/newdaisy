@@ -24,7 +24,7 @@ public class UpdatePositionRepo {
     private MutableLiveData<GlobalResponse<UpdatePositionResponse>> liveData = new MutableLiveData<>();
 
     public UpdatePositionRepo() {
-        apiService = AppRetrofit.getInstance().getApiService();
+
     }
 
     /**
@@ -32,6 +32,7 @@ public class UpdatePositionRepo {
      * Parameters - Its take HashMap<String, String> and string header value
      **/
     public LiveData<GlobalResponse<UpdatePositionResponse>> updatePosition(HashMap<String, String> input, String s) {
+        apiService = AppRetrofit.getInstance().getApiService();
         Call<GlobalResponse<UpdatePositionResponse>> call = apiService.updatePosition(input, s);
         call.enqueue(new Callback<GlobalResponse<UpdatePositionResponse>>() {
             @Override

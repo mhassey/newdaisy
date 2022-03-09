@@ -22,17 +22,14 @@ import retrofit2.Response;
 public class GetCardRepo {
     private MutableLiveData<GlobalResponse<GetCardResponse>> liveData=new MutableLiveData<>();
     private ApiService apiService;
-    public GetCardRepo()
-    {
-        apiService= AppRetrofit.getInstance().getApiService();
-    }
+
 
     /**
      * Responsibility - getCard method is used for card response and save it to live data
      * Parameters - Its takes HashMap<String, String> object as parameter
      **/
     public LiveData<GlobalResponse<GetCardResponse>> getCard(HashMap<String, String> input) {
-
+        apiService= AppRetrofit.getInstance().getApiService();
         Call<GlobalResponse<GetCardResponse>> globalResponseCall=apiService.getCard(input,input.get(Constraint.TOKEN));
         globalResponseCall.enqueue(new Callback<GlobalResponse<GetCardResponse>>() {
             @Override

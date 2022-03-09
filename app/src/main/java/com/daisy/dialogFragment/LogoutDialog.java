@@ -1,6 +1,7 @@
 package com.daisy.dialogFragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +38,18 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
         super.onResume();
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
 
-        params.width = 900;
-        params.height = 1200;
+        params.width = getScreenWidth();
+        params.height = getScreenHeight();
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
     }
 
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels / 1;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels / 1;
+    }
 
     @Override
     public void onClick(View v) {

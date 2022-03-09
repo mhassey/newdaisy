@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/dp60"
+            android:layout_height="@dimen/dp60"
+            android:layout_margin="@dimen/dp10"
+            android:src="@drawable/logo" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/wifi"
+                style="@style/fontBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_time_and_zone"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp25" />
+
+            <TextView
+                android:id="@+id/welcome_text"
+                style="@style/fontRagular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wifi"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp30"
+                android:text="@string/use_the_button_below_to_go_to_date_and_time_settings_page_and_return_here_when_connected"
+                android:textSize="@dimen/sp16" />
+
+
+            <Button
+                android:id="@+id/time_zone_selection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp30"
+                android:background="@drawable/button_background"
+                android:backgroundTint="@color/purple_dark"
+                android:text="@string/tab_to_set_time_and_zome"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp30"
+                android:layout_marginBottom="@dimen/dp10"
+                android:background="@drawable/button_background"
+                android:backgroundTint="@color/purple_dark"
+                android:text="@string/next"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

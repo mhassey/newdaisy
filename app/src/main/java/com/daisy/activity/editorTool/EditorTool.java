@@ -290,16 +290,11 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Utils.hideKeyboard(context);
-        switch (v.getId()) {
-            case R.id.saveAndLoad: {
-                saveAndLoad();
-                break;
-            }
-            case R.id.configSettings: {
-                openConfigSettings();
-                break;
-            }
-
+        int id = v.getId();
+        if (id == R.id.saveAndLoad) {
+            saveAndLoad();
+        } else if (id == R.id.configSettings) {
+            openConfigSettings();
         }
     }
 

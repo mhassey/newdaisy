@@ -22,7 +22,7 @@ public class FeedBackRepo {
     ApiService apiService;
 
     public FeedBackRepo() {
-        apiService = AppRetrofit.getInstance().getApiService();
+
     }
 
     private MutableLiveData<GlobalResponse<FeedBackResponse>> feedBackResponseMutableLiveData = new MutableLiveData<>();
@@ -34,6 +34,7 @@ public class FeedBackRepo {
      * @return
      */
     public LiveData<GlobalResponse<FeedBackResponse>> getFeedBackResponse(HashMap<String, String> feedBackRequest) {
+        apiService = AppRetrofit.getInstance().getApiService();
         Call<GlobalResponse<FeedBackResponse>> call = apiService.addFeedBack(feedBackRequest, feedBackRequest.get(Constraint.TOKEN));
         call.enqueue(new Callback<GlobalResponse<FeedBackResponse>>() {
             @Override
