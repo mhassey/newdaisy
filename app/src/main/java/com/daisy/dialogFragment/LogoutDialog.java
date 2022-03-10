@@ -48,7 +48,7 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
     }
 
     public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels / 1;
+        return Resources.getSystem().getDisplayMetrics().heightPixels / 2;
     }
 
     @Override

@@ -27,6 +27,9 @@ import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
 
+/**
+ * Purpose - ConnectToMpc class helps to configure base server for ally
+ */
 public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
 
     private static OnBoarding baording;
@@ -40,6 +43,9 @@ public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
         return connectToMpcBinding.getRoot();
     }
 
+    /**
+     * Purpose - initClick method initialize click listener
+     */
     private void initClick() {
         connectToMpcBinding.connect.setOnClickListener(this);
     }
@@ -61,6 +67,9 @@ public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Purpose - handleConnectEvent method checks the code is valid or not and set it to base config server
+     */
     private void handleConnectEvent() {
 
         if (!connectToMpcBinding.code.getText().toString().equals("")) {
@@ -69,7 +78,7 @@ public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
             if (value != null) {
                 updateBaseUrl(value);
             } else {
-                if (connectToMpcBinding.code.getText().toString().contains("http")) {
+                if (connectToMpcBinding.code.getText().toString().contains(Constraint.HTTP)) {
                     updateBaseUrl(connectToMpcBinding.code.getText().toString());
                 } else {
                     ValidationHelper.showToast(getContext(), getString(R.string.wrong_server_code));

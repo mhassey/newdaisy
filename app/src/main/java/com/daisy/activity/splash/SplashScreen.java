@@ -1,12 +1,16 @@
 package com.daisy.activity.splash;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -33,11 +37,9 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
         initView();
 
     }
-
 
 
     /**
@@ -47,7 +49,7 @@ public class SplashScreen extends BaseActivity {
     private void initView() {
         setNoTitleBar(this);
         handleSessionWork();
-          final Handler handler = new Handler();
+        final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -62,7 +64,7 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void handleSessionWork() {
-        sessionManager=SessionManager.get();
+        sessionManager = SessionManager.get();
         sessionManager.setUpdateNotShow(Constraint.FALSE);
         sessionManager.uninstallShow(Constraint.FALSE);
 
@@ -73,12 +75,10 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void redirectToWelcome() {
-        if (sessionManager.getOnBoarding())
-        {
+        if (sessionManager.getOnBoarding()) {
             Intent intent = new Intent(SplashScreen.this, EditorTool.class);
             startActivity(intent);
-        }
-        else {
+        } else {
             Intent intent = new Intent(SplashScreen.this, OnBoarding.class);
             startActivity(intent);
         }

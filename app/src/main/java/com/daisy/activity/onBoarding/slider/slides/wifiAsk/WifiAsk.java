@@ -24,6 +24,9 @@ import com.daisy.pojo.response.InternetResponse;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
+/**
+ * Purpose - WifiAsk class helps to enable the wifi
+ */
 public class WifiAsk extends BaseFragment implements View.OnClickListener {
 
     private WifiAskBinding wifiAskBinding;
@@ -38,10 +41,16 @@ public class WifiAsk extends BaseFragment implements View.OnClickListener {
         return wifiAskBinding.getRoot();
     }
 
+    /**
+     * Initialize variable and receiver
+     */
     private void initView() {
         registerWifiReceiver();
     }
 
+    /**
+     * Purpose - registerWifiReceiver method register wifi receiver
+     */
     private void registerWifiReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
@@ -49,6 +58,9 @@ public class WifiAsk extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * Purpose - initClick method initialize click listener
+     */
     private void initClick() {
         wifiAskBinding.next.setOnClickListener(this);
         wifiAskBinding.tapToOpenWifi.setOnClickListener(this);
@@ -143,6 +155,9 @@ public class WifiAsk extends BaseFragment implements View.OnClickListener {
     };
 
 
+    /**
+     * Purpose - handleResumePermission method changes ui component according to wifi permission
+     */
     private void handleResumePermission() {
         boolean wifiPermission = Utils.checkWifiState(getActivity());
 

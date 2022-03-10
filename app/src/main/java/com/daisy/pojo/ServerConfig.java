@@ -2,6 +2,9 @@ package com.daisy.pojo;
 
 import java.util.HashMap;
 
+/**
+ * Purpose - ServerConfig is an server configuration file that helps to get all servers
+ */
 public class ServerConfig {
     private HashMap<String, String> serverConfigs = new HashMap<>();
 

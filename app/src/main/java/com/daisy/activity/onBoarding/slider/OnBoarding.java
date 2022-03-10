@@ -400,10 +400,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     public void counterMinus() {
         count = count - Constraint.ONE;
-        if (count == Constraint.TWO) {
-            mBinding.nextSlide.setVisibility(View.VISIBLE);
-
-        }
         mBinding.pager.setCurrentItem(count);
 
     }
@@ -632,6 +628,15 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            counterMinus();
+        }
     }
 
 

@@ -19,6 +19,9 @@ import com.daisy.databinding.TimezoneAskBinding;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
+/**
+ * Purpose - TimeZoneAsk is an class that helps to make timezone correct
+ */
 public class TimeZoneAsk extends BaseFragment implements View.OnClickListener {
 
     private TimezoneAskBinding timezoneAskBinding;
@@ -32,6 +35,9 @@ public class TimeZoneAsk extends BaseFragment implements View.OnClickListener {
         return timezoneAskBinding.getRoot();
     }
 
+    /**
+     * Purpose - initClick method initialize click listener
+     */
     private void initClick() {
         timezoneAskBinding.next.setOnClickListener(this::onClick);
         timezoneAskBinding.timeZoneSelection.setOnClickListener(this);
@@ -52,6 +58,9 @@ public class TimeZoneAsk extends BaseFragment implements View.OnClickListener {
     }
 
 
+    /**
+     * Purpose - Handle visibility of ui component according to time correction
+     */
     private void handleResumePermission() {
         boolean permissionAvailable = Utils.isTimeAutomatic(getActivity());
 
