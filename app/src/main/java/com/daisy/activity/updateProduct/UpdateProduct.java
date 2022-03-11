@@ -339,21 +339,24 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void handlePriceCardGettingHandler() {
-        showHideProgressDialog(true);
-        updateProductViewModel.setMutableLiveData(getUpdateScreenRequest());
-        LiveData<GlobalResponse> liveData = updateProductViewModel.getLiveData();
-        if (!liveData.hasActiveObservers()) {
-            liveData.observe(this, new Observer<GlobalResponse>() {
-                @Override
-                public void onChanged(GlobalResponse globalResponse) {
-                    showHideProgressDialog(false);
-                    if (globalResponse != null)
-                        handleScreenAddResponse(globalResponse);
-                    else
-                        ValidationHelper.showToast(getApplicationContext(), getString(R.string.no_internet_available));
-                }
-            });
+        if (mBinding.productName.getSelectedItem()!=null && !mBinding.productName.getSelectedItem().equals("")) {
+            showHideProgressDialog(true);
+            updateProductViewModel.setMutableLiveData(getUpdateScreenRequest());
+            LiveData<GlobalResponse> liveData = updateProductViewModel.getLiveData();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse>() {
+                    @Override
+                    public void onChanged(GlobalResponse globalResponse) {
+                        showHideProgressDialog(false);
+                        if (globalResponse != null)
+                            handleScreenAddResponse(globalResponse);
+                        else
+                            ValidationHelper.showToast(getApplicationContext(), getString(R.string.no_internet_available));
+                    }
+                });
+            }
         }
+
 
     }
 
