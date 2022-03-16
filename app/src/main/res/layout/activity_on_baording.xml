@@ -23,6 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp10"
+
+
             android:background="@color/transparent"
             android:gravity="center"
             android:orientation="vertical"
@@ -30,9 +32,11 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/dp30"
+
                 android:layout_width="match_parent"
 
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:background="@color/transparent">
 
                 <LinearLayout
@@ -40,17 +44,17 @@
 
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+
                     android:background="@color/transparent"
                     android:clickable="false"
                     android:gravity="center">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabDotsLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:tabIndicatorHeight="0dp"
-                        app:tabPaddingEnd="0dp"
-                        app:tabPaddingStart="0dp" />
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:tabIndicatorHeight="0dp"/>
                 </LinearLayout>
 
                 <LinearLayout

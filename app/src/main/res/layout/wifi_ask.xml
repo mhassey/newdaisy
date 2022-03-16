@@ -8,78 +8,70 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/dp70"
-            android:layout_height="@dimen/dp70"
-            android:layout_margin="@dimen/dp10"
+            android:layout_width="@dimen/dp130"
+            android:layout_height="@dimen/dp100"
+
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp10"
             android:src="@drawable/logo" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp35"
+            android:gravity="top"
             android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/wifi"
-                style="@style/fontBold"
-                android:gravity="center"
-                android:layout_marginEnd="@dimen/dp25"
-                android:layout_marginStart="@dimen/dp25"
-                android:layout_width="match_parent"
+                style="@style/fontrsBold"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="@string/connect_to_wifi"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp25" />
+                android:textColor="@color/dark_blue_new"
+                android:textSize="@dimen/sp50" />
 
             <TextView
-                android:layout_marginBottom="10dp"
+
                 android:id="@+id/welcome_text"
-                style="@style/fontRagular"
-                android:layout_width="match_parent"
+                style="@style/fontLight"
+                android:layout_width="@dimen/dp500"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/wifi"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp30"
+                android:layout_marginBottom="10dp"
                 android:text="@string/use_the_button_below_to_get_the_wifi_settings_page_n_and_return_here_when_connected"
-                android:textSize="@dimen/sp16" />
+                android:textColor="@color/dark_blue_new"
+                android:textSize="@dimen/sp20" />
 
 
             <Button
                 android:id="@+id/tap_to_open_wifi"
+                style="@style/fontBold"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/welcome_text"
-                android:layout_alignStart="@id/welcome_text"
-                android:layout_alignEnd="@id/welcome_text"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/dp30"
+                android:layout_height="@dimen/dp60"
+
                 android:layout_marginTop="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp30"
                 android:background="@drawable/button_background"
                 android:backgroundTint="@color/pink"
+                android:fontFamily="@font/rsbold"
                 android:text="@string/tap_to_select_network"
                 android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/next"
+                style="@style/fontBold"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tap_to_open_wifi"
-                android:layout_alignStart="@id/tap_to_open_wifi"
-                android:layout_alignEnd="@id/tap_to_open_wifi"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/dp30"
-                android:layout_marginTop="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp30"
+                android:layout_height="@dimen/dp60"
+                android:layout_marginTop="@dimen/dp20"
                 android:background="@drawable/button_background"
                 android:backgroundTint="@color/pink"
                 android:text="@string/next"
                 android:textColor="@color/white" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
     </LinearLayout>
 </layout>

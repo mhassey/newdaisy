@@ -8,7 +8,7 @@
     <dimen name="activity_field_margins_large">30dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="icon_margin">8dp</dimen>
-    <dimen name="dot_size">5dp</dimen>
+    <dimen name="dot_size">11dp</dimen>
 
     <!-- padding -->
     <dimen name="field_label_padding">5dp</dimen>
@@ -155,6 +155,7 @@
     <dimen name="dp4">4dp</dimen>
     <dimen name="dp35">35dp</dimen>
     <dimen name="dp65">65dp</dimen>
+    <dimen name="dp68">68dp</dimen>
     <dimen name="dp180">180dp</dimen>
     <dimen name="dp170">170dp</dimen>
     <dimen name="dp75">75dp</dimen>
@@ -165,6 +166,7 @@
     <dimen name="dp200">250dp</dimen>
     <dimen name="dp20">20dp</dimen>
     <dimen name="dp50">50dp</dimen>
+    <dimen name="dp500">450dp</dimen>
     <dimen name="dp10">10dp</dimen>
     <dimen name="dp30">30dp</dimen>
     <dimen name="dp5">5dp</dimen>
@@ -190,7 +192,14 @@
     <dimen name="dp90">90dp</dimen>
     <dimen name="sp13">13sp</dimen>
     <dimen name="sp23">23sp</dimen>
+    <dimen name="sp24">24sp</dimen>
+
     <dimen name="sp25">25sp</dimen>
+    <dimen name="sp30">30sp</dimen>
+    <dimen name="sp40">40sp</dimen>
+    <dimen name="sp45">45sp</dimen>
+    <dimen name="sp50">55sp</dimen>
+
     <dimen name="dp185">185dp</dimen>
     <dimen name="dp55">55dp</dimen>
 

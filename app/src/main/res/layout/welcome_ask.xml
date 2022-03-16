@@ -7,20 +7,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="@dimen/dp70"
-            android:layout_height="@dimen/dp70"
-            android:layout_marginStart="@dimen/dp10"
+            android:layout_width="@dimen/dp130"
+            android:layout_height="@dimen/dp100"
+            android:layout_marginStart="@dimen/dp15"
             android:layout_marginTop="@dimen/dp10"
-            android:layout_marginEnd="@dimen/dp10"
-            android:layout_marginBottom="@dimen/dp10"
             android:src="@drawable/logo" />
 
 
         <LinearLayout
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/dp70"
-            android:gravity="center|start"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -28,33 +27,30 @@
             <TextView
                 android:layout_marginTop="@dimen/dp40"
                 android:id="@+id/welcome"
-                style="@style/fontBold"
+                style="@style/fontrsBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginStart="@dimen/dp50"
                 android:text="@string/welcome"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp20" />
+                android:textColor="@color/dark_blue_new"
+                android:textSize="@dimen/sp50" />
 
             <TextView
                 android:id="@+id/welcome_text"
-                style="@style/fontMedium"
-                android:layout_width="wrap_content"
+                style="@style/fontLight"
+                android:textColor="@color/dark_blue_new"
+                android:layout_width="@dimen/dp500"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp50"
                 android:layout_marginTop="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp40"
                 android:text="@string/to_proceed_you_l_need_your_wifi_credentials_n_mpc_key_store_code_and_password"
-                android:textSize="@dimen/sp16" />
+                android:textSize="@dimen/sp20" />
 
 
             <Button
                 android:id="@+id/get_started"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp50"
-                android:layout_marginTop="@dimen/dp20"
-                android:layout_marginEnd="@dimen/dp40"
+                android:layout_height="@dimen/dp60"
+                android:layout_marginTop="@dimen/dp25"
+                style="@style/fontBold"
                 android:background="@drawable/button_background"
                 android:backgroundTint="@color/orange"
                 android:text="@string/get_started"

@@ -31,7 +31,7 @@
 
     <string name="unlock">UNLOCK</string>
     <string name="invalid_password">INVALID PASSWORD</string>
-    <string name="welcome">WELCOME</string>
+    <string name="welcome">Welcome</string>
     <!--    <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">This app requires several special permissions to perform properly. Pressing \'begin\' below will start guiding you through the process.</string>-->
     <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">To get started, you\'ll need your WiFi credentials and MPC store code and password</string>
     <string name="begin">BEGIN</string>
@@ -216,12 +216,12 @@
     <string name="connect_to_wifi">Connect to WiFi</string>
     <string name="set_time_zone">Set Time Zone</string>
     <string name="get_started">Get started</string>
-    <string name="to_proceed_you_l_need_your_wifi_credentials_n_mpc_key_store_code_and_password">To proceed you\'ll need your wifi credentials, MPC key store code and password</string>
+    <string name="to_proceed_you_l_need_your_wifi_credentials_n_mpc_key_store_code_and_password">To proceed, you’ll need your WiFi credentials,\nMPC key, store code, and password.</string>
     <string name="tap_to_select_network">Tap to select network</string>
     <string name="set_time_and_zone"><![CDATA[Set Time & Zone]]></string>
-    <string name="use_the_button_below_to_go_to_date_and_time_settings_page_and_return_here_when_connected">Use the button below to go to date &amp; time settings page, and return here when connected</string>
-    <string name="use_the_button_below_to_get_the_wifi_settings_page_n_and_return_here_when_connected"><![CDATA[Use the button below to get the wifi settings page, and return here when connected]]></string>
-    <string name="tab_to_set_time_and_zome">Tap to set time &amp; zone</string>
+    <string name="use_the_button_below_to_go_to_date_and_time_settings_page_and_return_here_when_connected">Use the button below to go to date &amp; time\nsettings page,and return here when connected</string>
+    <string name="use_the_button_below_to_get_the_wifi_settings_page_n_and_return_here_when_connected"><![CDATA[Use the button below to get the wifi settings\npage, and return here when connected]]></string>
+    <string name="tab_to_set_time_and_zome">Tap to set time &amp; Time zone</string>
     <string name="enter_mpc_key">ENTER MPC KEY</string>
     <string name="connect">Connect</string>
     <string name="connect_to_mpc">Connect to MPC</string>

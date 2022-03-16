@@ -3,27 +3,30 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/dp60"
-            android:layout_height="@dimen/dp60"
-            android:layout_margin="@dimen/dp10"
+            android:layout_width="@dimen/dp130"
+            android:layout_height="@dimen/dp100"
+            android:layout_margin="@dimen/dp15"
             android:src="@drawable/logo" />
 
 
         <LinearLayout
+            android:layout_marginTop="@dimen/dp35"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center|top"
             android:orientation="vertical">
             <TextView
-                android:textColor="@color/black"
-                style="@style/fontBold"
-                android:textSize="@dimen/sp25"
-                android:layout_marginBottom="@dimen/dp20"
+                android:textColor="@color/dark_blue_new"
+                style="@style/fontrsBold"
+                android:textSize="@dimen/sp50"
+
+                android:layout_marginBottom="@dimen/dp10"
                 android:text="@string/connect_to_mpc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -31,24 +34,28 @@
             <EditText
                 android:id="@+id/code"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp45"
-                android:layout_marginStart="@dimen/dp30"
-                android:layout_marginEnd="@dimen/dp30"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginStart="@dimen/dp100"
+                android:layout_marginEnd="@dimen/dp100"
                 android:background="@drawable/edittext_backgroud"
                 android:gravity="center"
-                android:textSize="@dimen/sp12"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:textSize="@dimen/sp15"
+                style="@style/fontrsBold"
                 android:hint="@string/enter_mpc_key" />
 
             <Button
                 android:id="@+id/connect"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp30"
-                android:layout_marginTop="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp30"
+                android:layout_height="@dimen/dp60"
+                android:layout_marginStart="@dimen/dp100"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp100"
                 android:background="@drawable/button_background"
                 android:backgroundTint="@color/dark_gray"
                 android:text="@string/connect"
+                style="@style/fontBold"
                 android:textColor="@color/white" />
 
         </LinearLayout>

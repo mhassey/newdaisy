@@ -66,5 +66,11 @@
     <style name="fontRagular">
         <item name="fontFamily">@font/rragular</item>
     </style>
+    <style name="fontLight">
+        <item name="fontFamily">@font/rlight</item>
+    </style>
+    <style name="fontrsBold">
+        <item name="fontFamily">@font/rsbold</item>
+    </style>
 
 </resources>
