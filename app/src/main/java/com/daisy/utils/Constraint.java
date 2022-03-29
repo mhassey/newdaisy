@@ -136,6 +136,9 @@ public class Constraint {
     public static final String USER_INTERACTION = "Interaction";
     public static final String COLON = ":";
     public static final String HTTP = "http";
+    public static final String ASPECT_RADIO = "aspectRatio";
+    public static final String ONE_BY_ONE = "1:1";
+    public static final String INCLUDE_FLAG = "include_flag";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
