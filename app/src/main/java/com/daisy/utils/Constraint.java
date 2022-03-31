@@ -153,6 +153,8 @@ public class Constraint {
     public static final String OPEN = "OPEN";
     public static final CharSequence PRICE_CARD = "PriceCard";
     public static final long TEN_SECOND = 10000;
+    public static final String LOCAL_TIME = "localTime";
+    public static final String LOCAL_UPDATE = "localUpdate";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -282,6 +284,8 @@ public class Constraint {
     public static final String DAISYAPK = "Daisy.apk";
     public static final int ONE_THOUSAND_TWENTY_FOUR = 1024;
     public static final long HUNDERD = 100;
+    public static final int HUNDERD_INT = 100;
+
     public static final String EXIT_CAPITAL = "EXIT";
     public static final String EN = "en";
     public static final String FR = "fr";

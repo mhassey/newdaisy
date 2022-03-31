@@ -1282,4 +1282,24 @@ public class SessionManager {
     public boolean getIpSearched() {
         return pref.getBoolean(Constraint.Ip_SEARCHED);
     }
+
+    public void setTime(Long dateString) {
+        pref.setLongData(Constraint.LOCAL_TIME, dateString);
+    }
+
+    public Long getTime() {
+        return pref.getLongValue(Constraint.LOCAL_TIME);
+    }
+
+
+    public void timeUpdate(boolean b) {
+        pref.setBooleanData(Constraint.LOCAL_UPDATE, b);
+
+    }
+
+    public boolean getTimeUpdate() {
+        return pref.getBoolean(Constraint.LOCAL_UPDATE);
+    }
+
+
 }

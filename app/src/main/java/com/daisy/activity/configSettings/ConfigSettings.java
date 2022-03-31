@@ -27,14 +27,11 @@ import com.daisy.activity.socketConnection.SocketConnection;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.updateProduct.UpdateProduct;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
-import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.LogoutDialog;
 import com.daisy.utils.Utils;
@@ -92,7 +89,10 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void getDefaultUpdateTime() {
         try {
             String val = Utils.getLastUpdateDate(ConfigSettings.this);
-            mBinding.updatetime.setText(" " + val);
+//            mBinding.updatetime.setText(" " + Utils.getDeviceName() + "---" + DeviceName.);
+            mBinding.updatetime.setText(val);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

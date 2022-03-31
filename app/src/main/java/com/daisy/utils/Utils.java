@@ -189,9 +189,7 @@ public class Utils {
                 return false;
             }
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return true;
@@ -743,10 +741,8 @@ public class Utils {
     public static String getDeviceName() {
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
-        if (model.startsWith(manufacturer)) {
-            return capitalize(model);
-        }
-        return capitalize(manufacturer) + " " + model;
+
+        return model;
     }
 
     private static String capitalize(String str) {

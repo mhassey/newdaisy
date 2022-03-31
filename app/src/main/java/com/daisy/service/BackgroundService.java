@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextClock;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -64,6 +65,7 @@ import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.Time;
+import com.daisy.pojo.response.TimeResponse;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
@@ -73,9 +75,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.net.ServerSocket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -114,6 +120,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public static Timer refreshTimer;
     public static Timer refreshTimer1;
     public static Timer refreshTimer2;
+    public static Timer timeCounter;
+
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
     public static Timer refreshTimer6;
@@ -122,6 +130,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     public static Timer refreshTimer5;
     private Intent securityIntent;
+    private Intent locationIntent;
+
     private Sensor stepDetectorSensor;
     private Sensor stepCounterSensor;
     private Sensor magnetometer;
@@ -155,6 +165,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         super.onCreate();
         backgroundService = this;
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
+
+        syncingProcess();
         showNotification();
         initWakeUpLock();
         registerReceiver();
@@ -1004,6 +1016,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private void setWindowManager() {
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         touchLayout.setLayoutParams(lp);
+
         touchLayout.setOnTouchListener(this);
         touchLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -1278,6 +1291,56 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     @Override
     public void onFailedToLoadFaceDetectionCamera() {
+
+    }
+
+    int i = 1;
+
+
+    public void syncingProcess() {
+
+
+//        try {
+//            if (timeCounter != null)
+//                timeCounter.cancel();
+//        } catch (Exception e) {
+//
+//        }
+//        try {
+//            int hour = Constraint.ZERO;
+//            int minit = Constraint.ZERO;
+//            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND + Constraint.ONE;
+//
+//            timeCounter = new Timer();
+//            timeCounter.scheduleAtFixedRate(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    try {
+//
+//                        String timezoneS = "GMT" + "+1";
+//                        TimeZone tz = TimeZone.getTimeZone(timezoneS);
+//                        Calendar c = Calendar.getInstance(tz);
+//                        int seconds = c.get(Calendar.SECOND);
+//
+//                        if (seconds == 30) {
+//                            if (i == 1) {
+//                                i = 0;
+//                                EventBus.getDefault().post(new TimeResponse());
+//                            }
+//                        } else {
+//                            i = 1;
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//            }, second, second);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 
