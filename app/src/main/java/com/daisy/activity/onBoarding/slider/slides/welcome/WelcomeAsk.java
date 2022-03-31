@@ -1,5 +1,7 @@
 package com.daisy.activity.onBoarding.slider.slides.welcome;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +44,7 @@ public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        designWork();
+
     }
 
     // Change design at run time

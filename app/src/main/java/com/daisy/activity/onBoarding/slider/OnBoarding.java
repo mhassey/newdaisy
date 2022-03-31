@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -79,7 +82,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_on_baording);
         initView();
         initClick();
-    }
+         }
 
     /**
      * Responsibility - initClick is an method that used for initiate clicks
@@ -364,10 +367,14 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - Its takes AddScreen object as parameter
      **/
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
+        WifiManager manager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        String address = info.getMacAddress();
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.ISLE, Constraint.ONE_STRING);
         hashMap.put(Constraint.SHELF, Constraint.ONE_STRING);
         hashMap.put(Constraint.POSITION, Constraint.ONE_STRING);
+        hashMap.put(Constraint.MAC_ADDRESS, address);
         if (addScreen.mViewModel.getSelectedProduct() != null) {
             if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
                 hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
