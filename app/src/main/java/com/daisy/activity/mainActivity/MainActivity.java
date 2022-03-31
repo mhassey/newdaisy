@@ -7,10 +7,12 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -79,6 +81,7 @@ import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.SocketEvent;
+import com.daisy.pojo.response.TimeResponse;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
 import com.daisy.service.LogGenerateService;
@@ -114,6 +117,7 @@ import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -137,6 +141,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private UpdateProductViewModel updateProductViewModel;
     private GetCardViewModel getCardViewModel;
     private static PrintWriter output;
+
 
     private long mLastClickTime = 0;
 
@@ -172,9 +177,42 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         loadURL();
         intentWork();
         sanitisedWork();
+        updateTimeOnEachSecond();
 
     }
 
+    int show = 1;
+
+    public void updateTimeOnEachSecond() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                Calendar c = Calendar.getInstance();
+                int sec = c.get(Calendar.SECOND);
+                Log.e("myapp", "time changed" + sec);
+
+                if (sec == 30) {
+                    if (show == 1) {
+                        show = 0;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                showVideo(new TimeResponse());
+
+                            }
+                        });
+                    }
+
+                } else {
+                    show = 1;
+                }
+
+            }
+        }, 0, 1000);
+    }
 
     /**
      * Check for permission
@@ -369,7 +407,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     /**
      * Create download file and send to download manager
      */
-    private void downloadFiles(String url, List<Promotion> promotions, List<Download> downloads) {
+    private void downloadFiles(String
+                                       url, List<Promotion> promotions, List<Download> downloads) {
         Download download = new Download();
         download.setPath(url);
         if (sessionManager.getPriceCard() != null)
@@ -466,7 +505,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[],
+                                           int[] grantResults) {
         if (grantResults.length > Constraint.ZERO) {
             if (grantResults[Constraint.ZERO] == PackageManager.PERMISSION_DENIED) {
                 boolean showRationale = shouldShowRequestPermissionRationale(permissions[Constraint.ZERO]);
@@ -520,6 +560,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     /**
      * Time to take apk update
      */
+
     @Override
     public void callBackApkUpdate(String data) {
         sessionManager.uninstallShow(true);
@@ -784,7 +825,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     /**
      * handle delete response
      */
-    private void handleDeleteResponse(GlobalResponse<DeleteCardResponse> deleteCardResponseGlobalResponse) {
+    private void handleDeleteResponse
+    (GlobalResponse<DeleteCardResponse> deleteCardResponseGlobalResponse) {
         if (deleteCardResponseGlobalResponse.isApi_status()) {
 
         }
@@ -1104,7 +1146,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Responsibility - handleCardGetResponse method handle response provided by getCardData method if response is ok then set new value of price card promotion and pricing in session and call redirectToMainHandler method
      * Parameters - No parameter
      **/
-    private void handleCardGetResponse(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
+    private void handleCardGetResponse
+    (GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) throws IOException {
         showHideProgressDialog(false);
         if (getCardResponseGlobalResponse.isApi_status()) {
             sessionManager.setPriceCard(getCardResponseGlobalResponse.getResult().getPricecard());
@@ -1121,7 +1164,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-    private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws IOException {
+    private void redirectToMainHandler(GlobalResponse<GetCardResponse> response) throws
+            IOException {
         Utils.deleteDaisy();
         String UrlPath;
 
@@ -1287,6 +1331,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showVideo(TimeResponse response) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_SSS");
+//        String dateString = formatter.format(new java.util.Date());
+//        Log.e("Kali1", dateString);
+        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('nextCard')");
     }
 
 
