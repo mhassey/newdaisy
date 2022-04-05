@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:background="@color/white"
         android:weightSum="1"
-        tools:context=".activity.welcomeScreen.WelcomeScreen">
+        tools:context="com.nzmdm.daisy.activity.welcomeScreen.WelcomeScreen">
 
 
         <RelativeLayout

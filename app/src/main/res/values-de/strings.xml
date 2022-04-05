@@ -22,7 +22,7 @@
     <string name="chche">/cache</string>
     <string name="databse">/databases</string>
     <string name="dark_mode">Dunkler Modus</string>
-    <string name="packageName">com.daisy</string>
+    <string name="packageName">com.nzmdm.daisy</string>
     <string name="onePlus">OnePlus</string>
     <string name="enter_password">PASSWORT EINGEBEN</string>
     <style name="update_position">Position aktualisieren</style>

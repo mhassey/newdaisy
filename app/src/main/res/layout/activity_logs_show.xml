@@ -7,7 +7,7 @@
     android:id="@+id/rootLayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.logs.logs_show.LogsShowActivity">
+    tools:context="com.nzmdm.daisy.activity.logs.logs_show.LogsShowActivity">
     <LinearLayout
         android:orientation="horizontal"
         android:fillViewport="true"

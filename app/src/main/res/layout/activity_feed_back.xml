@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center|top"
     android:orientation="vertical"
-    tools:context=".activity.feedBack.FeedBackActivity">
+    tools:context="com.nzmdm.daisy.activity.feedBack.FeedBackActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
