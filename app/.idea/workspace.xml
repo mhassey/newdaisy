@@ -15,17 +15,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="MDM specific branch">
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="bug fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updateProduct/UpdateProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updateProduct/UpdateProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_update_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_update_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/user/.android/avd/5.1_WVGA_Edited_API_29.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[baemwkljbigylnr4]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -317,13 +316,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598592148006</updated>
-    </task>
-    <task id="LOCAL-00025" summary="removing bugs">
-      <created>1608099718410</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1608099718410</updated>
     </task>
     <task id="LOCAL-00026" summary="checking promotion issue">
       <created>1608270404243</created>
@@ -661,7 +653,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649135431668</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="bug fixes">
+      <created>1649136511076</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1649136511076</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -710,9 +709,9 @@
     <MESSAGE value="work on issue" />
     <MESSAGE value="implemented screen delete functionality" />
     <MESSAGE value="update inversion" />
-    <MESSAGE value="bug fixes" />
     <MESSAGE value="MDM specific branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="MDM specific branch" />
+    <MESSAGE value="bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
