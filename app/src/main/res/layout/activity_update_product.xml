@@ -176,15 +176,16 @@
             android:layout_marginEnd="@dimen/dp55"
             android:layout_marginTop="@dimen/dp5"
             android:layout_height="wrap_content">
+
             <Spinner
 
                 android:id="@+id/productName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:background="@drawable/edit_text_format"
-                android:textColorHint="@color/editTextLineColor"
-                android:padding="@dimen/dp10" />
+                android:inputType="text"
+                android:padding="@dimen/dp10"
+                android:textColorHint="@color/editTextLineColor" />
 
             <ImageView
                 android:layout_marginEnd="@dimen/dp10"
@@ -209,15 +210,16 @@
             android:layout_marginEnd="@dimen/dp55"
             android:layout_marginTop="@dimen/dp5"
             android:layout_height="wrap_content">
+
             <Spinner
 
                 android:id="@+id/webkitOrientation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:background="@drawable/edit_text_format"
-                android:textColorHint="@color/editTextLineColor"
-                android:padding="@dimen/dp10" />
+                android:inputType="text"
+                android:padding="@dimen/dp10"
+                android:textColorHint="@color/editTextLineColor" />
 
             <ImageView
                 android:layout_marginEnd="@dimen/dp10"
