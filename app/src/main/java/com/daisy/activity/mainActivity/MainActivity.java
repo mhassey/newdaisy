@@ -171,7 +171,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         windowWork();
         loadURL();
         intentWork();
-        sanitisedWork();
 
     }
 
@@ -302,8 +301,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onResume();
 
         handleResumeWork();
+
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
+
     }
 
 

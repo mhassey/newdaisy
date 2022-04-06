@@ -80,7 +80,6 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.webkitOrientation.setAdapter(orientationAdapter);
 
 
-
     }
 
 
@@ -89,7 +88,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void addOrientationData() {
-        ArrayList<String> orientation=new ArrayList<>();
+        ArrayList<String> orientation = new ArrayList<>();
         orientation.add(getString(R.string.defaultt));
         orientation.add(getString(R.string.landscape));
         mViewModel.setOrientation(orientation);
@@ -113,7 +112,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-      handleResumeWork();
+        handleResumeWork();
     }
 
     private void handleResumeWork() {
@@ -137,12 +136,11 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
 
             }
-                Log.e("kali..", BluetoothAdapter.getDefaultAdapter().getName());
+            Log.e("kali..", BluetoothAdapter.getDefaultAdapter().getName());
 
 
         }
     }
-
 
 
     /**
@@ -150,25 +148,24 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void designWork() {
-        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                 baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
             else
 
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple) );
+                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
         } else {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                 baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
             else
 
-            baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
+                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
         }
         baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
     }
-
 
 
     /**
@@ -200,10 +197,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Carrier carrier = mViewModel.getCarriers().get(position);
                 mViewModel.setSelectedCarrier(carrier);
-                Manufacture manufacture=(Manufacture)mBinding.manufactureList.getSelectedItem();
+                Manufacture manufacture = (Manufacture) mBinding.manufactureList.getSelectedItem();
                 mViewModel.setSelectedManufacture(manufacture);
 
-                getGeneralResponse(carrier,manufacture);
+                getGeneralResponse(carrier, manufacture);
             }
 
             @Override
@@ -215,21 +212,20 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     }
 
 
-
     /**
      * Responsibility - getManufactureListener method is used for item selection of manufacture
      * Parameters - No parameter
      **/
     private AdapterView.OnItemSelectedListener getManufactureListener() {
-        return  new AdapterView.OnItemSelectedListener() {
+        return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Manufacture manufacture = mViewModel.getManufactures().get(position);
                 mViewModel.setSelectedManufacture(manufacture);
-                Carrier carrier=(Carrier)mBinding.carrierName.getSelectedItem();
+                Carrier carrier = (Carrier) mBinding.carrierName.getSelectedItem();
                 mViewModel.setSelectedCarrier(carrier);
 
-                getGeneralResponse(carrier,manufacture);
+                getGeneralResponse(carrier, manufacture);
             }
 
             @Override
@@ -243,11 +239,11 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Responsibility - getGeneralResponse method is used for fire general api and get response and send response to handleResponse method
      * Parameters - Its takes Carrier,Manufacture object as parameter
      **/
-    private void getGeneralResponse(Carrier carrier,Manufacture manufacture) {
+    private void getGeneralResponse(Carrier carrier, Manufacture manufacture) {
 
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
-            HashMap<String, String> generalRequest = getGeneralRequest(carrier,manufacture);
+            HashMap<String, String> generalRequest = getGeneralRequest(carrier, manufacture);
             mViewModel.setGeneralRequest(generalRequest);
             LiveData<GlobalResponse<GeneralResponse>> liveData = mViewModel.getGeneralResponseLiveData();
             if (!liveData.hasActiveObservers()) {
@@ -263,7 +259,6 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
     }
-
 
 
     /**
@@ -297,17 +292,17 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Responsibility - getGeneralRequest method is used for create general api request
      * Parameters - Its takes Carrier,Manufacture object as parameter
      **/
-    private HashMap<String, String> getGeneralRequest(Carrier carrier,Manufacture manufacture) {
+    private HashMap<String, String> getGeneralRequest(Carrier carrier, Manufacture manufacture) {
         HashMap<String, String> hashMap = new HashMap<>();
         if (carrier != null)
             hashMap.put(Constraint.CARRIER_ID, carrier.getIdcarrier() + "");
-        if (manufacture!=null)
-            hashMap.put(Constraint.MANUFACTURE_ID,manufacture.getIdterm());
+        if (manufacture != null)
+            hashMap.put(Constraint.MANUFACTURE_ID, manufacture.getIdterm());
         return hashMap;
     }
 
     public static AddScreen getInstance(OnBoarding bording) {
-        baording=bording;
+        baording = bording;
         return new AddScreen();
 
     }
@@ -319,10 +314,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      **/
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.cancel:
-            {
+        switch (v.getId()) {
+            case R.id.cancel: {
                 getActivity().onBackPressed();
                 break;
             }

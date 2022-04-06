@@ -41,6 +41,8 @@ import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 
 /**
@@ -220,6 +222,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 if (isChecked) {
                     sessionManager.setSanitized(Constraint.TRUE);
                     sessionManager.setComeFromConfig(Constraint.TRUE);
+
                     finish();
                     ValidationHelper.showToast(context, getString(R.string.sanitised));
 
