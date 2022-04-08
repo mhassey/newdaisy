@@ -99,11 +99,11 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void initClick() {
-        mBinding.cancel.setOnClickListener(this);
+        mBinding.back.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
-        mBinding.nextSlide.setOnClickListener(this::onClick);
+        mBinding.saveAndLoad.setOnClickListener(this::onClick);
     }
 
 
@@ -323,11 +323,12 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.cancel: {
+            case R.id.back: {
                 onBackPressed();
+
                 break;
             }
-            case R.id.nextSlide: {
+            case R.id.saveAndLoad: {
                 handlePriceCardGettingHandler();
                 break;
             }
@@ -339,7 +340,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void handlePriceCardGettingHandler() {
-        if (mBinding.productName.getSelectedItem()!=null && !mBinding.productName.getSelectedItem().equals("")) {
+        if (mBinding.productName.getSelectedItem() != null && !mBinding.productName.getSelectedItem().equals("")) {
             showHideProgressDialog(true);
             updateProductViewModel.setMutableLiveData(getUpdateScreenRequest());
             LiveData<GlobalResponse> liveData = updateProductViewModel.getLiveData();
@@ -366,7 +367,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      **/
     private void handleScreenAddResponse(GlobalResponse screenAddResponseGlobalResponse) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
-            mBinding.nextSlide.setVisibility(View.GONE);
+            mBinding.saveAndLoad.setVisibility(View.GONE);
             sessionManager.setOrientation(mBinding.webkitOrientation.getSelectedItem().toString());
             getCardData();
         } else {
@@ -609,6 +610,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
             ValidationHelper.showToast(context, getString(R.string.product_not_available));
 
         }
+        hashMap.put(Constraint.ASPECT_RADIO, Constraint.ONE_BY_ONE);
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
     }
@@ -616,13 +618,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void onStart() {
-        if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
-            } else {
-                mBinding.nextSlide.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
-            }
-        }
+
         super.onStart();
 
     }

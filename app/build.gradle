@@ -33,6 +33,7 @@ android {
     }
 
     // pinecone password for all
+    // key key0
     buildTypes {
         release {
             minifyEnabled false
