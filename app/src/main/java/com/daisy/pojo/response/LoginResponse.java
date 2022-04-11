@@ -9,6 +9,7 @@ public class LoginResponse extends GlobalResponse {
     private String deviceSanitize;
     private String storeName;
     private String Phones;
+    private String deviceId;
     private String storeLocation;
     private String storeContact;
     private String storeHours;
@@ -21,6 +22,14 @@ public class LoginResponse extends GlobalResponse {
     private  String currentTime;
     private String currentTimeH;
     private String deviceSecurity;
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
     public String getDeviceSecurity() {
         return deviceSecurity;
