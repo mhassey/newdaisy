@@ -101,6 +101,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
+        mBinding.deviceDropDown.setOnItemSelectedListener(getManufactureListener());
+
         mBinding.continuee.setOnClickListener(this::onClick);
     }
 
@@ -217,6 +219,24 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Responsibility - getAutoDetectDevice method is used for item selection of auto detect devices
+     * Parameters - No parameter
+     **/
+    private AdapterView.OnItemSelectedListener getAutoDetectDevice() {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Product product = mViewModel.getAutoSelectedProduct().get(position);
+                mViewModel.setAutoSelectProduct(product);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+    }
 
     /**
      * Responsibility - getManufactureListener method is used for item selection of manufacture
@@ -283,27 +303,49 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                     public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
                         showHideProgressDialog(false);
                         if (generalResponseGlobalResponse.isApi_status()) {
-                            if (generalResponseGlobalResponse.getResult().getProducts() != null) {
-                                if (generalResponseGlobalResponse.getResult().getProducts().size() > 1) {
-                                    mBinding.deviceDetectedLayout.setVisibility(View.VISIBLE);
-                                    mBinding.multiDeviceDetectedLayout.setVisibility(View.VISIBLE);
-                                    mBinding.deviceName.setVisibility(View.GONE);
-                                } else if (generalResponseGlobalResponse.getResult().getProducts().size() > 0) {
-                                    mBinding.deviceDetectedLayout.setVisibility(View.VISIBLE);
-                                    mBinding.multiDeviceDetectedLayout.setVisibility(View.GONE);
-                                    mBinding.deviceName.setVisibility(View.VISIBLE);
-                                    mBinding.deviceName.setText(generalResponseGlobalResponse.getResult().getProducts().get(0).getProductName());
-                                    mViewModel.selctedProduct = generalResponseGlobalResponse.getResult().getProducts().get(0);
-
-                                }
-
-                            }
+                            handleProductListData(generalResponseGlobalResponse);
                         }
                     }
                 });
             }
         } else {
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
+    /**
+     * Purpose - handleProductListData handles the auto detected screen response
+     *
+     * @param generalResponseGlobalResponse
+     */
+    private void handleProductListData(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+        if (generalResponseGlobalResponse.getResult().getProducts() != null) {
+            if (generalResponseGlobalResponse.getResult().getProducts().size() > 1) {
+                List<Product> products = generalResponseGlobalResponse.getResult().getProducts();
+                if (products != null) {
+                    mViewModel.setAutoDetectProduct(products);
+                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, mViewModel.getAutoSelectedProduct());
+                    productArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mBinding.deviceDropDown.setAdapter(productArrayAdapter);
+
+                }
+                mBinding.deviceDetectedLayout.setVisibility(View.VISIBLE);
+                mBinding.multiDeviceDetectedLayout.setVisibility(View.VISIBLE);
+                mBinding.deviceName.setVisibility(View.GONE);
+                mViewModel.setAutoSelectProduct(generalResponseGlobalResponse.getResult().getProducts().get(0));
+
+            } else if (generalResponseGlobalResponse.getResult().getProducts().size() > 0) {
+
+                mBinding.deviceDetectedLayout.setVisibility(View.VISIBLE);
+                mBinding.multiDeviceDetectedLayout.setVisibility(View.GONE);
+                mBinding.deviceName.setVisibility(View.VISIBLE);
+                mBinding.deviceName.setText(generalResponseGlobalResponse.getResult().getProducts().get(0).getProductName());
+                mViewModel.setAutoSelectProduct(generalResponseGlobalResponse.getResult().getProducts().get(0));
+
+            } else {
+                mBinding.deviceDetectedLayout.setVisibility(View.GONE);
+            }
+
         }
     }
 

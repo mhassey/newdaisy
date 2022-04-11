@@ -21,6 +21,7 @@ import java.util.List;
 public class AddScreenViewModel extends AndroidViewModel {
 
     public Product selctedProduct;
+    public Product autoselctedProduct;
     private MutableLiveData<HashMap<String, String>> generalRequest = new MutableLiveData<>();
     private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveData;
     private MutableLiveData<HashMap<String, String>> generalRequestForDeviceSpecific = new MutableLiveData<>();
@@ -34,6 +35,7 @@ public class AddScreenViewModel extends AndroidViewModel {
     private List<Carrier> carriers;
     private List<String> orientation;
     private List<Manufacture> manufactures;
+    private List<Product> autoSelectedProduct;
     private Manufacture manufacture;
 
     public AddScreenViewModel(@NonNull Application application) {
@@ -135,5 +137,17 @@ public class AddScreenViewModel extends AndroidViewModel {
 
     public void setManufacture(Manufacture manufacture) {
         this.manufacture = manufacture;
+    }
+
+    public void setAutoDetectProduct(List<Product> products) {
+        this.autoSelectedProduct = products;
+    }
+
+    public List<Product> getAutoSelectedProduct() {
+        return autoSelectedProduct;
+    }
+
+    public void setAutoSelectProduct(Product product) {
+        autoselctedProduct = product;
     }
 }
