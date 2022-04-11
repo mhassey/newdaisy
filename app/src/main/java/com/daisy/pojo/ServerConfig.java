@@ -28,6 +28,7 @@ public class ServerConfig {
         serverConfigs.put("sdpn", "http://od.mobilepricecards.com/");
         serverConfigs.put("7mpv", "http://od1.mobilepricecards.com/");
         serverConfigs.put("0t77", "http://od2.mobilepricecards.com/");
+        serverConfigs.put("0t78", "http://od3.mobilepricecards.com/");
 
 
     }
@@ -36,8 +37,6 @@ public class ServerConfig {
     public HashMap<String, String> getServerConfig() {
         return serverConfigs;
     }
-
-
 
 
 }

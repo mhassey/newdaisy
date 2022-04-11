@@ -15,10 +15,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="work on auto detect feature">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="ally issue fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/response/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/response/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/ServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/ServerConfig.java" afterDir="false" />
     </list>
     <list id="80c62726-706b-4b4f-85c6-19cb1628ad6d" name="Temp Changelist" comment="Temp Changelist">
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_aar.xml" afterDir="false" />
@@ -531,7 +531,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608270404243</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="ally issue fixed">
+      <created>1649673246097</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1649673246097</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +587,8 @@
     <MESSAGE value="Give support to 18 language on config screen" />
     <MESSAGE value="removing bugs" />
     <MESSAGE value="checking promotion issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="checking promotion issue" />
+    <MESSAGE value="ally issue fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="ally issue fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
