@@ -101,7 +101,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
-        mBinding.deviceDropDown.setOnItemSelectedListener(getManufactureListener());
+        mBinding.deviceDropDown.setOnItemSelectedListener(getAutoDetectDevice());
 
         mBinding.continuee.setOnClickListener(this::onClick);
     }
@@ -419,7 +419,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             }
             case R.id.continuee: {
                 try {
-                    ((OnBoarding) getActivity()).handleCreateScreen(mViewModel.selctedProduct);
+                    ((OnBoarding) getActivity()).handleCreateScreen(mViewModel.autoselctedProduct);
                 } catch (Exception e) {
 
                 }
