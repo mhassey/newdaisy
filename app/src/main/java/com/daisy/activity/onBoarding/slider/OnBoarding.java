@@ -43,6 +43,7 @@ import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.PermissionDone;
+import com.daisy.pojo.response.Product;
 import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
@@ -66,7 +67,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     private int count = 0;
     private SessionManager sessionManager;
     public ActivityOnBaordingBinding mBinding;
-    private ScreenAddViewModel screenAddViewModel;
+    public ScreenAddViewModel screenAddViewModel;
     private GetCardViewModel getCardViewModel;
 
     @Override
@@ -325,36 +326,40 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             signUp.loginBinding.singup.performClick();
         } else if (count == Constraint.FOUR) {
 
-            if (Utils.getNetworkState(context)) {
-                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
-                ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
-                if (screenAddValidationHelper.isValid()) {
-                    showHideProgressDialog(true);
-                    screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen));
-                    LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
-                    if (!liveData.hasActiveObservers()) {
-                        liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
-                            @Override
-                            public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
-                                showHideProgressDialog(false);
-                                handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
-                            }
-                        });
-                    }
-                } else {
-                    count = Constraint.THREE;
-                }
-            } else {
-                count = Constraint.THREE;
-                ValidationHelper.showToast(context, getString(R.string.no_internet_available));
-            }
-
+            handleCreateScreen(null);
 
         }
 
         if (count == Constraint.ONE || count == Constraint.TWO) {
             mBinding.pager.setCurrentItem(count);
         }
+    }
+
+    public void handleCreateScreen(Product product) {
+        if (Utils.getNetworkState(context)) {
+            AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+            ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
+            if (screenAddValidationHelper.isValid()) {
+                showHideProgressDialog(true);
+                screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen, product));
+                LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
+                if (!liveData.hasActiveObservers()) {
+                    liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
+                        @Override
+                        public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
+                            showHideProgressDialog(false);
+                            handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
+                        }
+                    });
+                }
+            } else {
+                count = Constraint.THREE;
+            }
+        } else {
+            count = Constraint.THREE;
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+
     }
 
     /**
@@ -384,29 +389,57 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Responsibility - Create add screen request
      * Parameters - Its takes AddScreen object as parameter
      **/
-    private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
+    private HashMap<String, String> getAddScreenRequest(AddScreen addScreen, Product product) {
         if (addScreen != null) {
+
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
             hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
             hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
-            if (addScreen.mViewModel.getSelectedProduct() != null) {
-                if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
-                    hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
-            } else {
-                ValidationHelper.showToast(context, getString(R.string.product_not_available));
+            if (product == null) {
+                if (addScreen.mViewModel.getSelectedProduct() != null) {
+                    if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
+                        hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
+                    hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
 
+                } else {
+                    ValidationHelper.showToast(context, getString(R.string.product_not_available));
+
+                }
+            } else {
+                if (product.getIdproductStatic() != null) {
+                    hashMap.put(Constraint.ID_PRODUCT_STATIC, product.getIdproductStatic());
+                    hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
+                    hashMap.put(Constraint.DEVICE_NAME, "");
+
+                }
             }
-            hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
             hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
             LoginResponse loginResponse = sessionManager.getLoginResponse();
             if (loginResponse != null)
                 hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
+
+            hashMap.put(Constraint.MAC_ADDRESS, Utils.getMacAddress(getApplicationContext()));
             return hashMap;
         }
         return new HashMap<>();
     }
 
+    /**
+     * Responsibility - Increase counter of pager with dat
+     * Parameters - No parameter
+     **/
+    public void counterPlus(String deviceId) {
+        count = count + Constraint.ONE;
+        if (count == Constraint.THREE) {
+            mBinding.nextSlide.setVisibility(View.VISIBLE);
+
+        }
+        screenAddViewModel.setDeviceId(deviceId);
+
+        mBinding.pager.setCurrentItem(count);
+
+    }
 
     /**
      * Responsibility - Increase counter of pager

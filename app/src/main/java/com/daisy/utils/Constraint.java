@@ -153,6 +153,10 @@ public class Constraint {
     public static final String OPEN = "OPEN";
     public static final CharSequence PRICE_CARD = "PriceCard";
     public static final long TEN_SECOND = 10000;
+    public static final String DEVICENAME = "device_name";
+    public static final String DEVICE_ID = "deviceId";
+    public static final String DEVICEID = "device_id";
+    public static final String MAC_ADDRESS = "mac_address";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

@@ -23,6 +23,7 @@ public class ScreenAddViewModel extends AndroidViewModel {
     private MutableLiveData<HashMap<String, String>> mutableLiveData = new MutableLiveData<>();
     private LiveData<GlobalResponse<ScreenAddResponse>> liveData;
     private ScreenAddRepo screenAddRepo = new ScreenAddRepo();
+    private String deviceId = "";
 
     public ScreenAddViewModel(@NonNull Application application) {
         super(application);
@@ -32,6 +33,14 @@ public class ScreenAddViewModel extends AndroidViewModel {
                 return screenAddRepo.addScreen(input);
             }
         });
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public void setMutableLiveData(HashMap<String, String> request) {

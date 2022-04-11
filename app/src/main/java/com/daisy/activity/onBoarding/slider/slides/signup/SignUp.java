@@ -153,7 +153,8 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 sessionManager.setPricingPlainId(signUpResponse.getData().getPricingPlanID());
                 sessionManager.setServerTime(signUpResponse.getData().getCurrentTime());
                 sessionManager.setSignUpData(signUpResponse.getData());
-                baording.counterPlus();
+
+                baording.counterPlus(signUpResponse.getData().getDeviceId());
             } else {
 
                 baording.counterMinus();
@@ -177,7 +178,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.STORE_CODE, loginBinding.storeCode.getText().toString());
         hashMap.put(Constraint.PASSWORD_ID, loginBinding.password.getText().toString());
-
+        hashMap.put(Constraint.DEVICENAME,Utils.ModelNumber());
         return hashMap;
     }
 

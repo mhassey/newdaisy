@@ -18,6 +18,8 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
@@ -169,6 +171,11 @@ public class Utils {
         return false;
     }
 
+
+    public static String ModelNumber() {
+        return Build.MODEL;
+    }
+
     public static boolean getInvertedTime() {
         try {
             SessionManager sessionManager = SessionManager.get();
@@ -189,9 +196,7 @@ public class Utils {
                 return false;
             }
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return true;
@@ -979,6 +984,14 @@ public class Utils {
 
         }
         return 0;
+    }
+
+    public static String getMacAddress(Context context) {
+        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        String address = info.getMacAddress();
+        return address;
+
     }
 }
 

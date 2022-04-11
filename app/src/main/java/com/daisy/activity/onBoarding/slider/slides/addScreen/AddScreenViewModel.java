@@ -20,8 +20,13 @@ import java.util.List;
 
 public class AddScreenViewModel extends AndroidViewModel {
 
+    public Product selctedProduct;
     private MutableLiveData<HashMap<String, String>> generalRequest = new MutableLiveData<>();
     private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveData;
+    private MutableLiveData<HashMap<String, String>> generalRequestForDeviceSpecific = new MutableLiveData<>();
+
+    private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveDataForDeviceSpecific;
+
     private AddScreenRepo addScreenRepo;
     public Product selectedProduct;
     public Carrier selectedCarrier;
@@ -40,6 +45,28 @@ public class AddScreenViewModel extends AndroidViewModel {
                 return addScreenRepo.getGeneralResponse(input);
             }
         });
+        generalResponseLiveDataForDeviceSpecific = Transformations.switchMap(generalRequestForDeviceSpecific, new Function<HashMap<String, String>, LiveData<GlobalResponse<GeneralResponse>>>() {
+            @Override
+            public LiveData<GlobalResponse<GeneralResponse>> apply(HashMap<String, String> input) {
+                return new AddScreenRepo().getGeneralResponse(input);
+            }
+        });
+    }
+
+    public MutableLiveData<HashMap<String, String>> getGeneralRequestForDeviceSpecific() {
+        return generalRequestForDeviceSpecific;
+    }
+
+    public LiveData<GlobalResponse<GeneralResponse>> getGeneralResponseLiveDataForDeviceSpecific() {
+        return generalResponseLiveDataForDeviceSpecific;
+    }
+
+    public void setGeneralResponseLiveDataForDeviceSpecific(LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveDataForDeviceSpecific) {
+        this.generalResponseLiveDataForDeviceSpecific = generalResponseLiveDataForDeviceSpecific;
+    }
+
+    public void setGeneralRequestForDeviceSpecific(HashMap<String, String> generalRequestForDeviceSpecific) {
+        this.generalRequestForDeviceSpecific.setValue(generalRequestForDeviceSpecific);
     }
 
     public List<Manufacture> getManufactures() {

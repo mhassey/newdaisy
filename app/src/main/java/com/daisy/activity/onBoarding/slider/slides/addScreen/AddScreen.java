@@ -1,8 +1,6 @@
 package com.daisy.activity.onBoarding.slider.slides.addScreen;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -103,6 +101,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
+        mBinding.continuee.setOnClickListener(this::onClick);
     }
 
 
@@ -118,6 +117,16 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     private void handleResumeWork() {
         sessionManager = SessionManager.get();
         designWork();
+        try {
+            OnBoarding onBoarding = (OnBoarding) getActivity();
+            if (!onBoarding.screenAddViewModel.getDeviceId().equals("") && !onBoarding.screenAddViewModel.getDeviceId().equals("0")) {
+                getGeneralResponseForProductSelection(onBoarding.screenAddViewModel.getDeviceId());
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
         if (sessionManager.getLoginResponse() != null) {
             List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
             if (carriers != null) {
@@ -136,9 +145,6 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
 
             }
-            Log.e("kali..", BluetoothAdapter.getDefaultAdapter().getName());
-
-
         }
     }
 
@@ -260,6 +266,47 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - getGeneralResponse method is used for fire general api and get response and send response to handleResponse method
+     * Parameters - Its takes Carrier,Manufacture object as parameter
+     **/
+    private void getGeneralResponseForProductSelection(String deviceId) {
+
+        if (Utils.getNetworkState(context)) {
+            showHideProgressDialog(true);
+            HashMap<String, String> generalRequest = getGeneralRequest(deviceId);
+            mViewModel.setGeneralRequestForDeviceSpecific(generalRequest);
+            LiveData<GlobalResponse<GeneralResponse>> liveData = mViewModel.getGeneralResponseLiveDataForDeviceSpecific();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+                        showHideProgressDialog(false);
+                        if (generalResponseGlobalResponse.isApi_status()) {
+                            if (generalResponseGlobalResponse.getResult().getProducts() != null) {
+                                if (generalResponseGlobalResponse.getResult().getProducts().size() > 1) {
+                                    mBinding.deviceDetectedLayout.setVisibility(View.VISIBLE);
+                                    mBinding.multiDeviceDetectedLayout.setVisibility(View.VISIBLE);
+                                    mBinding.deviceName.setVisibility(View.GONE);
+                                } else if (generalResponseGlobalResponse.getResult().getProducts().size() > 0) {
+                                    mBinding.deviceDetectedLayout.setVisibility(View.VISIBLE);
+                                    mBinding.multiDeviceDetectedLayout.setVisibility(View.GONE);
+                                    mBinding.deviceName.setVisibility(View.VISIBLE);
+                                    mBinding.deviceName.setText(generalResponseGlobalResponse.getResult().getProducts().get(0).getProductName());
+                                    mViewModel.selctedProduct = generalResponseGlobalResponse.getResult().getProducts().get(0);
+
+                                }
+
+                            }
+                        }
+                    }
+                });
+            }
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
 
     /**
      * Responsibility - handleResponse method is called by getGeneralResponse method its check if response is correct then set value in adaptor
@@ -301,6 +348,15 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         return hashMap;
     }
 
+    /**
+     * Responsibility - getGeneralRequest method is used for create general api request
+     **/
+    private HashMap<String, String> getGeneralRequest(String deviceId) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.DEVICE_ID, deviceId);
+        return hashMap;
+    }
+
     public static AddScreen getInstance(OnBoarding bording) {
         baording = bording;
         return new AddScreen();
@@ -317,6 +373,14 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.cancel: {
                 getActivity().onBackPressed();
+                break;
+            }
+            case R.id.continuee: {
+                try {
+                    ((OnBoarding) getActivity()).handleCreateScreen(mViewModel.selctedProduct);
+                } catch (Exception e) {
+
+                }
                 break;
             }
         }
