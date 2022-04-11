@@ -312,6 +312,8 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
             hashMap.put(Constraint.CARRIER_ID, carrier.getIdcarrier() + "");
         if (manufacture != null)
             hashMap.put(Constraint.MANUFACTURE_ID, manufacture.getIdterm());
+        hashMap.put(Constraint.ASPECT_RADIO, Constraint.ONE_BY_ONE);
+
         return hashMap;
     }
 
