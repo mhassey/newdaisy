@@ -147,7 +147,7 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
      * Parameters - No parameter
      **/
     private void setLang(String s) {
-        s=s.trim();
+        s = s.trim();
         Locale locale = new Locale(s);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();

@@ -25,7 +25,7 @@ public class AddScreenViewModel extends AndroidViewModel {
     private MutableLiveData<HashMap<String, String>> generalRequest = new MutableLiveData<>();
     private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveData;
     private MutableLiveData<HashMap<String, String>> generalRequestForDeviceSpecific = new MutableLiveData<>();
-
+    public boolean isManufactureSelected = false;
     private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveDataForDeviceSpecific;
 
     private AddScreenRepo addScreenRepo;
@@ -149,5 +149,9 @@ public class AddScreenViewModel extends AndroidViewModel {
 
     public void setAutoSelectProduct(Product product) {
         autoselctedProduct = product;
+    }
+
+    public Product getAutoSelctedProduct() {
+        return autoselctedProduct;
     }
 }
