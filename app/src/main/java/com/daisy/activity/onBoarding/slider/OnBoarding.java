@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.text.format.Formatter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -82,7 +83,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_on_baording);
         initView();
         initClick();
-         }
+    }
 
     /**
      * Responsibility - initClick is an method that used for initiate clicks
@@ -369,7 +370,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
         WifiManager manager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = manager.getConnectionInfo();
-        String address = info.getMacAddress();
+        String address = Formatter.formatIpAddress(info.getIpAddress());
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.ISLE, Constraint.ONE_STRING);
         hashMap.put(Constraint.SHELF, Constraint.ONE_STRING);

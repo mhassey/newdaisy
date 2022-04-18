@@ -16,14 +16,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="worked on new functionality">
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="change version of ally">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/coonect_to_mpc/ConnectToMpc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/coonect_to_mpc/ConnectToMpc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/welcome/WelcomeAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/welcome/WelcomeAsk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBoarding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
     </list>
     <list id="80c62726-706b-4b4f-85c6-19cb1628ad6d" name="Temp Changelist" comment="Temp Changelist">
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_aar.xml" afterDir="false" />
@@ -215,9 +212,11 @@
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$" />
     <property name="ExportApk.BuildVariants" value="productionRelease" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/daisy.jks" />
@@ -537,7 +536,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608270404243</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="change version of ally">
+      <created>1650289512268</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1650289512268</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -586,7 +592,8 @@
     <MESSAGE value="Give support to 18 language on config screen" />
     <MESSAGE value="removing bugs" />
     <MESSAGE value="checking promotion issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="checking promotion issue" />
+    <MESSAGE value="change version of ally" />
+    <option name="LAST_COMMIT_MESSAGE" value="change version of ally" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -978,7 +985,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/coonect_to_mpc/ConnectToMpc.java</url>
-          <line>101</line>
+          <line>100</line>
           <option name="timeStamp" value="938" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
