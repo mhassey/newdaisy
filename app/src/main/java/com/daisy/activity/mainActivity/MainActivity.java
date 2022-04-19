@@ -327,6 +327,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         } else {
             mBinding.sanitisedHeader.setVisibility(View.GONE);
         }
+        checkWifiState();
     }
 
 
@@ -1315,6 +1316,34 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 goToWifi();
                 break;
             }
+        }
+    }
+
+
+    /**
+     * Purpose - checkWifiState method checks the wifi state and handle the ui accordingly
+     */
+    private void checkWifiState() {
+        try {
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            InternetResponse internetResponse = new InternetResponse();
+            try {
+                ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+                List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+                ComponentName componentInfo = taskInfo.get(0).topActivity;
+                if (!wifiManager.isWifiEnabled()) {
+                    internetResponse.setAvailable(true);
+                } else {
+                    internetResponse.setAvailable(false);
+
+                }
+                InternetAvailability(internetResponse);
+
+            } catch (Exception e) {
+            }
+
+        } catch (Exception e) {
+
         }
     }
 

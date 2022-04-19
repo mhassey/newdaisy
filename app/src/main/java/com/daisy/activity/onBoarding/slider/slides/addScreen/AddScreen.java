@@ -129,7 +129,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
             }
             OnBoarding onBoarding = (OnBoarding) getActivity();
-            if (!onBoarding.screenAddViewModel.getDeviceId().equals("") && !onBoarding.screenAddViewModel.getDeviceId().equals("0")) {
+            if (onBoarding.screenAddViewModel.getDeviceId() != null && !onBoarding.screenAddViewModel.getDeviceId().equals("") && !onBoarding.screenAddViewModel.getDeviceId().equals("0")) {
                 mViewModel.isManufactureSelected = false;
 
                 getGeneralResponseForProductSelection(onBoarding.screenAddViewModel.getDeviceId(), carriers.get(0));
