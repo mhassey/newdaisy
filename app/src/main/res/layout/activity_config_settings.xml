@@ -73,9 +73,20 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/device_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:gravity="center"
+
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp12" />
+
+                    <TextView
                         android:id="@+id/appVersion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/device_id"
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp12" />
@@ -490,14 +501,15 @@
 
 
                             </LinearLayout>
+
                             <LinearLayout
-                                android:layout_marginBottom="@dimen/dp10"
                                 android:id="@+id/close_app"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp30"
                                 android:layout_marginTop="@dimen/dp20"
                                 android:layout_marginEnd="@dimen/dp30"
+                                android:layout_marginBottom="@dimen/dp10"
                                 android:background="@drawable/edit_text_format"
                                 android:orientation="vertical">
 

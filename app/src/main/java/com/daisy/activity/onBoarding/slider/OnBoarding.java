@@ -368,14 +368,18 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - Its takes AddScreen object as parameter
      **/
     private HashMap<String, String> getAddScreenRequest(AddScreen addScreen) {
-        WifiManager manager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = manager.getConnectionInfo();
-        String address = Formatter.formatIpAddress(info.getIpAddress());
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.ISLE, Constraint.ONE_STRING);
         hashMap.put(Constraint.SHELF, Constraint.ONE_STRING);
         hashMap.put(Constraint.POSITION, Constraint.ONE_STRING);
-        hashMap.put(Constraint.MAC_ADDRESS, address);
+        String android_id = "";
+        try {
+            android_id = Settings.Secure.getString(getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        hashMap.put(Constraint.MAC_ADDRESS, android_id);
         if (addScreen.mViewModel.getSelectedProduct() != null) {
             if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
                 hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());

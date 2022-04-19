@@ -3,6 +3,7 @@ package com.daisy.activity.configSettings;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -82,6 +83,18 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         sessionWork();
         mBinding.appVersion.setText(getString(R.string.app_version) + " " + BuildConfig.VERSION_NAME);
         getDefaultUpdateTime();
+        setdeviceId();
+    }
+
+    private void setdeviceId() {
+        String android_id = "";
+        try {
+            android_id = Settings.Secure.getString(getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mBinding.deviceId.setText(Constraint.DEVICE_ID+""+android_id);
     }
 
     /**

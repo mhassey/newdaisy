@@ -303,37 +303,49 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Handle all downloaded data
      */
     private void getDownloadData() {
-        try {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
 
-            if (CheckForSDCard.isSDCardPresent()) {
+                    if (CheckForSDCard.isSDCardPresent()) {
 
-                List<Promotion> promotions = sessionManager.getPromotion();
-                List<Download> downloads = new ArrayList<>();
-                if (checkPermission()) {
-                    final String url = Utils.getPath();
-                    if (url != null) {
-                        if (sessionManager.getPriceCard() != null) {
-                            if (sessionManager.getPriceCard().getFileName1() != null)
-                                downloadFiles(sessionManager.getPriceCard().getFileName1(), promotions, downloads);
-                            else if (sessionManager.getPriceCard().getFileName() != null)
-                                downloadFiles(sessionManager.getPriceCard().getFileName(), promotions, downloads);
-                            else
-                                DownloadFail(new DownloadFail());
+                        List<Promotion> promotions = sessionManager.getPromotion();
+                        List<Download> downloads = new ArrayList<>();
+                        if (checkPermission()) {
+                            final String url = Utils.getPath();
+                            if (url != null) {
+                                if (sessionManager.getPriceCard() != null) {
+                                    if (sessionManager.getPriceCard().getFileName1() != null)
+                                        downloadFiles(sessionManager.getPriceCard().getFileName1(), promotions, downloads);
+                                    else if (sessionManager.getPriceCard().getFileName() != null)
+                                        downloadFiles(sessionManager.getPriceCard().getFileName(), promotions, downloads);
+                                    else
+                                        DownloadFail(new DownloadFail());
 
-                        } else {
-                            downloadFiles(url, promotions, downloads);
+                                } else {
+                                    downloadFiles(url, promotions, downloads);
 
+                                }
+                            } else {
+                                editorToolOpen();
+                            }
                         }
                     } else {
-                        editorToolOpen();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ValidationHelper.showToast(MainActivity.this, getString(R.string.storage_not_available));
+
+                            }
+                        });
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } else {
-                ValidationHelper.showToast(this, getString(R.string.storage_not_available));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }).start();
+
     }
 
     /**
@@ -383,7 +395,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
         if (listOfPromo != null)
             sessionManager.setPromotions(listOfPromo);
-        new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
+
+            }
+        });
     }
 
 
