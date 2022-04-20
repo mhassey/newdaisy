@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
 
-        tools:context="com.nzmdm.daisy.activity.logs.LogsMainActivity">
+        tools:context="com.vzwmdm.daisy.activity.logs.LogsMainActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

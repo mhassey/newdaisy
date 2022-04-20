@@ -7,7 +7,7 @@
         android:id="@+id/rootLayout"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.nzmdm.daisy.activity.editorTool.EditorTool">
+        tools:context="com.vzwmdm.daisy.activity.editorTool.EditorTool">
 
         <RelativeLayout
             android:orientation="vertical"

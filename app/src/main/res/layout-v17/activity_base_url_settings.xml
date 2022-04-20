@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:id="@+id/rootLayout"
         android:weightSum="1"
-        tools:context="com.nzmdm.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
+        tools:context="com.vzwmdm.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
 
         <LinearLayout

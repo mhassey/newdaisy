@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:507296311468:android:99629b9cfbdf6671939709",
         "android_client_info": {
-          "package_name": "com.nzmdm.daisy"
+          "package_name": "com.vzwmdm.daisy"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "507296311468-9ehssd6qtmc2uq89407le9bpckg74ld9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.nzmdm.daisy",
+            "package_name": "com.vzwmdm.daisy",
             "certificate_hash": "8c2d2900034474a3cd99158a88f0076faad406a7"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "507296311468-uesb8b968qgukub9ijkoh5skv8u43a25.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.nzmdm.daisy",
+            "package_name": "com.vzwmdm.daisy",
             "certificate_hash": "c100eab286271cb957049f0a38750dbfe686ba1b"
           }
         },
