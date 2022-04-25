@@ -15,258 +15,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="bug fixes">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_04_03_22,_6_57_PM_[Default_Changelist]/Daisy-digicel.apk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_04_03_22,_6_57_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_02_22,_5_43_PM_[another]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_22,_5_56_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_04_22,_5_47_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_04_22__5_47_PM__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_04_22,_1_11_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_04_22,_1_21_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_04_22__1_11_PM__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_04_22__1_21_PM__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_01_22,_10_32_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_02_22,_12_49_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_02_22,_4_43_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_02_22,_4_43_PM_[another]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_02_22,_7_24_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_22,_6_20_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_22,_6_34_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Daisy-display-remove.apk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/request/GeneralRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/ApkDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/BlankResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/DeleteCardResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/DownloadFail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/FeedBackResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/IpSearched.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Sanitised.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/UpdateCards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_0_aar2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar2.xml" beforeDir="false" />
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="new mdm vzw code">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_04_22,_5_47_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_04_22__5_47_PM__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/ObjectDetection/CameraSurfaceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/ObjectDetection/CameraSurfaceView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/ObjectDetection/cam/FaceDetectionCamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/ObjectDetection/cam/FaceDetectionCamera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/ObjectDetection/cam/FrontCameraRetriever.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/ObjectDetection/cam/FrontCameraRetriever.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/ObjectDetection/cam/LoadFrontCameraAsyncTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/ObjectDetection/cam/LoadFrontCameraAsyncTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/ObjectDetection/cam/OneShotFaceDetectionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/ObjectDetection/cam/OneShotFaceDetectionListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/ObjectDetection/cam/RestartingCountDownTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/ObjectDetection/cam/RestartingCountDownTimer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/apkUpdate/ApkUpdateRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/apkUpdate/ApkUpdateRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/apkUpdate/ApkUpdateViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/apkUpdate/ApkUpdateViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/apkUpdate/DownloadUpdateApk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/apkUpdate/DownloadUpdateApk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/apkUpdate/GenericFileProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/apkUpdate/GenericFileProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/apkUpdate/UpdateApk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/apkUpdate/UpdateApk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/base/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/base/BaseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/base/BaseFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/base/BaseFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/baseUrl/BaseUrlSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/baseUrl/BaseUrlSettingsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/baseUrl/BaseUrlSettingsViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/configSettings/ConfigSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/configSettings/ConfigSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/deleteCard/DeleteCardRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/deleteCard/DeleteCardRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/deleteCard/DeleteCardViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/deleteCard/DeleteCardViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/editorTool/EditorTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/editorTool/EditorTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/feedBack/FeedBackActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/feedBack/FeedBackActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/feedBack/FeedBackModelView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/feedBack/FeedBackModelView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/feedBack/FeedBackRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/feedBack/FeedBackRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/feedBack/FeedBackValidationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/feedBack/FeedBackValidationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/langSupport/LangSelectionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/langSupport/LangSelectionActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/langSupport/LangSupportViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/langSupport/LangSupportViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/lockscreen/LockScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/lockscreen/LockScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/logs/LogSyncExtra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/logs/LogSyncExtra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/logs/LogsMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/logs/LogsMainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/logs/logs_show/LogsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/logs/logs_show/LogsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/logs/logs_show/LogsShowActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/logs/logs_show/LogsShowActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/logs/logs_show/LogsShowViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/logs/logs_show/LogsShowViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/mainActivity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/mainActivity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/mainActivity/MainActivityViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/mainActivity/MainActivityViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/OnBoarding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/getCard/GetCardRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/getCard/GetCardRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/getCard/GetCardViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/getCard/GetCardViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/getCard/vo/GetCardResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/getCard/vo/GetCardResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/screenAdd/ScreenAddRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/screenAdd/ScreenAddRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/screenAdd/ScreenAddViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/screenAdd/ScreenAddViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/screenAdd/vo/ScreenAddResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/screenAdd/vo/ScreenAddResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/addScreen/AddScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/addScreen/AddScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/addScreen/AddScreenRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/addScreen/AddScreenRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/addScreen/AddScreenViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/addScreen/AddScreenViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAskViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAskViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/securityAsk/SecurityAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/securityAsk/SecurityAsk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/signup/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/signup/SignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/signup/SignUpValidationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/signup/SignUpValidationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/signup/SignUpViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/signup/SignUpViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/signup/vo/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/signup/vo/SignUpRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/onBoarding/slider/slides/signup/vo/SignUpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/onBoarding/slider/slides/signup/vo/SignUpResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/refreshTimer/RefreshTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/refreshTimer/RefreshTimer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/settings/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/settings/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/socketConnection/SocketConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/socketConnection/SocketConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/splash/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/splash/SplashScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updateBaseUrl/UpdateBaseUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updateBaseUrl/UpdateBaseUrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updatePosition/UpdatePosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updatePosition/UpdatePosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updatePosition/UpdatePositionRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updatePosition/UpdatePositionRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updatePosition/UpdatePositionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updatePosition/UpdatePositionViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updatePosition/UpdateProfileValidationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updatePosition/UpdateProfileValidationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updatePosition/vo/UpdatePositionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updatePosition/vo/UpdatePositionResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updateProduct/UpdateProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updateProduct/UpdateProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updateProduct/UpdateProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updateProduct/UpdateProductRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/updateProduct/UpdateProductViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/updateProduct/UpdateProductViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/validatePromotion/ValidatePromotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/validatePromotion/ValidatePromotion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/activity/welcomeScreen/WelcomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/activity/welcomeScreen/WelcomeScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/adapter/LangSupportAdaptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/adapter/LangSupportAdaptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/adapter/LogsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/adapter/LogsAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/adapter/SliderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/adapter/SliderAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/apiService/ApiConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/apiService/ApiConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/apiService/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/apiService/ApiResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/apiService/ApiResponseStatusCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/apiService/ApiResponseStatusCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/apiService/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/apiService/ApiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/apiService/AppRetrofit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/apiService/AppRetrofit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/app/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/app/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/broadcast/bootcomplete/BootReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/broadcast/bootcomplete/BootReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/broadcast/broadcastforbackgroundservice/AlaramHelperBackground.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/broadcast/broadcastforbackgroundservice/AlaramHelperBackground.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/broadcast/broadcastforbackgroundservice/AlarmBootBackgroundReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/broadcast/broadcastforbackgroundservice/AlarmBootBackgroundReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/broadcast/broadcastforbackgroundservice/AlarmReceiverForBackground.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/broadcast/broadcastforbackgroundservice/AlarmReceiverForBackground.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/checkCardAvailability/CheckCardAvailability.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/checkCardAvailability/CheckCardAvailability.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/common/session/PrefConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/common/session/PrefConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/common/session/PreferenceUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/common/session/PreferenceUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/common/session/SessionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/common/session/SessionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/database/DBCaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/database/DBCaller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/database/DatabaseClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/database/DatabaseClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/database/dao/LogDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/database/dao/LogDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/dialogFragment/DateTimePermissionDIalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/dialogFragment/DateTimePermissionDIalog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/interfaces/CallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/interfaces/CallBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/interfaces/LangSupportCallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/interfaces/LangSupportCallBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/interfaces/SyncLogCallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/interfaces/SyncLogCallBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/LangPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/LangPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/Logs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/Logs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/LogsDataPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/LogsDataPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/request/GeneralRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/request/LogClearRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/request/LogClearRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/request/LogServerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/request/LogServerRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/request/LogSyncRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/request/LogSyncRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/request/LogsRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/request/LogsRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Android.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Android.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/ApkDetails.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/BlankResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Carrier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Carrier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/DeleteCardResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Download.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Download.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/DownloadFail.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/FeedBackResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/GeneralResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/GeneralResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/GlobalResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/GlobalResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/InternetResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/InternetResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Inversion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Inversion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/IpSearched.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/LogClearResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/LogClearResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/LogResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/LogResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/LoginResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Manufacture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Manufacture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/OsType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/OsType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/OverLayResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/OverLayResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/PathStoring.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/PathStoring.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/PermissionDone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/PermissionDone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/PriceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/PriceCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/PriceCardMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/PriceCardMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Pricing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Pricing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Promotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Promotion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Promotions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Promotions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Sanitised.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/ScreenPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/ScreenPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/SimpleResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/SimpleResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/SocketEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/SocketEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/StoreDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/StoreDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Time.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Time.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/UpdateCards.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/Url.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/Url.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/ValidatePromotionPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/ValidatePromotionPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/pojo/response/VersionUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/pojo/response/VersionUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/security/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/security/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/BackgroundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/BackgroundService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/BackgroundSoundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/BackgroundSoundService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/DeletePhotoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/DeletePhotoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/DeviceSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/DeviceSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/FirebaseMessagingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/FirebaseMessagingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/LogGenerateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/LogGenerateService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/SecurityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/SecurityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/StickyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/StickyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/service/UpdateAppVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/service/UpdateAppVersion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/sync/SyncLogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/sync/SyncLogs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/CheckForSDCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/CheckForSDCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/Constraint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/CustomViewPager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/CustomViewPager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/Demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/DeviceList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/DeviceList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/DownloadFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/DownloadFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/DownloadJSFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/DownloadJSFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/FaceDetectionSingalton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/FaceDetectionSingalton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/FixAdobeWebView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/FixAdobeWebView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/JSExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/JSExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/LiveDataCallAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/LiveDataCallAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/LiveDataCallAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/LiveDataCallAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/LogoutDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/LogoutDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/OnSwipeTouchListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/OnSwipeTouchListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/PermissionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/PermissionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/SanitisedSingletonObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/SanitisedSingletonObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/ValidationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/ValidationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nzmdm/daisy/utils/ZipManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vzwmdm/daisy/utils/ZipManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-v17/activity_base_url_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-v17/activity_base_url_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-v17/activity_feed_back.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-v17/activity_feed_back.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-v17/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-v17/activity_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-v17/activity_welcome_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-v17/activity_welcome_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_base_url_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_base_url_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_config_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_config_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_editor_tool.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_editor_tool.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_feed_back.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_feed_back.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_lang_selection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_lang_selection.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_lock_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_lock_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_logs_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_logs_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_logs_show.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_logs_show.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_refresh_timer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_refresh_timer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_socket_connection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_socket_connection.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_splash_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_splash_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_update_base_url.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_update_base_url.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_welcome_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_welcome_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_permission_ask.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_permission_ask.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_security_ask.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_security_ask.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/password_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/password_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/navigation/nav_graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-ar/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-ar/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-da/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-da/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-de/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-de/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-es/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-es/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-fi/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-fi/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-fr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-fr/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-hi/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-hi/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-it/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-it/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-ko/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-ko/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-nl/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-nl/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-no/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-no/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-pl/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-pl/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-pt/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-pt/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-ru/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-ru/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-sv/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-sv/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-tr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-tr/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-uk/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-uk/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[baemwkljbigylnr4]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/user/.android/avd/5.1_WVGA_Edited_API_29.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -896,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649136511076</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="new mdm vzw code">
+      <created>1650442035863</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1650442035863</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -922,7 +690,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Working on new security feature" />
     <MESSAGE value="Security WOrk" />
     <MESSAGE value="New version 2.81 testing commit" />
     <MESSAGE value="Add direct update" />
@@ -947,7 +714,8 @@
     <MESSAGE value="update inversion" />
     <MESSAGE value="MDM specific branch" />
     <MESSAGE value="bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
+    <MESSAGE value="new mdm vzw code" />
+    <option name="LAST_COMMIT_MESSAGE" value="new mdm vzw code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
