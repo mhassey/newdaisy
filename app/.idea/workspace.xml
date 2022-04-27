@@ -12,10 +12,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="NONE" />
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="bug fixes">
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="Add commenting">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_0_aar2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
     </list>
@@ -24,7 +26,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[baemwkljbigylnr4]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/user/.android/avd/5.1_WVGA_Edited_API_29.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -52,14 +54,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Daisy" type="f1a62948:ProjectNode" />
                 <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Daisy" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="android" type="c8890929:TasksNode$1" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -72,61 +67,34 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="valueResourceFile" />
+        <option value="Class" />
         <option value="Interface" />
         <option value="resourceFile" />
         <option value="layoutResourceFile" />
-        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/daisy.jks" />
+    <option name="KEY_STORE_PATH" value="$USER_HOME$/Downloads/daisy.jks" />
     <option name="KEY_ALIAS" value="key0" />
     <option name="REMEMBER_PASSWORDS" value="true" />
     <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="Git.Settings">
-    <excluded-from-favorite>
-      <branch-storage>
-        <map>
-          <entry type="REMOTE">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$/.." source="origin/master" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </excluded-from-favorite>
     <favorite-branches>
       <branch-storage>
         <map>
           <entry type="LOCAL">
             <value>
               <list>
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-Device-Sync-Release" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-Main-4.10-Release" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-Ally-Release" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-Go-Release" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-NZ-Release" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-EE-Release" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-Orange-4.22-Release" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-Orange-4.22-Optional-Permission" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy_4.23-Development" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy_4.27" />
-                <branch-info repo="$PROJECT_DIR$/.." source="Daisy-mdmt-1.01" />
+                <branch-info repo="$PROJECT_DIR$/.." source="Ally_1.20" />
               </list>
             </value>
           </entry>
           <entry type="REMOTE">
             <value>
               <list>
-                <branch-info repo="$PROJECT_DIR$/.." source="origin/bugfix/Daisy-4.10-release-code-Sep-12021" />
-                <branch-info repo="$PROJECT_DIR$/.." source="origin/Daisy-Ally" />
-                <branch-info repo="$PROJECT_DIR$/.." source="origin/Daisy-AndroidGo-Sep12021" />
-                <branch-info repo="$PROJECT_DIR$/.." source="origin/Daisy-Nz-specific-build" />
-                <branch-info repo="$PROJECT_DIR$/.." source="origin/Daisy-vodafone-support" />
+                <branch-info repo="$PROJECT_DIR$/.." source="origin/Ally_1.21" />
               </list>
             </value>
           </entry>
@@ -135,18 +103,10 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="Daisy_4.27_NZ_MDM" />
+        <entry key="$PROJECT_DIR$/.." value="Daisy_4.27" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
   </component>
   <component name="KotlinMultiplatform">
     <allAvailableExecutables />
@@ -156,12 +116,13 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ApkExportedModule" value="Daisy.app" />
-    <property name="DEBUGGABLE_DEVICE" value="5.1_WVGA_Edited_API_29 [emulator-5554]" />
-    <property name="DEBUGGABLE_PROCESS" value="com.nzmdm.daisy" />
+    <property name="DEBUGGABLE_DEVICE" value="xiaomi-m2104k10i-baemwkljbigylnr4" />
+    <property name="DEBUGGABLE_PROCESS" value="com.daisy" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_XL_API_23" />
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-07T07:21:17.593Z" />
@@ -175,12 +136,11 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Videos/Trail Challenger/TrailChallenger-Private" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1638777489849" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/daisy.jks" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -197,9 +157,6 @@
       <recent name="$PROJECT_DIR$/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/src/main/java/com/daisy/utils" />
       <recent name="$PROJECT_DIR$/src/main/res/xml" />
-    </key>
-    <key name="android.template.-2065850613">
-      <recent name="com.daisy.activity.socketConnection" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.daisy.security" />
@@ -301,7 +258,6 @@
         <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
-        <item itemvalue="Gradle.app [signingReport]" />
       </list>
     </recent_temporary>
   </component>
@@ -317,6 +273,181 @@
       <option name="presentableId" value="Default" />
       <updated>1598592148006</updated>
     </task>
+    <task id="LOCAL-00001" summary="Basic Setup">
+      <created>1598592427367</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1598592427367</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Basic Setup phase 2">
+      <created>1598592918593</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1598592918593</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Bugs remove and maintain functions">
+      <created>1600774062666</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1600774062666</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Second Release workable code">
+      <created>1602054796536</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1602054796538</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add commenting and maintain hole code">
+      <created>1602833881961</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602833881961</updated>
+    </task>
+    <task id="LOCAL-00006" summary="demo test">
+      <created>1602859625714</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1602859625714</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changing html processing way">
+      <created>1603262669632</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1603262669632</updated>
+    </task>
+    <task id="LOCAL-00008" summary="bugs remove">
+      <created>1603434295631</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1603434295631</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add commenting">
+      <created>1603434799346</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1603434799346</updated>
+    </task>
+    <task id="LOCAL-00010" summary="bug removing">
+      <created>1603690719071</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1603690719071</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add commenting">
+      <created>1603704985348</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1603704985348</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Bugs removing">
+      <created>1603706835080</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1603706835080</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Bugs removing">
+      <created>1603707263412</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1603707263412</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Working on new security feature">
+      <created>1603778315026</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1603778315029</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Security WOrk">
+      <created>1603970754876</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1603970754876</updated>
+    </task>
+    <task id="LOCAL-00016" summary="New version 2.81 testing commit">
+      <created>1605676919317</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1605676919317</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Add direct update">
+      <created>1605694891089</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1605694891089</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Working on new feature">
+      <created>1605697042153</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1605697042153</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Bugs remove">
+      <created>1606814756379</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1606814756379</updated>
+    </task>
+    <task id="LOCAL-00020" summary="working on security feature">
+      <created>1606911940723</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1606911940723</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Add commenting">
+      <created>1606975871658</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1606975871658</updated>
+    </task>
+    <task id="LOCAL-00022" summary="rtl support">
+      <created>1607588229938</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1607588229938</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Adding lag support">
+      <created>1607771809144</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1607771809144</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Give support to 18 language on config screen">
+      <created>1607941454460</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1607941454460</updated>
+    </task>
+    <task id="LOCAL-00025" summary="removing bugs">
+      <created>1608099718410</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1608099718410</updated>
+    </task>
     <task id="LOCAL-00026" summary="checking promotion issue">
       <created>1608270404243</created>
       <option name="number" value="00026" />
@@ -324,343 +455,21 @@
       <option name="project" value="LOCAL" />
       <updated>1608270404243</updated>
     </task>
-    <task id="LOCAL-00027" summary="bug fixes">
-      <created>1638941066364</created>
+    <task id="LOCAL-00027" summary="change version of ally">
+      <created>1650289512268</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1638941066364</updated>
+      <updated>1650289512268</updated>
     </task>
-    <task id="LOCAL-00028" summary="bug fixes">
-      <created>1638973796694</created>
+    <task id="LOCAL-00028" summary="fixed wifi issue">
+      <created>1650291077216</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
       <option name="project" value="LOCAL" />
-      <updated>1638973796694</updated>
+      <updated>1650291077216</updated>
     </task>
-    <task id="LOCAL-00029" summary="bug fixes">
-      <created>1638973900235</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1638973900235</updated>
-    </task>
-    <task id="LOCAL-00030" summary="bug fixes">
-      <created>1639026463609</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1639026463609</updated>
-    </task>
-    <task id="LOCAL-00031" summary="bug fixes">
-      <created>1639026538673</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1639026538673</updated>
-    </task>
-    <task id="LOCAL-00032" summary="bug fixes">
-      <created>1639051539070</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1639051539070</updated>
-    </task>
-    <task id="LOCAL-00033" summary="bug fixes">
-      <created>1639135894441</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1639135894441</updated>
-    </task>
-    <task id="LOCAL-00034" summary="bug fixes">
-      <created>1639135958469</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1639135958469</updated>
-    </task>
-    <task id="LOCAL-00035" summary="bug fixes">
-      <created>1639136144905</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1639136144905</updated>
-    </task>
-    <task id="LOCAL-00036" summary="bug fixes">
-      <created>1639141886105</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1639141886105</updated>
-    </task>
-    <task id="LOCAL-00037" summary="bug fixes">
-      <created>1639148654730</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1639148654730</updated>
-    </task>
-    <task id="LOCAL-00038" summary="bug fixes">
-      <created>1639148692991</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1639148692991</updated>
-    </task>
-    <task id="LOCAL-00039" summary="bug fixes">
-      <created>1639464798944</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1639464798944</updated>
-    </task>
-    <task id="LOCAL-00040" summary="implement logout functionality">
-      <created>1639466844108</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1639466844108</updated>
-    </task>
-    <task id="LOCAL-00041" summary="implement logout functionality bug fixes">
-      <created>1639467282392</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1639467282392</updated>
-    </task>
-    <task id="LOCAL-00042" summary="implement logout functionality bug fixes">
-      <created>1639467879132</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1639467879132</updated>
-    </task>
-    <task id="LOCAL-00043" summary="implement logout functionality bug fixes">
-      <created>1639468033093</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1639468033093</updated>
-    </task>
-    <task id="LOCAL-00044" summary="implement logout functionality bug fixes">
-      <created>1639468536420</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1639468536420</updated>
-    </task>
-    <task id="LOCAL-00045" summary="implement logout functionality bug fixes">
-      <created>1639473206216</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1639473206216</updated>
-    </task>
-    <task id="LOCAL-00046" summary="implement logout functionality bug fixes">
-      <created>1639474453963</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1639474453963</updated>
-    </task>
-    <task id="LOCAL-00047" summary="work on issues">
-      <created>1639666442797</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1639666442797</updated>
-    </task>
-    <task id="LOCAL-00048" summary="work on issues">
-      <created>1640150207295</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1640150207295</updated>
-    </task>
-    <task id="LOCAL-00049" summary="work on issues">
-      <created>1640418217050</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1640418217050</updated>
-    </task>
-    <task id="LOCAL-00050" summary="work on issues">
-      <created>1640604679068</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1640604679069</updated>
-    </task>
-    <task id="LOCAL-00051" summary="work on issues">
-      <created>1640604829163</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1640604829163</updated>
-    </task>
-    <task id="LOCAL-00052" summary="work on issues">
-      <created>1640608510692</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1640608510692</updated>
-    </task>
-    <task id="LOCAL-00053" summary="work on issues">
-      <created>1640671528736</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1640671528736</updated>
-    </task>
-    <task id="LOCAL-00054" summary="work on issues">
-      <created>1640845888164</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1640845888164</updated>
-    </task>
-    <task id="LOCAL-00055" summary="implement minimization functionality">
-      <created>1640852201581</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1640852201581</updated>
-    </task>
-    <task id="LOCAL-00056" summary="implement minimization functionality">
-      <created>1640860000027</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1640860000027</updated>
-    </task>
-    <task id="LOCAL-00057" summary="work on socket connection">
-      <created>1641186327709</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1641186327715</updated>
-    </task>
-    <task id="LOCAL-00058" summary="work on socket connection">
-      <created>1641212209210</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1641212209210</updated>
-    </task>
-    <task id="LOCAL-00059" summary="work on socket connection">
-      <created>1641533141838</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1641533141838</updated>
-    </task>
-    <task id="LOCAL-00060" summary="work on ally design">
-      <created>1642757286615</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1642757286616</updated>
-    </task>
-    <task id="LOCAL-00061" summary="work on ally design">
-      <created>1642757536388</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1642757536388</updated>
-    </task>
-    <task id="LOCAL-00062" summary="work on issue">
-      <created>1643099504415</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1643099504416</updated>
-    </task>
-    <task id="LOCAL-00063" summary="work on issue">
-      <created>1643106003289</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1643106003289</updated>
-    </task>
-    <task id="LOCAL-00064" summary="work on issue">
-      <created>1643342153955</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1643342153956</updated>
-    </task>
-    <task id="LOCAL-00065" summary="work on issue">
-      <created>1643632524608</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1643632524608</updated>
-    </task>
-    <task id="LOCAL-00066" summary="work on issue">
-      <created>1643632643065</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1643632643065</updated>
-    </task>
-    <task id="LOCAL-00067" summary="work on issue">
-      <created>1643955568935</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1643955568935</updated>
-    </task>
-    <task id="LOCAL-00068" summary="work on issue">
-      <created>1644323880500</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1644323880501</updated>
-    </task>
-    <task id="LOCAL-00069" summary="work on issue">
-      <created>1644326979563</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1644326979563</updated>
-    </task>
-    <task id="LOCAL-00070" summary="implemented screen delete functionality">
-      <created>1644493298564</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1644493298564</updated>
-    </task>
-    <task id="LOCAL-00071" summary="update inversion">
-      <created>1644493654283</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1644493654283</updated>
-    </task>
-    <task id="LOCAL-00072" summary="bug fixes">
-      <created>1649070531412</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1649070531414</updated>
-    </task>
-    <task id="LOCAL-00073" summary="MDM specific branch">
-      <created>1649135431668</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1649135431668</updated>
-    </task>
-    <task id="LOCAL-00074" summary="bug fixes">
-      <created>1649136511076</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1649136511076</updated>
-    </task>
-    <option name="localTasksCounter" value="75" />
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -686,6 +495,16 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Basic Setup" />
+    <MESSAGE value="Basic Setup phase 2" />
+    <MESSAGE value="Bugs remove and maintain functions" />
+    <MESSAGE value="Second Release workable code" />
+    <MESSAGE value="Add commenting and maintain hole code" />
+    <MESSAGE value="demo test" />
+    <MESSAGE value="Changing html processing way" />
+    <MESSAGE value="bugs remove" />
+    <MESSAGE value="bug removing" />
+    <MESSAGE value="Bugs removing" />
     <MESSAGE value="Working on new security feature" />
     <MESSAGE value="Security WOrk" />
     <MESSAGE value="New version 2.81 testing commit" />
@@ -699,19 +518,9 @@
     <MESSAGE value="Give support to 18 language on config screen" />
     <MESSAGE value="removing bugs" />
     <MESSAGE value="checking promotion issue" />
-    <MESSAGE value="implement logout functionality" />
-    <MESSAGE value="implement logout functionality bug fixes" />
-    <MESSAGE value="work on issues" />
-    <MESSAGE value="implement minimization functionality" />
-    <MESSAGE value="work on socket connection" />
-    <MESSAGE value="work on ally design" />
-    <MESSAGE value="work on issue design" />
-    <MESSAGE value="work on issue" />
-    <MESSAGE value="implemented screen delete functionality" />
-    <MESSAGE value="update inversion" />
-    <MESSAGE value="MDM specific branch" />
-    <MESSAGE value="bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
+    <MESSAGE value="change version of ally" />
+    <MESSAGE value="fixed wifi issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed wifi issue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
