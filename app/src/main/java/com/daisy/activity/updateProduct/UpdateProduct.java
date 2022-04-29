@@ -338,17 +338,26 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void handlePriceCardGettingHandler() {
-        showHideProgressDialog(true);
-        updateProductViewModel.setMutableLiveData(getUpdateScreenRequest());
-        LiveData<GlobalResponse> liveData = updateProductViewModel.getLiveData();
-        if (!liveData.hasActiveObservers()) {
-            liveData.observe(this, new Observer<GlobalResponse>() {
-                @Override
-                public void onChanged(GlobalResponse globalResponse) {
-                    showHideProgressDialog(false);
-                    handleScreenAddResponse(globalResponse);
+        if (Utils.getNetworkState(getApplicationContext())) {
+            HashMap<String, String> request = getUpdateScreenRequest();
+            if (request != null) {
+                showHideProgressDialog(true);
+
+                updateProductViewModel.setMutableLiveData(request);
+                LiveData<GlobalResponse> liveData = updateProductViewModel.getLiveData();
+                if (!liveData.hasActiveObservers()) {
+                    liveData.observe(this, new Observer<GlobalResponse>() {
+                        @Override
+                        public void onChanged(GlobalResponse globalResponse) {
+                            showHideProgressDialog(false);
+                            handleScreenAddResponse(globalResponse);
+                        }
+                    });
                 }
-            });
+            }
+
+        } else {
+            ValidationHelper.showToast(getApplicationContext(), getString(R.string.no_internet_available));
         }
 
     }
@@ -358,7 +367,8 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      * Parameters - Its takes GlobalResponse object as an parameter
      **/
     private void handleScreenAddResponse(GlobalResponse screenAddResponseGlobalResponse) {
-        if (screenAddResponseGlobalResponse.isApi_status()) {
+
+        if (screenAddResponseGlobalResponse != null && screenAddResponseGlobalResponse.isApi_status()) {
             mBinding.nextSlide.setVisibility(View.GONE);
             sessionManager.setOrientation(mBinding.webkitOrientation.getSelectedItem().toString());
             getCardData();
@@ -600,12 +610,12 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
      **/
     private HashMap<String, String> getUpdateScreenRequest() {
         HashMap<String, String> hashMap = new HashMap<>();
-        if (mViewModel.getSelectedProduct() != null) {
+        if (mViewModel.getSelectedProduct() != null && mBinding.productName.getSelectedItem() != null) {
             if (mViewModel.getSelectedProduct().getIdproductStatic() != null)
                 hashMap.put(Constraint.ID_PRODUCT_STATIC, mViewModel.getSelectedProduct().getIdproductStatic());
         } else {
             ValidationHelper.showToast(context, getString(R.string.product_not_available));
-
+            return null;
         }
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
