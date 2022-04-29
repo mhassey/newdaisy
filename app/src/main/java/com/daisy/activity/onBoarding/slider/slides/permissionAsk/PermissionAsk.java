@@ -117,6 +117,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
+
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
         permissionAskBinding.miExtra.setOnClickListener(this::onClick);
         permissionAskBinding.cancel.setOnClickListener(this::onClick);
@@ -354,7 +355,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.grandMediaPermission: {
+            case R.id.grandMediaPermission:  {
 
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     // Do something for lollipop and above versions

@@ -11,6 +11,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         Log.e("kali", "push comming");
+
         // CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
         // checkCardAvailability.checkCard();
         super.onMessageReceived(remoteMessage);
