@@ -154,7 +154,7 @@ public class CheckCardAvailability {
 
                 String path = Utils.getPath();
                 if (path != null) {
-                    //if (!path.equals(UrlPath)) {
+                    if (!path.equals(UrlPath)) {
                         Utils.deleteCardFolder();
                         try {
                             Utils.writeFile(configFilePath, UrlPath);
@@ -163,7 +163,7 @@ public class CheckCardAvailability {
                         }
                         sessionManager.deleteLocation();
                         EventBus.getDefault().post(new PriceCard());
-                  //  }
+                   }
                 } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);
