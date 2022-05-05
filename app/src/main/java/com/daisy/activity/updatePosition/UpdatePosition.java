@@ -14,7 +14,6 @@ import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.updatePosition.vo.UpdatePositionResponse;
 import com.daisy.common.session.SessionManager;
-import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityUpdatePositionBinding;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.ScreenPosition;

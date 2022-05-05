@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.adapter.LogsAdapter;
-import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityLogsShowBinding;
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;

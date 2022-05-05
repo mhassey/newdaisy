@@ -1,7 +1,5 @@
 package com.daisy.activity.onBoarding.slider.slides.welcome;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
-import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.databinding.WelcomeAskBinding;
 import com.daisy.utils.Constraint;
 

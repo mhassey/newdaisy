@@ -20,7 +20,6 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
-import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityRefreshTimerBinding;
 import com.daisy.pojo.response.GlobalResponse;

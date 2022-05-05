@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -33,7 +32,6 @@ import com.daisy.utils.ValidationHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Purpose -  AddScreen is an fragment that help to show all carrier and product and orientation

@@ -7,11 +7,8 @@ import androidx.arch.core.util.Function;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 
-import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddRepo;
-import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.pojo.response.GlobalResponse;
 
 import java.util.HashMap;

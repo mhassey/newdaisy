@@ -8,7 +8,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="fire" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -16,16 +15,72 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="fixed wifi issue">
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="work on issues">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_0_aar2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM_[Default_Changelist]1/build_file_checksums.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM_[Default_Changelist]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums1.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums11.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums2.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums21.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/ObjectDetection/CameraSurfaceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/ObjectDetection/CameraSurfaceView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/ObjectDetection/cam/FrontCameraRetriever.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/ObjectDetection/cam/FrontCameraRetriever.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/base/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/base/BaseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/langSupport/LangSelectionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/langSupport/LangSelectionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/LogSyncExtra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/LogSyncExtra.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/LogsMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/LogsMainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/logs_show/LogsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/logs_show/LogsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/logs_show/LogsShowActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/logs_show/LogsShowActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivityViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivityViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBoarding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/addScreen/AddScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/addScreen/AddScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUpViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUpViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/timezoneAsk/TimeZoneAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/timezoneAsk/TimeZoneAsk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/welcome/WelcomeAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/welcome/WelcomeAsk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/wifiAsk/WifiAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/wifiAsk/WifiAsk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/refreshTimer/RefreshTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/refreshTimer/RefreshTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/splash/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/splash/SplashScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updatePosition/UpdatePosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updatePosition/UpdatePosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProductRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProductViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/updateProduct/UpdateProductViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/apiService/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/apiService/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/app/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/app/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/broadcast/bootcomplete/BootReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/broadcast/bootcomplete/BootReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/broadcast/broadcastforbackgroundservice/AlarmBootBackgroundReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/broadcast/broadcastforbackgroundservice/AlarmBootBackgroundReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/common/session/SessionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/common/session/SessionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/database/DBCaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/database/DBCaller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/interfaces/LangSupportCallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/interfaces/LangSupportCallBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/Logs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/Logs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/request/LogSyncRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/pojo/request/LogSyncRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/security/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/security/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundSoundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundSoundService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/service/DeletePhotoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/service/DeletePhotoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/service/LogGenerateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/service/LogGenerateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/service/SecurityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/service/SecurityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/service/UpdateAppVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/service/UpdateAppVersion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/utils/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/utils/Constraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/utils/ZipManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/utils/ZipManager.java" afterDir="false" />
     </list>
     <list id="80c62726-706b-4b4f-85c6-19cb1628ad6d" name="Temp Changelist" comment="Temp Changelist">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_common_4_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_4_2_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_4_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_1_0_aar.xml" afterDir="false" />
@@ -37,9 +92,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_adapters_3_6_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_adapters_4_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_adapters_3_6_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_common_3_6_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_runtime_3_6_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_runtime_4_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_runtime_3_6_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_3_6_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
@@ -61,7 +116,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_alpha03_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_alpha03_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_runtime_2_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
@@ -74,7 +129,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_3_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" afterDir="false" />
@@ -98,7 +153,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_places_placereport_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_places_placereport_17_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_1_0_alpha06_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_1_0_alpha06_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_18_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_5_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_1_0_aar.xml" afterDir="false" />
@@ -112,24 +167,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_http_legacy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_http_legacy.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/-919252642/Daisy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-919252642/Daisy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/1162951772/Daisy.sensey.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/1162951772/Daisy.sensey.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM_[Default_Changelist]1/build_file_checksums.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM_[Default_Changelist]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM__Default_Changelist_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums1.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums11.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums2.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums21.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM__Default_Changelist_.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[baemwkljbigylnr4]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[adb-UU7SNSG7AS-Voukrf._adb-tls-connect._tcp]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -206,7 +250,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="Ally_1.21" />
+        <entry key="$PROJECT_DIR$/.." value="Daisy_4.28" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -215,14 +259,16 @@
     <allAvailableExecutables />
   </component>
   <component name="ProjectId" id="1giKoRqPsmTliQpt61oAtG7AgUJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ApkExportedModule" value="Daisy.app" />
-    <property name="DEBUGGABLE_DEVICE" value="samsung-sm_n970xu-R58M782SQ3B" />
+    <property name="DEBUGGABLE_DEVICE" value="xiaomi-m2104k10i-baemwkljbigylnr4" />
     <property name="DEBUGGABLE_PROCESS" value="com.daisy" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_XL_API_23" />
@@ -355,6 +401,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.app [signingReport]" />
+        <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
       </list>
@@ -568,7 +616,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650291077216</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="work on issues">
+      <created>1651758555250</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1651758555250</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -594,7 +649,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic Setup" />
     <MESSAGE value="Basic Setup phase 2" />
     <MESSAGE value="Bugs remove and maintain functions" />
     <MESSAGE value="Second Release workable code" />
@@ -619,11 +673,82 @@
     <MESSAGE value="checking promotion issue" />
     <MESSAGE value="change version of ally" />
     <MESSAGE value="fixed wifi issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed wifi issue" />
+    <MESSAGE value="work on issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="work on issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>253</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java</url>
+          <line>320</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java</url>
+          <line>322</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>158</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>159</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>167</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>185</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>187</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>188</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <line>189</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1027</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1024</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>468</line>
@@ -740,6 +865,56 @@
           <option name="timeStamp" value="237" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1134</line>
+          <option name="timeStamp" value="248" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java</url>
+          <line>173</line>
+          <option name="timeStamp" value="255" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1220</line>
+          <option name="timeStamp" value="257" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1198</line>
+          <option name="timeStamp" value="258" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1200</line>
+          <option name="timeStamp" value="259" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="304" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="305" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="306" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>197</line>
+          <option name="timeStamp" value="309" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>200</line>
+          <option name="timeStamp" value="310" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>533</line>
           <option name="timeStamp" value="311" />
@@ -804,15 +979,15 @@
           <line>101</line>
           <option name="timeStamp" value="543" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="544" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>271</line>
+          <option name="timeStamp" value="437" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
-          <line>106</line>
-          <option name="timeStamp" value="545" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>273</line>
+          <option name="timeStamp" value="439" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
@@ -825,54 +1000,9 @@
           <option name="timeStamp" value="547" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="564" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="565" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="566" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="642" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="643" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="644" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundSoundService.java</url>
           <line>41</line>
           <option name="timeStamp" value="654" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>112</line>
-          <option name="timeStamp" value="657" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="804" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/DeviceSearch.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="817" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/logs/LogSyncExtra.java</url>
@@ -1061,11 +1191,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/langSupport/LangSelectionActivity.java</url>
-          <line>136</line>
-          <option name="timeStamp" value="1001" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/langSupport/LangSelectionActivity.java</url>
           <line>137</line>
           <option name="timeStamp" value="1002" />
         </line-breakpoint>
@@ -1074,11 +1199,17 @@
           <line>150</line>
           <option name="timeStamp" value="1003" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/langSupport/LangSelectionActivity.java</url>
-          <line>97</line>
-          <properties class="com.daisy.activity.langSupport.LangSelectionActivity" />
-          <option name="timeStamp" value="998" />
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
+          <line>76</line>
+          <properties field="count" class="com.daisy.service.BackgroundService" />
+          <option name="timeStamp" value="184" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>270</line>
+          <properties class="com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk" />
+          <option name="timeStamp" value="438" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

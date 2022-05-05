@@ -1,7 +1,5 @@
 package com.daisy.utils;
 
-import android.util.Log;
-
 import com.daisy.common.session.SessionManager;
 import com.daisy.interfaces.CallBack;
 import com.daisy.pojo.response.Download;

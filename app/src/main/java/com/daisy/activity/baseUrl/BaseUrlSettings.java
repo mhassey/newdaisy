@@ -3,11 +3,8 @@ package com.daisy.activity.baseUrl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.databinding.DataBindingUtil;
@@ -15,7 +12,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
@@ -29,10 +25,7 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Purpose -  BaseUrlSettings is an activity that helps to select an an server

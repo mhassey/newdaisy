@@ -1,12 +1,9 @@
 package com.daisy.activity.mainActivity;
 
 import android.app.Application;
-import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 

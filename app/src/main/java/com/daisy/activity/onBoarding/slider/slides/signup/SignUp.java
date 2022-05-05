@@ -1,14 +1,10 @@
 package com.daisy.activity.onBoarding.slider.slides.signup;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
@@ -24,20 +20,13 @@ import com.daisy.activity.base.BaseFragment;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.common.session.SessionManager;
-import com.daisy.database.DBCaller;
 import com.daisy.databinding.FragmentLoginBinding;
-import com.daisy.dialogFragment.DateTimePermissionDIalog;
-import com.daisy.pojo.response.InternetResponse;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.daisy.utils.WifiPermissionDialog;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Purpose -  SignUp is an activity that help to sign up with store code and password

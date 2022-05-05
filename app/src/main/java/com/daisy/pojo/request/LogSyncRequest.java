@@ -1,7 +1,5 @@
 package com.daisy.pojo.request;
 
-import android.util.Log;
-
 import com.daisy.pojo.Logs;
 
 import java.util.List;

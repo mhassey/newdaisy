@@ -9,10 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpRequest;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 public class SignUpViewModel extends AndroidViewModel {

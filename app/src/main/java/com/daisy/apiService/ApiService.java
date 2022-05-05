@@ -1,7 +1,5 @@
 package com.daisy.apiService;
 
-import androidx.lifecycle.LiveData;
-
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;

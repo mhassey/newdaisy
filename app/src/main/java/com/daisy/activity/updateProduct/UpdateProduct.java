@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
@@ -24,12 +22,10 @@ import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
 import com.daisy.common.session.SessionManager;
-import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityUpdateProductBinding;
 import com.daisy.pojo.response.Carrier;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.Manufacture;
 import com.daisy.pojo.response.Product;
 import com.daisy.utils.Constraint;
@@ -41,7 +37,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Purpose -  UpdateProduct is an activity that helps to update product in app

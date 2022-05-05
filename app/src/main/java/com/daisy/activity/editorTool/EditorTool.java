@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -33,7 +32,6 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
-import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityEditorToolBinding;
 import com.daisy.service.StickyService;
 import com.daisy.utils.Constraint;

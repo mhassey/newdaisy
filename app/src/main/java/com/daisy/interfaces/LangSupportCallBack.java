@@ -2,7 +2,6 @@ package com.daisy.interfaces;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.daisy.adapter.LangSupportAdaptor;
 import com.daisy.pojo.LangPojo;
 
 public interface LangSupportCallBack {

@@ -12,9 +12,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,28 +21,19 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.PowerManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.daisy.BuildConfig;
-import com.daisy.ObjectDetection.CameraSurfaceView;
-import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
-import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.UpdateApk;
-import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
@@ -60,7 +49,6 @@ import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-import com.daisy.utils.ValidationHelper;
 import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,7 +59,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import static com.daisy.utils.Constraint.LOG;
 import static com.daisy.utils.Constraint.messages;
 
 

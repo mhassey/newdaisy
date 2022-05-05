@@ -1,7 +1,6 @@
 package com.daisy.utils;
 
 import android.Manifest;
-import android.net.Uri;
 
 public class Constraint {
     public static final String FILE_NAME = "index.html";

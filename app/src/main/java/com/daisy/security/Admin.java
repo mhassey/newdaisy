@@ -3,8 +3,6 @@ package com.daisy.security;
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
-import android.widget.Toast;
 
 import com.daisy.common.session.SessionManager;
 

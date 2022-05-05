@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
-import com.daisy.activity.onBoarding.slider.slides.welcome.WelcomeAsk;
 import com.daisy.databinding.TimezoneAskBinding;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
