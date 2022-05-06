@@ -28,6 +28,7 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -128,7 +129,7 @@ import java.util.concurrent.TimeUnit;
  * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
  * Responsibility - Its loads cards,promotion send pricing to js and its also handles logs related price card and promotions
  **/
-public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
+public class MainActivity extends BaseActivity implements CallBack, View.OnTouchListener, View.OnClickListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
@@ -290,7 +291,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
             }
         });
-        mBinding.webViewLayout.setOnClickListener(this::onClick);
+        mBinding.webView.setOnTouchListener(this);
 
     }
 
@@ -1304,10 +1305,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
                 break;
             }
-            case R.id.webViewLayout: {
-                handleUperLayoutClick();
-                break;
-            }
+
             case R.id.invert: {
 
                 mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
@@ -1326,6 +1324,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
     private void handleUperLayoutClick() {
+        Log.e("Kali","KKKKK");
         if (BackgroundService.getServiceObject() != null) {
             BackgroundService.getServiceObject().count = 0;
         }
@@ -1695,6 +1694,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateCards(UpdateCards updateCards) {
         getDownloadData();
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            handleUperLayoutClick();
+
+        }
+
+        return true;
     }
 
 

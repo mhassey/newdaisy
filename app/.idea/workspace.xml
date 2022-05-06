@@ -15,21 +15,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="Add commenting">
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_0_aar.xml" afterDir="false" />
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="work on issues">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/user/.android/avd/12.1.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R58M782SQ3B]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -124,7 +122,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ApkExportedModule" value="Daisy.app" />
-    <property name="DEBUGGABLE_DEVICE" value="12.1 [emulator-5554]" />
+    <property name="DEBUGGABLE_DEVICE" value="samsung-sm_n970xu-R58M782SQ3B" />
     <property name="DEBUGGABLE_PROCESS" value="com.daisy" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_XL_API_23" />
@@ -135,6 +133,8 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="android-custom-view/home/user/Android/Sdk/sources/android-29/android/view/View.java_SELECTED" value="View" />
+    <property name="android-custom-view/home/user/Android/Sdk/sources/android-29/android/view/View.java_View_DIMENSIONS" value="1080&#10;1920" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
@@ -257,6 +257,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
@@ -472,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650291077216</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="work on issues">
+      <created>1651823035302</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1651823035302</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -498,7 +506,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic Setup" />
     <MESSAGE value="Basic Setup phase 2" />
     <MESSAGE value="Bugs remove and maintain functions" />
     <MESSAGE value="Second Release workable code" />
@@ -523,7 +530,8 @@
     <MESSAGE value="checking promotion issue" />
     <MESSAGE value="change version of ally" />
     <MESSAGE value="fixed wifi issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed wifi issue" />
+    <MESSAGE value="work on issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="work on issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -590,12 +598,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1029</line>
+          <line>1030</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1026</line>
+          <line>1027</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -650,32 +658,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>273</line>
+          <line>274</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>276</line>
+          <line>277</line>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>281</line>
+          <line>282</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>296</line>
+          <line>297</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>282</line>
+          <line>283</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>311</line>
+          <line>312</line>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -850,7 +858,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1136</line>
+          <line>1137</line>
           <option name="timeStamp" value="248" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -860,17 +868,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1222</line>
+          <line>1223</line>
           <option name="timeStamp" value="257" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1200</line>
+          <line>1201</line>
           <option name="timeStamp" value="258" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1202</line>
+          <line>1203</line>
           <option name="timeStamp" value="259" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -915,7 +923,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>186</line>
+          <line>187</line>
           <option name="timeStamp" value="329" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -940,12 +948,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>457</line>
+          <line>458</line>
           <option name="timeStamp" value="385" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>458</line>
+          <line>459</line>
           <option name="timeStamp" value="386" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1018,11 +1026,6 @@
           <line>715</line>
           <option name="timeStamp" value="466" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>743</line>
-          <option name="timeStamp" value="467" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/app/AppController.java</url>
           <line>109</line>
@@ -1030,7 +1033,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>726</line>
+          <line>727</line>
           <option name="timeStamp" value="487" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1065,32 +1068,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>420</line>
+          <line>421</line>
           <option name="timeStamp" value="517" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>602</line>
+          <line>603</line>
           <option name="timeStamp" value="518" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>601</line>
+          <line>602</line>
           <option name="timeStamp" value="519" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>616</line>
+          <line>617</line>
           <option name="timeStamp" value="520" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1242</line>
+          <line>1243</line>
           <option name="timeStamp" value="521" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>620</line>
+          <line>621</line>
           <option name="timeStamp" value="522" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1160,28 +1163,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1328</line>
+          <line>1327</line>
           <option name="timeStamp" value="1067" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1329</line>
+          <line>1328</line>
           <option name="timeStamp" value="1068" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1330</line>
+          <line>1329</line>
           <option name="timeStamp" value="1069" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1332</line>
+          <line>1331</line>
           <option name="timeStamp" value="1070" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1307</line>
-          <option name="timeStamp" value="1071" />
+          <line>1330</line>
+          <option name="timeStamp" value="1072" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1333</line>
+          <option name="timeStamp" value="1073" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
+          <line>1700</line>
+          <option name="timeStamp" value="1085" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
