@@ -81,6 +81,7 @@ import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.SocketEvent;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
+import com.daisy.service.BackgroundService;
 import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
@@ -289,6 +290,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
             }
         });
+        mBinding.webViewLayout.setOnClickListener(this::onClick);
 
     }
 
@@ -1302,6 +1304,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
                 break;
             }
+            case R.id.webViewLayout: {
+                handleUperLayoutClick();
+                break;
+            }
             case R.id.invert: {
 
                 mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
@@ -1317,6 +1323,27 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 break;
             }
         }
+    }
+
+    private void handleUperLayoutClick() {
+        if (BackgroundService.getServiceObject() != null) {
+            BackgroundService.getServiceObject().count = 0;
+        }
+        Inversion inversion = new Inversion();
+        inversion.setInvert(Utils.getInvertedTime());
+        inverted(inversion);
+        Sanitised(new Sanitised());
+        boolean value = sessionManager.getUpdateNotShow();
+        boolean isDialogOpen = sessionManager.getupdateDialog();
+        if (!isDialogOpen) {
+            if (!value) {
+                ApkDetails apkDetails = sessionManager.getApkDetails();
+                if (apkDetails != null) {
+                    updateApk(apkDetails);
+                }
+            }
+        }
+
     }
 
 

@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="src/main/res/layout-v17/activity_main.xml" value="0.1" />
+        <entry key="src/main/res/layout/activity_main.xml" value="0.15945805106826472" />
+        <entry key="src/main/res/layout/activity_splash_screen.xml" value="0.13253527148353997" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>
