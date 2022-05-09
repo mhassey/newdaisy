@@ -284,7 +284,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Button clicks initializing
      */
     private void setOnClickListener() {
-        mBinding.settingHeader.setOnClickListener(this);
         mBinding.setting.setOnClickListener(this);
         mBinding.offLineIcon.setOnClickListener(this);
         mBinding.invert.setOnClickListener(this::onClick);
@@ -297,11 +296,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * setTouchListener method handle touch listener
      */
     private void setTouchListener() {
-        mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
-            public void onSwipeTop() {
-                settingHeader();
-            }
-        });
         mBinding.webView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
             }
@@ -313,6 +307,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             }
 
             public void onSwipeBottom() {
+                settingHeader();
             }
 
             @Override
@@ -1329,10 +1324,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.settingHeader: {
-                settingHeader();
-                break;
-            }
+
 
             case R.id.invert: {
 
