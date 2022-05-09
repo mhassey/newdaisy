@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -43,6 +44,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -129,7 +131,7 @@ import java.util.concurrent.TimeUnit;
  * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
  * Responsibility - Its loads cards,promotion send pricing to js and its also handles logs related price card and promotions
  **/
-public class MainActivity extends BaseActivity implements CallBack, View.OnTouchListener, View.OnClickListener {
+public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
@@ -286,13 +288,39 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding.setting.setOnClickListener(this);
         mBinding.offLineIcon.setOnClickListener(this);
         mBinding.invert.setOnClickListener(this::onClick);
+        setTouchListener();
+
+    }
+
+
+    /**
+     * setTouchListener method handle touch listener
+     */
+    private void setTouchListener() {
         mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 settingHeader();
             }
         });
-        mBinding.webView.setOnTouchListener(this);
+        mBinding.webView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+            public void onSwipeTop() {
+            }
 
+            public void onSwipeRight() {
+            }
+
+            public void onSwipeLeft() {
+            }
+
+            public void onSwipeBottom() {
+            }
+
+            @Override
+            public void onTouchClicked() {
+                handleUperLayoutClick();
+
+            }
+        });
     }
 
 
@@ -815,8 +843,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
                     }
                 } else {
-                    //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
+                    //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
                 }
                 super.onFormResubmission(view, dontResend, resend);
 
@@ -1695,16 +1723,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         getDownloadData();
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            handleUperLayoutClick();
-
-        }
-
-        return true;
-    }
-
 
     public class WebClient extends WebChromeClient {
 
@@ -2005,5 +2023,58 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         }
     }
 
+    private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            boolean result = false;
+            try {
+                float diffY = e2.getY() - e1.getY();
+                float diffX = e2.getX() - e1.getX();
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX > 0) {
+                            onSwipeRight();
+                        } else {
+                            onSwipeLeft();
+                        }
+                        result = true;
+                    }
+                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffY > 0) {
+                        onSwipeBottom();
+                    } else {
+                        onSwipeTop();
+                    }
+                    result = true;
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            return result;
+        }
+    }
+
+
+    public void onSwipeRight() {
+    }
+
+    public void onSwipeLeft() {
+    }
+
+    public void onSwipeTop() {
+    }
+
+    public void onSwipeBottom() {
+    }
 
 }
+
