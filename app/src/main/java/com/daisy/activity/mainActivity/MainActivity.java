@@ -131,7 +131,7 @@ import java.util.concurrent.TimeUnit;
  * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
  * Responsibility - Its loads cards,promotion send pricing to js and its also handles logs related price card and promotions
  **/
-public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
+public class MainActivity extends BaseActivity implements CallBack, View.OnTouchListener, View.OnClickListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
@@ -288,39 +288,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding.setting.setOnClickListener(this);
         mBinding.offLineIcon.setOnClickListener(this);
         mBinding.invert.setOnClickListener(this::onClick);
-        setTouchListener();
-
-    }
-
-
-    /**
-     * setTouchListener method handle touch listener
-     */
-    private void setTouchListener() {
         mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 settingHeader();
             }
         });
-        mBinding.webView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
-            public void onSwipeTop() {
-            }
+        mBinding.webView.setOnTouchListener(this);
 
-            public void onSwipeRight() {
-            }
 
-            public void onSwipeLeft() {
-            }
-
-            public void onSwipeBottom() {
-            }
-
-            @Override
-            public void onTouchClicked() {
-                handleUperLayoutClick();
-
-            }
-        });
     }
 
 
@@ -1721,6 +1696,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateCards(UpdateCards updateCards) {
         getDownloadData();
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            handleUperLayoutClick();
+
+        }
+
+
+        return true;
     }
 
 
