@@ -379,7 +379,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         checkInversion();
         //searchIpCounter();
         //stopUninstall();
-        updateAPk();
+       // updateAPk();
         validatePromotion();
     }
 
