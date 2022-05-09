@@ -1324,7 +1324,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
     private void handleUperLayoutClick() {
-        Log.e("Kali","KKKKK");
         if (BackgroundService.getServiceObject() != null) {
             BackgroundService.getServiceObject().count = 0;
         }
