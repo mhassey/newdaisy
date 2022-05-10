@@ -1707,7 +1707,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         }
 
 
-        return true;
+        return false;
     }
 
 

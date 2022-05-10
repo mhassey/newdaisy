@@ -10,10 +10,8 @@ import com.google.firebase.messaging.RemoteMessage;
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        Log.e("kali", "push comming");
-
-        // CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
-        // checkCardAvailability.checkCard();
+//         CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
+//        checkCardAvailability.checkCarFd();
         super.onMessageReceived(remoteMessage);
     }
 }
