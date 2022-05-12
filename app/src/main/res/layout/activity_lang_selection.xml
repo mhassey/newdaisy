@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/rootLayout"
     android:orientation="vertical"
-    tools:context=".activity.langSupport.LangSelectionActivity">
+    tools:context=".mainDaisy.activity.langSupport.LangSelectionActivity">
 
 
     <LinearLayout

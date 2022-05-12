@@ -6,7 +6,7 @@
     android:gravity="center"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".activity.splash.SplashScreen">
+    tools:context=".mainDaisy.activity.splash.SplashScreen">
 
     <SurfaceView android:layout_width="0dp" android:layout_height="0dp"/>
     <ImageView

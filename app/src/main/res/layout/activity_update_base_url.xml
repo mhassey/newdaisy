@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".activity.updateBaseUrl.UpdateBaseUrl">
+    tools:context=".mainDaisy.activity.updateBaseUrl.UpdateBaseUrl">
 
 
     <EditText

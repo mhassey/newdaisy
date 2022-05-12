@@ -7,7 +7,7 @@
     android:id="@+id/rootLayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.editorTool.EditorTool">
+    tools:context=".mainDaisy.activity.editorTool.EditorTool">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.socketConnection.SocketConnection">
+        tools:context=".mainDaisy.activity.socketConnection.SocketConnection">
 
         <Button
             android:id="@+id/become_admin"

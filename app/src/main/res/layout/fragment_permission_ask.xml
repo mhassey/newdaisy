@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
+        tools:context=".mainDaisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 
         <ScrollView
             android:fillViewport="true"
