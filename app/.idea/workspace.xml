@@ -11,10 +11,197 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="work on issues">
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="implementing all app in one">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_1_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_4_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_savedstate_2_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_common_2_3_5_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_fragment_2_3_5_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_runtime_2_3_5_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_ui_2_3_5_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_3_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_datatransport_transport_backend_cct_2_3_3_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_cloud_messaging_16_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_18_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_19_6_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_17_0_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_datatransport_17_0_10_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_encoders_json_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_21_0_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_21_0_1_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_pusher_pusher_java_client_2_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_java_websocket_Java_WebSocket_1_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_25.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/LuncherActivtiy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/ObjectDetection/CameraSurfaceView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/ObjectDetection/cam/FaceDetectionCamera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/ObjectDetection/cam/FrontCameraRetriever.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/ObjectDetection/cam/LoadFrontCameraAsyncTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/ObjectDetection/cam/OneShotFaceDetectionListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/ObjectDetection/cam/RestartingCountDownTimer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/apkUpdate/ApkUpdateRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/apkUpdate/ApkUpdateViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/apkUpdate/DownloadUpdateApk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/apkUpdate/GenericFileProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/apkUpdate/UpdateApk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/base/BaseActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/base/BaseFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/baseUrl/BaseUrlSettingsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/configSettings/ConfigSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/deleteCard/DeleteCardRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/deleteCard/DeleteCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/editorTool/EditorTool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/feedBack/FeedBackActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/feedBack/FeedBackModelView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/feedBack/FeedBackRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/feedBack/FeedBackValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/langSupport/LangSelectionActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/langSupport/LangSupportViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/lockscreen/LockScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/logs/LogSyncExtra.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/logs/LogsMainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/logs/logs_show/LogsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/logs/logs_show/LogsShowActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/logs/logs_show/LogsShowViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/mainActivity/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/mainActivity/MainActivityViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/getCard/GetCardRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/getCard/GetCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/getCard/vo/GetCardResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/screenAdd/ScreenAddRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/screenAdd/ScreenAddViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/screenAdd/vo/ScreenAddResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/addScreen/AddScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/addScreen/AddScreenRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/addScreen/AddScreenViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/permissionAsk/PermissionAskViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/securityAsk/SecurityAsk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/signup/SignUp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/signup/SignUpRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/signup/SignUpValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/signup/SignUpViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/signup/vo/SignUpRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/signup/vo/SignUpResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/refreshTimer/RefreshTimer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/settings/Settings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/splash/SplashScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updateBaseUrl/UpdateBaseUrl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updatePosition/UpdatePosition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updatePosition/UpdatePositionRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updatePosition/UpdatePositionViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updatePosition/UpdateProfileValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updatePosition/vo/UpdatePositionResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updateProduct/UpdateProduct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updateProduct/UpdateProductRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/updateProduct/UpdateProductViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/validatePromotion/ValidatePromotion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/welcomeScreen/WelcomeScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/adapter/LangSupportAdaptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/adapter/LogsAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/adapter/SliderAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/apiService/ApiConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/apiService/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/apiService/ApiResponseStatusCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/apiService/ApiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/apiService/AppRetrofit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/broadcast/bootcomplete/BootReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/broadcast/broadcastforbackgroundservice/AlaramHelperBackground.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/broadcast/broadcastforbackgroundservice/AlarmBootBackgroundReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/broadcast/broadcastforbackgroundservice/AlarmReceiverForBackground.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/checkCardAvailability/CheckCardAvailability.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/database/DBCaller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/database/Database.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/database/DatabaseClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/database/dao/LogDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/interfaces/CallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/interfaces/LangSupportCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/interfaces/SyncLogCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/LangPojo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/Logs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/LogsDataPojo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/request/GeneralRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/request/LogClearRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/request/LogServerRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/request/LogSyncRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/request/LogsRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Android.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/AndroidGo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/ApkDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/BlankResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Carrier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/DeleteCardResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Download.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/DownloadFail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/FeedBackResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/GeneralResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/GlobalResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/InternetResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Inversion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/LogClearResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/LogResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/LoginResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Manufacture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/OsType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/OverLayResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/PathStoring.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/PermissionDone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/PriceCard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/PriceCardMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Pricing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Promotion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Promotions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Sanitised.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/ScreenPosition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/SimpleResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/StoreDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Time.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/UpdateCards.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/Url.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/ValidatePromotionPojo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/pojo/response/VersionUpdate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/security/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/service/BackgroundService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/service/BackgroundSoundService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/service/DeletePhotoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/service/LogGenerateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/service/SecurityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/service/StickyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/service/UpdateAppVersion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/session/PrefConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/session/PreferenceUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/session/SessionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/sync/SyncLogs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/CheckForSDCard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/Constraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/CustomViewPager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/DownloadFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/FixAdobeWebView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/LiveDataCallAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/LiveDataCallAdapterFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/LogoutDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/OnSwipeTouchListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/PermissionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/SanitisedSingletonObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/ValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/ZipManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_luncher_activtiy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,19 +266,23 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="DAIS-PR-03-RELEASE" />
+        <entry key="$PROJECT_DIR$/.." value="Daisy_GO_1.06" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="KotlinMultiplatform">
+    <allAvailableExecutables />
+  </component>
   <component name="ProjectId" id="1giKoRqPsmTliQpt61oAtG7AgUJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DEBUGGABLE_DEVICE" value="samsung-sm_n970xu-R58M782SQ3B" />
+    <property name="DEBUGGABLE_DEVICE" value="google-pixel_5-08171FDD4001S5" />
     <property name="DEBUGGABLE_PROCESS" value="com.daisy" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_XL_API_23" />
@@ -102,7 +293,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -117,17 +308,20 @@
       <recent name="com.daisy.activity" />
       <recent name="com.daisy.activity.feedBack" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.daisy.security" />
-      <recent name="com.daisy.utils" />
-      <recent name="com.daisy.activity.apkUpdate" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate" />
       <recent name="$PROJECT_DIR$/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/src/main/java/com/daisy/utils" />
-      <recent name="$PROJECT_DIR$/src/main/res/xml" />
+    </key>
+    <key name="android.template.-2008101945">
+      <recent name="com.daisy" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.daisy.security" />
+      <recent name="com.daisy.utils" />
+      <recent name="com.daisy.activity.apkUpdate" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -220,6 +414,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Gradle.app [signingReport]" />
       </list>
     </recent_temporary>
@@ -417,7 +612,140 @@
       <option name="project" value="LOCAL" />
       <updated>1608270404243</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00053" summary="work on issues">
+      <created>1640671528736</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1640671528736</updated>
+    </task>
+    <task id="LOCAL-00054" summary="work on issues">
+      <created>1640845888164</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1640845888164</updated>
+    </task>
+    <task id="LOCAL-00055" summary="implement minimization functionality">
+      <created>1640852201581</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1640852201581</updated>
+    </task>
+    <task id="LOCAL-00056" summary="implement minimization functionality">
+      <created>1640860000027</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1640860000027</updated>
+    </task>
+    <task id="LOCAL-00057" summary="work on socket connection">
+      <created>1641186327709</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1641186327715</updated>
+    </task>
+    <task id="LOCAL-00058" summary="work on socket connection">
+      <created>1641212209210</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1641212209210</updated>
+    </task>
+    <task id="LOCAL-00059" summary="work on socket connection">
+      <created>1641533141838</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1641533141838</updated>
+    </task>
+    <task id="LOCAL-00060" summary="work on ally design">
+      <created>1642757286615</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1642757286616</updated>
+    </task>
+    <task id="LOCAL-00061" summary="work on ally design">
+      <created>1642757536388</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1642757536388</updated>
+    </task>
+    <task id="LOCAL-00062" summary="work on issue">
+      <created>1643099504415</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1643099504416</updated>
+    </task>
+    <task id="LOCAL-00063" summary="work on issue">
+      <created>1643106003289</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1643106003289</updated>
+    </task>
+    <task id="LOCAL-00064" summary="work on issue">
+      <created>1643342153955</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1643342153956</updated>
+    </task>
+    <task id="LOCAL-00065" summary="work on issue">
+      <created>1643632524608</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1643632524608</updated>
+    </task>
+    <task id="LOCAL-00066" summary="work on issue">
+      <created>1643632643065</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1643632643065</updated>
+    </task>
+    <task id="LOCAL-00067" summary="work on issue">
+      <created>1643955568935</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1643955568935</updated>
+    </task>
+    <task id="LOCAL-00068" summary="work on issue">
+      <created>1644323880500</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1644323880501</updated>
+    </task>
+    <task id="LOCAL-00069" summary="work on issue">
+      <created>1644326979563</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1644326979563</updated>
+    </task>
+    <task id="LOCAL-00070" summary="implemented screen delete functionality">
+      <created>1644493298564</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1644493298564</updated>
+    </task>
+    <task id="LOCAL-00071" summary="update inversion">
+      <created>1644493654283</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1644493654283</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -468,793 +796,428 @@
     <MESSAGE value="checking promotion issue" />
     <option name="LAST_COMMIT_MESSAGE" value="checking promotion issue" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="584" y="258" width="488" height="408" key="#Gradle" timestamp="1608562940028">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="584" y="258" width="488" height="408" key="#Gradle/67.27.1533.873@67.27.1533.873" timestamp="1608562940028" />
-    <state x="463" y="242" width="950" height="530" key="#PSD" timestamp="1608568742956">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="463" y="242" width="950" height="530" key="#PSD/67.27.1533.873@67.27.1533.873" timestamp="1608568742956" />
-    <state x="428" y="106" width="800" height="712" key="#Plugins" timestamp="1608569338820">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="428" y="106" width="800" height="712" key="#Plugins/67.27.1533.873@67.27.1533.873" timestamp="1608569338820" />
-    <state x="641" y="170" width="374" height="585" key="#com.intellij.ide.util.MemberChooser" timestamp="1609830064251">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="641" y="170" width="374" height="585" key="#com.intellij.ide.util.MemberChooser/67.27.1533.873@67.27.1533.873" timestamp="1609830064251" />
-    <state x="1039" y="237" width="484" height="659" key="#xdebugger.evaluate" timestamp="1609835207223">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="1039" y="237" width="484" height="659" key="#xdebugger.evaluate/67.27.1533.873@67.27.1533.873" timestamp="1609835207223" />
-    <state x="167" y="125" width="1333" height="675" key="AVDManager" timestamp="1609305797699">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="167" y="125" width="1333" height="675" key="AVDManager/67.27.1533.873@67.27.1533.873" timestamp="1609305797699" />
-    <state x="416" y="220" width="824" height="484" key="AndroidCreateResourceFileDialog" timestamp="1609315689438">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="416" y="220" width="824" height="484" key="AndroidCreateResourceFileDialog/67.27.1533.873@67.27.1533.873" timestamp="1609315689438" />
-    <state x="567" y="267" width="523" height="391" key="AndroidCreateXmlResourceDialog" timestamp="1609306950809">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="567" y="267" width="523" height="391" key="AndroidCreateXmlResourceDialog/67.27.1533.873@67.27.1533.873" timestamp="1609306950809" />
-    <state x="587" y="210" width="483" height="505" key="AndroidProcessChooserDialog" timestamp="1609842989801">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="587" y="210" width="483" height="505" key="AndroidProcessChooserDialog/67.27.1533.873@67.27.1533.873" timestamp="1609842989801" />
-    <state x="611" y="206" width="424" height="513" key="FileChooserDialogImpl" timestamp="1609834177796">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="611" y="206" width="424" height="513" key="FileChooserDialogImpl/67.27.1533.873@67.27.1533.873" timestamp="1609834177796" />
-    <state width="1807" height="498" key="GridCell.Tab.0.bottom" timestamp="1612779270481">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state width="1487" height="371" key="GridCell.Tab.0.bottom/67.27.1533.873@67.27.1533.873" timestamp="1609845137068" />
-    <state width="1807" height="498" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1612779270481" />
-    <state width="1807" height="498" key="GridCell.Tab.0.center" timestamp="1612779270480">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state width="1487" height="371" key="GridCell.Tab.0.center/67.27.1533.873@67.27.1533.873" timestamp="1609845137068" />
-    <state width="1807" height="498" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1612779270480" />
-    <state width="1807" height="498" key="GridCell.Tab.0.left" timestamp="1612779270479">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state width="1487" height="371" key="GridCell.Tab.0.left/67.27.1533.873@67.27.1533.873" timestamp="1609845137067" />
-    <state width="1807" height="498" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1612779270479" />
-    <state width="1807" height="498" key="GridCell.Tab.0.right" timestamp="1612779270480">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state width="1487" height="371" key="GridCell.Tab.0.right/67.27.1533.873@67.27.1533.873" timestamp="1609845137068" />
-    <state width="1807" height="498" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1612779270480" />
-    <state x="322" y="97" key="SettingsEditor" timestamp="1608569689799">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="322" y="97" key="SettingsEditor/67.27.1533.873@67.27.1533.873" timestamp="1608569689799" />
-    <state width="766" height="439" key="XDebugger.FullValuePopup" timestamp="1609835205805">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state width="766" height="439" key="XDebugger.FullValuePopup/67.27.1533.873@67.27.1533.873" timestamp="1609835205805" />
-    <state x="167" y="125" width="1333" height="675" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1608714182709">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="167" y="125" width="1333" height="675" key="com.intellij.history.integration.ui.views.FileHistoryDialog/67.27.1533.873@67.27.1533.873" timestamp="1608714182709" />
-    <state x="523" y="201" width="697" height="522" key="find.popup" timestamp="1609839289657">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="523" y="201" width="697" height="522" key="find.popup/67.27.1533.873@67.27.1533.873" timestamp="1609839289657" />
-    <state x="496" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1609839292913">
-      <screen x="67" y="27" width="1533" height="873" />
-    </state>
-    <state x="496" y="212" width="672" height="678" key="search.everywhere.popup/67.27.1533.873@67.27.1533.873" timestamp="1609839292913" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java</url>
           <line>19</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>253</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>104</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/editorTool/EditorTool.java</url>
           <line>320</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/editorTool/EditorTool.java</url>
           <line>322</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>158</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>159</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>167</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>185</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>187</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>188</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>189</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1026</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1023</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>468</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>471</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>470</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>467</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>488</line>
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>490</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>377</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>378</line>
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>152</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>154</line>
           <option name="timeStamp" value="90" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>272</line>
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>275</line>
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>280</line>
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>294</line>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>281</line>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>309</line>
-          <option name="timeStamp" value="99" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>63</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>71</line>
           <option name="timeStamp" value="105" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>76</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>148</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>109</line>
           <option name="timeStamp" value="144" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>106</line>
           <option name="timeStamp" value="145" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>390</line>
-          <option name="timeStamp" value="167" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/DownloadFile.java</url>
           <line>185</line>
           <option name="timeStamp" value="172" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/ZipManager.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/ZipManager.java</url>
           <line>68</line>
           <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/ZipManager.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/ZipManager.java</url>
           <line>67</line>
           <option name="timeStamp" value="174" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>105</line>
           <option name="timeStamp" value="189" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>104</line>
           <option name="timeStamp" value="190" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>62</line>
           <option name="timeStamp" value="191" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>63</line>
           <option name="timeStamp" value="192" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>41</line>
           <option name="timeStamp" value="196" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>42</line>
           <option name="timeStamp" value="197" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>45</line>
           <option name="timeStamp" value="198" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/validatePromotion/ValidatePromotion.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/validatePromotion/ValidatePromotion.java</url>
           <line>51</line>
           <option name="timeStamp" value="199" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java</url>
-          <line>124</line>
-          <option name="timeStamp" value="202" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java</url>
-          <line>125</line>
-          <option name="timeStamp" value="203" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java</url>
-          <line>127</line>
-          <option name="timeStamp" value="204" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java</url>
-          <line>97</line>
-          <option name="timeStamp" value="206" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java</url>
-          <line>98</line>
-          <option name="timeStamp" value="207" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="208" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
           <line>33</line>
           <option name="timeStamp" value="209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
           <line>40</line>
           <option name="timeStamp" value="211" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
           <line>41</line>
           <option name="timeStamp" value="212" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUp.java</url>
-          <line>106</line>
-          <option name="timeStamp" value="213" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>457</line>
           <option name="timeStamp" value="214" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>458</line>
           <option name="timeStamp" value="215" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java</url>
-          <line>193</line>
-          <option name="timeStamp" value="229" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>216</line>
           <option name="timeStamp" value="234" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>218</line>
           <option name="timeStamp" value="235" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>220</line>
           <option name="timeStamp" value="236" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>221</line>
           <option name="timeStamp" value="237" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1133</line>
-          <option name="timeStamp" value="248" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java</url>
-          <line>173</line>
-          <option name="timeStamp" value="255" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1219</line>
-          <option name="timeStamp" value="257" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1197</line>
-          <option name="timeStamp" value="258" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1199</line>
-          <option name="timeStamp" value="259" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="304" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="305" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="306" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>197</line>
-          <option name="timeStamp" value="309" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>200</line>
-          <option name="timeStamp" value="310" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>533</line>
           <option name="timeStamp" value="311" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundSoundService.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/service/BackgroundSoundService.java</url>
           <line>137</line>
           <option name="timeStamp" value="319" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundSoundService.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/service/BackgroundSoundService.java</url>
           <line>138</line>
           <option name="timeStamp" value="320" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>185</line>
-          <option name="timeStamp" value="329" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java</url>
-          <line>151</line>
-          <option name="timeStamp" value="352" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/checkCardAvailability/CheckCardAvailability.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/checkCardAvailability/CheckCardAvailability.java</url>
           <line>149</line>
           <option name="timeStamp" value="354" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/checkCardAvailability/CheckCardAvailability.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/checkCardAvailability/CheckCardAvailability.java</url>
           <line>154</line>
           <option name="timeStamp" value="355" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/checkCardAvailability/CheckCardAvailability.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/checkCardAvailability/CheckCardAvailability.java</url>
           <line>153</line>
           <option name="timeStamp" value="356" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/checkCardAvailability/CheckCardAvailability.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/checkCardAvailability/CheckCardAvailability.java</url>
           <line>152</line>
           <option name="timeStamp" value="357" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/checkCardAvailability/CheckCardAvailability.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/checkCardAvailability/CheckCardAvailability.java</url>
           <line>144</line>
           <option name="timeStamp" value="358" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>408</line>
-          <option name="timeStamp" value="375" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>324</line>
           <option name="timeStamp" value="378" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>329</line>
           <option name="timeStamp" value="384" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>454</line>
-          <option name="timeStamp" value="385" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>455</line>
-          <option name="timeStamp" value="386" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>194</line>
-          <option name="timeStamp" value="387" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>161</line>
-          <option name="timeStamp" value="389" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>168</line>
-          <option name="timeStamp" value="391" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>252</line>
-          <option name="timeStamp" value="400" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/database/dao/LogDao.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/database/dao/LogDao.java</url>
           <line>31</line>
           <option name="timeStamp" value="430" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>271</line>
-          <option name="timeStamp" value="437" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>273</line>
-          <option name="timeStamp" value="439" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="441" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="442" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>146</line>
           <option name="timeStamp" value="449" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>45</line>
           <option name="timeStamp" value="457" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/lockscreen/LockScreen.java</url>
           <line>56</line>
           <option name="timeStamp" value="458" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/baseUrl/BaseUrlSettings.java</url>
           <line>46</line>
           <option name="timeStamp" value="462" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/baseUrl/BaseUrlSettings.java</url>
           <line>59</line>
           <option name="timeStamp" value="463" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/baseUrl/BaseUrlSettings.java</url>
           <line>62</line>
           <option name="timeStamp" value="464" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>631</line>
-          <option name="timeStamp" value="465" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>718</line>
-          <option name="timeStamp" value="466" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>746</line>
-          <option name="timeStamp" value="467" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/app/AppController.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/app/AppController.java</url>
           <line>109</line>
           <option name="timeStamp" value="486" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>723</line>
-          <option name="timeStamp" value="487" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>133</line>
           <option name="timeStamp" value="490" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>1020</line>
-          <option name="timeStamp" value="501" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/baseUrl/BaseUrlSettings.java</url>
           <line>160</line>
           <option name="timeStamp" value="508" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
-          <line>93</line>
-          <option name="timeStamp" value="512" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="513" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
-          <line>95</line>
-          <option name="timeStamp" value="514" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>417</line>
-          <option name="timeStamp" value="517" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>599</line>
-          <option name="timeStamp" value="518" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>598</line>
-          <option name="timeStamp" value="519" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>613</line>
-          <option name="timeStamp" value="520" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1239</line>
-          <option name="timeStamp" value="521" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>617</line>
-          <option name="timeStamp" value="522" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>487</line>
-          <option name="timeStamp" value="533" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>483</line>
-          <option name="timeStamp" value="534" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>486</line>
-          <option name="timeStamp" value="535" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>93</line>
           <option name="timeStamp" value="536" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>99</line>
           <option name="timeStamp" value="537" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>109</line>
           <option name="timeStamp" value="538" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>119</line>
           <option name="timeStamp" value="539" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>132</line>
           <option name="timeStamp" value="540" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>258</line>
           <option name="timeStamp" value="541" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/database/DBCaller.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/database/DBCaller.java</url>
           <line>68</line>
           <option name="timeStamp" value="542" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>101</line>
           <option name="timeStamp" value="543" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>102</line>
           <option name="timeStamp" value="544" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>106</line>
           <option name="timeStamp" value="545" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>178</line>
           <option name="timeStamp" value="546" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/sync/SyncLogs.java</url>
           <line>179</line>
           <option name="timeStamp" value="547" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>76</line>
-          <properties field="NOTIF_ID" class="com.daisy.service.BackgroundService" />
-          <option name="timeStamp" value="184" />
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/OnBoarding.java</url>
+          <line>610</line>
+          <option name="timeStamp" value="1090" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>545</line>
+          <option name="timeStamp" value="1091" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="1092" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="1093" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
           <line>39</line>
-          <properties class="com.daisy.activity.onBoarding.slider.slides.signup.SignUpRepo" />
           <option name="timeStamp" value="210" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>270</line>
-          <properties class="com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk" />
-          <option name="timeStamp" value="438" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
