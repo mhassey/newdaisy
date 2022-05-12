@@ -325,9 +325,10 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
             signUp.loginBinding.singup.performClick();
         } else if (count == Constraint.FOUR) {
+//            AddScreen screen = (AddScreen) fragmentList.get(Constraint.THREE);
 
+//            handleCreateScreen(screen.mViewModel.getAutoSelctedProduct());
             handleCreateScreen(null);
-
         }
 
         if (count == Constraint.ONE || count == Constraint.TWO) {
@@ -397,12 +398,16 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
             hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
             if (product == null) {
-                hashMap.put(Constraint.DEVICEID,"0");
+                if (screenAddViewModel.getDeviceId() != null && !screenAddViewModel.getDeviceId().equals("")) {
+                    hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
+                } else {
+                    hashMap.put(Constraint.DEVICEID, "0");
+                    hashMap.put(Constraint.DEVICE_NAME, Utils.ModelNumber());
 
+                }
                 if (addScreen.mViewModel.getSelectedProduct() != null) {
                     if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
                         hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
-                    hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
 
                 } else {
                     ValidationHelper.showToast(context, getString(R.string.product_not_available));
