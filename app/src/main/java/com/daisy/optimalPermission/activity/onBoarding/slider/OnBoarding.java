@@ -43,7 +43,7 @@ import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.optimalPermission.pojo.response.GlobalResponse;
 import com.daisy.optimalPermission.pojo.response.LoginResponse;
 import com.daisy.optimalPermission.pojo.response.PermissionDone;
-import com.daisy.optimalPermission.security.Admin;
+import com.daisy.mainDaisy.security.Admin;
 import com.daisy.optimalPermission.utils.Constraint;
 import com.daisy.optimalPermission.utils.Utils;
 import com.daisy.optimalPermission.utils.ValidationHelper;

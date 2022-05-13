@@ -329,6 +329,249 @@
         <service
             android:name=".daisyGo.service.LogGenerateService"
             android:stopWithTask="false" />
+
+        <activity
+            android:name=".optimalPermission.activity.socketConnection.SocketConnection"
+            android:exported="false" />
+
+        <service
+            android:name=".optimalPermission.service.DeviceSearch"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".optimalPermission.activity.langSupport.LangSelectionActivity" />
+        <activity android:name=".optimalPermission.activity.updateProduct.UpdateProduct" />
+
+        <service
+            android:name=".optimalPermission.service.SecurityService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".optimalPermission.activity.feedBack.FeedBackActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".optimalPermission.activity.baseUrl.BaseUrlSettings"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".optimalPermission.activity.refreshTimer.RefreshTimer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.configSettings.ConfigSettings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.updateBaseUrl.UpdateBaseUrl"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.updatePosition.UpdatePosition"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.onBoarding.slider.OnBoarding"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.welcomeScreen.WelcomeScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.splash.SplashScreen"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".optimalPermission.activity.lockscreen.LockScreen"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".optimalPermission.service.DeletePhotoService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".optimalPermission.service.StickyService"
+            android:stopWithTask="false" />
+
+        <activity
+            android:name=".optimalPermission.activity.settings.Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.logs.logs_show.LogsShowActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".optimalPermission.activity.logs.LogsMainActivity" />
+        <activity
+            android:name=".optimalPermission.activity.editorTool.EditorTool"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimalPermission.activity.mainActivity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true" />
+
+        <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
+        <receiver
+            android:name=".optimalPermission.broadcast.broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
+            android:enabled="false">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+
+        <service
+            android:name=".optimalPermission.service.BackgroundService"
+            android:stopWithTask="false" />
+        <service
+            android:name=".optimalPermission.service.BackgroundSoundService"
+            android:stopWithTask="false" />
+        <service
+            android:name=".optimalPermission.service.LogGenerateService"
+            android:stopWithTask="false" />
+
+        <activity
+            android:name="com.daisy.mdmt.activity.socketConnection.SocketConnection"
+            android:exported="false" />
+
+        <service
+            android:name="com.daisy.mdmt.service.DeviceSearch"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name="com.daisy.mdmt.activity.langSupport.LangSelectionActivity" />
+        <activity android:name="com.daisy.mdmt.activity.updateProduct.UpdateProduct" />
+
+        <service
+            android:name="com.daisy.mdmt.service.SecurityService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.daisy.mdmt.activity.feedBack.FeedBackActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name="com.daisy.mdmt.activity.baseUrl.BaseUrlSettings"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.daisy.mdmt.activity.refreshTimer.RefreshTimer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.daisy.mdmt.activity.configSettings.ConfigSettings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.daisy.mdmt.activity.updateBaseUrl.UpdateBaseUrl"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.daisy.mdmt.activity.updatePosition.UpdatePosition"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.daisy.mdmt.activity.onBoarding.slider.OnBoarding"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.daisy.mdmt.activity.welcomeScreen.WelcomeScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.daisy.mdmt.activity.splash.SplashScreen"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.daisy.mdmt.activity.lockscreen.LockScreen"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="com.daisy.mdmt.service.DeletePhotoService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.daisy.mdmt.service.StickyService"
+            android:stopWithTask="false" />
+
+        <activity
+            android:name="com.daisy.mdmt.activity.settings.Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.daisy.mdmt.activity.logs.logs_show.LogsShowActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.daisy.mdmt.activity.logs.LogsMainActivity" />
+        <activity
+            android:name="com.daisy.mdmt.activity.editorTool.EditorTool"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.daisy.mdmt.activity.mainActivity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true" />
+
+
+        <receiver
+            android:name="com.daisy.mdmt.broadcast.bootcomplete.BootReceiver"
+            android:enabled="false">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.daisy.mdmt.service.BackgroundService"
+            android:stopWithTask="false" />
+        <service
+            android:name="com.daisy.mdmt.service.BackgroundSoundService"
+            android:stopWithTask="false" />
+        <service
+            android:name="com.daisy.mdmt.service.LogGenerateService"
+            android:stopWithTask="false" />
+
+
     </application>
 
 </manifest>

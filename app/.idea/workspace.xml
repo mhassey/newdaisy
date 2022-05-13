@@ -15,196 +15,186 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="work on issues">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/ObjectDetection/CameraSurfaceView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/ObjectDetection/cam/FaceDetectionCamera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/ObjectDetection/cam/FrontCameraRetriever.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/ObjectDetection/cam/LoadFrontCameraAsyncTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/ObjectDetection/cam/OneShotFaceDetectionListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/ObjectDetection/cam/RestartingCountDownTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/apkUpdate/ApkUpdateRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/apkUpdate/ApkUpdateViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/apkUpdate/DownloadUpdateApk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/apkUpdate/GenericFileProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/apkUpdate/UpdateApk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/base/BaseActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/base/BaseFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/baseUrl/BaseUrlSettingsViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/configSettings/ConfigSettings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/deleteCard/DeleteCardRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/deleteCard/DeleteCardViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/editorTool/EditorTool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/feedBack/FeedBackActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/feedBack/FeedBackModelView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/feedBack/FeedBackRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/feedBack/FeedBackValidationHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/langSupport/LangSelectionActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/langSupport/LangSupportViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/lockscreen/LockScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/logs/LogSyncExtra.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/logs/LogsMainActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/logs/logs_show/LogsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/logs/logs_show/LogsShowActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/logs/logs_show/LogsShowViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/mainActivity/MainActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/mainActivity/MainActivityViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/getCard/GetCardRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/getCard/GetCardViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/getCard/vo/GetCardResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/screenAdd/ScreenAddRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/screenAdd/ScreenAddViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/screenAdd/vo/ScreenAddResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/addScreen/AddScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/addScreen/AddScreenRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/addScreen/AddScreenViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/permissionAsk/PermissionAskViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/securityAsk/SecurityAsk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/signup/SignUp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/signup/SignUpRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/signup/SignUpValidationHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/signup/SignUpViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/signup/vo/SignUpRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/signup/vo/SignUpResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/refreshTimer/RefreshTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/settings/Settings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/socketConnection/SocketConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/splash/SplashScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updateBaseUrl/UpdateBaseUrl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updatePosition/UpdatePosition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updatePosition/UpdatePositionRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updatePosition/UpdatePositionViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updatePosition/UpdateProfileValidationHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updatePosition/vo/UpdatePositionResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updateProduct/UpdateProduct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updateProduct/UpdateProductRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/updateProduct/UpdateProductViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/validatePromotion/ValidatePromotion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/welcomeScreen/WelcomeScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/adapter/LangSupportAdaptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/adapter/LogsAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/adapter/SliderAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/apiService/ApiConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/apiService/ApiResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/apiService/ApiResponseStatusCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/apiService/ApiService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/apiService/AppRetrofit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/app/AppController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/broadcast/bootcomplete/BootReceiver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/broadcast/broadcastforbackgroundservice/AlaramHelperBackground.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/broadcast/broadcastforbackgroundservice/AlarmBootBackgroundReceiver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/broadcast/broadcastforbackgroundservice/AlarmReceiverForBackground.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/checkCardAvailability/CheckCardAvailability.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/database/DBCaller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/database/Database.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/database/DatabaseClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/database/dao/LogDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/dialogFragment/DateTimePermissionDIalog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/interfaces/CallBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/interfaces/LangSupportCallBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/interfaces/SyncLogCallBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/LangPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/Logs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/LogsDataPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/request/GeneralRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/request/LogClearRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/request/LogServerRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/request/LogSyncRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/request/LogsRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Android.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/ApkDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/BlankResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Carrier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/DeleteCardResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Download.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/DownloadFail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/FeedBackResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/GeneralResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/GlobalResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/InternetResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Inversion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/IpSearched.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/LogClearResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/LogResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Manufacture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/OsType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/OverLayResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/PathStoring.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/PermissionDone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/PriceCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/PriceCardMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Pricing.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Promotion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Promotions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Sanitised.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/ScreenPosition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/SimpleResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/SocketEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/StoreDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Time.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/UpdateCards.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/Url.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/ValidatePromotionPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/pojo/response/VersionUpdate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/security/Admin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/BackgroundService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/BackgroundSoundService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/DeletePhotoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/DeviceSearch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/FirebaseMessagingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/LogGenerateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/SecurityService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/StickyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/service/UpdateAppVersion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/session/PrefConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/session/PreferenceUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/session/SessionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/sync/SyncLogs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/CheckForSDCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/Constraint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/CustomViewPager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/Demo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/DeviceList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/DownloadFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/FixAdobeWebView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/LiveDataCallAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/LiveDataCallAdapterFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/LogoutDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/OnSwipeTouchListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/PermissionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/SanitisedSingletonObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/ValidationHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/ZipManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_2_4_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_savedstate_2_2_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_common_2_3_5_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_fragment_2_3_5_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_runtime_2_3_5_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_navigation_navigation_ui_2_3_5_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_3_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_datatransport_transport_backend_cct_2_3_3_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_cloud_messaging_16_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_18_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_19_6_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_17_0_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_datatransport_17_0_10_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_encoders_json_17_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_21_0_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_21_0_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_pusher_pusher_java_client_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_java_websocket_Java_WebSocket_1_4_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_25.xml" beforeDir="false" />
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="added optimal permission code">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/CommonUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/ObjectDetection/CameraSurfaceView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/ObjectDetection/cam/FaceDetectionCamera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/ObjectDetection/cam/FrontCameraRetriever.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/ObjectDetection/cam/LoadFrontCameraAsyncTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/ObjectDetection/cam/OneShotFaceDetectionListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/ObjectDetection/cam/RestartingCountDownTimer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/apkUpdate/ApkUpdateRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/apkUpdate/ApkUpdateViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/apkUpdate/DownloadUpdateApk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/apkUpdate/GenericFileProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/apkUpdate/UpdateApk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/base/BaseActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/base/BaseFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/baseUrl/BaseUrlSettingsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/configSettings/ConfigSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/deleteCard/DeleteCardRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/deleteCard/DeleteCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/editorTool/EditorTool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/feedBack/FeedBackActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/feedBack/FeedBackModelView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/feedBack/FeedBackRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/feedBack/FeedBackValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/langSupport/LangSelectionActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/langSupport/LangSupportViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/lockscreen/LockScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/logs/LogSyncExtra.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/logs/LogsMainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/logs/logs_show/LogsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/logs/logs_show/LogsShowActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/logs/logs_show/LogsShowViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/mainActivity/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/mainActivity/MainActivityViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/getCard/GetCardRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/getCard/GetCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/getCard/vo/GetCardResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/screenAdd/ScreenAddRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/screenAdd/ScreenAddViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/screenAdd/vo/ScreenAddResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/addScreen/AddScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/addScreen/AddScreenRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/addScreen/AddScreenViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/permissionAsk/PermissionAskViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/securityAsk/SecurityAsk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/signup/SignUp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/signup/SignUpRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/signup/SignUpValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/signup/SignUpViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/signup/vo/SignUpRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/onBoarding/slider/slides/signup/vo/SignUpResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/refreshTimer/RefreshTimer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/settings/Settings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/socketConnection/SocketConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/splash/SplashScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updateBaseUrl/UpdateBaseUrl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updatePosition/UpdatePosition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updatePosition/UpdatePositionRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updatePosition/UpdatePositionViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updatePosition/UpdateProfileValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updatePosition/vo/UpdatePositionResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updateProduct/UpdateProduct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updateProduct/UpdateProductRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/updateProduct/UpdateProductViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/validatePromotion/ValidatePromotion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/activity/welcomeScreen/WelcomeScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/adapter/LangSupportAdaptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/adapter/LogsAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/adapter/SliderAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/apiService/ApiConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/apiService/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/apiService/ApiResponseStatusCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/apiService/ApiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/apiService/AppRetrofit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/app/AppController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/broadcast/bootcomplete/BootReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/broadcast/broadcastforbackgroundservice/AlaramHelperBackground.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/broadcast/broadcastforbackgroundservice/AlarmBootBackgroundReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/broadcast/broadcastforbackgroundservice/AlarmReceiverForBackground.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/checkCardAvailability/CheckCardAvailability.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/database/DBCaller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/database/Database.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/database/DatabaseClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/database/dao/LogDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/dialogFragment/DateTimePermissionDIalog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/interfaces/CallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/interfaces/LangSupportCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/interfaces/SyncLogCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/LangPojo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/Logs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/LogsDataPojo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/request/GeneralRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/request/LogClearRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/request/LogServerRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/request/LogSyncRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/request/LogsRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Android.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/ApkDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/BlankResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Carrier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/DeleteCardResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Download.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/DownloadFail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/FeedBackResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/GeneralResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/GlobalResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/InternetResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Inversion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/IpSearched.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/LogClearResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/LogResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/LoginResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Manufacture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/OsType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/OverLayResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/PathStoring.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/PermissionDone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/PriceCard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/PriceCardMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Pricing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Promotion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Promotions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Sanitised.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/ScreenPosition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/SimpleResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/SocketEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/StoreDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Time.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/UpdateCards.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/Url.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/ValidatePromotionPojo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/pojo/response/VersionUpdate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/security/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/BackgroundService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/BackgroundSoundService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/DeletePhotoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/DeviceSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/FirebaseMessagingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/LogGenerateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/SecurityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/StickyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/UpdateAppVersion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/session/PrefConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/session/PreferenceUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/session/SessionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/sync/SyncLogs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/CheckForSDCard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/Constraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/CustomViewPager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/DeviceList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/DownloadFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/DownloadJSFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/FaceDetectionSingalton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/FixAdobeWebView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/JSExtractor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/LiveDataCallAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/LiveDataCallAdapterFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/LogoutDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/OnSwipeTouchListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/PermissionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/SanitisedSingletonObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/ValidationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/utils/ZipManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/LuncherActivtiy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/LuncherActivtiy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/Constraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/OnBoarding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_on_baording.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_on_baording.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_permission_ask.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_permission_ask.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,12 +249,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="valueResourceFile" />
-        <option value="Class" />
         <option value="Interface" />
         <option value="resourceFile" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$USER_HOME$/Downloads/daisy.jks" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -285,18 +281,21 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ApkExportedModule" value="Daisy.app" />
     <property name="DEBUGGABLE_DEVICE" value="google-pixel_5-08171FDD4001S5" />
     <property name="DEBUGGABLE_PROCESS" value="com.daisy" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_XL_API_23" />
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-07T07:21:17.593Z" />
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$" />
+    <property name="ExportApk.BuildVariants" value="productionRelease" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/daisy.jks" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -312,11 +311,11 @@
       <recent name="com.daisy.activity.feedBack" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/daisy/mdmt" />
       <recent name="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission" />
       <recent name="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate" />
-      <recent name="$PROJECT_DIR$/src/main/res/drawable" />
     </key>
     <key name="android.template.-2008101945">
       <recent name="com.daisy" />
@@ -433,13 +432,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598592148006</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Basic Setup phase 2">
-      <created>1598592918593</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1598592918593</updated>
     </task>
     <task id="LOCAL-00003" summary="Bugs remove and maintain functions">
       <created>1600774062666</created>
@@ -777,7 +769,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652092266834</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="added optimal permission code">
+      <created>1652371208065</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1652371208065</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -803,7 +802,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Bugs remove and maintain functions" />
     <MESSAGE value="Second Release workable code" />
     <MESSAGE value="Add commenting and maintain hole code" />
     <MESSAGE value="demo test" />
@@ -837,7 +835,8 @@
     <MESSAGE value="bug fixes" />
     <MESSAGE value="new mdm vzw code" />
     <MESSAGE value="work on issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="work on issues" />
+    <MESSAGE value="added optimal permission code" />
+    <option name="LAST_COMMIT_MESSAGE" value="added optimal permission code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1256,6 +1255,26 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
           <line>64</line>
           <option name="timeStamp" value="1093" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="1101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/LuncherActivtiy.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="1102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/CommonUtil.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="1103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/CommonUtil.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="1104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>

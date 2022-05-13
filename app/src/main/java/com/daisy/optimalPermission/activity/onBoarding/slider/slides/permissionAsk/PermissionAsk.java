@@ -31,7 +31,7 @@ import com.daisy.R;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
 import com.daisy.optimalPermission.pojo.response.PermissionDone;
-import com.daisy.optimalPermission.security.Admin;
+import com.daisy.mainDaisy.security.Admin;
 import com.daisy.optimalPermission.utils.Constraint;
 import com.daisy.optimalPermission.utils.PermissionManager;
 import com.daisy.optimalPermission.utils.Utils;
@@ -72,7 +72,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         String android_id = Settings.Secure.getString(getContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Log.e("Kali", android_id);
         initView();
         permissionSetter();
         initClick();
@@ -104,6 +103,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
      **/
     private void initView() {
         context = requireContext();
+        permissionAskBinding.displayOverTheAppLayout.setVisibility(View.GONE);
         permissionAskViewModel = new ViewModelProvider(this).get(PermissionAskViewModel.class);
     }
 
@@ -159,7 +159,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
             }
         } else {
-            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess()  && permissionAskViewModel.isGrandBatteyOptimization()) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization()) {
                 if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
 
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
@@ -319,7 +319,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             permissionAskBinding.usageAccess.setEnabled(Constraint.TRUE);
         }
     }
-
 
 
     public static PermissionAsk getInstance(ActivityOnBaordingBinding onBaordingBinding) {
@@ -487,7 +486,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
 
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
