@@ -1,5 +1,6 @@
 package com.daisy;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -26,16 +27,28 @@ public class LuncherActivtiy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_luncher_activtiy);
+        Map value = null;
+        try {
+            value = getCPUInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String hardware = (String) value.get(Constraint.HARDWARE);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage(value.toString());
+        AlertDialog alert = alertDialog.create();
+        //Setting the title manually
+        alert.show();
+
         Intent intent = null;
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             intent = new Intent(this, BaseUrlSettings.class);
 
         } else {
             try {
-                Map value = getCPUInfo();
-                String hardware = (String) value.get(Constraint.HARDWARE);
+
                 if (hardware.toLowerCase().contains(Constraint.UNISOC)) {
-                    ValidationHelper.showToast(this, "Unisoc device");
+
                     intent = new Intent(this, BaseUrlSettings.class);
 
                 } else if (CommonUtil.isSystemAlertWindowEnabled(this)) {
@@ -44,6 +57,7 @@ public class LuncherActivtiy extends AppCompatActivity {
                     try {
                         final UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
                         if (um.hasUserRestriction("WORK_PROFILE_RESTRICTION")) {
+
                             ValidationHelper.showToast(this, "MDM Device");
                         } else {
                             ValidationHelper.showToast(this, "Not an MDM Device");
@@ -59,8 +73,8 @@ public class LuncherActivtiy extends AppCompatActivity {
 
             }
         }
-        if (intent != null)
-            startActivity(intent);
+        // if (intent != null)
+        //startActivity(intent);
 
 
     }
