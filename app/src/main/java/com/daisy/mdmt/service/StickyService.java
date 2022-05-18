@@ -18,6 +18,7 @@ public class StickyService extends Service {
     }
 
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sessionManager = SessionManager.get();

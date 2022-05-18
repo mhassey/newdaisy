@@ -17,14 +17,16 @@
   <component name="ChangeListManager">
     <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="added optimal permission code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/CommonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/CommonUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/LuncherActivtiy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/LuncherActivtiy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/StickyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/StickyService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[08171FDD4001S5]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/user/.android/avd/12.1.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -118,7 +120,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/daisy.jks" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/Kotlin_with_coroutine2" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -1085,18 +1087,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/LuncherActivtiy.java</url>
-          <line>42</line>
+          <line>29</line>
           <option name="timeStamp" value="1102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/CommonUtil.java</url>
-          <line>10</line>
+          <line>16</line>
           <option name="timeStamp" value="1103" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/CommonUtil.java</url>
-          <line>9</line>
+          <line>15</line>
           <option name="timeStamp" value="1104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mdmt/service/StickyService.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="1105" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
