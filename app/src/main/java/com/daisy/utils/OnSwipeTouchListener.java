@@ -21,7 +21,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             onTouchClicked();
         }
-        return gestureDetector.onTouchEvent(event);
+        return false;
     }
 
     private final class GestureListener extends SimpleOnGestureListener {
