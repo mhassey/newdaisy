@@ -171,6 +171,8 @@ public class Constraint {
     public static final String DOT_ZIP = ".zip";
     public static final String CALLFROM = "callFrom";
     public static final String SETTINGS = "settings";
+    public static final String TOUCH = "Touches";
+
     public static final int TWENTY = 20;
     public static final int THOUSAND = 1000;
     public static final String APPLICATION_LOGS = "applicationLogs";
@@ -194,6 +196,8 @@ public class Constraint {
     public static final String CHANGE_BASE_URL = "Change baseURL";
     public static final String CHANGE_BASE_URL_DESCRIPTION = "Changed baseURL";
     public static final String SETTINGS_DESCRIPTION = "Navigated to settings";
+    public static final String TOUCHES_DESCRIPTION = "user touch on screen";
+
     public static final String REVIEW_APPLICATION_LOG = "Review Application Log";
     public static final String REVIEW_APPLICATION_LOG_DESCRIPTION = "Reviewed the application log";
     public static final String REVIEW_CARD_LOG = "Review Card log";

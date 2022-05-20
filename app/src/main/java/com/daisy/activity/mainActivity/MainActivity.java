@@ -1327,6 +1327,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
     private void handleUperLayoutClick() {
+        DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         if (BackgroundService.getServiceObject() != null) {
             BackgroundService.getServiceObject().count = 0;
         }

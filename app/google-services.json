@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:518623920875:android:add04ab03c65da84a5f4ae",
+        "mobilesdk_app_id": "1:518623920875:android:086e855e9394f153a5f4ae",
         "android_client_info": {
           "package_name": "com.daisy"
         }
@@ -21,50 +21,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyChZhU_k8boeF3Z8HmCjfVxmJ7Wd3j2jsQ"
-        },
-        {
-          "current_key": "AIzaSyD1bQwNrm6E5V44JaeBM4WTOjW_E_wBX_U"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "518623920875-qrg4kjlaljr0grihv1i88resq6jautd2.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:518623920875:android:48687a54d8c2ba05a5f4ae",
-        "android_client_info": {
-          "package_name": "com.mpc_all_in_one"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "518623920875-jkqisq9su7m1gc27eamopdhsiutjnish.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mpc_all_in_one",
-            "certificate_hash": "40b180ae2b8caf8d24bbca197bd444f0615c7b39"
-          }
-        },
-        {
-          "client_id": "518623920875-qrg4kjlaljr0grihv1i88resq6jautd2.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
           "current_key": "AIzaSyBdsg7Z9GdDcWqFrip3TySLIB05OmKlAjM"
-        },
-        {
-          "current_key": "AIzaSyD1bQwNrm6E5V44JaeBM4WTOjW_E_wBX_U"
         }
       ],
       "services": {
