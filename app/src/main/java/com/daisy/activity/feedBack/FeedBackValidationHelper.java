@@ -6,6 +6,9 @@ import com.daisy.R;
 import com.daisy.databinding.ActivityFeedBackBinding;
 import com.daisy.utils.ValidationHelper;
 
+/**
+ * Purpose - FeedBackValidationHelper class help to validate feedback data
+ */
 public class FeedBackValidationHelper {
     private Context context;
     private ActivityFeedBackBinding binding;

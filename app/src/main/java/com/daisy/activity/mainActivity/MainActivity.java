@@ -1,7 +1,5 @@
 package com.daisy.activity.mainActivity;
 
-import static com.daisy.utils.Constraint.SERVER_PORT;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -15,7 +13,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.net.DhcpInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -24,8 +21,6 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.format.Formatter;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -44,7 +39,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -64,7 +58,6 @@ import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.updateProduct.UpdateProductViewModel;
-import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
@@ -88,7 +81,6 @@ import com.daisy.service.BackgroundService;
 import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;
-import com.daisy.utils.DeviceList;
 import com.daisy.utils.DownloadFile;
 import com.daisy.utils.DownloadJSFile;
 import com.daisy.utils.OnSwipeTouchListener;
@@ -96,8 +88,6 @@ import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -109,17 +99,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
-import java.net.NetworkInterface;
-import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -835,13 +818,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
 
-                    } else {
-                        //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                     }
-                } else {
-                    //    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                 }
                 super.onLoadResource(view, url);
 
@@ -857,9 +834,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                         mViewModel.setExceptionInHtml(false);
 
                     }
-                } else {
-                    //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                 }
                 super.onPageCommitVisible(view, url);
 
@@ -875,13 +849,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
 
-                    } else {
-                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                     }
-                } else {
-                    // mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                 }
                 super.onPageStarted(view, url, favicon);
 
@@ -898,13 +866,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                             mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                             mViewModel.setExceptionInHtml(false);
 
-                        } else {
-                            //     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                         }
-                    } else {
-                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                     }
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
@@ -1028,7 +990,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         if (jsonArray.length() > 0)
             mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
 
-//        mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
     }
 
 
@@ -1327,6 +1288,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
     private void handleUperLayoutClick() {
+
         DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         if (BackgroundService.getServiceObject() != null) {
             BackgroundService.getServiceObject().count = 0;
@@ -1649,8 +1611,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     public void updatePromotion(Promotion promotionss) {
         try {
 
-            // Utils.deletePromotion();
-            // sessionManager.deletePromotions();
             List<Promotion> promotions = sessionManager.getPromotion();
             JSONArray listOfPromo = sessionManager.getPromotions();
             List<Download> downloads = new ArrayList<>();
