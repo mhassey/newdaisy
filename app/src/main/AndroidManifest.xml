@@ -76,17 +76,11 @@
         <activity
             android:name=".activity.socketConnection.SocketConnection"
             android:exported="false" />
-
         <service
             android:name=".service.DeviceSearch"
             android:enabled="true"
             android:exported="true" />
 
-        <activity
-            android:name=".activity.demo.DemoActivity"
-            android:exported="false"
-            android:label="@string/title_activity_demo"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.langSupport.LangSelectionActivity" />
         <activity android:name=".activity.updateProduct.UpdateProduct" />
 
@@ -112,6 +106,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        FileProvider
 
         <uses-library
             android:name="org.apache.http.legacy"
