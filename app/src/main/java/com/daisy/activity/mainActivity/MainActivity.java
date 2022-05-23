@@ -301,6 +301,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             }
 
             public void onSwipeRight() {
+
             }
 
             public void onSwipeLeft() {

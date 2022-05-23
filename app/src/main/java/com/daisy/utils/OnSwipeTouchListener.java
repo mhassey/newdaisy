@@ -20,8 +20,10 @@ public class OnSwipeTouchListener implements OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             onTouchClicked();
+
         }
-        return false;
+        return gestureDetector.onTouchEvent(event);
+
     }
 
     private final class GestureListener extends SimpleOnGestureListener {
@@ -31,7 +33,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
         @Override
         public boolean onDown(MotionEvent e) {
-            return true;
+            return false;
         }
 
         @Override
@@ -49,7 +51,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
                         } else {
                             onSwipeLeft();
                         }
-                        result = true;
+                        result = false;
                     }
                 } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
