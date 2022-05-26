@@ -5,12 +5,9 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="src/main/res/layout-v17/activity_main.xml" value="0.1" />
-        <entry key="src/main/res/layout/activity_config_settings.xml" value="0.22" />
+        <entry key="src/main/res/layout/activity_config_settings.xml" value="0.33" />
         <entry key="src/main/res/layout/activity_main.xml" value="0.15945805106826472" />
-        <entry key="src/main/res/layout/activity_on_baording.xml" value="0.115625" />
         <entry key="src/main/res/layout/activity_splash_screen.xml" value="0.13253527148353997" />
-        <entry key="src/main/res/layout/fragment_login.xml" value="0.1403985507246377" />
-        <entry key="src/main/res/layout/fragment_permission_ask.xml" value="0.1403985507246377" />
       </map>
     </option>
   </component>

@@ -80,6 +80,8 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
 //        mBinding.screenId.setText(SessionManager.get().getScreenId()+"");
+        mBinding.appName.setText(Constraint.LIGHT);
+
         getDefaultUpdateTime();
     }
 

@@ -65,6 +65,7 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         }
         viewModel.setDefaultUrls();
         setDefaultUrlData();
+        ValidationHelper.showToast(context.getApplicationContext(), Constraint.MPC_GO);
     }
 
 
@@ -125,6 +126,7 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
      * Parameters - No parameter
      **/
     private void initClick() {
+
         mBinding.nextSlide.setOnClickListener(this::onClick);
         mBinding.spinnerOpen.setOnClickListener(this::onClick);
     }

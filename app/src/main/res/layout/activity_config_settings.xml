@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/check"
-            android:layout_above="@+id/check1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/check1"
             android:fillViewport="true">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -446,7 +447,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/socket_connection"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -454,7 +454,8 @@
                             android:layout_marginTop="@dimen/dp20"
                             android:layout_marginEnd="@dimen/dp30"
                             android:background="@drawable/edit_text_format"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
 
                             <TextView
@@ -515,6 +516,23 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:gravity="center|end">
+
+
+                    <TextView
+                        android:id="@+id/app_name"
+                        style="@style/fontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.0.0"
+
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp12" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

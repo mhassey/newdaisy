@@ -78,6 +78,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         setNoTitleBar(this);
         sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
+        mBinding.appName.setText(Constraint.GO);
         getDefaultUpdateTime();
     }
 

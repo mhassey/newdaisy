@@ -152,6 +152,8 @@ public class Constraint {
     public static final String POSITION_UPDATE = "Position updated";
     public static final String OPEN = "OPEN";
     public static final CharSequence PRICE_CARD = "PriceCard";
+    public static final String LIGHT_LOADED = "MPC Light Loaded";
+    public static final String LIGHT = "Light";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -169,7 +171,7 @@ public class Constraint {
     public static final int TWENTY = 20;
     public static final int THOUSAND = 1000;
     public static final String APPLICATION_LOGS = "applicationLogs";
-    public static  final String DATA_STORE=" Data store";
+    public static final String DATA_STORE = " Data store";
     public static final String CARD_LOGS = "cardLogs";
     public static final String LOGS = "logs";
     public static final String TEXT = ".txt";
@@ -343,5 +345,5 @@ public class Constraint {
     public static String price = "price";
     public static String Ip_SEARCHED = "IpSearched";
 
-    public static String adCard="adCard";
+    public static String adCard = "adCard";
 }

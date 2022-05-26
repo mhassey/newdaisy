@@ -153,6 +153,7 @@ public class Constraint {
     public static final String OPEN = "OPEN";
     public static final CharSequence PRICE_CARD = "PriceCard";
     public static final long TEN_SECOND = 10000;
+    public static final String MIAN_LOADED = "MPC Full Loaded";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -346,8 +347,10 @@ public class Constraint {
 
     public static String adCard = "adCard";
     public static String hyperesources = "hyperesources";
+    public static String Full = "Full";
 
 
     public static String MobilePriceCard = "MobilePriceCard";
     public static long Two_Minute = 60000;
+
 }
