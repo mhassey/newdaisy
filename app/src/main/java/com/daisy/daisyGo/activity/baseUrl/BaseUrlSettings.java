@@ -65,7 +65,6 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         }
         viewModel.setDefaultUrls();
         setDefaultUrlData();
-        ValidationHelper.showToast(context.getApplicationContext(), Constraint.MPC_GO);
     }
 
 

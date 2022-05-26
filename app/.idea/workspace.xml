@@ -16,21 +16,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="added optimal permission code">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="Bug fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/baseUrl/BaseUrlSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/configSettings/ConfigSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/configSettings/ConfigSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/utils/Constraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/welcomeScreen/WelcomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/daisyGo/activity/welcomeScreen/WelcomeScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/baseUrl/BaseUrlSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/configSettings/ConfigSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/configSettings/ConfigSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/utils/Constraint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/baseUrl/BaseUrlSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/baseUrl/BaseUrlSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/configSettings/ConfigSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/configSettings/ConfigSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/utils/Constraint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_config_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_config_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values-v21/google_maps_api.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-v21/google_maps_api.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/welcomeScreen/WelcomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/welcomeScreen/WelcomeScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/welcomeScreen/WelcomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/optimalPermission/activity/welcomeScreen/WelcomeScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +253,7 @@
         <item itemvalue="Gradle.app [signingReport]" />
         <item itemvalue="Application.Demo" />
         <item itemvalue="Gradle.app [signingReport]" />
-        <item itemvalue="Gradle.app [signingReport]" />
+        <item itemvalue="Application.Demo" />
         <item itemvalue="Gradle.app [signingReport]" />
       </list>
     </recent_temporary>
@@ -1016,7 +1008,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/mainDaisy/activity/baseUrl/BaseUrlSettings.java</url>
-          <line>161</line>
+          <line>160</line>
           <option name="timeStamp" value="508" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">

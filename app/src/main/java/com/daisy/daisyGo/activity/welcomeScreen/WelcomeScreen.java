@@ -11,6 +11,7 @@ import com.daisy.R;
 import com.daisy.daisyGo.activity.base.BaseActivity;
 import com.daisy.daisyGo.activity.onBoarding.slider.OnBoarding;
 import com.daisy.daisyGo.session.SessionManager;
+import com.daisy.daisyGo.utils.ValidationHelper;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.daisyGo.utils.Constraint;
 
@@ -42,6 +43,8 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     private void initView() {
         sessionManager = SessionManager.get();
         setNoTitleBar(this);
+        ValidationHelper.showToast(this, com.daisy.daisyGo.utils.Constraint.MPC_GO);
+
 
     }
 
@@ -109,8 +112,8 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onStart() {
         if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl) );
+            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             } else {
                 mBinding.curveLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
             }

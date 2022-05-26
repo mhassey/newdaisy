@@ -71,6 +71,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     private void initView() {
         sessionManager = SessionManager.get();
         setNoTitleBar(this);
+        ValidationHelper.showToast(this, Constraint.MIAN_LOADED);
 
 
     }

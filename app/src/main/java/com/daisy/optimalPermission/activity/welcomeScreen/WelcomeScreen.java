@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.R;
+import com.daisy.daisyGo.utils.ValidationHelper;
 import com.daisy.optimalPermission.activity.base.BaseActivity;
 import com.daisy.optimalPermission.activity.onBoarding.slider.OnBoarding;
 import com.daisy.optimalPermission.session.SessionManager;
