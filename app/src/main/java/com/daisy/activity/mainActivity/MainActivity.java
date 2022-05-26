@@ -13,6 +13,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -159,6 +160,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         loadURL();
         intentWork();
 
+        handleSettingsIcon();
+
+    }
+
+    private void handleSettingsIcon() {
     }
 
 

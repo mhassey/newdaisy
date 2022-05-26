@@ -70,9 +70,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String android_id = Settings.Secure.getString(getContext().getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        Log.e("Kali", android_id);
         initView();
         permissionSetter();
         initClick();
@@ -355,7 +352,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.grandMediaPermission:  {
+            case R.id.grandMediaPermission: {
 
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     // Do something for lollipop and above versions
