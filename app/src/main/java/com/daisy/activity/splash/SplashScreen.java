@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
@@ -39,7 +40,6 @@ public class SplashScreen extends BaseActivity {
     }
 
 
-
     /**
      * Responsibility - initView method is used for initiate all object and perform some initial level task
      * Parameters - No parameter
@@ -47,7 +47,7 @@ public class SplashScreen extends BaseActivity {
     private void initView() {
         setNoTitleBar(this);
         handleSessionWork();
-          final Handler handler = new Handler();
+        final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -62,7 +62,7 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void handleSessionWork() {
-        sessionManager=SessionManager.get();
+        sessionManager = SessionManager.get();
         sessionManager.setUpdateNotShow(Constraint.FALSE);
         sessionManager.uninstallShow(Constraint.FALSE);
 
@@ -73,16 +73,25 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void redirectToWelcome() {
-        if (sessionManager.getOnBoarding())
-        {
+
+
+        if (sessionManager.getOnBoarding()) {
             Intent intent = new Intent(SplashScreen.this, EditorTool.class);
             startActivity(intent);
-        }
-        else {
-            Intent intent = new Intent(SplashScreen.this, WelcomeScreen.class);
-            startActivity(intent);
+        } else {
+            boolean b = sessionManager.getBaseUrlAdded();
+            if (b) {
+                Intent intent = new Intent(this, OnBoarding.class);
+                startActivity(intent);
+                overridePendingTransition(Constraint.ZERO, Constraint.ZERO);
+                finish();
+            } else {
+                Intent intent = new Intent(SplashScreen.this, WelcomeScreen.class);
+                startActivity(intent);
+            }
         }
         finish();
+
     }
 
     /**

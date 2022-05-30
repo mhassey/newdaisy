@@ -157,6 +157,8 @@ public class Constraint {
     public static final String DEVICE_ID = "deviceId";
     public static final String DEVICEID = "device_id";
     public static final String MAC_ADDRESS = "mac_address";
+    public static final String KEY = "Key";
+    public static final String ID_BASE_URL = "Id_base_url";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
