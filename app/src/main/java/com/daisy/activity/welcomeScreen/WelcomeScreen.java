@@ -1,15 +1,9 @@
 package com.daisy.activity.welcomeScreen;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -21,11 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.activity.configSettings.ConfigSettings;
-import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
-import com.daisy.activity.splash.SplashScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.dialogFragment.DateTimePermissionDIalog;
@@ -54,7 +45,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     private WelcomeValidationHelper welcomeValidationHelper;
     private WelcomeViewModel welcomeViewModel;
     private String myBaseUrls[] = {
-            "http://od2.mobilepricecards.com",
+            "https://id1.mobilepricecards.com",
             "https://id2.mobilepricecards.com",
             "https://id3.mobilepricecards.com",
 
@@ -172,10 +163,10 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
      */
     private void handleKeyToUrlResponse(GlobalResponse<KeyToUrlResponse> result) {
         if (result != null) {
-            if (result.isApi_status()) {
-                    handleGeneralApi("");
+            if (result.getResult().isMatched_status()) {
+                handleGeneralApi(result.getResult().getMatched_url() + Constraint.SLASH);
             } else {
-                ValidationHelper.showToast(this, result.getMessage());
+                ValidationHelper.showToast(this, getResources().getString(R.string.mpc_key_not_correct));
             }
         } else {
             checkLoadedKey();
@@ -236,13 +227,17 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
                         ValidationHelper.showToast(this, getString(R.string.no_internet_available));
                     }
                 }
+            } else if (listIndex == 3) {
+                ValidationHelper.showToast(this, getString(R.string.technical_issue));
             }
+
+
         }
     }
 
     private HashMap<String, String> createKeyToUrlRequest() {
         HashMap<String, String> stringStringHashMap = new HashMap<>();
-        stringStringHashMap.put(Constraint.KEY, mBinding.keyName.getText().toString());
+        stringStringHashMap.put(Constraint.customerID, mBinding.keyName.getText().toString());
         stringStringHashMap.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
         stringStringHashMap.put(Constraint.ID_BASE_URL, myBaseUrls[listIndex++]);
         return stringStringHashMap;

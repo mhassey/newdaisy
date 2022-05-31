@@ -79,16 +79,8 @@ public class SplashScreen extends BaseActivity {
             Intent intent = new Intent(SplashScreen.this, EditorTool.class);
             startActivity(intent);
         } else {
-            boolean b = sessionManager.getBaseUrlAdded();
-            if (b) {
-                Intent intent = new Intent(this, OnBoarding.class);
-                startActivity(intent);
-                overridePendingTransition(Constraint.ZERO, Constraint.ZERO);
-                finish();
-            } else {
-                Intent intent = new Intent(SplashScreen.this, WelcomeScreen.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(SplashScreen.this, WelcomeScreen.class);
+            startActivity(intent);
         }
         finish();
 

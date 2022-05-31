@@ -967,7 +967,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     }
 
 
-
     /**
      * Purpose - setWindowManager method initialize invisible ui that helps for face detect and interactions
      */

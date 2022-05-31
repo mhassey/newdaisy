@@ -231,4 +231,6 @@
     <string name="please_enter_your_mpc_key_in_the_box">Please enter your MPC key in the box below and press CONNECT</string>
     <string name="connect">CONNECT</string>
     <string name="key_can_not_be_empty">MPC key can not be empty</string>
+    <string name="mpc_key_not_correct">MPC key is not correct</string>
+    <string name="technical_issue">problem reaching id server - enter URL manually or contact customer support</string>
 </resources>

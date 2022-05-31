@@ -68,6 +68,7 @@ public class AppRetrofit {
 
     private ApiService provideService(String BaseUrl) {
 
+
         // To show the Api Request & Params
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -87,7 +88,7 @@ public class AppRetrofit {
                         .build();
                 Response response = chain.proceed(request);
 
-                if ( response.code() == ApiResponseStatusCode.ERROR) {
+                if (response.code() == ApiResponseStatusCode.ERROR) {
                     AppController.getInstance().getActivity().handleLogout();
                     AppController.getInstance().getActivity().removeAdminRightPermission();
 

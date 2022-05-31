@@ -106,7 +106,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        FileProvider
+
 
         <uses-library
             android:name="org.apache.http.legacy"
