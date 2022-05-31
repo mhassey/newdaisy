@@ -158,6 +158,7 @@ public class Constraint {
     public static final String DEVICEID = "device_id";
     public static final String MAC_ADDRESS = "mac_address";
     public static final String KEY = "Key";
+    public static final String customerID = "customerID";
     public static final String ID_BASE_URL = "Id_base_url";
 
 

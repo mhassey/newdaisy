@@ -146,7 +146,7 @@ public class CheckCardAvailability {
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
             String UrlPath = response.getResult().getPricecard().getFileName();
             if (response.getResult().getPricecard().getFileName() != null) {
-                String configFilePath =Constraint.FOLDER_NAME + Constraint.SLASH;
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath);
                 if (!directory.exists()) {
                     directory.mkdirs();
@@ -163,7 +163,7 @@ public class CheckCardAvailability {
                         }
                         sessionManager.deleteLocation();
                         EventBus.getDefault().post(new PriceCard());
-                   }
+                    }
                 } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);

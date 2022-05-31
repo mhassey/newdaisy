@@ -77,8 +77,6 @@ public class DeviceSearch extends Service {
 
                 } catch (UnknownHostException e1) {
                     e1.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
