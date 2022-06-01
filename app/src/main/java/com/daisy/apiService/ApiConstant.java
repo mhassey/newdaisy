@@ -26,4 +26,5 @@ public class ApiConstant {
     public static final String CREATE_SCREEN_OS = URL_PACK + "/create_screen_os";
     public static final String UPDATE_PRODUCT = URL_PACK + "/update_screen_product";
     public static final String KEY_TO_URL = URL_PACK + "/api_gateway";
+    public static final String UPDATE_DEVICE_TOKEN = URL_PACK + "/update_screen_token";
 }

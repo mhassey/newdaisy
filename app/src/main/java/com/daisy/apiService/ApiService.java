@@ -80,6 +80,6 @@ public interface ApiService {
     Call<GlobalResponse<KeyToUrlResponse>> getKeyToValue(@FieldMap HashMap<String, String> input, @Header(Constraint.TOKEN) String s);
 
     @FormUrlEncoded
-    @POST(ApiConstant.KEY_TO_URL)
+    @POST(ApiConstant.UPDATE_DEVICE_TOKEN)
     Call<GlobalResponse<UpdateTokenResponse>> updateDeviceToken(@FieldMap HashMap<String, String> hashCode, @Header(Constraint.TOKEN) String s);
 }

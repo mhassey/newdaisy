@@ -8,9 +8,11 @@ import com.daisy.apiService.AppRetrofit;
 import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.OsType;
 import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
+import com.daisy.pojo.response.UpdateTokenResponse;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
@@ -125,6 +127,37 @@ public class CheckCardAvailability {
                                 EventBus.getDefault().post(new Pricing());
 
                             }
+
+                        }
+
+                        if (!response.getResult().isToken_status()) {
+                            HashMap<String, String> hashMap = new HashMap<String, String>();
+                            hashMap.put(Constraint.DEVICE_TOKEN, SessionManager.get().getFCMToken());
+                            for (OsType osType : SessionManager.get().getOsType()) {
+                                if (osType.getOsName().equals(Constraint.ANDROID)) {
+                                    hashMap.put(Constraint.DEVICE_TYPE, osType.getOsID() + "");
+
+                                }
+                            }
+                            hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+
+
+                            ApiService apiService = AppRetrofit.getInstance().getApiService();
+                            Call<GlobalResponse<UpdateTokenResponse>> call = apiService.updateDeviceToken(hashMap, hashMap.get(Constraint.TOKEN));
+                            call.enqueue(new Callback<GlobalResponse<UpdateTokenResponse>>() {
+                                @Override
+                                public void onResponse(Call<GlobalResponse<UpdateTokenResponse>> call, Response<GlobalResponse<UpdateTokenResponse>> response) {
+                                    if (response.isSuccessful()) {
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<GlobalResponse<UpdateTokenResponse>> call, Throwable t) {
+                                    t.printStackTrace();
+                                }
+                            });
+
 
                         }
 
