@@ -22,6 +22,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -89,6 +91,9 @@ import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

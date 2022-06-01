@@ -42,6 +42,7 @@ import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.LoginResponse;
+import com.daisy.pojo.response.OsType;
 import com.daisy.pojo.response.PermissionDone;
 import com.daisy.pojo.response.Product;
 import com.daisy.security.Admin;
@@ -56,6 +57,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Purpose -  OnBoarding is an activity that handle all onBoarding pages
@@ -427,6 +429,14 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                 hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
 
             hashMap.put(Constraint.MAC_ADDRESS, Utils.getMacAddress(getApplicationContext()));
+            hashMap.put(Constraint.DEVICE_TOKEN, SessionManager.get().getFCMToken());
+            for (OsType osType : SessionManager.get().getOsType()) {
+                if (osType.getOsName().equals(Constraint.ANDROID)) {
+                    hashMap.put(Constraint.DEVICE_TYPE, osType.getOsID() + "");
+
+                }
+            }
+
             return hashMap;
         }
         return new HashMap<>();
