@@ -18,12 +18,14 @@ android {
     }
     flavorDimensions "buildTypes"
 
+
     productFlavors {
 
         production {
             dimension "buildTypes"
             buildConfigField "String", "BASE_URL", '"https://o2.mobilepricecards.com/"'
         }
+
 
         development {
 
@@ -39,6 +41,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     dataBinding {
         enabled = true
     }
@@ -70,7 +73,6 @@ dependencies {
     implementation "org.apache.commons:commons-io:${rootProject.ext.commons}"
     implementation "org.greenrobot:eventbus:${rootProject.ext.eventBus}"
     implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomRuntime}"
-    implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomComplier}"
     implementation "com.google.firebase:firebase-analytics:${rootProject.ext.analytics}"
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
@@ -81,6 +83,7 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.pusher:pusher-java-client:2.2.1'
+    implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
