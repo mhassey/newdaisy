@@ -579,9 +579,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
     private void unregisterReceiver() {
-        unregisterReceiver(overlayReceiver);
-        unregisterReceiver(wifiStateReceiver);
-        unregisterReceiver(m_timeChangedReceiver);
+        if (overlayReceiver.isInitialStickyBroadcast())
+            unregisterReceiver(overlayReceiver);
+        if (wifiStateReceiver.isInitialStickyBroadcast())
+
+            unregisterReceiver(wifiStateReceiver);
+        if (m_timeChangedReceiver.isInitialStickyBroadcast())
+
+            unregisterReceiver(m_timeChangedReceiver);
     }
 
 

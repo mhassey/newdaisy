@@ -21,6 +21,7 @@ import com.daisy.databinding.ConnectToMpcBinding;
 import com.daisy.pojo.ServerConfig;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.KeyToUrlResponse;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
@@ -34,12 +35,24 @@ public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
 
     private static OnBoarding baording;
     private ConnectToMpcBinding connectToMpcBinding;
+    private ConnectToMpcViewModel connectToMpcViewModel;
+    private ConnectToMpcValidationHelper connectToMpcValidationHelper;
+    private String myBaseUrls[] = {
+            "https://id1.mobilepricecards.com",
+            "https://id2.mobilepricecards.com",
+            "https://id3.mobilepricecards.com",
+
+    };
+    private int listIndex = 0;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         connectToMpcBinding = DataBindingUtil.inflate(inflater, R.layout.connect_to_mpc, container, false);
+        connectToMpcViewModel = new ViewModelProvider(this).get(ConnectToMpcViewModel.class);
+        connectToMpcValidationHelper = new ConnectToMpcValidationHelper(getContext(), connectToMpcBinding);
         initClick();
+        defineKeyToUrlObserver();
         return connectToMpcBinding.getRoot();
     }
 
@@ -57,11 +70,79 @@ public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
         return new ConnectToMpc();
     }
 
+    /**
+     * Responsibility - defineKeyToUrlObserver handles key to url response
+     */
+    private void defineKeyToUrlObserver() {
+        LiveData<GlobalResponse<KeyToUrlResponse>> globalResponseLiveData = connectToMpcViewModel.getResponseLiveData();
+        if (!globalResponseLiveData.hasActiveObservers()) {
+            globalResponseLiveData.observe(this, new Observer<GlobalResponse<KeyToUrlResponse>>() {
+                @Override
+                public void onChanged(GlobalResponse<KeyToUrlResponse> keyToUrlResponseGlobalResponse) {
+                    showHideProgressDialog(false);
+                    if (keyToUrlResponseGlobalResponse != null) {
+                        handleKeyToUrlResponse(keyToUrlResponseGlobalResponse);
+                    } else {
+                        checkLoadedKey();
+                    }
+                }
+            });
+        }
+    }
+
+    private void checkLoadedKey() {
+        if (connectToMpcBinding.code.getText().toString().contains(Constraint.HTTP)) {
+            updateBaseUrl(connectToMpcBinding.code.getText().toString());
+
+        } else {
+            if (listIndex <= 2) {
+                if (connectToMpcValidationHelper.isValid()) {
+                    if (Utils.getNetworkState(getContext())) {
+                        showHideProgressDialog(true);
+                        connectToMpcViewModel.setRequestLiveData(createKeyToUrlRequest());
+                    } else {
+                        ValidationHelper.showToast(getContext(), getString(R.string.no_internet_available));
+                    }
+                }
+            } else if (listIndex == 3) {
+                ValidationHelper.showToast(getContext(), getString(R.string.technical_issue));
+            }
+
+
+        }
+    }
+
+    private HashMap<String, String> createKeyToUrlRequest() {
+        HashMap<String, String> stringStringHashMap = new HashMap<>();
+        stringStringHashMap.put(Constraint.customerID, connectToMpcBinding.code.getText().toString());
+        stringStringHashMap.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
+        stringStringHashMap.put(Constraint.ID_BASE_URL, myBaseUrls[listIndex++]);
+        return stringStringHashMap;
+    }
+
+    /**
+     * Responsibility - handleKeyToUrlResponse method manipulate server
+     *
+     * @param result
+     */
+    private void handleKeyToUrlResponse(GlobalResponse<KeyToUrlResponse> result) {
+        if (result != null) {
+            if (result.getResult().isMatched_status()) {
+                handleConnectEvent(result.getResult().getMatched_url() + Constraint.SLASH);
+            } else {
+                ValidationHelper.showToast(getActivity(), getResources().getString(R.string.mpc_key_not_correct));
+            }
+        } else {
+            checkLoadedKey();
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.connect: {
-                handleConnectEvent();
+                listIndex = 0;
+                checkLoadedKey();
                 break;
             }
         }
@@ -70,13 +151,11 @@ public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
     /**
      * Purpose - handleConnectEvent method checks the code is valid or not and set it to base config server
      */
-    private void handleConnectEvent() {
+    private void handleConnectEvent(String url) {
 
-        if (!connectToMpcBinding.code.getText().toString().equals("")) {
-            HashMap<String, String> stringStringHashMap = new ServerConfig().getServerConfig();
-            String value = stringStringHashMap.get(connectToMpcBinding.code.getText().toString().trim());
-            if (value != null) {
-                updateBaseUrl(value);
+        if (!url.equals("")) {
+            if (url != null) {
+                updateBaseUrl(url);
             } else {
                 if (connectToMpcBinding.code.getText().toString().contains(Constraint.HTTP)) {
                     updateBaseUrl(connectToMpcBinding.code.getText().toString());

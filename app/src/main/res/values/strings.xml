@@ -7,6 +7,8 @@
     <string name="save_and_load">Save and Load</string>
     <string name="loading">Loading...</string>
     <string name="invalid_url">Invalid Url</string>
+    <string name="mpc_key_not_correct">MPC key is not correct</string>
+    <string name="technical_issue">problem reaching id server - enter URL manually or contact customer support</string>
     <string name="logs">Logs</string>
     <string name="application_logs">Application Log</string>
     <string name="card_logs">Card Log</string>
@@ -231,5 +233,6 @@
     <string name="select_product">Select Product</string>
     <string name="please_enter_server_code">"Please enter server code "</string>
     <string name="wrong_server_code">Wrong server code</string>
+    <string name="key_can_not_be_empty">MPC key can not be empty</string>
 
 </resources>
