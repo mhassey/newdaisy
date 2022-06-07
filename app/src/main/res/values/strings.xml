@@ -228,4 +228,6 @@
     <string name="disable_admin">Disable Admin</string>
     <string name="mpc_key_not_correct">MPC key is not correct</string>
     <string name="technical_issue">id2 server is not working.Please try again</string>
+    <string name="connect">CONNECT</string>
+    <string name="mpc_key">MPC KEY</string>
 </resources>

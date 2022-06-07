@@ -6,32 +6,32 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/white"
+        android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".mainDaisy.activity.welcomeScreen.WelcomeScreen">
+        tools:context=".activity.welcomeScreen.WelcomeScreen">
 
 
         <RelativeLayout
-            android:background="@color/purple"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp250"
-            android:orientation="vertical"
-           >
+            android:background="@color/purple"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/dp120"
+                android:layout_height="@dimen/dp120"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_welcome_icon"
-                android:layout_height="@dimen/dp120"/>
+                android:src="@drawable/ic_welcome_icon" />
+
             <TextView
-                android:layout_marginBottom="@dimen/dp10"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentBottom="true"
                 style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/dp10"
                 android:text="@string/welcome"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp25" />
@@ -47,16 +47,32 @@
             android:orientation="vertical">
 
 
-
             <TextView
                 style="@style/fontMedium"
-                    android:lineSpacingMultiplier="1.5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp25"
-                android:gravity="center|start"
-                android:text="@string/this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process"
-               android:textSize="@dimen/dp15" />
+                android:gravity="center|left"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/please_enter_your_mpc_key_in_the_box"
+                android:textSize="@dimen/dp15" />
+
+
+            <EditText
+                android:id="@+id/key_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp25"
+                android:background="@drawable/edit_text_format"
+                android:gravity="center"
+                android:hint="@string/mpc_key"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:padding="@dimen/dp10"
+                android:singleLine="true" />
+
 
         </LinearLayout>
 
@@ -67,32 +83,32 @@
             android:gravity="bottom|end">
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/dp20"
-                android:gravity="center"
                 android:id="@+id/curve_layout"
-                android:background="@drawable/ovel_purple"
-                android:orientation="horizontal"
                 android:layout_width="@dimen/dp180"
-                android:layout_height="@dimen/dp50">
+                android:layout_height="@dimen/dp50"
+                android:layout_marginBottom="@dimen/dp20"
+                android:background="@drawable/ovel_purple"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
+                <TextView
 
-                android:id="@+id/begin"
-                style="@style/fontRagular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/begin"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp20" />
+                    android:id="@+id/begin"
+                    style="@style/fontRagular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connect"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp20" />
 
-            <TextView
-                style="@style/fontRagular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
-                android:text=">"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp20" />
+                <TextView
+                    style="@style/fontRagular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp10"
+                    android:text=">"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp20" />
             </LinearLayout>
         </LinearLayout>
 
