@@ -130,13 +130,12 @@ public class ConnectToMpc extends BaseFragment implements View.OnClickListener {
             if (result.getResult().isMatched_status()) {
                 handleConnectEvent(result.getResult().getMatched_url() + Constraint.SLASH);
             } else {
-                ValidationHelper.showToast(getActivity(), getResources().getString(R.string.mpc_key_not_correct));
+                ValidationHelper.showToast( getActivity(), getResources().getString(R.string.mpc_key_not_correct));
             }
         } else {
             checkLoadedKey();
         }
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
