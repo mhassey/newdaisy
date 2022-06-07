@@ -12,8 +12,8 @@ import android.util.Log;
 
 import com.daisy.daisyGo.utils.Constraint;
 import com.daisy.daisyGo.utils.ValidationHelper;
+import com.daisy.mainDaisy.activity.splash.SplashScreen;
 import com.daisy.optimalPermission.activity.baseUrl.BaseUrlSettings;
-import com.daisy.optimalPermission.activity.splash.SplashScreen;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -53,11 +53,11 @@ public class LuncherActivtiy extends AppCompatActivity {
                     } else if (CommonUtil.isSystemAlertWindowEnabled(this)) {
                         intent = new Intent(this, com.daisy.daisyGo.activity.baseUrl.BaseUrlSettings.class);
                     } else {
-                        intent = new Intent(this, com.daisy.mainDaisy.activity.baseUrl.BaseUrlSettings.class);
+                        intent = new Intent(this, com.daisy.mainDaisy.activity.splash.SplashScreen.class);
 
                     }
                 } catch (Exception e) {
-                    intent = new Intent(this, com.daisy.mainDaisy.activity.baseUrl.BaseUrlSettings.class);
+                    intent = new Intent(this, SplashScreen.class);
 
                 }
             }

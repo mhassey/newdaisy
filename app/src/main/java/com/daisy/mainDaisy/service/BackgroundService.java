@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.os.UserManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -148,8 +149,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         return super.onStartCommand(intent, flags, startId);
     }
 
+    perpose
+
     @SuppressLint("InvalidWakeLockTag")
     @Override
+
     public void onCreate() {
         super.onCreate();
         backgroundService = this;
@@ -239,21 +243,25 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
 
                                 if (!process.equals(getApplication().getPackageName())) {
+                                    final UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
                                     storeProcess(process);
-                                    if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
-                                        if (!sessionManager.getPasswordCorrect()) {
-                                            sessionManager.setPasswordCorrect(Constraint.TRUE);
-                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                            intent.putExtra(Constraint.PACKAGE, process);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                            startActivity(intent);
+                                    if (!um.hasUserRestriction("WORK_PROFILE_RESTRICTION")) {
+
+                                        if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
+                                            if (!sessionManager.getPasswordCorrect()) {
+                                                sessionManager.setPasswordCorrect(Constraint.TRUE);
+                                                Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                                intent.putExtra(Constraint.PACKAGE, process);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivity(intent);
+                                            } else {
+                                                sessionManager.setPasswordCorrect(Constraint.FALSE);
+                                            }
                                         } else {
                                             sessionManager.setPasswordCorrect(Constraint.FALSE);
                                         }
-                                    } else {
-                                        sessionManager.setPasswordCorrect(Constraint.FALSE);
                                     }
 
                                 } else {
