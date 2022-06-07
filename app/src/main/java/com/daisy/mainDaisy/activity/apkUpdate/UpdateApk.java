@@ -80,9 +80,7 @@ public class UpdateApk {
                                 } else {
                                     sessionManager.setVersionDetails(null);
                                 }
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
 
                             }
                         }

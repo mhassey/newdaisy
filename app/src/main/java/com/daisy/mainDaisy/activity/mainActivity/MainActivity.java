@@ -1,7 +1,5 @@
 package com.daisy.mainDaisy.activity.mainActivity;
 
-import static com.daisy.mainDaisy.utils.Constraint.SERVER_PORT;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -15,6 +13,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -23,8 +22,11 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -40,6 +42,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -58,7 +61,6 @@ import com.daisy.mainDaisy.activity.editorTool.EditorTool;
 import com.daisy.mainDaisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.mainDaisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.mainDaisy.activity.updateProduct.UpdateProductViewModel;
-import com.daisy.mainDaisy.app.AppController;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
@@ -78,10 +80,10 @@ import com.daisy.mainDaisy.pojo.response.Sanitised;
 import com.daisy.mainDaisy.pojo.response.SocketEvent;
 import com.daisy.mainDaisy.pojo.response.UpdateCards;
 import com.daisy.mainDaisy.security.Admin;
+import com.daisy.mainDaisy.service.BackgroundService;
 import com.daisy.mainDaisy.service.LogGenerateService;
 import com.daisy.mainDaisy.utils.CheckForSDCard;
 import com.daisy.mainDaisy.utils.Constraint;
-import com.daisy.mainDaisy.utils.DeviceList;
 import com.daisy.mainDaisy.utils.DownloadFile;
 import com.daisy.mainDaisy.utils.DownloadJSFile;
 import com.daisy.mainDaisy.utils.OnSwipeTouchListener;
@@ -89,6 +91,9 @@ import com.daisy.mainDaisy.utils.PermissionManager;
 import com.daisy.mainDaisy.utils.SanitisedSingletonObject;
 import com.daisy.mainDaisy.utils.Utils;
 import com.daisy.mainDaisy.utils.ValidationHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -115,7 +120,7 @@ import java.util.concurrent.TimeUnit;
  * Purpose -  MainActivity is an activity that show cards and promotions and pricing and handling all things related to price cards
  * Responsibility - Its loads cards,promotion send pricing to js and its also handles logs related price card and promotions
  **/
-public class MainActivity extends BaseActivity implements CallBack, View.OnClickListener {
+public class MainActivity extends BaseActivity implements CallBack, View.OnTouchListener, View.OnClickListener {
     private ActivityMainBinding mBinding;
     private SessionManager sessionManager;
     private MainActivityViewModel mViewModel;
@@ -159,8 +164,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         windowWork();
         loadURL();
         intentWork();
-        sanitisedWork();
 
+        handleSettingsIcon();
+
+    }
+
+    private void handleSettingsIcon() {
     }
 
 
@@ -168,7 +177,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      * Check for permission
      */
     private void permissionAsking() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // Do something for lollipop and above versions
             PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
         } else {
@@ -278,6 +287,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
             }
         });
+        mBinding.webView.setOnTouchListener(this);
+
 
     }
 
@@ -290,8 +301,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         super.onResume();
 
         handleResumeWork();
+
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
+
     }
 
 
@@ -314,6 +327,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         } else {
             mBinding.sanitisedHeader.setVisibility(View.GONE);
         }
+        checkWifiState();
     }
 
 
@@ -462,7 +476,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 } else {
                     boolean b;
 
-                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         // Do something for lollipop and above versions
                         b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
                     } else {
@@ -522,7 +536,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     private void installApk() {
         try {
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
                 String PATH = Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
                 File file = new File(getExternalFilesDir(""), PATH);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -798,8 +812,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                     }
                 } else {
-                    //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
 
+                    //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
                 }
                 super.onFormResubmission(view, dontResend, resend);
 
@@ -815,13 +829,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
 
-                    } else {
-                        //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                     }
-                } else {
-                    //    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                 }
                 super.onLoadResource(view, url);
 
@@ -837,9 +845,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mViewModel.setExceptionInHtml(false);
 
                     }
-                } else {
-                    //      mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                 }
                 super.onPageCommitVisible(view, url);
 
@@ -855,13 +860,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
 
-                    } else {
-                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                     }
-                } else {
-                    // mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                 }
                 super.onPageStarted(view, url, favicon);
 
@@ -878,13 +877,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                             mViewModel.setExceptionInHtml(false);
 
-                        } else {
-                            //     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                         }
-                    } else {
-                        //   mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
                     }
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
@@ -1008,7 +1001,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         if (jsonArray.length() > 0)
             mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
 
-//        mBinding.webView.loadUrl("javascript:handlePriceDynamically(" + jsonArray + ")");
     }
 
 
@@ -1288,6 +1280,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 settingHeader();
                 break;
             }
+
             case R.id.invert: {
 
                 mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
@@ -1302,6 +1295,57 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 goToWifi();
                 break;
             }
+        }
+    }
+
+    private void handleUperLayoutClick() {
+
+        DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
+        if (BackgroundService.getServiceObject() != null) {
+            BackgroundService.getServiceObject().count = 0;
+        }
+        Inversion inversion = new Inversion();
+        inversion.setInvert(Utils.getInvertedTime());
+        inverted(inversion);
+        Sanitised(new Sanitised());
+        boolean value = sessionManager.getUpdateNotShow();
+        boolean isDialogOpen = sessionManager.getupdateDialog();
+        if (!isDialogOpen) {
+            if (!value) {
+                ApkDetails apkDetails = sessionManager.getApkDetails();
+                if (apkDetails != null) {
+                    updateApk(apkDetails);
+                }
+            }
+        }
+
+    }
+
+
+    /**
+     * Purpose - checkWifiState method checks the wifi state and handle the ui accordingly
+     */
+    private void checkWifiState() {
+        try {
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            InternetResponse internetResponse = new InternetResponse();
+            try {
+                ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+                List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+                ComponentName componentInfo = taskInfo.get(0).topActivity;
+                if (!wifiManager.isWifiEnabled()) {
+                    internetResponse.setAvailable(true);
+                } else {
+                    internetResponse.setAvailable(false);
+
+                }
+                InternetAvailability(internetResponse);
+
+            } catch (Exception e) {
+            }
+
+        } catch (Exception e) {
+
         }
     }
 
@@ -1578,8 +1622,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     public void updatePromotion(Promotion promotionss) {
         try {
 
-            // Utils.deletePromotion();
-            // sessionManager.deletePromotions();
             List<Promotion> promotions = sessionManager.getPromotion();
             JSONArray listOfPromo = sessionManager.getPromotions();
             List<Download> downloads = new ArrayList<>();
@@ -1626,6 +1668,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateCards(UpdateCards updateCards) {
         getDownloadData();
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            handleUperLayoutClick();
+
+        }
+
+
+        return false;
     }
 
 
@@ -1928,5 +1982,58 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
     }
 
+    private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            boolean result = false;
+            try {
+                float diffY = e2.getY() - e1.getY();
+                float diffX = e2.getX() - e1.getX();
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX > 0) {
+                            onSwipeRight();
+                        } else {
+                            onSwipeLeft();
+                        }
+                        result = true;
+                    }
+                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffY > 0) {
+                        onSwipeBottom();
+                    } else {
+                        onSwipeTop();
+                    }
+                    result = true;
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            return result;
+        }
+    }
+
+
+    public void onSwipeRight() {
+    }
+
+    public void onSwipeLeft() {
+    }
+
+    public void onSwipeTop() {
+    }
+
+    public void onSwipeBottom() {
+    }
 
 }
+

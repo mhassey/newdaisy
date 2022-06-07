@@ -3,6 +3,7 @@ package com.daisy.mainDaisy.activity.updateProduct;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.daisy.mainDaisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.mainDaisy.apiService.ApiService;
 import com.daisy.mainDaisy.apiService.AppRetrofit;
 import com.daisy.mainDaisy.pojo.response.GlobalResponse;
@@ -42,7 +43,7 @@ public class UpdateProductRepo {
 
             @Override
             public void onFailure(Call<GlobalResponse> call, Throwable t) {
-                    mutableLiveData.setValue(null);
+                mutableLiveData.setValue(null);
             }
         });
         return mutableLiveData;

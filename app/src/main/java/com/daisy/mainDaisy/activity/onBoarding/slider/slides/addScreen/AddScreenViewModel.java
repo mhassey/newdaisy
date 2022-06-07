@@ -20,8 +20,14 @@ import java.util.List;
 
 public class AddScreenViewModel extends AndroidViewModel {
 
+    public Product selctedProduct;
+    public Product autoselctedProduct;
     private MutableLiveData<HashMap<String, String>> generalRequest = new MutableLiveData<>();
     private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveData;
+    private MutableLiveData<HashMap<String, String>> generalRequestForDeviceSpecific = new MutableLiveData<>();
+    public boolean isManufactureSelected = false;
+    private LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveDataForDeviceSpecific;
+
     private AddScreenRepo addScreenRepo;
     public Product selectedProduct;
     public Carrier selectedCarrier;
@@ -29,6 +35,7 @@ public class AddScreenViewModel extends AndroidViewModel {
     private List<Carrier> carriers;
     private List<String> orientation;
     private List<Manufacture> manufactures;
+    private List<Product> autoSelectedProduct;
     private Manufacture manufacture;
 
     public AddScreenViewModel(@NonNull Application application) {
@@ -40,6 +47,28 @@ public class AddScreenViewModel extends AndroidViewModel {
                 return addScreenRepo.getGeneralResponse(input);
             }
         });
+        generalResponseLiveDataForDeviceSpecific = Transformations.switchMap(generalRequestForDeviceSpecific, new Function<HashMap<String, String>, LiveData<GlobalResponse<GeneralResponse>>>() {
+            @Override
+            public LiveData<GlobalResponse<GeneralResponse>> apply(HashMap<String, String> input) {
+                return new AddScreenRepo().getGeneralResponse(input);
+            }
+        });
+    }
+
+    public MutableLiveData<HashMap<String, String>> getGeneralRequestForDeviceSpecific() {
+        return generalRequestForDeviceSpecific;
+    }
+
+    public LiveData<GlobalResponse<GeneralResponse>> getGeneralResponseLiveDataForDeviceSpecific() {
+        return generalResponseLiveDataForDeviceSpecific;
+    }
+
+    public void setGeneralResponseLiveDataForDeviceSpecific(LiveData<GlobalResponse<GeneralResponse>> generalResponseLiveDataForDeviceSpecific) {
+        this.generalResponseLiveDataForDeviceSpecific = generalResponseLiveDataForDeviceSpecific;
+    }
+
+    public void setGeneralRequestForDeviceSpecific(HashMap<String, String> generalRequestForDeviceSpecific) {
+        this.generalRequestForDeviceSpecific.setValue(generalRequestForDeviceSpecific);
     }
 
     public List<Manufacture> getManufactures() {
@@ -108,5 +137,21 @@ public class AddScreenViewModel extends AndroidViewModel {
 
     public void setManufacture(Manufacture manufacture) {
         this.manufacture = manufacture;
+    }
+
+    public void setAutoDetectProduct(List<Product> products) {
+        this.autoSelectedProduct = products;
+    }
+
+    public List<Product> getAutoSelectedProduct() {
+        return autoSelectedProduct;
+    }
+
+    public void setAutoSelectProduct(Product product) {
+        autoselctedProduct = product;
+    }
+
+    public Product getAutoSelctedProduct() {
+        return autoselctedProduct;
     }
 }

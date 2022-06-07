@@ -32,14 +32,14 @@ public class LangSupportAdaptor extends RecyclerView.Adapter<LangSupportAdaptor.
 
     @NonNull
     @Override
-    public LangSupportAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LangSupportCustomLayoutBinding langSupportCustomLayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.lang_support_custom_layout, parent, false);
 
         return new ViewHolder(langSupportCustomLayoutBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LangSupportAdaptor.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LangPojo langPojo = langPojos.get(position);
         String defaultValue = sessionManager.getLang();
         if (langPojo.getKey().equals(defaultValue)) {
@@ -51,7 +51,7 @@ public class LangSupportAdaptor extends RecyclerView.Adapter<LangSupportAdaptor.
             @Override
             public void onClick(View v) {
                 LangPojo langPojo = langPojos.get(position);
-                LangSupportAdaptor.ViewHolder holder1 = (ViewHolder) callBack.getHolder();
+                ViewHolder holder1 = (ViewHolder) callBack.getHolder();
                 if (holder1 != null) {
                     holder1.langSupportCustomLayoutBinding.selectLang.setVisibility(View.INVISIBLE);
 

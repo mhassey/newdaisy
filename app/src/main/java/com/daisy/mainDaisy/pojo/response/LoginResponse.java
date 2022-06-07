@@ -21,6 +21,15 @@ public class LoginResponse extends GlobalResponse {
     private  String currentTime;
     private String currentTimeH;
     private String deviceSecurity;
+    private String deviceId;
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
     public String getDeviceSecurity() {
         return deviceSecurity;

@@ -3,6 +3,7 @@ package com.daisy.mainDaisy.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.utils.Utils;

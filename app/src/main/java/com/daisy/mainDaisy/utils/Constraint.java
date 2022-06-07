@@ -32,7 +32,7 @@ public class Constraint {
     public static final int FIVE_INE = 0;
     public static final String PACKAGE_INSTALLER = "com.google.android.packageinstaller";
     public static final String LOCK_SCREEN = "LockScreen";
-    public static final String MAIN_ACTIVITY = "com.daisy.mainDaisy.activity.mainActivity.MainActivity";
+    public static final String MAIN_ACTIVITY = "com.daisy.activity.mainActivity.MainActivity";
     public static final String LOG = "log";
     public static final String ID_PRICE_CARD = "idpriceCard";
     public static final String ID_PROMOTION = "idpromotion";
@@ -153,7 +153,17 @@ public class Constraint {
     public static final String OPEN = "OPEN";
     public static final CharSequence PRICE_CARD = "PriceCard";
     public static final long TEN_SECOND = 10000;
-    public static final String MIAN_LOADED = "MPC Full Loaded";
+    public static final String DEVICENAME = "device_name";
+    public static final String DEVICE_ID = "deviceId";
+    public static final String DEVICEID = "device_id";
+    public static final String MAC_ADDRESS = "mac_address";
+    public static final String KEY = "Key";
+    public static final String customerID = "customerID";
+    public static final String ID_BASE_URL = "Id_base_url";
+    public static final String DEVICE_TOKEN = "deviceToken";
+    public static final String DEVICE_TYPE = "deviceType";
+    public static final String VALIDATE_PROMOTION = "validate_promotions";
+    public static final String GET_CARDS = "get_cards";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -168,6 +178,8 @@ public class Constraint {
     public static final String DOT_ZIP = ".zip";
     public static final String CALLFROM = "callFrom";
     public static final String SETTINGS = "settings";
+    public static final String TOUCH = "Touches";
+
     public static final int TWENTY = 20;
     public static final int THOUSAND = 1000;
     public static final String APPLICATION_LOGS = "applicationLogs";
@@ -191,6 +203,8 @@ public class Constraint {
     public static final String CHANGE_BASE_URL = "Change baseURL";
     public static final String CHANGE_BASE_URL_DESCRIPTION = "Changed baseURL";
     public static final String SETTINGS_DESCRIPTION = "Navigated to settings";
+    public static final String TOUCHES_DESCRIPTION = "user touch on screen";
+
     public static final String REVIEW_APPLICATION_LOG = "Review Application Log";
     public static final String REVIEW_APPLICATION_LOG_DESCRIPTION = "Reviewed the application log";
     public static final String REVIEW_CARD_LOG = "Review Card log";
@@ -347,10 +361,8 @@ public class Constraint {
 
     public static String adCard = "adCard";
     public static String hyperesources = "hyperesources";
-    public static String Full = "Full";
 
 
     public static String MobilePriceCard = "MobilePriceCard";
     public static long Two_Minute = 60000;
-
 }

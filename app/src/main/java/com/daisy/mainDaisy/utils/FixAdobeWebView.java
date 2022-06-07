@@ -18,7 +18,7 @@ public class FixAdobeWebView extends WebView {
     public FixAdobeWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
         whiteView = new WhiteSurfaceView(context);
-        whiteView.setLayoutParams(new AbsoluteLayout.LayoutParams(800, 480, 0, 0));
+        whiteView.setLayoutParams(new LayoutParams(800, 480, 0, 0));
         addView(whiteView);
     }
 

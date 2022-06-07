@@ -226,4 +226,6 @@
     <string name="device_synced">Device synced</string>
     <string name="device_synced_sucessfully">Device synced successfully. Now you are the socket admin</string>
     <string name="disable_admin">Disable Admin</string>
+    <string name="mpc_key_not_correct">MPC key is not correct</string>
+    <string name="technical_issue">id2 server is not working.Please try again</string>
 </resources>

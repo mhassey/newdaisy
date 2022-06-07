@@ -8,9 +8,11 @@ import com.daisy.mainDaisy.apiService.AppRetrofit;
 import com.daisy.mainDaisy.app.AppController;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.pojo.response.GlobalResponse;
+import com.daisy.mainDaisy.pojo.response.OsType;
 import com.daisy.mainDaisy.pojo.response.PriceCard;
 import com.daisy.mainDaisy.pojo.response.Pricing;
 import com.daisy.mainDaisy.pojo.response.Promotion;
+import com.daisy.mainDaisy.pojo.response.UpdateTokenResponse;
 import com.daisy.mainDaisy.utils.Constraint;
 import com.daisy.mainDaisy.utils.Utils;
 
@@ -128,6 +130,37 @@ public class CheckCardAvailability {
 
                         }
 
+                        if (!response.getResult().isToken_status()) {
+                            HashMap<String, String> hashMap = new HashMap<String, String>();
+                            hashMap.put(Constraint.DEVICE_TOKEN, SessionManager.get().getFCMToken());
+                            for (OsType osType : SessionManager.get().getOsType()) {
+                                if (osType.getOsName().equals(Constraint.ANDROID)) {
+                                    hashMap.put(Constraint.DEVICE_TYPE, osType.getOsID() + "");
+
+                                }
+                            }
+                            hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+
+
+                            ApiService apiService = AppRetrofit.getInstance().getApiService();
+                            Call<GlobalResponse<UpdateTokenResponse>> call = apiService.updateDeviceToken(hashMap, hashMap.get(Constraint.TOKEN));
+                            call.enqueue(new Callback<GlobalResponse<UpdateTokenResponse>>() {
+                                @Override
+                                public void onResponse(Call<GlobalResponse<UpdateTokenResponse>> call, Response<GlobalResponse<UpdateTokenResponse>> response) {
+                                    if (response.isSuccessful()) {
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<GlobalResponse<UpdateTokenResponse>> call, Throwable t) {
+                                    t.printStackTrace();
+                                }
+                            });
+
+
+                        }
+
                     } else {
 
                     }
@@ -146,7 +179,7 @@ public class CheckCardAvailability {
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
             String UrlPath = response.getResult().getPricecard().getFileName();
             if (response.getResult().getPricecard().getFileName() != null) {
-                String configFilePath =Constraint.FOLDER_NAME + Constraint.SLASH;
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath);
                 if (!directory.exists()) {
                     directory.mkdirs();
@@ -154,7 +187,7 @@ public class CheckCardAvailability {
 
                 String path = Utils.getPath();
                 if (path != null) {
-                    //if (!path.equals(UrlPath)) {
+                    if (!path.equals(UrlPath)) {
                         Utils.deleteCardFolder();
                         try {
                             Utils.writeFile(configFilePath, UrlPath);
@@ -163,7 +196,7 @@ public class CheckCardAvailability {
                         }
                         sessionManager.deleteLocation();
                         EventBus.getDefault().post(new PriceCard());
-                  //  }
+                    }
                 } else {
                     try {
                         Utils.writeFile(configFilePath, UrlPath);

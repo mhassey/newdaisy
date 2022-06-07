@@ -21,26 +21,26 @@ import java.util.HashMap;
  **/
 public class UpdatePositionViewModel extends AndroidViewModel {
 
-    private MutableLiveData<HashMap<String,String>> mutableLiveData=new MutableLiveData<>();
+    private MutableLiveData<HashMap<String, String>> mutableLiveData = new MutableLiveData<>();
     private LiveData<GlobalResponse<UpdatePositionResponse>> liveData;
-    private UpdatePositionRepo positionRepo=new UpdatePositionRepo();
+    private UpdatePositionRepo positionRepo = new UpdatePositionRepo();
 
     public UpdatePositionViewModel(@NonNull Application application) {
         super(application);
-        liveData= Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<UpdatePositionResponse>>>() {
+        liveData = Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<UpdatePositionResponse>>>() {
             @Override
             public LiveData<GlobalResponse<UpdatePositionResponse>> apply(HashMap<String, String> input) {
 
-                return positionRepo.updatePosition(input,input.get(Constraint.TOKEN));
+                return positionRepo.updatePosition(input, input.get(Constraint.TOKEN));
             }
         });
     }
-    public void setMutableLiveData(HashMap<String,String> request)
-    {
+
+    public void setMutableLiveData(HashMap<String, String> request) {
         mutableLiveData.setValue(request);
     }
-    public LiveData<GlobalResponse<UpdatePositionResponse>> getUpdatePosition()
-    {
-        return  liveData;
+
+    public LiveData<GlobalResponse<UpdatePositionResponse>> getUpdatePosition() {
+        return liveData;
     }
 }

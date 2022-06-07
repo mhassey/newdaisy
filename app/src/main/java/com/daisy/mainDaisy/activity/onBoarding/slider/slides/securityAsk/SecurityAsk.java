@@ -42,13 +42,15 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
 
     /**
      * Purpose - getInstance method set binding data and return object of SecurityAsk
+     *
      * @param onBaordingBinding
      * @return
      */
     public static SecurityAsk getInstance(ActivityOnBaordingBinding onBaordingBinding) {
-        ActivityOnBaordingBinding=onBaordingBinding;
+        ActivityOnBaordingBinding = onBaordingBinding;
         return new SecurityAsk();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -60,11 +62,11 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
      * Purpose - initClick method initiate the click listener
      */
     private void initClick() {
-    securityAskBinding.cancel.setOnClickListener(this);
+        securityAskBinding.cancel.setOnClickListener(this);
     }
 
     private void initView() {
-        context=requireContext();
+        context = requireContext();
 
     }
 
@@ -81,12 +83,12 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
      */
     private void designWork() {
 
-        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                 ActivityOnBaordingBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_blue_rtl));
             else
 
-                ActivityOnBaordingBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_blue) );
+                ActivityOnBaordingBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_blue));
         } else {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                 ActivityOnBaordingBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_blue_rtl));
@@ -101,14 +103,13 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
 
     /**
      * Purpose - onClick method is handle all click listener
+     *
      * @param v
      */
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.cancel:
-            {
+        switch (v.getId()) {
+            case R.id.cancel: {
                 getActivity().onBackPressed();
                 break;
             }

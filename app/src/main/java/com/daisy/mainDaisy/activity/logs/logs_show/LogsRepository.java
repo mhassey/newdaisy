@@ -19,8 +19,8 @@ import java.util.List;
  * Responsibility - Main task to get logs from database and pass to view model and save all logs that are coming from view model
  **/
 public class LogsRepository {
-    private MutableLiveData<List<Logs>> liveData=new MutableLiveData<>();
-    private MutableLiveData<LogClearResponse> logClearResponseMutableLiveData=new MutableLiveData<>();
+    private MutableLiveData<List<Logs>> liveData = new MutableLiveData<>();
+    private MutableLiveData<LogClearResponse> logClearResponseMutableLiveData = new MutableLiveData<>();
 
 
     /**
@@ -46,13 +46,12 @@ public class LogsRepository {
      * Purpose -  LogsShow is an Async class that help to get logs from db and pass to  view
      * Responsibility - Its take an request that help of determine which kind of logs user wants and get data from database and set value in live data
      **/
-    class LogsShow extends AsyncTask
-    {
+    class LogsShow extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            LogsRequest logsRequest= (LogsRequest) objects[0];
-            List<Logs> logs= DBCaller.getLogsFromDatabase(logsRequest.getContext(),logsRequest.getType());
+            LogsRequest logsRequest = (LogsRequest) objects[0];
+            List<Logs> logs = DBCaller.getLogsFromDatabase(logsRequest.getContext(), logsRequest.getType());
             liveData.postValue(logs);
             return null;
         }
@@ -62,13 +61,13 @@ public class LogsRepository {
      * Purpose -  clearLog is an Async class that help to clear logs from db
      * Responsibility - Its take an request that help of determine which kind of logs user wants and clear data from database
      **/
-    class clearLog extends AsyncTask{
+    class clearLog extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            LogClearRequest logClearRequest= (LogClearRequest) objects[0];
-            boolean b=  DBCaller.clearLog(logClearRequest);
-            LogClearResponse logClearResponse=new LogClearResponse();
+            LogClearRequest logClearRequest = (LogClearRequest) objects[0];
+            boolean b = DBCaller.clearLog(logClearRequest);
+            LogClearResponse logClearResponse = new LogClearResponse();
             logClearResponse.setClear(b);
             logClearResponseMutableLiveData.postValue(logClearResponse);
             return null;

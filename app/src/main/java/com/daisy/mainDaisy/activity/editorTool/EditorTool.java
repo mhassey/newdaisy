@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -72,17 +73,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
         sessionManager = SessionManager.get();
         Constraint.IS_OVER_APP_SETTING = true;
         handleBandleData();
-//            try {
-//                String path = Utils.getPath();
-//
-//                if (path != null) {
-//                    mBinding.baseUrl.setText(path);
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//
-//            }
+
     }
 
     private void startServices() {
@@ -120,8 +111,8 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
 
     private void setThemeChanges() {
         if (Utils.getThemeId(context) == R.style.AppThemeDark) {
-            final int sdk = android.os.Build.VERSION.SDK_INT;
-            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            final int sdk = Build.VERSION.SDK_INT;
+            if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
                 mBinding.baseUrl.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.edit_text_format_white));
             } else {
                 mBinding.baseUrl.setBackground(ContextCompat.getDrawable(context, R.drawable.edit_text_format_white));
@@ -326,7 +317,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String passwordString = password.getText().toString();
-                String lockPassword=sessionManager.getPasswordLock();
+                String lockPassword = sessionManager.getPasswordLock();
                 if (passwordString.equals(lockPassword)) {
                     dialog.dismiss();
                     Intent intent = new Intent(EditorTool.this, ConfigSettings.class);
@@ -472,7 +463,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getPackageName(), 0);
             AppOpsManager appOpsManager = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
             int mode = 0;
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                 mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
                         applicationInfo.uid, applicationInfo.packageName);
             }

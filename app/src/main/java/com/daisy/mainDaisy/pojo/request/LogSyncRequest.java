@@ -1,5 +1,7 @@
 package com.daisy.mainDaisy.pojo.request;
 
+import android.util.Log;
+
 import com.daisy.mainDaisy.pojo.Logs;
 
 import java.util.List;

@@ -3,6 +3,8 @@ package com.daisy.mainDaisy.security;
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
+import android.widget.Toast;
 
 import com.daisy.mainDaisy.common.session.SessionManager;
 
@@ -12,7 +14,7 @@ import com.daisy.mainDaisy.common.session.SessionManager;
 public class Admin extends DeviceAdminReceiver {
 
     void showToast(Context context, CharSequence msg) {
-         SessionManager.get().setPasswordCorrect(false);
+        SessionManager.get().setPasswordCorrect(false);
     }
 
     @Override

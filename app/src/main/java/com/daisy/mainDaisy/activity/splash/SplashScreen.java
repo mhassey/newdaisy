@@ -1,9 +1,12 @@
 package com.daisy.mainDaisy.activity.splash;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -11,9 +14,12 @@ import androidx.annotation.RequiresApi;
 import com.daisy.R;
 import com.daisy.mainDaisy.activity.base.BaseActivity;
 import com.daisy.mainDaisy.activity.editorTool.EditorTool;
+import com.daisy.mainDaisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.mainDaisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.utils.Constraint;
+
+import java.util.Locale;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data
@@ -34,7 +40,6 @@ public class SplashScreen extends BaseActivity {
     }
 
 
-
     /**
      * Responsibility - initView method is used for initiate all object and perform some initial level task
      * Parameters - No parameter
@@ -42,7 +47,7 @@ public class SplashScreen extends BaseActivity {
     private void initView() {
         setNoTitleBar(this);
         handleSessionWork();
-          final Handler handler = new Handler();
+        final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -57,7 +62,7 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void handleSessionWork() {
-        sessionManager=SessionManager.get();
+        sessionManager = SessionManager.get();
         sessionManager.setUpdateNotShow(Constraint.FALSE);
         sessionManager.uninstallShow(Constraint.FALSE);
 
@@ -68,16 +73,17 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void redirectToWelcome() {
-        if (sessionManager.getOnBoarding())
-        {
+
+
+        if (sessionManager.getOnBoarding()) {
             Intent intent = new Intent(SplashScreen.this, EditorTool.class);
             startActivity(intent);
-        }
-        else {
+        } else {
             Intent intent = new Intent(SplashScreen.this, WelcomeScreen.class);
             startActivity(intent);
         }
         finish();
+
     }
 
     /**

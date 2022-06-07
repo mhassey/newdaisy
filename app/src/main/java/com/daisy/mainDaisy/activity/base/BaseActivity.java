@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.R;
 import com.daisy.mainDaisy.activity.welcomeScreen.WelcomeScreen;
@@ -74,8 +78,7 @@ public class BaseActivity extends AppCompatActivity {
      * Responsibility - removeAdminRightPermission is an method that help to remove admin right permission
      * Parameters - No parameter
      **/
-    public void removeAdminRightPermission()
-    {
+    public void removeAdminRightPermission() {
         try {
             ComponentName devAdminReceiver = new ComponentName(this, Admin.class);
             DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);

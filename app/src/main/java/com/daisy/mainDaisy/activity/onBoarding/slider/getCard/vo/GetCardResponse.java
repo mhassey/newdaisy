@@ -13,8 +13,16 @@ public class GetCardResponse {
     private List<Pricing> pricing;
     private String defaultPriceCard;
     private boolean isDefault;
+    private boolean token_status;
     private StoreDetails storeDetails;
 
+    public boolean isToken_status() {
+        return token_status;
+    }
+
+    public void setToken_status(boolean token_status) {
+        this.token_status = token_status;
+    }
 
     public StoreDetails getStoreDetails() {
         return storeDetails;
@@ -23,8 +31,6 @@ public class GetCardResponse {
     public void setStoreDetails(StoreDetails storeDetails) {
         this.storeDetails = storeDetails;
     }
-
-
 
 
     public boolean isDefault() {

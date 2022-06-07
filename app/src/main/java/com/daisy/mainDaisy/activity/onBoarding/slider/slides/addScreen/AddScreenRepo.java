@@ -20,12 +20,12 @@ import retrofit2.Response;
  **/
 public class AddScreenRepo {
     private ApiService apiService;
-    private MutableLiveData<GlobalResponse<GeneralResponse>> generalResponseMutableLiveData=new MutableLiveData<>();
+    private MutableLiveData<GlobalResponse<GeneralResponse>> generalResponseMutableLiveData = new MutableLiveData<>();
 
     //  getGeneralResponse method is used for get general api response
     public LiveData<GlobalResponse<GeneralResponse>> getGeneralResponse(HashMap<String, String> input) {
-        apiService= AppRetrofit.getInstance().getApiService();
-        Call<GlobalResponse<GeneralResponse>> call=apiService.getGeneralResponse(input);
+        apiService = AppRetrofit.getInstance().getApiService();
+        Call<GlobalResponse<GeneralResponse>> call = apiService.getGeneralResponse(input);
         call.enqueue(new Callback<GlobalResponse<GeneralResponse>>() {
             @Override
             public void onResponse(Call<GlobalResponse<GeneralResponse>> call, Response<GlobalResponse<GeneralResponse>> response) {
@@ -39,4 +39,5 @@ public class AddScreenRepo {
         });
         return generalResponseMutableLiveData;
     }
+
 }

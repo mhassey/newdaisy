@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.daisy.R;
 import com.daisy.mainDaisy.activity.base.BaseActivity;
@@ -35,6 +36,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     private SessionManager sessionManager;
     private boolean comeFromUninstall = false;
     final int sdk = android.os.Build.VERSION.SDK_INT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,6 +197,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
             ValidationHelper.showToast(context, getString(R.string.enter_password));
         }
     }
+
     /**
      * Responsibility - startLastActivity method is used when we need to open the last running page its takes packageName
      * Parameters - Its takes packageName which help to redirect to last open app

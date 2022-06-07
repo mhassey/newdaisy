@@ -1,6 +1,5 @@
 package com.daisy.mainDaisy.activity.onBoarding.slider.slides.addScreen;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +69,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void initView() {
+
         context = requireContext();
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
         addOrientationData();
@@ -77,7 +77,6 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         orientationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         mBinding.webkitOrientation.setAdapter(orientationAdapter);
-
 
 
     }
@@ -88,7 +87,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void addOrientationData() {
-        ArrayList<String> orientation=new ArrayList<>();
+        ArrayList<String> orientation = new ArrayList<>();
         orientation.add(getString(R.string.defaultt));
         orientation.add(getString(R.string.landscape));
         mViewModel.setOrientation(orientation);
@@ -103,6 +102,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
+
     }
 
 
@@ -112,13 +112,14 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-      handleResumeWork();
+        handleResumeWork();
+
     }
 
     private void handleResumeWork() {
         sessionManager = SessionManager.get();
         designWork();
-        if (sessionManager.getLoginResponse() != null) {
+        try {
             List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
             if (carriers != null) {
                 mViewModel.setCarriers(carriers);
@@ -127,21 +128,23 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 mBinding.carrierName.setAdapter(carrierArrayAdapter);
 
             }
-            List<Manufacture> manufactures = sessionManager.getLoginResponse().getManufacturers();
-            if (manufactures != null) {
+            OnBoarding onBoarding = (OnBoarding) getActivity();
+            if (onBoarding.screenAddViewModel.getDeviceId() != null && !onBoarding.screenAddViewModel.getDeviceId().equals("") && !onBoarding.screenAddViewModel.getDeviceId().equals("0")) {
+                mViewModel.isManufactureSelected = false;
 
-                mViewModel.setManufactures(manufactures);
-                ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, android.R.layout.simple_spinner_item, mViewModel.getManufactures());
-                manufactureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
+                getGeneralResponseForProductSelection(onBoarding.screenAddViewModel.getDeviceId(), carriers.get(0));
 
+            } else {
+
+                mViewModel.isManufactureSelected = true;
+                addManufactureData();
             }
-                Log.e("kali..", BluetoothAdapter.getDefaultAdapter().getName());
-
+        } catch (Exception e) {
+            e.printStackTrace();
 
         }
-    }
 
+    }
 
 
     /**
@@ -149,25 +152,24 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void designWork() {
-        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                 baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
             else
 
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple) );
+                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
         } else {
             if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                 baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
             else
 
-            baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
+                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
         }
         baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
     }
-
 
 
     /**
@@ -197,12 +199,12 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Carrier carrier = mViewModel.getCarriers().get(position);
-                mViewModel.setSelectedCarrier(carrier);
-                Manufacture manufacture=(Manufacture)mBinding.manufactureList.getSelectedItem();
-                mViewModel.setSelectedManufacture(manufacture);
-
-                getGeneralResponse(carrier,manufacture);
+//                Carrier carrier = mViewModel.getCarriers().get(position);
+//                mViewModel.setSelectedCarrier(carrier);
+//                Manufacture manufacture = (Manufacture) mBinding.manufactureList.getSelectedItem();
+//                mViewModel.setSelectedManufacture(manufacture);
+//
+//                getGeneralResponse(carrier, manufacture);
             }
 
             @Override
@@ -213,22 +215,41 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Responsibility - getAutoDetectDevice method is used for item selection of auto detect devices
+     * Parameters - No parameter
+     **/
+    private AdapterView.OnItemSelectedListener getAutoDetectDevice() {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Product product = mViewModel.getAutoSelectedProduct().get(position);
+                mViewModel.setAutoSelectProduct(product);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+    }
 
     /**
      * Responsibility - getManufactureListener method is used for item selection of manufacture
      * Parameters - No parameter
      **/
     private AdapterView.OnItemSelectedListener getManufactureListener() {
-        return  new AdapterView.OnItemSelectedListener() {
+        return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Manufacture manufacture = mViewModel.getManufactures().get(position);
-                mViewModel.setSelectedManufacture(manufacture);
-                Carrier carrier=(Carrier)mBinding.carrierName.getSelectedItem();
-                mViewModel.setSelectedCarrier(carrier);
+                if (mViewModel.isManufactureSelected) {
+                    Manufacture manufacture = mViewModel.getManufactures().get(position);
+                    mViewModel.setSelectedManufacture(manufacture);
+                    Carrier carrier = (Carrier) mBinding.carrierName.getSelectedItem();
+                    mViewModel.setSelectedCarrier(carrier);
 
-                getGeneralResponse(carrier,manufacture);
+                    getGeneralResponse(carrier, manufacture);
+                }
             }
 
             @Override
@@ -242,11 +263,11 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Responsibility - getGeneralResponse method is used for fire general api and get response and send response to handleResponse method
      * Parameters - Its takes Carrier,Manufacture object as parameter
      **/
-    private void getGeneralResponse(Carrier carrier,Manufacture manufacture) {
+    private void getGeneralResponse(Carrier carrier, Manufacture manufacture) {
 
         if (Utils.getNetworkState(context)) {
             showHideProgressDialog(true);
-            HashMap<String, String> generalRequest = getGeneralRequest(carrier,manufacture);
+            HashMap<String, String> generalRequest = getGeneralRequest(carrier, manufacture);
             mViewModel.setGeneralRequest(generalRequest);
             LiveData<GlobalResponse<GeneralResponse>> liveData = mViewModel.getGeneralResponseLiveData();
             if (!liveData.hasActiveObservers()) {
@@ -263,6 +284,81 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Responsibility - getGeneralResponse method is used for fire general api and get response and send response to handleResponse method
+     * Parameters - Its takes Carrier,Manufacture object as parameter
+     **/
+    private void getGeneralResponseForProductSelection(String deviceId, Carrier carrier) {
+
+        if (Utils.getNetworkState(context)) {
+            showHideProgressDialog(true);
+            HashMap<String, String> generalRequest = getGeneralRequest(deviceId, carrier);
+            mViewModel.setGeneralRequestForDeviceSpecific(generalRequest);
+            LiveData<GlobalResponse<GeneralResponse>> liveData = mViewModel.getGeneralResponseLiveDataForDeviceSpecific();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+                        showHideProgressDialog(false);
+                        if (generalResponseGlobalResponse.isApi_status()) {
+                            handleProductListData(generalResponseGlobalResponse);
+                        }
+                    }
+                });
+            }
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
+    /**
+     * Purpose - handleProductListData handles the auto detected screen response
+     *
+     * @param generalResponseGlobalResponse
+     */
+    private void handleProductListData(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+        if (generalResponseGlobalResponse.getResult().getProducts() != null) {
+
+            List<Product> products = generalResponseGlobalResponse.getResult().getProducts();
+            if (products != null && products.size() > 0) {
+                mViewModel.isManufactureSelected = false;
+                Product product = products.get(0);
+                mViewModel.setAutoSelectProduct(product);
+            } else
+                mViewModel.isManufactureSelected = true;
+
+            addManufactureData();
+        }
+    }
+
+    private void addManufactureData() {
+        if (sessionManager.getLoginResponse() != null) {
+
+            List<Manufacture> manufactures = sessionManager.getLoginResponse().getManufacturers();
+            if (manufactures != null) {
+
+                mViewModel.setManufactures(manufactures);
+                ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, android.R.layout.simple_spinner_item, mViewModel.getManufactures());
+                manufactureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
+
+            }
+            if (mViewModel.getAutoSelctedProduct() != null)
+                autoSelectProduct(manufactures);
+
+        }
+    }
+
+    private void autoSelectProduct(List<Manufacture> manufactures) {
+        manufacture:
+        for (int i = 0; i < manufactures.size(); i++) {
+            if (manufactures.get(i).getIdterm().equals(mViewModel.getAutoSelctedProduct().getMfg())) {
+                mViewModel.isManufactureSelected = true;
+                mBinding.manufactureList.setSelection(i);
+                break manufacture;
+            }
+        }
+    }
 
 
     /**
@@ -280,6 +376,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                     ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, mViewModel.getProducts());
                     productArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mBinding.productName.setAdapter(productArrayAdapter);
+                    if (mViewModel.getAutoSelctedProduct() != null)
+                        filterItemAndSetProductIfAvailable(generalResponse.getResult().getProducts());
                 }
 
             } else {
@@ -291,22 +389,42 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
     }
 
+    private void filterItemAndSetProductIfAvailable(List<Product> products) {
+        products:
+        for (int pro = 0; pro < products.size(); pro++) {
+            if (products.get(pro).getIdproductStatic().equals(mViewModel.getAutoSelctedProduct().getIdproductStatic())) {
+                mBinding.productName.setSelection(pro);
+                break products;
+            }
+        }
+    }
+
 
     /**
      * Responsibility - getGeneralRequest method is used for create general api request
      * Parameters - Its takes Carrier,Manufacture object as parameter
      **/
-    private HashMap<String, String> getGeneralRequest(Carrier carrier,Manufacture manufacture) {
+    private HashMap<String, String> getGeneralRequest(Carrier carrier, Manufacture manufacture) {
         HashMap<String, String> hashMap = new HashMap<>();
         if (carrier != null)
             hashMap.put(Constraint.CARRIER_ID, carrier.getIdcarrier() + "");
-        if (manufacture!=null)
-            hashMap.put(Constraint.MANUFACTURE_ID,manufacture.getIdterm());
+        if (manufacture != null)
+            hashMap.put(Constraint.MANUFACTURE_ID, manufacture.getIdterm());
+        return hashMap;
+    }
+
+    /**
+     * Responsibility - getGeneralRequest method is used for create general api request
+     **/
+    private HashMap<String, String> getGeneralRequest(String deviceId, Carrier carrier) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.DEVICE_ID, deviceId);
+        hashMap.put(Constraint.CARRIER_ID, carrier.getIdcarrier() + "");
         return hashMap;
     }
 
     public static AddScreen getInstance(OnBoarding bording) {
-        baording=bording;
+        baording = bording;
         return new AddScreen();
 
     }
@@ -318,13 +436,19 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      **/
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.cancel:
-            {
+        switch (v.getId()) {
+            case R.id.cancel: {
                 getActivity().onBackPressed();
                 break;
             }
+//            case R.id.continuee: {
+//                try {
+//                    ((OnBoarding) getActivity()).handleCreateScreen(mViewModel.autoselctedProduct);
+//                } catch (Exception e) {
+//
+//                }
+//                break;
+//            }
         }
     }
 }

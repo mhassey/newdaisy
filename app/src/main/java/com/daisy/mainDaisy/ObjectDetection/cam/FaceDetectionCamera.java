@@ -23,7 +23,7 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
     /**
      * Use this to detect faces when you have a custom surface to display upon
      *
-     * @param holder the {@link android.view.SurfaceHolder} to display upon
+     * @param holder the {@link SurfaceHolder} to display upon
      */
     public void initialise(Listener listener, SurfaceHolder holder) {
         this.listener = listener;

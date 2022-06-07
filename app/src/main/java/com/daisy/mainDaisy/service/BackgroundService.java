@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -83,7 +84,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Main service that handle hole background tasks
  */
-public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
+public class BackgroundService extends Service implements SyncLogCallBack, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
@@ -91,9 +92,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private String TAG = this.getClass().getSimpleName();
     private WindowManager mWindowManager;
     private WindowManager mWindowManagerForCamera;
-    private LinearLayout touchLayout;
     private LinearLayout touchLayoutforCamera;
-    private int count = 0;
+    public int count = 0;
     private PowerManager.WakeLock mWakeLock;
     private WifiManager wifiManager;
     private AppChecker appChecker = new AppChecker();
@@ -290,8 +290,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     public void closeService() {
         unregisterReceiver();
-        if (touchLayout != null)
-            mWindowManager.removeView(touchLayout);
         if (touchLayoutforCamera != null)
             mWindowManager.removeView(touchLayoutforCamera);
         if (appChecker != null) {
@@ -743,7 +741,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             public void run() {
                 if (!SessionManager.get().getLogout()) {
                     if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
-                        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
 
 
                         } else {
@@ -766,7 +764,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private void bringApplicationToFront(final Context context) {
         try {
             // Get a handler that can be used to post to the main thread
-            android.os.Handler mainHandler = new Handler(context.getMainLooper());
+            Handler mainHandler = new Handler(context.getMainLooper());
             Runnable myRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -945,7 +943,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
      * Purpose - handleClick method initialize clicks listener
      */
     private void handleClick() {
-        touchLayout = new LinearLayout(this);
         touchLayoutforCamera = new LinearLayout(this);
 
     }
@@ -969,90 +966,17 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
-    /**
-     * Purpose - Handle touch event on phone
-     *
-     * @param v
-     * @param event
-     * @return
-     */
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        count = Constraint.ZERO;
-        Inversion inversion = new Inversion();
-        inversion.setInvert(Utils.getInvertedTime());
-        EventBus.getDefault().post(inversion);
-        sanitisedWork();
-        boolean value = sessionManager.getUpdateNotShow();
-        boolean isDialogOpen = sessionManager.getupdateDialog();
-        if (!isDialogOpen) {
-            if (!value) {
-                ApkDetails apkDetails = sessionManager.getApkDetails();
-                if (apkDetails != null) {
-                    EventBus.getDefault().post(apkDetails);
-                }
-            }
-        }
-        return true;
-    }
-
 
     /**
      * Purpose - setWindowManager method initialize invisible ui that helps for face detect and interactions
      */
     private void setWindowManager() {
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        touchLayout.setLayoutParams(lp);
-        touchLayout.setOnTouchListener(this);
-        touchLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return Constraint.FALSE;
-            }
-        });
         WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams(0, 0);
         touchLayoutforCamera.setLayoutParams(lp1);
-        touchLayout.setLongClickable(true);
-
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         mWindowManagerForCamera = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         // set layout parameter of window manager
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_PHONE,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-            mWindowManager.addView(touchLayout, params);
-        } else {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-            mWindowManager.addView(touchLayout, params);
-
-        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     0,

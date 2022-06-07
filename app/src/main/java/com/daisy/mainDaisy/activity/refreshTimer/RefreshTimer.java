@@ -262,7 +262,7 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
      * Parameters - No parameter
      **/
     private void redirectToMain(GlobalResponse<GetCardResponse> response) {
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             String UrlPath = response.getResult().getPricecard().getFileName();
             if (response.getResult().getPricecard().getFileName() != null) {
                 String configFilePath = File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daisy.R;
 import com.daisy.mainDaisy.activity.base.BaseActivity;
+import com.daisy.mainDaisy.activity.configSettings.ConfigSettings;
 import com.daisy.mainDaisy.activity.mainActivity.MainActivity;
 import com.daisy.mainDaisy.adapter.LangSupportAdaptor;
 import com.daisy.mainDaisy.common.session.SessionManager;
@@ -23,6 +25,8 @@ import com.daisy.mainDaisy.interfaces.LangSupportCallBack;
 import com.daisy.mainDaisy.pojo.LangPojo;
 import com.daisy.mainDaisy.utils.ValidationHelper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -143,7 +147,7 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
      * Parameters - No parameter
      **/
     private void setLang(String s) {
-        s=s.trim();
+        s = s.trim();
         Locale locale = new Locale(s);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();

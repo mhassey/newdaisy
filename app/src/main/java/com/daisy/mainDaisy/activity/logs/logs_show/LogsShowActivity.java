@@ -33,7 +33,7 @@ import java.util.List;
 public class LogsShowActivity extends BaseActivity implements View.OnClickListener {
     private ActivityLogsShowBinding mBinding;
     private Context context;
-    private List<Logs> list =null;
+    private List<Logs> list = null;
     private LinearLayoutManager layoutManager;
     private LogsAdapter logsAdapter;
     private LogsShowViewModel viewModel;
@@ -55,7 +55,7 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
     private void initView() {
         context = this;
         setNoTitleBar(this);
-        list= new ArrayList<>();
+        list = new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(LogsShowViewModel.class);
         viewModel.setType(getIntent().getStringExtra(Constraint.TYPEE));
         layoutManager = new LinearLayoutManager(context);
@@ -212,7 +212,7 @@ public class LogsShowActivity extends BaseActivity implements View.OnClickListen
             liveData.observe(this, new Observer<LogClearResponse>() {
                 @Override
                 public void onChanged(LogClearResponse logClearResponse) {
-                handleClearLogResponse(logClearResponse);
+                    handleClearLogResponse(logClearResponse);
                 }
             });
         }

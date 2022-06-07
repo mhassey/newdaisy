@@ -27,6 +27,8 @@ import com.daisy.mainDaisy.activity.socketConnection.SocketConnection;
 import com.daisy.mainDaisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.mainDaisy.activity.updatePosition.UpdatePosition;
 import com.daisy.mainDaisy.activity.updateProduct.UpdateProduct;
+import com.daisy.mainDaisy.activity.welcomeScreen.WelcomeScreen;
+import com.daisy.mainDaisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.mainDaisy.pojo.response.ApkDetails;
@@ -38,6 +40,8 @@ import com.daisy.mainDaisy.utils.LogoutDialog;
 import com.daisy.mainDaisy.utils.Utils;
 import com.daisy.mainDaisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -80,8 +84,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         setNoTitleBar(this);
         sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
-        mBinding.appName.setText(Constraint.Full);
-
         getDefaultUpdateTime();
     }
 
@@ -220,6 +222,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 if (isChecked) {
                     sessionManager.setSanitized(Constraint.TRUE);
                     sessionManager.setComeFromConfig(Constraint.TRUE);
+
                     finish();
                     ValidationHelper.showToast(context, getString(R.string.sanitised));
 

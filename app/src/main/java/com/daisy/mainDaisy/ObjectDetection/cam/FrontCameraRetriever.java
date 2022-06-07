@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.daisy.mainDaisy.activity.mainActivity.MainActivity;
+
 /**
  * I manage loading and destroying the camera reference for you
  */

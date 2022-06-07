@@ -6,12 +6,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.os.IBinder;
+import android.os.Looper;
 
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.utils.ValidationHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 
 public class SecurityService extends Service {
     private SessionManager sessionManager;
@@ -94,9 +99,9 @@ public class SecurityService extends Service {
 //
 //                        double distance = currentLocation.distanceTo(location);
 //                        if (distance > 20) {
-                            if (sessionManager.getDeviceSecured()) {
-                                startService(alarmIntent);
-                            }
+        if (sessionManager.getDeviceSecured()) {
+            startService(alarmIntent);
+        }
 //                        }
 //                    }
 //                }
@@ -138,9 +143,7 @@ public class SecurityService extends Service {
                         stopService(alarmIntent);
                     }
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
         }

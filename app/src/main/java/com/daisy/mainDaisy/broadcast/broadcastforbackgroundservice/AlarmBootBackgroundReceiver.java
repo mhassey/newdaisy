@@ -3,6 +3,8 @@ package com.daisy.mainDaisy.broadcast.broadcastforbackgroundservice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.se.omapi.Session;
+import android.util.Log;
 
 import com.daisy.mainDaisy.activity.mainActivity.MainActivity;
 import com.daisy.mainDaisy.common.session.SessionManager;

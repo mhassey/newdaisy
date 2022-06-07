@@ -15,16 +15,21 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.hardware.Camera;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.CallLog;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
+import android.view.Surface;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.Button;
@@ -34,10 +39,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
+import com.daisy.mainDaisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.mainDaisy.app.AppController;
 import com.daisy.mainDaisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.pojo.LogsDataPojo;
+import com.daisy.mainDaisy.pojo.response.LoginResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
@@ -60,6 +67,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -71,9 +79,9 @@ public class Utils {
 
     public static void screenBrightness(int level, Context context) {
         try {
-            android.provider.Settings.System.putInt(
+            Settings.System.putInt(
                     context.getContentResolver(),
-                    android.provider.Settings.System.SCREEN_BRIGHTNESS, level);
+                    Settings.System.SCREEN_BRIGHTNESS, level);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -85,7 +93,7 @@ public class Utils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return Settings.Global.getInt(c.getContentResolver(), Settings.Global.AUTO_TIME, 0) == 1;
         } else {
-            return android.provider.Settings.System.getInt(c.getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0) == 1;
+            return Settings.System.getInt(c.getContentResolver(), Settings.System.AUTO_TIME, 0) == 1;
         }
     }
 
@@ -165,6 +173,11 @@ public class Utils {
         return false;
     }
 
+
+    public static String ModelNumber() {
+        return Build.MODEL;
+    }
+
     public static boolean getInvertedTime() {
         try {
             SessionManager sessionManager = SessionManager.get();
@@ -185,9 +198,7 @@ public class Utils {
                 return false;
             }
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return true;
@@ -280,12 +291,12 @@ public class Utils {
 
     public static String getPath() {
         try {
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
                 String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
 
                 File file1;
 
-                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
                     file1 = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath + Constraint.configFile);
                 } else {
                     file1 = new File(configFilePath, Constraint.configFile);
@@ -377,17 +388,17 @@ public class Utils {
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         // Check for network connections
-        if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
+        if (connec.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTED) {
 
 
             return true;
 
         } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+                connec.getNetworkInfo(0).getState() == NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == NetworkInfo.State.DISCONNECTED) {
 
 
             return false;
@@ -588,7 +599,7 @@ public class Utils {
 
     public static void writeFile(String configFilePath, String message) throws IOException {
         File gpxfile;
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             gpxfile = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath + Constraint.configFile);
         } else {
             gpxfile = new File(configFilePath, Constraint.configFile);
@@ -631,7 +642,7 @@ public class Utils {
             //do your code
         } else {
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 intent.setData(Uri.parse("package:" + context.getPackageName()));
                 context.startActivityForResult(intent, Constraint.CODE_WRITE_SETTINGS_PERMISSION);
@@ -653,10 +664,10 @@ public class Utils {
         return Settings.System.canWrite(context);
     }
 
-    public static android.app.AlertDialog showAlertDialog(Context mContext, String text, String buttonText, final DialogInterface.OnClickListener clickListener, boolean isCancelable) {
+    public static AlertDialog showAlertDialog(Context mContext, String text, String buttonText, final DialogInterface.OnClickListener clickListener, boolean isCancelable) {
         if (text == null)
             text = "";
-        android.app.AlertDialog mAlertDialog = new AlertDialog.Builder(mContext).setMessage(text).
+        AlertDialog mAlertDialog = new AlertDialog.Builder(mContext).setMessage(text).
                 setTitle(mContext.getString(R.string.permission_req)).setCancelable(true)
                 .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
                     @Override
@@ -769,7 +780,7 @@ public class Utils {
 
     public static void deleteCardFolder() {
         File dir;
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             String path = Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD;
             dir = new File(AppController.getInstance().getExternalFilesDir(""), path);
             if (dir.isDirectory()) {
@@ -848,7 +859,7 @@ public class Utils {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
             AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
             int mode = 0;
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                 mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
                         applicationInfo.uid, applicationInfo.packageName);
             }
@@ -860,7 +871,7 @@ public class Utils {
     }
 
     public static void deleteDaisy() {
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             String path = Constraint.SLASH + Constraint.DAISY;
             File dir = new File(AppController.getInstance().getExternalFilesDir(""), path);
             if (dir.isDirectory()) {
@@ -975,6 +986,14 @@ public class Utils {
 
         }
         return 0;
+    }
+
+    public static String getMacAddress(Context context) {
+        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        String address = info.getMacAddress();
+        return address;
+
     }
 }
 

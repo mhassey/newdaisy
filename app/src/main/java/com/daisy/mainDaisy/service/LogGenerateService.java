@@ -1,8 +1,13 @@
 package com.daisy.mainDaisy.service;
 
+import android.app.ActivityManager;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import com.daisy.mainDaisy.app.AppController;
 import com.daisy.mainDaisy.common.session.SessionManager;
@@ -10,6 +15,9 @@ import com.daisy.mainDaisy.database.DBCaller;
 import com.daisy.mainDaisy.utils.Constraint;
 import com.daisy.mainDaisy.utils.Utils;
 
+import org.apache.http.client.params.ClientPNames;
+
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;

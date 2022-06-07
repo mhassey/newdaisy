@@ -3,6 +3,7 @@ package com.daisy.mainDaisy.broadcast.bootcomplete;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.daisy.mainDaisy.activity.mainActivity.MainActivity;
 

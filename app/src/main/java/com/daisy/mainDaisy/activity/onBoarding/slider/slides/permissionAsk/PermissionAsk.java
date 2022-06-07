@@ -52,7 +52,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private FragmentPermissionAskBinding permissionAskBinding;
     private PermissionAskViewModel permissionAskViewModel;
     private Context context;
-    final int sdk = android.os.Build.VERSION.SDK_INT;
+    final int sdk = Build.VERSION.SDK_INT;
     public static GoogleApiClient googleApiClient;
     private DevicePolicyManager mDPM;
     private ComponentName mAdminName;
@@ -70,9 +70,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String android_id = Settings.Secure.getString(getContext().getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        Log.e("Kali", android_id);
         initView();
         permissionSetter();
         initClick();
@@ -117,6 +114,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
+
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
         permissionAskBinding.miExtra.setOnClickListener(this::onClick);
         permissionAskBinding.cancel.setOnClickListener(this::onClick);
@@ -145,7 +143,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         if (false) {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandExtraAccess()) {
                 onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
-                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                         onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
                     else
@@ -162,7 +160,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             }
         } else {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization()) {
-                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
 
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                         onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
@@ -268,7 +266,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void mediaPermission() {
         boolean b;
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // Do something for lollipop and above versions
             b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
         } else {
@@ -356,7 +354,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.grandMediaPermission: {
 
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     // Do something for lollipop and above versions
                     PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
                 } else {
@@ -425,7 +423,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
-                        getActivity().startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constraint.GPS_ENABLE);
+                        getActivity().startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), Constraint.GPS_ENABLE);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.daisy.R;
 import com.daisy.mainDaisy.activity.base.BaseActivity;
+import com.daisy.mainDaisy.activity.langSupport.LangSelectionActivity;
 import com.daisy.mainDaisy.activity.mainActivity.MainActivity;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.databinding.ActivitySocketConnectionBinding;

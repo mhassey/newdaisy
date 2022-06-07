@@ -160,7 +160,7 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
             List<Logs> logsVOList = DBCaller.getLogsFromDatabaseNotSync(getApplicationContext());
             if (logsVOList.isEmpty()) {
 
-                new LogSyncExtra(this,true).fireLogExtra();
+                new LogSyncExtra(this, true).fireLogExtra();
             } else {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override

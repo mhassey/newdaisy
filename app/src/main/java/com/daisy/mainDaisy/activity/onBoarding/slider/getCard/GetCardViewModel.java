@@ -15,12 +15,13 @@ import com.daisy.mainDaisy.pojo.response.GlobalResponse;
 import java.util.HashMap;
 
 public class GetCardViewModel extends AndroidViewModel {
-    private MutableLiveData<HashMap<String,String>> mutableLiveData=new MutableLiveData<>();
+    private MutableLiveData<HashMap<String, String>> mutableLiveData = new MutableLiveData<>();
     private LiveData<GlobalResponse<GetCardResponse>> liveData;
-    private GetCardRepo getCardResponse=new GetCardRepo();
+    private GetCardRepo getCardResponse = new GetCardRepo();
+
     public GetCardViewModel(@NonNull Application application) {
         super(application);
-        liveData= Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<GetCardResponse>>>() {
+        liveData = Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<GetCardResponse>>>() {
             @Override
             public LiveData<GlobalResponse<GetCardResponse>> apply(HashMap<String, String> input) {
                 return getCardResponse.getCard(input);
@@ -28,12 +29,11 @@ public class GetCardViewModel extends AndroidViewModel {
         });
     }
 
-    public void setMutableLiveData(HashMap<String,String> request)
-    {
+    public void setMutableLiveData(HashMap<String, String> request) {
         mutableLiveData.setValue(request);
     }
-    public LiveData<GlobalResponse<GetCardResponse>> getLiveData()
-    {
+
+    public LiveData<GlobalResponse<GetCardResponse>> getLiveData() {
         return liveData;
     }
 }
