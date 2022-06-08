@@ -1,5 +1,7 @@
 package com.daisy.apiService;
 
+import android.util.Log;
+
 import com.daisy.BuildConfig;
 import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
@@ -7,6 +9,8 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.LiveDataCallAdapterFactory;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -48,10 +52,24 @@ public class AppRetrofit {
         String baseUrl = sessionManager.getBaseUrl();
         if (baseUrl != null && !baseUrl.equals("")) {
             instance = new AppRetrofit();
+
         } else {
-            if (instance == null) {
-                // Create the instance
+            if (sessionManager.getPriceCard().getFileName() != null && !sessionManager.getPriceCard().getFileName().equals("")) {
+                URI uri = null;
+                try {
+                    uri = new URI(sessionManager.getPriceCard().getFileName());
+                    String domain = uri.getHost();
+                    sessionManager.setBaseUrl(Constraint.HTTPS + "://" + domain);
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
                 instance = new AppRetrofit();
+
+            } else {
+                if (instance == null) {
+                    // Create the instance
+                    instance = new AppRetrofit();
+                }
             }
         }
     }
