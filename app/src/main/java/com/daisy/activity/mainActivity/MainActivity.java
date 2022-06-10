@@ -1353,7 +1353,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         if (!isDialogOpen) {
             if (!value) {
                 ApkDetails apkDetails = sessionManager.getApkDetails();
-                updateApk(apkDetails);
+                if (apkDetails != null)
+                    updateApk(apkDetails);
             }
         }
     }
@@ -1683,7 +1684,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        if (event.getAction()==MotionEvent.ACTION_UP){
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             handleUiClick();
 
         }
