@@ -53,13 +53,15 @@ public class AppRetrofit {
         if (baseUrl != null && !baseUrl.equals("")) {
             instance = new AppRetrofit();
 
+
         } else {
             if (sessionManager.getPriceCard().getFileName() != null && !sessionManager.getPriceCard().getFileName().equals("")) {
                 URI uri = null;
                 try {
                     uri = new URI(sessionManager.getPriceCard().getFileName());
                     String domain = uri.getHost();
-                    sessionManager.setBaseUrl(Constraint.HTTPS + "://" + domain);
+
+                    sessionManager.setBaseUrl(uri.getScheme() + "://" + domain);
                 } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
