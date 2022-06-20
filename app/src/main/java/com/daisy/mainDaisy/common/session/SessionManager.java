@@ -2,13 +2,10 @@ package com.daisy.mainDaisy.common.session;
 
 import android.app.Application;
 
-import com.daisy.mainDaisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
-import com.daisy.mainDaisy.apiService.ApiConstant;
 import com.daisy.mainDaisy.app.AppController;
 import com.daisy.mainDaisy.pojo.response.ApkDetails;
 import com.daisy.mainDaisy.pojo.response.LoginResponse;
 import com.daisy.mainDaisy.pojo.response.OsType;
-import com.daisy.mainDaisy.pojo.response.PriceCard;
 import com.daisy.mainDaisy.pojo.response.PriceCardMain;
 import com.daisy.mainDaisy.pojo.response.Pricing;
 import com.daisy.mainDaisy.pojo.response.Promotion;
@@ -16,8 +13,6 @@ import com.daisy.mainDaisy.pojo.response.ScreenPosition;
 import com.daisy.mainDaisy.pojo.response.Time;
 import com.daisy.mainDaisy.utils.Constraint;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -44,6 +39,14 @@ public class SessionManager {
         if (sInstance == null) {
             sInstance = new SessionManager(application);
         }
+    }
+
+    public void disableSecurity(boolean b) {
+        pref.setBooleanData(com.daisy.optimalPermission.utils.Constraint.SECURITY, b);
+    }
+
+    public boolean getDisableSecurity() {
+        return pref.getBoolean(com.daisy.optimalPermission.utils.Constraint.SECURITY);
     }
 
     public void setSanitized(boolean b) {

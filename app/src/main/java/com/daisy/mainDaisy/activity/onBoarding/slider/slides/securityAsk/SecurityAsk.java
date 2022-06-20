@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.daisy.R;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentSecurityAskBinding;
+import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.utils.Constraint;
 
 import java.util.Locale;
@@ -95,10 +96,21 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
             else
                 ActivityOnBaordingBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_blue));
         }
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selected_blue));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+        if (SessionManager.get().getDisableSecurity()) {
+            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+//            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selected_blue));
+            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+        } else {
+            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selected_blue));
+            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            ActivityOnBaordingBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        }
     }
 
     /**

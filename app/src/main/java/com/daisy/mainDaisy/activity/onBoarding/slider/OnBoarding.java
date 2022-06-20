@@ -24,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
+import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.mainDaisy.activity.base.BaseActivity;
 import com.daisy.mainDaisy.activity.editorTool.EditorTool;
 import com.daisy.mainDaisy.activity.mainActivity.MainActivity;
@@ -39,7 +40,6 @@ import com.daisy.mainDaisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.mainDaisy.adapter.SliderAdapter;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.database.DBCaller;
-import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.mainDaisy.pojo.response.GlobalResponse;
 import com.daisy.mainDaisy.pojo.response.LoginResponse;
 import com.daisy.mainDaisy.pojo.response.OsType;
@@ -57,7 +57,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Purpose -  OnBoarding is an activity that handle all onBoarding pages
@@ -196,7 +195,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        fragmentList.add(SecurityAsk.getInstance(mBinding));
+        if (!SessionManager.get().getDeviceSecured())
+            fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -211,7 +211,11 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.nextSlide: {
-                nextSlideClickHandler();
+                if (SessionManager.get().getDisableSecurity())
+                    nextSlideWithoutSecurity();
+                else
+                    nextSlideClickHandler();
+
                 break;
             }
             case R.id.saveAndStartMpc: {
@@ -220,6 +224,24 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             }
         }
     }
+
+    private void nextSlideWithoutSecurity() {
+        count = count + Constraint.ONE;
+        if (count == Constraint.TWO) {
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.ONE);
+
+            signUp.loginBinding.singup.performClick();
+        } else if (count == Constraint.THREE) {
+            handleCreateScreen(null);
+
+
+        }
+
+        if (count == com.daisy.mdmt.utils.Constraint.ONE) {
+            mBinding.pager.setCurrentItem(count);
+        }
+    }
+
 
     /**
      * Responsibility -getCardData method is used for sending card request and accessing response
@@ -340,7 +362,11 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
     public void handleCreateScreen(Product product) {
         if (Utils.getNetworkState(context)) {
-            AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+            AddScreen addScreen;
+            if (SessionManager.get().getDeviceSecured())
+                addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
+            else
+                addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
             ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
             if (screenAddValidationHelper.isValid()) {
                 showHideProgressDialog(true);

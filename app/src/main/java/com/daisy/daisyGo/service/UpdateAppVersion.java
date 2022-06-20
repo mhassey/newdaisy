@@ -5,9 +5,9 @@ import android.os.Build;
 import com.daisy.BuildConfig;
 import com.daisy.daisyGo.apiService.ApiService;
 import com.daisy.daisyGo.apiService.AppRetrofit;
-import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.pojo.response.GlobalResponse;
 import com.daisy.daisyGo.pojo.response.VersionUpdate;
+import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.utils.Constraint;
 
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public class UpdateAppVersion {
 
             @Override
             public void onFailure(Call<GlobalResponse<VersionUpdate>> call, Throwable t) {
-            t.printStackTrace();
+                t.printStackTrace();
             }
         });
 

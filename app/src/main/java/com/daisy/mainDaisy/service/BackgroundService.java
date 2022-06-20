@@ -31,12 +31,8 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.os.UserManager;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -45,10 +41,10 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.daisy.BuildConfig;
+import com.daisy.R;
 import com.daisy.mainDaisy.ObjectDetection.CameraSurfaceView;
 import com.daisy.mainDaisy.ObjectDetection.cam.FaceDetectionCamera;
 import com.daisy.mainDaisy.ObjectDetection.cam.FrontCameraRetriever;
-import com.daisy.R;
 import com.daisy.mainDaisy.activity.apkUpdate.UpdateApk;
 import com.daisy.mainDaisy.activity.lockscreen.LockScreen;
 import com.daisy.mainDaisy.activity.logs.LogSyncExtra;
@@ -59,7 +55,6 @@ import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.database.DBCaller;
 import com.daisy.mainDaisy.interfaces.SyncLogCallBack;
 import com.daisy.mainDaisy.pojo.Logs;
-import com.daisy.mainDaisy.pojo.response.ApkDetails;
 import com.daisy.mainDaisy.pojo.response.InternetResponse;
 import com.daisy.mainDaisy.pojo.response.Inversion;
 import com.daisy.mainDaisy.pojo.response.Promotions;
@@ -149,7 +144,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         return super.onStartCommand(intent, flags, startId);
     }
 
-    perpose
 
     @SuppressLint("InvalidWakeLockTag")
     @Override
@@ -204,13 +198,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
                                     if (process.equals(Constraint.PACKAGE_INSTALLER)) {
                                         if (!process.equals(getApplication().getPackageName())) {
-                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                            intent.putExtra(Constraint.PACKAGE, process);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                            startActivity(intent);
+                                            if (!SessionManager.get().getDeviceSecured()) {
+                                                Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                                intent.putExtra(Constraint.PACKAGE, process);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivity(intent);
+                                            }
 
                                         }
                                     } else {
@@ -249,15 +245,17 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
                                         if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
                                             if (!sessionManager.getPasswordCorrect()) {
-                                                sessionManager.setPasswordCorrect(Constraint.TRUE);
-                                                Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                                intent.putExtra(Constraint.PACKAGE, process);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                                startActivity(intent);
-                                            } else {
-                                                sessionManager.setPasswordCorrect(Constraint.FALSE);
+                                                if (!SessionManager.get().getDeviceSecured()) {
+                                                    sessionManager.setPasswordCorrect(Constraint.TRUE);
+                                                    Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                                    intent.putExtra(Constraint.PACKAGE, process);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                    startActivity(intent);
+                                                } else {
+                                                    sessionManager.setPasswordCorrect(Constraint.FALSE);
+                                                }
                                             }
                                         } else {
                                             sessionManager.setPasswordCorrect(Constraint.FALSE);

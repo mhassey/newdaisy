@@ -2,6 +2,9 @@ package com.daisy.mainDaisy.activity.onBoarding.slider.slides.signup;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,17 +14,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.daisy.R;
+import com.daisy.databinding.FragmentLoginBinding;
 import com.daisy.mainDaisy.activity.base.BaseFragment;
 import com.daisy.mainDaisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.mainDaisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.mainDaisy.common.session.SessionManager;
 import com.daisy.mainDaisy.database.DBCaller;
-import com.daisy.databinding.FragmentLoginBinding;
 import com.daisy.mainDaisy.utils.Constraint;
 import com.daisy.mainDaisy.utils.Utils;
 import com.daisy.mainDaisy.utils.ValidationHelper;
@@ -206,10 +205,18 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
                 baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
         }
-        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.selected_green));
-        baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        if (SessionManager.get().getDisableSecurity()) {
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+//            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.selected_green));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+        } else {
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.selected_green));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        }
     }
 
 

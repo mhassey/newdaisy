@@ -154,6 +154,7 @@ public class Constraint {
     public static final CharSequence PRICE_CARD = "PriceCard";
     public static final String LIGHT_LOADED = "MPC Light Loaded";
     public static final String LIGHT = "Light";
+    public static final String SECURITY = "Security";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

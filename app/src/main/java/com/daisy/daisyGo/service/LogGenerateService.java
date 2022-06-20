@@ -43,20 +43,13 @@ public class LogGenerateService extends Service {
                     currentTime++;
                     // if (!SessionManager.get().pickDOwn() || SessionManager.get().clickPerform()) {
                     if (SessionManager.get().clickPerform()) {
-
-                        Log.e("increse counter", "second become 0");
-
                         SessionManager.get().pickDown(true);
                         SessionManager.get().clckPerform(false);
                         seconds = 0;
                     } else {
-                        Log.e("increse counter", "second increse");
-
                         seconds++;
                     }
                     if (seconds >= 16) {
-                        Log.e("increse counter", "second become 16");
-
                         int day = (int) TimeUnit.SECONDS.toDays(currentTime);
                         long hours = TimeUnit.SECONDS.toHours(currentTime) - (day * 24);
                         String hours_string = "";

@@ -2,7 +2,6 @@ package com.daisy.daisyGo.session;
 
 import android.app.Application;
 
-import com.daisy.mainDaisy.app.AppController;
 import com.daisy.daisyGo.pojo.response.ApkDetails;
 import com.daisy.daisyGo.pojo.response.LoginResponse;
 import com.daisy.daisyGo.pojo.response.OsType;
@@ -12,6 +11,7 @@ import com.daisy.daisyGo.pojo.response.Promotion;
 import com.daisy.daisyGo.pojo.response.ScreenPosition;
 import com.daisy.daisyGo.pojo.response.Time;
 import com.daisy.daisyGo.utils.Constraint;
+import com.daisy.mainDaisy.app.AppController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -1247,6 +1247,13 @@ public class SessionManager {
 
     public boolean getLogout() {
         return pref.getBoolean(Constraint.LOGOUT);
+    }
+
+    public void disableSecurity(boolean b) {
+        pref.setBooleanData(com.daisy.optimalPermission.utils.Constraint.SECURITY, b);
+    }
+    public boolean getDisableSecurity() {
+        return pref.getBoolean(com.daisy.optimalPermission.utils.Constraint.SECURITY);
     }
 
 }

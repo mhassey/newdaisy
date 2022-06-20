@@ -44,7 +44,6 @@ import com.daisy.daisyGo.activity.logs.LogSyncExtra;
 import com.daisy.daisyGo.activity.mainActivity.MainActivity;
 import com.daisy.daisyGo.activity.validatePromotion.ValidatePromotion;
 import com.daisy.daisyGo.checkCardAvailability.CheckCardAvailability;
-import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.database.DBCaller;
 import com.daisy.daisyGo.interfaces.SyncLogCallBack;
 import com.daisy.daisyGo.pojo.Logs;
@@ -54,6 +53,7 @@ import com.daisy.daisyGo.pojo.response.Inversion;
 import com.daisy.daisyGo.pojo.response.Promotions;
 import com.daisy.daisyGo.pojo.response.Sanitised;
 import com.daisy.daisyGo.pojo.response.Time;
+import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.sync.SyncLogs;
 import com.daisy.daisyGo.utils.Constraint;
 import com.daisy.daisyGo.utils.Utils;
@@ -111,7 +111,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private int uninstallIssue = 0;
     private long mLastClickTime = 0;
     private static BackgroundService backgroundService;
-
 
 
     @Nullable
@@ -179,13 +178,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
                                     if (process.equals(Constraint.PACKAGE_INSTALLER)) {
                                         if (!process.equals(getApplication().getPackageName())) {
-                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                            intent.putExtra(Constraint.PACKAGE, process);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                            startActivity(intent);
+                                            if (!SessionManager.get().getDisableSecurity()) {
+                                                Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                                intent.putExtra(Constraint.PACKAGE, process);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivity(intent);
+                                            }
 
                                         }
                                     } else {
@@ -221,13 +222,16 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                 if (!process.equals(getApplication().getPackageName())) {
                                     if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
                                         if (!sessionManager.getPasswordCorrect()) {
-                                            sessionManager.setPasswordCorrect(Constraint.TRUE);
-                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                            intent.putExtra(Constraint.PACKAGE, process);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                            startActivity(intent);
+                                            if (!SessionManager.get().getDisableSecurity()) {
+
+                                                sessionManager.setPasswordCorrect(Constraint.TRUE);
+                                                Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+                                                intent.putExtra(Constraint.PACKAGE, process);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivity(intent);
+                                            }
                                         } else {
                                             sessionManager.setPasswordCorrect(Constraint.FALSE);
                                         }
@@ -402,8 +406,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Shutdown stop method but not accorate
     private void stopShutdown() {
         try {
-
-
             int second = Constraint.FIVE_HUNDRED;
             refreshTimer5 = new Timer();
             refreshTimer5.scheduleAtFixedRate(new TimerTask() {
@@ -449,7 +451,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private void sendLogTimer() {
         Timer logsSync = new Timer();
         int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
-
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -505,7 +506,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
         int hour = Constraint.FIVE_INE_REAL;
-//        int hour = 0;
 
         int minit = Constraint.ONE;
 

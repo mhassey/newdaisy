@@ -93,9 +93,9 @@ public class SecurityService extends Service {
 //
 //                        double distance = currentLocation.distanceTo(location);
 //                        if (distance > 20) {
-                            if (sessionManager.getDeviceSecured()) {
-                                startService(alarmIntent);
-                            }
+        if (sessionManager.getDeviceSecured()) {
+            startService(alarmIntent);
+        }
 //                        }
 //                    }
 //                }
@@ -138,9 +138,7 @@ public class SecurityService extends Service {
                         stopService(alarmIntent);
                     }
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
         }

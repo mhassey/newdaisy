@@ -37,16 +37,16 @@ import com.daisy.daisyGo.activity.onBoarding.slider.slides.permissionAsk.Permiss
 import com.daisy.daisyGo.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.daisyGo.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.daisyGo.adapter.SliderAdapter;
-import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.database.DBCaller;
-import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.daisyGo.pojo.response.GlobalResponse;
 import com.daisy.daisyGo.pojo.response.LoginResponse;
 import com.daisy.daisyGo.pojo.response.PermissionDone;
-import com.daisy.mainDaisy.security.Admin;
-import com.daisy.mainDaisy.utils.Constraint;
+import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.utils.Utils;
 import com.daisy.daisyGo.utils.ValidationHelper;
+import com.daisy.databinding.ActivityOnBaordingBinding;
+import com.daisy.mainDaisy.security.Admin;
+import com.daisy.mainDaisy.utils.Constraint;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -193,7 +193,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        fragmentList.add(SecurityAsk.getInstance(mBinding));
+        if (!SessionManager.get().getDisableSecurity())
+            fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -208,13 +209,56 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.nextSlide: {
-                nextSlideClickHandler();
+                if (SessionManager.get().getDisableSecurity())
+                    nextSlideWithoutSecurity();
+                else
+                    nextSlideClickHandler();
                 break;
             }
             case R.id.saveAndStartMpc: {
 
                 getCardData();
             }
+        }
+    }
+
+    private void nextSlideWithoutSecurity() {
+        count = count + Constraint.ONE;
+        if (count == Constraint.TWO) {
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.ONE);
+
+            signUp.loginBinding.singup.performClick();
+        } else if (count == Constraint.THREE) {
+
+            if (Utils.getNetworkState(context)) {
+                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
+                ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
+                if (screenAddValidationHelper.isValid()) {
+                    showHideProgressDialog(true);
+                    screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen));
+                    LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
+                    if (!liveData.hasActiveObservers()) {
+                        liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
+                            @Override
+                            public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
+                                showHideProgressDialog(false);
+                                handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
+                            }
+                        });
+                    }
+                } else {
+                    count = com.daisy.mdmt.utils.Constraint.THREE;
+                }
+            } else {
+                count = com.daisy.mdmt.utils.Constraint.THREE;
+                ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+            }
+
+
+        }
+
+        if (count == com.daisy.mdmt.utils.Constraint.ONE) {
+            mBinding.pager.setCurrentItem(count);
         }
     }
 

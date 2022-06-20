@@ -11,9 +11,9 @@ import com.daisy.R;
 import com.daisy.daisyGo.activity.base.BaseActivity;
 import com.daisy.daisyGo.activity.onBoarding.slider.OnBoarding;
 import com.daisy.daisyGo.session.SessionManager;
+import com.daisy.daisyGo.utils.Constraint;
 import com.daisy.daisyGo.utils.ValidationHelper;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
-import com.daisy.daisyGo.utils.Constraint;
 
 import java.util.Locale;
 

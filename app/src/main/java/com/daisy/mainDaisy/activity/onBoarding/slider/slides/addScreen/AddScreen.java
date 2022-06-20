@@ -2,7 +2,6 @@ package com.daisy.mainDaisy.activity.onBoarding.slider.slides.addScreen;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
+import com.daisy.databinding.AddScreenBinding;
 import com.daisy.mainDaisy.activity.base.BaseFragment;
 import com.daisy.mainDaisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.mainDaisy.common.session.SessionManager;
-import com.daisy.databinding.AddScreenBinding;
 import com.daisy.mainDaisy.pojo.response.Carrier;
 import com.daisy.mainDaisy.pojo.response.GeneralResponse;
 import com.daisy.mainDaisy.pojo.response.GlobalResponse;
@@ -165,10 +164,18 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
                 baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
         }
-        baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+        if (SessionManager.get().getDisableSecurity()) {
+            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+//            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+
+        } else {
+            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+        }
     }
 
 

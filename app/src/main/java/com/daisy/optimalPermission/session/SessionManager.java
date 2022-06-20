@@ -1277,4 +1277,12 @@ public class SessionManager {
     public boolean getIpSearched() {
         return pref.getBoolean(Constraint.Ip_SEARCHED);
     }
+
+    public void disableSecurity(boolean b) {
+        pref.setBooleanData(Constraint.SECURITY, b);
+    }
+    public boolean getDisableSecurity() {
+        return pref.getBoolean(com.daisy.optimalPermission.utils.Constraint.SECURITY);
+    }
+
 }

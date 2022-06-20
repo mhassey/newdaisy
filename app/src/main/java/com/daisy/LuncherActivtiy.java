@@ -1,27 +1,23 @@
 package com.daisy;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.UserManager;
-import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.daisy.daisyGo.utils.Constraint;
-import com.daisy.daisyGo.utils.ValidationHelper;
 import com.daisy.mainDaisy.activity.splash.SplashScreen;
 import com.daisy.optimalPermission.activity.baseUrl.BaseUrlSettings;
+import com.daisy.optimalPermission.session.SessionManager;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LuncherActivtiy extends AppCompatActivity {
+    Boolean isInstalled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +30,7 @@ public class LuncherActivtiy extends AppCompatActivity {
 
     private void initView() {
 
+        getWorkProfile();
         Map value = null;
         try {
             value = CommonUtil.getCPUInfo();
@@ -47,16 +44,26 @@ public class LuncherActivtiy extends AppCompatActivity {
                 try {
 
                     if (hardware.toLowerCase().contains(Constraint.UNISOC)) {
+                        if (isInstalled)
+                            SessionManager.get().disableSecurity(true);
 
                         intent = new Intent(this, BaseUrlSettings.class);
 
                     } else if (CommonUtil.isSystemAlertWindowEnabled(this)) {
+                        if (isInstalled)
+                            com.daisy.daisyGo.session.SessionManager.get().disableSecurity(true);
                         intent = new Intent(this, com.daisy.daisyGo.activity.baseUrl.BaseUrlSettings.class);
                     } else {
+                        if (isInstalled)
+                            com.daisy.mainDaisy.common.session.SessionManager.get().disableSecurity(true);
+
                         intent = new Intent(this, com.daisy.mainDaisy.activity.splash.SplashScreen.class);
 
                     }
                 } catch (Exception e) {
+                    if (isInstalled)
+                        com.daisy.mainDaisy.common.session.SessionManager.get().disableSecurity(true);
+
                     intent = new Intent(this, SplashScreen.class);
 
                 }
@@ -66,6 +73,19 @@ public class LuncherActivtiy extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void getWorkProfile() {
+        final PackageManager pm = getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+        for (ApplicationInfo packageInfo : packages) {
+            if (packageInfo.packageName.contains("hmdm")) {
+                isInstalled = true;
+            }
+        }
+
 
     }
 

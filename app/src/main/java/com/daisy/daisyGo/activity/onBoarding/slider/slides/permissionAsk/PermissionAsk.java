@@ -28,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
 import com.daisy.daisyGo.pojo.response.PermissionDone;
+import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.utils.Constraint;
 import com.daisy.daisyGo.utils.PermissionManager;
 import com.daisy.daisyGo.utils.Utils;
@@ -569,11 +570,22 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     }
 
     private void designWork() {
-        onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
-        onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        if (SessionManager.get().getDisableSecurity()) {
+            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
 
+//        onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+            onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+        } else {
+            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
+
+            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+            onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+        }
     }
 
 
