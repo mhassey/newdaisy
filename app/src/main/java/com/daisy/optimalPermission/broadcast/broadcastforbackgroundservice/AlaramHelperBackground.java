@@ -25,9 +25,10 @@ public class AlaramHelperBackground {
 
     /**
      * This is the real time /wall clock time
+     *
      * @param context
      */
-    public static void scheduleRepeatingRTCNotification(Context context,long timeMiles) {
+    public static void scheduleRepeatingRTCNotification(Context context, long timeMiles) {
         //get calendar instance to be able to select what time notification should be scheduled
         Calendar calendar = Calendar.getInstance();
         //Setting intent to class where Alarm broadcast message will be handled
@@ -36,7 +37,7 @@ public class AlaramHelperBackground {
         alarmIntentRTC = PendingIntent.getBroadcast(context, ALARM_TYPE_RTC, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //getting instance of AlarmManager service
-        alarmManagerRTC = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+        alarmManagerRTC = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         //Setting alarm to wake up device every day for clock time.
         //AlarmManager.RTC_WAKEUP is responsible to wake up device for sure, which may not be good practice all the time.
@@ -44,7 +45,7 @@ public class AlaramHelperBackground {
         //Use RTC when you don't need to wake up device, but want to deliver the notification whenever device is woke-up
         //We'll be using RTC.WAKEUP for demo purpose only
         alarmManagerRTC.set(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis()+timeMiles,  alarmIntentRTC);
+                System.currentTimeMillis() + timeMiles, alarmIntentRTC);
 
     }
 
@@ -61,7 +62,7 @@ public class AlaramHelperBackground {
         alarmIntentElapsed = PendingIntent.getBroadcast(context, ALARM_TYPE_ELAPSED, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //getting instance of AlarmManager service
-        alarmManagerElapsed = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+        alarmManagerElapsed = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         //Inexact alarm everyday since device is booted up. This is a better choice and
         //scales well when device time settings/locale is changed
@@ -72,13 +73,13 @@ public class AlaramHelperBackground {
     }
 
     public static void cancelAlarmRTC() {
-        if (alarmManagerRTC!= null) {
+        if (alarmManagerRTC != null) {
             alarmManagerRTC.cancel(alarmIntentRTC);
         }
     }
 
     public static void cancelAlarmElapsed() {
-        if (alarmManagerElapsed!= null) {
+        if (alarmManagerElapsed != null) {
             alarmManagerElapsed.cancel(alarmIntentElapsed);
         }
     }

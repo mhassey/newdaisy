@@ -57,7 +57,7 @@ public class LuncherActivtiy extends AppCompatActivity {
                         if (isInstalled)
                             com.daisy.mainDaisy.common.session.SessionManager.get().disableSecurity(true);
 
-                        intent = new Intent(this, com.daisy.mainDaisy.activity.splash.SplashScreen.class);
+                        intent = new Intent(this, com.daisy.optimalPermission.activity.splash.SplashScreen.class);
 
                     }
                 } catch (Exception e) {

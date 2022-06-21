@@ -7,8 +7,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.daisy.optimalPermission.session.SessionManager;
 import com.daisy.optimalPermission.service.BackgroundService;
+import com.daisy.optimalPermission.session.SessionManager;
 import com.daisy.optimalPermission.utils.Constraint;
 import com.daisy.optimalPermission.utils.Utils;
 
