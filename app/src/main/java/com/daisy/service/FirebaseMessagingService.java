@@ -1,7 +1,5 @@
 package com.daisy.service;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.daisy.activity.validatePromotion.ValidatePromotion;
