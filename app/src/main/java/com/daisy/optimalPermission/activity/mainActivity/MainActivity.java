@@ -53,6 +53,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.daisy.R;
+import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.optimalPermission.activity.apkUpdate.DownloadUpdateApk;
 import com.daisy.optimalPermission.activity.base.BaseActivity;
 import com.daisy.optimalPermission.activity.configSettings.ConfigSettings;
@@ -61,9 +62,7 @@ import com.daisy.optimalPermission.activity.editorTool.EditorTool;
 import com.daisy.optimalPermission.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.optimalPermission.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.optimalPermission.activity.updateProduct.UpdateProductViewModel;
-import com.daisy.optimalPermission.session.SessionManager;
 import com.daisy.optimalPermission.database.DBCaller;
-import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.optimalPermission.interfaces.CallBack;
 import com.daisy.optimalPermission.pojo.response.ApkDetails;
 import com.daisy.optimalPermission.pojo.response.DeleteCardResponse;
@@ -81,6 +80,7 @@ import com.daisy.optimalPermission.pojo.response.SocketEvent;
 import com.daisy.optimalPermission.pojo.response.UpdateCards;
 import com.daisy.optimalPermission.security.Admin;
 import com.daisy.optimalPermission.service.LogGenerateService;
+import com.daisy.optimalPermission.session.SessionManager;
 import com.daisy.optimalPermission.utils.CheckForSDCard;
 import com.daisy.optimalPermission.utils.Constraint;
 import com.daisy.optimalPermission.utils.DownloadFile;
@@ -1340,10 +1340,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         sanitisedWork();
         boolean value = sessionManager.getUpdateNotShow();
         boolean isDialogOpen = sessionManager.getupdateDialog();
-        if (!isDialogOpen) {
-            if (!value) {
-                ApkDetails apkDetails = sessionManager.getApkDetails();
-                updateApk(apkDetails);
+        if (SessionManager.get().getApkDetails() != null) {
+            if (!isDialogOpen) {
+                if (!value) {
+                    ApkDetails apkDetails = sessionManager.getApkDetails();
+                    updateApk(apkDetails);
+                }
             }
         }
     }
@@ -1673,7 +1675,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        if (event.getAction()==MotionEvent.ACTION_UP){
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             handleUiClick();
 
         }
