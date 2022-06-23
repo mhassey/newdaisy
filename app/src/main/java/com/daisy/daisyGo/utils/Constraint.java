@@ -10,6 +10,7 @@ public class Constraint {
     public static final String TIME_FORMAT = "yyyy.MM.dd.HH.mm.ss";
     public static final String DOWNLOAD_AT = "Downloaded at: ";
     public static final int RESPONSE_CODE = 10112;
+    public static final String ID_BASE_URL = "Id_base_url";
     public static final int RESPONSE_CODE_MAIN = 102;
     public static final int ZERO = 0;
     public static final String APPNAME = "Daisy";

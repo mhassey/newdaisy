@@ -30,6 +30,7 @@ public interface ApiService {
     @POST(ApiConstant.SIGN_UP)
     Call<SignUpResponse> signUp(@FieldMap HashMap<String, String> password);
 
+
     @FormUrlEncoded
     @POST(ApiConstant.GENERAL)
     Call<GlobalResponse<GeneralResponse>> getGeneralResponse(@FieldMap HashMap<String, String> input);
