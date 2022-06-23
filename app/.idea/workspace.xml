@@ -11,18 +11,11 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="update inversion">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
-    </list>
-    <list id="80b99dfe-ee3b-4bdf-8e5a-229660994eb4" name="another" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_common_4_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_4_2_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="working on issue">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_1_0_aar.xml" afterDir="false" />
@@ -34,9 +27,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_adapters_3_6_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_adapters_4_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_adapters_3_6_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_common_3_6_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_runtime_3_6_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_runtime_4_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_databinding_runtime_3_6_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_3_6_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
@@ -58,7 +51,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_alpha03_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_alpha03_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_runtime_2_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
@@ -71,7 +64,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" afterDir="false" />
@@ -95,7 +88,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_places_placereport_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_places_placereport_17_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_1_0_alpha06_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_1_0_alpha06_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_18_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_5_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_1_0_aar.xml" afterDir="false" />
@@ -107,29 +100,28 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_process_phoenix_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_process_phoenix_2_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_rvalerio_fgchecker_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_rvalerio_fgchecker_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_http_legacy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_http_legacy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/-919252642/Daisy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-919252642/Daisy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/1162951772/Daisy.sensey.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/1162951772/Daisy.sensey.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Daisy.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM_[Default_Changelist]1/build_file_checksums.ser" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM_[Default_Changelist]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_21_12_02_PM__Default_Changelist_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums.ser" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums1.ser" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums11.ser" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums2.ser" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/build_file_checksums21.ser" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_2_21_3_34_PM__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" afterDir="false" />
     </list>
+    <list id="80b99dfe-ee3b-4bdf-8e5a-229660994eb4" name="another" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[baemwkljbigylnr4]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/user/.android/avd/12.1.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -157,14 +149,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Daisy" type="f1a62948:ProjectNode" />
                 <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Daisy" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="android" type="c8890929:TasksNode$1" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -238,7 +223,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="Daisy-AndroidGo-Sep12021" />
+        <entry key="$PROJECT_DIR$/.." value="Daisy-All-In-One-1.01" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -251,138 +236,13 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/.idea/workspace.xml">
-      <ranges>
-        <range start1="5" end1="5" start2="5" end2="6" changelist="80b99dfe-ee3b-4bdf-8e5a-229660994eb4" />
-        <range start1="12" end1="12" start2="13" end2="16" changelist="80b99dfe-ee3b-4bdf-8e5a-229660994eb4" />
-        <range start1="14" end1="27" start2="18" end2="19" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="28" end1="30" start2="20" end2="129" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="36" end1="37" start2="135" end2="136" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="84" end1="85" start2="183" end2="183" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="88" end1="88" start2="186" end2="187" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="91" end1="91" start2="190" end2="196" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="92" end1="92" start2="197" end2="242" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="94" end1="95" start2="244" end2="245" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="99" end1="99" start2="249" end2="388" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="106" end1="107" start2="395" end2="397" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="111" end1="111" start2="401" end2="403" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="117" end1="119" start2="409" end2="412" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="121" end1="122" start2="414" end2="415" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="131" end1="136" start2="424" end2="424" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="143" end1="143" start2="431" end2="439" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="161" end1="161" start2="457" end2="458" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="169" end1="169" start2="466" end2="468" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="224" end1="225" start2="523" end2="526" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="230" end1="230" start2="531" end2="535" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="233" end1="233" start2="538" end2="539" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="239" end1="239" start2="545" end2="546" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="244" end1="248" start2="551" end2="555" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="249" end1="250" start2="556" end2="557" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="251" end1="255" start2="558" end2="562" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="256" end1="257" start2="563" end2="564" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="258" end1="262" start2="565" end2="569" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="263" end1="264" start2="570" end2="571" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="265" end1="269" start2="572" end2="597" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="270" end1="271" start2="598" end2="599" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="272" end1="276" start2="600" end2="604" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="277" end1="278" start2="605" end2="606" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="279" end1="283" start2="607" end2="611" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="284" end1="285" start2="612" end2="613" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="286" end1="290" start2="614" end2="618" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="291" end1="292" start2="619" end2="620" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="293" end1="297" start2="621" end2="625" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="298" end1="299" start2="626" end2="627" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="300" end1="304" start2="628" end2="632" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="305" end1="306" start2="633" end2="634" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="307" end1="311" start2="635" end2="639" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="312" end1="313" start2="640" end2="641" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="314" end1="318" start2="642" end2="646" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="319" end1="320" start2="647" end2="648" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="321" end1="325" start2="649" end2="653" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="326" end1="327" start2="654" end2="655" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="328" end1="332" start2="656" end2="660" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="333" end1="334" start2="661" end2="662" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="335" end1="339" start2="663" end2="667" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="340" end1="341" start2="668" end2="669" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="342" end1="346" start2="670" end2="674" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="347" end1="348" start2="675" end2="676" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="349" end1="353" start2="677" end2="681" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="354" end1="355" start2="682" end2="683" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="356" end1="360" start2="684" end2="688" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="361" end1="362" start2="689" end2="690" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="363" end1="367" start2="691" end2="695" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="368" end1="369" start2="696" end2="697" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="370" end1="374" start2="698" end2="702" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="375" end1="376" start2="703" end2="704" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="377" end1="381" start2="705" end2="709" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="382" end1="383" start2="710" end2="711" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="384" end1="388" start2="712" end2="716" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="389" end1="390" start2="717" end2="718" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="391" end1="395" start2="719" end2="723" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="396" end1="397" start2="724" end2="725" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="398" end1="402" start2="726" end2="842" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="403" end1="404" start2="843" end2="872" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="405" end1="409" start2="873" end2="877" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="410" end1="411" start2="878" end2="879" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="412" end1="416" start2="880" end2="884" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="417" end1="418" start2="885" end2="886" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="419" end1="423" start2="887" end2="891" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="424" end1="425" start2="892" end2="893" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="426" end1="427" start2="894" end2="895" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="452" end1="461" start2="920" end2="920" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="475" end1="558" start2="934" end2="946" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="624" end1="625" start2="1012" end2="1013" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="629" end1="630" start2="1017" end2="1018" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="684" end1="685" start2="1072" end2="1073" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="689" end1="690" start2="1077" end2="1078" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="694" end1="695" start2="1082" end2="1083" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="699" end1="700" start2="1087" end2="1088" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="704" end1="705" start2="1092" end2="1093" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="709" end1="710" start2="1097" end2="1098" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="741" end1="746" start2="1129" end2="1129" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="864" end1="865" start2="1247" end2="1248" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="889" end1="890" start2="1272" end2="1273" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="891" end1="896" start2="1274" end2="1274" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="899" end1="900" start2="1277" end2="1278" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="904" end1="905" start2="1282" end2="1283" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="909" end1="910" start2="1287" end2="1288" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="954" end1="955" start2="1332" end2="1333" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="959" end1="960" start2="1337" end2="1338" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="988" end1="993" start2="1366" end2="1366" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1004" end1="1005" start2="1377" end2="1378" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1009" end1="1010" start2="1382" end2="1383" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1019" end1="1020" start2="1392" end2="1393" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1024" end1="1025" start2="1397" end2="1398" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1029" end1="1030" start2="1402" end2="1403" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1049" end1="1050" start2="1422" end2="1423" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1054" end1="1055" start2="1427" end2="1428" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1074" end1="1075" start2="1447" end2="1448" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1079" end1="1080" start2="1452" end2="1453" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1084" end1="1085" start2="1457" end2="1458" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1089" end1="1090" start2="1462" end2="1463" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1094" end1="1095" start2="1467" end2="1468" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1099" end1="1100" start2="1472" end2="1473" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1109" end1="1110" start2="1482" end2="1483" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1119" end1="1120" start2="1492" end2="1493" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1124" end1="1125" start2="1497" end2="1498" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1129" end1="1130" start2="1502" end2="1503" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1134" end1="1135" start2="1507" end2="1508" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1139" end1="1140" start2="1512" end2="1513" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1144" end1="1145" start2="1517" end2="1518" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1149" end1="1150" start2="1522" end2="1523" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1154" end1="1155" start2="1527" end2="1528" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1159" end1="1160" start2="1532" end2="1533" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1164" end1="1165" start2="1537" end2="1538" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1169" end1="1170" start2="1542" end2="1543" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1173" end1="1188" start2="1546" end2="1546" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1247" end1="1247" start2="1605" end2="1635" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-        <range start1="1249" end1="1250" start2="1637" end2="1638" changelist="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" />
-      </ranges>
-    </file>
+  <component name="KotlinMultiplatform">
+    <allAvailableExecutables />
   </component>
   <component name="ProjectId" id="1giKoRqPsmTliQpt61oAtG7AgUJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -397,12 +257,14 @@
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$" />
     <property name="ExportApk.BuildVariants" value="productionRelease" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/heatseekr_app_android" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../clone" />
     <property name="memory.settings.postsync.last.time.stamp" value="1638777489849" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -458,6 +320,7 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
@@ -944,76 +807,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>253</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>104</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java</url>
-          <line>320</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/editorTool/EditorTool.java</url>
-          <line>322</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>158</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>159</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>167</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>185</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>187</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>188</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>189</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>997</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>994</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>468</line>
           <option name="timeStamp" value="61" />
@@ -1062,36 +855,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
           <line>154</line>
           <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>271</line>
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>274</line>
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>279</line>
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>293</line>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>280</line>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>308</line>
-          <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/DownloadFile.java</url>
@@ -1239,11 +1002,6 @@
           <option name="timeStamp" value="215" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java</url>
-          <line>191</line>
-          <option name="timeStamp" value="229" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>216</line>
           <option name="timeStamp" value="234" />
@@ -1264,51 +1022,6 @@
           <option name="timeStamp" value="237" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1104</line>
-          <option name="timeStamp" value="248" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1190</line>
-          <option name="timeStamp" value="257" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1168</line>
-          <option name="timeStamp" value="258" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1170</line>
-          <option name="timeStamp" value="259" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="304" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="305" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="306" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>197</line>
-          <option name="timeStamp" value="309" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>200</line>
-          <option name="timeStamp" value="310" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBaording.java</url>
           <line>533</line>
           <option name="timeStamp" value="311" />
@@ -1322,16 +1035,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundSoundService.java</url>
           <line>138</line>
           <option name="timeStamp" value="320" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>184</line>
-          <option name="timeStamp" value="329" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/utils/Utils.java</url>
-          <line>148</line>
-          <option name="timeStamp" value="352" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/checkCardAvailability/CheckCardAvailability.java</url>
@@ -1369,49 +1072,9 @@
           <option name="timeStamp" value="384" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>453</line>
-          <option name="timeStamp" value="385" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>454</line>
-          <option name="timeStamp" value="386" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>194</line>
-          <option name="timeStamp" value="387" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>160</line>
-          <option name="timeStamp" value="389" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>167</line>
-          <option name="timeStamp" value="391" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>251</line>
-          <option name="timeStamp" value="400" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/database/dao/LogDao.java</url>
           <line>31</line>
           <option name="timeStamp" value="430" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>271</line>
-          <option name="timeStamp" value="437" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>273</line>
-          <option name="timeStamp" value="439" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
@@ -1422,21 +1085,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
           <line>60</line>
           <option name="timeStamp" value="442" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>146</line>
-          <option name="timeStamp" value="449" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="457" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/lockscreen/LockScreen.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="458" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java</url>
@@ -1453,40 +1101,15 @@
           <line>63</line>
           <option name="timeStamp" value="464" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>669</line>
-          <option name="timeStamp" value="465" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>756</line>
-          <option name="timeStamp" value="466" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>784</line>
-          <option name="timeStamp" value="467" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/app/AppController.java</url>
           <line>109</line>
           <option name="timeStamp" value="486" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>721</line>
-          <option name="timeStamp" value="487" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
           <line>133</line>
           <option name="timeStamp" value="490" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>1045</line>
-          <option name="timeStamp" value="501" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/baseUrl/BaseUrlSettings.java</url>
@@ -1507,36 +1130,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/configSettings/ConfigSettings.java</url>
           <line>97</line>
           <option name="timeStamp" value="514" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>416</line>
-          <option name="timeStamp" value="517" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>598</line>
-          <option name="timeStamp" value="518" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>597</line>
-          <option name="timeStamp" value="519" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>612</line>
-          <option name="timeStamp" value="520" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>1198</line>
-          <option name="timeStamp" value="521" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java</url>
-          <line>616</line>
-          <option name="timeStamp" value="522" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/sync/SyncLogs.java</url>
@@ -1623,28 +1216,11 @@
           <line>322</line>
           <option name="timeStamp" value="552" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/screenAdd/ScreenAddValidationHelper.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="553" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/service/BackgroundService.java</url>
-          <line>72</line>
-          <properties field="NOTIF_ID" class="com.daisy.service.BackgroundService" />
-          <option name="timeStamp" value="184" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/signup/SignUpRepo.java</url>
           <line>39</line>
           <properties class="com.daisy.activity.onBoarding.slider.slides.signup.SignUpRepo" />
           <option name="timeStamp" value="210" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/slides/permissionAsk/PermissionAsk.java</url>
-          <line>270</line>
-          <properties class="com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk" />
-          <option name="timeStamp" value="438" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
