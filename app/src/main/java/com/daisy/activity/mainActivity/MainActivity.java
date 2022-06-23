@@ -650,7 +650,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                                 File file2Main = new File(sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
                                 File file3Main = new File(sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + file1.getName() + Constraint.HTML);
 
-             removeAdminRightPermission                   if (file2Main.exists()) {
+                                if (file2Main.exists()) {
                                     mBinding.webView.loadUrl(Constraint.FILE + sessionManager.getLocation() + Constraint.SLASH + Constraint.FILE_NAME);
                                     sessionManager.setMainFilePath(sessionManager.getLocation());
 
@@ -1772,8 +1772,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         }
     }
-
-
 
 
 }
