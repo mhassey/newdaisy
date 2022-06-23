@@ -1,5 +1,9 @@
 package com.daisy.service;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.daisy.activity.validatePromotion.ValidatePromotion;
@@ -9,24 +13,73 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONObject;
 
+import java.util.Random;
+
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         try {
             String type = new JSONObject(remoteMessage.getData()).getString("type");
+            int count = new JSONObject(remoteMessage.getData()).getInt("total_notification_count");
+
+
+            Random random = new Random(count);
 
             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
-                ValidatePromotion validatePromotion = new ValidatePromotion();
-                validatePromotion.checkPromotion();
-
+                ValidatePromotion(random.nextInt());
             } else if (type.equals(Constraint.GET_CARDS)) {
-                CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
-                checkCardAvailability.checkCard();
+                updateCard(random.nextInt());
             }
         } catch (Exception e) {
             e.printStackTrace();
 
         }
         super.onMessageReceived(remoteMessage);
+    }
+
+    /**
+     * Purpose - Check for apk update availability
+     */
+    public static void ValidatePromotion(int sec) {
+        try {
+
+
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("Kali...", "Call comes");
+                    ValidatePromotion validatePromotion = new ValidatePromotion();
+                    validatePromotion.checkPromotion();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    /**
+     * Purpose - Check for apk update availability
+     */
+    public static void updateCard(int sec) {
+        try {
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    CheckCardAvailability validatePromotion = new CheckCardAvailability();
+                    validatePromotion.checkCard();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 }
