@@ -12,6 +12,7 @@ import com.daisy.daisyGo.pojo.response.GlobalResponse;
 import com.daisy.daisyGo.pojo.response.ValidatePromotionPojo;
 import com.daisy.daisyGo.pojo.response.VersionUpdate;
 import com.daisy.daisyGo.utils.Constraint;
+import com.daisy.mainDaisy.pojo.response.KeyToUrlResponse;
 
 import java.util.HashMap;
 
@@ -70,4 +71,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.UPDATE_PRODUCT)
     Call<GlobalResponse> updateProduct(@FieldMap HashMap<String, String> input, @Header(Constraint.TOKEN) String s);
+
+    @FormUrlEncoded
+    @POST(ApiConstant.KEY_TO_URL)
+    Call<GlobalResponse<KeyToUrlResponse>> getKeyToValue(@FieldMap HashMap<String, String> input, @Header(Constraint.TOKEN) String s);
 }

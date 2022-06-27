@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
@@ -26,15 +25,15 @@ import com.daisy.daisyGo.activity.refreshTimer.RefreshTimer;
 import com.daisy.daisyGo.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.daisyGo.activity.updatePosition.UpdatePosition;
 import com.daisy.daisyGo.activity.updateProduct.UpdateProduct;
-import com.daisy.daisyGo.session.SessionManager;
-import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.daisyGo.pojo.response.ApkDetails;
 import com.daisy.daisyGo.pojo.response.GeneralResponse;
 import com.daisy.daisyGo.pojo.response.GlobalResponse;
+import com.daisy.daisyGo.session.SessionManager;
 import com.daisy.daisyGo.utils.Constraint;
 import com.daisy.daisyGo.utils.LogoutDialog;
 import com.daisy.daisyGo.utils.Utils;
 import com.daisy.daisyGo.utils.ValidationHelper;
+import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import java.util.HashMap;
@@ -341,10 +340,8 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
      * Parameters - No parameter
      **/
     public void logoutAlert() {
-//        LogoutDialog dateTimePermissionDIalog = new LogoutDialog();
-//
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        dateTimePermissionDIalog.show(ft, null);
+        LogoutDialog dateTimePermissionDIalog = new LogoutDialog();
+        dateTimePermissionDIalog.show(getFragmentManager().beginTransaction(), null);
 
 
     }

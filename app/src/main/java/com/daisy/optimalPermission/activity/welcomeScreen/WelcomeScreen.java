@@ -9,20 +9,28 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
-import com.daisy.daisyGo.utils.ValidationHelper;
+import com.daisy.databinding.ActivityWelcomeScreenBinding;
+import com.daisy.mainDaisy.pojo.response.KeyToUrlResponse;
 import com.daisy.optimalPermission.activity.base.BaseActivity;
 import com.daisy.optimalPermission.activity.onBoarding.slider.OnBoarding;
-import com.daisy.optimalPermission.session.SessionManager;
-import com.daisy.databinding.ActivityWelcomeScreenBinding;
+import com.daisy.optimalPermission.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
 import com.daisy.optimalPermission.dialogFragment.DateTimePermissionDIalog;
+import com.daisy.optimalPermission.pojo.response.GeneralResponse;
+import com.daisy.optimalPermission.pojo.response.GlobalResponse;
+import com.daisy.optimalPermission.session.SessionManager;
 import com.daisy.optimalPermission.utils.Constraint;
 import com.daisy.optimalPermission.utils.Utils;
+import com.daisy.optimalPermission.utils.ValidationHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -34,14 +42,30 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     private ActivityWelcomeScreenBinding mBinding;
     private SessionManager sessionManager;
     final int sdk = android.os.Build.VERSION.SDK_INT;
+    private WelcomeValidationHelper welcomeValidationHelper;
+    private WelcomeViewModel welcomeViewModel;
+    private String myBaseUrls[] = {
+            "https://id1.mobilepricecards.com",
+            "https://id2.mobilepricecards.com",
+            "https://id3.mobilepricecards.com",
+
+    };
+    private int listIndex = 0;
+    private AddScreenViewModel addScreenViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
+        welcomeValidationHelper = new WelcomeValidationHelper(this, mBinding);
+        welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
+        addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
+
         initView();
         initClick();
         firebaseConfiguration();
+        defineKeyToUrlObserver();
+        handleGeneralApiResponse();
     }
 
     private void firebaseConfiguration() {
@@ -63,6 +87,154 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
                 });
     }
 
+
+    /**
+     * Responsibility - defineKeyToUrlObserver handles key to url response
+     */
+    private void defineKeyToUrlObserver() {
+        LiveData<GlobalResponse<KeyToUrlResponse>> globalResponseLiveData = welcomeViewModel.getResponseLiveData();
+        if (!globalResponseLiveData.hasActiveObservers()) {
+            globalResponseLiveData.observe(this, new Observer<GlobalResponse<KeyToUrlResponse>>() {
+                @Override
+                public void onChanged(GlobalResponse<KeyToUrlResponse> keyToUrlResponseGlobalResponse) {
+                    showHideProgressDialog(false);
+                    if (keyToUrlResponseGlobalResponse != null) {
+                        handleKeyToUrlResponse(keyToUrlResponseGlobalResponse);
+                    } else {
+                        checkLoadedKey();
+                    }
+                }
+            });
+        }
+    }
+
+
+    /**
+     * Responsibility - handleKeyToUrlResponse method manipulate server
+     *
+     * @param result
+     */
+    private void handleKeyToUrlResponse(GlobalResponse<KeyToUrlResponse> result) {
+        if (result != null) {
+            if (result.getResult().isMatched_status()) {
+                handleGeneralApi(result.getResult().getMatched_url() + Constraint.SLASH);
+            } else {
+                ValidationHelper.showToast(this, getResources().getString(R.string.mpc_key_not_correct));
+            }
+        } else {
+            checkLoadedKey();
+        }
+    }
+
+
+    private void checkLoadedKey() {
+        if (mBinding.keyName.getText().toString().contains(Constraint.HTTP)) {
+            updateBaseUrl();
+
+        } else {
+            if (listIndex <= 2) {
+                if (welcomeValidationHelper.isValid()) {
+                    if (com.daisy.mainDaisy.utils.Utils.getNetworkState(this)) {
+                        showHideProgressDialog(true);
+                        welcomeViewModel.setRequestLiveData(createKeyToUrlRequest());
+                    } else {
+                        ValidationHelper.showToast(this, getString(R.string.no_internet_available));
+                    }
+                }
+            } else if (listIndex == 3) {
+                ValidationHelper.showToast(this, getString(R.string.technical_issue));
+            }
+
+
+        }
+    }
+
+    private HashMap<String, String> createKeyToUrlRequest() {
+        HashMap<String, String> stringStringHashMap = new HashMap<>();
+        stringStringHashMap.put(Constraint.customerID, mBinding.keyName.getText().toString());
+        stringStringHashMap.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
+        stringStringHashMap.put(Constraint.ID_BASE_URL, myBaseUrls[listIndex++]);
+        return stringStringHashMap;
+    }
+
+
+    private void handleGeneralApiResponse() {
+        LiveData<GlobalResponse<GeneralResponse>> liveData = addScreenViewModel.getGeneralResponseLiveData();
+        if (!liveData.hasActiveObservers()) {
+            liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+                @Override
+                public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+                    handleGeneralResponse(generalResponseGlobalResponse);
+                }
+            });
+        }
+    }
+
+
+    /**
+     * Responsibility - handleGeneralResponse is an method check  response is correct or not if response is good  that redirect screen to splash else its show error message
+     * Parameters - Its take GlobalResponse<GeneralResponse> generalResponseGlobalResponse that help to know url is correct or not
+     **/
+    private void handleGeneralResponse(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+        showHideProgressDialog(false);
+        if (generalResponseGlobalResponse != null) {
+            if (generalResponseGlobalResponse.isApi_status()) {
+                sessionManager.setBaseUrlChange(true);
+                goToOnBoarding();
+
+            } else {
+                sessionManager.removeBaseUrl();
+                ValidationHelper.showToast(WelcomeScreen.this, getString(R.string.enter_valid_url));
+
+            }
+        } else {
+            sessionManager.removeBaseUrl();
+            ValidationHelper.showToast(this, getString(R.string.enter_valid_url));
+        }
+    }
+
+
+    /**
+     * Responsibility - updateBaseUrl is an method that takes url from ui and call general api with same server url and if its return response then send it to  handleGeneralResponse
+     * Parameters - No parameter
+     **/
+    private void updateBaseUrl() {
+        try {
+
+            String url = mBinding.keyName.getText().toString();
+            if (url != null && !url.equals("")) {
+                String urlLastChar = url.substring(url.length() - 1);
+                if (urlLastChar.equals(Constraint.SLASH)) {
+                    boolean b = Utils.isValidUrl(url);
+                    if (b) {
+                        if (Utils.getNetworkState(this)) {
+                            sessionManager.setBaseUrl(url);
+                            showHideProgressDialog(true);
+                            addScreenViewModel.setGeneralRequest(new HashMap<>());
+                        } else {
+                            ValidationHelper.showToast(this, getString(R.string.no_internet_available));
+                        }
+                    } else {
+                        ValidationHelper.showToast(this, getString(R.string.enter_valid_url));
+                    }
+                } else {
+                    ValidationHelper.showToast(this, getString(R.string.url_must_end_with_slash));
+                }
+            } else {
+                ValidationHelper.showToast(this, getString(R.string.baseurl_can_not_be_empty));
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void handleGeneralApi(String s) {
+        sessionManager.setBaseUrl(s);
+        showHideProgressDialog(true);
+        addScreenViewModel.setGeneralRequest(new HashMap<>());
+
+
+    }
 
     /**
      * Responsibility - initView method is used for initiate all object and perform some initial level task
@@ -100,7 +272,8 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.begin: {
-                goToOnBoarding();
+                listIndex = 0;
+                checkLoadedKey();
                 break;
             }
         }

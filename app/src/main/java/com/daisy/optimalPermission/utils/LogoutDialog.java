@@ -11,11 +11,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
 import com.daisy.R;
+import com.daisy.databinding.LogoutBinding;
 import com.daisy.optimalPermission.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.optimalPermission.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
-import com.daisy.optimalPermission.session.SessionManager;
-import com.daisy.databinding.LogoutBinding;
 import com.daisy.optimalPermission.service.BackgroundService;
+import com.daisy.optimalPermission.session.SessionManager;
 
 public class LogoutDialog extends DialogFragment implements View.OnClickListener {
     private LogoutBinding logoutBinding;
@@ -86,7 +86,15 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else {
-            ValidationHelper.showToast(getActivity(), getString(R.string.please_wait_service_is_not_register_yet));
+            getActivity().stopService(new Intent(getActivity(), BackgroundService.class));
+            SessionManager.get().clear();
+            SessionManager.get().logout(true);
+            Intent intent = new Intent(getActivity(), WelcomeScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+//            ValidationHelper.showToast(getActivity(), getString(R.string.please_wait_service_is_not_register_yet));
         }
     }
 

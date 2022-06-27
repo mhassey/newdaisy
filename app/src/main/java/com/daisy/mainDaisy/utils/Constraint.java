@@ -7,6 +7,7 @@ public class Constraint {
     public static final String FOLDER_NAME = ".Daisy";
     public static final String configFile = "configration.txt";
     public static final String SLASH = "/";
+
     public static final String TIME_FORMAT = "yyyy.MM.dd.HH.mm.ss";
     public static final String DOWNLOAD_AT = "Downloaded at: ";
     public static final int RESPONSE_CODE = 10112;

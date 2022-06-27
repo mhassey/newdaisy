@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.daisy.daisyGo.utils.Constraint;
 import com.daisy.mainDaisy.activity.splash.SplashScreen;
-import com.daisy.optimalPermission.activity.baseUrl.BaseUrlSettings;
 import com.daisy.optimalPermission.session.SessionManager;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class LuncherActivtiy extends AppCompatActivity {
             String hardware = (String) value.get(Constraint.HARDWARE);
             Intent intent = null;
             if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                intent = new Intent(this, BaseUrlSettings.class);
+                intent = new Intent(this, com.daisy.optimalPermission.activity.splash.SplashScreen.class);
 
             } else {
                 try {
@@ -47,17 +46,17 @@ public class LuncherActivtiy extends AppCompatActivity {
                         if (isInstalled)
                             SessionManager.get().disableSecurity(true);
 
-                        intent = new Intent(this, BaseUrlSettings.class);
+                        intent = new Intent(this, com.daisy.optimalPermission.activity.splash.SplashScreen.class);
 
                     } else if (CommonUtil.isSystemAlertWindowEnabled(this)) {
                         if (isInstalled)
                             com.daisy.daisyGo.session.SessionManager.get().disableSecurity(true);
-                        intent = new Intent(this, com.daisy.daisyGo.activity.baseUrl.BaseUrlSettings.class);
+                        intent = new Intent(this, com.daisy.daisyGo.activity.splash.SplashScreen.class);
                     } else {
                         if (isInstalled)
                             com.daisy.mainDaisy.common.session.SessionManager.get().disableSecurity(true);
 
-                        intent = new Intent(this, com.daisy.mainDaisy.activity.splash.SplashScreen.class);
+                        intent = new Intent(this, SplashScreen.class);
 
                     }
                 } catch (Exception e) {

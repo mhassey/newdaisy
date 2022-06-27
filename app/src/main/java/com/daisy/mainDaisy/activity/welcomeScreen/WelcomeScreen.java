@@ -2,7 +2,6 @@ package com.daisy.mainDaisy.activity.welcomeScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -14,11 +13,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
+import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.mainDaisy.activity.base.BaseActivity;
 import com.daisy.mainDaisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.mainDaisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
 import com.daisy.mainDaisy.common.session.SessionManager;
-import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.mainDaisy.dialogFragment.DateTimePermissionDIalog;
 import com.daisy.mainDaisy.pojo.response.GeneralResponse;
 import com.daisy.mainDaisy.pojo.response.GlobalResponse;
