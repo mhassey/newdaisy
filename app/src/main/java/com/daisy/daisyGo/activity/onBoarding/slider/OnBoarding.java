@@ -228,7 +228,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             SignUp signUp = (SignUp) fragmentList.get(Constraint.ONE);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count == Constraint.THREE) {
+        } else if (count >= Constraint.THREE) {
 
             if (Utils.getNetworkState(context)) {
                 AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.TWO);

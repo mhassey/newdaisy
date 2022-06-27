@@ -51,6 +51,7 @@ public class LuncherActivtiy extends AppCompatActivity {
                     } else if (CommonUtil.isSystemAlertWindowEnabled(this)) {
                         if (isInstalled)
                             com.daisy.daisyGo.session.SessionManager.get().disableSecurity(true);
+
                         intent = new Intent(this, com.daisy.daisyGo.activity.splash.SplashScreen.class);
                     } else {
                         if (isInstalled)
@@ -62,7 +63,6 @@ public class LuncherActivtiy extends AppCompatActivity {
                 } catch (Exception e) {
                     if (isInstalled)
                         com.daisy.mainDaisy.common.session.SessionManager.get().disableSecurity(true);
-
                     intent = new Intent(this, SplashScreen.class);
 
                 }

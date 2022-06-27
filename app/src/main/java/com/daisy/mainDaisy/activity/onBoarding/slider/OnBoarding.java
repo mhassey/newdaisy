@@ -195,8 +195,10 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        if (!SessionManager.get().getDeviceSecured())
+        if (!SessionManager.get().getDisableSecurity()) {
             fragmentList.add(SecurityAsk.getInstance(mBinding));
+
+        }
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -231,7 +233,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             SignUp signUp = (SignUp) fragmentList.get(Constraint.ONE);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count == Constraint.THREE) {
+        } else if (count >= Constraint.THREE) {
             handleCreateScreen(null);
 
 
@@ -363,10 +365,12 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     public void handleCreateScreen(Product product) {
         if (Utils.getNetworkState(context)) {
             AddScreen addScreen;
-            if (SessionManager.get().getDeviceSecured())
-                addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
-            else
-                addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+            if (SessionManager.get().getDeviceSecured()) {
+                addScreen = (AddScreen) fragmentList.get((fragmentList.size() - 1));
+            } else {
+                addScreen = (AddScreen) fragmentList.get((fragmentList.size() - 1));
+
+            }
             ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
             if (screenAddValidationHelper.isValid()) {
                 showHideProgressDialog(true);

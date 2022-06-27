@@ -24,6 +24,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
+import com.daisy.databinding.ActivityOnBaordingBinding;
+import com.daisy.mainDaisy.security.Admin;
 import com.daisy.optimalPermission.activity.base.BaseActivity;
 import com.daisy.optimalPermission.activity.editorTool.EditorTool;
 import com.daisy.optimalPermission.activity.mainActivity.MainActivity;
@@ -37,13 +39,11 @@ import com.daisy.optimalPermission.activity.onBoarding.slider.slides.permissionA
 import com.daisy.optimalPermission.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.optimalPermission.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.optimalPermission.adapter.SliderAdapter;
-import com.daisy.optimalPermission.session.SessionManager;
 import com.daisy.optimalPermission.database.DBCaller;
-import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.optimalPermission.pojo.response.GlobalResponse;
 import com.daisy.optimalPermission.pojo.response.LoginResponse;
 import com.daisy.optimalPermission.pojo.response.PermissionDone;
-import com.daisy.mainDaisy.security.Admin;
+import com.daisy.optimalPermission.session.SessionManager;
 import com.daisy.optimalPermission.utils.Constraint;
 import com.daisy.optimalPermission.utils.Utils;
 import com.daisy.optimalPermission.utils.ValidationHelper;
@@ -193,7 +193,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        fragmentList.add(SecurityAsk.getInstance(mBinding));
+        if (!SessionManager.get().getDisableSecurity())
+            fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -323,7 +324,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             SignUp signUp = (SignUp) fragmentList.get(Constraint.TWO);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count == Constraint.FOUR) {
+        } else if (count >= Constraint.FOUR) {
 
             if (Utils.getNetworkState(context)) {
                 AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
