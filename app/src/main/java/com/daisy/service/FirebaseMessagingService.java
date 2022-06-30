@@ -19,6 +19,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         try {
+
+            Log.e("Checking....", "Push......");
+
             String type = new JSONObject(remoteMessage.getData()).getString("type");
             int count = new JSONObject(remoteMessage.getData()).getInt("total_notification_count");
 
@@ -27,6 +30,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
                 ValidatePromotion(random.nextInt());
+
             } else if (type.equals(Constraint.GET_CARDS)) {
                 updateCard(random.nextInt());
             }
@@ -48,9 +52,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("Kali...", "Call comes");
                     ValidatePromotion validatePromotion = new ValidatePromotion();
-                    validatePromotion.checkPromotion();
+                    validatePromotion.checkPromotion("PRICING_UPDATE");
                 }
             }, ((long) sec * Constraint.THOUSAND));
 

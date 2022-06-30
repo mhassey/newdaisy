@@ -1,7 +1,5 @@
 package com.daisy.apiService;
 
-import androidx.lifecycle.LiveData;
-
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
@@ -12,6 +10,7 @@ import com.daisy.pojo.response.FeedBackResponse;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.KeyToUrlResponse;
+import com.daisy.pojo.response.PushUpdateResponse;
 import com.daisy.pojo.response.UpdateTokenResponse;
 import com.daisy.pojo.response.ValidatePromotionPojo;
 import com.daisy.pojo.response.VersionUpdate;
@@ -61,6 +60,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API + Constraint.SLASH + ApiConstant.PROMOTION_CHECK)
     Call<GlobalResponse<ValidatePromotionPojo>> checkPromotion(@FieldMap HashMap<String, String> hashMap, @Header(Constraint.TOKEN) String s);
+
+    @FormUrlEncoded
+    @POST(ApiConstant.API + Constraint.SLASH + ApiConstant.UPDATE_PUSH_SCREEN)
+    Call<GlobalResponse<PushUpdateResponse>> updatePush(@FieldMap HashMap<String, String> hashMap, @Header(Constraint.TOKEN) String s);
+
 
     @FormUrlEncoded
     @POST(ApiConstant.ADD_FEEDBACK)

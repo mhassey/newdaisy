@@ -21,6 +21,8 @@ public class ApiConstant {
     public static final String UPDATE_POSITION = URL_PACK + "/update_screen_position";
     public static final String DELETE_CARD = URL_PACK + "/delete_cards";
     public static final String PROMOTION_CHECK = "validate_promotions";
+    public static final String UPDATE_PUSH_SCREEN = "update_screen_push";
+
     public static final String API = "api";
     public static final String ADD_FEEDBACK = URL_PACK + "/report_bug";
     public static final String CREATE_SCREEN_OS = URL_PACK + "/create_screen_os";
