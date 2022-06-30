@@ -298,6 +298,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 try {
 
                     if (CheckForSDCard.isSDCardPresent()) {
@@ -590,7 +591,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
             mBinding.webView.getSettings().setUseWideViewPort(Constraint.TRUE);
-            mBinding.webView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android 11; YC-SM04P Build/RP1A.201105.002; wv)");
 
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setDisplayZoomControls(Constraint.FALSE);
@@ -1635,11 +1635,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 //                }
 //            }
 
+            Log.e("Kali1" + cmd, msg);
+
+
         }
 
 
         @JavascriptInterface
         public void heartbeat(String msg) {
+            Log.e("Kali2", msg);
         }
 
 
@@ -1650,6 +1654,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void callFromJS(String event) {
+            Log.e("Kali3", event);
+
         }
     }
 
