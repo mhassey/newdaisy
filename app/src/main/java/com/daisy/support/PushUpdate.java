@@ -51,6 +51,7 @@ public class PushUpdate {
     private HashMap<String, String> getPushRequest(String pushType) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.PUSH_TYPE, pushType);
+        hashMap.put(Constraint.TOKEN, SessionManager.get().getDeviceToken());
         return hashMap;
 
     }

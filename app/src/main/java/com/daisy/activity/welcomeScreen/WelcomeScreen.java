@@ -79,6 +79,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
 
                         // Get new FCM registration token
                         String token = task.getResult();
+                        Log.e("My token", token);
                         SessionManager.get().setFCMToken(token);
                     }
                 });

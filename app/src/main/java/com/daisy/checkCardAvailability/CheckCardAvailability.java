@@ -13,6 +13,7 @@ import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.UpdateTokenResponse;
+import com.daisy.support.PushUpdate;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
@@ -48,7 +49,7 @@ public class CheckCardAvailability {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getCard();
+                getCard(pushType);
             }
         }).start();
     }
@@ -202,7 +203,7 @@ public class CheckCardAvailability {
     }
 
     private void handlePush(String push) {
-        // new PushUpdate().pushUpdate(push);
+         new PushUpdate().pushUpdate(push);
 
     }
 
