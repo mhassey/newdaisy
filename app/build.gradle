@@ -5,14 +5,14 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.daisy"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 19
-        versionName "1.27"
+        targetSdkVersion 32
+        versionCode 20
+        versionName "1.28"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
