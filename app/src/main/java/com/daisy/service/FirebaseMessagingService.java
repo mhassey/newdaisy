@@ -11,6 +11,8 @@ import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.utils.Constraint;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONObject;
+
 import java.util.Random;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -19,10 +21,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         try {
 
             Log.e("Checking....", "Push......");
-            String type = Constraint.GET_CARDS;
+//            String type = Constraint.GET_CARDS;
 
-//            String type = new JSONObject(remoteMessage.getData()).getString("type");
-//            int count = new JSONObject(remoteMessage.getData()).getInt("total_notification_count");
+            String type = new JSONObject(remoteMessage.getData()).getString("type");
+            int count = new JSONObject(remoteMessage.getData()).getInt("total_notification_count");
 
 
             Random random = new Random(100);
