@@ -26,14 +26,15 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             String type = new JSONObject(remoteMessage.getData()).getString("type");
             int count = new JSONObject(remoteMessage.getData()).getInt("total_notification_count");
 
+            String type_notification = new JSONObject(remoteMessage.getData()).getString("push_type");
 
-            Random random = new Random(100);
+            Random random = new Random(count);
 
             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
-                ValidatePromotion(random.nextInt());
+                ValidatePromotion(random.nextInt(), type_notification);
 
             } else if (type.equals(Constraint.GET_CARDS)) {
-                updateCard(random.nextInt());
+                updateCard(random.nextInt(), type_notification);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +46,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     /**
      * Purpose - Check for apk update availability
      */
-    public static void ValidatePromotion(int sec) {
+    public static void ValidatePromotion(int sec, String type) {
         try {
 
 
@@ -54,7 +55,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 @Override
                 public void run() {
                     ValidatePromotion validatePromotion = new ValidatePromotion();
-                    validatePromotion.checkPromotion("PRICING_UPDATE");
+                    validatePromotion.checkPromotion(type);
                 }
             }, ((long) sec * Constraint.THOUSAND));
 
@@ -68,7 +69,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     /**
      * Purpose - Check for apk update availability
      */
-    public static void updateCard(int sec) {
+    public static void updateCard(int sec, String type) {
         try {
             final Handler handler = new android.os.Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
@@ -76,7 +77,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 public void run() {
 
                     CheckCardAvailability validatePromotion = new CheckCardAvailability();
-                    validatePromotion.checkCardForPush("PRICING_UPDATE");
+                    validatePromotion.checkCardForPush(type);
                 }
             }, ((long) sec * Constraint.THOUSAND));
 
