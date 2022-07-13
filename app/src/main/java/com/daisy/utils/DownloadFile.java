@@ -133,7 +133,7 @@ public class DownloadFile extends AsyncTask<String, String, String> {
                         folder = Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH + value + Constraint.SLASH + Constraint.PROMOTION + Constraint.SLASH;
 
                     } else
-                        folder = Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH;
+                         folder = Constraint.FOLDER_NAME + Constraint.SLASH + Constraint.CARD + Constraint.SLASH;
 
                     //Create androiddeft folder if it does not exist
                     File directory = new File(context.getExternalFilesDir(""), folder);

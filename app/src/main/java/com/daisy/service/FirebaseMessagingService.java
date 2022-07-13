@@ -31,6 +31,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             Random random = new Random(count);
 
             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
+//                if (type_notification.equals(Constraint.PROMOTION_UPDATE))
+//                    updateCard(random.nextInt(), type_notification);
+
+
                 ValidatePromotion(random.nextInt(), type_notification);
 
             } else if (type.equals(Constraint.GET_CARDS)) {
