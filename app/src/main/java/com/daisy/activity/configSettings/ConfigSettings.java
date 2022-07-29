@@ -27,21 +27,16 @@ import com.daisy.activity.socketConnection.SocketConnection;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.updateProduct.UpdateProduct;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
-import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.LogoutDialog;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -84,6 +79,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         setNoTitleBar(this);
         sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
+        mBinding.screenId.setText(" " + SessionManager.get().getScreenId());
         getDefaultUpdateTime();
     }
 
@@ -135,6 +131,12 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             mBinding.securitySwitch.setChecked(Constraint.FALSE);
 
         }
+        if (sessionManager.isAdmin()) {
+            mBinding.syncSwitch.setChecked(Constraint.TRUE);
+        } else {
+            mBinding.syncSwitch.setChecked(Constraint.FALSE);
+
+        }
         if (!sessionManager.getAlaramSecurity()) {
             mBinding.alramSwitch.setChecked(Constraint.TRUE);
         } else {
@@ -163,11 +165,25 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.updateProduct.setOnClickListener(this::onClick);
         mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
         mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwitch());
+        mBinding.syncSwitch.setOnCheckedChangeListener(getSyncChangeListener());
         mBinding.alramSwitch.setOnCheckedChangeListener(getAlarmSwitch());
         mBinding.logoutApp.setOnClickListener(this::onClick);
         mBinding.socketConnection.setOnClickListener(this::onClick);
 
 
+    }
+
+    private CompoundButton.OnCheckedChangeListener getSyncChangeListener() {
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sessionManager.setAdmin(Constraint.TRUE);
+                } else {
+                    sessionManager.setAdmin(Constraint.FALSE);
+                }
+            }
+        };
     }
 
 

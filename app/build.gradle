@@ -11,13 +11,26 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 54
-        versionName "4.35"
+        versionCode 55
+        versionName "4.36"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     flavorDimensions "buildTypes"
-
+    signingConfigs {
+        debug {
+            storeFile file("../app/daisy.jks")
+            storePassword "pinecone"
+            keyAlias "key0"
+            keyPassword "pinecone"
+        }
+        release {
+            storeFile file("../app/daisy.jks")
+            storePassword "pinecone"
+            keyAlias "key0"
+            keyPassword "pinecone"
+        }
+    }
 
     productFlavors {
 
@@ -87,10 +100,11 @@ dependencies {
     implementation 'com.pusher:pusher-java-client:2.2.1'
     implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
     implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-database'
+
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
     implementation 'com.google.firebase:firebase-database'
-
 
 
 }

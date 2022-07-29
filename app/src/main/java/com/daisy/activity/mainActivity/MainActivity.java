@@ -13,7 +13,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -22,6 +21,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -77,7 +77,6 @@ import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
-import com.daisy.pojo.response.SocketEvent;
 import com.daisy.pojo.response.UpdateCards;
 import com.daisy.security.Admin;
 import com.daisy.service.BackgroundService;
@@ -91,9 +90,11 @@ import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -132,6 +133,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     private static PrintWriter output;
 
     private long mLastClickTime = 0;
+    DatabaseReference myRef;
+    FirebaseDatabase database;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -166,6 +169,21 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         intentWork();
 
         handleSettingsIcon();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("update");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!SessionManager.get().isAdmin())
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('nextCard')");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -1494,11 +1512,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void SendCustomEvent(SocketEvent socketEvent) {
-        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + socketEvent.getMessage() + "')");
-
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void SendCustomEvent(SocketEvent socketEvent) {
+//        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + socketEvent.getMessage() + "')");
+//
+//    }
 
     /**
      * if download fail then show alert
@@ -1746,6 +1764,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         @JavascriptInterface
         public void systemEvent(String cmd, JSONArray msg) {
+            Log.e("Kali", "Working....");
 
 
         }
@@ -1760,6 +1779,39 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             return false;
         }
 
+
+        private long mLastClickTime = 0;
+
+        @JavascriptInterface
+        public void globalCustomEvent(String cardDetails, boolean b) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mLastClickTime == 0) {
+                        mLastClickTime = SystemClock.elapsedRealtime();
+
+                        final long random = System.currentTimeMillis();
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
+
+                        myRef.setValue(random + "");
+                    } else {
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                            return;
+                        }
+                        mLastClickTime = SystemClock.elapsedRealtime();
+                        if (SessionManager.get().isAdmin()) {
+                            final long random = System.currentTimeMillis();
+                            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
+
+                            myRef.setValue(random + "");
+
+                        }
+                    }
+                }
+            });
+
+        }
+
         @JavascriptInterface
         public void heartbeat(String msg) {
 
@@ -1770,6 +1822,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         @JavascriptInterface
         public void callFromJS() {
+
 
         }
 
@@ -1852,6 +1905,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding.supportWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
         mBinding.supportWebView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setUseWideViewPort(Constraint.TRUE);
+        mBinding.supportWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
         mBinding.supportWebView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setDisplayZoomControls(Constraint.FALSE);

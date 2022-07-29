@@ -233,4 +233,6 @@
     <string name="key_can_not_be_empty">MPC key can not be empty</string>
     <string name="mpc_key_not_correct">MPC key is not correct</string>
     <string name="technical_issue">problem reaching id server - enter URL manually or contact customer support</string>
+    <string name="screen_id">ScreenId: </string>
+    <string name="sync">Admin</string>
 </resources>

@@ -2,13 +2,10 @@ package com.daisy.common.session;
 
 import android.app.Application;
 
-import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
-import com.daisy.apiService.ApiConstant;
 import com.daisy.app.AppController;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.OsType;
-import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.PriceCardMain;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
@@ -16,8 +13,6 @@ import com.daisy.pojo.response.ScreenPosition;
 import com.daisy.pojo.response.Time;
 import com.daisy.utils.Constraint;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -1281,5 +1276,13 @@ public class SessionManager {
 
     public boolean getIpSearched() {
         return pref.getBoolean(Constraint.Ip_SEARCHED);
+    }
+
+    public boolean isAdmin() {
+        return pref.getBoolean(Constraint.IS_ADMIN);
+    }
+
+    public void setAdmin(boolean aTrue) {
+        pref.setBooleanData(Constraint.IS_ADMIN, aTrue);
     }
 }

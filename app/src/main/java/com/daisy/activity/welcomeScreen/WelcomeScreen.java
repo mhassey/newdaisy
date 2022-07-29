@@ -93,7 +93,6 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void initView() {
-
         sessionManager = SessionManager.get();
         setNoTitleBar(this);
 

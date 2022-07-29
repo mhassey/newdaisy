@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/check"
-            android:layout_above="@+id/check1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/check1"
             android:fillViewport="true">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -249,6 +250,46 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/sync_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp30"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:layout_marginEnd="@dimen/dp30"
+                            android:background="@drawable/edit_text_format"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp10"
+                                android:fontFamily="@font/rragular"
+                                android:text="@string/sync"
+                                android:textSize="@dimen/sp15" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|end">
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/sync_switch"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/dp20"
+                                    android:layout_marginEnd="@dimen/dp10"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:theme="@style/SwitchCompatTheme" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:id="@+id/changeLanguage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -446,7 +487,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/socket_connection"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -454,7 +494,8 @@
                             android:layout_marginTop="@dimen/dp20"
                             android:layout_marginEnd="@dimen/dp30"
                             android:background="@drawable/edit_text_format"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
 
                             <TextView
@@ -537,6 +578,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1.0.0"
+
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:gravity="center|end">
+
+                    <TextView
+                        style="@style/fontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/screen_id"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp12" />
+
+                    <TextView
+                        android:id="@+id/screen_id"
+                        style="@style/fontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
 
                         android:textColor="@color/gray"
                         android:textSize="@dimen/dp12" />
