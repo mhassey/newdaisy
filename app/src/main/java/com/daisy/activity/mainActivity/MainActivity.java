@@ -1789,15 +1789,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                 public void run() {
                     if (mLastClickTime == 0) {
                         mLastClickTime = SystemClock.elapsedRealtime();
+                        if (SessionManager.get().isAdmin()) {
+                            final long random = System.currentTimeMillis();
+                            mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
 
-                        final long random = System.currentTimeMillis();
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.triggerCustomEvent('" + cardDetails + "')");
-
-                        myRef.setValue(random + "");
+                            myRef.setValue(random + "");
+                        }
                     } else {
-                        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000) {
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 10000) {
                             return;
                         }
+
                         mLastClickTime = SystemClock.elapsedRealtime();
                         if (SessionManager.get().isAdmin()) {
                             final long random = System.currentTimeMillis();
