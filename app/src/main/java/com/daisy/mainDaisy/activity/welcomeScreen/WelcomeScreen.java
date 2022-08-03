@@ -59,6 +59,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         welcomeValidationHelper = new WelcomeValidationHelper(this, mBinding);
         welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
         addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
+
         initView();
         initClick();
         firebaseConfiguration();

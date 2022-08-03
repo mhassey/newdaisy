@@ -229,7 +229,7 @@
         </receiver>
 
         <service
-            android:name=".mainDaisy.service.FirebaseMessagingService"
+            android:name=".FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
