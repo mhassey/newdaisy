@@ -7,6 +7,21 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.2"
+
+    signingConfigs {
+        debug {
+            storeFile file("../app/daisy.jks")
+            storePassword "pinecone"
+            keyAlias "key0"
+            keyPassword "pinecone"
+        }
+        release {
+            storeFile file("../app/daisy.jks")
+            storePassword "pinecone"
+            keyAlias "key0"
+            keyPassword "pinecone"
+        }
+    }
     defaultConfig {
         applicationId "com.daisy"
         minSdkVersion 21
