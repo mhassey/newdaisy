@@ -2,6 +2,8 @@ package com.daisy;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
@@ -13,6 +15,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONObject;
 
 import java.util.Map;
+import java.util.Random;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     @Override
@@ -20,7 +23,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         try {
             Map value = null;
             String type = new JSONObject(remoteMessage.getData()).getString("type");
+            int count = new JSONObject(remoteMessage.getData()).getInt("total_notification_count");
+            Random random = new Random(count);
 
+            String type_notification = new JSONObject(remoteMessage.getData()).getString("push_type");
             try {
                 value = CommonUtil.getCPUInfo();
 
@@ -29,58 +35,56 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     if (type.equals(Constraint.VALIDATE_PROMOTION)) {
 
-                        com.daisy.optimalPermission.activity.validatePromotion.ValidatePromotion validatePromotion = new com.daisy.optimalPermission.activity.validatePromotion.ValidatePromotion();
-                        validatePromotion.checkPromotion();
+                        ValidatePromotionForOptimalPermission(random.nextInt(), type_notification);
+
 
                     } else if (type.equals(Constraint.GET_CARDS)) {
-                        com.daisy.optimalPermission.checkCardAvailability.CheckCardAvailability checkCardAvailability = new com.daisy.optimalPermission.checkCardAvailability.CheckCardAvailability();
-                        checkCardAvailability.checkCard();
+                        getCardForOptimalPermission(random.nextInt(), type_notification);
+
                     }
                 } else {
                     try {
 
                         if (hardware.toLowerCase().contains(com.daisy.daisyGo.utils.Constraint.UNISOC)) {
                             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
+                                ValidatePromotionForOptimalPermission(random.nextInt(), type_notification);
 
-                                com.daisy.optimalPermission.activity.validatePromotion.ValidatePromotion validatePromotion = new com.daisy.optimalPermission.activity.validatePromotion.ValidatePromotion();
-                                validatePromotion.checkPromotion();
 
                             } else if (type.equals(Constraint.GET_CARDS)) {
-                                com.daisy.optimalPermission.checkCardAvailability.CheckCardAvailability checkCardAvailability = new com.daisy.optimalPermission.checkCardAvailability.CheckCardAvailability();
-                                checkCardAvailability.checkCard();
+                                getCardForOptimalPermission(random.nextInt(), type_notification);
+
                             }
 
                         } else if (CommonUtil.isSystemAlertWindowEnabled(this)) {
                             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
+                                ValidatePromotionForGoPermission(random.nextInt(), type_notification);
 
-                                com.daisy.daisyGo.activity.validatePromotion.ValidatePromotion validatePromotion = new com.daisy.daisyGo.activity.validatePromotion.ValidatePromotion();
-                                validatePromotion.checkPromotion();
 
                             } else if (type.equals(Constraint.GET_CARDS)) {
-                                com.daisy.daisyGo.checkCardAvailability.CheckCardAvailability checkCardAvailability = new com.daisy.daisyGo.checkCardAvailability.CheckCardAvailability();
-                                checkCardAvailability.checkCard();
+                                getCardForGoPermission(random.nextInt(), type_notification);
+
                             }
                         } else {
 
                             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
 
-                                ValidatePromotion validatePromotion = new ValidatePromotion();
-                                validatePromotion.checkPromotion();
+                                ValidatePromotionPermission(random.nextInt(), type_notification);
+
 
                             } else if (type.equals(Constraint.GET_CARDS)) {
-                                CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
-                                checkCardAvailability.checkCard();
+                                getCardPermission(random.nextInt(), type_notification);
+
                             }
                         }
                     } catch (Exception e) {
                         if (type.equals(Constraint.VALIDATE_PROMOTION)) {
 
-                            ValidatePromotion validatePromotion = new ValidatePromotion();
-                            validatePromotion.checkPromotion();
+                            ValidatePromotionPermission(random.nextInt(), type_notification);
+
 
                         } else if (type.equals(Constraint.GET_CARDS)) {
-                            CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
-                            checkCardAvailability.checkCard();
+                            getCardPermission(random.nextInt(), type_notification);
+
                         }
                     }
                 }
@@ -95,4 +99,135 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }
         super.onMessageReceived(remoteMessage);
     }
+
+    private void ValidatePromotionForOptimalPermission(int sec, String type) {
+
+        try {
+
+
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    com.daisy.optimalPermission.activity.validatePromotion.ValidatePromotion validatePromotion = new com.daisy.optimalPermission.activity.validatePromotion.ValidatePromotion();
+                    validatePromotion.checkPromotion();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    private void getCardForOptimalPermission(int sec, String type) {
+
+        try {
+
+
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    com.daisy.optimalPermission.checkCardAvailability.CheckCardAvailability checkCardAvailability = new com.daisy.optimalPermission.checkCardAvailability.CheckCardAvailability();
+                    checkCardAvailability.checkCard();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    private void ValidatePromotionForGoPermission(int sec, String type) {
+
+        try {
+
+
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    com.daisy.daisyGo.activity.validatePromotion.ValidatePromotion validatePromotion = new com.daisy.daisyGo.activity.validatePromotion.ValidatePromotion();
+                    validatePromotion.checkPromotion();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    private void getCardForGoPermission(int sec, String type) {
+
+        try {
+
+
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    com.daisy.daisyGo.checkCardAvailability.CheckCardAvailability checkCardAvailability = new com.daisy.daisyGo.checkCardAvailability.CheckCardAvailability();
+                    checkCardAvailability.checkCard();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    private void ValidatePromotionPermission(int sec, String type) {
+
+        try {
+
+
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ValidatePromotion validatePromotion = new ValidatePromotion();
+                    validatePromotion.checkPromotion();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    private void getCardPermission(int sec, String type) {
+        try {
+
+
+            final Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
+                    checkCardAvailability.checkCard();
+                }
+            }, ((long) sec * Constraint.THOUSAND));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
 }
+
