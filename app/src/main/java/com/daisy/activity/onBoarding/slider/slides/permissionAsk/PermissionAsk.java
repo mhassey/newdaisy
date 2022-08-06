@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
 import com.daisy.pojo.response.PermissionDone;
 import com.daisy.security.Admin;
+import com.daisy.utils.AutoStartHelper;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
@@ -120,6 +120,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.cancel.setOnClickListener(this::onClick);
         permissionAskBinding.adminMain.setOnClickListener(this::onClick);
         permissionAskBinding.gps.setOnClickListener(this::onClick);
+        permissionAskBinding.autoStartInternalLayout.setOnClickListener(this::onClick);
+
     }
 
 
@@ -137,6 +139,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkForMi();
         checkForGps();
         checkAdminPermission();
+        checkAutoPermission();
         String name = Utils.getDeviceName();
 
         //if (name.contains(Constraint.REDME)) {
@@ -159,7 +162,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
             }
         } else {
-            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization()) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
@@ -180,6 +183,29 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
         }
 
+    }
+
+    private void checkAutoPermission() {
+        String build_info = Build.BRAND.toLowerCase();
+
+        if (AutoStartHelper.brands.contains(build_info)) {
+            if (permissionAskViewModel.isAutoStart()) {
+
+                permissionAskBinding.autoStartRadio.setChecked(true);
+                permissionAskBinding.autoStartInternalLayout.setEnabled(false);
+
+            } else {
+                permissionAskBinding.autoStartRadio.setChecked(false);
+                permissionAskBinding.autoStartInternalLayout.setEnabled(true);
+
+
+            }
+        } else {
+
+            permissionAskViewModel.setAutoStart(true);
+            permissionAskBinding.autoStartInternalLayout.setVisibility(View.GONE);
+
+        }
     }
 
     /**
@@ -222,7 +248,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         if (Utils.getDeviceName().contains(Constraint.REDME)) {
             permissionAskBinding.miExtraHeader.setVisibility(View.VISIBLE);
         } else {
-            permissionAskBinding.miExtraHeader.setVisibility(View.INVISIBLE);
+            permissionAskBinding.miExtraHeader.setVisibility(View.GONE);
         }
         if (permissionAskViewModel.isGrandExtraAccess()) {
 
@@ -363,6 +389,13 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 }
 
                 // mainAdminAsk();
+                break;
+            }
+            case R.id.auto_start_internal_layout: {
+                permissionAskViewModel.setAutoStart(true);
+                permissionSetter();
+
+                AutoStartHelper.getInstance().getAutoStartPermission(context);
                 break;
             }
             case R.id.displayOverTheApp: {

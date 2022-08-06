@@ -359,7 +359,40 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/auto_start_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:gravity="center">
 
+                    <LinearLayout
+                        android:id="@+id/auto_start_internal_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_format">
+
+                        <RadioButton
+                            android:id="@+id/auto_start_radio"
+                            android:layout_width="@dimen/dp30"
+                            android:layout_height="@dimen/dp30"
+                            android:buttonTint="@color/red_light"
+                            android:clickable="false"
+                            android:src="@drawable/ic_accept"
+                            android:visibility="visible" />
+
+                        <TextView
+                            style="@style/fontRagular"
+                            android:layout_width="@dimen/dp200"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|start"
+                            android:padding="@dimen/dp10"
+                            android:text="@string/auto_start"
+                            android:textSize="@dimen/sp15" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

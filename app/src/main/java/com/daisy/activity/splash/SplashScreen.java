@@ -1,12 +1,9 @@
 package com.daisy.activity.splash;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -14,12 +11,9 @@ import androidx.annotation.RequiresApi;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
-
-import java.util.Locale;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data

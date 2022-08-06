@@ -3,6 +3,7 @@ package com.daisy.activity.welcomeScreen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -60,11 +61,22 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         welcomeValidationHelper = new WelcomeValidationHelper(this, mBinding);
         welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
         addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
+
         initView();
         initClick();
         firebaseConfiguration();
         defineKeyToUrlObserver();
         handleGeneralApiResponse();
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_POWER) {
+            Log.e("Kali", "Working................");
+            return true;
+        }
+
+        return super.dispatchKeyEvent(event);
     }
 
 
