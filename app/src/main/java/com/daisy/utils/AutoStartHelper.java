@@ -54,7 +54,7 @@ public class AutoStartHelper {
     private String PACKAGE_OPPO_FALLBACK = "com.oppo.safe";
     private String PACKAGE_OPPO_COMPONENT = "com.coloros.safecenter.permission.startup.StartupAppListActivity";
     private String PACKAGE_OPPO_COMPONENT_FALLBACK = "com.oppo.safe.permission.startup.StartupAppListActivity";
-    private String PACKAGE_OPPO_COMPONENT_FALLBACK_A = "com.coloros.safecenter.startupapp.StartupAppListActivity";
+    private String PACKAGE_OPPO_COMPONENT_FALLBACK_A = "d.startupapp.StartupAppListActivity";
 
     /**
      * Vivo

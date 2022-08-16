@@ -167,6 +167,7 @@ public class Constraint {
     public static final String PUSH_TYPE = "pushType";
     public static final String PROMOTION_UPDATE = "PROMOTION_UPDATE";
     public static final String SAMSUNG = "samsung";
+    public static final String MOTO_BASE = "https://moto.mobilepricecards.com/";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

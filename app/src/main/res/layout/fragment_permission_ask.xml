@@ -364,7 +364,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp15"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/auto_start_internal_layout"

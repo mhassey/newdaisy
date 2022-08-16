@@ -4,16 +4,21 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data
@@ -27,7 +32,7 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        firebaseConfiguration();
         initView();
 
 
@@ -73,11 +78,32 @@ public class SplashScreen extends BaseActivity {
             Intent intent = new Intent(SplashScreen.this, EditorTool.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(SplashScreen.this, WelcomeScreen.class);
+            sessionManager = SessionManager.get();
+            sessionManager.setBaseUrl(Constraint.MOTO_BASE);
+            Intent intent = new Intent(SplashScreen.this, OnBoarding.class);
             startActivity(intent);
         }
         finish();
 
+    }
+
+    private void firebaseConfiguration() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        Log.e("My token", token);
+
+                        SessionManager.get().setFCMToken(token);
+                    }
+                });
     }
 
     /**

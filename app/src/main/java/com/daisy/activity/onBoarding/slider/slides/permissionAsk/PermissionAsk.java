@@ -31,7 +31,6 @@ import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
 import com.daisy.pojo.response.PermissionDone;
 import com.daisy.security.Admin;
-import com.daisy.utils.AutoStartHelper;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
@@ -120,7 +119,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.cancel.setOnClickListener(this::onClick);
         permissionAskBinding.adminMain.setOnClickListener(this::onClick);
         permissionAskBinding.gps.setOnClickListener(this::onClick);
-        permissionAskBinding.autoStartInternalLayout.setOnClickListener(this::onClick);
 
     }
 
@@ -139,7 +137,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkForMi();
         checkForGps();
         checkAdminPermission();
-        checkAutoPermission();
         String name = Utils.getDeviceName();
 
         //if (name.contains(Constraint.REDME)) {
@@ -162,7 +159,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
             }
         } else {
-            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
+            if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandBatteyOptimization() ) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
@@ -185,30 +182,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
-    private void checkAutoPermission() {
-        String build_info = Build.BRAND.toLowerCase();
-
-        if (AutoStartHelper.brands.contains(build_info)) {
-            if (permissionAskViewModel.isAutoStart()) {
-
-                permissionAskBinding.autoStartRadio.setChecked(true);
-                permissionAskBinding.autoStartInternalLayout.setEnabled(false);
-
-            } else {
-                permissionAskBinding.autoStartRadio.setChecked(false);
-                permissionAskBinding.autoStartInternalLayout.setEnabled(true);
-
-
-            }
-        } else {
-
-            permissionAskViewModel.setAutoStart(true);
-            permissionAskBinding.autoStartInternalLayout.setVisibility(View.GONE);
-
-        }
-    }
-
-    /**
+     /**
      * Responsibility - Checks for gps
      * Parameters - No parameter
      **/
@@ -391,13 +365,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 // mainAdminAsk();
                 break;
             }
-            case R.id.auto_start_internal_layout: {
-                permissionAskViewModel.setAutoStart(true);
-                permissionSetter();
 
-                AutoStartHelper.getInstance().getAutoStartPermission(context);
-                break;
-            }
             case R.id.displayOverTheApp: {
                 askForPopUpPermission();
                 break;
@@ -604,8 +572,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void designWork() {
         onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
         onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+//        onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+//        onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
     }
 

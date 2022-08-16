@@ -29,13 +29,12 @@ import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
-import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddValidationHelper;
 import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddViewModel;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreen;
 import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
-import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
-import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
+import com.daisy.activity.onBoarding.slider.slides.signup.SignUpViewModel;
+import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.adapter.SliderAdapter;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -57,7 +56,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Purpose -  OnBoarding is an activity that handle all onBoarding pages
@@ -71,6 +69,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     public ActivityOnBaordingBinding mBinding;
     public ScreenAddViewModel screenAddViewModel;
     private GetCardViewModel getCardViewModel;
+    private SignUpViewModel signUpViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +100,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         sessionManager = SessionManager.get();
         screenAddViewModel = new ViewModelProvider(this).get(ScreenAddViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
+        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+
         setNoTitleBar(this);
         stopSwipe();
         addFragmentList();
@@ -196,8 +197,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        fragmentList.add(SecurityAsk.getInstance(mBinding));
-        fragmentList.add(SignUp.getInstance(OnBoarding.this));
+//        fragmentList.add(SecurityAsk.getInstance(mBinding));
+//        fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
 
@@ -287,77 +288,148 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-        if (count == Constraint.TWO) {
+        if (count == Constraint.ONE) {
+            doSignUp();
 
-            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
-            if (securityAsk != null && securityAsk.securityAskBinding != null) {
-                try {
-                    if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
-                        sessionManager.setDeletePhoto(true);
-                    } else {
-                        sessionManager.setDeletePhoto(false);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
+//            if (securityAsk != null && securityAsk.securityAskBinding != null) {
+//                try {
+//                    if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
+//                        sessionManager.setDeletePhoto(true);
+//                    } else {
+//                        sessionManager.setDeletePhoto(false);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//                if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
+//                    sessionManager.setLockOnBrowser(true);
+//                } else {
+//                    sessionManager.setLockOnBrowser(false);
+//
+//                }
+//                if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
+//                    sessionManager.setLockOnMessage(true);
+//                } else {
+//                    sessionManager.setLockOnMessage(false);
+//
+//                }
+//                if (securityAsk.securityAskBinding.lock.isChecked()) {
+//                    sessionManager.setLock(true);
+//                } else {
+//                    sessionManager.setLock(false);
+//
+//                }
+//
+//            }
 
-                if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
-                    sessionManager.setLockOnBrowser(true);
-                } else {
-                    sessionManager.setLockOnBrowser(false);
-
-                }
-                if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
-                    sessionManager.setLockOnMessage(true);
-                } else {
-                    sessionManager.setLockOnMessage(false);
-
-                }
-                if (securityAsk.securityAskBinding.lock.isChecked()) {
-                    sessionManager.setLock(true);
-                } else {
-                    sessionManager.setLock(false);
-
-                }
-
-            }
-
-        } else if (count == Constraint.THREE) {
-            SignUp signUp = (SignUp) fragmentList.get(Constraint.TWO);
-
-            signUp.loginBinding.singup.performClick();
-        } else if (count == Constraint.FOUR) {
+        }
+//        else if (count == Constraint.THREE) {
+//            SignUp signUp = (SignUp) fragmentList.get(Constraint.TWO);
+//
+//            signUp.loginBinding.singup.performClick();
+//        }
+        else if (count == Constraint.TWO) {
 //            AddScreen screen = (AddScreen) fragmentList.get(Constraint.THREE);
 
 //            handleCreateScreen(screen.mViewModel.getAutoSelctedProduct());
             handleCreateScreen(null);
         }
 
-        if (count == Constraint.ONE || count == Constraint.TWO) {
-            mBinding.pager.setCurrentItem(count);
+//        if (count == Constraint.ONE || count == Constraint.TWO) {
+//            mBinding.pager.setCurrentItem(count);
+//        }
+    }
+
+
+    /**
+     * Purpose - doSignUp method handles sign up api
+     */
+    private void doSignUp() {
+        if (Utils.getNetworkState(context)) {
+            showHideProgressDialog(true);
+            HashMap<String, String> signUpRequest = getSignUpRequest();
+            signUpViewModel.setSignUpRequestMutableLiveData(signUpRequest);
+            LiveData<SignUpResponse> liveData = signUpViewModel.getResponseLiveData();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<SignUpResponse>() {
+                    @Override
+                    public void onChanged(SignUpResponse signUpResponse) {
+                        handleResponse(signUpResponse);
+                    }
+                });
+            }
+
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+            counterMinus();
         }
+    }
+
+    /**
+     * Purpose - handleResponse method handle sign up response
+     *
+     * @param signUpResponse
+     */
+    private void handleResponse(SignUpResponse signUpResponse) {
+        showHideProgressDialog(false);
+        if (signUpResponse != null) {
+            if (signUpResponse.isApi_status()) {
+                DBCaller.storeLogInDatabase(context, Constraint.LOGIN_SUCCESSFULL, "", "", Constraint.APPLICATION_LOGS);
+                sessionManager.setPasswordForLock("moto1");
+                sessionManager.setOpenTime(signUpResponse.getData().getOpen());
+                sessionManager.setCloseTime(signUpResponse.getData().getClosed());
+                sessionManager.setOffset(signUpResponse.getData().getUTCOffset());
+                sessionManager.setSenitized(signUpResponse.getData().getDeviceSanitize());
+                sessionManager.setDeviceSecurity(signUpResponse.getData().getDeviceSecurity());
+                sessionManager.setPricingPlainId(signUpResponse.getData().getPricingPlanID());
+                sessionManager.setServerTime(signUpResponse.getData().getCurrentTime());
+                sessionManager.setSignUpData(signUpResponse.getData());
+
+                counterPlus(signUpResponse.getData().getDeviceId());
+            } else {
+
+                counterMinus();
+                ValidationHelper.showToast(context, signUpResponse.getMessage());
+            }
+        } else {
+
+            counterMinus();
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+
+    }
+
+    /**
+     * Purpose - Create signup request
+     *
+     * @return
+     */
+    private HashMap<String, String> getSignUpRequest() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.STORE_CODE, "moto1");
+        hashMap.put(Constraint.PASSWORD_ID, "moto1");
+        hashMap.put(Constraint.DEVICENAME, Utils.ModelNumber());
+        return hashMap;
     }
 
     public void handleCreateScreen(Product product) {
         if (Utils.getNetworkState(context)) {
-            AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
-            ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
-            if (screenAddValidationHelper.isValid()) {
-                showHideProgressDialog(true);
-                screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen, product));
-                LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
-                if (!liveData.hasActiveObservers()) {
-                    liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
-                        @Override
-                        public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
-                            showHideProgressDialog(false);
-                            handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
-                        }
-                    });
-                }
-            } else {
-                count = Constraint.THREE;
+            AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.ONE);
+            showHideProgressDialog(true);
+            screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen, product));
+            LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
+                        showHideProgressDialog(false);
+                        handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
+                    }
+                });
             }
+
         } else {
             count = Constraint.THREE;
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
