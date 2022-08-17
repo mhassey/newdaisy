@@ -11,12 +11,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
 import com.daisy.R;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.LogoutBinding;
 import com.daisy.service.BackgroundService;
-import com.daisy.utils.ValidationHelper;
 
 public class LogoutDialog extends DialogFragment implements View.OnClickListener {
     private LogoutBinding logoutBinding;
@@ -81,7 +80,7 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
             getActivity().stopService(new Intent(getActivity(), BackgroundService.class));
             SessionManager.get().clear();
             SessionManager.get().logout(true);
-            Intent intent = new Intent(getActivity(), WelcomeScreen.class);
+            Intent intent = new Intent(getActivity(), OnBoarding.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {

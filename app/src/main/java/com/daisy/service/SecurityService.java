@@ -6,17 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.location.Location;
 import android.os.IBinder;
-import android.os.Looper;
 
 import com.daisy.common.session.SessionManager;
-import com.daisy.utils.ValidationHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 
 public class SecurityService extends Service {
     private SessionManager sessionManager;

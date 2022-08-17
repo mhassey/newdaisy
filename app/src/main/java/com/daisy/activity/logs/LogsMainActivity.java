@@ -17,7 +17,6 @@ import com.daisy.activity.settings.Settings;
 import com.daisy.database.DBCaller;
 import com.daisy.interfaces.SyncLogCallBack;
 import com.daisy.pojo.Logs;
-import com.daisy.service.BackgroundService;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.databinding.ActivityLogsMainBinding;

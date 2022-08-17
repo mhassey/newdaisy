@@ -2,16 +2,10 @@ package com.daisy.ObjectDetection;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.hardware.Camera;
-import android.util.Log;
-import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.WindowManager;
 
 import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
-
-import java.io.IOException;
 
 @SuppressLint("ViewConstructor") // View can only be inflated programatically
 public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Callback {

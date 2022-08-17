@@ -15,7 +15,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
@@ -29,7 +28,6 @@ import com.daisy.databinding.ActivityUpdateProductBinding;
 import com.daisy.pojo.response.Carrier;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.Manufacture;
 import com.daisy.pojo.response.Product;
 import com.daisy.utils.Constraint;

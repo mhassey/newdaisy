@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,18 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.adapter.LangSupportAdaptor;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityLangSelectionBinding;
-import com.daisy.interfaces.CallBack;
 import com.daisy.interfaces.LangSupportCallBack;
 import com.daisy.pojo.LangPojo;
 import com.daisy.utils.ValidationHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**

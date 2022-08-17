@@ -2,11 +2,9 @@ package com.daisy.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
-import com.daisy.pojo.response.PriceCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 

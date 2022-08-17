@@ -1,23 +1,13 @@
 package com.daisy.service;
 
-import android.app.ActivityManager;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
-import androidx.annotation.Nullable;
-
-import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.utils.Constraint;
-import com.daisy.utils.Utils;
 
-import org.apache.http.client.params.ClientPNames;
-
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;

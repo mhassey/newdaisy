@@ -9,12 +9,9 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.daisy.R;
-import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
-import com.daisy.pojo.response.Time;
 import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
 

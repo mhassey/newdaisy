@@ -8,12 +8,10 @@ import androidx.databinding.DataBindingUtil;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.activity.langSupport.LangSelectionActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivitySocketConnectionBinding;
 import com.daisy.pojo.response.IpSearched;
-import com.daisy.service.BackgroundService;
 import com.daisy.service.DeviceSearch;
 import com.daisy.utils.ValidationHelper;
 

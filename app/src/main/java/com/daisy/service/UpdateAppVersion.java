@@ -1,15 +1,11 @@
 package com.daisy.service;
 
 import android.os.Build;
-import android.util.Log;
 
 import com.daisy.BuildConfig;
 import com.daisy.apiService.ApiService;
 import com.daisy.apiService.AppRetrofit;
 import com.daisy.common.session.SessionManager;
-import com.daisy.pojo.response.Android;
-import com.daisy.pojo.response.ApkDetails;
-import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.VersionUpdate;
 import com.daisy.utils.Constraint;

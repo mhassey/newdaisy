@@ -2,7 +2,6 @@ package com.daisy.sync;
 
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -15,7 +14,6 @@ import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogServerRequest;
 import com.daisy.pojo.response.BlankResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.pojo.response.PriceCardMain;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.google.gson.Gson;

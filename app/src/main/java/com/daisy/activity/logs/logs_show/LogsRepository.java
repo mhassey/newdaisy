@@ -10,7 +10,6 @@ import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
 import com.daisy.pojo.request.LogsRequest;
 import com.daisy.pojo.response.LogClearResponse;
-import com.daisy.utils.Utils;
 
 import java.util.List;
 

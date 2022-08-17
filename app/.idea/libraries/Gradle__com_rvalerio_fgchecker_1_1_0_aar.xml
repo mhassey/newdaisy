@@ -5,6 +5,10 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/68f22a70b808b45fae096551b7a287e0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c0d424b50210ab75feeada5949c52c2e/jetified-fgchecker-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c0d424b50210ab75feeada5949c52c2e/jetified-fgchecker-1.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/21092193a15d530414ff7c9085074b7d/jetified-fgchecker-1.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/13c641c99706e7b62a5f436022cd96dd/transformed/jetified-fgchecker-1.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/13c641c99706e7b62a5f436022cd96dd/transformed/jetified-fgchecker-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/13c641c99706e7b62a5f436022cd96dd/transformed/jetified-fgchecker-1.1.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.rvalerio/fgchecker/1.1.0/d3ab754192096d27f43559a59a4208cf7cfac9b4/fgchecker-1.1.0-javadoc.jar!/" />

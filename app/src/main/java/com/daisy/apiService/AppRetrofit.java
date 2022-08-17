@@ -1,7 +1,5 @@
 package com.daisy.apiService;
 
-import android.util.Log;
-
 import com.daisy.BuildConfig;
 import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;

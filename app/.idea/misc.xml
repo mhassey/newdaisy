@@ -9,8 +9,11 @@
         <entry key="src/main/res/layout-v17/activity_welcome_screen.xml" value="0.22" />
         <entry key="src/main/res/layout/activity_config_settings.xml" value="0.33" />
         <entry key="src/main/res/layout/activity_main.xml" value="0.15945805106826472" />
-        <entry key="src/main/res/layout/activity_splash_screen.xml" value="0.13253527148353997" />
+        <entry key="src/main/res/layout/activity_on_baording.xml" value="0.1" />
+        <entry key="src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="src/main/res/layout/activity_welcome_screen.xml" value="0.25" />
+        <entry key="src/main/res/layout/add_screen.xml" value="0.1125" />
+        <entry key="src/main/res/layout/fragment_permission_ask.xml" value="0.33" />
       </map>
     </option>
   </component>
