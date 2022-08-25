@@ -45,10 +45,9 @@
 
             <LinearLayout
                 android:id="@+id/settingHeader"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp100"
                 android:layout_height="@dimen/dp100"
                 android:layout_marginStart="@dimen/dp20"
-                android:layout_weight="1"
                 android:gravity="top|start">
 
                 <ImageView

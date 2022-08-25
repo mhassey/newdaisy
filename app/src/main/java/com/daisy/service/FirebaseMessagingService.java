@@ -2,7 +2,6 @@ package com.daisy.service;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -20,8 +19,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         try {
 
-            Log.e("Checking....", "Push......");
-//            String type = Constraint.GET_CARDS;
 
             String type = new JSONObject(remoteMessage.getData()).getString("type");
             int count = new JSONObject(remoteMessage.getData()).getInt("total_notification_count");
@@ -31,10 +28,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             Random random = new Random(count);
 
             if (type.equals(Constraint.VALIDATE_PROMOTION)) {
-//                if (type_notification.equals(Constraint.PROMOTION_UPDATE))
-//                    updateCard(random.nextInt(), type_notification);
-
-
                 ValidatePromotion(random.nextInt(), type_notification);
 
             } else if (type.equals(Constraint.GET_CARDS)) {

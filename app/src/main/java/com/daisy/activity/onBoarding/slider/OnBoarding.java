@@ -32,6 +32,7 @@ import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddViewModel;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreen;
+import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
 import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
 import com.daisy.activity.onBoarding.slider.slides.signup.SignUpViewModel;
 import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
@@ -39,6 +40,8 @@ import com.daisy.adapter.SliderAdapter;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityOnBaordingBinding;
+import com.daisy.pojo.response.Carrier;
+import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.LoginResponse;
 import com.daisy.pojo.response.OsType;
@@ -70,6 +73,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     public ScreenAddViewModel screenAddViewModel;
     private GetCardViewModel getCardViewModel;
     private SignUpViewModel signUpViewModel;
+    public AddScreenViewModel mViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +106,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         screenAddViewModel = new ViewModelProvider(this).get(ScreenAddViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
 
         setNoTitleBar(this);
         stopSwipe();
@@ -289,6 +295,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         count = count + Constraint.ONE;
 
         if (count == Constraint.ONE) {
+
             doSignUp();
 
 //            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
@@ -334,7 +341,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 //            AddScreen screen = (AddScreen) fragmentList.get(Constraint.THREE);
 
 //            handleCreateScreen(screen.mViewModel.getAutoSelctedProduct());
-            handleCreateScreen(null);
+            handleCreateScreen(null, true);
         }
 
 //        if (count == Constraint.ONE || count == Constraint.TWO) {
@@ -381,13 +388,20 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                 sessionManager.setOpenTime(signUpResponse.getData().getOpen());
                 sessionManager.setCloseTime(signUpResponse.getData().getClosed());
                 sessionManager.setOffset(signUpResponse.getData().getUTCOffset());
+                screenAddViewModel.setDeviceId(signUpResponse.getData().getDeviceId());
+
                 sessionManager.setSenitized(signUpResponse.getData().getDeviceSanitize());
                 sessionManager.setDeviceSecurity(signUpResponse.getData().getDeviceSecurity());
                 sessionManager.setPricingPlainId(signUpResponse.getData().getPricingPlanID());
                 sessionManager.setServerTime(signUpResponse.getData().getCurrentTime());
                 sessionManager.setSignUpData(signUpResponse.getData());
+                List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
 
-                counterPlus(signUpResponse.getData().getDeviceId());
+                if (screenAddViewModel.getDeviceId() != null && !screenAddViewModel.getDeviceId().equals("") && !screenAddViewModel.getDeviceId().equals("0")) {
+                    getGeneralResponseForProductSelection(screenAddViewModel.getDeviceId(), carriers.get(0));
+
+                } else
+                    counterPlus(signUpResponse.getData().getDeviceId());
             } else {
 
                 counterMinus();
@@ -402,6 +416,71 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     }
 
     /**
+     * Responsibility - getGeneralResponse method is used for fire general api and get response and send response to handleResponse method
+     * Parameters - Its takes Carrier,Manufacture object as parameter
+     **/
+    private void getGeneralResponseForProductSelection(String deviceId, Carrier carrier) {
+        String id = deviceId;
+        if (Utils.getNetworkState(context)) {
+            showHideProgressDialog(true);
+            HashMap<String, String> generalRequest = getGeneralRequest(deviceId, carrier);
+            mViewModel.setGeneralRequestForDeviceSpecific(generalRequest);
+            LiveData<GlobalResponse<GeneralResponse>> liveData = mViewModel.getGeneralResponseLiveDataForDeviceSpecific();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
+                        showHideProgressDialog(false);
+                        if (generalResponseGlobalResponse.isApi_status()) {
+                            handleProductListData(generalResponseGlobalResponse, id);
+                        }
+                    }
+                });
+            }
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
+    /**
+     * Purpose - handleProductListData handles the auto detected screen response
+     *
+     * @param generalResponseGlobalResponse
+     * @param id
+     */
+    private void handleProductListData(GlobalResponse<GeneralResponse> generalResponseGlobalResponse, String id) {
+        if (generalResponseGlobalResponse.getResult().getProducts() != null) {
+
+            List<Product> products = generalResponseGlobalResponse.getResult().getProducts();
+            sessionManager.setOSType(generalResponseGlobalResponse.getResult().getOsTypes());
+
+            if (products != null && products.size() > 0) {
+                mViewModel.isManufactureSelected = false;
+                Product product = products.get(0);
+                mViewModel.setAutoSelectProduct(product);
+                if (mViewModel.getAutoSelctedProduct() != null) {
+
+                    handleCreateScreen(null, false);
+                }
+            } else {
+                counterPlus(id);
+
+            }
+        }
+    }
+
+    /**
+     * Responsibility - getGeneralRequest method is used for create general api request
+     **/
+    private HashMap<String, String> getGeneralRequest(String deviceId, Carrier carrier) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.DEVICE_ID, deviceId);
+        hashMap.put(Constraint.CARRIER_ID, carrier.getIdcarrier() + "");
+        return hashMap;
+    }
+
+
+    /**
      * Purpose - Create signup request
      *
      * @return
@@ -414,18 +493,17 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         return hashMap;
     }
 
-    public void handleCreateScreen(Product product) {
+    public void handleCreateScreen(Product product, boolean callFrom) {
         if (Utils.getNetworkState(context)) {
-            AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.ONE);
             showHideProgressDialog(true);
-            screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen, product));
+            screenAddViewModel.setMutableLiveData(getAddScreenRequest(product, callFrom));
             LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
             if (!liveData.hasActiveObservers()) {
                 liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
                     @Override
                     public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
                         showHideProgressDialog(false);
-                        handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
+                        handleScreenAddResponse(screenAddResponseGlobalResponse);
                     }
                 });
             }
@@ -441,17 +519,15 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Responsibility - Handle screen add response and set value in session and call getCardData method
      * Parameters - Its takes GlobalResponse<ScreenAddResponse> and AddScreen object as parameter
      **/
-    private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse, AddScreen addScreen) {
+    private void handleScreenAddResponse(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
         if (screenAddResponseGlobalResponse.isApi_status()) {
             DBCaller.storeLogInDatabase(context, screenAddResponseGlobalResponse.getResult().getId() + Constraint.SCREEN_ADD, "", "", Constraint.APPLICATION_LOGS);
-            mBinding.nextSlide.setVisibility(View.GONE);
             mBinding.saveAndStartMpcHeader.setVisibility(View.GONE);
-            mBinding.pager.setCurrentItem(count);
             sessionManager.setDeviceId(screenAddResponseGlobalResponse.getResult().getIddevice());
             sessionManager.setScreenID(screenAddResponseGlobalResponse.getResult().getId());
             sessionManager.setDeviceToken(screenAddResponseGlobalResponse.getResult().getToken());
             sessionManager.setScreenPosition(screenAddResponseGlobalResponse.getResult().getScreenPosition());
-            sessionManager.setOrientation(addScreen.mBinding.webkitOrientation.getSelectedItem().toString());
+            sessionManager.setOrientation(getString(R.string.defaultt));
             getCardData();
 
 
@@ -464,50 +540,69 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Responsibility - Create add screen request
      * Parameters - Its takes AddScreen object as parameter
      **/
-    private HashMap<String, String> getAddScreenRequest(AddScreen addScreen, Product product) {
-        if (addScreen != null) {
+    private HashMap<String, String> getAddScreenRequest(Product product, boolean callFrom) {
 
-            HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
-            hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
-            hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
-            if (product == null) {
-                if (screenAddViewModel.getDeviceId() != null && !screenAddViewModel.getDeviceId().equals("") && !screenAddViewModel.getDeviceId().equals("0")) {
-                    hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
-                } else {
-                    hashMap.put(Constraint.DEVICEID, "0");
-                    hashMap.put(Constraint.DEVICE_NAME, Utils.ModelNumber());
 
-                }
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.ISLE, Constraint.ONE_STRING);
+        hashMap.put(Constraint.SHELF, Constraint.ONE_STRING);
+        hashMap.put(Constraint.POSITION, Constraint.ONE_STRING);
+        if (product == null) {
+            if (screenAddViewModel.getDeviceId() != null && !screenAddViewModel.getDeviceId().equals("") && !screenAddViewModel.getDeviceId().equals("0")) {
+                hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
+            } else {
+                hashMap.put(Constraint.DEVICEID, "0");
+                hashMap.put(Constraint.DEVICE_NAME, Utils.ModelNumber());
+
+            }
+            if (callFrom) {
+                AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.ONE);
+
                 if (addScreen.mViewModel.getSelectedProduct() != null) {
                     if (addScreen.mViewModel.getSelectedProduct().getIdproductStatic() != null)
                         hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getSelectedProduct().getIdproductStatic());
 
+                } else if (addScreen.mViewModel.getAutoSelctedProduct() != null) {
+                    if (addScreen.mViewModel.getAutoSelctedProduct().getIdproductStatic() != null)
+                        hashMap.put(Constraint.ID_PRODUCT_STATIC, addScreen.mViewModel.getAutoSelctedProduct().getIdproductStatic());
                 } else {
                     ValidationHelper.showToast(context, getString(R.string.product_not_available));
 
                 }
             } else {
-                if (product.getIdproductStatic() != null) {
-                    hashMap.put(Constraint.ID_PRODUCT_STATIC, product.getIdproductStatic());
-                    hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
-                    hashMap.put(Constraint.DEVICE_NAME, "");
+                if (mViewModel.getSelectedProduct() != null) {
+                    if (mViewModel.getSelectedProduct().getIdproductStatic() != null)
+                        hashMap.put(Constraint.ID_PRODUCT_STATIC, mViewModel.getSelectedProduct().getIdproductStatic());
+
+                } else if (mViewModel.getAutoSelctedProduct() != null) {
+                    if (mViewModel.getAutoSelctedProduct().getIdproductStatic() != null)
+                        hashMap.put(Constraint.ID_PRODUCT_STATIC, mViewModel.getAutoSelctedProduct().getIdproductStatic());
+                } else {
+                    ValidationHelper.showToast(context, getString(R.string.product_not_available));
 
                 }
             }
-            hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
-            LoginResponse loginResponse = sessionManager.getLoginResponse();
-            if (loginResponse != null)
-                hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
+        } else {
+            if (product.getIdproductStatic() != null) {
+                hashMap.put(Constraint.ID_PRODUCT_STATIC, product.getIdproductStatic());
+                hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
+                hashMap.put(Constraint.DEVICE_NAME, "");
 
-            hashMap.put(Constraint.MAC_ADDRESS, Utils.getMacAddress(getApplicationContext()));
-            hashMap.put(Constraint.DEVICE_TOKEN, SessionManager.get().getFCMToken());
-            for (OsType osType : SessionManager.get().getOsType()) {
-                if (osType.getOsName().equals(Constraint.ANDROID)) {
-                    hashMap.put(Constraint.DEVICE_TYPE, osType.getOsID() + "");
-
-                }
             }
+        }
+        hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
+        LoginResponse loginResponse = sessionManager.getLoginResponse();
+        if (loginResponse != null)
+            hashMap.put(Constraint.IDSTORE, loginResponse.getIdstore());
+
+        hashMap.put(Constraint.MAC_ADDRESS, Utils.getMacAddress(getApplicationContext()));
+        hashMap.put(Constraint.DEVICE_TOKEN, SessionManager.get().getFCMToken());
+        for (OsType osType : SessionManager.get().getOsType()) {
+            if (osType.getOsName().equals(Constraint.ANDROID)) {
+                hashMap.put(Constraint.DEVICE_TYPE, osType.getOsID() + "");
+
+            }
+
 
             return hashMap;
         }

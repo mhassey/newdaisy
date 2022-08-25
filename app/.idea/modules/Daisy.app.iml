@@ -35,11 +35,13 @@
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/generated/source/buildConfig/development/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/generated/source/buildConfig/development/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../build/generated/source/buildConfig/development/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/generated/crashlytics/res/development/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/generated/res/google-services/development/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/generated/res/resValues/development/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../build/generated/ap_generated_sources/developmentDebug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/generated/ap_generated_sources/developmentDebug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/generated/ap_generated_sources/developmentDebug/out" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../.gradle" />

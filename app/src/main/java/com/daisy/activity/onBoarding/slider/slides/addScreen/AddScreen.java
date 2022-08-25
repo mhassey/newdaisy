@@ -319,14 +319,17 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         if (generalResponseGlobalResponse.getResult().getProducts() != null) {
 
             List<Product> products = generalResponseGlobalResponse.getResult().getProducts();
+            sessionManager.setOSType(generalResponseGlobalResponse.getResult().getOsTypes());
+
             if (products != null && products.size() > 0) {
                 mViewModel.isManufactureSelected = false;
                 Product product = products.get(0);
                 mViewModel.setAutoSelectProduct(product);
+
             } else
                 mViewModel.isManufactureSelected = true;
-
             addManufactureData();
+
         }
     }
 
@@ -346,6 +349,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 autoSelectProduct(manufactures);
 
         }
+
+
     }
 
     private void autoSelectProduct(List<Manufacture> manufactures) {
@@ -378,6 +383,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                     if (mViewModel.getAutoSelctedProduct() != null)
                         filterItemAndSetProductIfAvailable(generalResponse.getResult().getProducts());
                 }
+
 
             } else {
                 ValidationHelper.showToast(context, generalResponse.getMessage());
