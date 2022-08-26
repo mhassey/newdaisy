@@ -648,7 +648,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setDisplayZoomControls(Constraint.FALSE);
-
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
             //mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
@@ -1690,6 +1689,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             }
 
             return false;
+        }
+
+        @Override
+        public Bitmap getDefaultVideoPoster() {
+            return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
         }
 
         @Override
