@@ -280,6 +280,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+        hashMap.put(Constraint.ASPECT_RADIO, Constraint.ONE_BY_ONE);
         return hashMap;
     }
 
