@@ -15,10 +15,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="work on moto specific app">
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="Work on video play issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +59,7 @@
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="EXPORT_PRIVATE_KEY" value="false" />
-    <option name="KEY_STORE_PATH" value="$USER_HOME$/Downloads/daisy.jks" />
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/daisy.jks" />
     <option name="KEY_ALIAS" value="key0" />
     <option name="REMEMBER_PASSWORDS" value="true" />
     <option name="BUILD_TARGET_KEY" value="apk" />
@@ -129,7 +129,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/daisy.jks" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -456,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660632723249</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="Work on video play issue">
+      <created>1661516160213</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1661516160213</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -482,7 +489,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Security WOrk" />
     <MESSAGE value="New version 2.81 testing commit" />
     <MESSAGE value="Add direct update" />
     <MESSAGE value="Working on new feature" />
@@ -512,7 +518,8 @@
     <MESSAGE value="adding mdm cases on go and main" />
     <MESSAGE value="work on auto start permission" />
     <MESSAGE value="work on moto specific app" />
-    <option name="LAST_COMMIT_MESSAGE" value="work on moto specific app" />
+    <MESSAGE value="Work on video play issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work on video play issue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
