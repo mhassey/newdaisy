@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="src/main/res/drawable/progress_design.xml" value="0.124" />
         <entry key="src/main/res/layout/activity_splash_screen.xml" value="0.13253527148353997" />
+        <entry key="src/main/res/layout/activity_wifi_time_correction.xml" value="0.11822916666666666" />
       </map>
     </option>
   </component>

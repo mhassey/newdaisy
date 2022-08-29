@@ -3,8 +3,9 @@ package com.daisy.broadcast.broadcastforbackgroundservice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
-import com.daisy.activity.splash.SplashScreen;
+import com.daisy.activity.WifiTimeCorrectionActivity;
 
 
 public class AlarmBootBackgroundReceiver extends BroadcastReceiver {
@@ -15,9 +16,12 @@ public class AlarmBootBackgroundReceiver extends BroadcastReceiver {
             AlaramHelperBackground.scheduleRepeatingElapsedNotification(context);
         }
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Intent intent2 = new Intent(context, SplashScreen.class);
+            Log.e("Reciver", "Alarm");
+            Intent intent2 = new Intent(context, WifiTimeCorrectionActivity.class);
             intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent2);
+
+
         }
 
     }

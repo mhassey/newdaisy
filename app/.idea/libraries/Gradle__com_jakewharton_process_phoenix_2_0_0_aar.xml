@@ -8,6 +8,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/003167fc4747711b3492434adb12d046/jetified-process-phoenix-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/003167fc4747711b3492434adb12d046/jetified-process-phoenix-2.0.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/003167fc4747711b3492434adb12d046/jetified-process-phoenix-2.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/93ea8b64b9b88baf61e2aa1bc07c920d/transformed/jetified-process-phoenix-2.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/93ea8b64b9b88baf61e2aa1bc07c920d/transformed/jetified-process-phoenix-2.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/93ea8b64b9b88baf61e2aa1bc07c920d/transformed/jetified-process-phoenix-2.0.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/process-phoenix/2.0.0/3bb6ed59f6680e99886bebdbd311c290e4573fdd/process-phoenix-2.0.0-javadoc.jar!/" />
