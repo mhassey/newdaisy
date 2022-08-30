@@ -81,7 +81,14 @@ public class Utils {
 
 
         }
+
     }
+
+
+    public static String ModelNumber() {
+        return Build.MODEL;
+    }
+
 
     public static boolean checkWifiState(Context context) {
         try {

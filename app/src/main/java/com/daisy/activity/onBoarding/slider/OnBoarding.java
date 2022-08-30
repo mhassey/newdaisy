@@ -382,7 +382,13 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             ValidationHelper.showToast(context, getString(R.string.product_not_available));
 
         }
-        hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
+        if (screenAddViewModel.getDeviceId() != null && !screenAddViewModel.getDeviceId().equals("") && !screenAddViewModel.getDeviceId().equals("0")) {
+            hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
+        } else {
+            hashMap.put(Constraint.DEVICEID, "0");
+            hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
+
+        }
         hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
         LoginResponse loginResponse = sessionManager.getLoginResponse();
         if (loginResponse != null)
@@ -397,6 +403,19 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     public void counterPlus() {
         count = count + Constraint.ONE;
+        mBinding.pager.setCurrentItem(count);
+
+    }
+
+    /**
+     * Responsibility - Increase counter of pager with dat
+     * Parameters - No parameter
+     **/
+    public void counterPlus(String deviceId) {
+        count = count + Constraint.ONE;
+      
+        screenAddViewModel.setDeviceId(deviceId);
+
         mBinding.pager.setCurrentItem(count);
 
     }

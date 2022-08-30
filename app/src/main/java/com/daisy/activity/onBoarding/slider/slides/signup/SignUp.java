@@ -2,6 +2,9 @@ package com.daisy.activity.onBoarding.slider.slides.signup;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,10 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
@@ -128,7 +127,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                 sessionManager.setPricingPlainId(signUpResponse.getData().getPricingPlanID());
                 sessionManager.setServerTime(signUpResponse.getData().getCurrentTime());
                 sessionManager.setSignUpData(signUpResponse.getData());
-                baording.counterPlus();
+                baording.counterPlus(signUpResponse.getData().getDeviceId());
             } else {
                 ValidationHelper.showToast(context, signUpResponse.getMessage());
             }
@@ -144,6 +143,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constraint.STORE_CODE, loginBinding.storeCode.getText().toString());
         hashMap.put(Constraint.PASSWORD_ID, loginBinding.password.getText().toString());
+        hashMap.put(Constraint.DEVICENAME, Utils.ModelNumber());
 
         return hashMap;
     }

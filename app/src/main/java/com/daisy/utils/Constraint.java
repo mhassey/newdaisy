@@ -8,6 +8,9 @@ public class Constraint {
     public static final String FOLDER_NAME = ".Daisy";
     public static final String configFile = "configration.txt";
     public static final String SLASH = "/";
+    public static final String DEVICEID = "device_id";
+
+    public static final String DEVICENAME = "device_name";
     public static final String ID_BASE_URL = "Id_base_url";
     public static final String TIME_FORMAT = "yyyy.MM.dd.HH.mm.ss";
     public static final String DOWNLOAD_AT = "Downloaded at: ";

@@ -811,7 +811,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
                         }
                     }
-                    Log.e("Kali....", url);
 
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
