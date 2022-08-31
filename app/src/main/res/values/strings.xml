@@ -234,6 +234,6 @@
     <string name="please_enter_server_code">"Please enter server code "</string>
     <string name="wrong_server_code">Wrong server code</string>
     <string name="key_can_not_be_empty">MPC key can not be empty</string>
-    <string name="wait_for_wifi_correction_it_will_take_one_minute">Wait for wifi correction. It will take one minute</string>
+    <string name="wait_for_wifi_correction_it_will_take_one_minute">I’ll begin automatically. No need to check in :)</string>
 
 </resources>

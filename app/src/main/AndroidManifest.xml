@@ -134,7 +134,7 @@
         <activity
             android:name=".activity.splash.SplashScreen"
             android:exported="true"
-            android:screenOrientation="sensorLandscape">
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

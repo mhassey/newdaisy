@@ -1596,6 +1596,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
 
         @Override
+        public Bitmap getDefaultVideoPoster() {
+            return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
+        }
+
+        @Override
         public boolean onJsAlert(WebView view, String url, String message,
                                  final JsResult result) {
             return true;

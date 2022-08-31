@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
-
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.2"
@@ -11,8 +10,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 20
-        versionName "1.28"
+        versionCode 21
+        versionName "1.29"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

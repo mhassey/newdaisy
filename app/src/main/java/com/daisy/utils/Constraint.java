@@ -146,6 +146,8 @@ public class Constraint {
     public static final String MAC_ADDRESS = "mac_address";
     public static final String DEVICE_ID = "Device Id: ";
     public static final long ONE_MINUTE = 30 * 1000;
+    public static final String SCREEN_WIDTH = "screen_width";
+    public static final String SCREEN_HEIGHT = "screen_height";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
