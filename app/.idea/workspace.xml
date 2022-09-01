@@ -15,16 +15,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="Work on ally multi device issue">
+    <list default="true" id="03bfa385-0e58-41f3-bfd7-ee20e09f3b4f" name="Default Changelist" comment="Ally webview video loader remove &#10;Ally screen size calculation add and send it to server &#10;Ally reboot  message change">
+      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/production/release/output-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/mainActivity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/WifiTimeCorrectionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/WifiTimeCorrectionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate/ApkUpdateViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate/ApkUpdateViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate/DownloadUpdateApk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate/DownloadUpdateApk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate/GenericFileProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/apkUpdate/GenericFileProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBoarding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/onBoarding/slider/OnBoarding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/activity/splash/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/activity/splash/SplashScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daisy/utils/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daisy/utils/Constraint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +111,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="Daisy-motorola-1.03" />
+        <entry key="$PROJECT_DIR$/.." value="Ally_1.27" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -496,7 +497,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661842812703</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Ally webview video loader remove &#10;Ally screen size calculation add and send it to server &#10;Ally reboot  message change">
+      <created>1661942686937</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1661942686937</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -522,7 +530,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic Setup phase 2" />
     <MESSAGE value="Bugs remove and maintain functions" />
     <MESSAGE value="Second Release workable code" />
     <MESSAGE value="Add commenting and maintain hole code" />
@@ -547,7 +554,8 @@
     <MESSAGE value="change version of ally" />
     <MESSAGE value="fixed wifi issue" />
     <MESSAGE value="Work on ally multi device issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Work on ally multi device issue" />
+    <MESSAGE value="Ally webview video loader remove &#10;Ally screen size calculation add and send it to server &#10;Ally reboot  message change" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ally webview video loader remove &#10;Ally screen size calculation add and send it to server &#10;Ally reboot  message change" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

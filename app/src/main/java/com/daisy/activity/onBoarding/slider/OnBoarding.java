@@ -407,7 +407,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
     /**
      * Responsibility - Increase counter of pager
-     * Parameters - No parameter
+     * Parameters - No parametheter
      **/
     public void counterPlus() {
         count = count + Constraint.ONE;

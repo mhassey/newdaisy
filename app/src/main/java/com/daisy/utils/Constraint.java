@@ -145,7 +145,7 @@ public class Constraint {
     public static final String INCLUDE_FLAG = "include_flag";
     public static final String MAC_ADDRESS = "mac_address";
     public static final String DEVICE_ID = "Device Id: ";
-    public static final long ONE_MINUTE = 30 * 1000;
+    public static final long ONE_MINUTE = 60 * 1000;
     public static final String SCREEN_WIDTH = "screen_width";
     public static final String SCREEN_HEIGHT = "screen_height";
 

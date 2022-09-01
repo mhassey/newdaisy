@@ -22,14 +22,11 @@ public class WifiTimeCorrectionActivity extends AppCompatActivity {
     private void openAppAfterFewSeconds() {
 
         final Handler handler = new android.os.Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-
-                Intent intent2 = new Intent(getApplicationContext(), SplashScreen.class);
-                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intent2);
-                finish();
-            }
+        handler.postDelayed(() -> {
+            Intent intent2 = new Intent(getApplicationContext(), SplashScreen.class);
+            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getApplicationContext().startActivity(intent2);
+            finish();
         }, Constraint.ONE_MINUTE);
 
     }

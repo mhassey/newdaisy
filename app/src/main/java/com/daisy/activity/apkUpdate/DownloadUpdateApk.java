@@ -85,15 +85,15 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
                     directory.mkdirs();
                 }
                 fileName = Constraint.DAISYAPK;
-                String path = context.getExternalFilesDir("") +"/"+ folder + fileName;
-            try {
-                File file = new File(context.getExternalFilesDir(""),path);
-                if (file.exists()) {
-                    file.delete();
-                }
-            } catch (Exception e) {
+                String path = context.getExternalFilesDir("") + "/" + folder + fileName;
+                try {
+                    File file = new File(context.getExternalFilesDir(""), path);
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                } catch (Exception e) {
 
-            }
+                }
 
                 OutputStream output = new FileOutputStream(path);
 
