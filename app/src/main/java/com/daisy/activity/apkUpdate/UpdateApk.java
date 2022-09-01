@@ -25,12 +25,7 @@ public class UpdateApk {
 
     public void UpdateApk() {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                updateApk();
-            }
-        }).start();
+        new Thread(() -> updateApk()).start();
     }
 
     /**

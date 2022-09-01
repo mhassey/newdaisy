@@ -10,6 +10,9 @@ import com.daisy.R;
 import com.daisy.activity.splash.SplashScreen;
 import com.daisy.utils.Constraint;
 
+/**
+ * Purpose - WifiTimeCorrectionActivity opens when system reboot and wait for 1 minute to launch the splash activity
+ */
 public class WifiTimeCorrectionActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +22,9 @@ public class WifiTimeCorrectionActivity extends AppCompatActivity {
         openAppAfterFewSeconds();
     }
 
+    /**
+     * Purpose - openAppAfterFewSeconds method delay code for 1 minute and then open splash screen
+     */
     private void openAppAfterFewSeconds() {
 
         final Handler handler = new android.os.Handler();

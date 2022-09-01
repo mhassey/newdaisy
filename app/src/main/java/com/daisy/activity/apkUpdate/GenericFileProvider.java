@@ -7,4 +7,5 @@ import androidx.core.content.FileProvider;
  * Responsibility -  GenericFileProvider class used for maintaining image quality when select from any places
  **/
 public class GenericFileProvider extends FileProvider {
+    
 }
