@@ -25,9 +25,9 @@ public class BootReceiver extends BroadcastReceiver {
             Log.e("reciever", "Boot complete");
 
 
-            Intent intent2 = new Intent(context, WifiTimeCorrectionActivity.class);
-            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent2);
+//            Intent intent2 = new Intent(context, WifiTimeCorrectionActivity.class);
+//            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent2);
 
         }
 

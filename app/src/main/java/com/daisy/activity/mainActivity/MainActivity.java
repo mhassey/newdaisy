@@ -555,7 +555,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
                     intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
                 }
@@ -621,6 +621,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             fileName = Constraint.HORIZONTAL + Constraint.HTML;
 
                         }
+
+
                         File mainFile = new File(file1.getAbsoluteFile() + Constraint.SLASH + fileName);
                         File mainFileMain = new File(file1.getAbsoluteFile() + Constraint.SLASH + Constraint.FILE_NAME);
 
@@ -630,6 +632,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                             if (!isDelete)
                                 deleteCard();
                         } else {
+
 
                             File file2 = new File(sessionManager.getLocation() + Constraint.SLASH + fileName);
                             File file3 = new File(sessionManager.getLocation() + Constraint.SLASH + file1.getName() + Constraint.SLASH + fileName);

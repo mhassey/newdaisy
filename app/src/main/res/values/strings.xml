@@ -221,7 +221,7 @@
     <string name="to_proceed_you_l_need_your_wifi_credentials_n_mpc_key_store_code_and_password">To proceed, you’ll need your WiFi credentials,\nMPC key, store code, and password.</string>
     <string name="tap_to_select_network">Tap to select network</string>
     <string name="set_time_and_zone"><![CDATA[Set Time & Zone]]></string>
-    <string name="use_the_button_below_to_go_to_date_and_time_settings_page_and_return_here_when_connected">Use the button below to go to date &amp; time\nsettings page,and return here when connected</string>
+    <string name="use_the_button_below_to_go_to_date_and_time_settings_page_and_return_here_when_connected">Use the button below to go to date &amp; time\nsettings page, and return here when connected</string>
     <string name="use_the_button_below_to_get_the_wifi_settings_page_n_and_return_here_when_connected"><![CDATA[Use the button below to get the wifi settings\npage, and return here when connected]]></string>
     <string name="tab_to_set_time_and_zome">Tap to set time &amp; Time zone</string>
     <string name="enter_mpc_key">ENTER MPC KEY</string>
