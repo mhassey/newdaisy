@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">DMOTO</string>
     <string name="storage_not_available">Depolama mevcut değil</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>

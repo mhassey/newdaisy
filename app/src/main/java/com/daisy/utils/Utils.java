@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,8 +14,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -83,6 +87,36 @@ public class Utils {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void createShortCut(Context context) {
+
+        ShortcutManager shortcutManager
+                = context.getSystemService(ShortcutManager.class);
+        if (shortcutManager.isRequestPinShortcutSupported()) {
+            Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.whatsapp");
+
+//            intent.setAction(Intent.ACTION_MAIN);
+            ShortcutInfo pinShortcutInfo = new ShortcutInfo
+                    .Builder(context, "pinned-shortcut")
+                    .setIcon(
+                            Icon.createWithResource(context, R.drawable.ic_motoicon)
+                    )
+                    .setIntent(intent)
+                    .setShortLabel("Ban gya")
+                    .build();
+            Intent pinnedShortcutCallbackIntent = shortcutManager
+                    .createShortcutResultIntent(pinShortcutInfo);
+            //Get notified when a shortcut is pinned successfully//
+            PendingIntent successCallback
+                    = PendingIntent.getBroadcast(
+                    context, 0
+                    , pinnedShortcutCallbackIntent, 0
+            );
+            shortcutManager.requestPinShortcut(
+                    pinShortcutInfo, successCallback.getIntentSender()
+            );
+        }
+    }
     public static boolean isTimeAutomatic(Context c) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return Settings.Global.getInt(c.getContentResolver(), Settings.Global.AUTO_TIME, 0) == 1;

@@ -1,12 +1,19 @@
 package com.daisy.activity.welcomeScreen;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
@@ -68,6 +75,9 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         defineKeyToUrlObserver();
         handleGeneralApiResponse();
     }
+
+
+
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
