@@ -1,6 +1,8 @@
 package com.daisy.activity.welcomeScreen;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,6 +34,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -58,6 +61,8 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.motorola.demo.flutter");
+
         welcomeValidationHelper = new WelcomeValidationHelper(this, mBinding);
         welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
         addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);

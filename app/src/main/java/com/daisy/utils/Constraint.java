@@ -1,6 +1,7 @@
 package com.daisy.utils;
 
 import android.Manifest;
+import android.content.Context;
 
 public class Constraint {
     public static final String FILE_NAME = "index.html";
@@ -167,6 +168,8 @@ public class Constraint {
     public static final String PUSH_TYPE = "pushType";
     public static final String PROMOTION_UPDATE = "PROMOTION_UPDATE";
     public static final String SAMSUNG = "samsung";
+    public static final String MOTO_RETAIL_APP = "com.motorola.demo.flutter";
+    public static final String MOTO_RETAIL_MAIN_ACTIVITY = "com.motorola.demo.flutter.MainActivity";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
