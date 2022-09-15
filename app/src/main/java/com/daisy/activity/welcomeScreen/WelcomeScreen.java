@@ -61,8 +61,6 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.motorola.demo.flutter");
-
         welcomeValidationHelper = new WelcomeValidationHelper(this, mBinding);
         welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
         addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
