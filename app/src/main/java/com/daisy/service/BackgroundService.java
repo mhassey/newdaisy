@@ -30,12 +30,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -58,7 +54,6 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.interfaces.SyncLogCallBack;
 import com.daisy.pojo.Logs;
-import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
@@ -160,14 +155,17 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         handleClick();
         setWindowManager();
         setCounter();
-        initWifi();
         initPassword();
-        defineSensor();
-        try {
-            FrontCameraRetriever.retrieveFor(this);
-            FrontCameraRetriever.getInstance().load();
-        } catch (Exception e) {
 
+        if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
+            initWifi();
+            defineSensor();
+            try {
+                FrontCameraRetriever.retrieveFor(this);
+                FrontCameraRetriever.getInstance().load();
+            } catch (Exception e) {
+
+            }
         }
 
     }
@@ -270,6 +268,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
             }
         }).timeout(200).start(getApplicationContext());
     }
+
 
     private void storeProcess(String process) {
         try {
@@ -603,7 +602,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
 
     /**
-     * Purpose - Check for card update availability
+     * Purpose - Check for card updaWIFI_STATE_CHANGED_ACTIONte availability
      */
     public static void checkUpdate() {
         if (sessionManager == null)
@@ -792,9 +791,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(ACTION_DEBUG);
         registerReceiver(overlayReceiver, filter);
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        registerReceiver(wifiStateReceiver, intentFilter);
+        if (SessionManager.get().getAppType().equals(Constraint.GO)) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+            registerReceiver(wifiStateReceiver, intentFilter);
+        }
         IntentFilter s_intentFilter = new IntentFilter();
         s_intentFilter.addAction(Intent.ACTION_TIME_TICK);
         s_intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);

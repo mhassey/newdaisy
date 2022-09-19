@@ -11,6 +11,7 @@
         <entry key="src/main/res/layout/activity_main.xml" value="0.15945805106826472" />
         <entry key="src/main/res/layout/activity_splash_screen.xml" value="0.13253527148353997" />
         <entry key="src/main/res/layout/activity_welcome_screen.xml" value="0.25" />
+        <entry key="src/main/res/layout/fragment_permission_ask.xml" value="0.19076923076923077" />
       </map>
     </option>
   </component>
