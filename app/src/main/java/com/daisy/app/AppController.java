@@ -22,6 +22,7 @@ import java.util.Locale;
  * AppController is an application class
  **/
 public class AppController extends Application implements LifecycleObserver {
+    public static final String SECURITY = "Security";
     public static AppController sInstance;
     public static final String TAG = AppController.class.getName();
     private SessionManager sessionManager;

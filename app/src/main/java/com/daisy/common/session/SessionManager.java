@@ -1285,4 +1285,12 @@ public class SessionManager {
     public String getAppType() {
         return pref.getStringData(Constraint.APP_TYPE);
     }
+
+    public void setDisableSecurity(boolean b) {
+        pref.setBooleanData(Constraint.SECURITY,b);
+    }
+
+    public boolean getDisableSecurity() {
+        return pref.getBoolean(Constraint.SECURITY);
+    }
 }

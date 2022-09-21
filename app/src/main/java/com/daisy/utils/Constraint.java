@@ -7,6 +7,8 @@ public class Constraint {
     public static final String FOLDER_NAME = ".Daisy";
     public static final String configFile = "configration.txt";
     public static final String SLASH = "/";
+    public static final String HARDWARE = "Hardware";
+    public static final String UNISOC = "unisoc";
     public static final String TIME_FORMAT = "yyyy.MM.dd.HH.mm.ss";
     public static final String DOWNLOAD_AT = "Downloaded at: ";
     public static final int RESPONSE_CODE = 10112;
@@ -171,6 +173,9 @@ public class Constraint {
     public static final String MOTO_RETAIL_MAIN_ACTIVITY = "com.motorola.demo.flutter.MainActivity";
     public static final String GO = "GO";
     public static final String APP_TYPE = "app_type";
+    public static final String OPTIONAL = "Optional";
+    public static final String MAIN = "Main";
+    public static final String SECURITY = "SECURITY";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

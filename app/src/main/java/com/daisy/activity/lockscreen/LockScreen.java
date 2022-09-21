@@ -58,7 +58,8 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
     /**
      * Responsibility - extraTaskForMakeAppWorkable method do some extra stuff that help service to run perfectly
-     * Parameters - No parameter
+     * Parameters - No para            AddScreen addScreen = null;
+meter
      **/
     private void extraTaskForMakeAppWorkable() {
         Constraint.current_running_process = "";

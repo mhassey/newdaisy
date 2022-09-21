@@ -1,6 +1,8 @@
 package com.daisy.utils;
 
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -15,7 +17,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.hardware.Camera;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -27,9 +28,7 @@ import android.os.Environment;
 import android.provider.CallLog;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
-import android.view.Surface;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.Button;
@@ -39,19 +38,19 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
-import com.daisy.activity.onBoarding.slider.slides.signup.vo.SignUpResponse;
 import com.daisy.app.AppController;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.LogsDataPojo;
-import com.daisy.pojo.response.LoginResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -67,15 +66,60 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
-
 public class Utils {
 
+
+    public static boolean isSystemAlertWindowEnabled(Context context) {
+        // SYSTEM_ALERT_WINDOW is disabled on on low ram devices starting from Q
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        return (am.isLowRamDevice() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q));
+    }
+
+    public static boolean getWorkProfile(Context context) {
+        final PackageManager pm = context.getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+        for (ApplicationInfo packageInfo : packages) {
+            if (packageInfo.packageName.contains("hmdm")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Map<String, String> getCPUInfo() throws IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader("/proc/cpuinfo"));
+
+        String str;
+
+        Map<String, String> output = new HashMap<>();
+
+        while ((str = br.readLine()) != null) {
+
+            String[] data = str.split(":");
+
+            if (data.length > 1) {
+
+                String key = data[0].trim().replace(" ", "_");
+                if (key.equals("model_name")) key = "cpu_model";
+
+                output.put(key, data[1].trim());
+
+            }
+
+        }
+
+        br.close();
+
+        return output;
+
+    }
 
     public static void screenBrightness(int level, Context context) {
         try {
@@ -664,7 +708,8 @@ public class Utils {
         return Settings.System.canWrite(context);
     }
 
-    public static android.app.AlertDialog showAlertDialog(Context mContext, String text, String buttonText, final DialogInterface.OnClickListener clickListener, boolean isCancelable) {
+    public static android.app.AlertDialog showAlertDialog(Context mContext, String text, String
+            buttonText, final DialogInterface.OnClickListener clickListener, boolean isCancelable) {
         if (text == null)
             text = "";
         android.app.AlertDialog mAlertDialog = new AlertDialog.Builder(mContext).setMessage(text).

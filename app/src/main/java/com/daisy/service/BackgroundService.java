@@ -155,6 +155,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         handleClick();
         setWindowManager();
         setCounter();
+        if (!SessionManager.get().getDisableSecurity())
         initPassword();
 
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {

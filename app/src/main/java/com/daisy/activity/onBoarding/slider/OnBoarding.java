@@ -57,7 +57,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Purpose -  OnBoarding is an activity that handle all onBoarding pages
@@ -196,7 +195,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(PermissionAsk.getInstance(mBinding));
-        fragmentList.add(SecurityAsk.getInstance(mBinding));
+        if (!SessionManager.get().getDisableSecurity())
+            fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -211,7 +211,10 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.nextSlide: {
-                nextSlideClickHandler();
+                if (!SessionManager.get().getDisableSecurity())
+                    nextSlideClickHandler();
+                else
+                    nextSlideClickHandlerForMDM();
                 break;
             }
             case R.id.saveAndStartMpc: {
@@ -289,6 +292,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         if (count == Constraint.TWO) {
 
+
             SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
             if (securityAsk != null && securityAsk.securityAskBinding != null) {
                 try {
@@ -338,20 +342,56 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         }
     }
 
+
+    /**
+     * Responsibility -Handle Slide click
+     * Parameters - No parameter
+     **/
+    public void nextSlideClickHandlerForMDM() {
+
+        count = count + Constraint.ONE;
+
+        if (count == Constraint.TWO) {
+            SignUp signUp = (SignUp) fragmentList.get(count - Constraint.ONE);
+            signUp.loginBinding.singup.performClick();
+
+            sessionManager.setDeletePhoto(false);
+            sessionManager.setLockOnBrowser(false);
+            sessionManager.setLockOnMessage(false);
+            sessionManager.setLock(false);
+
+
+        } else if (count == Constraint.THREE) {
+            handleCreateScreen(null);
+
+        }
+        if (count == Constraint.ONE) {
+            mBinding.pager.setCurrentItem(count);
+        }
+    }
+
     public void handleCreateScreen(Product product) {
+        AddScreen addScreen = null;
+
         if (Utils.getNetworkState(context)) {
-            AddScreen addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+            if (!SessionManager.get().getDisableSecurity())
+                addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+            else
+                addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
+
+
             ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
             if (screenAddValidationHelper.isValid()) {
                 showHideProgressDialog(true);
                 screenAddViewModel.setMutableLiveData(getAddScreenRequest(addScreen, product));
                 LiveData<GlobalResponse<ScreenAddResponse>> liveData = screenAddViewModel.getLiveData();
                 if (!liveData.hasActiveObservers()) {
+                    AddScreen finalAddScreen = addScreen;
                     liveData.observe(this, new Observer<GlobalResponse<ScreenAddResponse>>() {
                         @Override
                         public void onChanged(GlobalResponse<ScreenAddResponse> screenAddResponseGlobalResponse) {
                             showHideProgressDialog(false);
-                            handleScreenAddResponse(screenAddResponseGlobalResponse, addScreen);
+                            handleScreenAddResponse(screenAddResponseGlobalResponse, finalAddScreen);
                         }
                     });
                 }
