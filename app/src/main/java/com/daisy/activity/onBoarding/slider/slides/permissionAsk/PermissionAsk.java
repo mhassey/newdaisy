@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -103,9 +104,22 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void initView() {
         context = requireContext();
         permissionAskViewModel = new ViewModelProvider(this).get(PermissionAskViewModel.class);
-        if (SessionManager.get().getAppType().equals(Constraint.OPTIONAL)) {
+        hasSecurity();
+
+        if (!SessionManager.get().getDisplayOverTheAppAvailable()) {
             permissionAskBinding.displayOverTheAppTopLayout.setVisibility(View.GONE);
         }
+
+    }
+
+    private void hasSecurity() {
+        boolean hasFeature = requireActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);
+        if (hasFeature)
+            SessionManager.get().isDisplayOverTheAppAvailable(true);
+        else
+            SessionManager.get().isDisplayOverTheAppAvailable(false);
+
+
 
     }
 
@@ -168,7 +182,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             }
         } else {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
-                if (!SessionManager.get().getAppType().equals(Constraint.OPTIONAL)) {
+                if (SessionManager.get().getDisplayOverTheAppAvailable()) {
                     if (!permissionAskViewModel.isGrandDisplayOverTheApp()) {
                         onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
                         return;
@@ -615,7 +629,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     private void designWork() {
 
-        if (SessionManager.get().getDeviceSecured()) {
+        if (SessionManager.get().getDisableSecurity()) {
             onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
 //            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));

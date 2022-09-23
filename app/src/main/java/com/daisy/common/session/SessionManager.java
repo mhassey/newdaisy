@@ -1287,10 +1287,17 @@ public class SessionManager {
     }
 
     public void setDisableSecurity(boolean b) {
-        pref.setBooleanData(Constraint.SECURITY,b);
+        pref.setBooleanData(Constraint.SECURITY, b);
     }
 
     public boolean getDisableSecurity() {
         return pref.getBoolean(Constraint.SECURITY);
+    }
+
+    public void isDisplayOverTheAppAvailable(boolean b) {
+        pref.setBooleanData(Constraint.IS_DISPLAY_OVER_THE_APP, b);
+    }
+    public boolean getDisplayOverTheAppAvailable() {
+       return pref.getBoolean(Constraint.IS_DISPLAY_OVER_THE_APP);
     }
 }

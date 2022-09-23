@@ -1,6 +1,7 @@
 package com.daisy.activity.splash;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +16,6 @@ import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Map;
 
@@ -32,6 +32,8 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+
         initView();
 
 
@@ -71,12 +73,11 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void redirectToWelcome() {
-        isInstalled = Utils.getWorkProfile(this);
-        SessionManager.get().setDisableSecurity(isInstalled);
-        Map value = null;
-        Intent intent = null;
+
+       Intent intent = null;
         try {
-            value = Utils.getCPUInfo();
+            boolean isInstalled = Utils.getWorkProfile(this);
+            SessionManager.get().setDisableSecurity(isInstalled);
             if (sessionManager.getOnBoarding()) {
                 intent = new Intent(SplashScreen.this, EditorTool.class);
 
@@ -84,32 +85,23 @@ public class SplashScreen extends BaseActivity {
                 intent = new Intent(SplashScreen.this, WelcomeScreen.class);
 
             }
-            String hardware = (String) value.get(Constraint.HARDWARE);
 
 
-            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                SessionManager.get().setAppType(Constraint.OPTIONAL);
-            } else {
-                try {
+            try {
+                if (Utils.isSystemAlertWindowEnabled(this)) {
+                    SessionManager.get().setAppType(Constraint.GO);
 
-                    if (hardware.toLowerCase().contains(Constraint.UNISOC)) {
-                        SessionManager.get().setAppType(Constraint.OPTIONAL);
-
-
-                    } else if (Utils.isSystemAlertWindowEnabled(this)) {
-                        SessionManager.get().setAppType(Constraint.GO);
-
-                    } else {
-                        SessionManager.get().setAppType(Constraint.MAIN);
-
-
-                    }
-                } catch (Exception e) {
+                } else {
                     SessionManager.get().setAppType(Constraint.MAIN);
 
 
                 }
+            } catch (Exception e) {
+                SessionManager.get().setAppType(Constraint.MAIN);
+
+
             }
+
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();

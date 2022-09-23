@@ -176,6 +176,7 @@ public class Constraint {
     public static final String OPTIONAL = "Optional";
     public static final String MAIN = "Main";
     public static final String SECURITY = "SECURITY";
+    public static final String IS_DISPLAY_OVER_THE_APP = "IsDisplayOverTheApp";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
