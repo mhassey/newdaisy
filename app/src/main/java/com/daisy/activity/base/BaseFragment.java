@@ -2,11 +2,14 @@ package com.daisy.activity.base;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -58,8 +61,14 @@ public class BaseFragment extends Fragment {
                     }
                 }
             } else {
-                progressDialog = new ProgressDialog(requireContext());
-                progressDialog.setMessage(getString(R.string.loading));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    progressDialog = new ProgressDialog(requireContext(), R.style.ProgressTheme);
+                else
+                    progressDialog = new ProgressDialog(requireContext(), R.style.AlertDialog_Holo);
+                progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//                progressDialog.setMessage(getString(R.string.loading));
                 showHideProgressDialog(iShow);
             }
         } catch (Exception e) {

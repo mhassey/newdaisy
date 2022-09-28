@@ -8,6 +8,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
@@ -148,8 +150,14 @@ public class BaseActivity extends AppCompatActivity {
                     }
                 }
             } else {
-                progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage(getString(R.string.loading));
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    progressDialog = new ProgressDialog(this,R.style.ProgressTheme);
+                else
+                    progressDialog = new ProgressDialog(this,R.style.AlertDialog_Holo);
+                progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
                 progressDialog.setCancelable(false);
                 showHideProgressDialog(iShow);
             }

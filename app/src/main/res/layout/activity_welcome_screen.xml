@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,106 +11,70 @@
         tools:context=".activity.welcomeScreen.WelcomeScreen">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp250"
-            android:background="@color/purple"
-            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="@dimen/dp120"
-                android:layout_height="@dimen/dp120"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_welcome_icon" />
-
-            <TextView
-                style="@style/fontMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="@dimen/dp10"
-                android:text="@string/welcome"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp25" />
-
-
-        </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center|top"
-            android:orientation="vertical">
-
-
-            <TextView
-                style="@style/fontMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp25"
-                android:gravity="center|left"
-                android:lineSpacingMultiplier="1.5"
-                android:text="@string/please_enter_your_mpc_key_in_the_box"
-                android:textSize="@dimen/dp15" />
-
-
-            <EditText
-                android:id="@+id/key_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp25"
-                android:background="@drawable/edit_text_format"
-                android:gravity="center"
-                android:hint="@string/mpc_key"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:padding="@dimen/dp10"
-                android:singleLine="true" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:layout_marginEnd="@dimen/dp60"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:gravity="bottom|end">
-
+            android:layout_marginStart="@dimen/dp60"
+            android:gravity="center|start"
+            android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/curve_layout"
-                android:layout_width="@dimen/dp180"
-                android:layout_height="@dimen/dp50"
-                android:layout_marginBottom="@dimen/dp20"
-                android:background="@drawable/ovel_purple"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/dp80"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rbold"
+                    android:text="@string/welcome"
+                    android:textColor="@color/dark_grey_blue"
+                    android:textSize="@dimen/dp25" />
 
+                <TextView
+                    android:layout_marginTop="@dimen/dp6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rragular"
+                    android:text="@string/please_enter_your_mpc_key_in_the_box"
+                    android:textColor="@color/dark_grey_blue"
+                    android:textSize="@dimen/dp14" />
+                <EditText
+                    android:id="@+id/key_name"
+
+                    android:layout_marginTop="@dimen/dp14"
+                    android:backgroundTint="@color/orange"
+                    android:padding="@dimen/dp10"
+                    android:hint="@string/mpc_key"
+                    android:gravity="center"
+                    android:textSize="@dimen/dp10"
+                    android:textStyle="bold"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:background="@drawable/rounded_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"/>
+
+                <Button
                     android:id="@+id/begin"
-                    style="@style/fontRagular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/fontBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:layout_marginTop="@dimen/dp13"
+                    android:textSize="@dimen/dp10"
+                    android:textStyle="bold"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@color/orange"
                     android:text="@string/connect"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp20" />
-
-                <TextView
-                    style="@style/fontRagular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp10"
-                    android:text=">"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp20" />
+                    android:textColor="@color/white" />
             </LinearLayout>
+
         </LinearLayout>
 
 
-    </LinearLayout>
+
+    </RelativeLayout>
 </layout>

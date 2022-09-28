@@ -33,10 +33,11 @@ public class AppRetrofit {
     private AppRetrofit() {
         sessionManager = SessionManager.get();
         String baseUrl = sessionManager.getBaseUrl();
-        if (baseUrl != null && baseUrl != "") {
+        if (baseUrl != null && !baseUrl.equals("")) {
             apiService = provideService(baseUrl);
 
         } else {
+
             apiService = provideService(BuildConfig.BASE_URL);
         }
     }
@@ -55,7 +56,7 @@ public class AppRetrofit {
 
 
         } else {
-            if (sessionManager.getPriceCard().getFileName() != null && !sessionManager.getPriceCard().getFileName().equals("")) {
+            if (sessionManager.getPriceCard()!=null && sessionManager.getPriceCard().getFileName() != null && !sessionManager.getPriceCard().getFileName().equals("")) {
                 URI uri = null;
                 try {
                     uri = new URI(sessionManager.getPriceCard().getFileName());

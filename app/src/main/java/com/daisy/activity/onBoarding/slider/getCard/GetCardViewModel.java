@@ -17,12 +17,13 @@ import java.util.HashMap;
 public class GetCardViewModel extends AndroidViewModel {
     private MutableLiveData<HashMap<String,String>> mutableLiveData=new MutableLiveData<>();
     private LiveData<GlobalResponse<GetCardResponse>> liveData;
-    private GetCardRepo getCardResponse=new GetCardRepo();
     public GetCardViewModel(@NonNull Application application) {
         super(application);
         liveData= Transformations.switchMap(mutableLiveData, new Function<HashMap<String, String>, LiveData<GlobalResponse<GetCardResponse>>>() {
             @Override
             public LiveData<GlobalResponse<GetCardResponse>> apply(HashMap<String, String> input) {
+                 GetCardRepo getCardResponse=new GetCardRepo();
+
                 return getCardResponse.getCard(input);
             }
         });

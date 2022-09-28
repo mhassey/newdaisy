@@ -23,14 +23,14 @@ public class ScreenAddRepo {
     private ApiService apiService;
     private MutableLiveData<GlobalResponse<ScreenAddResponse>> liveData=new MutableLiveData<>();
 
-    public ScreenAddRepo()
-    {
-        apiService= AppRetrofit.getInstance().getApiService();
-    }
+//    public ScreenAddRepo()
+//    {
+//        apiService= AppRetrofit.getInstance().getApiService();
+//    }
 
     //  addScreen method is used for add new Screen on server
     public LiveData<GlobalResponse<ScreenAddResponse>> addScreen(HashMap<String,String> input) {
-        Call<GlobalResponse<ScreenAddResponse>> call=apiService.addScreen(input);
+        Call<GlobalResponse<ScreenAddResponse>> call=AppRetrofit.getInstance().getApiService().addScreen(input);
         call.enqueue(new Callback<GlobalResponse<ScreenAddResponse>>() {
             @Override
             public void onResponse(Call<GlobalResponse<ScreenAddResponse>> call, Response<GlobalResponse<ScreenAddResponse>> response) {

@@ -36,6 +36,7 @@ import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreen;
 import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
 import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
+import com.daisy.activity.onBoarding.slider.slides.welcome.WelcomeAsk;
 import com.daisy.adapter.SliderAdapter;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -194,6 +195,8 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void addFragmentList() {
+        fragmentList.add(WelcomeAsk.getInstance(OnBoarding.this));
+
         fragmentList.add(PermissionAsk.getInstance(mBinding));
         if (!SessionManager.get().getDisableSecurity())
             fragmentList.add(SecurityAsk.getInstance(mBinding));
@@ -290,13 +293,13 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-        if (count == Constraint.TWO) {
+        if (count == Constraint.THREE) {
 
 
-            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - Constraint.ONE);
+            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
             if (securityAsk != null && securityAsk.securityAskBinding != null) {
                 try {
-                    if (securityAsk.securityAskBinding.deletePhoto.isChecked()) {
+                    if (securityAsk.securityAskBinding.yesDeviceContent.getVisibility() == View.VISIBLE) {
                         sessionManager.setDeletePhoto(true);
                     } else {
                         sessionManager.setDeletePhoto(false);
@@ -305,19 +308,19 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
-                if (securityAsk.securityAskBinding.lockToBrowser.isChecked()) {
+                if (securityAsk.securityAskBinding.yesBrowser.getVisibility() == View.VISIBLE) {
                     sessionManager.setLockOnBrowser(true);
                 } else {
                     sessionManager.setLockOnBrowser(false);
 
                 }
-                if (securityAsk.securityAskBinding.lockToMessage.isChecked()) {
+                if (securityAsk.securityAskBinding.yesLock.getVisibility() == View.VISIBLE) {
                     sessionManager.setLockOnMessage(true);
                 } else {
                     sessionManager.setLockOnMessage(false);
 
                 }
-                if (securityAsk.securityAskBinding.lock.isChecked()) {
+                if (securityAsk.securityAskBinding.yesPlayTxt.getVisibility() == View.VISIBLE) {
                     sessionManager.setLock(true);
                 } else {
                     sessionManager.setLock(false);
@@ -326,18 +329,15 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
             }
 
-        } else if (count == Constraint.THREE) {
-            SignUp signUp = (SignUp) fragmentList.get(Constraint.TWO);
+        } else if (count == Constraint.FOUR) {
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.FOUR);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count == Constraint.FOUR) {
-//            AddScreen screen = (AddScreen) fragmentList.get(Constraint.THREE);
-
-//            handleCreateScreen(screen.mViewModel.getAutoSelctedProduct());
+        } else if (count >= Constraint.FIVE) {
             handleCreateScreen(null);
         }
 
-        if (count == Constraint.ONE || count == Constraint.TWO) {
+        if (count == Constraint.ONE || count == Constraint.TWO || count == Constraint.THREE) {
             mBinding.pager.setCurrentItem(count);
         }
     }
@@ -351,7 +351,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-        if (count == Constraint.TWO) {
+        if (count == Constraint.THREE) {
             SignUp signUp = (SignUp) fragmentList.get(count - Constraint.ONE);
             signUp.loginBinding.singup.performClick();
 
@@ -361,11 +361,11 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             sessionManager.setLock(false);
 
 
-        } else if (count == Constraint.THREE) {
+        } else if (count == Constraint.FOUR) {
             handleCreateScreen(null);
 
         }
-        if (count == Constraint.ONE) {
+        if (count == Constraint.ONE || count == Constraint.TWO) {
             mBinding.pager.setCurrentItem(count);
         }
     }
@@ -375,9 +375,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         if (Utils.getNetworkState(context)) {
             if (!SessionManager.get().getDisableSecurity())
-                addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+                addScreen = (AddScreen) fragmentList.get(Constraint.FOUR);
             else
-                addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
+                addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
 
 
             ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);
@@ -396,10 +396,18 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                     });
                 }
             } else {
-                count = Constraint.THREE;
+                if (!SessionManager.get().getDisableSecurity())
+                    count = Constraint.THREE;
+                else
+                    count = Constraint.TWO;
+
+
             }
         } else {
-            count = Constraint.THREE;
+            if (!SessionManager.get().getDisableSecurity())
+                count = Constraint.THREE;
+            else
+                count = Constraint.TWO;
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
 
@@ -436,9 +444,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         if (addScreen != null) {
 
             HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put(Constraint.ISLE, addScreen.mBinding.isle.getText().toString());
-            hashMap.put(Constraint.SHELF, addScreen.mBinding.shelf.getText().toString());
-            hashMap.put(Constraint.POSITION, addScreen.mBinding.position.getText().toString());
+            hashMap.put(Constraint.ISLE, Constraint.ONE_STRING);
+            hashMap.put(Constraint.SHELF, Constraint.ONE_STRING);
+            hashMap.put(Constraint.POSITION, Constraint.ONE_STRING);
             if (product == null) {
                 if (screenAddViewModel.getDeviceId() != null && !screenAddViewModel.getDeviceId().equals("") && !screenAddViewModel.getDeviceId().equals("0")) {
                     hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
@@ -489,7 +497,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     public void counterPlus(String deviceId) {
         count = count + Constraint.ONE;
         if (count == Constraint.THREE) {
-            mBinding.nextSlide.setVisibility(View.VISIBLE);
+            mBinding.nextSlide.setVisibility(View.GONE);
 
         }
         screenAddViewModel.setDeviceId(deviceId);
@@ -518,10 +526,10 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     public void counterMinus() {
         count = count - Constraint.ONE;
-        if (count == Constraint.THREE) {
-            mBinding.nextSlide.setVisibility(View.VISIBLE);
-
-        }
+//        if (count == Constraint.THREE) {
+//            mBinding.nextSlide.setVisibility(View.VISIBLE);
+//
+//        }
         mBinding.pager.setCurrentItem(count);
 
     }

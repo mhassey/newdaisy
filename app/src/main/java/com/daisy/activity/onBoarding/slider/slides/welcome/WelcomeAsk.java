@@ -1,15 +1,14 @@
-package com.daisy.activity.welcomeScreen;
+package com.daisy.activity.onBoarding.slider.slides.welcome;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
@@ -17,9 +16,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
-import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.base.BaseFragment;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
+import com.daisy.activity.welcomeScreen.WelcomeValidationHelper;
+import com.daisy.activity.welcomeScreen.WelcomeViewModel;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityWelcomeScreenBinding;
 import com.daisy.dialogFragment.DateTimePermissionDIalog;
@@ -34,16 +35,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
-/**
- * Purpose -  WelcomeScreen is an activity that show some content as welcome page to user
- * Responsibility - Its show some useful content for user and its also has begin method that redirect screen to on boarding
- **/
-public class WelcomeScreen extends BaseActivity implements View.OnClickListener {
-
+public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
     private ActivityWelcomeScreenBinding mBinding;
+    private static OnBoarding baording;
     private SessionManager sessionManager;
     final int sdk = android.os.Build.VERSION.SDK_INT;
     private WelcomeValidationHelper welcomeValidationHelper;
@@ -57,11 +52,12 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     private int listIndex = 0;
     private AddScreenViewModel addScreenViewModel;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen);
-        welcomeValidationHelper = new WelcomeValidationHelper(this, mBinding);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.activity_welcome_screen, container, false);
+        welcomeValidationHelper = new WelcomeValidationHelper(requireContext(), mBinding);
         welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
         addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
 
@@ -70,17 +66,26 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         firebaseConfiguration();
         defineKeyToUrlObserver();
         handleGeneralApiResponse();
+        return mBinding.getRoot();
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_POWER) {
-            return true;
-        }
-
-        return super.dispatchKeyEvent(event);
+    private void initView() {
+        sessionManager = SessionManager.get();
     }
 
+    // getInstance method is used for getting signup object
+    public static WelcomeAsk getInstance(OnBoarding onBoarding) {
+        baording = onBoarding;
+        return new WelcomeAsk();
+    }
+
+    /**
+     * Responsibility - initClick is an method that used for initiate clicks
+     * Parameters - No parameter
+     **/
+    private void initClick() {
+        mBinding.begin.setOnClickListener(this);
+    }
 
     private void firebaseConfiguration() {
         FirebaseMessaging.getInstance().getToken()
@@ -102,23 +107,10 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     }
 
 
-    /**
-     * Responsibility - initView method is used for initiate all object and perform some initial level task
-     * Parameters - No parameter
-     **/
-    private void initView() {
-
-        sessionManager = SessionManager.get();
-        setNoTitleBar(this);
-
-
-    }
-
-
     private void handleGeneralApiResponse() {
         LiveData<GlobalResponse<GeneralResponse>> liveData = addScreenViewModel.getGeneralResponseLiveData();
         if (!liveData.hasActiveObservers()) {
-            liveData.observe(this, new Observer<GlobalResponse<GeneralResponse>>() {
+            liveData.observe(getViewLifecycleOwner(), new Observer<GlobalResponse<GeneralResponse>>() {
                 @Override
                 public void onChanged(GlobalResponse<GeneralResponse> generalResponseGlobalResponse) {
                     handleGeneralResponse(generalResponseGlobalResponse);
@@ -137,16 +129,16 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         if (generalResponseGlobalResponse != null) {
             if (generalResponseGlobalResponse.isApi_status()) {
                 sessionManager.setBaseUrlChange(true);
-                goToOnBoarding();
+                baording.counterPlus();
 
             } else {
                 sessionManager.removeBaseUrl();
-                ValidationHelper.showToast(WelcomeScreen.this, getString(R.string.enter_valid_url));
+                ValidationHelper.showToast(requireContext(), getString(R.string.enter_valid_url));
 
             }
         } else {
             sessionManager.removeBaseUrl();
-            ValidationHelper.showToast(this, getString(R.string.enter_valid_url));
+            ValidationHelper.showToast(requireContext(), getString(R.string.enter_valid_url));
         }
     }
 
@@ -156,7 +148,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     private void defineKeyToUrlObserver() {
         LiveData<GlobalResponse<KeyToUrlResponse>> globalResponseLiveData = welcomeViewModel.getResponseLiveData();
         if (!globalResponseLiveData.hasActiveObservers()) {
-            globalResponseLiveData.observe(this, new Observer<GlobalResponse<KeyToUrlResponse>>() {
+            globalResponseLiveData.observe(getViewLifecycleOwner(), new Observer<GlobalResponse<KeyToUrlResponse>>() {
                 @Override
                 public void onChanged(GlobalResponse<KeyToUrlResponse> keyToUrlResponseGlobalResponse) {
                     showHideProgressDialog(false);
@@ -180,7 +172,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
             if (result.getResult().isMatched_status()) {
                 handleGeneralApi(result.getResult().getMatched_url() + Constraint.SLASH);
             } else {
-                ValidationHelper.showToast(this, getResources().getString(R.string.mpc_key_not_correct));
+                ValidationHelper.showToast(requireContext(), getResources().getString(R.string.mpc_key_not_correct));
             }
         } else {
             checkLoadedKey();
@@ -196,21 +188,35 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        boolean permissionAvailable = Utils.isTimeAutomatic(this);
+        boolean permissionAvailable = Utils.isTimeAutomatic(requireContext());
         if (!permissionAvailable) {
             showAlertIfTimeIsNotCorrect();
         }
+        designWork();
+
     }
 
-    /**
-     * Responsibility - initClick is an method that used for initiate clicks
-     * Parameters - No parameter
-     **/
-    private void initClick() {
-        mBinding.begin.setOnClickListener(this);
+    private void designWork() {
+
+        if (SessionManager.get().getDisableSecurity()) {
+            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
+            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+
+        } else {
+            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
+            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+        }
     }
+
 
     /**
      * Responsibility - onClick is an predefine method that calls when any click perform
@@ -220,6 +226,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.begin: {
+                Utils.hideKeyboard(requireContext());
                 listIndex = 0;
                 checkLoadedKey();
                 break;
@@ -234,15 +241,15 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         } else {
             if (listIndex <= 2) {
                 if (welcomeValidationHelper.isValid()) {
-                    if (Utils.getNetworkState(this)) {
+                    if (Utils.getNetworkState(requireContext())) {
                         showHideProgressDialog(true);
                         welcomeViewModel.setRequestLiveData(createKeyToUrlRequest());
                     } else {
-                        ValidationHelper.showToast(this, getString(R.string.no_internet_available));
+                        ValidationHelper.showToast(requireContext(), getString(R.string.no_internet_available));
                     }
                 }
             } else if (listIndex == 3) {
-                ValidationHelper.showToast(this, getString(R.string.technical_issue));
+                ValidationHelper.showToast(requireContext(), getString(R.string.technical_issue));
             }
 
 
@@ -262,53 +269,10 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void goToOnBoarding() {
-        Intent intent = new Intent(WelcomeScreen.this, OnBoarding.class);
+        Intent intent = new Intent(requireContext(), OnBoarding.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(Constraint.EXIT_CAPITAL, true);
         startActivity(intent);
-    }
-
-    /**
-     * Responsibility - onWindowFocusChanged method is an override function that call when any changes perform on ui
-     * Parameters - its take boolean hasFocus that help to know out app is in focused or not
-     **/
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            hideSystemUI();
-        }
-
-
-    }
-
-    /**
-     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
-     * Parameters - No parameter
-     **/
-    private void hideSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
-
-    }
-
-    @Override
-    protected void onStart() {
-        if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-//            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-//                mBinding.curveLayout.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
-//            } else {
-//                mBinding.curveLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ovel_purple_rtl));
-//            }
-        }
-        super.onStart();
-
     }
 
 
@@ -318,7 +282,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
     public void showAlertIfTimeIsNotCorrect() {
         DateTimePermissionDIalog dateTimePermissionDIalog = new DateTimePermissionDIalog();
         dateTimePermissionDIalog.setCancelable(false);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         dateTimePermissionDIalog.show(ft, null);
 
 
@@ -338,21 +302,21 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
                 if (urlLastChar.equals(Constraint.SLASH)) {
                     boolean b = Utils.isValidUrl(url);
                     if (b) {
-                        if (Utils.getNetworkState(this)) {
+                        if (Utils.getNetworkState(requireContext())) {
                             sessionManager.setBaseUrl(url);
                             showHideProgressDialog(true);
                             addScreenViewModel.setGeneralRequest(new HashMap<>());
                         } else {
-                            ValidationHelper.showToast(this, getString(R.string.no_internet_available));
+                            ValidationHelper.showToast(requireContext(), getString(R.string.no_internet_available));
                         }
                     } else {
-                        ValidationHelper.showToast(this, getString(R.string.enter_valid_url));
+                        ValidationHelper.showToast(requireContext(), getString(R.string.enter_valid_url));
                     }
                 } else {
-                    ValidationHelper.showToast(this, getString(R.string.url_must_end_with_slash));
+                    ValidationHelper.showToast(requireContext(), getString(R.string.url_must_end_with_slash));
                 }
             } else {
-                ValidationHelper.showToast(this, getString(R.string.baseurl_can_not_be_empty));
+                ValidationHelper.showToast(requireContext(), getString(R.string.baseurl_can_not_be_empty));
             }
         } catch (Exception e) {
 

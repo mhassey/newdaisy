@@ -17,6 +17,9 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -120,7 +123,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             SessionManager.get().isDisplayOverTheAppAvailable(false);
 
 
-
     }
 
 
@@ -133,13 +135,14 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.modifySystemSettings.setOnClickListener(this);
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
+        permissionAskBinding.next.setOnClickListener(this);
 
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
-        permissionAskBinding.miExtra.setOnClickListener(this::onClick);
-        permissionAskBinding.cancel.setOnClickListener(this::onClick);
-        permissionAskBinding.adminMain.setOnClickListener(this::onClick);
-        permissionAskBinding.gps.setOnClickListener(this::onClick);
-        permissionAskBinding.autoStartInternalLayout.setOnClickListener(this::onClick);
+        permissionAskBinding.miExtra.setOnClickListener(this);
+//        permissionAskBinding.cancel.setOnClickListener(this);
+        permissionAskBinding.adminMain.setOnClickListener(this);
+        permissionAskBinding.gps.setOnClickListener(this);
+        permissionAskBinding.autoStartInternalLayout.setOnClickListener(this);
 
     }
 
@@ -164,7 +167,6 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         //if (name.contains(Constraint.REDME)) {
         if (false) {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandDisplayOverTheApp() && permissionAskViewModel.isGrandExtraAccess()) {
-                onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     if (Locale.getDefault().getLanguage().equals(Constraint.AR))
                         onBaordingBindingMain.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_light_red_rtl));
@@ -177,6 +179,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                         onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
                 }
             } else {
+                permissionAskBinding.next.setVisibility(View.GONE);
+
                 onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
 
             }
@@ -184,6 +188,8 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
                 if (SessionManager.get().getDisplayOverTheAppAvailable()) {
                     if (!permissionAskViewModel.isGrandDisplayOverTheApp()) {
+                        permissionAskBinding.next.setVisibility(View.GONE);
+
                         onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
                         return;
                     }
@@ -200,8 +206,11 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                     else
                         onBaordingBindingMain.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_light_red));
                 }
-                onBaordingBindingMain.nextSlide.setVisibility(View.VISIBLE);
+                permissionAskBinding.next.setVisibility(View.VISIBLE);
+
             } else {
+                permissionAskBinding.next.setVisibility(View.GONE);
+
                 onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
 
             }
@@ -215,13 +224,11 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
         if (AutoStartHelper.brands.contains(build_info)) {
             if (permissionAskViewModel.isAutoStart()) {
+                isSelected(permissionAskBinding.autoStartInternalLayout,permissionAskBinding.autoStartTxt, permissionAskBinding.autoStartRadio, false);
 
-                permissionAskBinding.autoStartRadio.setChecked(true);
-                permissionAskBinding.autoStartInternalLayout.setEnabled(false);
 
             } else {
-                permissionAskBinding.autoStartRadio.setChecked(false);
-                permissionAskBinding.autoStartInternalLayout.setEnabled(true);
+                isSelected(permissionAskBinding.autoStartInternalLayout,permissionAskBinding.autoStartTxt, permissionAskBinding.autoStartRadio, true);
 
 
             }
@@ -254,13 +261,13 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         if (!mDPM.isAdminActive(mAdminName)) {
             //      if (false){
             permissionAskViewModel.setGrandAdminPermission(false);
-            permissionAskBinding.adminMain.setEnabled(true);
-            permissionAskBinding.adminUsages.setChecked(false);
+            isSelected(permissionAskBinding.adminMain,permissionAskBinding.adminTxt, permissionAskBinding.adminUsages, true);
+
         } else {
 
             permissionAskViewModel.setGrandAdminPermission(true);
-            permissionAskBinding.adminMain.setEnabled(false);
-            permissionAskBinding.adminUsages.setChecked(true);
+            isSelected(permissionAskBinding.adminMain,permissionAskBinding.adminTxt, permissionAskBinding.adminUsages, false);
+
 
         }
     }
@@ -271,18 +278,32 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
      **/
     private void checkForMi() {
         if (Utils.getDeviceName().contains(Constraint.REDME)) {
+
             permissionAskBinding.miExtraHeader.setVisibility(View.VISIBLE);
         } else {
             permissionAskBinding.miExtraHeader.setVisibility(View.GONE);
         }
         if (permissionAskViewModel.isGrandExtraAccess()) {
+            isSelected(permissionAskBinding.miExtra,permissionAskBinding.miExtraText, permissionAskBinding.miExtraRight, true);
+        } else {
+            isSelected(permissionAskBinding.miExtra,permissionAskBinding.miExtraText, permissionAskBinding.miExtraRight, false);
+        }
+    }
 
-            permissionAskBinding.miExtraRight.setChecked(true);
-            permissionAskBinding.miExtra.setEnabled(false);
+
+    void isSelected(LinearLayout layoutManager, TextView textView, ImageView imageView, boolean isSelected) {
+        if (!isSelected) {
+            layoutManager.setBackground(requireContext().getDrawable(R.drawable.edit_text_rouned_with_pick_fill));
+            imageView.setVisibility(View.VISIBLE);
+            layoutManager.setEnabled(false);
+            textView.setTextColor(requireContext().getColor(R.color.white));
+
 
         } else {
-            permissionAskBinding.miExtraRight.setChecked(false);
-            permissionAskBinding.miExtra.setEnabled(true);
+            layoutManager.setBackground(requireContext().getDrawable(R.drawable.edit_text_rounded_with_pink_border));
+            imageView.setVisibility(View.GONE);
+            layoutManager.setEnabled(true);
+            textView.setTextColor(requireContext().getColor(R.color.black));
 
 
         }
@@ -297,12 +318,12 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         final PowerManager pm = (PowerManager) requireContext().getSystemService(Context.POWER_SERVICE);
         if (!pm.isIgnoringBatteryOptimizations(getString(R.string.packageName))) {
             permissionAskViewModel.setGrandBatteyOptimization(Constraint.FALSE);
-            permissionAskBinding.batteryUsages.setChecked(false);
-            permissionAskBinding.dontOptimizedBattery.setEnabled(Constraint.TRUE);
+            isSelected(permissionAskBinding.dontOptimizedBattery,permissionAskBinding.displayBatteryTxt, permissionAskBinding.batteryUsages, true);
+
         } else {
             permissionAskViewModel.setGrandBatteyOptimization(Constraint.TRUE);
-            permissionAskBinding.batteryUsages.setChecked(true);
-            permissionAskBinding.dontOptimizedBattery.setEnabled(Constraint.FALSE);
+            isSelected(permissionAskBinding.dontOptimizedBattery,permissionAskBinding.displayBatteryTxt, permissionAskBinding.batteryUsages, false);
+
 
         }
 
@@ -325,12 +346,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             // do something for phones running an SDK before lollipop
         }
         if (!b) {
-            permissionAskBinding.grandMediaPermissionDone.setChecked(false);
-            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.TRUE);
+            isSelected(permissionAskBinding.grandMediaPermission,permissionAskBinding.grandTxt, permissionAskBinding.grandMediaPermissionDone, true);
             permissionAskViewModel.setGrandMediaPermission(Constraint.FALSE);
         } else {
-            permissionAskBinding.grandMediaPermissionDone.setChecked(true);
-            permissionAskBinding.grandMediaPermission.setEnabled(Constraint.FALSE);
+            isSelected(permissionAskBinding.grandMediaPermission,permissionAskBinding.grandTxt, permissionAskBinding.grandMediaPermissionDone, false);
             permissionAskViewModel.setGrandMediaPermission(Constraint.TRUE);
 
         }
@@ -344,12 +363,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void modifySystemSettings() {
         if (!Settings.System.canWrite(requireContext())) {
-            permissionAskBinding.modifySystemSettingsDone.setChecked(false);
-            permissionAskBinding.modifySystemSettings.setEnabled(Constraint.TRUE);
+            isSelected(permissionAskBinding.modifySystemSettings,permissionAskBinding.modifySystemTxt, permissionAskBinding.modifySystemSettingsDone, true);
             permissionAskViewModel.setGrandModifySystemSettings(Constraint.FALSE);
         } else {
-            permissionAskBinding.modifySystemSettingsDone.setChecked(true);
-            permissionAskBinding.modifySystemSettings.setEnabled(Constraint.FALSE);
+            isSelected(permissionAskBinding.modifySystemSettings,permissionAskBinding.modifySystemTxt, permissionAskBinding.modifySystemSettingsDone, false);
             permissionAskViewModel.setGrandModifySystemSettings(Constraint.TRUE);
         }
     }
@@ -360,14 +377,14 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
      **/
     private void checkAccessUsage() {
         if (Utils.isAccessGranted(requireContext())) {
+            isSelected(permissionAskBinding.usageAccess,permissionAskBinding.usageTxt, permissionAskBinding.usageAccessDone, false);
+
             permissionAskViewModel.setGrandUsageAccess(Constraint.TRUE);
-            permissionAskBinding.usageAccessDone.setChecked(true);
-            permissionAskBinding.usageAccess.setEnabled(Constraint.FALSE);
 
         } else {
             permissionAskViewModel.setGrandUsageAccess(Constraint.FALSE);
-            permissionAskBinding.usageAccessDone.setChecked(false);
-            permissionAskBinding.usageAccess.setEnabled(Constraint.TRUE);
+            isSelected(permissionAskBinding.usageAccess,permissionAskBinding.usageTxt, permissionAskBinding.usageAccessDone, true);
+
         }
     }
 
@@ -378,12 +395,11 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkDisplayOverTheApp() {
         if (Settings.canDrawOverlays(requireContext())) {
-            permissionAskBinding.displayOverTheAppDone.setChecked(true);
-            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.FALSE);
+            isSelected(permissionAskBinding.displayOverTheApp,permissionAskBinding.displayOverTxt, permissionAskBinding.displayOverTheAppDone, false);
+
             permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.TRUE);
         } else {
-            permissionAskBinding.displayOverTheAppDone.setChecked(false);
-            permissionAskBinding.displayOverTheApp.setEnabled(Constraint.TRUE);
+            isSelected(permissionAskBinding.displayOverTheApp,permissionAskBinding.displayOverTxt, permissionAskBinding.displayOverTheAppDone, true);
             permissionAskViewModel.setGrandDisplayOverTheApp(Constraint.FALSE);
 
         }
@@ -403,6 +419,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.next:{
+                onBaordingBindingMain.nextSlide.performClick();
+                break;
+            }
             case R.id.grandMediaPermission: {
 
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -630,16 +650,20 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void designWork() {
 
         if (SessionManager.get().getDisableSecurity()) {
-            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
-//            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
-        } else {
-            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
-            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selector_dot_pink));
+//            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
             onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+        } else {
+            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selector_dot_pink));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
         }
     }
 

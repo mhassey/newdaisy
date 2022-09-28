@@ -143,9 +143,6 @@
             android:name=".activity.updatePosition.UpdatePosition"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.login.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.onBoarding.slider.OnBoarding"
             android:screenOrientation="portrait" />
         <activity
@@ -153,7 +150,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -191,14 +189,16 @@
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
         <receiver
             android:name=".broadcast.broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
-            android:enabled="false">
+            android:enabled="false"
+            android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".broadcast.bootcomplete.BootReceiver"
-            android:enabled="false">
+            android:enabled="false"
+            android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -216,7 +216,8 @@
 
         <receiver
             android:name=".security.Admin"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:exported="true">
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/admin" />

@@ -193,6 +193,7 @@
     <dimen name="sp25">25sp</dimen>
     <dimen name="dp185">185dp</dimen>
     <dimen name="dp55">55dp</dimen>
+    <dimen name="dp24">24dp</dimen>
 
 
 </resources>

@@ -4,9 +4,12 @@
         <shape
             android:innerRadius="0dp"
             android:shape="ring"
-            android:thickness="@dimen/dot_size"
+            android:thickness="@dimen/dp8"
             android:useLevel="false">
-            <solid android:color="@color/purple"/>
+            <stroke android:width="0.5dp" android:color="#353660"/>
+
+            <solid android:color="@color/mettle_light_green"/>
+
         </shape>
     </item>
 </layer-list>

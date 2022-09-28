@@ -1,400 +1,428 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
+        tools:context=".activity.welcomeScreen.WelcomeScreen">
 
-        <ScrollView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp80"
+            android:layout_marginStart="@dimen/dp60"
+            android:layout_marginEnd="@dimen/dp60"
+            android:gravity="center|start"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rbold"
+                android:text="@string/permission"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp6"
+                android:layout_marginBottom="@dimen/dp14"
+                android:fontFamily="@font/rragular"
+                android:text="@string/permission_msg"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp14" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp250"
-                    android:layout_marginBottom="@dimen/dp20"
-                    android:background="@color/red_light"
-                    android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/grandMediaPermission"
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:id="@+id/cancel"
-                                android:layout_width="@dimen/dp40"
-                                android:layout_height="@dimen/dp40"
-                                android:src="@drawable/ic_arrow_back" />
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+                    android:gravity="center"
+                    android:padding="@dimen/dp10">
 
                     <ImageView
-                        android:layout_width="@dimen/dp120"
-                        android:layout_height="@dimen/dp120"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/ic_permissions_icon" />
+
+                        android:id="@+id/grandMediaPermissionDone"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
 
                     <TextView
-                        style="@style/fontMedium"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/grand_txt"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="@dimen/dp10"
-                        android:text="@string/PERMISSION"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp25" />
+                        android:gravity="center|start"
+                        android:text="@string/grant_permissions"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
 
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:id="@+id/grandMediaPermission"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format"
-                        android:gravity="center">
-
-                        <RadioButton
-
-                            android:id="@+id/grandMediaPermissionDone"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/grant_permissions"
-                            android:textSize="@dimen/sp15" />
-
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/display_over_the_app_top_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
-                    android:gravity="center">
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/displayOverTheApp"
-                        android:layout_width="wrap_content"
-
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
-
-                        <RadioButton
-                            android:id="@+id/displayOverTheAppDone"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/display_over_other_apps"
-                            android:textSize="@dimen/sp15" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
+            <LinearLayout
+                android:id="@+id/display_over_the_app_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/displayOverTheApp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
-                    android:gravity="center">
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
 
-                    <LinearLayout
-                        android:id="@+id/usageAccess"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
-
-                        <RadioButton
-                            android:id="@+id/usageAccessDone"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/grand_usage_access"
-                            android:textSize="@dimen/sp15" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:id="@+id/modifySystemSettings"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
-
-                        <RadioButton
-
-                            android:id="@+id/modifySystemSettingsDone"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/modify_system_settings"
-                            android:textSize="@dimen/sp15" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/dontOptimizedBatteryHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:id="@+id/dontOptimizedBattery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
-
-                        <RadioButton
-                            android:id="@+id/batteryUsages"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/don_t_optimized_battery"
-                            android:textSize="@dimen/sp15" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-
-                    android:id="@+id/gpsHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
                     android:gravity="center"
-                    android:visibility="gone">
+                    android:padding="@dimen/dp10">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/displayOverTheAppDone"
 
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/display_over_txt"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
+                        android:gravity="center|start"
+                        android:text="@string/display_over_other_apps"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
 
-                        <RadioButton
-                            android:id="@+id/gpsUsages"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/gps"
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/gpsEnable"
-                            android:textSize="@dimen/sp15" />
-
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center">
+
                 <LinearLayout
-                    android:id="@+id/adminPermissionHeader"
-                    android:layout_width="match_parent"
+                    android:id="@+id/usageAccess"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+
                     android:gravity="center"
-                    android:visibility="visible">
+                    android:padding="@dimen/dp10">
 
-                    <LinearLayout
-                        android:id="@+id/adminMain"
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/usageAccessDone"
 
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/usage_txt"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
+                        android:gravity="center|start"
+                        android:text="@string/grand_usage_access"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
 
-                        <RadioButton
-                            android:id="@+id/adminUsages"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/admin_permission"
-                            android:textSize="@dimen/sp15" />
-
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center">
+
                 <LinearLayout
-                    android:id="@+id/miExtraHeader"
-                    android:layout_width="match_parent"
+                    android:id="@+id/modifySystemSettings"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
-                    android:gravity="center">
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+                    android:gravity="center"
+                    android:padding="@dimen/dp10">
 
-                    <LinearLayout
-                        android:id="@+id/miExtra"
-                        android:layout_width="wrap_content"
+                    <ImageView
+
+                        android:id="@+id/modifySystemSettingsDone"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/modify_system_txt"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
+                        android:gravity="center|start"
+                        android:text="@string/modify_system_settings"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
 
-                        <RadioButton
-                            android:id="@+id/miExtraRight"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/mi_extra"
-                            android:textSize="@dimen/sp15" />
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dontOptimizedBatteryHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center">
+
                 <LinearLayout
-                    android:id="@+id/auto_start_layout"
-                    android:layout_width="match_parent"
+                    android:id="@+id/dontOptimizedBattery"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp15"
-                    android:gravity="center">
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+                    android:gravity="center"
 
-                    <LinearLayout
-                        android:id="@+id/auto_start_internal_layout"
-                        android:layout_width="wrap_content"
+                    android:padding="@dimen/dp10">
+
+                    <ImageView
+                        android:id="@+id/batteryUsages"
+
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/display_battery_txt"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_format">
+                        android:gravity="center|start"
+                        android:text="@string/don_t_optimized_battery"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
 
-                        <RadioButton
-                            android:id="@+id/auto_start_radio"
-                            android:layout_width="@dimen/dp30"
-                            android:layout_height="@dimen/dp30"
-                            android:buttonTint="@color/red_light"
-                            android:clickable="false"
-                            android:src="@drawable/ic_accept"
-                            android:visibility="visible" />
 
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="@dimen/dp200"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|start"
-                            android:padding="@dimen/dp10"
-                            android:text="@string/auto_start"
-                            android:textSize="@dimen/sp15" />
+                </LinearLayout>
 
-                    </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/gpsHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_with_pink_border">
+
+                    <ImageView
+                        android:id="@+id/gpsUsages"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/gps"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:padding="@dimen/dp10"
+                        android:text="@string/gpsEnable"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/adminPermissionHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/adminMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+                    android:gravity="center"
+                    android:padding="@dimen/dp10">
+
+                    <ImageView
+                        android:id="@+id/adminUsages"
+
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/admin_txt"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:text="@string/admin_permission"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/miExtraHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/miExtra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+                    android:gravity="center"
+
+                    android:padding="@dimen/dp10">
+
+                    <ImageView
+                        android:id="@+id/miExtraRight"
+
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/mi_extra_text"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:text="@string/mi_extra"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/auto_start_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/auto_start_internal_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+                    android:gravity="center"
+
+                    android:padding="@dimen/dp10">
+
+                    <ImageView
+                        android:id="@+id/auto_start_radio"
+
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/auto_start_txt"
+                        style="@style/fontBold"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:text="@string/auto_start"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
 
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+
+            <TextView
+                android:id="@+id/next"
+                style="@style/fontBold"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp13"
+                android:background="@drawable/edit_text_rounded_with_pink_border"
+                android:gravity="center"
+                android:text="@string/next"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 </layout>

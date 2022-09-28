@@ -74,8 +74,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         context = requireContext();
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
         addOrientationData();
-        ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, mViewModel.getOrientation());
-        orientationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getOrientation());
+        orientationAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
 
         mBinding.webkitOrientation.setAdapter(orientationAdapter);
 
@@ -99,10 +99,11 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void initClick() {
-        mBinding.cancel.setOnClickListener(this);
+//        mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
+        mBinding.begin.setOnClickListener(this);
 
     }
 
@@ -124,8 +125,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
             if (carriers != null) {
                 mViewModel.setCarriers(carriers);
-                ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, android.R.layout.simple_spinner_item, mViewModel.getCarriers());
-                carrierArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getCarriers());
+                carrierArrayAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
                 mBinding.carrierName.setAdapter(carrierArrayAdapter);
 
             }
@@ -153,31 +154,23 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void designWork() {
-        if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
-            else
 
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
-        } else {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple_rtl));
-            else
-
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_purple));
-        }
 
         if (SessionManager.get().getDisableSecurity()) {
             baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
 //            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
 
         } else {
             baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+
+            baording.mBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.selected_purple));
         }
     }
 
@@ -348,8 +341,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             if (manufactures != null) {
 
                 mViewModel.setManufactures(manufactures);
-                ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, android.R.layout.simple_spinner_item, mViewModel.getManufactures());
-                manufactureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getManufactures());
+                manufactureArrayAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
                 mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
 
             }
@@ -383,8 +376,8 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 sessionManager.setOSType(generalResponse.getResult().getOsTypes());
                 mViewModel.setProducts(generalResponse.getResult().getProducts());
                 if (mViewModel.getProducts() != null) {
-                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, android.R.layout.simple_spinner_item, mViewModel.getProducts());
-                    productArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getProducts());
+                    productArrayAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
                     mBinding.productName.setAdapter(productArrayAdapter);
                     if (mViewModel.getAutoSelctedProduct() != null)
                         filterItemAndSetProductIfAvailable(generalResponse.getResult().getProducts());
@@ -449,6 +442,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.cancel: {
                 getActivity().onBackPressed();
+                break;
+            }
+            case R.id.begin:{
+                baording.mBinding.nextSlide.performClick();
                 break;
             }
 //            case R.id.continuee: {

@@ -1,128 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
+        tools:context=".activity.welcomeScreen.WelcomeScreen">
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp250"
-            android:background="@color/mettle_light_green"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp10">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/cancel"
-                        android:layout_width="@dimen/dp40"
-                        android:layout_height="@dimen/dp40"
-                        android:src="@drawable/ic_arrow_back" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="@dimen/dp120"
-                android:layout_height="@dimen/dp120"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_credentials_icon" />
-
-            <TextView
-                style="@style/fontMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="@dimen/dp10"
-                android:text="@string/credentials"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp25" />
-
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.6"
-            android:gravity="center|top"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp60"
+            android:layout_marginEnd="@dimen/dp60"
+            android:layout_marginBottom="@dimen/dp80"
+            android:gravity="center|start"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rbold"
+                android:text="@string/credentials"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp25" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp6"
+                android:fontFamily="@font/rragular"
+                android:text="@string/to_proceed_enter_mpc_key"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp14" />
 
             <EditText
-                android:id="@+id/storeCode"
+                android:id="@+id/store_code"
+
                 android:layout_width="match_parent"
+
                 android:layout_height="@dimen/dp40"
-                android:layout_marginStart="@dimen/dp30"
-                android:layout_marginEnd="@dimen/dp30"
-                android:layout_marginTop="@dimen/dp30"
-                android:background="@drawable/edit_text_format"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:gravity="center"
                 android:hint="@string/store_code"
-                android:textSize="@dimen/sp15"
-                android:inputType="text"
                 android:imeOptions="actionNext"
-                android:textDirection="locale"
-
-                android:paddingStart="@dimen/dp10"
-                android:textColor="?attr/textcolorblack" />
-
+                android:inputType="text"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/password"
+
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
-                android:layout_marginStart="@dimen/dp30"
-                android:layout_marginEnd="@dimen/dp30"
-                android:layout_marginTop="@dimen/dp20"
-                android:background="@drawable/edit_text_format"
-                android:hint="@string/Password"
-                android:textAlignment="viewStart"
-                android:textSize="@dimen/sp15"
-                android:inputType="textPassword"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:gravity="center"
+                android:hint="@string/password"
                 android:imeOptions="actionDone"
-                android:paddingStart="@dimen/dp10"
-                android:textColor="?attr/textcolorblack" />
+                android:inputType="textPassword"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:gravity="center">
 
             <TextView
+
                 android:id="@+id/singup"
-                android:layout_width="@dimen/dp200"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
+                style="@style/fontBold"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp13"
+                android:background="@drawable/rounded_edit_text"
                 android:gravity="center"
-                android:paddingStart="@dimen/dp30"
-                android:paddingTop="@dimen/dp20"
-                android:paddingEnd="@dimen/dp30"
-                android:paddingBottom="@dimen/dp20"
-                android:text="@string/signin"
-                android:textColor="?attr/textcolorblack"
-                android:textSize="@dimen/sp15" />
+                android:text="@string/next"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-    </LinearLayout>
+
+    </RelativeLayout>
 </layout>

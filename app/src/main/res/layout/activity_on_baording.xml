@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootView"
@@ -9,84 +8,84 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/tabDots"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+
+            android:layout_width="@dimen/dp70"
+            android:layout_height="@dimen/dp30"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="55dp"
+            android:src="@drawable/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <LinearLayout
             android:id="@+id/tabDots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp30"
+            android:layout_marginBottom="@dimen/dp10"
+
+
+            android:background="@color/transparent"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabDotsLayout"
+                android:layout_gravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabBackground="@drawable/tab_selector_permission_ask"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                app:tabGravity="center" />
+
+            <LinearLayout
+                android:id="@+id/nextSlide"
+                android:layout_width="@dimen/dp160"
+                android:layout_height="@dimen/dp50"
+                android:background="@drawable/ovel_purple"
+                android:gravity="center"
+                android:layoutDirection="locale"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="false"
-                    android:gravity="center">
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabDotsLayout"
-                        app:tabPaddingStart="0dp"
-                        app:tabPaddingEnd="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/fontRagular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/next"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp20" />
+
+                    <TextView
+                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:tabIndicatorHeight="0dp" />
+                        android:layout_marginStart="@dimen/dp10"
+                        android:text=">"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp20" />
                 </LinearLayout>
 
-                <LinearLayout
-
-                    android:layout_width="@dimen/dp180"
-                    android:layout_height="@dimen/dp50">
-                <LinearLayout
-                    android:id="@+id/nextSlide"
-                    android:layout_width="@dimen/dp180"
-                    android:layout_height="@dimen/dp50"
-                    android:layoutDirection="locale"
-                    android:background="@drawable/ovel_purple"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/next"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp20" />
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:text=">"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp20" />
-                    </LinearLayout>
-
-                </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

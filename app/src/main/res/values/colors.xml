@@ -13,6 +13,8 @@
     <color name="associateText">#5a5858</color>
     <color name="order_type">#6f6f6f</color>
     <color name="blue">#2196fe</color>
+    <color name="orange">#FB6340</color>
+
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightDivider">#DBDBDB</color>
     <color name="editTextLineColor">#d1d1d1</color>
@@ -32,6 +34,7 @@
     <color name="black">#FF000000</color>
     <color name="lighter_grey">#DDDDDD</color>
     <color name="dark">#9A000000</color>
+    <color name="dark_grey_blue">#353660</color>
     <color name="home_page_mode_item_subtitle">#CCFFFFFF</color>
     <color name="reticle_ripple">#9AFFFFFF</color>
     <color name="bounding_box_gradient_start">#00FFFFFF</color>
@@ -55,11 +58,13 @@
     <color name="crop__selector_focused">#77000000</color>
     <color name="color_progress_end">#00ffffff</color>
     <color name="red">#e74c3c</color>
-    <color name="purple">#8e66ac</color>
+    <color name="purple">#b25191</color>
     <color name="mettle_blue">#54a0ff</color>
-    <color name="mettle_light_green">#95cfb3</color>
+    <color name="mettle_light_green">#6dad57</color>
     <color name="red_light">#f1706b</color>
+    <color name="pink_dark">#e44c73</color>
     <color name="updatePosition">#589ced</color>
+
 
 </resources>
 

@@ -2,18 +2,16 @@ package com.daisy.activity.onBoarding.slider.slides.signup;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseFragment;
@@ -27,7 +25,6 @@ import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * Purpose -  SignUp is an activity that help to sign up with store code and password
@@ -76,7 +73,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     private void initClick() {
 
         loginBinding.singup.setOnClickListener(this);
-        loginBinding.cancel.setOnClickListener(this::onClick);
+//        loginBinding.cancel.setOnClickListener(this::onClick);
     }
 
 
@@ -94,7 +91,7 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.singup: {
-
+                Utils.hideKeyboard(requireContext());
                 doSignUp();
 
                 break;
@@ -125,11 +122,8 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
                         }
                     });
                 }
-            } else {
-                baording.counterMinus();
             }
         } else {
-            baording.counterMinus();
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
     }
@@ -156,13 +150,9 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
 
                 baording.counterPlus(signUpResponse.getData().getDeviceId());
             } else {
-
-                baording.counterMinus();
                 ValidationHelper.showToast(context, signUpResponse.getMessage());
             }
         } else {
-
-            baording.counterMinus();
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
 
@@ -193,30 +183,18 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
      * Purpose - designWork method handles next button ui and background
      */
     private void designWork() {
-        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR)) {
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
-            } else
 
-                baording.mBinding.nextSlide.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
-        } else {
-            if (Locale.getDefault().getLanguage().equals(Constraint.AR))
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green_rtl));
-            else
-
-                baording.mBinding.nextSlide.setBackground(ContextCompat.getDrawable(context, R.drawable.ovel_mettle_green));
-        }
         if (SessionManager.get().getDisableSecurity()) {
             baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
 //            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.selected_green));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.selected_green));
 
         } else {
             baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.selected_green));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.selected_green));
         }
     }
 
