@@ -13,6 +13,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.InsetDrawable;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -39,6 +42,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -1936,21 +1940,31 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.password_layout, null);
         final EditText password = alertLayout.findViewById(R.id.password);
+        final TextView storeName = alertLayout.findViewById(R.id.store_name);
+        final TextView cancle = alertLayout.findViewById(R.id.cancel);
+        final TextView unLock = alertLayout.findViewById(R.id.unlock);
+
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(getString(R.string.lock));
+
         alert.setView(alertLayout);
         alert.setCancelable(false);
 
-        alert.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        storeName.setText(SessionManager.get().getLoginResponse().getStoreName());
 
+        AlertDialog dialog = alert.create();
+        InsetDrawable insetDrawable = new InsetDrawable(new ColorDrawable(Color.TRANSPARENT), 150, 0, 150, 0);
+        dialog.getWindow().setBackgroundDrawable(insetDrawable);
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
+
             }
         });
-        alert.setPositiveButton(R.string.unlockk, new DialogInterface.OnClickListener() {
+        unLock.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
 
                 String passwordString = password.getText().toString();
                 String lockPassword = sessionManager.getPasswordLock();
@@ -1965,8 +1979,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     ValidationHelper.showToast(context, getString(R.string.invalid_password));
                 }
             }
+
         });
-        AlertDialog dialog = alert.create();
         dialog.show();
 
     }

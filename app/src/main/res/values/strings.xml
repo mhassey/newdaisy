@@ -72,7 +72,7 @@
     <string name="position_not_empty">Position can not be empty</string>
     <string name="shelf_not_empty">Shelf can not be empty</string>
     <string name="mi_extra">Mi Extra Permission</string>
-    <string name="update_position">Update Position</string>
+    <string name="update_position">Modify Position</string>
     <string name="update_screen">Update Screen</string>
     <string name="signin">SignIn</string>
     <string name="update_baseurl">Update BaseUrl</string>
@@ -243,4 +243,10 @@
     <string name="go">GO</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="store_name">Store name</string>
+    <string name="version_update">Check version updates</string>
+    <string name="developer">Developer</string>
+    <string name="adjest_timer">Adjest Timer</string>
+    <string name="update_app">Update App</string>
+    <string name="update">UPDATE</string>
 </resources>

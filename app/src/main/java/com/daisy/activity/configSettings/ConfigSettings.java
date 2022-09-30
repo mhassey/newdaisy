@@ -1,11 +1,18 @@
 package com.daisy.activity.configSettings;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,34 +22,28 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
+import com.daisy.activity.DeveloperActivity;
 import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.baseUrl.BaseUrlSettings;
-import com.daisy.activity.feedBack.FeedBackActivity;
-import com.daisy.activity.langSupport.LangSelectionActivity;
-import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.activity.refreshTimer.RefreshTimer;
-import com.daisy.activity.socketConnection.SocketConnection;
+import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
+import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
-import com.daisy.activity.updateProduct.UpdateProduct;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
-import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
-import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.LogoutDialog;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
-import org.greenrobot.eventbus.EventBus;
-
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -64,6 +65,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private Context context;
     private SessionManager sessionManager;
     private ApkUpdateViewModel viewModel;
+    private GetCardViewModel getCardViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +82,12 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
      **/
     private void initView() {
         context = this;
+        sessionManager = SessionManager.get();
         viewModel = new ViewModelProvider(this).get(ApkUpdateViewModel.class);
+        getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
+
         setNoTitleBar(this);
-        sessionWork();
+//        sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
         getDefaultUpdateTime();
     }
@@ -100,137 +105,28 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         }
     }
 
-    /**
-     * Responsibility -  sessionWork is an method that perform session work all items visibility maintained here
-     * Parameters - No parameter
-     **/
-    private void sessionWork() {
-        sessionManager = SessionManager.get();
-        if (sessionManager.getDeviceSanitised().equals(Constraint.TRUE_STR)) {
-            mBinding.sanitisedHeader.setVisibility(View.VISIBLE);
-        } else {
-            mBinding.sanitisedHeader.setVisibility(View.GONE);
-
-        }
-
-        if (sessionManager.getSanitized()) {
-            mBinding.sanitisedMain.setChecked(Constraint.TRUE);
-        } else {
-            mBinding.sanitisedMain.setChecked(Constraint.FALSE);
-        }
-
-        if (sessionManager.getDeviceSecurity().equals(Constraint.TRUE_STR)) {
-            mBinding.securityHeader.setVisibility(View.VISIBLE);
-            mBinding.alarmHeader.setVisibility(View.VISIBLE);
-
-        } else {
-            mBinding.securityHeader.setVisibility(View.GONE);
-            mBinding.alarmHeader.setVisibility(View.GONE);
-
-            sessionManager.setDeviceSecurity(Constraint.FALSE_STR);
-        }
-        if (sessionManager.getDeviceSecured()) {
-            mBinding.securitySwitch.setChecked(Constraint.TRUE);
-        } else {
-            mBinding.securitySwitch.setChecked(Constraint.FALSE);
-
-        }
-        if (!sessionManager.getAlaramSecurity()) {
-            mBinding.alramSwitch.setChecked(Constraint.TRUE);
-        } else {
-            mBinding.alramSwitch.setChecked(Constraint.FALSE);
-
-        }
-    }
-
 
     /**
      * Responsibility - initClick is an method that used for initiate clicks
      * Parameters - No parameter
      **/
     private void initClick() {
-        mBinding.logs.setOnClickListener(this::onClick);
-        mBinding.setRefreshRate.setOnClickListener(this::onClick);
-        mBinding.updateBaseUrl.setOnClickListener(this::onClick);
+
+
+        mBinding.developerOption.setOnClickListener(this);
+        mBinding.directUpdate.setOnClickListener(this);
+//        mBinding.updateBaseUrl.setOnClickListener(this::onClick);
         mBinding.updatePosition.setOnClickListener(this::onClick);
-        mBinding.changeLanguage.setOnClickListener(this::onClick);
-        mBinding.logout.setOnClickListener(this::onClick);
-        mBinding.cancel.setOnClickListener(this::onClick);
-        mBinding.feedBack.setOnClickListener(this::onClick);
-        mBinding.lunchApp.setOnClickListener(this::onClick);
-        mBinding.sanitisedHeader.setOnClickListener(this::onClick);
-        mBinding.directApkUpdate.setOnClickListener(this::onClick);
+//        mBinding.logout.setOnClickListener(this::onClick);
+//        mBinding.cancel.setOnClickListener(this::onClick);
+//        mBinding.lunchApp.setOnClickListener(this::onClick);
+
         mBinding.updateProduct.setOnClickListener(this::onClick);
-        mBinding.sanitisedMain.setOnCheckedChangeListener(getCheckedListener());
-        mBinding.securitySwitch.setOnCheckedChangeListener(getSecuritySwitch());
-        mBinding.alramSwitch.setOnCheckedChangeListener(getAlarmSwitch());
-        mBinding.logoutApp.setOnClickListener(this::onClick);
+
+//        mBinding.logoutApp.setOnClickListener(this::onClick);
         mBinding.socketConnection.setOnClickListener(this::onClick);
 
 
-    }
-
-
-    /**
-     * Responsibility - getAlarmSwitch is an method that works when we switch alarm and here we store its state to session for future work
-     * Parameters - No parameter
-     **/
-    private CompoundButton.OnCheckedChangeListener getAlarmSwitch() {
-        return new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    sessionManager.alaramSecuried(Constraint.FALSE);
-                } else {
-                    sessionManager.alaramSecuried(Constraint.TRUE);
-                }
-            }
-        };
-    }
-
-
-    /**
-     * Responsibility - getSecuritySwitch is an method that works when we switch security switch and here we store its state to session for future work
-     * Parameters - No parameter
-     **/
-    private CompoundButton.OnCheckedChangeListener getSecuritySwitch() {
-        return new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    sessionManager.setStepCount(Constraint.ZERO);
-                    sessionManager.deviceSecuried(Constraint.TRUE);
-                    finish();
-                } else {
-                    sessionManager.deviceSecuried(Constraint.FALSE);
-                    finish();
-
-                }
-            }
-        };
-    }
-
-
-    /**
-     * Responsibility - getCheckedListener is an method that works when  sanitised switch changes and here we store its state to session for future work
-     * Parameters - No parameter
-     **/
-    private CompoundButton.OnCheckedChangeListener getCheckedListener() {
-        return new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    sessionManager.setSanitized(Constraint.TRUE);
-                    sessionManager.setComeFromConfig(Constraint.TRUE);
-
-                    finish();
-                    ValidationHelper.showToast(context, getString(R.string.sanitised));
-
-                }
-
-
-            }
-        };
     }
 
 
@@ -281,47 +177,38 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.logs: {
-                openLogActivity();
+
+            case R.id.developer_option: {
+                openDeveloperActivity();
                 break;
             }
-            case R.id.socket_connection: {
-                handleSocketConnectionCall();
+            case R.id.directUpdate: {
+                directUpdate();
                 break;
             }
-            case R.id.setRefreshRate: {
-                openRefreshRate();
-                break;
-            }
-            case R.id.updateBaseUrl: {
-                updateBaseUrl();
-                break;
-            }
+
+//            case R.id.updateBaseUrl: {
+//                updateBaseUrl();
+//                break;
+//            }
             case R.id.updatePosition: {
                 openUpdatePositionActivity();
                 break;
             }
-            case R.id.changeLanguage: {
-                startLangSupportActivity();
-                //changeLanguage();
-                break;
-            }
+
             case R.id.cancel: {
                 onBackPressed();
                 break;
             }
-            case R.id.logout: {
-                logout();
-                break;
-            }
-            case R.id.feedBack: {
-                feedBack();
-                break;
-            }
-            case R.id.lunchApp: {
-                launchApp();
-                break;
-            }
+//            case R.id.logout: {
+//                logout();
+//                break;
+//            }
+
+//            case R.id.lunchApp: {
+//                launchApp();
+//                break;
+//            }
             case R.id.update_product: {
                 openUpdateProductActivity();
                 break;
@@ -338,12 +225,212 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         }
     }
 
-    /**
-     * Purpose - handleSocketConnectionCall method open socket connection page
-     */
-    private void handleSocketConnectionCall() {
-        Intent intent = new Intent(this, SocketConnection.class);
+
+    private void openDeveloperActivity() {
+        Intent intent = new Intent(this, DeveloperActivity.class);
         startActivity(intent);
+
+    }
+
+
+    /**
+     * Responsibility -  getCardRequest  method create a card request with device token and screen id
+     * Parameters - No parameter
+     **/
+    private HashMap<String, String> getCardRequest() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constraint.SCREEN_ID, sessionManager.getScreenId() + "");
+        hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+        if (sessionManager.getPriceCard() != null)
+            hashMap.put(Constraint.pricecardid, sessionManager.getPriceCard().getIdpriceCard());
+        return hashMap;
+    }
+
+
+    /**
+     * Responsibility - directUpdate method is an method that create an card request and call an api for direct update and pass response to handleRefreshTimeResponse method
+     * Parameters - No parameter
+     **/
+    private void directUpdate() {
+        if (Utils.getNetworkState(context)) {
+
+            showHideProgressDialog(true);
+            getCardViewModel.setMutableLiveData(getCardRequest());
+            LiveData<GlobalResponse<GetCardResponse>> liveData = getCardViewModel.getLiveData();
+            if (!liveData.hasActiveObservers()) {
+                liveData.observe(this, new Observer<GlobalResponse<GetCardResponse>>() {
+                    @Override
+                    public void onChanged(GlobalResponse<GetCardResponse> response) {
+                        showHideProgressDialog(false);
+                        if (response.isApi_status()) {
+                            handleRefreshTimeResponse(response);
+                        } else {
+                            ValidationHelper.showToast(context, getString(R.string.no_data_available));
+
+                        }
+                    }
+                });
+            }
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_internet_available));
+        }
+    }
+
+
+    /**
+     * Responsibility -  handleRefreshTimeResponse contains response coming from directUpdate  method here we set some default values and  if new price card promotions comes then pass the urls to download class for downloading
+     * Parameters - No parameter
+     **/
+    private void handleRefreshTimeResponse(GlobalResponse<GetCardResponse> response) {
+        if (response.getResult() != null) {
+            sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
+            sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
+            sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
+            sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
+            sessionManager.setDeviceSecurity(response.getResult().getStoreDetails().getDeviceSecurity());
+            sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
+            if (!response.getResult().isDefault()) {
+                if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
+
+                    sessionManager.deleteLocation();
+                    sessionManager.deletePromotions();
+                    sessionManager.setPriceCard(response.getResult().getPricecard());
+                    sessionManager.setPromotion(response.getResult().getPromotions());
+                    sessionManager.setPricing(response.getResult().getPricing());
+                    sessionManager.setCardDeleted(Constraint.FALSE);
+                    redirectToMain(response);
+
+                } else if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
+                    sessionManager.setPromotion(response.getResult().getPromotions());
+
+                    Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+                    if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                        sessionManager.setPricing(response.getResult().getPricing());
+                    }
+                    i.putExtra(Constraint.PROMOTION, Constraint.TRUE_STR);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                    sessionManager.setPricing(response.getResult().getPricing());
+                    Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+                    i.putExtra(Constraint.PRICING, Constraint.TRUE_STR);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+
+                }
+            } else {
+
+                if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
+                    sessionManager.setPromotion(response.getResult().getPromotions());
+
+                    if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                        sessionManager.setPricing(response.getResult().getPricing());
+                    }
+                    Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+                    i.putExtra(Constraint.PROMOTION, Constraint.TRUE_STR);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                    sessionManager.setPricing(response.getResult().getPricing());
+                    Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+                    i.putExtra(Constraint.PRICING, Constraint.TRUE_STR);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+
+                } else {
+                    sessionManager.setPricing(null);
+                    Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+                    i.putExtra(Constraint.PRICING, Constraint.TRUE_STR);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                }
+
+            }
+
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.no_data_available));
+        }
+    }
+
+
+    /**
+     * Responsibility -  redirectToMain checks the file path  if any new price card is available set its path to config file and redirect pagr to MainActivity
+     * Parameters - No parameter
+     **/
+    private void redirectToMain(GlobalResponse<GetCardResponse> response) {
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
+            String UrlPath = response.getResult().getPricecard().getFileName();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(getExternalFilesDir(""), configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    Utils.deleteCardFolder();
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    sessionManager.deleteLocation();
+
+                } else {
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                sessionManager.onBoarding(Constraint.TRUE);
+
+                Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            }
+        } else {
+
+            Utils.deleteDaisy();
+            String UrlPath = response.getResult().getPricecard().getFileName();
+            if (response.getResult().getPricecard().getFileName() != null) {
+                String configFilePath = Environment.getExternalStorageDirectory() + File.separator + Constraint.FOLDER_NAME + Constraint.SLASH;
+                File directory = new File(configFilePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String path = Utils.getPath();
+                if (path != null) {
+                    if (!path.equals(UrlPath)) {
+                        Utils.deleteCardFolder();
+                        try {
+                            Utils.writeFile(configFilePath, UrlPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        sessionManager.deleteLocation();
+
+                    }
+                } else {
+                    try {
+                        Utils.writeFile(configFilePath, UrlPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                sessionManager.onBoarding(Constraint.TRUE);
+
+                Intent i = new Intent(ConfigSettings.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            }
+        }
     }
 
 
@@ -360,22 +447,46 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Responsibility - startLangSupportActivity is an method to redirect page to  LangSelectionActivity
-     * Parameters - No parameter
-     **/
-    private void startLangSupportActivity() {
-        Intent intent = new Intent(context, LangSelectionActivity.class);
-        startActivity(intent);
-
-    }
-
-    /**
      * Responsibility - openUpdateProductActivity is an method to redirect page to  UpdateProduct
      * Parameters - No parameter
      **/
     private void openUpdateProductActivity() {
-        Intent intent = new Intent(context, UpdateProduct.class);
-        startActivity(intent);
+        openUpdateProductAlert();
+//        Intent intent = new Intent(context, UpdateProduct.class);
+//        startActivity(intent);
+    }
+
+    private void openUpdateProductAlert() {
+        LayoutInflater inflater = getLayoutInflater();
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        View alertLayout = inflater.inflate(R.layout.update_product_alert_layout, null);
+
+        alert.setView(alertLayout);
+        Spinner manufactureList = alertLayout.findViewById(R.id.manufactureList);
+        Spinner productName = alertLayout.findViewById(R.id.productName);
+        Spinner webkitOrientation = alertLayout.findViewById(R.id.webkitOrientation);
+        ImageView close = alertLayout.findViewById(R.id.close_dialog);
+
+
+        alert.setCancelable(false);
+        AlertDialog dialog = alert.create();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        dialog.getWindow().setLayout((width - (width / 4)), ((height / 2) - (height / 10))); //Controlling width and height.
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+
+
     }
 
 
@@ -444,16 +555,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
 
 
     /**
-     * Responsibility - feedBack method is used for transfer controll to FeedBackActivity page
-     * Parameters - No parameter
-     **/
-    private void feedBack() {
-        Intent intent = new Intent(ConfigSettings.this, FeedBackActivity.class);
-        startActivity(intent);
-    }
-
-
-    /**
      * Responsibility - logout method is used for logout the app but not in used
      * Parameters - No parameter
      **/
@@ -461,16 +562,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         sessionManager.removeSession();
         Intent intent = new Intent(ConfigSettings.this, BaseUrlSettings.class);
         ProcessPhoenix.triggerRebirth(ConfigSettings.this, intent);
-    }
-
-
-    /**
-     * Responsibility - openRefreshRate method is used for open RefreshTimer activity
-     * Parameters - No parameter
-     **/
-    private void openRefreshRate() {
-        Intent intent = new Intent(ConfigSettings.this, RefreshTimer.class);
-        startActivity(intent);
     }
 
 
@@ -491,16 +582,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
      **/
     private void openUpdatePositionActivity() {
         Intent intent = new Intent(ConfigSettings.this, UpdatePosition.class);
-        startActivity(intent);
-    }
-
-
-    /**
-     * Responsibility - openLogActivity method is used for open LogsMainActivity activity
-     * Parameters - No parameter
-     **/
-    private void openLogActivity() {
-        Intent intent = new Intent(ConfigSettings.this, LogsMainActivity.class);
         startActivity(intent);
     }
 

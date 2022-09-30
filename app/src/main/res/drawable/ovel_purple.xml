@@ -6,13 +6,13 @@
 
     <solid
 
-        android:color="@color/purple" >
+        android:color="@color/select_pro" >
     </solid>
 
     <stroke
 
         android:width="2dp"
-        android:color="@color/purple" >
+        android:color="@color/select_pro" >
     </stroke>
 
     <padding

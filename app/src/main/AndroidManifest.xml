@@ -4,29 +4,26 @@
     package="com.daisy">
 
     <queries>
-        <package android:name="com.motorola.demo"/>
+        <package android:name="com.motorola.demo" />
+
         <intent>
-            <action android:name="com.motorola.demo.BIND_KSP_ACTION"/>
+            <action android:name="com.motorola.demo.BIND_KSP_ACTION" />
         </intent>
-    </queries>
-    <!--    <queries>-->
-    <!--        <package android:name="au.com.optus.android.gooptus" />-->
-    <!--        <package android:name="au.com.fetchtv" />-->
-    <!--        <package android:name="au.com.optus.optusstadium" />-->
-    <!--        <package android:name="com.spotify.music" />-->
-    <!--        <package android:name="com.android.chrome" />-->
-    <!--        <package android:name="com.sec.android.app.sbrowser" />-->
-    <!--        <package android:name="com.samsung.retailexperience.retailpalette" />-->
-    <!--        <package android:name="com.samsung.retailexperience.retailhubble" />-->
-    <!--        <package android:name="com.samsung.retailexperience.retailsmartswitch" />-->
-    <!--        <package android:name="com.samsung.rms.retailagent.global" />-->
-    <!--        <package android:name="com.samsung.sea.retail.appmonitor" />-->
-    <!--        <package android:name="com.samsung.rms.rtp.kinesis" />-->
-    <!--        <package android:name="com.galaxy.spec" />-->
-
-
-    <!--    </queries>-->
-
+    </queries> <!-- <queries> -->
+    <!-- <package android:name="au.com.optus.android.gooptus" /> -->
+    <!-- <package android:name="au.com.fetchtv" /> -->
+    <!-- <package android:name="au.com.optus.optusstadium" /> -->
+    <!-- <package android:name="com.spotify.music" /> -->
+    <!-- <package android:name="com.android.chrome" /> -->
+    <!-- <package android:name="com.sec.android.app.sbrowser" /> -->
+    <!-- <package android:name="com.samsung.retailexperience.retailpalette" /> -->
+    <!-- <package android:name="com.samsung.retailexperience.retailhubble" /> -->
+    <!-- <package android:name="com.samsung.retailexperience.retailsmartswitch" /> -->
+    <!-- <package android:name="com.samsung.rms.retailagent.global" /> -->
+    <!-- <package android:name="com.samsung.sea.retail.appmonitor" /> -->
+    <!-- <package android:name="com.samsung.rms.rtp.kinesis" /> -->
+    <!-- <package android:name="com.galaxy.spec" /> -->
+    <!-- </queries> -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -83,8 +80,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.DeveloperActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.socketConnection.SocketConnection"
             android:exported="false" />
+
         <service
             android:name=".service.DeviceSearch"
             android:enabled="true"
@@ -116,7 +121,6 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -127,9 +131,7 @@
 
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
             android:screenOrientation="portrait" />
@@ -150,8 +152,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.splash.SplashScreen"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -216,8 +218,8 @@
 
         <receiver
             android:name=".security.Admin"
-            android:permission="android.permission.BIND_DEVICE_ADMIN"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/admin" />

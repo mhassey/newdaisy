@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:orientation="vertical"
         android:id="@+id/rootLayout"
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp250"
-            android:background="@color/purple"
+            android:background="@color/select_pro"
             android:orientation="vertical">
 
             <LinearLayout
@@ -117,7 +117,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:background="@drawable/edit_text_format"
-                android:textDirection="locale"
 
                 android:textColorHint="@color/editTextLineColor"
                 android:padding="@dimen/dp10" />
@@ -126,7 +125,7 @@
                 android:layout_marginEnd="@dimen/dp10"
                 android:src="@drawable/ic_down_arrow"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="@dimen/dp20"
                 android:layout_height="@dimen/dp20"/>
 
@@ -152,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:background="@drawable/edit_text_format"
-                android:textDirection="locale"
+
                 android:textColorHint="@color/editTextLineColor"
                 android:padding="@dimen/dp10" />
 
@@ -160,7 +159,7 @@
                 android:layout_marginEnd="@dimen/dp10"
                 android:src="@drawable/ic_down_arrow"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="@dimen/dp20"
                 android:layout_height="@dimen/dp20"/>
 
@@ -183,8 +182,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:textDirection="locale"
-
                 android:background="@drawable/edit_text_format"
                 android:textColorHint="@color/editTextLineColor"
                 android:padding="@dimen/dp10" />
@@ -193,7 +190,7 @@
                 android:layout_marginEnd="@dimen/dp10"
                 android:src="@drawable/ic_down_arrow"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="@dimen/dp20"
                 android:layout_height="@dimen/dp20"/>
 
@@ -213,7 +210,7 @@
             android:layout_marginTop="@dimen/dp5"
             android:layout_height="wrap_content">
             <Spinner
-                android:textDirection="locale"
+
                 android:id="@+id/webkitOrientation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -226,7 +223,7 @@
                 android:layout_marginEnd="@dimen/dp10"
                 android:src="@drawable/ic_down_arrow"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="@dimen/dp20"
                 android:layout_height="@dimen/dp20"/>
 
@@ -262,7 +259,6 @@
                         <LinearLayout
                             android:id="@+id/nextSlide"
                             android:layout_width="@dimen/dp150"
-
                             android:layout_height="@dimen/dp50"
                             android:background="@drawable/ovel_purple"
                             android:gravity="center"
