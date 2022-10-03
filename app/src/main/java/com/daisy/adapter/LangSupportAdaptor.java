@@ -15,6 +15,7 @@ import com.daisy.interfaces.LangSupportCallBack;
 import com.daisy.pojo.LangPojo;
 
 import java.util.List;
+
 /**
  * Its an adaptor that connect with language list and what ever data it has show to user
  **/
@@ -69,6 +70,10 @@ public class LangSupportAdaptor extends RecyclerView.Adapter<LangSupportAdaptor.
         return langPojos.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         public LangSupportCustomLayoutBinding langSupportCustomLayoutBinding;

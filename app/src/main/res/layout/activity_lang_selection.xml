@@ -1,72 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/rootLayout"
-    android:orientation="vertical"
-    tools:context=".activity.langSupport.LangSelectionActivity">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center|start"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp50">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="@dimen/dp10"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context=".activity.langSupport.LangSelectionActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/close_dialog"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp20"
+                android:src="@drawable/close" />
 
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_marginStart="@dimen/dp5"
-            android:src="@drawable/ic_arrow_right_black"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lang"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:textSize="@dimen/dp20"
-            android:layout_weight="1"
-            android:gravity="center|start"
-            android:layout_marginStart="@dimen/dp10"
-            android:text="@string/select_language"
-            android:fontFamily="@font/rbold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/confirmLang"
-            android:visibility="gone"
-            android:textSize="@dimen/dp15"
-            android:layout_weight="1"
-            android:gravity="center|end"
-            android:layout_marginEnd="@dimen/dp10"
-            android:text="@string/confirm"
-            android:fontFamily="@font/rbold"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-
-
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_marginTop="@dimen/dp5"
-        android:background="@color/gray"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lang"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
-
-</LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

@@ -68,6 +68,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
+                android:paddingStart="@dimen/dp10"
                 android:background="@drawable/edit_text_format"
                 android:backgroundTint="@color/mettle_light_green"
                 android:inputType="text"
@@ -97,6 +98,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
+                android:paddingStart="@dimen/dp10"
                 android:background="@drawable/edit_text_format"
                 android:backgroundTint="@color/mettle_light_green"
                 android:inputType="text"
@@ -123,6 +125,7 @@
 
             <Spinner
                 android:id="@+id/webkitOrientation"
+                android:paddingStart="@dimen/dp10"
 
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
@@ -144,7 +147,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/update"
+            android:id="@+id/update_mpc_product"
             style="@style/fontBold"
             android:layout_marginBottom="@dimen/dp20"
             android:layout_width="match_parent"

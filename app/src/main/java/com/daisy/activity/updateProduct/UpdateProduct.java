@@ -56,6 +56,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
     final int sdk = android.os.Build.VERSION.SDK_INT;
     private GetCardViewModel getCardViewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

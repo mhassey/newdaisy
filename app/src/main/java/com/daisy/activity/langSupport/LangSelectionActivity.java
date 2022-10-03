@@ -67,8 +67,8 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
      * Parameters - No parameter
      **/
     private void initClick() {
-        binding.back.setOnClickListener(this::onClick);
-        binding.confirmLang.setOnClickListener(this::onClick);
+//        binding.back.setOnClickListener(this::onClick);
+//        binding.confirmLang.setOnClickListener(this::onClick);
     }
 
     /**
@@ -98,7 +98,7 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
     public void setLangPojo(LangPojo langPojo, RecyclerView.ViewHolder viewHolder) {
         langSupportViewModel.setViewHolder(viewHolder);
         langSupportViewModel.setSelectedLanguage(langPojo);
-        binding.confirmLang.setVisibility(View.VISIBLE);
+//        binding.confirmLang.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -118,14 +118,14 @@ public class LangSelectionActivity extends BaseActivity implements LangSupportCa
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.confirmLang: {
-                changeLang();
-                break;
-            }
-            case R.id.back: {
-                finish();
-                break;
-            }
+//            case R.id.confirmLang: {
+//                changeLang();
+//                break;
+//            }
+//            case R.id.back: {
+//                finish();
+//                break;
+//            }
         }
     }
 

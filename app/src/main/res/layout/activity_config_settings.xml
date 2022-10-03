@@ -1,138 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/root_layout"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <ScrollView
+        <ImageView
+            android:id="@+id/ac_close"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            android:src="@drawable/close" />
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_marginStart="@dimen/dp50"
+            android:layout_marginEnd="@dimen/dp50"
+            android:layout_marginBottom="@dimen/dp80"
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rbold"
+                android:text="@string/settings"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp25" />
+
+            <TextView
+                android:id="@+id/update_product"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/update_product"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
+
+            <TextView
+                android:id="@+id/updatePosition"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/update_position"
+                android:inputType="text"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
+            <TextView
+                android:id="@+id/directUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/direct_update"
+                android:inputType="text"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
+
+            <TextView
+                android:id="@+id/developer_option"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/developer"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
 
             <LinearLayout
+                android:id="@+id/socket_connection"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp60"
-                android:layout_marginEnd="@dimen/dp60"
-                android:gravity="center|start"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/edit_text_format"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp80"
-                    android:orientation="vertical">
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/dp10"
+                    android:fontFamily="@font/rbold"
+                    android:text="@string/socket_connection"
+                    android:textSize="@dimen/sp10" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/rbold"
-                        android:text="@string/settings"
-                        android:textColor="@color/dark_grey_blue"
-                        android:textSize="@dimen/dp25" />
-
-                    <TextView
-                        android:id="@+id/update_product"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp40"
-                        android:layout_marginTop="@dimen/dp14"
-                        android:background="@drawable/rounded_edit_text"
-                        android:fontFamily="@font/rbold"
-                        android:gravity="center"
-                        android:hint="@string/update_product"
-                        android:padding="@dimen/dp10"
-                        android:textSize="@dimen/dp10" />
-
-
-                    <TextView
-                        android:id="@+id/updatePosition"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp40"
-                        android:layout_marginTop="@dimen/dp14"
-                        android:background="@drawable/rounded_edit_text"
-                        android:fontFamily="@font/rbold"
-                        android:gravity="center"
-                        android:hint="@string/update_position"
-                        android:inputType="text"
-                        android:padding="@dimen/dp10"
-                        android:textSize="@dimen/dp10" />
-                    <TextView
-                        android:id="@+id/directUpdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp40"
-                        android:layout_marginTop="@dimen/dp14"
-                        android:background="@drawable/rounded_edit_text"
-                        android:fontFamily="@font/rbold"
-                        android:gravity="center"
-                        android:hint="@string/direct_update"
-                        android:inputType="text"
-                        android:padding="@dimen/dp10"
-                        android:textSize="@dimen/dp10" />
-
-
-
-
-
-
-                    <TextView
-                        android:id="@+id/developer_option"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp40"
-                        android:layout_marginTop="@dimen/dp14"
-                        android:background="@drawable/rounded_edit_text"
-                        android:fontFamily="@font/rbold"
-                        android:gravity="center"
-                        android:hint="@string/developer"
-                        android:padding="@dimen/dp10"
-                        android:textSize="@dimen/dp10" />
-
-                    <LinearLayout
-                        android:id="@+id/socket_connection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp14"
-                        android:background="@drawable/edit_text_format"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/dp10"
-                            android:fontFamily="@font/rbold"
-                            android:text="@string/socket_connection"
-                            android:textSize="@dimen/sp10" />
-
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/logout_app"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp40"
-                        android:layout_marginTop="@dimen/dp14"
-                        android:background="@drawable/rounded_edit_text"
-                        android:fontFamily="@font/rbold"
-                        android:gravity="center"
-                        android:hint="@string/logout"
-                        android:padding="@dimen/dp10"
-                        android:textSize="@dimen/dp10" />
-                </LinearLayout>
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/logout_app"
 
-        </ScrollView>
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/logout"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+        </LinearLayout>
+
 
         <RelativeLayout
             android:id="@+id/check1"
@@ -209,7 +203,7 @@
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </layout>

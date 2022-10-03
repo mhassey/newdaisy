@@ -91,6 +91,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * Responsibility - initView helps app to always keep screen on and initialize work for all activity
      * Parameters - No parameter

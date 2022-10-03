@@ -1,28 +1,45 @@
 package com.daisy.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.feedBack.FeedBackActivity;
-import com.daisy.activity.langSupport.LangSelectionActivity;
+import com.daisy.activity.langSupport.LangSupportViewModel;
 import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.activity.socketConnection.SocketConnection;
+import com.daisy.adapter.LangSupportAdaptor;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityDeveloperBinding;
+import com.daisy.databinding.ActivityLangSelectionBinding;
+import com.daisy.interfaces.LangSupportCallBack;
+import com.daisy.pojo.LangPojo;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
@@ -30,26 +47,41 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
+import java.util.Locale;
 
-public class DeveloperActivity extends BaseActivity implements View.OnClickListener {
+public class DeveloperActivity extends BaseActivity implements View.OnClickListener, LangSupportCallBack {
     private ActivityDeveloperBinding mBinding;
     private SessionManager sessionManager;
     private Context context;
     private ApkUpdateViewModel viewModel;
+    private ActivityLangSelectionBinding alertBinding;
+    private AlertDialog dialog;
+    private LangSupportViewModel langSupportViewModel;
+    private LangSupportAdaptor langSupportAdaptor;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_developer);
+        alertBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_lang_selection, null, false);
+        langSupportViewModel = new ViewModelProvider(this).get(LangSupportViewModel.class);
+        langSupportViewModel.setLangData(this);
         context = this;
+        setNoTitleBar(this);
         initView();
         initClick();
     }
 
     void initView() {
         viewModel = new ViewModelProvider(this).get(ApkUpdateViewModel.class);
-
+        langSupportAdaptor = new LangSupportAdaptor(langSupportViewModel.getLangPojosForAdaptor(), this);
+        alertBinding.lang.setLayoutManager(new LinearLayoutManager(context));
+        alertBinding.lang.setAdapter(langSupportAdaptor);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setView(alertBinding.getRoot());
+        alert.setCancelable(false);
+        dialog = alert.create();
         sessionWork();
 
     }
@@ -82,6 +114,10 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
             }
             case R.id.direct_apk_update: {
                 handleApkUpdateDirectly();
+                break;
+            }
+            case R.id.ac_close: {
+                onBackPressed();
                 break;
             }
         }
@@ -159,6 +195,7 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
         mBinding.changeLanguage.setOnClickListener(this::onClick);
         mBinding.logs.setOnClickListener(this::onClick);
         mBinding.setRefreshRate.setOnClickListener(this::onClick);
+        mBinding.acClose.setOnClickListener(this);
     }
 
     /**
@@ -189,8 +226,25 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
      * Parameters - No parameter
      **/
     private void startLangSupportActivity() {
-        Intent intent = new Intent(context, LangSelectionActivity.class);
-        startActivity(intent);
+        WindowManager.LayoutParams wmlp = dialog.getWindow().getAttributes();
+
+        wmlp.gravity = Gravity.START | Gravity.BOTTOM;
+        wmlp.x = 100;   //x position
+        wmlp.y = 120;   //y position
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        dialog.getWindow().setLayout((width - (width / 2)), (((height / 2)))); //Controlling width and height.
+        alertBinding.closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
 
     }
 
@@ -313,5 +367,82 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         };
+    }
+
+    @Override
+    public RecyclerView.ViewHolder getHolder() {
+        return langSupportViewModel.getViewHolder();
+    }
+
+    @Override
+    public void setLangPojo(LangPojo langPojo, RecyclerView.ViewHolder viewHolder) {
+        langSupportViewModel.setViewHolder(viewHolder);
+        langSupportViewModel.setSelectedLanguage(langPojo);
+        LangPojo selectedLang = langSupportViewModel.getSelectedLanguage();
+        if (selectedLang != null) {
+            dialog.dismiss();
+            setLang(selectedLang.getKey());
+        } else {
+            ValidationHelper.showToast(context, getString(R.string.please_select_lang));
+        }
+    }
+
+    @Override
+    public void setDefaultLang(LangPojo langPojo, RecyclerView.ViewHolder holder) {
+        langSupportViewModel.setViewHolder(holder);
+
+    }
+
+    /**
+     * Responsibility - setLang method help to set app language
+     * Parameters - No parameter
+     **/
+    private void setLang(String s) {
+        s = s.trim();
+        Locale locale = new Locale(s);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        SessionManager.get().setLang(s);
+        Intent i = new Intent(DeveloperActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+
+    }
+
+
+
+    /**
+     * Responsibility - hideSystemUI method is an default method that help to change app ui to full screen when any change perform in activity
+     * Parameters - No parameter
+     **/
+    private void hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
+        ViewGroup.LayoutParams params = mBinding.rootLayout.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        mBinding.rootLayout.requestLayout();
+
     }
 }
