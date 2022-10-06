@@ -22,14 +22,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.wifi.WifiManager;
-import android.net.wifi.p2p.WifiP2pDevice;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Build;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -66,9 +64,6 @@ import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.BufferedReader;
-import java.net.ServerSocket;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
@@ -99,19 +94,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     private double mAccel;
     private double mAccelCurrent;
     private double mAccelLast;
-    private boolean isPickedUp = false;
-    private int counter = 0;
-    private long lastUpdate;
-    private int movement = 0;
-    private boolean isPickedUpSucess = false;
-    private boolean isPickedDown = false;
     public static Timer refreshTimer;
     public static Timer refreshTimer1;
     public static Timer refreshTimer2;
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
-    public static Timer refreshTimer6;
-    private ServerSocket serverSocket;
     private long lastFaceDetect = 0;
 
     public static Timer refreshTimer5;
@@ -122,13 +109,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     private int uninstallIssue = 0;
     private long mLastClickTime = 0;
     private static BackgroundService backgroundService;
-    private WifiP2pManager manager;
-    private WifiP2pManager.Channel channel;
-    BroadcastReceiver chatBroadCast;
-    IntentFilter chatIntentFilter;
-    private List<WifiP2pDevice> wifiP2pDevices = new ArrayList<>();
-    private BufferedReader input;
-    private CountDownTimer faceDetectTimer;
 
 
     @Nullable
@@ -156,7 +136,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         setWindowManager();
         setCounter();
         if (!SessionManager.get().getDisableSecurity())
-        initPassword();
+            initPassword();
 
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
             initWifi();
@@ -229,7 +209,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                                 }
                                 boolean messageLock = sessionManager.getMessageLock();
                                 if (Arrays.asList(messages).contains(process) || process.contains(Constraint.MESSENGING)) {
-                                    // true
                                     if (!messageLock) {
 
                                         return;
@@ -329,7 +308,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
     private void initWifi() {
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
     }
 
 
@@ -372,45 +350,16 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void setCounter() {
         bringApplicationTimer();
-        setDeleteTimer();
+        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.Q) {
+            setDeleteTimer();
+        }
         sendLogTimer();
         checkUpdate();
         checkPromotion();
         checkInversion();
-        //searchIpCounter();
-        //stopUninstall();
         updateAPk();
         validatePromotion();
     }
-
-    private void searchIpCounter() {
-        try {
-            int hour = Constraint.ZERO;
-            int minit = Constraint.TEN;
-
-            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-            refreshTimer4 = new Timer();
-            refreshTimer4.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-                        if (!SessionManager.get().getLogout()) {
-                            if (SessionManager.get().getIpSearched()) {
-                                Intent intent = new Intent(getApplicationContext(), DeviceSearch.class);
-                                intent.putExtra(Constraint.CALLFROM, Constraint.BACKGROUND_SERVICE);
-                                startService(intent);
-                            }
-                        }
-                    } catch (Exception e) {
-
-                    }
-                }
-            }, second, second);
-
-        } catch (Exception e) {
-        }
-    }
-
 
     /**
      * Purpose - for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
@@ -446,9 +395,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void checkInversion() {
         try {
-            int hour = Constraint.ZERO;
             int minit = Constraint.THREE;
-            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+            int second = ((minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer1 = new Timer();
             refreshTimer1.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -486,44 +434,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         }
     }
 
-
-    /**
-     * Purpose - Shutdown stop method but not accorate
-     */
-    private void stopShutdown() {
-        try {
-
-
-            int second = Constraint.FIVE_HUNDRED;
-            refreshTimer5 = new Timer();
-            refreshTimer5.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-                        Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-                        sendBroadcast(closeDialog);
-
-
-                    } catch (Exception e) {
-
-                    }
-                }
-            }, second, second);
-
-        } catch (Exception e) {
-        }
-    }
-
-
     /**
      * Purpose - Check for promotion in every one hour
      */
     private void checkPromotion() {
         try {
             int hour = Constraint.ONE;
-            int minit = Constraint.ZERO;
-
-            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED)) * Constraint.THOUSAND;
             refreshTimer3 = new Timer();
             refreshTimer3.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -545,13 +462,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void sendLogTimer() {
         Timer logsSync = new Timer();
-        int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
-
+        int second = ((6 * Constraint.THIRTY_SIX_HUNDRED)) * Constraint.THOUSAND;
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!SessionManager.get().getLogout()) {
-
                     if (Utils.getNetworkState(getApplicationContext())) {
                         List<Logs> logsVOList = DBCaller.getLogsFromDatabaseNotSync(getApplicationContext());
                         if (logsVOList.isEmpty()) {
@@ -603,17 +518,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
 
     /**
-     * Purpose - Check for card updaWIFI_STATE_CHANGED_ACTIONte availability
+     * Purpose - Check for card WIFI_STATE_CHANGED_ACTION availability
      */
     public static void checkUpdate() {
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
         int hour = Constraint.FOUR;
-
         int minit = Constraint.ZERO;
-
-
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
@@ -729,25 +641,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void setDeleteTimer() {
 
-        int hour = Constraint.ZERO;
         int minit = Constraint.TEN;
-
-
-        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-
+        int second = ((minit * Constraint.SIXTY)) * Constraint.THOUSAND;
         Timer deletePhoto = new Timer();
         deletePhoto.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!SessionManager.get().getLogout()) {
                     if (!Utils.isMyServiceRunning(DeletePhotoService.class, getApplicationContext())) {
-                        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
-
-
-                        } else {
-                            startService(new Intent(getApplicationContext(), DeletePhotoService.class));
-                        }
-
+                        startService(new Intent(getApplicationContext(), DeletePhotoService.class));
                     }
                 }
             }
@@ -770,7 +672,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                 public void run() {
                     Intent intent = new Intent(context, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                     context.startActivity(intent);
                 } // This is your code
             };
@@ -780,9 +681,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         }
 
     }
-
-
-    // Register receiver
 
     /**
      * Purpose - registerReceiver method register all broad cast receiver
@@ -949,7 +847,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
     }
 
-    //  Perform sanitised work
 
     /**
      * Purpose - sanitisedWork check the top activity and according to that perform sanitization work
@@ -1147,6 +1044,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     @Override
     public void onFaceDetected() {
         try {
+            Log.e("Kali","Face in");
+
+            SessionManager.get().setBrightness(0.9f);
+            Utils.setFullBrightNess();
             if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.TEN_SECOND) {
                 return;
             }
@@ -1169,6 +1070,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
+        SessionManager.get().setBrightness(0.2f);
+        Utils.setFullBrightNess();
 
     }
 

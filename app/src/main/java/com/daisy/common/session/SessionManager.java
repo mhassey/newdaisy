@@ -1297,7 +1297,16 @@ public class SessionManager {
     public void isDisplayOverTheAppAvailable(boolean b) {
         pref.setBooleanData(Constraint.IS_DISPLAY_OVER_THE_APP, b);
     }
+
     public boolean getDisplayOverTheAppAvailable() {
-       return pref.getBoolean(Constraint.IS_DISPLAY_OVER_THE_APP);
+        return pref.getBoolean(Constraint.IS_DISPLAY_OVER_THE_APP);
+    }
+
+    public void setBrightness(float v) {
+        pref.setFloatData(Constraint.BRIGHTNESS_LEVEL_STR, v);
+    }
+
+    public float getBrightness() {
+        return pref.getFloatData(Constraint.BRIGHTNESS_LEVEL_STR);
     }
 }

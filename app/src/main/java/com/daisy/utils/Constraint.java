@@ -252,6 +252,7 @@ public class Constraint {
     public static final boolean FALSE = false;
     public static final boolean TRUE = true;
     public static final float BRIGHTNESS_LEVEL = 80;
+    public static final String BRIGHTNESS_LEVEL_STR = "BrightnessLevel";
 
     public static final int CODE_WRITE_SETTINGS_PERMISSION = 17;
     public static final long THIRTY = 30;

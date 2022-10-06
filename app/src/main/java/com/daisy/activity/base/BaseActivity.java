@@ -173,7 +173,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))
             setLang(sessionManager.getLang());
-        Utils.setFullBrightNess(this);
+        Utils.setFullBrightNess();
 
         super.onResume();
     }

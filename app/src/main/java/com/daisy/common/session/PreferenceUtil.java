@@ -22,17 +22,15 @@ public class PreferenceUtil {
     }
 
 
-    public static float getSharedPrefFloat(Context context, String key) {
-        SharedPreferences userAcountPreference = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-        return userAcountPreference.getFloat(key, 0);
+    public float getFloatData(String key) {
+        return mSpref.getFloat(key, 0.2f);
     }
 
     public int getIntData(String key) {
         return mSpref.getInt(key, 0);
     }
 
-    public void setFloatData(Context context, String key, float value) {
+    public void setFloatData(String key, float value) {
         SharedPreferences.Editor appInstallInfoEditor = mSpref.edit();
         appInstallInfoEditor.putFloat(key, value);
         appInstallInfoEditor.commit();
@@ -55,8 +53,9 @@ public class PreferenceUtil {
         appInstallInfoEditor.putStringSet(key, value);
         appInstallInfoEditor.apply();
     }
+
     public Set<String> getSetString(String key) {
-        return mSpref.getStringSet(key,null);
+        return mSpref.getStringSet(key, null);
     }
 
 

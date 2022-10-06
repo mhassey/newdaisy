@@ -140,10 +140,13 @@ public class Utils {
      *
      * @param baseActivity
      */
-    public static void setFullBrightNess(BaseActivity baseActivity) {
-        WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
-        layout.screenBrightness = 0.5F;
-        baseActivity.getWindow().setAttributes(layout);
+    public static void setFullBrightNess() {
+        if (AppController.getInstance() != null && AppController.getInstance().getActivity() != null) {
+            BaseActivity baseActivity = AppController.getInstance().getActivity();
+            WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
+            layout.screenBrightness = SessionManager.get().getBrightness();
+            baseActivity.getWindow().setAttributes(layout);
+        }
     }
 
 
