@@ -23,6 +23,7 @@ import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.security.Admin;
 import com.daisy.service.BackgroundService;
+import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.Locale;
@@ -77,8 +78,7 @@ public class BaseActivity extends AppCompatActivity {
      * Responsibility - removeAdminRightPermission is an method that help to remove admin right permission
      * Parameters - No parameter
      **/
-    public void removeAdminRightPermission()
-    {
+    public void removeAdminRightPermission() {
         try {
             ComponentName devAdminReceiver = new ComponentName(this, Admin.class);
             DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -150,9 +150,9 @@ public class BaseActivity extends AppCompatActivity {
             } else {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    progressDialog = new ProgressDialog(this,R.style.ProgressTheme);
+                    progressDialog = new ProgressDialog(this, R.style.ProgressTheme);
                 else
-                    progressDialog = new ProgressDialog(this,R.style.AlertDialog_Holo);
+                    progressDialog = new ProgressDialog(this, R.style.AlertDialog_Holo);
                 progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -173,6 +173,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))
             setLang(sessionManager.getLang());
+        Utils.setFullBrightNess(this);
+
         super.onResume();
     }
 }

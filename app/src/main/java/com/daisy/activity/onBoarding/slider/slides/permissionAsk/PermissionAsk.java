@@ -155,18 +155,14 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void permissionSetter() {
         checkDisplayOverTheApp();
         checkAccessUsage();
-        modifySystemSettings();
         mediaPermission();
         checkForOnePlus();
         checkForMi();
         checkForGps();
         checkAdminPermission();
         checkAutoPermission();
-        String name = Utils.getDeviceName();
 
-        //if (name.contains(Constraint.REDME)) {
-
-        if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandModifySystemSettings() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
+        if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
             if (SessionManager.get().getDisplayOverTheAppAvailable()) {
                 if (!permissionAskViewModel.isGrandDisplayOverTheApp()) {
                     permissionAskBinding.next.setVisibility(View.GONE);
@@ -324,20 +320,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     }
 
-    /**
-     * Responsibility - check for modify system settings  permission
-     * Parameters - No parameter
-     **/
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void modifySystemSettings() {
-        if (!Settings.System.canWrite(requireContext())) {
-            isSelected(permissionAskBinding.modifySystemSettings, permissionAskBinding.modifySystemTxt, permissionAskBinding.modifySystemSettingsDone, true);
-            permissionAskViewModel.setGrandModifySystemSettings(Constraint.FALSE);
-        } else {
-            isSelected(permissionAskBinding.modifySystemSettings, permissionAskBinding.modifySystemTxt, permissionAskBinding.modifySystemSettingsDone, false);
-            permissionAskViewModel.setGrandModifySystemSettings(Constraint.TRUE);
-        }
-    }
+
 
     /**
      * Responsibility - check for access usage  permission

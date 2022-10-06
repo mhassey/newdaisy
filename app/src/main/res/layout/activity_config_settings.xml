@@ -141,9 +141,9 @@
 
             <ImageView
                 android:id="@+id/mpc_logo"
-                android:layout_width="@dimen/dp80"
+                android:layout_width="@dimen/dp70"
                 android:layout_height="@dimen/dp50"
-                android:src="@drawable/ic_logo" />
+                android:src="@drawable/logo" />
 
 
             <LinearLayout
@@ -194,9 +194,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:textSize="@dimen/dp8"
                         android:text="@string/last_update_time"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp8" />
 
                     <TextView
                         android:id="@+id/updatetime"
@@ -204,8 +204,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:textSize="@dimen/dp8"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp8" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -20,313 +20,308 @@
             android:src="@drawable/ic_close" />
 
 
+        <LinearLayout
 
-            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/dp50"
+            android:layout_marginEnd="@dimen/dp50"
+            android:gravity="center"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rbold"
+                android:text="@string/developer"
+                android:textColor="@color/dark_grey_blue"
+                android:textSize="@dimen/dp25" />
+
+            <TextView
+                android:id="@+id/setRefreshRate"
 
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp50"
-                android:layout_marginEnd="@dimen/dp50"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
                 android:gravity="center"
-                android:layout_centerInParent="true"
+                android:hint="@string/adjest_timer"
+                android:padding="@dimen/dp10"
 
-                android:orientation="vertical">
+                android:textSize="@dimen/dp10" />
+
+
+            <TextView
+                android:id="@+id/changeLanguage"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+
+                android:hint="@string/change_language"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
+
+            <TextView
+
+                android:id="@+id/direct_apk_update"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/update_app"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
+
+            <TextView
+                android:id="@+id/logs"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/logs"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
+
+            <TextView
+                android:id="@+id/feedBack"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/feedback"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
+
+            <LinearLayout
+                android:id="@+id/sanitisedHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/edit_text_format"
+                android:orientation="horizontal">
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp10"
                     android:fontFamily="@font/rbold"
-                    android:text="@string/developer"
-                    android:textColor="@color/dark_grey_blue"
-                    android:textSize="@dimen/dp25" />
 
-                <TextView
-                    android:id="@+id/setRefreshRate"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/rounded_edit_text"
-                    android:fontFamily="@font/rbold"
-                    android:gravity="center"
-                    android:hint="@string/adjest_timer"
-                    android:padding="@dimen/dp10"
-
-                    android:textSize="@dimen/dp10" />
-
-
-                <TextView
-                    android:id="@+id/changeLanguage"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/rounded_edit_text"
-                    android:fontFamily="@font/rbold"
-                    android:gravity="center"
-
-                    android:hint="@string/change_language"
-                    android:padding="@dimen/dp10"
-                    android:textSize="@dimen/dp10" />
-
-
-                <TextView
-
-                    android:id="@+id/direct_apk_update"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/rounded_edit_text"
-                    android:fontFamily="@font/rbold"
-                    android:gravity="center"
-                    android:hint="@string/update_app"
-                    android:padding="@dimen/dp10"
-                    android:textSize="@dimen/dp10" />
-
-
-                <TextView
-                    android:id="@+id/logs"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/rounded_edit_text"
-                    android:fontFamily="@font/rbold"
-                    android:gravity="center"
-                    android:hint="@string/logs"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:padding="@dimen/dp10"
-                    android:textSize="@dimen/dp10" />
-
-
-                <TextView
-                    android:id="@+id/feedBack"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/rounded_edit_text"
-                    android:fontFamily="@font/rbold"
-                    android:gravity="center"
-                    android:hint="@string/feedback"
-                    android:padding="@dimen/dp10"
-                    android:textSize="@dimen/dp10" />
-
+                    android:text="@string/sanitised"
+                    android:textSize="@dimen/sp10" />
 
                 <LinearLayout
-                    android:id="@+id/sanitisedHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="horizontal">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|end">
 
-
-                    <TextView
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sanitisedMain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rbold"
-
-                        android:text="@string/sanitised"
-                        android:textSize="@dimen/sp10" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|end">
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/sanitisedMain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp20"
-                            android:layout_marginEnd="@dimen/dp10"
-                            android:checked="true"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:theme="@style/SwitchCompatTheme" />
-
-
-                    </LinearLayout>
+                        android:layout_marginStart="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:checked="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:theme="@style/SwitchCompatTheme" />
 
 
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:id="@+id/securityHeader"
-                    android:layout_width="match_parent"
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/securityHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/edit_text_format"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:layout_margin="@dimen/dp10"
+                    android:fontFamily="@font/rbold"
 
+                    android:text="@string/securityHeader"
+                    android:textSize="@dimen/sp10" />
 
-                    <TextView
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|end">
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/securitySwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rbold"
-
-                        android:text="@string/securityHeader"
-                        android:textSize="@dimen/sp10" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|end">
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/securitySwitch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp20"
-                            android:layout_marginEnd="@dimen/dp10"
-                            android:checked="false"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:theme="@style/SwitchCompatTheme" />
-
-
-                    </LinearLayout>
+                        android:layout_marginStart="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:checked="false"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:theme="@style/SwitchCompatTheme" />
 
 
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:id="@+id/alarmHeader"
-                    android:layout_width="match_parent"
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/alarmHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/edit_text_format"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp14"
-                    android:background="@drawable/edit_text_format"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:layout_margin="@dimen/dp10"
+                    android:fontFamily="@font/rbold"
+                    android:text="@string/alramHeader"
+                    android:textSize="@dimen/sp10" />
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|end">
 
-                    <TextView
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/alramSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp10"
-                        android:fontFamily="@font/rbold"
-                        android:text="@string/alramHeader"
-                        android:textSize="@dimen/sp10" />
+                        android:layout_marginStart="@dimen/dp20"
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:checked="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:theme="@style/SwitchCompatTheme" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/check1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp60"
+            android:layout_alignParentBottom="true"
+
+
+            android:layout_marginStart="@dimen/dp30"
+
+            android:layout_marginEnd="@dimen/dp30"
+            android:layout_marginBottom="@dimen/dp10"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/mpc_logo"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp50"
+                android:src="@drawable/logo" />
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_gravity="center|start"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_toRightOf="@+id/mpc_logo"
+                android:gravity="center|start"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/fontRagular"
+                        android:layout_width="wrap_content"
+
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|end">
 
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/alramSwitch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp20"
-                            android:layout_marginEnd="@dimen/dp10"
-                            android:checked="true"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:theme="@style/SwitchCompatTheme" />
+                        android:text="@string/app_version"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp8" />
 
+                    <TextView
+                        android:id="@+id/appVersion"
+                        style="@style/fontRagular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray"
 
-                    </LinearLayout>
+                        android:textSize="@dimen/dp8" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
 
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|start"
+                    android:gravity="center|start">
+
+                    <TextView
+                        style="@style/fontRagular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_update_time"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp8" />
+
+                    <TextView
+                        android:id="@+id/updatetime"
+                        style="@style/fontRagular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/dp8" />
                 </LinearLayout>
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/check1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp60"
-                android:layout_alignParentBottom="true"
-
-
-                android:layout_marginStart="@dimen/dp30"
-
-                android:layout_marginEnd="@dimen/dp30"
-                android:layout_marginBottom="@dimen/dp10"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/mpc_logo"
-                    android:layout_width="@dimen/dp80"
-                    android:layout_height="@dimen/dp50"
-                    android:src="@drawable/ic_logo" />
-
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:layout_gravity="center|start"
-                    android:layout_marginBottom="@dimen/dp10"
-                    android:layout_toRightOf="@+id/mpc_logo"
-                    android:gravity="center|start"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="wrap_content"
-
-                            android:layout_height="match_parent"
-
-                            android:text="@string/app_version"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/dp8" />
-
-                        <TextView
-                            android:id="@+id/appVersion"
-                            style="@style/fontRagular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/dp8"
-
-                            android:textColor="@color/gray"
-                           />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|start"
-                        android:gravity="center|start">
-
-                        <TextView
-                            style="@style/fontRagular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/dp8"
-                            android:text="@string/last_update_time"
-                            android:textColor="@color/gray"/>
-
-                        <TextView
-                            android:id="@+id/updatetime"
-                            style="@style/fontRagular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/dp8"
-                            android:textColor="@color/gray"
-                             />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </RelativeLayout>
-
         </RelativeLayout>
 
-
+    </RelativeLayout>
 
 
 </layout>

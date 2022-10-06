@@ -29,6 +29,7 @@ import android.provider.CallLog;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.Button;
@@ -38,6 +39,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.daisy.R;
+import com.daisy.activity.base.BaseActivity;
 import com.daisy.app.AppController;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
@@ -133,12 +135,20 @@ public class Utils {
         }
     }
 
+    /**
+     * Set full brightness of phone
+     *
+     * @param baseActivity
+     */
+    public static void setFullBrightNess(BaseActivity baseActivity) {
+        WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
+        layout.screenBrightness = 0.5F;
+        baseActivity.getWindow().setAttributes(layout);
+    }
+
+
     public static boolean isTimeAutomatic(Context c) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return Settings.Global.getInt(c.getContentResolver(), Settings.Global.AUTO_TIME, 0) == 1;
-        } else {
-            return android.provider.Settings.System.getInt(c.getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0) == 1;
-        }
+        return Settings.Global.getInt(c.getContentResolver(), Settings.Global.AUTO_TIME, 0) == 1;
     }
 
 
@@ -334,23 +344,23 @@ public class Utils {
     }
 
 
-    public static int getFiftyPercentScreenBrightnessSetting() {
+    public static int getFiftyPercentageScreenBrightnessSetting() {
         final Resources res = Resources.getSystem();
         int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
         if (id != 0) {
             try {
                 id = res.getInteger(id);
-                int val = ((id * 70) / 100);
-                if (Utils.getDeviceName().contains("Pixel") || Utils.getDeviceName().contains("pixel")) {
-                    val = ((id * 37) / 100);
-                }
-                return (val/2);
+//                int val = ((id * 70) / 100);
+//                if (Utils.getDeviceName().contains("Pixel") || Utils.getDeviceName().contains("pixel")) {
+//                    val = ((id * 37) / 100);
+//                }
+                return id;
             } catch (Resources.NotFoundException e) {
                 // ignore
                 e.printStackTrace();
             }
         }
-        return 255/2;
+        return 255;
     }
 
     public static String getPath() {

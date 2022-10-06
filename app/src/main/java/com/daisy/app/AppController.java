@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.WindowManager;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -71,17 +72,6 @@ public class AppController extends Application implements LifecycleObserver {
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onAppForeground() {
-
-        sessionManager = SessionManager.get();
-        sessionManager.setInForground(true);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            Constraint.IS_OVER_APP_SETTING = Utils.hasWriteSettingsPermission(this);
-        }
-        Constraint.CREENTBRIGHNESS = getScreenBrightness(this);
-        setFullBrightNess();
-
-
     }
 
     /**
@@ -113,22 +103,8 @@ public class AppController extends Application implements LifecycleObserver {
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onAppBackgrounded() {
-        sessionManager = SessionManager.get();
-        sessionManager.setInForground(false);
-        if (Constraint.IS_OVER_APP_SETTING)
-            Utils.screenBrightness(Constraint.CREENTBRIGHNESS, getApplicationContext());
     }
 
-
-    /**
-     * Set full brightness of phone
-     */
-    private void setFullBrightNess() {
-        if (Constraint.IS_OVER_APP_SETTING) {
-            int max = Utils.getFiftyPercentScreenBrightnessSetting();
-            Utils.screenBrightness(max, getApplicationContext());
-        }
-    }
 
 
     /**
