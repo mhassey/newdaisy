@@ -28,6 +28,7 @@ import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
 import com.daisy.activity.base.BaseActivity;
+import com.daisy.activity.configSettings.ConfigSettings;
 import com.daisy.activity.feedBack.FeedBackActivity;
 import com.daisy.activity.langSupport.LangSupportViewModel;
 import com.daisy.activity.logs.LogsMainActivity;
@@ -44,6 +45,7 @@ import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
@@ -83,7 +85,23 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
         alert.setCancelable(false);
         dialog = alert.create();
         sessionWork();
+        mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
+        getDefaultUpdateTime();
 
+    }
+
+
+    /**
+     * Responsibility - getDefaultUpdateTime method is used for print last apk update time
+     * Parameters - No parameter
+     **/
+    private void getDefaultUpdateTime() {
+        try {
+            String val = Utils.getLastUpdateDate(DeveloperActivity.this);
+            mBinding.updatetime.setText(" " + val);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

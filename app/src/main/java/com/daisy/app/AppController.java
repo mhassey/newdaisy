@@ -125,7 +125,7 @@ public class AppController extends Application implements LifecycleObserver {
      */
     private void setFullBrightNess() {
         if (Constraint.IS_OVER_APP_SETTING) {
-            int max = Utils.getMaximumScreenBrightnessSetting();
+            int max = Utils.getFiftyPercentScreenBrightnessSetting();
             Utils.screenBrightness(max, getApplicationContext());
         }
     }
@@ -138,6 +138,7 @@ public class AppController extends Application implements LifecycleObserver {
         int brightnessValue = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                 0
         );
+        brightnessValue=brightnessValue/2;
         return brightnessValue;
     }
 

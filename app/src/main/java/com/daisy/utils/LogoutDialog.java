@@ -1,10 +1,14 @@
 package com.daisy.utils;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -16,7 +20,8 @@ import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.LogoutBinding;
 import com.daisy.service.BackgroundService;
-import com.daisy.utils.ValidationHelper;
+
+import java.util.Objects;
 
 public class LogoutDialog extends DialogFragment implements View.OnClickListener {
     private LogoutBinding logoutBinding;
@@ -36,12 +41,17 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
 
-        params.width = 900;
-        params.height = 1200;
-        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        WindowManager.LayoutParams params = Objects.requireNonNull(getDialog()).getWindow().getAttributes();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        getDialog().getWindow().setAttributes(params);
+        InsetDrawable insetDrawable = new InsetDrawable(new ColorDrawable(Color.TRANSPARENT), 150, 400, 150, 400);
+        getDialog().getWindow().setBackgroundDrawable(insetDrawable);
+
     }
+    //    getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
 
     @Override

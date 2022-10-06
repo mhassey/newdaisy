@@ -15,18 +15,18 @@
             android:layout_height="@dimen/dp30"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
-            android:src="@drawable/close" />
+            android:layout_marginTop="@dimen/dp34"
+            android:layout_marginEnd="@dimen/dp30"
+            android:src="@drawable/ic_close" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/dp50"
             android:layout_marginEnd="@dimen/dp50"
             android:layout_marginBottom="@dimen/dp80"
-            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -131,73 +131,81 @@
         <RelativeLayout
             android:id="@+id/check1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp60"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dp30"
             android:layout_marginEnd="@dimen/dp30"
+
+            android:layout_marginBottom="@dimen/dp10"
             android:gravity="center">
 
+            <ImageView
+                android:id="@+id/mpc_logo"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp50"
+                android:src="@drawable/ic_logo" />
+
+
             <LinearLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|end"
+                android:layout_height="match_parent"
+
+                android:layout_gravity="center|start"
                 android:layout_marginBottom="@dimen/dp10"
-                android:layout_weight="2"
-                android:gravity="center"
+                android:layout_toRightOf="@+id/mpc_logo"
+                android:gravity="center|start"
                 android:orientation="vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|end"
-                    android:gravity="center|end">
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/fontMedium"
+                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
 
                         android:text="@string/app_version"
                         android:textColor="@color/gray"
-                        android:textSize="@dimen/dp12" />
+                        android:textSize="@dimen/dp8" />
 
                     <TextView
                         android:id="@+id/appVersion"
-                        style="@style/fontMedium"
+                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1.0.0"
 
                         android:textColor="@color/gray"
-                        android:textSize="@dimen/dp12" />
+                        android:textSize="@dimen/dp8" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|end"
-                    android:gravity="center|end">
+                    android:layout_gravity="center|start"
+                    android:gravity="center|start">
 
                     <TextView
-                        style="@style/fontMedium"
+                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
+                        android:textSize="@dimen/dp8"
                         android:text="@string/last_update_time"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/dp12" />
+                        android:textColor="@color/gray" />
 
                     <TextView
                         android:id="@+id/updatetime"
-                        style="@style/fontMedium"
+                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1.0.0"
 
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/dp12" />
+                        android:textSize="@dimen/dp8"
+                        android:textColor="@color/gray" />
                 </LinearLayout>
             </LinearLayout>
 

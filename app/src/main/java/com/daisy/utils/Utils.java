@@ -157,7 +157,7 @@ public class Utils {
             String appFile = appInfo.sourceDir;
             updateTimeInMilliseconds = new File(appFile).lastModified();
 
-            updateDateString = getDate(updateTimeInMilliseconds, "dd MMMM,yyyy | hh:mm:ss");
+            updateDateString = getDate(updateTimeInMilliseconds, "dd MMMM, yyyy | hh:mm:ss");
 
         } catch (PackageManager.NameNotFoundException e) {
             // an error occurred, so display the Unix epoch
@@ -331,6 +331,26 @@ public class Utils {
             }
         }
         return 255;
+    }
+
+
+    public static int getFiftyPercentScreenBrightnessSetting() {
+        final Resources res = Resources.getSystem();
+        int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
+        if (id != 0) {
+            try {
+                id = res.getInteger(id);
+                int val = ((id * 70) / 100);
+                if (Utils.getDeviceName().contains("Pixel") || Utils.getDeviceName().contains("pixel")) {
+                    val = ((id * 37) / 100);
+                }
+                return (val/2);
+            } catch (Resources.NotFoundException e) {
+                // ignore
+                e.printStackTrace();
+            }
+        }
+        return 255/2;
     }
 
     public static String getPath() {

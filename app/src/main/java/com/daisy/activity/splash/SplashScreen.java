@@ -1,10 +1,10 @@
 package com.daisy.activity.splash;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -13,12 +13,9 @@ import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-
-import java.util.Map;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data
@@ -33,7 +30,13 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        String uri = "mongodb+srv://prateek:<Prateek>@cluster0.it6soyb.mongodb.net/?retryWrites=true&w=majority";
+        /*try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("sample_mflix");
+            MongoCollection<Document> collection = database.getCollection("movies");
+            Document doc = collection.find().first();
+            Log.e("KALI", doc.toJson());*/
+     //   }
 
         initView();
 
@@ -75,7 +78,7 @@ public class SplashScreen extends BaseActivity {
      **/
     private void redirectToWelcome() {
 
-       Intent intent = null;
+        Intent intent = null;
         try {
             boolean isInstalled = Utils.getWorkProfile(this);
             SessionManager.get().setDisableSecurity(isInstalled);

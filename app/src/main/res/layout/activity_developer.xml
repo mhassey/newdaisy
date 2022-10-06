@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/root_layout"
 
         android:layout_width="match_parent"
@@ -10,28 +10,26 @@
 
 
         <ImageView
-            android:layout_gravity="end"
             android:id="@+id/ac_close"
             android:layout_width="@dimen/dp30"
             android:layout_height="@dimen/dp30"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
-            android:src="@drawable/close" />
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp34"
+            android:layout_marginEnd="@dimen/dp30"
+            android:src="@drawable/ic_close" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp50"
-            android:layout_marginEnd="@dimen/dp50"
-            android:gravity="center|start"
-            android:orientation="vertical">
+
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp80"
+                android:layout_marginStart="@dimen/dp50"
+                android:layout_marginEnd="@dimen/dp50"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -241,10 +239,94 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/check1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp60"
+                android:layout_alignParentBottom="true"
 
 
-    </LinearLayout>
+                android:layout_marginStart="@dimen/dp30"
+
+                android:layout_marginEnd="@dimen/dp30"
+                android:layout_marginBottom="@dimen/dp10"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/mpc_logo"
+                    android:layout_width="@dimen/dp80"
+                    android:layout_height="@dimen/dp50"
+                    android:src="@drawable/ic_logo" />
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_gravity="center|start"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_toRightOf="@+id/mpc_logo"
+                    android:gravity="center|start"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/fontRagular"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="match_parent"
+
+                            android:text="@string/app_version"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/dp8" />
+
+                        <TextView
+                            android:id="@+id/appVersion"
+                            style="@style/fontRagular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dp8"
+
+                            android:textColor="@color/gray"
+                           />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:gravity="center|start">
+
+                        <TextView
+                            style="@style/fontRagular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dp8"
+                            android:text="@string/last_update_time"
+                            android:textColor="@color/gray"/>
+
+                        <TextView
+                            android:id="@+id/updatetime"
+                            style="@style/fontRagular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dp8"
+                            android:textColor="@color/gray"
+                             />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
 
 
 </layout>

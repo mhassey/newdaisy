@@ -15,9 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp80"
             android:layout_marginStart="@dimen/dp60"
             android:layout_marginEnd="@dimen/dp60"
+            android:layout_marginBottom="@dimen/dp80"
             android:gravity="center|start"
             android:orientation="vertical">
 
@@ -47,18 +47,20 @@
                 <LinearLayout
                     android:id="@+id/grandMediaPermission"
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
                     android:gravity="center"
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+                    android:paddingStart="@dimen/dp5"
+
+                    >
 
                     <ImageView
 
                         android:id="@+id/grandMediaPermissionDone"
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp17"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
 
@@ -68,8 +70,9 @@
                     <TextView
                         android:id="@+id/grand_txt"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp3"
                         android:gravity="center|start"
                         android:text="@string/grant_permissions"
                         android:textColor="@color/dark_grey_blue"
@@ -89,19 +92,20 @@
 
                 <LinearLayout
                     android:id="@+id/displayOverTheApp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
 
                     android:gravity="center"
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+                    android:paddingStart="@dimen/dp5"
+                    >
 
                     <ImageView
                         android:id="@+id/displayOverTheAppDone"
 
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp17"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
                         android:src="@drawable/tick"
@@ -110,8 +114,9 @@
                     <TextView
                         android:id="@+id/display_over_txt"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp3"
                         android:gravity="center|start"
                         android:text="@string/display_over_other_apps"
                         android:textColor="@color/dark_grey_blue"
@@ -130,19 +135,20 @@
 
                 <LinearLayout
                     android:id="@+id/usageAccess"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
 
                     android:gravity="center"
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+                    android:paddingStart="@dimen/dp5"
+                    >
 
                     <ImageView
                         android:id="@+id/usageAccessDone"
 
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp17"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
                         android:src="@drawable/tick"
@@ -151,8 +157,9 @@
                     <TextView
                         android:id="@+id/usage_txt"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp3"
                         android:gravity="center|start"
                         android:text="@string/grand_usage_access"
                         android:textColor="@color/dark_grey_blue"
@@ -171,18 +178,20 @@
 
                 <LinearLayout
                     android:id="@+id/modifySystemSettings"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
                     android:gravity="center"
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+
+                    android:paddingStart="@dimen/dp5"
+                    >
 
                     <ImageView
 
                         android:id="@+id/modifySystemSettingsDone"
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp17"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
                         android:src="@drawable/tick"
@@ -191,8 +200,9 @@
                     <TextView
                         android:id="@+id/modify_system_txt"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp3"
                         android:gravity="center|start"
                         android:text="@string/modify_system_settings"
                         android:textColor="@color/dark_grey_blue"
@@ -212,19 +222,21 @@
 
                 <LinearLayout
                     android:id="@+id/dontOptimizedBattery"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
                     android:gravity="center"
 
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+
+                    android:paddingStart="@dimen/dp5"
+                    >
 
                     <ImageView
                         android:id="@+id/batteryUsages"
 
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp17"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
                         android:src="@drawable/tick"
@@ -233,7 +245,8 @@
                     <TextView
                         android:id="@+id/display_battery_txt"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_marginStart="@dimen/dp3"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
                         android:text="@string/don_t_optimized_battery"
@@ -272,7 +285,7 @@
                     <TextView
                         android:id="@+id/gps"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
                         android:padding="@dimen/dp10"
@@ -295,18 +308,18 @@
 
                 <LinearLayout
                     android:id="@+id/adminMain"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
                     android:gravity="center"
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+                    android:paddingStart="@dimen/dp5">
 
                     <ImageView
                         android:id="@+id/adminUsages"
 
                         android:layout_width="@dimen/dp30"
                         android:layout_height="14dp"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
                         android:src="@drawable/tick"
@@ -315,7 +328,7 @@
                     <TextView
                         android:id="@+id/admin_txt"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
                         android:text="@string/admin_permission"
@@ -336,19 +349,20 @@
 
                 <LinearLayout
                     android:id="@+id/miExtra"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
                     android:gravity="center"
 
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+
+                    android:paddingStart="@dimen/dp5">
 
                     <ImageView
                         android:id="@+id/miExtraRight"
 
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp17"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
                         android:src="@drawable/tick"
@@ -357,7 +371,7 @@
                     <TextView
                         android:id="@+id/mi_extra_text"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
                         android:text="@string/mi_extra"
@@ -376,20 +390,22 @@
                 android:gravity="center">
 
                 <LinearLayout
+
                     android:id="@+id/auto_start_internal_layout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_rounded_with_pink_border"
                     android:gravity="center"
 
-                    android:padding="@dimen/dp10">
+                    android:padding="@dimen/dp10"
+                    android:paddingStart="@dimen/dp5"
+                    >
 
                     <ImageView
                         android:id="@+id/auto_start_radio"
 
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp17"
-                        android:layout_marginStart="@dimen/dp15"
                         android:buttonTint="@color/pink_dark"
                         android:clickable="false"
                         android:src="@drawable/tick"
@@ -398,7 +414,7 @@
                     <TextView
                         android:id="@+id/auto_start_txt"
                         style="@style/fontBold"
-                        android:layout_width="@dimen/dp200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
                         android:text="@string/auto_start"
