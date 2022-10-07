@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
@@ -52,6 +53,7 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,6 +117,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         alert.setCancelable(false);
         dialog = alert.create();
     }
+
 
     /**
      * Responsibility - getDefaultUpdateTime method is used for print last apk update time

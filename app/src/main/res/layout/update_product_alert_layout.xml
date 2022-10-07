@@ -1,169 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/dp10"
-    android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:cardCornerRadius="@dimen/dp10">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp50"
-            android:gravity="end|center">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:gravity="end|center">
 
 
-            <ImageView
-                android:id="@+id/close_dialog"
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp30"
-                android:layout_marginEnd="@dimen/dp20"
-                android:src="@drawable/close" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/close_dialog"
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_marginEnd="@dimen/dp20"
+                    android:src="@drawable/close" />
+            </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp14"
-
-            android:visibility="gone">
-
-            <Spinner
-
-                android:id="@+id/carrierName"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_format"
+                android:layout_marginTop="@dimen/dp14"
+
+                android:visibility="gone">
+
+                <Spinner
+
+                    android:id="@+id/carrierName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_format"
+                    android:backgroundTint="@color/mettle_light_green"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:padding="@dimen/dp10"
+                    android:textColorHint="@color/editTextLineColor"
+                    android:textDirection="locale" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp15"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp20">
+
+                <Spinner
+                    android:id="@+id/manufactureList"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:background="@drawable/edit_text_format"
+                    android:backgroundTint="@color/mettle_light_green"
+                    android:dropDownHeight="@dimen/dp20"
+                    android:dropDownVerticalOffset="@dimen/dp40"
+                    android:inputType="text"
+                    android:minHeight="@dimen/dp20"
+                    android:paddingStart="@dimen/dp10"
+                    android:overlapAnchor="false"
+                    android:drawSelectorOnTop="false"
+                    android:spinnerMode="dialog"
+                    android:textColorHint="@color/editTextLineColor"
+                    android:textDirection="locale" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp15"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp14"
+                android:layout_marginEnd="@dimen/dp20">
+
+                <Spinner
+                    android:id="@+id/productName"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:background="@drawable/edit_text_format"
+                    android:backgroundTint="@color/mettle_light_green"
+                    android:inputType="text"
+                    android:overlapAnchor="false"
+                    android:drawSelectorOnTop="false"
+                    android:spinnerMode="dialog"
+                    android:paddingStart="@dimen/dp10"
+
+                    android:textColorHint="@color/editTextLineColor"
+                    android:textDirection="locale" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp15"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp14"
+                android:layout_marginEnd="@dimen/dp20">
+
+                <Spinner
+                    android:id="@+id/webkitOrientation"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="@dimen/dp40"
+                    android:background="@drawable/edit_text_format"
+                    android:backgroundTint="@color/mettle_light_green"
+                    android:inputType="text"
+                    android:overlapAnchor="false"
+                    android:drawSelectorOnTop="false"
+                    android:spinnerMode="dialog"
+                    android:paddingStart="@dimen/dp10"
+                    android:textColorHint="@color/editTextLineColor"
+                    android:textDirection="locale" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp15"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:src="@drawable/ic_down_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/update_mpc_product"
+                style="@style/fontBold"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp14"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_marginBottom="@dimen/dp20"
+                android:background="@drawable/button_background"
                 android:backgroundTint="@color/mettle_light_green"
                 android:gravity="center"
-                android:inputType="text"
-                android:padding="@dimen/dp10"
-                android:textColorHint="@color/editTextLineColor"
-                android:textDirection="locale" />
-
-            <ImageView
-                android:layout_width="@dimen/dp15"
-                android:layout_height="@dimen/dp20"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/ic_down_arrow" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginEnd="@dimen/dp20">
-
-            <Spinner
-                android:id="@+id/manufactureList"
-
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp40"
-                android:paddingStart="@dimen/dp10"
-                android:background="@drawable/edit_text_format"
-                android:backgroundTint="@color/mettle_light_green"
-                android:inputType="text"
-
-                android:textColorHint="@color/editTextLineColor"
-                android:textDirection="locale" />
-
-            <ImageView
-                android:layout_width="@dimen/dp15"
-                android:layout_height="@dimen/dp20"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp15"
-                android:src="@drawable/ic_down_arrow" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp14"
-            android:layout_marginEnd="@dimen/dp20">
-
-            <Spinner
-                android:id="@+id/productName"
-
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp40"
-                android:paddingStart="@dimen/dp10"
-                android:background="@drawable/edit_text_format"
-                android:backgroundTint="@color/mettle_light_green"
-                android:inputType="text"
-
-                android:textColorHint="@color/editTextLineColor"
-                android:textDirection="locale" />
-
-            <ImageView
-                android:layout_width="@dimen/dp15"
-                android:layout_height="@dimen/dp20"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp15"
-                android:src="@drawable/ic_down_arrow" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp14"
-            android:layout_marginEnd="@dimen/dp20">
-
-            <Spinner
-                android:id="@+id/webkitOrientation"
-                android:paddingStart="@dimen/dp10"
-
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp40"
-                android:background="@drawable/edit_text_format"
-                android:backgroundTint="@color/mettle_light_green"
-                android:inputType="text"
-
-                android:textColorHint="@color/editTextLineColor"
-                android:textDirection="locale" />
-
-            <ImageView
-                android:layout_width="@dimen/dp15"
-                android:layout_height="@dimen/dp20"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp15"
-                android:src="@drawable/ic_down_arrow" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/update_mpc_product"
-            style="@style/fontBold"
-            android:layout_marginBottom="@dimen/dp20"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp40"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp14"
-            android:layout_marginEnd="@dimen/dp20"
-            android:background="@drawable/button_background"
-            android:backgroundTint="@color/mettle_light_green"
-            android:gravity="center"
-            android:text="@string/update"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dp10"
-            android:textStyle="bold" />
-    </LinearLayout>
+                android:text="@string/update"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>
