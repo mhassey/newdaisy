@@ -124,12 +124,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     private MainActivityViewModel mViewModel;
     private Context context;
     private WebViewClient yourWebClient;
-    private CountDownTimer sanitisedTimer;
     private UpdateProductViewModel updateProductViewModel;
     private GetCardViewModel getCardViewModel;
-    private static PrintWriter output;
-
-    private long mLastClickTime = 0;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -154,7 +150,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         setNoTitleBar(this);
         SessionManager.get().logout(false);
         context = this;
-        handleScreenRotation();
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
@@ -163,11 +158,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         loadURL();
         intentWork();
 
-        handleSettingsIcon();
-
-    }
-
-    private void handleSettingsIcon() {
     }
 
 
@@ -269,7 +259,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     private void initService() {
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
-        //  startService(new Intent(MainActivity.this, CaptureImageService.class));
     }
 
     /**
@@ -279,12 +268,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding.settingHeader.setOnClickListener(this);
         mBinding.setting.setOnClickListener(this);
         mBinding.offLineIcon.setOnClickListener(this);
-        mBinding.invert.setOnClickListener(this::onClick);
+        mBinding.invert.setOnClickListener(this);
         mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 settingHeader();
             }
         });
+
         mBinding.webView.setOnTouchListener(this);
 
 
@@ -297,9 +287,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     protected void onResume() {
         super.onResume();
-
         handleResumeWork();
-
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
 
@@ -336,7 +324,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         try {
 
             if (CheckForSDCard.isSDCardPresent()) {
-
                 List<Promotion> promotions = sessionManager.getPromotion();
                 List<Download> downloads = new ArrayList<>();
                 if (checkPermission()) {
@@ -417,14 +404,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     }
 
-
-    /**
-     * Handle orientation to 180 degree
-     */
-    private void handleScreenRotation() {
-
-
-    }
 
 
     /**
@@ -630,10 +609,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
-
+            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), Constraint.ANDROID); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
             mBinding.webView.setWebChromeClient(new WebClient());
-
             setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
@@ -655,7 +632,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
-            //mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
 
             mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
@@ -664,7 +640,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                 mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
                 CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.webView, Constraint.TRUE);
             }
-            // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
             String val = sessionManager.getLocation();
             boolean isDelete = sessionManager.getCardDeleted();
             File f = new File(val);
@@ -802,16 +777,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             @Override
             public void onFormResubmission(WebView view, Message dontResend, Message resend) {
                 JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray != null) {
-                    if (jsonArray.length() > 0) {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                    } else {
-                        //  mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
-
-                    }
-                } else {
-
-                    //mBinding.webView.loadUrl("javascript:MobilePriceCard.setData({},true)");
+                if (jsonArray.length() > 0) {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                 }
                 super.onFormResubmission(view, dontResend, resend);
 
@@ -821,13 +788,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             @Override
             public void onLoadResource(WebView view, String url) {
                 JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray != null) {
-                    if (jsonArray.length() > 0) {
-
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                        mViewModel.setExceptionInHtml(false);
-
-                    }
+                if (jsonArray.length() > 0) {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                    mViewModel.setExceptionInHtml(false);
                 }
                 super.onLoadResource(view, url);
 
@@ -836,13 +799,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             @Override
             public void onPageCommitVisible(WebView view, String url) {
                 JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray != null) {
-                    if (jsonArray.length() > 0) {
-
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                        mViewModel.setExceptionInHtml(false);
-
-                    }
+                if (jsonArray.length() > 0) {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                    mViewModel.setExceptionInHtml(false);
                 }
                 super.onPageCommitVisible(view, url);
 
@@ -852,13 +811,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
                 JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray != null) {
-                    if (jsonArray.length() > 0) {
-
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                        mViewModel.setExceptionInHtml(false);
-
-                    }
+                if (jsonArray.length() > 0) {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                    mViewModel.setExceptionInHtml(false);
                 }
                 super.onPageStarted(view, url, favicon);
 
@@ -870,12 +825,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             public void onPageFinished(WebView view, final String url) {
                 try {
                     JSONObject jsonArray = pricingUpdateStart();
-                    if (jsonArray != null) {
-                        if (jsonArray.length() > 0) {
-                            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                            mViewModel.setExceptionInHtml(false);
-
-                        }
+                    if (jsonArray.length() > 0) {
+                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                        mViewModel.setExceptionInHtml(false);
                     }
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
@@ -885,11 +837,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
                     }
 
-
-//                    if (!SessionManager.get().isNewApk()) {
-//                        handlePriceCardGettingHandler();
-//                           SessionManager.get().setNewApk(true);
-//                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -937,8 +884,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                             }
                             Date todayDate = new Date();
 
-                            if (!dateEffective.after(todayDate)) {
-                                if (futureDate.after(todayDate)) {
+                            if (dateEffective!=null && !dateEffective.after(todayDate)) {
+                                if (futureDate!=null && futureDate.after(todayDate)) {
                                     pricing1 = pricing.get(i);
                                     break OUTER_LOOP;
                                 }
@@ -1212,8 +1159,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                                 Date dateEffective;
                                 dateEffective = sdf.parse(dateCreated);
                                 Date todayDate = new Date();
-                                if (!dateEffective.after(todayDate)) {
-                                    if (futureDate.after(todayDate)) {
+                                if (dateEffective!=null && !dateEffective.after(todayDate)) {
+                                    if (futureDate!=null && futureDate.after(todayDate)) {
                                         pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.FILE_NAME);
                                     }
                                 }
@@ -1765,9 +1712,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         @JavascriptInterface
         public void heartbeat(String msg) {
-
-
-            // DBCaller.storeLogInDatabase(context,msg,msg,"",Constraint.PROMOTION);
         }
 
 
@@ -1815,10 +1759,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
     private void setDeleteTimer(int time) {
-
-
         int second = time * 1000;
-
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -1840,7 +1781,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
     private void onSupportWebView(String url) {
-
         mBinding.supportWebView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setAllowFileAccess(Constraint.TRUE);
         mBinding.supportWebView.setSoundEffectsEnabled(Constraint.TRUE);

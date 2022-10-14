@@ -61,14 +61,9 @@ public class BaseFragment extends Fragment {
                     }
                 }
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    progressDialog = new ProgressDialog(requireContext(), R.style.ProgressTheme);
-                else
-                    progressDialog = new ProgressDialog(requireContext(), R.style.AlertDialog_Holo);
+                progressDialog = new ProgressDialog(requireContext(), R.style.ProgressTheme);
                 progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-//                progressDialog.setMessage(getString(R.string.loading));
                 showHideProgressDialog(iShow);
             }
         } catch (Exception e) {

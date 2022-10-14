@@ -99,7 +99,6 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void initClick() {
-//        mBinding.cancel.setOnClickListener(this);
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
@@ -158,7 +157,6 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
         if (SessionManager.get().getDisableSecurity()) {
             baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-//            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
@@ -447,15 +445,6 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             case R.id.begin:{
                 baording.mBinding.nextSlide.performClick();
                 break;
-            }
-//            case R.id.continuee: {
-//                try {
-//                    ((OnBoarding) getActivity()).handleCreateScreen(mViewModel.autoselctedProduct);
-//                } catch (Exception e) {
-//
-//                }
-//                break;
-//            }
-        }
+            }}
     }
 }

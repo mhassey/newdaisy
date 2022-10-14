@@ -1,8 +1,5 @@
 package com.daisy.activity.lockscreen;
 
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,15 +8,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.mainActivity.MainActivity;
-import com.daisy.security.Admin;
-import com.daisy.utils.Constraint;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityLockScreenBinding;
+import com.daisy.security.Admin;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -36,6 +35,7 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     private SessionManager sessionManager;
     private boolean comeFromUninstall = false;
     final int sdk = android.os.Build.VERSION.SDK_INT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +58,8 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
 
     /**
      * Responsibility - extraTaskForMakeAppWorkable method do some extra stuff that help service to run perfectly
-     * Parameters - No para            AddScreen addScreen = null;
-meter
+     * Parameters - No parameter AddScreen addScreen = null;
+
      **/
     private void extraTaskForMakeAppWorkable() {
         Constraint.current_running_process = "";
@@ -79,7 +79,7 @@ meter
      **/
     private void initClick() {
         binding.unlock.setOnClickListener(this);
-        binding.cancel.setOnClickListener(this::onClick);
+        binding.cancel.setOnClickListener(this);
     }
 
     /**
@@ -197,6 +197,7 @@ meter
             ValidationHelper.showToast(context, getString(R.string.enter_password));
         }
     }
+
     /**
      * Responsibility - startLastActivity method is used when we need to open the last running page its takes packageName
      * Parameters - Its takes packageName which help to redirect to last open app

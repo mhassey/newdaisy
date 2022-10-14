@@ -98,7 +98,7 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
      * Parameters - No parameter
      **/
     private void hideSystemUI() {
-        // Enables regular immersive mode.
+        // Enables regular immersive mode.DialogInterface
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
         // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         View decorView = getWindow().getDecorView();
@@ -158,7 +158,7 @@ public class BaseUrlSettings extends BaseActivity implements View.OnClickListene
         try {
 
             String url = mBinding.baseUrl.getText().toString();
-            if (url != null && !url.equals("")) {
+            if (!url.equals("")) {
                 String urlLastChar = url.substring(url.length() - 1);
                 if (urlLastChar.equals(Constraint.SLASH)) {
                     boolean b = Utils.isValidUrl(url);

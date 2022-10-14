@@ -16,6 +16,13 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
+import java.util.Date;
+
+//import MongoConnectionByGridle.MongoConection;
+
+//import MongoConnectionByGridle.MongoConection;
+
+
 /**
  * Purpose - SplashScreen is an activity that show splash data
  * Responsibility - Its use to hold screen to some second and show app logo
@@ -29,7 +36,8 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+//        MongoConection mongoConection=new MongoConection();
+//        mongoConection.insertInMongo("mongodb+srv://prateek:HdPdVKlMFHgq0xaf@demo.b1efwry.mongodb.net/?retryWrites=true&w=majority","MyDatabase","databaseDemo","Insert demo l0g","Price card",new Date().toString());
         initView();
     }
 

@@ -106,9 +106,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
-
         setNoTitleBar(this);
-//        sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
         getDefaultUpdateTime();
         addOrientationData();
@@ -143,18 +141,11 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.developerOption.setOnClickListener(this);
         alertBinding.updateMpcProduct.setOnClickListener(this);
         mBinding.directUpdate.setOnClickListener(this);
-//        mBinding.updateBaseUrl.setOnClickListener(this::onClick);
-        mBinding.updatePosition.setOnClickListener(this::onClick);
+        mBinding.updatePosition.setOnClickListener(this);
         mBinding.logoutApp.setOnClickListener(this);
-//        mBinding.logout.setOnClickListener(this::onClick);
-//        mBinding.cancel.setOnClickListener(this::onClick);
-//        mBinding.lunchApp.setOnClickListener(this::onClick);
-
-        mBinding.updateProduct.setOnClickListener(this::onClick);
+        mBinding.updateProduct.setOnClickListener(this);
         mBinding.acClose.setOnClickListener(this);
-
-//        mBinding.logoutApp.setOnClickListener(this::onClick);
-        mBinding.socketConnection.setOnClickListener(this::onClick);
+        mBinding.socketConnection.setOnClickListener(this);
         alertBinding.productName.setOnItemSelectedListener(getProductNameListener());
         alertBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         alertBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
@@ -218,10 +209,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 break;
             }
 
-//            case R.id.updateBaseUrl: {
-//                updateBaseUrl();
-//                break;
-//            }
             case R.id.updatePosition: {
                 openUpdatePositionActivity();
                 break;
@@ -232,15 +219,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 onBackPressed();
                 break;
             }
-//            case R.id.logout: {
-//                logout();
-//                break;
-//            }
 
-//            case R.id.lunchApp: {
-//                launchApp();
-//                break;
-//            }
             case R.id.update_product: {
                 openUpdateProductActivity();
                 break;
@@ -489,8 +468,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     private void openUpdateProductActivity() {
         openUpdateProductAlert();
         getAllData();
-//        Intent intent = new Intent(context, UpdateProduct.class);
-//        startActivity(intent);
     }
 
     private void openUpdateProductAlert() {
@@ -560,43 +537,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
             }
         }
     }
-
-
-    /**
-     * Responsibility - launchApp method is used for launch other application its just an demo
-     * Parameters - No parameter
-     **/
-    private void launchApp() {
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
-        if (launchIntent != null) {
-            startActivity(launchIntent);
-        } else {
-            ValidationHelper.showToast(ConfigSettings.this, "There is no package available in android");
-        }
-    }
-
-
-    /**
-     * Responsibility - logout method is used for logout the app but not in used
-     * Parameters - No parameter
-     **/
-    private void logout() {
-        sessionManager.removeSession();
-        Intent intent = new Intent(ConfigSettings.this, BaseUrlSettings.class);
-        ProcessPhoenix.triggerRebirth(ConfigSettings.this, intent);
-    }
-
-
-    /**
-     * Responsibility - updateBaseUrl method is used for open UpdateBaseUrl activity
-     * Parameters - No parameter
-     **/
-    private void updateBaseUrl() {
-        Intent intent = new Intent(ConfigSettings.this, UpdateBaseUrl.class);
-        startActivity(intent);
-
-    }
-
 
     /**
      * Responsibility - openUpdatePositionActivity method is used for open UpdatePosition activity
