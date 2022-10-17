@@ -591,10 +591,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
             mBinding.webView.getSettings().setUseWideViewPort(Constraint.TRUE);
-
+            mBinding.webView.getSettings().setAllowFileAccess(true);
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setDisplayZoomControls(Constraint.FALSE);
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mBinding.webView.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, false);
+            }
+            mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
             //mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
@@ -606,7 +609,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
                 mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
                 CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.webView, Constraint.TRUE);
             }
-            // mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
+             mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
             String val = sessionManager.getLocation();
             boolean isDelete = sessionManager.getCardDeleted();
             File f = new File(val);
@@ -742,6 +745,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
 
         yourWebClient = new WebViewClient() {
+
 
             @Override
             public void onFormResubmission(WebView view, Message dontResend, Message resend) {
@@ -1597,6 +1601,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
             return false;
         }
+
 
         @Override
         public Bitmap getDefaultVideoPoster() {

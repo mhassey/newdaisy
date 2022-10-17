@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.daisy.apiService.ApiConstant;
 import com.daisy.apiService.ApiResponseStatusCode;
 import com.daisy.apiService.ApiService;
-import com.daisy.app.AppController;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.KeyToUrlResponse;
 import com.daisy.utils.Constraint;

@@ -1,11 +1,10 @@
 package com.daisy.activity.splash;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -29,11 +28,10 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-          initView();
-
+//        showHideProgressDialog(true);
+        new ProgressDialog(this).show();
+        initView();
     }
-
-
 
 
     /**

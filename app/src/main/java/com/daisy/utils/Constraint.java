@@ -285,7 +285,7 @@ public class Constraint {
     public static final String PROVIDER = ".provider";
     public static final String ANDROID_PACKAGE_ARCHIVE = "application/vnd.android.package-archive";
     public static final int TWENTY_FOUR = 24;
-    public static final String GIVEN_BROWSER = "Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17";
+    public static final String GIVEN_BROWSER = "Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20)";
     public static final String HTML = ".html";
     public static final String YYY_MM_DD = "yyyy-MM-dd HH:mm:ss";
     public static final String HH_MM_SS = "HH:mm:ss";

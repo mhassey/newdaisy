@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.daisy.activity.WifiTimeCorrectionActivity;
-import com.daisy.activity.splash.SplashScreen;
-
 /**
  * Broadcast receiver
  */

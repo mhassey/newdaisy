@@ -123,7 +123,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         super.onCreate();
         backgroundService = this;
         //securityIntent = new Intent(getApplicationContext(), SecurityService.class);
-        //showNotification();
+        showNotification();
         initWakeUpLock();
         // registerReceiver();
         // setWindowManager();

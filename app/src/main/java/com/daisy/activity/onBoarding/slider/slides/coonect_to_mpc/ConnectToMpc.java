@@ -18,7 +18,6 @@ import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ConnectToMpcBinding;
-import com.daisy.pojo.ServerConfig;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.KeyToUrlResponse;
