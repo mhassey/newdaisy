@@ -397,17 +397,17 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                 }
             } else {
                 if (!SessionManager.get().getDisableSecurity())
-                    count = Constraint.THREE;
+                    count = Constraint.FOUR;
                 else
-                    count = Constraint.TWO;
+                    count = Constraint.THREE;
 
 
             }
         } else {
             if (!SessionManager.get().getDisableSecurity())
-                count = Constraint.THREE;
+                count = Constraint.FOUR;
             else
-                count = Constraint.TWO;
+                count = Constraint.THREE;
             ValidationHelper.showToast(context, getString(R.string.no_internet_available));
         }
 

@@ -17,7 +17,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.daisy.R;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.app.AppController;
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
@@ -66,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
             getApplicationContext().stopService(new Intent(getApplicationContext(), BackgroundService.class));
             SessionManager.get().clear();
             SessionManager.get().logout(true);
-            Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
+            Intent intent = new Intent(getApplicationContext(), OnBoarding.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
