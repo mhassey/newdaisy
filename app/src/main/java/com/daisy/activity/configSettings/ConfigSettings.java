@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.SeekBar;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
@@ -26,18 +26,17 @@ import com.daisy.R;
 import com.daisy.activity.DeveloperActivity;
 import com.daisy.activity.apkUpdate.ApkUpdateViewModel;
 import com.daisy.activity.base.BaseActivity;
-import com.daisy.activity.baseUrl.BaseUrlSettings;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
-import com.daisy.activity.updateBaseUrl.UpdateBaseUrl;
 import com.daisy.activity.updatePosition.UpdatePosition;
 import com.daisy.activity.updateProduct.UpdateProductViewModel;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityConfigSettingsBinding;
+import com.daisy.databinding.BrighnessChangeLayoutBinding;
 import com.daisy.databinding.UpdateProductAlertLayoutBinding;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.Carrier;
@@ -49,11 +48,9 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.LogoutDialog;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
-import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,7 +68,7 @@ import java.util.List;
  * Handle alarm feature
  * Handle Update product
  **/
-public class ConfigSettings extends BaseActivity implements View.OnClickListener {
+public class ConfigSettings extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private ActivityConfigSettingsBinding mBinding;
     private Context context;
@@ -81,7 +78,9 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     public AddScreenViewModel mViewModel;
     private UpdateProductViewModel updateProductViewModel;
     private UpdateProductAlertLayoutBinding alertBinding;
+    private BrighnessChangeLayoutBinding brightnessBinding;
     private AlertDialog dialog;
+    private AlertDialog brightnessDialog;
 
 
     @Override
@@ -89,7 +88,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_config_settings);
         alertBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.update_product_alert_layout, null, false);
-
+        brightnessBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.brighness_change_layout, null, false);
         initView();
         initClick();
 
@@ -114,6 +113,11 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         alert.setView(alertBinding.getRoot());
         alert.setCancelable(false);
         dialog = alert.create();
+        AlertDialog.Builder brightness = new AlertDialog.Builder(this);
+        brightness.setView(brightnessBinding.getRoot());
+        brightness.setCancelable(false);
+        brightnessDialog = brightness.create();
+
     }
 
 
@@ -146,9 +150,14 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         mBinding.updateProduct.setOnClickListener(this);
         mBinding.acClose.setOnClickListener(this);
         mBinding.socketConnection.setOnClickListener(this);
+        mBinding.changeBrightness.setOnClickListener(this);
         alertBinding.productName.setOnItemSelectedListener(getProductNameListener());
         alertBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         alertBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
+        brightnessBinding.progressBar.setTag(Constraint.DEFAULT);
+        brightnessBinding.progressBar.setOnSeekBarChangeListener(this);
+        brightnessBinding.maxProgressBar.setTag(Constraint.MAX);
+        brightnessBinding.maxProgressBar.setOnSeekBarChangeListener(this);
 
     }
 
@@ -237,7 +246,58 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 handlePriceCardGettingHandler();
                 break;
             }
+            case R.id.change_brightness: {
+                changeBrightness();
+                break;
+            }
         }
+    }
+
+    private void changeBrightness() {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        brightnessDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        try {
+            if (!SessionManager.get().isBrighnessDefault()) {
+                brightnessBinding.defaultBrightnessLevel.setText(Constraint.DEFAULT_BRIGHTNESS_LEVEL);
+                brightnessBinding.maxBrightnessLevel.setText(Constraint.MAX_BRIGHTNESS_LEVEL);
+                brightnessBinding.maxProgressBar.setProgress(Constraint.MAX_BRIGHTNESS_INTEGER);
+
+                brightnessBinding.progressBar.setProgress(Constraint.DEFAULT_BRIGHTNESS_INTEGER);
+            } else {
+                brightnessBinding.defaultBrightnessLevel.setText((SessionManager.get().getDefaultBrightness() * 10) + Constraint.PERCENTAGE);
+                brightnessBinding.maxBrightnessLevel.setText((SessionManager.get().getMaxBrightness() * 10) + Constraint.PERCENTAGE);
+                brightnessBinding.maxProgressBar.setProgress(SessionManager.get().getMaxBrightness());
+                brightnessBinding.progressBar.setProgress(SessionManager.get().getDefaultBrightness());
+
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        brightnessDialog.show();
+        brightnessDialog.getWindow().setLayout((width - (width / 4)), ((height / 2) - (height / 10))); //Controlling width and height.
+        brightnessBinding.reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SessionManager.get().isBrightnessIsDefault(false);
+                brightnessBinding.maxProgressBar.setProgress(Constraint.MAX_BRIGHTNESS_INTEGER);
+
+                brightnessBinding.progressBar.setProgress(Constraint.DEFAULT_BRIGHTNESS_INTEGER);
+            }
+        });
+        brightnessBinding.close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                brightnessDialog.dismiss();
+            }
+        });
+
+
     }
 
 
@@ -1008,4 +1068,28 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
     }
 
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        SessionManager.get().isBrightnessIsDefault(true);
+
+        if (seekBar.getTag().equals(Constraint.DEFAULT)) {
+            SessionManager.get().customDefaultBrightness(i);
+            brightnessBinding.defaultBrightnessLevel.setText((i * 10) + Constraint.PERCENTAGE);
+        } else {
+            SessionManager.get().customHighBrightness(i);
+
+            brightnessBinding.maxBrightnessLevel.setText((i * 10) + Constraint.PERCENTAGE);
+
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }

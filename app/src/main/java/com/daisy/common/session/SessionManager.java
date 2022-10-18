@@ -1309,4 +1309,31 @@ public class SessionManager {
     public float getBrightness() {
         return pref.getFloatData(Constraint.BRIGHTNESS_LEVEL_STR);
     }
+
+    public void isBrightnessIsDefault(boolean b) {
+        pref.setBooleanData(Constraint.IS_BRIGHTNESS_DEFAULT, b);
+    }
+
+    public void customDefaultBrightness(int i) {
+        pref.setIntData(Constraint.CUSTOM_DEFAULT_BRIGHTNESS, i);
+    }
+
+    public void customHighBrightness(int i) {
+        pref.setIntData(Constraint.CUSTOM_HIGH_BRIGHTNESS, i);
+
+    }
+
+    public boolean isBrighnessDefault() {
+        return pref.getBoolean(Constraint.IS_BRIGHTNESS_DEFAULT);
+    }
+
+    public int getDefaultBrightness() {
+        return pref.getIntData(Constraint.CUSTOM_DEFAULT_BRIGHTNESS);
+
+    }
+
+    public int getMaxBrightness() {
+        return pref.getIntData(Constraint.CUSTOM_HIGH_BRIGHTNESS);
+
+    }
 }

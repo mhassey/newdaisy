@@ -172,6 +172,8 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp10"
                 android:textStyle="bold" />
+
+
         </LinearLayout>
 
 

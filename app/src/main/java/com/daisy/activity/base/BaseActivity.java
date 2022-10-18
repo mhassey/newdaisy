@@ -46,12 +46,12 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppController.setActivity(this);
 
         AppController.getInstance().setContext(getApplicationContext());
         initView();
 
     }
+
 
     /**
      * Responsibility - handleLogout is an method that help to logout the app with stop all services
@@ -171,6 +171,7 @@ public class BaseActivity extends AppCompatActivity {
      **/
     @Override
     protected void onResume() {
+        AppController.setActivity(this);
         if (sessionManager.getLang() != null && !sessionManager.getLang().equals(""))
             setLang(sessionManager.getLang());
         Utils.setFullBrightNess();

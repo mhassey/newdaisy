@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp10"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+        <ImageView
+
+            android:id="@+id/close"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/close" />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp60"
+            android:layout_marginEnd="@dimen/dp20"
+            android:max="10"
+            android:thumbTint="@color/mettle_light_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/close" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginBottom="@dimen/dp10"
+            android:fontFamily="@font/rmedium"
+            android:text="@string/default_brightness"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/default_brightness_level"
+            android:fontFamily="@font/rmedium"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="@dimen/dp10"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar" />
+
+
+        <TextView
+            android:id="@+id/max_brightness_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp30"
+            android:fontFamily="@font/rmedium"
+            android:text="@string/max_brightness"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+
+        <TextView
+            android:id="@+id/max_brightness_level"
+            android:fontFamily="@font/rmedium"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="@dimen/dp10"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/max_progress_bar"
+            app:layout_constraintEnd_toEndOf="@+id/max_progress_bar" />
+        <SeekBar
+            android:id="@+id/max_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
+            android:max="10"
+            android:thumbTint="@color/mettle_light_green"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/max_brightness_txt" />
+
+
+        <TextView
+            android:id="@+id/reset"
+            android:layout_width="@dimen/dp100"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginEnd="@dimen/dp10"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/mettle_light_green"
+            android:gravity="center"
+            android:padding="@dimen/dp10"
+            android:text="@string/reset"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp10"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/max_progress_bar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

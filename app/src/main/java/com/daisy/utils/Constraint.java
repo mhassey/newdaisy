@@ -177,6 +177,15 @@ public class Constraint {
     public static final String MAIN = "Main";
     public static final String SECURITY = "SECURITY";
     public static final String IS_DISPLAY_OVER_THE_APP = "IsDisplayOverTheApp";
+    public static final String DEFAULT_BRIGHTNESS_LEVEL = "20%";
+    public static final String MAX_BRIGHTNESS_LEVEL = "90%";
+    public static final String PERCENTAGE = "%";
+    public static final String MAX = "max";
+    public static final int MAX_BRIGHTNESS_INTEGER = 9;
+    public static final int DEFAULT_BRIGHTNESS_INTEGER = 2;
+    public static final String IS_BRIGHTNESS_DEFAULT = "is_brightness_default";
+    public static final String CUSTOM_DEFAULT_BRIGHTNESS = "custom_default_brightness";
+    public static final String CUSTOM_HIGH_BRIGHTNESS = "custom_high_brightness";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

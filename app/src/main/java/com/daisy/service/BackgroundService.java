@@ -1044,9 +1044,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     @Override
     public void onFaceDetected() {
         try {
-            Log.e("Kali","Face in");
+            if (!SessionManager.get().isBrighnessDefault())
+                SessionManager.get().setBrightness(0.9f);
+            else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness()+"")/10));
 
-            SessionManager.get().setBrightness(0.9f);
+
             Utils.setFullBrightNess();
             if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.TEN_SECOND) {
                 return;
@@ -1070,7 +1073,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
-        SessionManager.get().setBrightness(0.2f);
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.2f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getDefaultBrightness()+"")/10));
+
         Utils.setFullBrightNess();
 
     }

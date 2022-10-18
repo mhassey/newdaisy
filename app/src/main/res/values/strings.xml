@@ -250,4 +250,9 @@
     <string name="update_app">UPDATE APP</string>
     <string name="update">UPDATE</string>
     <string name="cancel_cap">CANCEL</string>
+    <string name="default_brightness">Default brightness</string>
+    <string name="max_brightness">Max brightness</string>
+    <string name="reset">Reset</string>
+    <string name="save">Save</string>
+    <string name="change_brightness">CHANGE BRIGHTNESS</string>
 </resources>
