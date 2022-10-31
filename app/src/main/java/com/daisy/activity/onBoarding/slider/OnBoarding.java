@@ -33,7 +33,6 @@ import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddValidationHelper;
 import com.daisy.activity.onBoarding.slider.screenAdd.ScreenAddViewModel;
 import com.daisy.activity.onBoarding.slider.screenAdd.vo.ScreenAddResponse;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreen;
-import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
 import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.activity.onBoarding.slider.slides.welcome.WelcomeAsk;
@@ -196,8 +195,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      **/
     private void addFragmentList() {
         fragmentList.add(WelcomeAsk.getInstance(OnBoarding.this));
-
-        fragmentList.add(PermissionAsk.getInstance(mBinding));
+        //fragmentList.add(PermissionAsk.getInstance(mBinding));
         if (!SessionManager.get().getDisableSecurity())
             fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
@@ -293,7 +291,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-        if (count == Constraint.THREE) {
+        if (count == Constraint.TWO) {
 
 
             SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
@@ -329,11 +327,11 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
             }
 
-        } else if (count == Constraint.FOUR) {
-            SignUp signUp = (SignUp) fragmentList.get(Constraint.FOUR);
+        } else if (count == Constraint.THREE) {
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.THREE);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count >= Constraint.FIVE) {
+        } else if (count >= Constraint.FOUR) {
             handleCreateScreen(null);
         }
 
@@ -375,9 +373,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         if (Utils.getNetworkState(context)) {
             if (!SessionManager.get().getDisableSecurity())
-                addScreen = (AddScreen) fragmentList.get(Constraint.FOUR);
-            else
                 addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+            else
+                addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
 
 
             ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);

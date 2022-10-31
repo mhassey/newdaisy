@@ -1,7 +1,5 @@
 package com.daisy.service;
 
-import static com.daisy.utils.Constraint.messages;
-
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -14,36 +12,24 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.SurfaceView;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.daisy.BuildConfig;
-import com.daisy.ObjectDetection.CameraSurfaceView;
-import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
-import com.daisy.ObjectDetection.cam.FrontCameraRetriever;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.UpdateApk;
-import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.logs.LogSyncExtra;
 import com.daisy.activity.mainActivity.MainActivity;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
@@ -55,7 +41,6 @@ import com.daisy.pojo.Logs;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
-import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
@@ -64,7 +49,6 @@ import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -74,40 +58,26 @@ import java.util.concurrent.TimeUnit;
 /**
  * Main service that handle hole background tasks
  */
-public class BackgroundService extends Service implements SyncLogCallBack, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
+public class BackgroundService extends Service implements SyncLogCallBack, SensorEventListener {
 
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private static final String ACTION_DEBUG = "daichan4649.lockoverlay.action.DEBUG";
     private String TAG = this.getClass().getSimpleName();
-    private WindowManager mWindowManager;
-    private WindowManager mWindowManagerForCamera;
-    private LinearLayout touchLayoutforCamera;
     public int count = 0;
-    private PowerManager.WakeLock mWakeLock;
-    private WifiManager wifiManager;
     private AppChecker appChecker = new AppChecker();
     private static SessionManager sessionManager;
     private SensorManager sensorMan;
     private Sensor accelerometer;
-    private float[] mGravity;
-    private double mAccel;
-    private double mAccelCurrent;
-    private double mAccelLast;
     public static Timer refreshTimer;
     public static Timer refreshTimer1;
     public static Timer refreshTimer2;
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
-    private long lastFaceDetect = 0;
-
-    public static Timer refreshTimer5;
     private Intent securityIntent;
     private Sensor stepDetectorSensor;
     private Sensor stepCounterSensor;
     private Sensor magnetometer;
-    private int uninstallIssue = 0;
-    private long mLastClickTime = 0;
     private static BackgroundService backgroundService;
 
 
@@ -130,138 +100,16 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         backgroundService = this;
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
         showNotification();
-        initWakeUpLock();
         registerReceiver();
-        handleClick();
-        setWindowManager();
         setCounter();
-        if (!SessionManager.get().getDisableSecurity())
-            initPassword();
-
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
-            initWifi();
             defineSensor();
-            try {
-                FrontCameraRetriever.retrieveFor(this);
-                FrontCameraRetriever.getInstance().load();
-            } catch (Exception e) {
-
-            }
         }
 
     }
 
 
-    /**
-     * show lock screen if browser or message app or play store or settings open
-     */
-    private void initPassword() {
-        appChecker.whenAny(new AppChecker.Listener() {
-            @Override
-            public void onForeground(String process1) {
-                try {
-                    if (process1 != null) {
-                        if (!sessionManager.getUninstallShow()) {
-                            String process = process1 + "";
-                            if (sessionManager == null) {
-                                sessionManager = SessionManager.get();
-                            }
 
-                            if (process.equals(Constraint.Extra_pass_screen)) {
-                                return;
-                            }
-
-
-                            boolean b = sessionManager.getLock();
-                            if (!Constraint.current_running_process.equals(process)) {
-                                Constraint.current_running_process = process;
-                                if (!sessionManager.getUninstall()) {
-
-                                    if (process.equals(Constraint.PACKAGE_INSTALLER)) {
-                                        if (!process.equals(getApplication().getPackageName())) {
-                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                            intent.putExtra(Constraint.PACKAGE, process);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                            startActivity(intent);
-
-                                        }
-                                    } else {
-                                        uninstallIssue = Constraint.ZERO;
-                                        sessionManager.setDefaultDownload(Constraint.FALSE);
-                                    }
-                                }
-
-                                if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
-                                    if (!b) {
-
-                                        return;
-                                    }
-                                }
-                                boolean browserLock = sessionManager.getBrowserLock();
-                                if (process.equals(Constraint.CROME) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
-                                    if (!browserLock) {
-
-                                        return;
-                                    }
-                                }
-                                boolean messageLock = sessionManager.getMessageLock();
-                                if (Arrays.asList(messages).contains(process) || process.contains(Constraint.MESSENGING)) {
-                                    if (!messageLock) {
-
-                                        return;
-                                    }
-                                }
-
-
-                                if (!process.equals(getApplication().getPackageName())) {
-                                    storeProcess(process);
-                                    if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
-                                        if (!sessionManager.getPasswordCorrect()) {
-                                            sessionManager.setPasswordCorrect(Constraint.TRUE);
-                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-                                            intent.putExtra(Constraint.PACKAGE, process);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                            startActivity(intent);
-                                        } else {
-                                            sessionManager.setPasswordCorrect(Constraint.FALSE);
-                                        }
-                                    } else {
-                                        sessionManager.setPasswordCorrect(Constraint.FALSE);
-                                    }
-
-                                } else {
-                                    sessionManager.setPasswordCorrect(Constraint.FALSE);
-
-                                }
-
-
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                }
-            }
-        }).timeout(200).start(getApplicationContext());
-    }
-
-
-    private void storeProcess(String process) {
-        try {
-            String app_name = (String) getPackageManager().getApplicationLabel(
-                    getPackageManager().getApplicationInfo(process
-                            , PackageManager.GET_META_DATA));
-            if (app_name != null) {
-                if (!app_name.equals(Constraint.SYSTEM_LUNCHER) && !app_name.equals(Constraint.DAISYY))
-                    DBCaller.storeLogInDatabase(getApplicationContext(), Constraint.OPEN + app_name, "", "", Constraint.APPLICATION_LOGS);
-            }
-        } catch (Exception e) {
-        }
-    }
 
     public static BackgroundService getServiceObject() {
         return backgroundService;
@@ -269,8 +117,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
     public void closeService() {
         unregisterReceiver();
-        if (touchLayoutforCamera != null)
-            mWindowManager.removeView(touchLayoutforCamera);
         if (appChecker != null) {
             appChecker.stop();
         }
@@ -278,10 +124,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     }
 
     void unregisterReceiver() {
-        try {
-            unregisterReceiver(overlayReceiver);
-        } catch (Exception e) {
-        }
         try {
             unregisterReceiver(wifiStateReceiver);
         } catch (Exception e) {
@@ -292,12 +134,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         }
     }
 
-    @SuppressLint("InvalidWakeLockTag")
-    private void initWakeUpLock() {
-        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        int flags = PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP;
-        mWakeLock = powerManager.newWakeLock(flags, Constraint.WEAK_UP_TAG);
-    }
 
     private void showNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -306,9 +142,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
             startForeground();
     }
 
-    private void initWifi() {
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-    }
+
 
 
     /**
@@ -321,11 +155,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         stepCounterSensor = sensorMan.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         magnetometer = sensorMan.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         Sensor mSensor = sensorMan.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        mAccel = 0.00f;
-        mAccelCurrent = SensorManager.GRAVITY_EARTH;
-        mAccelLast = SensorManager.GRAVITY_EARTH;
-        sensorMan.registerListener(this, accelerometer,
-                SensorManager.SENSOR_DELAY_UI);
         sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -334,16 +163,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
-
-
-    /**
-     * Purpose - Use to wake up phone
-     */
-    private void wakePhoneUp() {
-        mWakeLock.acquire();
-        mWakeLock.release();
-    }
-
 
     /**
      * Purpose - set all counters
@@ -586,7 +405,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                 public void run() {
 
                     if (!SessionManager.get().getLogout()) {
-
                         String value1 = appChecker.getForegroundApp(getApplicationContext());
                         if (value1 != null) {
                             if (!value1.equals(getApplication().getPackageName())) {
@@ -596,28 +414,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                                         if (Utils.isPlugged(getApplicationContext())) {
                                             sessionManager.setStepCount(0);
                                         }
-                                        String value = appChecker.getForegroundApp(getApplicationContext());
-
-                                        if (value != null) {
-                                            if (!value.equals(getApplication().getPackageName())) {
-                                                if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
-
-                                                    bringApplicationToFront(getApplicationContext());
-                                                }
-                                            } else {
-                                                ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-                                                List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-                                                ComponentName componentInfo = taskInfo.get(0).topActivity;
-                                                String name = componentInfo.getClassName();
-                                                if (name.contains(Constraint.LOCK_SCREEN)) {
-                                                    bringApplicationToFront(getApplicationContext());
-
-                                                }
-                                            }
-                                            count = Constraint.ZERO;
-
-                                        }
-
                                     } catch (Exception e) {
 
                                     }
@@ -658,38 +454,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     }
 
 
-    /**
-     * Purpose -  Open your Activity to front
-     *
-     * @param context
-     */
-    private void bringApplicationToFront(final Context context) {
-        try {
-            // Get a handler that can be used to post to the main thread
-            android.os.Handler mainHandler = new Handler(context.getMainLooper());
-            Runnable myRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                } // This is your code
-            };
-            mainHandler.post(myRunnable);
-
-        } catch (Exception e) {
-        }
-
-    }
 
     /**
      * Purpose - registerReceiver method register all broad cast receiver
      */
     private void registerReceiver() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        filter.addAction(ACTION_DEBUG);
-        registerReceiver(overlayReceiver, filter);
         if (SessionManager.get().getAppType().equals(Constraint.GO)) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
@@ -732,22 +501,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     }
 
 
-    /**
-     * Purpose - overlayReceiver method handles overlay listener
-     */
-    private BroadcastReceiver overlayReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(Intent.ACTION_SCREEN_OFF)) {
-                showOverlayActivity(context);
-                wakePhoneUp();
-            } else if (action.equals(ACTION_DEBUG)) {
-                showOverlayActivity(context);
-            }
-        }
-    };
-
 
     /**
      * Purpose - wifiStateReceiver method handles wifi state change
@@ -774,18 +527,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     };
 
 
-    /**
-     * showOverlayActivity method open main activity
-     *
-     * @param context
-     */
-    private void showOverlayActivity(Context context) {
-
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
 
     /**
      * Purpose - startMyOwnForeground method handles notification channels
@@ -839,105 +580,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         initService();
     }
 
-    /**
-     * Purpose - handleClick method initialize clicks listener
-     */
-    private void handleClick() {
-        touchLayoutforCamera = new LinearLayout(this);
-
-    }
-
-
-    /**
-     * Purpose - sanitisedWork check the top activity and according to that perform sanitization work
-     */
-    private void sanitisedWork() {
-        try {
-            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            String name = componentInfo.getClassName();
-            if (name.contains(Constraint.MAIN_ACTIVITY)) {
-                EventBus.getDefault().post(new Sanitised());
-            }
-        } catch (Exception e) {
-        }
-
-    }
-
-
-    /**
-     * Purpose - setWindowManager method initialize invisible ui that helps for face detect and interactions
-     */
-    private void setWindowManager() {
-        WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams(0, 0);
-        touchLayoutforCamera.setLayoutParams(lp1);
-        mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        mWindowManagerForCamera = (WindowManager) getSystemService(WINDOW_SERVICE);
-
-        // set layout parameter of window manager
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    0,
-                    0,
-                    WindowManager.LayoutParams.TYPE_PHONE,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-            mWindowManagerForCamera.addView(touchLayoutforCamera, params);
-        } else {
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    //      WindowManager.LayoutParams.WRAP_CONTENT,
-                    //    WindowManager.LayoutParams.WRAP_CONTENT,
-                    10, 10,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    PixelFormat.TRANSLUCENT);
-
-
-            params.gravity = Gravity.START | Gravity.TOP;
-            params.x = Constraint.ZERO;
-            params.y = Constraint.ZERO;
-
-            mWindowManagerForCamera.addView(touchLayoutforCamera, params);
-
-        }
-    }
 
 
     private void initService() {
-        if (Constraint.IS_OVER_APP_SETTING)
-            screenBrightness(Constraint.CREENTBRIGHNESS);
         long time1 = TimeUnit.SECONDS.toMillis(Constraint.ONE);
         Utils.constructJobForBackground(time1, getApplicationContext());
     }
 
-    /**
-     * Purpose - screenBrightness method handles brightness level
-     *
-     * @param level
-     */
-    private void screenBrightness(int level) {
-        try {
-            android.provider.Settings.System.putInt(
-                    getContentResolver(),
-                    android.provider.Settings.System.SCREEN_BRIGHTNESS, level);
-        } catch (Exception e) {
-
-
-        }
-    }
 
 
     /**
@@ -980,13 +629,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         try {
             switch (event.sensor.getType()) {
                 case (Sensor.TYPE_STEP_COUNTER):
-                    countSteps(event.values[0]);
+                    countSteps();
                     break;
-
-                case Sensor.TYPE_GYROSCOPE:
-                    handleGyro(event);
-                    break;
-
 
             }
         } catch (Exception e) {
@@ -996,13 +640,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
     }
 
-    //  Handle gyro
-    private void handleGyro(SensorEvent event) {
 
-        mGravity = event.values.clone();
-
-
-    }
 
 
     @Override
@@ -1014,9 +652,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     /**
      * Purpose - countSteps method  helps to start interaction service
      *
-     * @param step
+     * @param
      */
-    private void countSteps(float step) {
+    private void countSteps() {
         int stepCount = sessionManager.getSteps();
 
         //Step count
@@ -1034,86 +672,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         } else {
             sessionManager.setStepCount(0);
         }
-        //Record achievement
     }
 
 
-    /**
-     * Purpose - onFaceDetected method handles face detection event
-     */
-    @Override
-    public void onFaceDetected() {
-        try {
-            if (!SessionManager.get().isBrighnessDefault())
-                SessionManager.get().setBrightness(0.9f);
-            else
-            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness()+"")/10));
-
-
-            Utils.setFullBrightNess();
-            if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.TEN_SECOND) {
-                return;
-            }
-            lastFaceDetect = SystemClock.elapsedRealtime();
-            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            String name = componentInfo.getClassName();
-            if (name.contains(Constraint.MAIN_ACTIVITY)) {
-                DBCaller.storeFaceDetectionLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.APPLICATION_LOGS);
-
-            }
-        } catch (Exception e) {
-        }
-
-
-    }
-
-
-    //  Face out handler
-    @Override
-    public void onFaceTimedOut() {
-        if (!SessionManager.get().isBrighnessDefault())
-            SessionManager.get().setBrightness(0.2f);
-        else
-            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getDefaultBrightness()+"")/10));
-
-        Utils.setFullBrightNess();
-
-    }
-
-    @Override
-    public void onFaceDetectionNonRecoverableError() {
-
-    }
-
-    FaceDetectionCamera camera;
-
-    /**
-     * Purpose - onLoaded method load camera on invisible screen
-     *
-     * @param camera
-     */
-    @Override
-    public void onLoaded(FaceDetectionCamera camera) {
-        try {
-
-            // When the front facing camera has been retrieved we still need to ensure our display is ready
-            // so we will let the camera surface view initialise the camera i.e turn face detection on
-            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-            this.camera = camera;
-            touchLayoutforCamera.addView(cameraSurface);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void onFailedToLoadFaceDetectionCamera() {
-
-    }
 
 }

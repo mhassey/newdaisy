@@ -25,6 +25,7 @@ import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Purpose -  SignUp is an activity that help to sign up with store code and password
@@ -185,16 +186,15 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
     private void designWork() {
 
         if (SessionManager.get().getDisableSecurity()) {
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
-//            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.selected_green));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE)).setIcon(getResources().getDrawable(R.drawable.selected_green));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO)).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
         } else {
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE).setIcon(getResources().getDrawable(R.drawable.selected_green));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO)).setIcon(getResources().getDrawable(R.drawable.selected_green));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(Constraint.THREE)).setIcon(getResources().getDrawable(R.drawable.default_dot));
         }
     }
 

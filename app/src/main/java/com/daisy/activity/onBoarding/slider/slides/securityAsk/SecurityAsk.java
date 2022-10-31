@@ -90,10 +90,9 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
 
 
         ActivityOnBaordingBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_blue));
+        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selected_blue));
+        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
         ActivityOnBaordingBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
     }
 
@@ -110,22 +109,22 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.lock: {
-                enableDisableView(securityAskBinding.lockAccessToPlayStoreLayout,securityAskBinding.lockAccessToPlayStoreTxt, securityAskBinding.yesPlayTxt, securityAskBinding.yesPlayThumb, securityAskBinding.noPlay, securityAskBinding.noPlayThumb);
+                enableDisableView(securityAskBinding.lockAccessToPlayStoreLayout, securityAskBinding.lockAccessToPlayStoreTxt, securityAskBinding.yesPlayTxt, securityAskBinding.yesPlayThumb, securityAskBinding.noPlay, securityAskBinding.noPlayThumb);
 
                 break;
             }
             case R.id.lockToBrowser: {
-                enableDisableView(securityAskBinding.lockAccessToBrowserLayout,securityAskBinding.lockAccessToBrowserTxt, securityAskBinding.yesBrowser, securityAskBinding.yesBrowserThumb, securityAskBinding.noBrowser, securityAskBinding.noBrowserThumb);
+                enableDisableView(securityAskBinding.lockAccessToBrowserLayout, securityAskBinding.lockAccessToBrowserTxt, securityAskBinding.yesBrowser, securityAskBinding.yesBrowserThumb, securityAskBinding.noBrowser, securityAskBinding.noBrowserThumb);
 
                 break;
             }
             case R.id.lockToMessage: {
-                enableDisableView(securityAskBinding.lockAccessToMessageLayout,securityAskBinding.lockAccessToMsgTxt, securityAskBinding.yesLock, securityAskBinding.yesLockThumb, securityAskBinding.noLock, securityAskBinding.noLockThumb);
+                enableDisableView(securityAskBinding.lockAccessToMessageLayout, securityAskBinding.lockAccessToMsgTxt, securityAskBinding.yesLock, securityAskBinding.yesLockThumb, securityAskBinding.noLock, securityAskBinding.noLockThumb);
 
                 break;
             }
             case R.id.deletePhoto: {
-                enableDisableView(securityAskBinding.deleteDeviceContentLayout,securityAskBinding.deleteDeviceContentTxt, securityAskBinding.yesDeviceContent, securityAskBinding.yesDeviceContentImage, securityAskBinding.noDeviceContent, securityAskBinding.noDeviceContentThumb);
+                enableDisableView(securityAskBinding.deleteDeviceContentLayout, securityAskBinding.deleteDeviceContentTxt, securityAskBinding.yesDeviceContent, securityAskBinding.yesDeviceContentImage, securityAskBinding.noDeviceContent, securityAskBinding.noDeviceContentThumb);
 
                 break;
             }
@@ -136,7 +135,7 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
         }
     }
 
-    void enableDisableView(LinearLayout upperLayout, TextView mainText,TextView yesTestView, ImageView yesTestImage, TextView noTestView, ImageView moTestImage) {
+    void enableDisableView(LinearLayout upperLayout, TextView mainText, TextView yesTestView, ImageView yesTestImage, TextView noTestView, ImageView moTestImage) {
         if (yesTestView.getVisibility() == View.VISIBLE) {
             upperLayout.setBackground(requireContext().getDrawable(R.drawable.edit_txt_rouned_with_dark_blue_border));
             mainText.setTextColor(requireContext().getResources().getColor(R.color.dark_grey_blue));

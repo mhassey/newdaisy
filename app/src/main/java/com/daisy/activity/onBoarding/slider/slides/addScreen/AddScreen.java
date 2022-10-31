@@ -1,9 +1,7 @@
 package com.daisy.activity.onBoarding.slider.slides.addScreen;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -35,7 +32,7 @@ import com.daisy.utils.ValidationHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Purpose -  AddScreen is an fragment that help to show all carrier and product and orientation
@@ -74,7 +71,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         context = requireContext();
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
         addOrientationData();
-        ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getOrientation());
+        ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(context, R.layout.custom_spinner_center, R.id.text1, mViewModel.getOrientation());
         orientationAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
 
         mBinding.webkitOrientation.setAdapter(orientationAdapter);
@@ -124,7 +121,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             List<Carrier> carriers = sessionManager.getLoginResponse().getCarrier();
             if (carriers != null) {
                 mViewModel.setCarriers(carriers);
-                ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getCarriers());
+                ArrayAdapter<Carrier> carrierArrayAdapter = new ArrayAdapter<Carrier>(context, R.layout.custom_spinner_center, R.id.text1, mViewModel.getCarriers());
                 carrierArrayAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
                 mBinding.carrierName.setAdapter(carrierArrayAdapter);
 
@@ -156,19 +153,16 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
 
 
         if (SessionManager.get().getDisableSecurity()) {
-            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-
-            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(0)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(1)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(2)).setIcon(getResources().getDrawable(R.drawable.selected_purple));
 
         } else {
-            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(0)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(1)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(2)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(3)).setIcon(getResources().getDrawable(R.drawable.selected_purple));
 
-            baording.mBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.selected_purple));
         }
     }
 
@@ -339,7 +333,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
             if (manufactures != null) {
 
                 mViewModel.setManufactures(manufactures);
-                ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getManufactures());
+                ArrayAdapter<Manufacture> manufactureArrayAdapter = new ArrayAdapter<Manufacture>(context, R.layout.custom_spinner_center, R.id.text1, mViewModel.getManufactures());
                 manufactureArrayAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
                 mBinding.manufactureList.setAdapter(manufactureArrayAdapter);
 
@@ -374,7 +368,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 sessionManager.setOSType(generalResponse.getResult().getOsTypes());
                 mViewModel.setProducts(generalResponse.getResult().getProducts());
                 if (mViewModel.getProducts() != null) {
-                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getProducts());
+                    ArrayAdapter<Product> productArrayAdapter = new ArrayAdapter<Product>(context, R.layout.custom_spinner_center, R.id.text1, mViewModel.getProducts());
                     productArrayAdapter.setDropDownViewResource(R.layout.custom_spinner_center);
                     mBinding.productName.setAdapter(productArrayAdapter);
                     if (mViewModel.getAutoSelctedProduct() != null)
@@ -442,9 +436,10 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
                 getActivity().onBackPressed();
                 break;
             }
-            case R.id.begin:{
+            case R.id.begin: {
                 baording.mBinding.nextSlide.performClick();
                 break;
-            }}
+            }
+        }
     }
 }

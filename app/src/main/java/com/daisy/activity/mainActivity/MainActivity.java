@@ -478,8 +478,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
      * check permission
      */
     private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        return result == PackageManager.PERMISSION_GRANTED;
+    //    int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    //    return result == PackageManager.PERMISSION_GRANTED;
+    return true;
     }
 
 

@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
     private ActivityWelcomeScreenBinding mBinding;
@@ -201,18 +202,16 @@ public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
     private void designWork() {
 
         if (SessionManager.get().getDisableSecurity()) {
-            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
-            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(0)).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(1)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(2)).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
 
         } else {
-            baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
-            baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(0)).setIcon(getResources().getDrawable(R.drawable.selected_dot_red));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(1)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(2)).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            Objects.requireNonNull(baording.mBinding.tabDotsLayout.getTabAt(3)).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
         }
     }
