@@ -13,13 +13,13 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
+import com.daisy.pojo.Logs;
+import com.daisy.service.MongoConnection;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
-//import MongoConnectionByGridle.MongoConection;
-
-//import MongoConnectionByGridle.MongoConection;
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data
@@ -27,13 +27,13 @@ import com.daisy.utils.Utils;
  **/
 public class SplashScreen extends BaseActivity {
     private SessionManager sessionManager;
-    private boolean isInstalled;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
         initView();
     }
 
@@ -44,6 +44,7 @@ public class SplashScreen extends BaseActivity {
      **/
     private void initView() {
         setNoTitleBar(this);
+        setDefaultBrightness();
         handleSessionWork();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

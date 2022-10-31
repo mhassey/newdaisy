@@ -27,7 +27,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -57,6 +56,7 @@ import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.Time;
+import com.daisy.sync.SyncLogToMongo;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
@@ -354,6 +354,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
             setDeleteTimer();
         }
         sendLogTimer();
+
         checkUpdate();
         checkPromotion();
         checkInversion();
@@ -462,7 +463,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void sendLogTimer() {
         Timer logsSync = new Timer();
-        int second = ((6 * Constraint.THIRTY_SIX_HUNDRED)) * Constraint.THOUSAND;
+        int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
+
         logsSync.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -1044,13 +1046,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     @Override
     public void onFaceDetected() {
         try {
-            if (!SessionManager.get().isBrighnessDefault())
-                SessionManager.get().setBrightness(0.9f);
-            else
-            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness()+"")/10));
 
-
-            Utils.setFullBrightNess();
             if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.TEN_SECOND) {
                 return;
             }
@@ -1073,12 +1069,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
-        if (!SessionManager.get().isBrighnessDefault())
-            SessionManager.get().setBrightness(0.2f);
-        else
-            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getDefaultBrightness()+"")/10));
 
-        Utils.setFullBrightNess();
 
     }
 

@@ -102,7 +102,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -403,7 +402,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute(url);
 
     }
-
 
 
     /**
@@ -884,8 +882,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                             }
                             Date todayDate = new Date();
 
-                            if (dateEffective!=null && !dateEffective.after(todayDate)) {
-                                if (futureDate!=null && futureDate.after(todayDate)) {
+                            if (dateEffective != null && !dateEffective.after(todayDate)) {
+                                if (futureDate != null && futureDate.after(todayDate)) {
                                     pricing1 = pricing.get(i);
                                     break OUTER_LOOP;
                                 }
@@ -1159,8 +1157,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                                 Date dateEffective;
                                 dateEffective = sdf.parse(dateCreated);
                                 Date todayDate = new Date();
-                                if (dateEffective!=null && !dateEffective.after(todayDate)) {
-                                    if (futureDate!=null && futureDate.after(todayDate)) {
+                                if (dateEffective != null && !dateEffective.after(todayDate)) {
+                                    if (futureDate != null && futureDate.after(todayDate)) {
                                         pro.add(Constraint.PROMOTION + Constraint.SLASH + check.getName() + Constraint.SLASH + Constraint.FILE_NAME);
                                     }
                                 }
@@ -1245,6 +1243,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     private void handleUperLayoutClick() {
 
+        fireThirtySecondCounter();
+
         DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         if (BackgroundService.getServiceObject() != null) {
             BackgroundService.getServiceObject().count = 0;
@@ -1265,6 +1265,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         }
 
     }
+
+
 
 
     /**

@@ -18,6 +18,9 @@ public interface LogDao {
     @Query("SELECT * FROM "+ Constraint.LOGS+" where  logType = :applicationType or logType =:cardType and isSync = :value order by id DESC")
     List<Logs> getAllApplicationAndDeviceLog(boolean value,String applicationType,String cardType);
     @Query("SELECT * FROM "+ Constraint.LOGS+" where  isSync = :value order by id DESC")
+    List<Logs> getAllApplicationLog(boolean value);
+    @Query("SELECT * FROM "+ Constraint.LOGS+" where  isSync = :value order by id DESC")
+
     List<Logs> getAllApplicationAndDeviceLog(boolean value);
 
     @Query("UPDATE Logs SET isClear = :val where logType= :type")
@@ -25,6 +28,7 @@ public interface LogDao {
 
     @Query("delete from logs WHERE  id IN (:ids)")
     void deleteItemPlaces(List<Integer> ids);
+
 
     @Query("SELECT * FROM "+ Constraint.LOGS+" where  isSync = :value GROUP BY eventUrl order by id  DESC")
      List<Logs> getAllPromotionLog(boolean value);

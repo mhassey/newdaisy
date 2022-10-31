@@ -26,6 +26,7 @@ public class Logs {
     @ColumnInfo(name = "isClear")
     private boolean isClear;
 
+
     public int getId() {
         return id;
     }

@@ -2,11 +2,9 @@ package com.daisy.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.request.LogClearRequest;
-import com.daisy.pojo.response.PriceCard;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 
@@ -29,6 +27,7 @@ public class DBCaller {
         new AddLog().execute(logs, context);
 
     }
+
     /**
      * Store Log in local db
      */
@@ -56,26 +55,36 @@ public class DBCaller {
     /**
      * delete logs according to id
      */
-    public static void setLogData(Context context,List<Integer> integers) {
+    public static void setLogData(Context context, List<Integer> integers) {
         DatabaseClient.getInstance(context).getAppDatabase().logDao().deleteItemPlaces(integers);
+
     }
+
+
 
 
     /**
      * Get not sync logs
      */
-    public static List<Logs> getLogsFromDatabaseNotSync(Context context,String type) {
-        List<Logs> logs=null;
-        if (type.equals(Constraint.PROMOTION))
-        {
+    public static List<Logs> getLogsFromDatabaseNotSync(Context context, String type) {
+        List<Logs> logs = null;
+        if (type.equals(Constraint.PROMOTION)) {
 
             logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllPromotionLog(Constraint.FALSE);
 
+        } else {
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type, Constraint.PRICECARD_LOG);
         }
-        else
-        {
-            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type,Constraint.PRICECARD_LOG);
-        }
+        return logs;
+    }
+
+    /**
+     * Get not sync logs
+     */
+    public static List<Logs> getAllLogsFromDatabaseNotSync(Context context) {
+        List<Logs> logs = null;
+
+        logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationLog(Constraint.FALSE);
         return logs;
     }
 
@@ -83,22 +92,19 @@ public class DBCaller {
      * Get not sync logs
      */
     public static List<Logs> getLogsFromDatabaseNotSync(Context context) {
-        List<Logs> logs=null;
+        List<Logs> logs = null;
         logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE);
         return logs;
     }
 
-    public static List<Logs> getLogsFromDatabaseNotSyncById(Context context,String type,Integer integer) {
-        List<Logs> logs=null;
-        if (type.equals(Constraint.PROMOTION))
-        {
+    public static List<Logs> getLogsFromDatabaseNotSyncById(Context context, String type, Integer integer) {
+        List<Logs> logs = null;
+        if (type.equals(Constraint.PROMOTION)) {
 
-            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllPromotionLog(Constraint.FALSE,integer);
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllPromotionLog(Constraint.FALSE, integer);
 
-        }
-        else
-        {
-            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type,Constraint.PRICECARD_LOG);
+        } else {
+            logs = DatabaseClient.getInstance(context).getAppDatabase().logDao().getAllApplicationAndDeviceLog(Constraint.FALSE, type, Constraint.PRICECARD_LOG);
         }
         return logs;
     }
@@ -118,13 +124,13 @@ public class DBCaller {
 
     public static List<Integer> getPromotionCountByID(Context context) {
         try {
-          List<Integer>integers = DatabaseClient.getInstance(context).getAppDatabase().logDao().getPromotionCount();
-          integers.removeAll(Collections.singleton(0));
+            List<Integer> integers = DatabaseClient.getInstance(context).getAppDatabase().logDao().getPromotionCount();
+            integers.removeAll(Collections.singleton(0));
 
             return integers;
         } catch (Exception e) {
             e.printStackTrace();
-         }
+        }
         return null;
 
     }
@@ -135,7 +141,9 @@ public class DBCaller {
         protected Object doInBackground(Object[] objects) {
             Logs logs = (Logs) objects[0];
             Context context = (Context) objects[1];
-            DatabaseClient.getInstance(context).getAppDatabase().logDao().insert(logs);
+
+                    DatabaseClient.getInstance(context).getAppDatabase().logDao().insert(logs);
+
             return null;
         }
     }

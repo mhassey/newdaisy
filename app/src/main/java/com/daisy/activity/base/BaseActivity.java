@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -23,10 +24,13 @@ import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.security.Admin;
 import com.daisy.service.BackgroundService;
+import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Purpose -  BaseActivity is an activity that have some common method and function that need to or nice to call from every activity
@@ -36,6 +40,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
     private ProgressDialog progressDialog;
+    Timer brightNessCounter = new Timer();
 
 
     /**
@@ -177,5 +182,39 @@ public class BaseActivity extends AppCompatActivity {
         Utils.setFullBrightNess();
 
         super.onResume();
+    }
+
+    public void fireThirtySecondCounter() {
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.9f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10));
+        Utils.setFullBrightNess();
+        int second = 30 * Constraint.THOUSAND;
+        brightNessCounter.cancel();
+        brightNessCounter = new Timer();
+        brightNessCounter.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Log.e("Kali","PLUS+");
+                setDefaultBrightness();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.setFullBrightNess();
+
+                    }
+                });
+            }
+        }, second, second);
+
+    }
+
+    public void setDefaultBrightness() {
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.2f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getDefaultBrightness() + "") / 10));
+
     }
 }
