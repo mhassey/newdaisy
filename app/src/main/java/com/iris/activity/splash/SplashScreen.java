@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -15,6 +16,9 @@ import com.iris.activity.onBoarding.slider.OnBoarding;
 import com.iris.common.session.SessionManager;
 import com.iris.utils.Constraint;
 import com.iris.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 //import MongoConnectionByGridle.MongoConection;
 
