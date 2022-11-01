@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">Irus</string>
     <string name="welcome">BIENVENUE</string>
     <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">Cette application nécessite plusieurs autorisations spéciales pour fonctionner correctement. Appuyezsur « commencer » ci-dessous et vous serez guidé tout au long du processus.</string>
     <string name="begin">COMMENCER</string>

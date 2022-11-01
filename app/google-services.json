@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:518623920875:android:086e855e9394f153a5f4ae",
         "android_client_info": {
-          "package_name": "com.daisy"
+          "package_name": "com.iris"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "518623920875-0a3ohbpt4nnipe5drfc9dm72e0smatev.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.daisy",
+            "package_name": "com.iris",
             "certificate_hash": "40b180ae2b8caf8d24bbca197bd444f0615c7b39"
           }
         }

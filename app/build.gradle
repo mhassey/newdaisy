@@ -22,7 +22,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.daisy"
+        applicationId "com.iris"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1

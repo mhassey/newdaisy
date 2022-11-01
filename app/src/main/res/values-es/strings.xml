@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">Irus</string>
     <string name="storage_not_available">Almacenamiento no disponible</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>

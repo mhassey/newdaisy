@@ -112,10 +112,11 @@
 
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/change_brightness"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
@@ -123,7 +124,8 @@
                 android:gravity="center"
                 android:hint="@string/change_brightness"
                 android:padding="@dimen/dp10"
-                android:textSize="@dimen/dp10" />
+                android:textSize="@dimen/dp10"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/logout_app"
