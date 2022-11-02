@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
@@ -78,7 +80,9 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
         setNoTitleBar(this);
 
 
+
     }
+
 
     @Override
     protected void onResume() {

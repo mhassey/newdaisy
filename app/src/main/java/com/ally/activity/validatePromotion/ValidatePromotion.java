@@ -7,6 +7,7 @@ import com.ally.pojo.response.GlobalResponse;
 import com.ally.pojo.response.Promotion;
 import com.ally.pojo.response.Promotions;
 import com.ally.pojo.response.ValidatePromotionPojo;
+import com.ally.support.PushUpdate;
 import com.ally.utils.Constraint;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,6 +42,7 @@ public class ValidatePromotion {
      * Check promotion is removed from server
      */
     private void checkPromotions() {
+
         ApiService apiService = AppRetrofit.getInstance().getApiService();
         HashMap<String, String> hashMap = getPromotionRequest();
         Call<GlobalResponse<ValidatePromotionPojo>> globalResponseCall = apiService.checkPromotion(hashMap, hashMap.get(Constraint.TOKEN));
@@ -123,5 +125,74 @@ public class ValidatePromotion {
         hashMap.put(Constraint.PROMOTION_ID, sendingId);
         hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
         return hashMap;
+    }
+
+    public void checkPromotion(String push) {
+        sessionManager = SessionManager.get();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                ApiService apiService = AppRetrofit.getInstance().getApiService();
+                HashMap<String, String> hashMap = getPromotionRequest();
+                Call<GlobalResponse<ValidatePromotionPojo>> globalResponseCall = apiService.checkPromotion(hashMap, hashMap.get(Constraint.TOKEN));
+                globalResponseCall.enqueue(new Callback<GlobalResponse<ValidatePromotionPojo>>() {
+                    @Override
+                    public void onResponse(Call<GlobalResponse<ValidatePromotionPojo>> call, Response<GlobalResponse<ValidatePromotionPojo>> liveData) {
+                        if (liveData != null) {
+                            if (liveData.isSuccessful()) {
+                                GlobalResponse<ValidatePromotionPojo> response = liveData.body();
+                                if (response.isApi_status()) {
+                                    if (response.getResult() != null) {
+                                        JSONArray updatedPromotion = new JSONArray();
+                                        JSONArray promotions = sessionManager.getPromotions();
+                                        for (int i = Constraint.ZERO; i < promotions.length(); i++) {
+
+                                            for (Promotion promotion : response.getResult().getPromotions()) {
+                                                try {
+                                                    JSONObject pro = (JSONObject) promotions.get(i);
+                                                    if (pro.get(Constraint.PROMOTION_ID).equals(promotion.getIdpromotion())) {
+                                                        JSONObject jsonObject = new JSONObject();
+                                                        jsonObject.put(Constraint.PROMOTION, pro.getString(Constraint.PROMOTION));
+                                                        jsonObject.put(Constraint.PROMOTION_ID, promotion.getIdpromotion());
+                                                        jsonObject.put(Constraint.DATE_CREATE, promotion.getDateCreated());
+                                                        jsonObject.put(Constraint.DATE_EXPIRES, promotion.getDateExpires());
+
+                                                        updatedPromotion.put(jsonObject);
+
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                        sessionManager.deletePromotions();
+                                        sessionManager.setPromotions(updatedPromotion);
+                                        firePushSuccessApi(push);
+                                        EventBus.getDefault().post(new Promotions());
+                                    } else {
+
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GlobalResponse<ValidatePromotionPojo>> call, Throwable t) {
+                        t.printStackTrace();
+                        handleResponse(null);
+
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void firePushSuccessApi(String push) {
+
+        new PushUpdate().pushUpdate(push);
     }
 }

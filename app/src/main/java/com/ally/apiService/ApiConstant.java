@@ -10,6 +10,7 @@ public class ApiConstant {
     public static final String CONTENT_TYPE = "form-data";
     public static final String KEY_CONTENT_TYPE = "Content-Type";
     public static final String ACCESS_TOKEN = "token";
+    public static final String UPDATE_PUSH_SCREEN = "update_screen_push";
 
     public static final String RESOURCE_ERROR_TYPE = "type must be a resource";
     public static final String RESOURCE_ERROR_PARAMETER = "resource must be parameterized";
@@ -26,4 +27,6 @@ public class ApiConstant {
     public static final String CREATE_SCREEN_OS = URL_PACK + "/create_screen_os";
     public static final String UPDATE_PRODUCT = URL_PACK + "/update_screen_product";
     public static final String KEY_TO_URL = URL_PACK + "/api_gateway";
+
+    public static final String UPDATE_DEVICE_TOKEN = URL_PACK + "/update_screen_token";
 }

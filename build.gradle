@@ -35,7 +35,7 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext {
-    appCompact = '1.1.0'
+    appCompact = '1.1.0-alpha03'
     constrintLayout = '1.1.3'
     lagacy = "1.0.0"
     supportAppCompanct = '28.0.0'

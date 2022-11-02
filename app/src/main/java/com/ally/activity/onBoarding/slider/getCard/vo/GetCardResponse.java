@@ -14,7 +14,15 @@ public class GetCardResponse {
     private String defaultPriceCard;
     private boolean isDefault;
     private StoreDetails storeDetails;
+    private boolean isToken_status;
 
+    public boolean isToken_status() {
+        return isToken_status;
+    }
+
+    public void setToken_status(boolean token_status) {
+        isToken_status = token_status;
+    }
 
     public StoreDetails getStoreDetails() {
         return storeDetails;

@@ -10,6 +10,8 @@ import com.ally.pojo.response.FeedBackResponse;
 import com.ally.pojo.response.GeneralResponse;
 import com.ally.pojo.response.GlobalResponse;
 import com.ally.pojo.response.KeyToUrlResponse;
+import com.ally.pojo.response.PushUpdateResponse;
+import com.ally.pojo.response.UpdateTokenResponse;
 import com.ally.pojo.response.ValidatePromotionPojo;
 import com.ally.pojo.response.VersionUpdate;
 import com.ally.utils.Constraint;
@@ -33,6 +35,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.GENERAL)
     Call<GlobalResponse<GeneralResponse>> getGeneralResponse(@FieldMap HashMap<String, String> input);
+
+    @FormUrlEncoded
+    @POST(ApiConstant.API + Constraint.SLASH + ApiConstant.UPDATE_PUSH_SCREEN)
+    Call<GlobalResponse<PushUpdateResponse>> updatePush(@FieldMap HashMap<String, String> hashMap, @Header(Constraint.TOKEN) String s);
 
     @FormUrlEncoded
     @POST(ApiConstant.CREATE_SCREEN)
@@ -70,4 +76,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.KEY_TO_URL)
     Call<GlobalResponse<KeyToUrlResponse>> getKeyToValue(@FieldMap HashMap<String, String> input, @Header(Constraint.TOKEN) String s);
+
+    @FormUrlEncoded
+    @POST(ApiConstant.UPDATE_DEVICE_TOKEN)
+    Call<GlobalResponse<UpdateTokenResponse>> updateDeviceToken(@FieldMap HashMap<String, String> hashCode, @Header(Constraint.TOKEN) String s);
+
 }

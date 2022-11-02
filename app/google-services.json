@@ -1,44 +1,86 @@
 {
   "project_info": {
-    "project_number": "821676071907",
-    "project_id": "ally-2b97f",
-    "storage_bucket": "ally-2b97f.appspot.com"
+    "project_number": "518623920875",
+    "firebase_url": "https://daisy-34c00app.firebaseio.com",
+    "project_id": "daisy-34c00app",
+    "storage_bucket": "daisy-34c00app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:821676071907:android:c074ac16aafb82e9569ed6",
+        "mobilesdk_app_id": "1:518623920875:android:a0f61012618bcd67a5f4ae",
         "android_client_info": {
           "package_name": "com.ally"
         }
       },
       "oauth_client": [
         {
-          "client_id": "821676071907-c0lkbo3c45409noi19v39eg1g1ikf0ab.apps.googleusercontent.com",
+          "client_id": "518623920875-96ivvgfmj9m1hstmmia3d9f67if4khmb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ally",
             "certificate_hash": "40b180ae2b8caf8d24bbca197bd444f0615c7b39"
           }
-        },
-        {
-          "client_id": "821676071907-jjmsg2vt3r3dcs1bn0ok8j10po21tgft.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDcK7NRdtmQoadXNvkheWiClWnHavZ0M_A"
+          "current_key": "AIzaSyD1bQwNrm6E5V44JaeBM4WTOjW_E_wBX_U"
+        },
+        {
+          "current_key": "AIzaSyBdsg7Z9GdDcWqFrip3TySLIB05OmKlAjM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "821676071907-jjmsg2vt3r3dcs1bn0ok8j10po21tgft.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518623920875:android:086e855e9394f153a5f4ae",
+        "android_client_info": {
+          "package_name": "com.daisy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518623920875-0a3ohbpt4nnipe5drfc9dm72e0smatev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daisy",
+            "certificate_hash": "40b180ae2b8caf8d24bbca197bd444f0615c7b39"
+          }
+        },
+        {
+          "client_id": "518623920875-46no5gn3brruhbhddttgg1k10q38u8qb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daisy",
+            "certificate_hash": "21e9502d40b47a2161445541e1c83d6755f4d98c"
+          }
+        },
+        {
+          "client_id": "518623920875-al5tjl7ht2gj8f3gpg44cgsphc057jqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daisy",
+            "certificate_hash": "18d78f7b20a53a558654d4d9e00684d3319148dc"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1bQwNrm6E5V44JaeBM4WTOjW_E_wBX_U"
+        },
+        {
+          "current_key": "AIzaSyBdsg7Z9GdDcWqFrip3TySLIB05OmKlAjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

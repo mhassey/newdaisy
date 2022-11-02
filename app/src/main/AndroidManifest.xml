@@ -61,6 +61,7 @@
             android:enabled="true"
             android:exported="true" />
 
+
         <activity
             android:name="com.ally.activity.langSupport.LangSelectionActivity"
             android:exported="false"

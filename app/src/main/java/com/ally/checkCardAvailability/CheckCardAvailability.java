@@ -8,9 +8,12 @@ import com.ally.apiService.AppRetrofit;
 import com.ally.app.AppController;
 import com.ally.common.session.SessionManager;
 import com.ally.pojo.response.GlobalResponse;
+import com.ally.pojo.response.OsType;
 import com.ally.pojo.response.PriceCard;
 import com.ally.pojo.response.Pricing;
 import com.ally.pojo.response.Promotion;
+import com.ally.pojo.response.UpdateTokenResponse;
+import com.ally.support.PushUpdate;
 import com.ally.utils.Constraint;
 import com.ally.utils.Utils;
 
@@ -37,6 +40,16 @@ public class CheckCardAvailability {
             @Override
             public void run() {
                 getCard();
+            }
+        }).start();
+    }
+
+    public void checkCardForPush(String pushType) {
+        sessionManager = SessionManager.get();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getCard(pushType);
             }
         }).start();
     }
@@ -75,8 +88,127 @@ public class CheckCardAvailability {
 
     }
 
+
     /**
-     * Handle getcard api response
+     * Fire getCard api from background
+     */
+    private void getCard(String push) {
+        ApiService apiService = AppRetrofit.getInstance().getApiService();
+        HashMap<String, String> hashMap = getCardRequest();
+        Call<GlobalResponse<GetCardResponse>> globalResponseCall = apiService.getCard(hashMap, hashMap.get(Constraint.TOKEN));
+        globalResponseCall.enqueue(new Callback<GlobalResponse<GetCardResponse>>() {
+            @Override
+            public void onResponse(Call<GlobalResponse<GetCardResponse>> calll, Response<GlobalResponse<GetCardResponse>> liveData) {
+                if (liveData != null) {
+                    if (liveData.isSuccessful()) {
+                        GlobalResponse<GetCardResponse> response = liveData.body();
+                        if (response.isApi_status()) {
+                            if (response.getResult() != null) {
+                                sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
+                                sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
+                                sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
+                                sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
+                                if (callFrom != null) {
+                                    sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
+                                    //Utils.getInvertedTimeWithNewCorrectionFactor();
+                                }
+                                if (!response.getResult().isDefault()) {
+                                    if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
+                                        sessionManager.deleteLocation();
+                                        sessionManager.setPriceCard(response.getResult().getPricecard());
+                                        sessionManager.setPromotion(response.getResult().getPromotions());
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        sessionManager.setCardDeleted(false);
+                                        redirectToMain(response);
+
+                                    } else if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
+                                        sessionManager.setPromotion(response.getResult().getPromotions());
+
+                                        if (response.getResult().getPricing() != null && !response.getResult().getPromotions().isEmpty()) {
+                                            sessionManager.setPricing(response.getResult().getPricing());
+                                        }
+                                        EventBus.getDefault().post(new Promotion());
+                                    } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        EventBus.getDefault().post(new Pricing());
+
+                                    }
+
+                                } else {
+                                    if (response.getResult().getPromotions() != null && !response.getResult().getPromotions().isEmpty()) {
+                                        sessionManager.setPromotion(response.getResult().getPromotions());
+                                        EventBus.getDefault().post(new Promotion());
+
+                                    }
+                                    if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+                                        sessionManager.setPricing(response.getResult().getPricing());
+                                        EventBus.getDefault().post(new Pricing());
+
+                                    }
+
+                                }
+
+                                if (!response.getResult().isToken_status()) {
+                                    HashMap<String, String> hashMap = new HashMap<String, String>();
+                                    hashMap.put(Constraint.DEVICE_TOKEN, SessionManager.get().getFCMToken());
+                                    for (OsType osType : SessionManager.get().getOsType()) {
+                                        if (osType.getOsName().equals(Constraint.ANDROID)) {
+                                            hashMap.put(Constraint.DEVICE_TYPE, osType.getOsID() + "");
+
+                                        }
+                                    }
+                                    hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+
+
+                                    ApiService apiService = AppRetrofit.getInstance().getApiService();
+                                    Call<GlobalResponse<UpdateTokenResponse>> call = apiService.updateDeviceToken(hashMap, hashMap.get(Constraint.TOKEN));
+                                    call.enqueue(new Callback<GlobalResponse<UpdateTokenResponse>>() {
+                                        @Override
+                                        public void onResponse(Call<GlobalResponse<UpdateTokenResponse>> call, Response<GlobalResponse<UpdateTokenResponse>> response) {
+                                            if (response.isSuccessful()) {
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<GlobalResponse<UpdateTokenResponse>> call, Throwable t) {
+                                            t.printStackTrace();
+                                        }
+                                    });
+
+
+                                }
+
+                            } else {
+
+                            }
+                        } else {
+
+                        }
+                    }
+
+                    handlePush(push);
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<GlobalResponse<GetCardResponse>> call, Throwable t) {
+                handleResponse(null);
+            }
+        });
+
+    }
+
+    private void handlePush(String push) {
+        new PushUpdate().pushUpdate(push);
+
+    }
+
+    /**
+     * Handle getCard api response
      */
     private void handleResponse(Response<GlobalResponse<GetCardResponse>> liveData) {
         if (liveData != null) {
@@ -90,7 +222,7 @@ public class CheckCardAvailability {
                         sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
                         if (callFrom != null) {
                             sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
-                          //  Utils.getInvertedTimeWithNewCorrectionFactor();
+                            //Utils.getInvertedTimeWithNewCorrectionFactor();
                         }
                         if (!response.getResult().isDefault()) {
                             if (response.getResult().getPricecard() != null && response.getResult().getPricecard().getFileName() != null) {
@@ -128,6 +260,37 @@ public class CheckCardAvailability {
 
                         }
 
+                        if (!response.getResult().isToken_status()) {
+                            HashMap<String, String> hashMap = new HashMap<String, String>();
+                            hashMap.put(Constraint.DEVICE_TOKEN, SessionManager.get().getFCMToken());
+                            for (OsType osType : SessionManager.get().getOsType()) {
+                                if (osType.getOsName().equals(Constraint.ANDROID)) {
+                                    hashMap.put(Constraint.DEVICE_TYPE, osType.getOsID() + "");
+
+                                }
+                            }
+                            hashMap.put(Constraint.TOKEN, sessionManager.getDeviceToken());
+
+
+                            ApiService apiService = AppRetrofit.getInstance().getApiService();
+                            Call<GlobalResponse<UpdateTokenResponse>> call = apiService.updateDeviceToken(hashMap, hashMap.get(Constraint.TOKEN));
+                            call.enqueue(new Callback<GlobalResponse<UpdateTokenResponse>>() {
+                                @Override
+                                public void onResponse(Call<GlobalResponse<UpdateTokenResponse>> call, Response<GlobalResponse<UpdateTokenResponse>> response) {
+                                    if (response.isSuccessful()) {
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<GlobalResponse<UpdateTokenResponse>> call, Throwable t) {
+                                    t.printStackTrace();
+                                }
+                            });
+
+
+                        }
+
                     } else {
 
                     }
@@ -146,7 +309,7 @@ public class CheckCardAvailability {
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
             String UrlPath = response.getResult().getPricecard().getFileName();
             if (response.getResult().getPricecard().getFileName() != null) {
-                String configFilePath =Constraint.FOLDER_NAME + Constraint.SLASH;
+                String configFilePath = Constraint.FOLDER_NAME + Constraint.SLASH;
                 File directory = new File(AppController.getInstance().getExternalFilesDir(""), configFilePath);
                 if (!directory.exists()) {
                     directory.mkdirs();
