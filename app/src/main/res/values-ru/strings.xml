@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Irus</string>
+    <string name="app_name">Iris</string>
     <string name="storage_not_available">Хранилище недоступно</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
