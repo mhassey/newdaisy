@@ -71,6 +71,7 @@ import com.daisy.pojo.response.DeleteCardResponse;
 import com.daisy.pojo.response.Download;
 import com.daisy.pojo.response.DownloadFail;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.pojo.response.Interactor;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.PriceCard;
@@ -1241,6 +1242,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void interactWithFaceDetection(Interactor interactor) {
+
+        fireThirtySecondCounter();
+    }
+
     private void handleUperLayoutClick() {
 
         fireThirtySecondCounter();
@@ -1267,8 +1275,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
 
-
-
     /**
      * Purpose - checkWifiState method checks the wifi state and handle the ui accordingly
      */
@@ -1277,9 +1283,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             InternetResponse internetResponse = new InternetResponse();
             try {
-                ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-                List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-                ComponentName componentInfo = taskInfo.get(0).topActivity;
                 if (!wifiManager.isWifiEnabled()) {
                     internetResponse.setAvailable(true);
                 } else {

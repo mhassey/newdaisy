@@ -51,12 +51,12 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.interfaces.SyncLogCallBack;
 import com.daisy.pojo.Logs;
+import com.daisy.pojo.response.Interactor;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.Time;
-import com.daisy.sync.SyncLogToMongo;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
@@ -1047,7 +1047,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     public void onFaceDetected() {
         try {
 
-            if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.TEN_SECOND) {
+            if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.FIVE_SECOND) {
                 return;
             }
             lastFaceDetect = SystemClock.elapsedRealtime();
@@ -1056,6 +1056,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
             ComponentName componentInfo = taskInfo.get(0).topActivity;
             String name = componentInfo.getClassName();
             if (name.contains(Constraint.MAIN_ACTIVITY)) {
+                EventBus.getDefault().post(new Interactor());
+
                 DBCaller.storeFaceDetectionLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.APPLICATION_LOGS);
 
             }

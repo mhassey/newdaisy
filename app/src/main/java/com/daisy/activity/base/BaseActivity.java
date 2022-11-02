@@ -185,6 +185,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void fireThirtySecondCounter() {
+
         if (!SessionManager.get().isBrighnessDefault())
             SessionManager.get().setBrightness(0.9f);
         else
@@ -196,7 +197,6 @@ public class BaseActivity extends AppCompatActivity {
         brightNessCounter.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Log.e("Kali","PLUS+");
                 setDefaultBrightness();
                 runOnUiThread(new Runnable() {
                     @Override

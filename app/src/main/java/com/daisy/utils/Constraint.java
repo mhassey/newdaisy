@@ -155,6 +155,8 @@ public class Constraint {
     public static final String OPEN = "OPEN";
     public static final CharSequence PRICE_CARD = "PriceCard";
     public static final long TEN_SECOND = 10000;
+    public static final long FIVE_SECOND = 5000;
+
     public static final String DEVICENAME = "device_name";
     public static final String DEVICE_ID = "deviceId";
     public static final String DEVICEID = "device_id";
