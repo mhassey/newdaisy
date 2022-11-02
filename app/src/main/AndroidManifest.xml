@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.daisy">
+    package="com.ally">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
@@ -43,7 +43,7 @@
     <uses-feature android:name="android.hardware.camera.front" />
 
     <application
-        android:name=".app.AppController"
+        android:name="com.ally.app.AppController"
         android:hardwareAccelerated="true"
         android:icon="@drawable/mpclogo"
         android:label="@string/app_name"
@@ -53,25 +53,25 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.WifiTimeCorrectionActivity"
+            android:name="com.ally.activity.WifiTimeCorrectionActivity"
             android:exported="false" />
 
         <service
-            android:name=".service.LogGenerateService"
+            android:name="com.ally.service.LogGenerateService"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name=".activity.langSupport.LangSelectionActivity"
+            android:name="com.ally.activity.langSupport.LangSelectionActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.updateProduct.UpdateProduct"
+            android:name="com.ally.activity.updateProduct.UpdateProduct"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
 
         <service
-            android:name=".service.SecurityService"
+            android:name="com.ally.service.SecurityService"
             android:enabled="true"
             android:exported="true" />
 
@@ -80,7 +80,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".activity.feedBack.FeedBackActivity"
+            android:name="com.ally.activity.feedBack.FeedBackActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
 
@@ -103,36 +103,36 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.baseUrl.BaseUrlSettings"
+            android:name="com.ally.activity.baseUrl.BaseUrlSettings"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.refreshTimer.RefreshTimer"
+            android:name="com.ally.activity.refreshTimer.RefreshTimer"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.configSettings.ConfigSettings"
+            android:name="com.ally.activity.configSettings.ConfigSettings"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.updateBaseUrl.UpdateBaseUrl"
+            android:name="com.ally.activity.updateBaseUrl.UpdateBaseUrl"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.updatePosition.UpdatePosition"
+            android:name="com.ally.activity.updatePosition.UpdatePosition"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.onBoarding.slider.OnBoarding"
+            android:name="com.ally.activity.onBoarding.slider.OnBoarding"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.welcomeScreen.WelcomeScreen"
+            android:name="com.ally.activity.welcomeScreen.WelcomeScreen"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.splash.SplashScreen"
+            android:name="com.ally.activity.splash.SplashScreen"
             android:exported="true"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
@@ -142,45 +142,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.lockscreen.LockScreen"
+            android:name="com.ally.activity.lockscreen.LockScreen"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
 
         <service
-            android:name=".service.DeletePhotoService"
+            android:name="com.ally.service.DeletePhotoService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".service.StickyService"
+            android:name="com.ally.service.StickyService"
             android:exported="true"
             android:stopWithTask="false" />
 
         <activity
-            android:name=".activity.settings.Settings"
+            android:name="com.ally.activity.settings.Settings"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.logs.logs_show.LogsShowActivity"
+            android:name="com.ally.activity.logs.logs_show.LogsShowActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.logs.LogsMainActivity"
+            android:name="com.ally.activity.logs.LogsMainActivity"
             android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.editorTool.EditorTool"
+            android:name="com.ally.activity.editorTool.EditorTool"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.mainActivity.MainActivity"
+            android:name="com.ally.activity.mainActivity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:showOnLockScreen="true" />
 
-        <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
+        <receiver android:name="com.ally.broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
         <receiver
-            android:name=".broadcast.broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
+            android:name="com.ally.broadcast.broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
             android:enabled="false"
             android:exported="true">
             <intent-filter android:priority="1000">
@@ -188,7 +188,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".broadcast.bootcomplete.BootReceiver"
+            android:name="com.ally.broadcast.bootcomplete.BootReceiver"
             android:enabled="false"
             android:exported="true">
             <intent-filter android:priority="1000">
@@ -197,16 +197,16 @@
         </receiver>
 
         <service
-            android:name=".service.BackgroundService"
+            android:name="com.ally.service.BackgroundService"
             android:exported="true"
             android:stopWithTask="false" />
         <service
-            android:name=".service.BackgroundSoundService"
+            android:name="com.ally.service.BackgroundSoundService"
             android:exported="true"
             android:stopWithTask="false" />
 
         <receiver
-            android:name=".security.Admin"
+            android:name="com.ally.security.Admin"
             android:exported="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
