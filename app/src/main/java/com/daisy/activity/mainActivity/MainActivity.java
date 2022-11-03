@@ -127,7 +127,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     private UpdateProductViewModel updateProductViewModel;
     private GetCardViewModel getCardViewModel;
 
-    @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +163,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     /**
      * Check for permission
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void permissionAsking() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // Do something for lollipop and above versions
