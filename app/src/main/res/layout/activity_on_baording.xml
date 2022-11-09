@@ -32,11 +32,11 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/dp30"
-
                 android:layout_width="match_parent"
 
                 android:layout_height="60dp"
+
+                android:layout_marginBottom="@dimen/dp30"
                 android:background="@color/transparent">
 
                 <LinearLayout
@@ -54,7 +54,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:tabIndicatorHeight="0dp"/>
+                        app:tabIndicatorHeight="0dp" />
                 </LinearLayout>
 
                 <LinearLayout
