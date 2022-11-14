@@ -91,6 +91,7 @@ import com.daisy.utils.DownloadJSFile;
 import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
+import com.daisy.utils.SettingLockSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -126,6 +127,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     private WebViewClient yourWebClient;
     private UpdateProductViewModel updateProductViewModel;
     private GetCardViewModel getCardViewModel;
+    private AlertDialog dialog;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -208,6 +210,27 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             sanitisedSingletonObject.setCOunter(countDownTimer);
             countDownTimer.start();
         }
+    }
+
+
+    private void handleTwentySecondTimeout() {
+        SettingLockSingletonObject lockSingletonObject = SettingLockSingletonObject.getInstance();
+        Handler countDownTimer = lockSingletonObject.getLockCounDownTimer();
+        if (countDownTimer != null) {
+            countDownTimer.removeCallbacksAndMessages(null);
+        } else {
+            countDownTimer = new Handler();
+            lockSingletonObject.setCOunter(countDownTimer);
+
+        }
+        countDownTimer.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (dialog != null && dialog.isShowing())
+                    dialog.dismiss();
+            }
+        }, Constraint.TWENTY_THOUSAND);
+
     }
 
 
@@ -1896,14 +1919,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         alert.setCancelable(false);
 
         storeName.setText(SessionManager.get().getLoginResponse().getStoreName());
-
-        AlertDialog dialog = alert.create();
+        dialog = alert.create();
         InsetDrawable insetDrawable = new InsetDrawable(new ColorDrawable(Color.TRANSPARENT), 150, 0, 150, 0);
         dialog.getWindow().setBackgroundDrawable(insetDrawable);
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                nullAndVoidTimer();
+
 
             }
         });
@@ -1920,6 +1944,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     dialog.dismiss();
                     Intent intent = new Intent(MainActivity.this, ConfigSettings.class);
                     startActivity(intent);
+                    nullAndVoidTimer();
                 } else {
                     ValidationHelper.showToast(context, getString(R.string.invalid_password));
                 }
@@ -1927,7 +1952,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         });
         dialog.show();
+        handleTwentySecondTimeout();
 
+    }
+
+    private void nullAndVoidTimer() {
+        SettingLockSingletonObject lockSingletonObject = SettingLockSingletonObject.getInstance();
+        Handler countDownTimer = lockSingletonObject.getLockCounDownTimer();
+        if (countDownTimer != null) {
+            countDownTimer.removeCallbacksAndMessages(null);
+        }
     }
 
 

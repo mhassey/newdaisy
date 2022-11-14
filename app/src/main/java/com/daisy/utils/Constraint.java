@@ -39,6 +39,8 @@ public class Constraint {
     public static final String ID_PRICE_CARD = "idpriceCard";
     public static final String ID_PROMOTION = "idpromotion";
     public static final int THIRTY_THOUSAND = 30000;
+    public static final int TWENTY_THOUSAND = 20000;
+
     public static final int SIXTY_THOUSAND = 60000;
     public static final String IDDEVICE = "iddevice";
     public static final String OS_ID = "osID";

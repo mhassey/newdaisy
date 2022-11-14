@@ -13,13 +13,8 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
-import com.daisy.pojo.Logs;
-import com.daisy.service.MongoConnection;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data
@@ -77,6 +72,7 @@ public class SplashScreen extends BaseActivity {
         try {
             boolean isInstalled = Utils.getWorkProfile(this);
             SessionManager.get().setDisableSecurity(isInstalled);
+
             if (sessionManager.getOnBoarding()) {
                 intent = new Intent(SplashScreen.this, EditorTool.class);
 

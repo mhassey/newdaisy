@@ -131,9 +131,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
         showNotification();
         initWakeUpLock();
-        registerReceiver();
         handleClick();
-        setWindowManager();
+
+        if (!SessionManager.get().getDisableSecurity())
+            setWindowManager();
+
+        registerReceiver();
         setCounter();
         if (!SessionManager.get().getDisableSecurity())
             initPassword();
@@ -141,6 +144,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
             initWifi();
             defineSensor();
+
             try {
                 FrontCameraRetriever.retrieveFor(this);
                 FrontCameraRetriever.getInstance().load();
@@ -1093,10 +1097,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
             // When the front facing camera has been retrieved we still need to ensure our display is ready
             // so we will let the camera surface view initialise the camera i.e turn face detection on
-            SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-            this.camera = camera;
-            touchLayoutforCamera.addView(cameraSurface);
-
+            if (touchLayoutforCamera != null) {
+                try {
+                    SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
+                    this.camera = camera;
+                    touchLayoutforCamera.addView(cameraSurface);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

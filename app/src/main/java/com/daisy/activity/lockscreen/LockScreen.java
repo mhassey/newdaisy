@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +20,7 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityLockScreenBinding;
 import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.LockSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -44,6 +46,33 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
         initClick();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handleTwentySecondTimeout();
+
+    }
+
+    private void handleTwentySecondTimeout() {
+        LockSingletonObject lockSingletonObject = LockSingletonObject.getInstance();
+        Handler countDownTimer = lockSingletonObject.getLockCounDownTimer();
+        if (countDownTimer != null) {
+            countDownTimer.removeCallbacksAndMessages(null);
+        } else {
+            countDownTimer = new Handler();
+            lockSingletonObject.setCOunter(countDownTimer);
+
+        }
+        countDownTimer.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sessionManager.setPasswordCorrect(Constraint.FALSE);
+                redirectToMain();
+            }
+        }, Constraint.TWENTY_THOUSAND);
+
+    }
+
     /**
      * Responsibility - initView method is used for initiate all object and perform some initial level task
      * Parameters - No parameter
@@ -59,7 +88,6 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     /**
      * Responsibility - extraTaskForMakeAppWorkable method do some extra stuff that help service to run perfectly
      * Parameters - No parameter AddScreen addScreen = null;
-
      **/
     private void extraTaskForMakeAppWorkable() {
         Constraint.current_running_process = "";
