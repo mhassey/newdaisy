@@ -133,7 +133,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         initWakeUpLock();
         handleClick();
 
-        if (!SessionManager.get().getDisableSecurity())
+        if (SessionManager.get().getDisplayOverTheAppAvailable())
             setWindowManager();
 
         registerReceiver();

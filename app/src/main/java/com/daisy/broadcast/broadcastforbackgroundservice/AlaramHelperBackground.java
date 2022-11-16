@@ -58,7 +58,7 @@ public class AlaramHelperBackground {
         Intent intent = new Intent(context, AlarmReceiverForBackground.class);
 
         //Setting pending intent to respond to broadcast sent by AlarmManager everyday at 8am
-        alarmIntentElapsed = PendingIntent.getBroadcast(context, ALARM_TYPE_ELAPSED, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmIntentElapsed = PendingIntent.getBroadcast(context, ALARM_TYPE_ELAPSED, intent, PendingIntent.FLAG_IMMUTABLE);
 
         //getting instance of AlarmManager service
         alarmManagerElapsed = (AlarmManager)context.getSystemService(ALARM_SERVICE);

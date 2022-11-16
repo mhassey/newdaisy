@@ -191,20 +191,15 @@
         <receiver android:name=".broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
         <receiver
             android:name=".broadcast.broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
-            android:enabled="false"
-            android:exported="false">
-            <intent-filter android:priority="1000">
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".broadcast.bootcomplete.BootReceiver"
-            android:enabled="false"
+            android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.HOME"/>
+
             </intent-filter>
         </receiver>
+
 
         <service
             android:name=".service.BackgroundService"

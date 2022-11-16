@@ -133,7 +133,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkAdminPermission();
         initView();
         initService();
         setOnClickListener();
@@ -1965,24 +1964,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
 
-    private void checkAdminPermission() {
-
-        DevicePolicyManager mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        ComponentName mAdminName = new ComponentName(this, Admin.class);
-        if (!mDPM.isAdminActive(mAdminName)) {
-            if (sessionManager == null)
-                sessionManager = SessionManager.get();
-            sessionManager.setPasswordCorrect(true);
-
-            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-                    mAdminName);
-
-            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Your Explanation for requesting these Admin Capabilities.");
-            startActivityForResult(intent, Constraint.ADMIN_REQUEST_CODE);
-
-        }
-    }
 
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
