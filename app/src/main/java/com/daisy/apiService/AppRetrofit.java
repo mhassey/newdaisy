@@ -1,7 +1,5 @@
 package com.daisy.apiService;
 
-import android.util.Log;
-
 import com.daisy.BuildConfig;
 import com.daisy.app.AppController;
 import com.daisy.common.session.SessionManager;
@@ -56,7 +54,7 @@ public class AppRetrofit {
 
 
         } else {
-            if (sessionManager.getPriceCard()!=null && sessionManager.getPriceCard().getFileName() != null && !sessionManager.getPriceCard().getFileName().equals("")) {
+            if (sessionManager.getPriceCard() != null && sessionManager.getPriceCard().getFileName() != null && !sessionManager.getPriceCard().getFileName().equals("")) {
                 URI uri = null;
                 try {
                     uri = new URI(sessionManager.getPriceCard().getFileName());

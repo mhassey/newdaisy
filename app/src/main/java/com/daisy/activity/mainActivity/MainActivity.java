@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -81,7 +80,6 @@ import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.SocketEvent;
 import com.daisy.pojo.response.UpdateCards;
-import com.daisy.security.Admin;
 import com.daisy.service.BackgroundService;
 import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
@@ -92,6 +90,7 @@ import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.SettingLockSingletonObject;
+import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -1644,7 +1643,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-
+//       startService(new Intent(this, BackgroundService.class));
         if (event.getAction() == MotionEvent.ACTION_UP) {
             handleUperLayoutClick();
 
@@ -1962,7 +1961,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             countDownTimer.removeCallbacksAndMessages(null);
         }
     }
-
 
 
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {

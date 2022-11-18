@@ -56,9 +56,9 @@ import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
-import com.daisy.pojo.response.Time;
 import com.daisy.sync.SyncLogs;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
 import com.rvalerio.fgchecker.AppChecker;
 
@@ -75,7 +75,6 @@ import java.util.concurrent.TimeUnit;
  * Main service that handle hole background tasks
  */
 public class BackgroundService extends Service implements SyncLogCallBack, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
-
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private static final String ACTION_DEBUG = "daichan4649.lockoverlay.action.DEBUG";
@@ -100,7 +99,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
     private long lastFaceDetect = 0;
-
     public static Timer refreshTimer5;
     private Intent securityIntent;
     private Sensor stepDetectorSensor;
@@ -109,6 +107,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     private int uninstallIssue = 0;
     private long mLastClickTime = 0;
     private static BackgroundService backgroundService;
+    private TimeWork timeWork = TimeWork.getTimer();
 
 
     @Nullable
@@ -120,6 +119,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sessionManager = SessionManager.get();
+        setCounter();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -127,6 +127,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     @Override
     public void onCreate() {
         super.onCreate();
+        timeWork.setUpdateTiming();
         backgroundService = this;
         securityIntent = new Intent(getApplicationContext(), SecurityService.class);
         showNotification();
@@ -137,7 +138,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
             setWindowManager();
 
         registerReceiver();
-        setCounter();
         if (!SessionManager.get().getDisableSecurity())
             initPassword();
 
@@ -371,12 +371,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void validatePromotion() {
         try {
-            int hour = Constraint.ONE;
-            int minit = Constraint.THIRTY_INT;
-
-            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-            refreshTimer4 = new Timer();
-            refreshTimer4.scheduleAtFixedRate(new TimerTask() {
+            if (timeWork == null)
+                timeWork = TimeWork.getTimer();
+            timeWork.validatePromotionTimer.cancel();
+            timeWork.validatePromotionTimer = new Timer();
+            timeWork.validatePromotionTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     try {
@@ -388,7 +387,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
 
                     }
                 }
-            }, second, second);
+            }, timeWork.validatePromotionTiming, timeWork.validatePromotionTiming);
 
         } catch (Exception e) {
         }
@@ -400,10 +399,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void checkInversion() {
         try {
-            int minit = Constraint.THREE;
-            int second = ((minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-            refreshTimer1 = new Timer();
-            refreshTimer1.scheduleAtFixedRate(new TimerTask() {
+            if (timeWork == null)
+                timeWork = TimeWork.getTimer();
+            timeWork.inversionTimer.cancel();
+
+            timeWork.inversionTimer = new Timer();
+            timeWork.inversionTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     try {
@@ -432,7 +433,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                         e.printStackTrace();
                     }
                 }
-            }, second, second);
+            }, timeWork.checkInversionTiming, timeWork.checkInversionTiming);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -444,17 +445,19 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     private void checkPromotion() {
         try {
-            int hour = Constraint.ONE;
-            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED)) * Constraint.THOUSAND;
-            refreshTimer3 = new Timer();
-            refreshTimer3.scheduleAtFixedRate(new TimerTask() {
+            if (timeWork == null)
+                timeWork = TimeWork.getTimer();
+            timeWork.promotionTimer.cancel();
+
+            timeWork.promotionTimer = new Timer();
+            timeWork.promotionTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     if (!SessionManager.get().getLogout()) {
                         EventBus.getDefault().post(new Promotions());
                     }
                 }
-            }, second, second);
+            }, timeWork.checkPromotionTiming, timeWork.checkPromotionTiming);
 
         } catch (Exception e) {
 
@@ -466,10 +469,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      * Purpose - Send logs to server in every six hours
      */
     private void sendLogTimer() {
-        Timer logsSync = new Timer();
-        int second = ((6 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND;
+        if (timeWork == null)
+            timeWork = TimeWork.getTimer();
 
-        logsSync.scheduleAtFixedRate(new TimerTask() {
+        timeWork.logTimer.cancel();
+        timeWork.logTimer = new Timer();
+        int second = timeWork.logTiming;
+
+        timeWork.logTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!SessionManager.get().getLogout()) {
@@ -527,19 +534,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      * Purpose - Check for card WIFI_STATE_CHANGED_ACTION availability
      */
     public static void checkUpdate() {
-        if (sessionManager == null)
-            sessionManager = SessionManager.get();
-        Time time = sessionManager.getTimeData();
-        int hour = Constraint.FOUR;
-        int minit = Constraint.ZERO;
-        if (time != null) {
-            hour = time.getHour();
-            minit = time.getMinit();
-        }
-
-        int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-        refreshTimer = new Timer();
-        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+        TimeWork timeWork = TimeWork.getTimer();
+        timeWork.updateTimer.cancel();
+        timeWork.updateTimer = new Timer();
+        timeWork.updateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!SessionManager.get().getLogout()) {
@@ -547,7 +545,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                     checkCardAvailability.checkCard();
                 }
             }
-        }, second, second);
+        }, timeWork.checkUpdateTiming, timeWork.checkUpdateTiming);
 
 
     }
@@ -558,14 +556,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      */
     public static void updateAPk() {
         try {
-            int hour = Constraint.FOUR;
-
-            int minit = Constraint.ONE;
-
-
-            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-            refreshTimer2 = new Timer();
-            refreshTimer2.scheduleAtFixedRate(new TimerTask() {
+            TimeWork timeWork = TimeWork.getTimer();
+            timeWork.updateApkTimer.cancel();
+            timeWork.updateApkTimer = new Timer();
+            timeWork.updateApkTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     if (!SessionManager.get().getLogout()) {
@@ -573,7 +567,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                         updateApk.UpdateApk();
                     }
                 }
-            }, second, second);
+            }, timeWork.updateApkTiming, timeWork.updateApkTiming);
 
         } catch (Exception e) {
 
@@ -646,11 +640,12 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
      * Purpose - setDeleteTimer method delete data from storage based on os level
      */
     private void setDeleteTimer() {
-
-        int minit = Constraint.TEN;
-        int second = ((minit * Constraint.SIXTY)) * Constraint.THOUSAND;
-        Timer deletePhoto = new Timer();
-        deletePhoto.scheduleAtFixedRate(new TimerTask() {
+        if (timeWork == null)
+            timeWork = TimeWork.getTimer();
+        timeWork.deleteTimer.cancel();
+        int second = timeWork.deleteTiming;
+        timeWork.deleteTimer = new Timer();
+        timeWork.deleteTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!SessionManager.get().getLogout()) {
@@ -660,6 +655,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
                 }
             }
         }, second, second);
+
 
     }
 
