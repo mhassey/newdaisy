@@ -1336,4 +1336,12 @@ public class SessionManager {
         return pref.getIntData(Constraint.CUSTOM_HIGH_BRIGHTNESS);
 
     }
+
+    public void setDefaultTiming(long currentTimeMillis) {
+        pref.setLongData(Constraint.DEFAULT_TIMING, currentTimeMillis);
+    }
+
+    public Long getDefaultTiming() {
+        return pref.getLongValue(Constraint.DEFAULT_TIMING);
+    }
 }

@@ -60,9 +60,9 @@ public class LogsMainActivity extends BaseActivity implements View.OnClickListen
         mBinding.applicationLogs.setOnClickListener(this);
         mBinding.cardLogs.setOnClickListener(this);
         mBinding.settings.setOnClickListener(this);
-        mBinding.promotionLogs.setOnClickListener(this::onClick);
-        mBinding.cancel.setOnClickListener(this::onClick);
-        mBinding.syncAllLogs.setOnClickListener(this::onClick);
+        mBinding.promotionLogs.setOnClickListener(this);
+        mBinding.cancel.setOnClickListener(this);
+        mBinding.syncAllLogs.setOnClickListener(this);
     }
 
     /**

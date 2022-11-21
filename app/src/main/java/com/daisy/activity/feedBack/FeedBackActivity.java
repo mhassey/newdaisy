@@ -35,6 +35,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     private FeedBackModelView feedBackModelView;
     private FeedBackValidationHelper feedBackValidationHelper;
     private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

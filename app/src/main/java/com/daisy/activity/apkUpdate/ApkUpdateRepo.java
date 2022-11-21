@@ -19,7 +19,6 @@ import retrofit2.Response;
 * Responsibility - ApkUpdateRepo takes request  and get response using general api and pass the response to view models
 **/
 public class ApkUpdateRepo {
-
     private ApiService apiService;
     private MutableLiveData<GlobalResponse<GeneralResponse>> globalResponseMutableLiveData = new MutableLiveData<>();
 

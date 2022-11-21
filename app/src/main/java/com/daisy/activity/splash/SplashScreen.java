@@ -29,6 +29,7 @@ public class SplashScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+
         initView();
     }
 
@@ -59,6 +60,8 @@ public class SplashScreen extends BaseActivity {
         sessionManager = SessionManager.get();
         sessionManager.setUpdateNotShow(Constraint.FALSE);
         sessionManager.uninstallShow(Constraint.FALSE);
+        if (sessionManager.getDefaultTiming() == 0)
+            sessionManager.setDefaultTiming(System.currentTimeMillis());
 
     }
 

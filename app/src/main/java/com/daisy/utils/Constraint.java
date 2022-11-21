@@ -190,6 +190,7 @@ public class Constraint {
     public static final String IS_BRIGHTNESS_DEFAULT = "is_brightness_default";
     public static final String CUSTOM_DEFAULT_BRIGHTNESS = "custom_default_brightness";
     public static final String CUSTOM_HIGH_BRIGHTNESS = "custom_high_brightness";
+    public static final String DEFAULT_TIMING = "defaultTiming";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};

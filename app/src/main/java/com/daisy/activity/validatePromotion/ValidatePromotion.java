@@ -94,8 +94,6 @@ public class ValidatePromotion {
                         sessionManager.deletePromotions();
                         sessionManager.setPromotions(updatedPromotion);
                         EventBus.getDefault().post(new Promotions());
-                    } else {
-
                     }
                 }
 
@@ -171,8 +169,6 @@ public class ValidatePromotion {
                                         sessionManager.setPromotions(updatedPromotion);
                                         firePushSuccessApi(push);
                                         EventBus.getDefault().post(new Promotions());
-                                    } else {
-
                                     }
                                 }
 
