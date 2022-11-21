@@ -126,7 +126,13 @@ public class LockScreen extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
+        LockSingletonObject lockSingletonObject = LockSingletonObject.getInstance();
+        Handler countDownTimer = lockSingletonObject.getLockCounDownTimer();
+        if (countDownTimer != null) {
+            countDownTimer.removeCallbacksAndMessages(null);
+        }
         LockScreen.this.finish();
+
     }
 
     /**

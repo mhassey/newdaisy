@@ -12,9 +12,11 @@ import com.daisy.pojo.response.OsType;
 import com.daisy.pojo.response.PriceCard;
 import com.daisy.pojo.response.Pricing;
 import com.daisy.pojo.response.Promotion;
+import com.daisy.pojo.response.UpdateTiming;
 import com.daisy.pojo.response.UpdateTokenResponse;
 import com.daisy.support.PushUpdate;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -203,7 +205,7 @@ public class CheckCardAvailability {
     }
 
     private void handlePush(String push) {
-         new PushUpdate().pushUpdate(push);
+        new PushUpdate().pushUpdate(push);
 
     }
 
@@ -216,10 +218,13 @@ public class CheckCardAvailability {
                 GlobalResponse<GetCardResponse> response = liveData.body();
                 if (response.isApi_status()) {
                     if (response.getResult() != null) {
+                        TimeWork.getTimer().updateTiming(new UpdateTiming());
                         sessionManager.setOpenTime(response.getResult().getStoreDetails().getOpen());
                         sessionManager.setCloseTime(response.getResult().getStoreDetails().getClosed());
                         sessionManager.setOffset(response.getResult().getStoreDetails().getUTCOffset());
                         sessionManager.setPricingPlainId(response.getResult().getStoreDetails().getPricingPlanID());
+
+
                         if (callFrom != null) {
                             sessionManager.setServerTime(response.getResult().getStoreDetails().getCurrentTime());
                             //Utils.getInvertedTimeWithNewCorrectionFactor();

@@ -2,6 +2,7 @@ package com.daisy.utils;
 
 import com.daisy.common.session.SessionManager;
 import com.daisy.pojo.response.Time;
+import com.daisy.pojo.response.UpdateTiming;
 
 import java.util.Timer;
 
@@ -51,7 +52,7 @@ public class TimeWork {
     }
 
 
-    public void updateTiming() {
+    public void updateTiming(UpdateTiming updateTiming) {
 
 
     }

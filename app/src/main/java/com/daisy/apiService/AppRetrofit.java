@@ -112,6 +112,9 @@ public class AppRetrofit {
                     AppController.getInstance().getActivity().removeAdminRightPermission();
 
 
+                } else {
+                    sessionManager.setDefaultTiming(System.currentTimeMillis());
+
                 }
                 return response;
             }

@@ -72,9 +72,9 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
      * Parameters - No parameter
      **/
     private void initClick() {
-        mBinding.setTime.setOnClickListener(this::onClick);
-        mBinding.directUpdate.setOnClickListener(this::onClick);
-        mBinding.cancel.setOnClickListener(this::onClick);
+        mBinding.setTime.setOnClickListener(this);
+        mBinding.directUpdate.setOnClickListener(this);
+        mBinding.cancel.setOnClickListener(this);
     }
 
 

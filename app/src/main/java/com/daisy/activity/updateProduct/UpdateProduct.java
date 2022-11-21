@@ -103,7 +103,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
         mBinding.productName.setOnItemSelectedListener(getProductNameListener());
         mBinding.carrierName.setOnItemSelectedListener(getCarrierListener());
         mBinding.manufactureList.setOnItemSelectedListener(getManufactureListener());
-        mBinding.nextSlide.setOnClickListener(this::onClick);
+        mBinding.nextSlide.setOnClickListener(this);
     }
 
 

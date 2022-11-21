@@ -90,7 +90,6 @@ import com.daisy.utils.OnSwipeTouchListener;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.SettingLockSingletonObject;
-import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -408,9 +407,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     downloadPromotion.setPath(promotion.getFileName());
 
                 }
-                ;
                 downloadPromotion.setPath1(promotion.getFileName());
-
                 downloadPromotion.setDateCreated(promotion.getDateCreated());
                 downloadPromotion.setDateExpires(promotion.getDateExpires());
                 downloadPromotion.setType(Constraint.PROMOTION);
@@ -631,6 +628,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
             mBinding.webView.addJavascriptInterface(new WebAppInterface(this), Constraint.ANDROID); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
             mBinding.webView.setWebChromeClient(new WebClient());
+//            long value = sessionManager.getDefaultTiming();
+//            long elapsedTimeNs = System.currentTimeMillis() - value;
+//            ValidationHelper.showToast(getApplicationContext(), (elapsedTimeNs/60000) + "");
             setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
@@ -646,16 +646,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
             mBinding.webView.getSettings().setUseWideViewPort(Constraint.TRUE);
-
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setDisplayZoomControls(Constraint.FALSE);
-
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
-            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
-
             mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
-
             if (Build.VERSION.SDK_INT >= Constraint.TWENTY_ONE) {
                 mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
                 CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.webView, Constraint.TRUE);
@@ -796,6 +791,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             @Override
             public void onFormResubmission(WebView view, Message dontResend, Message resend) {
+
+
                 JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray.length() > 0) {
                     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
@@ -844,6 +841,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             @Override
             public void onPageFinished(WebView view, final String url) {
                 try {
+
                     JSONObject jsonArray = pricingUpdateStart();
                     if (jsonArray.length() > 0) {
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
@@ -1275,9 +1273,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         fireThirtySecondCounter();
 
         DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
-        if (BackgroundService.getServiceObject() != null) {
-            BackgroundService.getServiceObject().count = 0;
-        }
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
         inverted(inversion);
