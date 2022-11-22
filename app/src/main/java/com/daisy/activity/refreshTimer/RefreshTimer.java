@@ -26,6 +26,7 @@ import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.Time;
 import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -366,9 +367,18 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         time.setHour(mBinding.timePicker.getHour());
         time.setMinit(mBinding.timePicker.getMinute());
         sessionManager.setTimerToGetCard(time);
-        if (BackgroundService.refreshTimer != null) {
-            BackgroundService.refreshTimer.cancel();
-            BackgroundService.checkUpdate();
+         TimeWork timeWork = TimeWork.getTimer();
+
+        if (timeWork.updateTimer != null) {
+            timeWork.updateTimer.cancel();
+            timeWork.setUpdateTiming();
+            try {
+                BackgroundService.checkUpdate();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
         ValidationHelper.showToast(context, getString(R.string.refresh_time_set));
     }
