@@ -255,4 +255,11 @@
     <string name="reset">Reset</string>
     <string name="save">Save</string>
     <string name="change_brightness">CHANGE BRIGHTNESS</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="open_mpc">Open MPC</string>
+    <string name="first_price">First Price</string>
+    <string name="second_price">Second Price</string>
+    <string name="thired_price">Thired Price</string>
 </resources>
