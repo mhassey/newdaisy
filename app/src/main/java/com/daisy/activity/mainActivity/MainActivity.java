@@ -954,7 +954,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             e.printStackTrace();
 
         }
-        Log.e("Kali.....",jsonObject.toString());
         return jsonObject;
     }
 
