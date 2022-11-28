@@ -10,6 +10,7 @@
             <action android:name="com.motorola.demo.BIND_KSP_ACTION" />
         </intent>
     </queries>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -25,6 +26,7 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.PREVENT_POWER_KEY" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission
         android:name="android.permission.DEVICE_POWER"
         tools:ignore="ProtectedPermissions" />
@@ -65,6 +67,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <receiver
+            android:name=".widget.PriceCardWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/price_card_widget_info" />
+        </receiver>
+
         <activity
             android:name="com.iris.activity.DeveloperActivity"
             android:exported="false">
@@ -77,7 +92,7 @@
             android:exported="false" />
 
         <service
-            android:name="com.iris.service.DeviceSearch"
+            android:name=".service.DeviceSearch"
             android:enabled="true"
             android:exported="true" />
 
@@ -85,7 +100,7 @@
         <activity android:name="com.iris.activity.updateProduct.UpdateProduct" />
 
         <service
-            android:name="com.iris.service.SecurityService"
+            android:name=".service.SecurityService"
             android:enabled="true"
             android:exported="true" />
 
@@ -117,7 +132,7 @@
 
         <activity
             android:name="com.iris.activity.baseUrl.BaseUrlSettings"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.iris.activity.refreshTimer.RefreshTimer"
             android:screenOrientation="portrait" />
@@ -151,11 +166,11 @@
             android:screenOrientation="portrait" />
 
         <service
-            android:name="com.iris.service.DeletePhotoService"
+            android:name=".service.DeletePhotoService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name="com.iris.service.StickyService"
+            android:name=".service.StickyService"
             android:stopWithTask="false" />
 
         <activity
@@ -193,13 +208,13 @@
         </receiver>
 
         <service
-            android:name="com.iris.service.BackgroundService"
+            android:name=".service.BackgroundService"
             android:stopWithTask="false" />
         <service
-            android:name="com.iris.service.BackgroundSoundService"
+            android:name=".service.BackgroundSoundService"
             android:stopWithTask="false" />
         <service
-            android:name="com.iris.service.LogGenerateService"
+            android:name=".service.LogGenerateService"
             android:stopWithTask="false" />
 
         <receiver
@@ -223,7 +238,7 @@
         </receiver>
 
         <service
-            android:name="com.iris.service.FirebaseMessagingService"
+            android:name=".service.FirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

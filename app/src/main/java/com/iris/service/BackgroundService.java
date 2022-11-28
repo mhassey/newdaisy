@@ -20,6 +20,7 @@ import android.hardware.SensorManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -73,6 +74,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
     public static Timer refreshTimer3;
     public static Timer refreshTimer4;
     private Intent securityIntent;
+    private PowerManager.WakeLock mWakeLock;
+
     private Sensor stepDetectorSensor;
     private Sensor stepCounterSensor;
     private Sensor magnetometer;
@@ -100,6 +103,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         showNotification();
         registerReceiver();
         setCounter();
+        initWakeUpLock();
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
             defineSensor();
         }
@@ -121,6 +125,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         stopSelf();
     }
 
+    @SuppressLint("InvalidWakeLockTag")
+    private void initWakeUpLock() {
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        int flags = PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP;
+        mWakeLock = powerManager.newWakeLock(flags, Constraint.WEAK_UP_TAG);
+    }
+
     void unregisterReceiver() {
         try {
             unregisterReceiver(wifiStateReceiver);
@@ -128,6 +139,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         }
         try {
             unregisterReceiver(m_timeChangedReceiver);
+        } catch (Exception e) {
+        }
+        try {
+            unregisterReceiver(overlayReceiver);
         } catch (Exception e) {
         }
     }
@@ -462,6 +477,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
             intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
             registerReceiver(wifiStateReceiver, intentFilter);
         }
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(ACTION_DEBUG);
+
+        registerReceiver(overlayReceiver, filter);
         IntentFilter s_intentFilter = new IntentFilter();
         s_intentFilter.addAction(Intent.ACTION_TIME_TICK);
         s_intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
@@ -671,7 +691,44 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
             sessionManager.setStepCount(0);
         }
     }
+    /**
+     * Purpose - overlayReceiver method handles overlay listener
+     */
+    private BroadcastReceiver overlayReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                showOverlayActivity(context);
+                wakePhoneUp();
+            } else if (action.equals(ACTION_DEBUG)) {
+                showOverlayActivity(context);
+            }
+        }
+    };
 
+
+    /**
+     * Purpose - Use to wake up phone
+     */
+    private void wakePhoneUp() {
+        mWakeLock.acquire();
+        mWakeLock.release();
+    }
+
+
+    /**
+     * showOverlayActivity method open main activity
+     *
+     * @param context
+     */
+    private void showOverlayActivity(Context context) {
+
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
 
 }

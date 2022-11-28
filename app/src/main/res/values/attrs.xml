@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="backgroundColor" format="color"/>
-    <attr name="cardBackgroundColor" format="color"/>
-    <attr name="textcolor" format="color"/>
-    <attr name="tintcolor" format="color"/>
-    <attr name="bottoncolor" format="color"/>
-    <attr name="textcolorblack" format="color"/>
-    <attr name="editTextColor" format="color"/>
-    <attr name="layout_log" format="color"/>
-    <attr name="toggle" format="color"/>
+    <attr name="backgroundColor" format="color" />
+    <attr name="cardBackgroundColor" format="color" />
+    <attr name="textcolor" format="color" />
+    <attr name="tintcolor" format="color" />
+    <attr name="bottoncolor" format="color" />
+    <attr name="textcolorblack" format="color" />
+    <attr name="editTextColor" format="color" />
+    <attr name="layout_log" format="color" />
+    <attr name="toggle" format="color" />
+    <declare-styleable name="AppWidgetAttrs">
+        <attr name="appWidgetPadding" format="dimension" />
+        <attr name="appWidgetInnerRadius" format="dimension" />
+        <attr name="appWidgetRadius" format="dimension" />
+    </declare-styleable>
 
 </resources>
