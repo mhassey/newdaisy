@@ -23,6 +23,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -944,6 +945,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     jsonObject.put(Constraint.PFV14, pricing1.getPfv14());
                     jsonObject.put(Constraint.PFV15, pricing1.getPfv15());
                     jsonObject.put(Constraint.PFV16, pricing1.getPfv16());
+                    jsonObject.put(Constraint.LAST_UPDATED,Utils.getPricingLastTime(MainActivity.this));
                 }
 
 
@@ -952,6 +954,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             e.printStackTrace();
 
         }
+        Log.e("Kali.....",jsonObject.toString());
         return jsonObject;
     }
 

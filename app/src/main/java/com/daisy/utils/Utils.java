@@ -196,6 +196,32 @@ public class Utils {
         return updateDateString;
     }
 
+    // get last update date
+    public static String getPricingLastTime(Activity activity) {
+
+        PackageManager packageManager = activity.getPackageManager();
+        long updateTimeInMilliseconds; // install time is conveniently provided in milliseconds
+
+        Date updateDate = null;
+        String updateDateString = null;
+
+        try {
+
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(activity.getPackageName(), 0);
+            String appFile = appInfo.sourceDir;
+            updateTimeInMilliseconds = new File(appFile).lastModified();
+
+            updateDateString = getDate(updateTimeInMilliseconds, "yyyy-MM-dd hh:mm:ss");
+
+        } catch (PackageManager.NameNotFoundException e) {
+            // an error occurred, so display the Unix epoch
+            updateDate = new Date(0);
+            updateDateString = updateDate.toString();
+        }
+
+        return updateDateString;
+    }
+
     public static String getDate(long milliSeconds, String dateFormat) {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
