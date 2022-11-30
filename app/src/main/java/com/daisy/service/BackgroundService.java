@@ -126,6 +126,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     public int onStartCommand(Intent intent, int flags, int startId) {
         sessionManager = SessionManager.get();
         setCounter();
+        if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
+            try {
+
+                FrontCameraRetriever.retrieveFor(this);
+                FrontCameraRetriever.getInstance().load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -150,14 +159,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
             initWifi();
             defineSensor();
-
-            try {
-
-                FrontCameraRetriever.retrieveFor(this);
-                FrontCameraRetriever.getInstance().load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
     }
