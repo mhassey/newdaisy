@@ -152,10 +152,11 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             defineSensor();
 
             try {
+
                 FrontCameraRetriever.retrieveFor(this);
                 FrontCameraRetriever.getInstance().load();
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
 

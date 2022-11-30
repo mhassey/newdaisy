@@ -39,6 +39,7 @@ public class LoadFrontCameraAsyncTask extends AsyncTask<Void, Void, FaceDetectio
 
             return new FaceDetectionCamera(camera);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             Log.e(TAG, "Likely hardware / non released camera / other app fail", e);
 
 

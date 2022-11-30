@@ -25,13 +25,16 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     private static void retrieve(Context context, Listener listener) {
         Application application = (Application) context.getApplicationContext();
-         frontCameraRetriever = new FrontCameraRetriever(listener);
+        Log.e("application","application");
+
+        frontCameraRetriever = new FrontCameraRetriever(listener);
         Log.e("register","camera");
         application.registerActivityLifecycleCallbacks(frontCameraRetriever);
 
     }
 
     FrontCameraRetriever(Listener listener) {
+        Log.e("Working,,,","object created");
         this.listener = listener;
     }
 
