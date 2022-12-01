@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.activity.splash.SplashScreen;
 
 /**
  *  Broadcast receiver
@@ -21,7 +22,7 @@ public class BootReceiver extends BroadcastReceiver {
 		
 
 		if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-			Intent intent2 = new Intent(context, MainActivity.class);
+			Intent intent2 = new Intent(context, SplashScreen.class);
 			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
             context.startActivity(intent2);  
 		}
