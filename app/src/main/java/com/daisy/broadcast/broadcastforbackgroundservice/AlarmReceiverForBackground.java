@@ -29,7 +29,6 @@ public class AlarmReceiverForBackground extends BroadcastReceiver {
                 } else {
                     context.startService(new Intent(context, BackgroundService.class));
                 }
-                //  context.startService(new Intent(context, BackgroundService.class));
             }
             long time1 = TimeUnit.SECONDS.toMillis(Constraint.FIVE);
             Utils.constructJobForBackground(time1, context);

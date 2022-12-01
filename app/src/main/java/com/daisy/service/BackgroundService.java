@@ -99,13 +99,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     private double mAccel;
     private double mAccelCurrent;
     private double mAccelLast;
-    public static Timer refreshTimer;
-    public static Timer refreshTimer1;
-    public static Timer refreshTimer2;
-    public static Timer refreshTimer3;
-    public static Timer refreshTimer4;
     private long lastFaceDetect = 0;
-    public static Timer refreshTimer5;
     private Intent securityIntent;
     private Sensor stepDetectorSensor;
     private Sensor stepCounterSensor;
