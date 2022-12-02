@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import org.json.JSONArray;
 
+
 public class MainActivityViewModel extends AndroidViewModel {
     private boolean isSettingVisible=false;
     private JSONArray jsonArray;

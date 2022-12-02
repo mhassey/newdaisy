@@ -1,14 +1,25 @@
 package com.iris.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.util.SizeF;
 import android.widget.RemoteViews;
 
 import com.iris.R;
+import com.iris.activity.mainActivity.MainActivity;
+import com.iris.activity.splash.SplashScreen;
+import com.iris.common.session.SessionManager;
+import com.iris.pojo.response.Pricing;
+import com.iris.utils.Constraint;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Implementation of App Widget functionality.
@@ -19,7 +30,67 @@ public class PriceCardWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.price_card_widget);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
+        List<Pricing> pricing = SessionManager.get().getPricing();
+        Pricing pricing1 = null;
+        if (pricing!=null && !pricing.isEmpty())
+        {
+            OUTER_LOOP:
+            for (int i = (pricing.size() - Constraint.ONE); i >= Constraint.ZERO; i--) {
+                try {
+                    if (SessionManager.get().getPricingPlainId().equals(pricing.get(i).getPricingPlanID())) {
+                        SimpleDateFormat sdf = new SimpleDateFormat(Constraint.YYY_MM_DD);
+                        Date futureDate;
+                        if (pricing.get(i).getTimeExpires() != null) {
+                            futureDate = sdf.parse(pricing.get(i).getDateExpires() + " " + pricing.get(i).getTimeExpires());
+
+                        } else {
+                            futureDate = sdf.parse(pricing.get(i).getDateExpires() + " " + Constraint.DEFAULT_HOURS_MINUTES);
+
+                        }
+                        Date dateEffective;
+                        if (pricing.get(i).getTimeEffective() != null) {
+                            dateEffective = sdf.parse(pricing.get(i).getDateEffective() + " " + pricing.get(i).getTimeEffective());
+
+                        } else {
+                            dateEffective = sdf.parse(pricing.get(i).getDateEffective() + " " + Constraint.DEFAULT_HOURS_MINUTES);
+
+                        }
+                        Date todayDate = new Date();
+
+                        if (dateEffective != null && !dateEffective.after(todayDate)) {
+                            if (futureDate != null && futureDate.after(todayDate)) {
+                                pricing1 = pricing.get(i);
+                                break OUTER_LOOP;
+                            }
+
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (pricing1 == null) {
+                for (int i = Constraint.ZERO; i < pricing.size(); i++) {
+                    if (pricing.get(i).getIsDefault() != null && pricing.get(i).getIsDefault().equals(Constraint.ONE_STRING)) {
+                        pricing1 = pricing.get(i);
+                    }
+
+                }
+            }
+
+        }
+        if (pricing!=null)
+        {
+            views.setTextViewText(R.id.pvf_one, pricing.get(0).getPfv1());
+            views.setTextViewText(R.id.pvf_two, pricing.get(0).getPfv2());
+            views.setTextViewText(R.id.pvf_three, pricing.get(0).getPfv3());
+            views.setTextViewText(R.id.pvf_four, pricing.get(0).getPfv4());
+
+        }
+
+        views.setOnClickPendingIntent(R.id.open_mpc,
+                PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), PendingIntent.FLAG_IMMUTABLE));
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -27,16 +98,49 @@ public class PriceCardWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        HashMap viewMapping = new HashMap();
-        viewMapping.put(new SizeF(100f, 50f), new RemoteViews(context.getPackageName(), R.layout.price_card_widget));
-        viewMapping.put(new SizeF(150f, 50f), new RemoteViews(context.getPackageName(), R.layout.price_card_widget_large));
-        viewMapping.put(new SizeF(215f, 50f), new RemoteViews(context.getPackageName(), R.layout.price_card_widget_medium));
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            RemoteViews remoteViews = new RemoteViews(viewMapping);
-            appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+        final int N = appWidgetIds.length;
+
+        // Perform this loop procedure for each App Widget that belongs to this provider
+        for (int i=0; i<N; i++) {
+            int appWidgetId = appWidgetIds[i];
+
+
+
+            // Tell the AppWidgetManager to perform an update on the current app widget
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.price_card_widget);
+            appWidgetManager.updateAppWidget(appWidgetId, views);
+
+
+
 
         }
     }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        String action = intent.getAction();
+
+        if (action != null) {
+            final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            ComponentName name = new ComponentName(context, PriceCardWidget.class);
+            int[] appWidgetId = AppWidgetManager.getInstance(context).getAppWidgetIds(name);
+            final int N = appWidgetId.length;
+            if (N < 1)
+            {
+                return ;
+            }
+            else {
+                int id = appWidgetId[N-1];
+                updateAppWidget(context, appWidgetManager, id);
+            }
+        }
+
+        else {
+            super.onReceive(context, intent);
+        }
+    }
+
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created

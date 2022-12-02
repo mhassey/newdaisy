@@ -2,32 +2,180 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
-    android:background="@color/white"
+    android:background="@drawable/rouned_white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="horizontal">
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginStart="@dimen/dp20"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
-            android:text="PVF1"
-            android:textSize="@dimen/dp16"
-            android:id="@+id/pdv_one"
+            android:textStyle="bold"
+            android:id="@+id/pvf_one"
+            android:fontFamily="@font/rbold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:layout_marginTop="@dimen/dp10"
+            android:textStyle="bold"
+            android:fontFamily="@font/rbold"
+            android:layout_marginStart="@dimen/dp5"
+            android:text="SRP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp10"
+        android:background="@color/gray"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/dp100">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center|start"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/pvf_two"
+                android:layout_marginStart="@dimen/dp20"
+                android:fontFamily="@font/rbold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dp20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp5"
+                android:fontFamily="@font/rmedium"
+                android:gravity="center|start"
+                android:textSize="@dimen/dp12"
+                android:text="@string/when_you_switch_to_boost_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:background="@color/gray"
+            android:layout_width="@dimen/dp1"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center|start"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/pvf_three"
+                android:layout_marginStart="@dimen/dp20"
+                android:fontFamily="@font/rbold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dp16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp5"
+                android:fontFamily="@font/rmedium"
+                android:gravity="center|start"
+                android:textSize="@dimen/dp12"
+                android:text="+ New Line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+             <TextView
+                 android:layout_marginStart="@dimen/dp20"
+
+                 android:fontFamily="@font/rmedium"
+            android:gravity="center|start"
             android:textSize="@dimen/dp12"
-            android:text="PVF2"
-            android:id="@+id/pdv_two"
+            android:text="Qualified Upgrade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp10"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/dp70">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center|start"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/pvf_four"
+                android:layout_marginStart="@dimen/dp20"
+                android:fontFamily="@font/rbold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dp16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp5"
+                android:fontFamily="@font/rmedium"
+                android:gravity="center|start"
+                android:textSize="@dimen/dp12"
+                android:text="+ 15 25 Plans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:background="@color/gray"
+            android:layout_width="@dimen/dp1"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:id="@+id/open_app"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/open_mpc"
+                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp10"
+                android:gravity="center"
+                android:padding="@dimen/dp8"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_with_black_fill"
+                android:text="@string/learn_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </LinearLayout>
 
 
