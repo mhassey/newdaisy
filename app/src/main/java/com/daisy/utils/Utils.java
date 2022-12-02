@@ -211,7 +211,7 @@ public class Utils {
             String appFile = appInfo.sourceDir;
             updateTimeInMilliseconds = new File(appFile).lastModified();
 
-            updateDateString = getDate(updateTimeInMilliseconds, "yyyy-MM-dd hh:mm:ss");
+            updateDateString = getDateForPricing(updateTimeInMilliseconds, "yyyy-MM-dd'T'hh:mm:ss");
 
         } catch (PackageManager.NameNotFoundException e) {
             // an error occurred, so display the Unix epoch
@@ -232,6 +232,16 @@ public class Utils {
         return formatter.format(calendar.getTime());
     }
 
+    public static String getDateForPricing(long milliSeconds, String dateFormat) {
+        // Create a DateFormatter object for displaying date in specified format.
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
+    }
     public static String stringify(ArrayList listOfStrings) {
         String result;
         if (listOfStrings.isEmpty()) {

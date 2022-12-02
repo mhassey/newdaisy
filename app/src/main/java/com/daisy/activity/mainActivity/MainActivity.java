@@ -945,9 +945,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     jsonObject.put(Constraint.PFV14, pricing1.getPfv14());
                     jsonObject.put(Constraint.PFV15, pricing1.getPfv15());
                     jsonObject.put(Constraint.PFV16, pricing1.getPfv16());
-                    jsonObject.put(Constraint.LAST_UPDATED,Utils.getPricingLastTime(MainActivity.this));
-                }
+                    jsonObject.put(Constraint.LAST_UPDATED,Utils.getPricingLastTime(MainActivity.this)+Constraint.Z);
 
+                }
 
             }
         } catch (JSONException e) {
