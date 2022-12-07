@@ -315,6 +315,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
 
+
+
     //TODO Handle resume work
     private void handleResumeWork() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {

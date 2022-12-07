@@ -1,9 +1,11 @@
 package com.daisy.activity.splash;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -40,6 +42,7 @@ public class SplashScreen extends BaseActivity {
      **/
     private void initView() {
         setNoTitleBar(this);
+        wakeUp();
         setDefaultBrightness();
         handleSessionWork();
         final Handler handler = new Handler();
@@ -50,6 +53,20 @@ public class SplashScreen extends BaseActivity {
             }
         }, Constraint.FOUR_THOUSAND);
 
+    }
+
+    private void wakeUp() {
+        try {
+            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            int flags = PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP;
+            PowerManager.WakeLock mWakeLock = powerManager.newWakeLock(flags, Constraint.WEAK_UP_TAG);
+            mWakeLock.acquire();
+            mWakeLock.release();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**

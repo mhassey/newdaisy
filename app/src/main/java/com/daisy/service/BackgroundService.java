@@ -49,6 +49,7 @@ import com.daisy.activity.apkUpdate.UpdateApk;
 import com.daisy.activity.lockscreen.LockScreen;
 import com.daisy.activity.logs.LogSyncExtra;
 import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.activity.splash.SplashScreen;
 import com.daisy.activity.validatePromotion.ValidatePromotion;
 import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
@@ -61,6 +62,7 @@ import com.daisy.pojo.response.Inversion;
 import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.sync.SyncLogs;
+import com.daisy.utils.CameraLoad;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
@@ -145,15 +147,20 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
             initWifi();
             defineSensor();
-            try {
-
-                FrontCameraRetriever.retrieveFor(this);
-                FrontCameraRetriever.getInstance().load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            loadCamera();
         }
 
+    }
+
+  public   void loadCamera()
+    {
+        try {
+
+            FrontCameraRetriever.retrieveFor(this);
+            FrontCameraRetriever.getInstance().load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -414,6 +421,14 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 @Override
                 public void run() {
                     try {
+                        try {
+                            if (!CameraLoad.getInstance().isLoaded)
+                                BackgroundService.getServiceObject().loadCamera();
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
                         if (!SessionManager.get().getLogout()) {
                             Inversion inversion = new Inversion();
                             inversion.setInvert(Utils.getInvertedTime());
@@ -1150,6 +1165,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
                     this.camera = camera;
                     touchLayoutforCamera.addView(cameraSurface);
+                    CameraLoad.getInstance().isLoaded = true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

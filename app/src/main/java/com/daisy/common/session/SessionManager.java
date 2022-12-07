@@ -1344,4 +1344,12 @@ public class SessionManager {
     public Long getDefaultTiming() {
         return pref.getLongValue(Constraint.DEFAULT_TIMING);
     }
+
+    public void cameraInitialize(boolean b) {
+        pref.setBooleanData(Constraint.CAMERA_LOADED,b);
+    }
+
+    public boolean getCameraLoaded() {
+        return pref.getBoolean(Constraint.CAMERA_LOADED);
+    }
 }

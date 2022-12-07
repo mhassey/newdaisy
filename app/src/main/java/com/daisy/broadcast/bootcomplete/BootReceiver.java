@@ -23,8 +23,10 @@ public class BootReceiver extends BroadcastReceiver {
 
 		if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
 			Intent intent2 = new Intent(context, SplashScreen.class);
-			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
-            context.startActivity(intent2);  
+			intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+			context.startActivity(intent2);
 		}
 
 	}

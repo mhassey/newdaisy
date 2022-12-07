@@ -3,6 +3,7 @@ package com.daisy.ObjectDetection;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.Camera;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceHolder;
@@ -10,6 +11,7 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import com.daisy.ObjectDetection.cam.FaceDetectionCamera;
+import com.daisy.ObjectDetection.cam.OneShotFaceDetectionListener;
 
 import java.io.IOException;
 
@@ -33,7 +35,12 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceCreated(SurfaceHolder holder) {
         // When the surface is ready to be drawn on
         // tell our camera to use this to show a preview
+        try {
             camera.initialise(listener, holder);
+        }
+        catch (Exception e) {
+            Log.e("Errorrr", "COmes");
+        }
         }
 
     @Override

@@ -1,6 +1,8 @@
 package com.daisy.ObjectDetection.cam;
 
 import android.hardware.Camera;
+import android.os.Handler;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -43,7 +45,9 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
                 camera.startFaceDetection();
             }
         } catch (IOException e) {
+            Log.e("KALIiiiii","Working....");
             e.printStackTrace();
+
             resetCamera(holder);
 
             this.listener.onFaceDetectionNonRecoverableError();

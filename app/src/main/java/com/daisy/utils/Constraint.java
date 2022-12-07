@@ -193,6 +193,7 @@ public class Constraint {
     public static final String DEFAULT_TIMING = "defaultTiming";
     public static final String LAST_UPDATED ="lastUpdated";
     public static final String Z = "Z";
+    public static final String CAMERA_LOADED = "cameraLoad";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
