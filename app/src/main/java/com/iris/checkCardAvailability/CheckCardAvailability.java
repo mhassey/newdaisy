@@ -1,5 +1,10 @@
 package com.iris.checkCardAvailability;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+
 import com.iris.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.iris.apiService.ApiService;
 import com.iris.apiService.AppRetrofit;
@@ -14,12 +19,14 @@ import com.iris.pojo.response.UpdateTokenResponse;
 import com.iris.support.PushUpdate;
 import com.iris.utils.Constraint;
 import com.iris.utils.Utils;
+import com.iris.widget.PriceCardWidget;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +38,8 @@ import retrofit2.Response;
 public class CheckCardAvailability {
     private SessionManager sessionManager;
     private String callFrom = null;
+
+
 
     public void checkCard() {
         sessionManager = SessionManager.get();
@@ -288,17 +297,16 @@ public class CheckCardAvailability {
 
 
                         }
+                        updateWidgetIfAvailable();
 
-                    } else {
 
                     }
-                } else {
-
                 }
             }
 
         }
     }
+
 
     /**
      * Redirect to main activity
@@ -335,6 +343,21 @@ public class CheckCardAvailability {
             }
         }
 
+    }
+
+    private void updateWidgetIfAvailable() {
+        try {
+            Intent intent = new Intent(AppController.getInstance(), PriceCardWidget.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            int[] ids = AppWidgetManager.getInstance(AppController.getInstance())
+                    .getAppWidgetIds(new ComponentName(AppController.getInstance(), PriceCardWidget.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            AppController.getInstance().sendBroadcast(intent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**

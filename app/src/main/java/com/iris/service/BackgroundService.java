@@ -356,8 +356,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, Senso
         if (sessionManager == null)
             sessionManager = SessionManager.get();
         Time time = sessionManager.getTimeData();
-        int hour = Constraint.FOUR;
-        int minit = Constraint.ZERO;
+        int hour = Constraint.ZERO;
+        int minit = Constraint.ONE;
         if (time != null) {
             hour = time.getHour();
             minit = time.getMinit();
