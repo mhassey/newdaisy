@@ -276,8 +276,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
     private void validatePromotion() {
         try {
-            int hour = Constraint.ZERO;
-            int minit = Constraint.ONE;
+            int hour = Constraint.ONE;
+            int minit = Constraint.ZERO;
             int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
             refreshTimer4 = new Timer();
             refreshTimer4.scheduleAtFixedRate(new TimerTask() {

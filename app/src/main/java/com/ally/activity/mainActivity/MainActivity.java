@@ -79,6 +79,7 @@ import com.ally.utils.PermissionManager;
 import com.ally.utils.SanitisedSingletonObject;
 import com.ally.utils.Utils;
 import com.ally.utils.ValidationHelper;
+import com.google.firebase.crashlytics.internal.proto.CodedOutputStream;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -88,7 +89,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -129,14 +132,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
-        //startLockTask();
         setNoTitleBar(this);
         context = this;
         handleScreenRotation();
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        permissionAsking();
         windowWork();
         loadURL();
         intentWork();
@@ -144,18 +145,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
-    /**
-     * Check for permission
-     */
-    private void permissionAsking() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Do something for lollipop and above versions
-            PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
-        } else {
-            PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
-            // do something for phones running an SDK before lollipop
-        }
-    }
+
 
     /**
      * Add sanitised cown down
@@ -584,6 +574,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+            mBinding.webView.clearCache(true);
+            mBinding.webView.getSettings().setDomStorageEnabled(true);
+
             mBinding.webView.getSettings().setAllowContentAccess(Constraint.TRUE);
             mBinding.webView.getSettings().setDomStorageEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setJavaScriptEnabled(Constraint.TRUE); // enable javascript
