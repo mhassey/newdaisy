@@ -92,6 +92,7 @@ import com.iris.utils.PermissionManager;
 import com.iris.utils.SanitisedSingletonObject;
 import com.iris.utils.Utils;
 import com.iris.utils.ValidationHelper;
+import com.iris.widget.PriceCardWidget;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -577,7 +578,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             mBinding.webView.setSoundEffectsEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
-            mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             mBinding.webView.getSettings().setAllowContentAccess(Constraint.TRUE);
             mBinding.webView.getSettings().setDomStorageEnabled(Constraint.TRUE);
@@ -788,6 +788,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     if (jsonArray.length() > 0) {
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
+                        updateWidgetIfAvailable();
                     }
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
@@ -809,6 +810,21 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         mBinding.webView.setWebViewClient(yourWebClient);
 
+    }
+
+    private void updateWidgetIfAvailable() {
+        try {
+            Intent intent = new Intent(this, PriceCardWidget.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            int[] ids = AppWidgetManager.getInstance(getApplication())
+                    .getAppWidgetIds(new ComponentName(getApplication(), PriceCardWidget.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            sendBroadcast(intent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1746,7 +1762,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding.supportWebView.setSoundEffectsEnabled(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
-        mBinding.supportWebView.getSettings().setAppCacheEnabled(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         mBinding.supportWebView.getSettings().setAllowContentAccess(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setDomStorageEnabled(Constraint.TRUE);
