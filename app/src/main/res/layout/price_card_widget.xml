@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
     android:background="@drawable/rouned_white"
     android:layout_width="match_parent"
@@ -16,12 +15,14 @@
         <TextView
             android:textStyle="bold"
             android:id="@+id/pvf_one"
-            android:fontFamily="@font/rbold"
+            android:textSize="@dimen/sp18"
+            android:fontFamily="@font/sambold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            android:fontFamily="@font/rbold"
+            android:fontFamily="@font/sambold"
             android:layout_marginStart="@dimen/dp5"
             android:text="SRP"
             android:layout_width="wrap_content"
@@ -54,18 +55,20 @@
                 android:textStyle="bold"
                 android:id="@+id/pvf_two"
                 android:layout_marginStart="@dimen/dp20"
-                android:fontFamily="@font/rbold"
+                android:fontFamily="@font/sambold"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dp20"
+                android:textSize="@dimen/sp20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:id="@+id/change_data"
                 android:layout_marginStart="@dimen/dp20"
                 android:layout_marginTop="@dimen/dp5"
-                android:fontFamily="@font/rmedium"
+                android:fontFamily="@font/sammed"
+
                 android:gravity="center|start"
-                android:textSize="@dimen/dp12"
+                android:textSize="@dimen/sp12"
                 android:text="@string/when_you_switch_to_boost_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -86,27 +89,26 @@
                 android:textStyle="bold"
                 android:id="@+id/pvf_three"
                 android:layout_marginStart="@dimen/dp20"
-                android:fontFamily="@font/rbold"
+                android:fontFamily="@font/sambold"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dp16"
+                android:textSize="@dimen/sp16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp20"
                 android:layout_marginTop="@dimen/dp5"
-                android:fontFamily="@font/rmedium"
+                android:fontFamily="@font/sammed"
                 android:gravity="center|start"
-                android:textSize="@dimen/dp12"
                 android:text="+ New Line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/sp12" />
              <TextView
-                 android:layout_marginStart="@dimen/dp20"
-
-                 android:fontFamily="@font/rmedium"
+            android:layout_marginStart="@dimen/dp20"
+            android:fontFamily="@font/sammed"
             android:gravity="center|start"
-            android:textSize="@dimen/dp12"
+            android:textSize="@dimen/sp12"
             android:text="Qualified Upgrade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -135,18 +137,18 @@
                 android:textStyle="bold"
                 android:id="@+id/pvf_four"
                 android:layout_marginStart="@dimen/dp20"
-                android:fontFamily="@font/rbold"
+                android:fontFamily="@font/sambold"
                 android:textColor="@color/black"
-                android:textSize="@dimen/dp16"
+                android:textSize="@dimen/sp16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_marginStart="@dimen/dp20"
                 android:layout_marginTop="@dimen/dp5"
-                android:fontFamily="@font/rmedium"
+                android:fontFamily="@font/sammed"
                 android:gravity="center|start"
-                android:textSize="@dimen/dp12"
+                android:textSize="@dimen/sp12"
                 android:text="+ 15 25 Plans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -165,6 +167,7 @@
 
 
             <TextView
+                android:textSize="@dimen/sp16"
                 android:id="@+id/open_mpc"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp10"

@@ -4,7 +4,7 @@
     android:initialKeyguardLayout="@layout/price_card_widget"
     android:initialLayout="@layout/price_card_widget"
     android:minWidth="@dimen/dp300"
-    android:minHeight="@dimen/dp150"
+    android:minHeight="@dimen/dp100"
     android:previewLayout="@layout/price_card_widget"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="4"

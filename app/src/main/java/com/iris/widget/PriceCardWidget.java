@@ -6,6 +6,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.SizeF;
 import android.widget.RemoteViews;
 
@@ -82,6 +87,7 @@ public class PriceCardWidget extends AppWidgetProvider {
         }
         if (pricing1!=null)
         {
+
             views.setTextViewText(R.id.pvf_one, pricing1.getPfv1());
             views.setTextViewText(R.id.pvf_two, pricing1.getPfv2());
             views.setTextViewText(R.id.pvf_three, pricing1.getPfv3());
@@ -95,6 +101,7 @@ public class PriceCardWidget extends AppWidgetProvider {
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
