@@ -88,10 +88,12 @@ public class PriceCardWidget extends AppWidgetProvider {
         if (pricing1!=null)
         {
 
-            views.setTextViewText(R.id.pvf_one, pricing1.getPfv1());
-            views.setTextViewText(R.id.pvf_two, pricing1.getPfv2());
-            views.setTextViewText(R.id.pvf_three, pricing1.getPfv3());
-            views.setTextViewText(R.id.pvf_four, pricing1.getPfv4());
+            views.setTextViewText(R.id.first_val, pricing1.getPfv10());
+            views.setTextViewText(R.id.second_val, pricing1.getPfv11());
+            views.setTextViewText(R.id.ther_val, pricing1.getPfv12());
+            views.setTextViewText(R.id.forth_val, pricing1.getPfv13());
+            views.setTextViewText(R.id.fifth_val, pricing1.getPfv14());
+            views.setTextViewText(R.id.sixth_val, pricing1.getPfv15());
 
         }
 

@@ -260,4 +260,5 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="when_you_switch_to_boost_mobile">When you switch to \n Boost Mobile</string>
     <string name="learn_more">Learn More</string>
+    <string name="tap_for_more_information">Tap for more information</string>
 </resources>
