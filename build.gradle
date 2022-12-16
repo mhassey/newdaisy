@@ -1,113 +1,57 @@
-apply plugin: 'com.android.application'
-// Add this line
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-android {
-    compileSdkVersion 32
-    buildToolsVersion "29.0.2"
+buildscript {
 
-    signingConfigs {
-        debug {
-            storeFile file("../app/daisy.jks")
-            storePassword "pinecone"
-            keyAlias "key0"
-            keyPassword "pinecone"
-        }
-        release {
-            storeFile file("../app/daisy.jks")
-            storePassword "pinecone"
-            keyAlias "key0"
-            keyPassword "pinecone"
-        }
+    repositories {
+        google()
+        mavenCentral()
+
+
     }
-    defaultConfig {
-        applicationId "com.daisy"
-        minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 10
-        versionName "1.09"
-        useLibrary 'org.apache.http.legacy'
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    flavorDimensions "buildTypes"
-
-
-    productFlavors {
-
-        production {
-            dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://o2.mobilepricecards.com/"'
-        }
-
-
-        development {
-
-            dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://o2.mobilepricecards.com/"'
-        }
-    }
-
-    // pinecone password for all  key allie key0
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    dataBinding {
-        enabled = true
-    }
-
-
-
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
-    buildFeatures {
-        viewBinding true
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath 'com.google.gms:google-services:4.3.3'
+        // Add the Crashlytics Gradle plugin.
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 
 }
-dependencies {
 
-    implementation "androidx.appcompat:appcompat:${rootProject.ext.appCompact}"
-    implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.constrintLayout}"
-    implementation "androidx.legacy:legacy-support-v4:${rootProject.ext.lagacy}"
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportAppCompanct}"
-    implementation "com.android.support.constraint:constraint-layout:${rootProject.ext.supportConstraintLayout}"
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'com.google.truth:truth:1.0.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation "com.google.android.material:material:${rootProject.ext.material}"
-    implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.lyfeCycle}"
-    implementation "org.apache.commons:commons-io:${rootProject.ext.commons}"
-    implementation "org.greenrobot:eventbus:${rootProject.ext.eventBus}"
-    implementation "android.arch.persistence.room:runtime:${rootProject.ext.roomRuntime}"
-    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.roomComplier}"
-    implementation "com.google.firebase:firebase-analytics:${rootProject.ext.analytics}"
-    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.gson}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.interceptor}"
-    implementation "com.jakewharton:process-phoenix:${rootProject.ext.phoenix}"
-    implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide}"
-    implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
-    implementation 'com.google.firebase:firebase-messaging'
-    implementation 'com.pusher:pusher-java-client:2.2.1'
-    implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
-    implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
-    implementation 'com.google.firebase:firebase-database'
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://dl.bintray.com/rvalerio/maven' }
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+    }
+}
 
 
-
-
-
-
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+ext {
+    appCompact = '1.1.0'
+    constrintLayout = '1.1.3'
+    lagacy = "1.0.0"
+    supportAppCompanct = '28.0.0'
+    supportConstraintLayout = '1.1.3'
+    material = "1.1.0"
+    lyfeCycle = '2.2.0'
+    commons = '1.3.2'
+    eventBus = '3.2.0'
+    roomRuntime = "1.0.0"
+    fgChecker = "1.1.0"
+    roomComplier = '1.0.0'
+    analytics = "17.4.3"
+    retrofit = "2.4.0"
+    gson = "2.4.0"
+    interceptor = "3.10.0"
+    phoenix = "2.0.0"
+    glide = "4.11.0"
+    firebaseBom = '26.2.0'
+    locationService = '17.0.0'
 }
