@@ -26,7 +26,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 10
-        versionName "1.09"
+        versionName "1.05"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
