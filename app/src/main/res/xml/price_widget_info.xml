@@ -5,7 +5,6 @@
     android:initialLayout="@layout/price_widget"
     android:minWidth="@dimen/dp250"
     android:minHeight="@dimen/dp50"
-    android:previewImage="@drawable/example_appwidget_preview"
     android:previewLayout="@layout/price_widget"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="3"

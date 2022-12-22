@@ -43,6 +43,7 @@ public class BaseActivity extends AppCompatActivity {
     Timer brightNessCounter = new Timer();
 
 
+
     /**
      * Responsibility - Its an predefine function  that calls when activity created here we just pass current running activity object to AppController and call initView function that help to
      * initiate variables
