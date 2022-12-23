@@ -11,7 +11,7 @@
       "type": "SINGLE",
       "filters": [],
       "versionCode": 10,
-      "versionName": "1.09",
+      "versionName": "1.05",
       "outputFile": "app-production-release.apk"
     }
   ]

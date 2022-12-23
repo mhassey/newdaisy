@@ -346,7 +346,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         sensorMan.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         sensorMan.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorMan.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorMan.registerListener(this,sensorMan.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL);
+        sensorMan.registerListener( this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         sensorMan.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
         sensorMan.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -1055,6 +1056,10 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 case Sensor.TYPE_GYROSCOPE:
                     handleGyro(event);
                     break;
+                case Sensor.TYPE_PROXIMITY:
+                    handleProximity(event);
+                    break;
+
 
 
             }
@@ -1063,6 +1068,18 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         }
 
 
+    }
+
+    private void handleProximity(SensorEvent event) {
+        if (event.values[0]==0) {
+            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            String name = componentInfo.getClassName();
+            if (name.contains(Constraint.MAIN_ACTIVITY)) {
+                EventBus.getDefault().post(new Interactor());
+            }
+        }
     }
 
     //  Handle gyro
