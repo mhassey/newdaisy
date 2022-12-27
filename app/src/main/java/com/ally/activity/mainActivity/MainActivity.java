@@ -1,7 +1,5 @@
 package com.ally.activity.mainActivity;
 
-import static com.google.firebase.crashlytics.internal.proto.CodedOutputStream.DEFAULT_BUFFER_SIZE;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -81,7 +79,6 @@ import com.ally.utils.PermissionManager;
 import com.ally.utils.SanitisedSingletonObject;
 import com.ally.utils.Utils;
 import com.ally.utils.ValidationHelper;
-import com.google.firebase.crashlytics.internal.proto.CodedOutputStream;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -91,9 +88,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
