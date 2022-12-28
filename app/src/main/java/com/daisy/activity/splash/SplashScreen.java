@@ -31,7 +31,7 @@ public class SplashScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-
+       // Utils.jsonConfigure(this,null);
         initView();
     }
 

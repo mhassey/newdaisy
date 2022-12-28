@@ -28,6 +28,7 @@ import android.os.Environment;
 import android.provider.CallLog;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -51,7 +52,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -60,6 +63,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.Buffer;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1122,6 +1126,50 @@ public class Utils {
         WifiInfo info = manager.getConnectionInfo();
         String address = info.getMacAddress();
         return address;
+
+    }
+
+    public static void jsonConfigure(Context context,JSONObject jsonObject) {
+        File directory = new File(context.getExternalFilesDir(""), "timing.json");
+        try {
+             if (!directory.isFile())
+                directory.createNewFile();
+            BufferedWriter bufferedWriter=new BufferedWriter(new FileWriter(directory));
+            FileInputStream  inputStream= new FileInputStream(directory);
+            int size = inputStream.available();
+            byte data[] = new byte[size];
+            inputStream.read(data);
+            inputStream.close();
+            String storedData= new String(data);
+
+
+            if (jsonObject!=null) {
+                    bufferedWriter.write(jsonObject.toString());
+            }
+            else {
+                if (storedData.equals("")) {
+                    JSONObject defaultJson = new JSONObject();
+                    try {
+                        defaultJson.put(Constraint.GET_CARDS, ((4 * Constraint.THIRTY_SIX_HUNDRED) + (0 * Constraint.SIXTY)) * Constraint.THOUSAND);
+                        defaultJson.put(Constraint.DELETE_TIMING, ((Constraint.TEN * Constraint.SIXTY)) * Constraint.THOUSAND);
+                        defaultJson.put(Constraint.LOG_TIMING, ((6 * Constraint.THIRTY_SIX_HUNDRED)) * Constraint.THOUSAND);
+                        defaultJson.put(Constraint.PROMOTION_TIMING, ((Constraint.ONE * Constraint.THIRTY_SIX_HUNDRED)) * Constraint.THOUSAND);
+                        defaultJson.put(Constraint.CHECK_INVERSION, (Constraint.THREE * Constraint.SIXTY) * Constraint.THOUSAND);
+                        defaultJson.put(Constraint.UPDATE_APK, ((Constraint.FOUR * Constraint.THIRTY_SIX_HUNDRED) + (Constraint.ONE * Constraint.SIXTY)) * Constraint.THOUSAND);
+                        defaultJson.put(Constraint.VALIDATE_PROMOTION, ((Constraint.ONE * Constraint.THIRTY_SIX_HUNDRED) + (Constraint.THIRTY_INT * Constraint.SIXTY)) * Constraint.THOUSAND);
+
+                        bufferedWriter.write(defaultJson.toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            bufferedWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }
