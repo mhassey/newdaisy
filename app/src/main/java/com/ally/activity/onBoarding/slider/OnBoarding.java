@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -390,12 +389,14 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             hashMap.put(Constraint.DEVICE_NAME, Utils.getDeviceName());
 
         }
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int screenHeight = displayMetrics.heightPixels;
-        int screenWidth = displayMetrics.widthPixels;
-        hashMap.put(Constraint.SCREEN_WIDTH, screenWidth + "");
-        hashMap.put(Constraint.SCREEN_HEIGHT, screenHeight + "");
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int screenHeight = displayMetrics.heightPixels;
+//        int screenWidth = displayMetrics.widthPixels;
+//        hashMap.put(Constraint.SCREEN_WIDTH, screenWidth + "");
+//        hashMap.put(Constraint.SCREEN_HEIGHT, screenHeight + "");
+        hashMap.put(Constraint.SCREEN_WIDTH,  "480");
+        hashMap.put(Constraint.SCREEN_HEIGHT, "480");
 
         hashMap.put(Constraint.BUILD_VERSION, BuildConfig.VERSION_NAME + "");
         LoginResponse loginResponse = sessionManager.getLoginResponse();
