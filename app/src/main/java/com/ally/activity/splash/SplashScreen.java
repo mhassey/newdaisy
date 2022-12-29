@@ -41,11 +41,11 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        //  initView();
+          initView();
 //        if(!checkAccessibilityPermission()){
 //            Toast.makeText(SplashScreen.this, "Permission denied", Toast.LENGTH_SHORT).show();
 //        }
-        installDefaultApk();
+//        installDefaultApk();
 
     }
 
