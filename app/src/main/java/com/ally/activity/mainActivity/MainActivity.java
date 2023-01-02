@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,12 +36,13 @@ import android.widget.EditText;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ally.utils.InstallResultReceiver;
+import com.ally.utils.InstallUtils;
 import com.bumptech.glide.Glide;
 import com.ally.R;
 import com.ally.activity.apkUpdate.DownloadUpdateApk;
@@ -493,10 +492,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     @Override
     public void callBackApkUpdate(String data) {
-        sessionManager.uninstallShow(true);
+
         installApk();
+        sessionManager.uninstallShow(true);
         sessionManager.deleteApkVersion();
-        this.finishAffinity();
+
 
     }
 
@@ -505,52 +505,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
      */
     private void installApk() {
         try {
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
-                String PATH = Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
-                File file = new File(getExternalFilesDir(""), PATH);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
-                    Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
-                    intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
-                    List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    for (ResolveInfo resolveInfo : resInfoList) {
-                        getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    }
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(intent);
-                } else {
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-                    intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-
-                }
-                startActivity(intent);
-            } else {
-                String PATH = Environment.getExternalStorageDirectory() + Constraint.SLASH + Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
-                File file = new File(PATH);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                if (Build.VERSION.SDK_INT >= Constraint.TWENTY_FOUR) {
-                    Uri downloaded_apk = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + Constraint.PROVIDER, file);
-                    intent.setDataAndType(downloaded_apk, Constraint.ANDROID_PACKAGE_ARCHIVE);
-                    List<ResolveInfo> resInfoList = getApplicationContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    for (ResolveInfo resolveInfo : resInfoList) {
-                        getApplicationContext().grantUriPermission(getApplicationContext().getApplicationContext().getPackageName() + Constraint.PROVIDER, downloaded_apk, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    }
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(intent);
-                } else {
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-                    intent.setDataAndType(Uri.fromFile(file), Constraint.ANDROID_PACKAGE_ARCHIVE);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-
-                }
-                startActivity(intent);
+            String PATH =getExternalFilesDir("")+Constraint.SLASH+ Constraint.DAISY + Constraint.SLASH + Constraint.DAISYAPK;
+            try {
+                InstallUtils.install28(MainActivity.this,PATH, InstallResultReceiver.class);
+            } catch (Exception e) {
+                //Handle Exception
+                e.printStackTrace();
             }
 
         } catch (Exception e) {
@@ -1458,14 +1418,10 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateApk(ApkDetails apk) {
         if (!sessionManager.getupdateDialog()) {
-            sessionManager.dialogShow(true);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(getString(R.string.update_available));
-            builder.setPositiveButton(getString(R.string.proceed), updatePerform(apk));
-            builder.setNegativeButton(getString(R.string.dismiss), dismissUpdate());
-            builder.setCancelable(false);
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            if (Utils.getNetworkState(this))
+            {
+                updatePerform(apk);
+            }
         }
 
     }
@@ -1499,18 +1455,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     /**
      * perform apk update
      */
-    private DialogInterface.OnClickListener updatePerform(ApkDetails apk) {
-        return new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+    private void  updatePerform(ApkDetails apk) {
+        sessionManager.setVersionDetails(null);
+        String link = apk.getAlly().getLink();
+        sessionManager.dialogShow(Constraint.FALSE);
+        new DownloadUpdateApk(MainActivity.this, MainActivity.this).execute(link);
 
-                sessionManager.setVersionDetails(null);
-                String link = apk.getAlly().getLink();
-                sessionManager.dialogShow(Constraint.FALSE);
-                new DownloadUpdateApk(MainActivity.this, MainActivity.this).execute(link);
-
-            }
-        };
     }
 
     /**

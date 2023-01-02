@@ -48,7 +48,7 @@ public class DownloadUpdateApk extends AsyncTask<String, String, String> {
         super.onPreExecute();
         this.progressDialog = new ProgressDialog(context);
         this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        this.progressDialog.setMessage(Constraint.WAIT);
+        this.progressDialog.setMessage(context.getString(R.string.update_app_message));
         this.progressDialog.setCancelable(false);
         this.progressDialog.show();
     }

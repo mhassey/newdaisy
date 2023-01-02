@@ -162,6 +162,7 @@ public class Constraint {
     public static final String IDLE = "Idle";
     public static final String ANDROID = "Android";
     public static final String FILE = "file://";
+
     public static final String WAIT = "Wait...";
     public static final String TYPE = "application/zip";
     public static final String DOT_ZIP = ".zip";

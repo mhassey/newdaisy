@@ -184,6 +184,9 @@
             android:showOnLockScreen="true" />
 
         <receiver android:name="com.ally.broadcast.broadcastforbackgroundservice.AlarmReceiverForBackground" />
+        <receiver android:name="com.ally.utils.InstallResultReceiver" />
+
+
         <receiver
             android:name="com.ally.broadcast.broadcastforbackgroundservice.AlarmBootBackgroundReceiver"
             android:enabled="false"

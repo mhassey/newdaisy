@@ -39,7 +39,6 @@ import com.ally.app.AppController;
 import com.ally.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.ally.common.session.SessionManager;
 import com.ally.pojo.LogsDataPojo;
-import com.ally.pojo.response.InternetResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
@@ -93,10 +92,7 @@ public class Utils {
     public static boolean checkWifiState(Context context) {
         try {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            InternetResponse internetResponse = new InternetResponse();
             try {
-                ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-
                 if (wifiManager.isWifiEnabled()) {
                     if (wifiManager.getConnectionInfo().getIpAddress() != 0) {
                         return true;

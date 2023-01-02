@@ -18,7 +18,6 @@ import com.ally.R;
 import com.ally.activity.base.BaseFragment;
 import com.ally.activity.onBoarding.slider.OnBoarding;
 import com.ally.databinding.WifiAskBinding;
-import com.ally.pojo.response.InternetResponse;
 import com.ally.utils.Constraint;
 import com.ally.utils.Utils;
 
@@ -80,7 +79,6 @@ public class WifiAsk extends BaseFragment implements View.OnClickListener {
 
     // Change design at run time
     private void designWork() {
-
         baording.mBinding.tabDotsLayout.getTabAt(Constraint.ZERO).setIcon(getResources().getDrawable(R.drawable.default_dot));
         baording.mBinding.tabDotsLayout.getTabAt(Constraint.ONE).setIcon(getResources().getDrawable(R.drawable.selected_dot_pink));
         baording.mBinding.tabDotsLayout.getTabAt(Constraint.TWO).setIcon(getResources().getDrawable(R.drawable.default_dot));
@@ -139,7 +137,6 @@ public class WifiAsk extends BaseFragment implements View.OnClickListener {
     private BroadcastReceiver wifiStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            InternetResponse internetResponse = new InternetResponse();
             int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_ENABLED:
@@ -158,8 +155,6 @@ public class WifiAsk extends BaseFragment implements View.OnClickListener {
      */
     private void handleResumePermission() {
         boolean wifiPermission = Utils.checkWifiState(getActivity());
-
-
         if (wifiPermission) {
             wifiAskBinding.next.setVisibility(View.VISIBLE);
             wifiAskBinding.tapToOpenWifi.setVisibility(View.VISIBLE);
