@@ -1,0 +1,6 @@
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/mpc_logo"
+    android:insetLeft="@dimen/dp30"
+    android:insetRight="@dimen/dp30"
+    android:insetTop="@dimen/dp30"
+    android:insetBottom="@dimen/dp30"/>

@@ -151,6 +151,7 @@
             android:name=".activity.welcomeScreen.WelcomeScreen"
             android:screenOrientation="portrait" />
         <activity
+            android:theme="@style/Theme.App.Starting"
             android:name=".activity.splash.SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">

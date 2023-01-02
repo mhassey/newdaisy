@@ -104,6 +104,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
     implementation 'com.google.firebase:firebase-database'
+    implementation 'androidx.core:core-splashscreen:1.0.0'
 
 
 
