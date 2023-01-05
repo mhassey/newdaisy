@@ -410,6 +410,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
 
 
+
+
     /**
      * Handle full screen mode
      */
@@ -1587,6 +1589,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 //            }
 
             Log.e("Kali1" + cmd, msg);
+
+
+        }
+
+        @JavascriptInterface
+        public void systemEvent(String cmd, JSONArray msg) {
 
 
         }
