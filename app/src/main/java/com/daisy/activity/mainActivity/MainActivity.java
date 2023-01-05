@@ -81,7 +81,6 @@ import com.daisy.pojo.response.Promotions;
 import com.daisy.pojo.response.Sanitised;
 import com.daisy.pojo.response.SocketEvent;
 import com.daisy.pojo.response.UpdateCards;
-import com.daisy.service.BackgroundService;
 import com.daisy.service.LogGenerateService;
 import com.daisy.utils.CheckForSDCard;
 import com.daisy.utils.Constraint;

@@ -274,7 +274,7 @@ public class DownloadFile extends AsyncTask<String, String, String> {
 
                     OutputStream output = new FileOutputStream(path);
 
-                    byte data[] = new byte[1024];
+                    byte[] data = new byte[1024];
 
                     long total = 0;
 
@@ -301,17 +301,14 @@ public class DownloadFile extends AsyncTask<String, String, String> {
                         if (!file.getAbsolutePath().contains(Constraint.PROMOTION))
                             SessionManager.get().setLocation(file.getParent());
                     }
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            boolean isDone = new ZipManager().unpackZip(path, download);
-                            if (isDone) {
-                                counter++;
-                            }
-                            if (counter == downloads.size()) {
-                                callBack.callBack(Constraint.SUCCESS);
+                    new Thread(() -> {
+                        boolean isDone = new ZipManager().unpackZip(path, download);
+                        if (isDone) {
+                            counter++;
+                        }
+                        if (counter == downloads.size()) {
+                            callBack.callBack(Constraint.SUCCESS);
 
-                            }
                         }
                     }).start();
 
