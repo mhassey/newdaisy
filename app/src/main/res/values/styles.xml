@@ -11,6 +11,7 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
+        <item name="android:windowIsTranslucent">true</item>
 
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -28,21 +29,6 @@
         <item name="layout_log">@color/white</item>
 
 
-    </style>
-
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <!-- Set the splash screen background, animated icon, and animation duration. -->
-        <item name="windowSplashScreenBackground">@color/white</item>
-
-        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
-             animated drawable. One of these is required. -->
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_inset</item>
-
-        <!-- Required for animated icons -->
-
-        <!-- Set the theme of the Activity that directly follows your splash screen. -->
-        <!-- Required -->
-        <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
     <style name="my_dialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="windowMinWidthMajor">50%</item>

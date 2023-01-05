@@ -9,7 +9,8 @@
         <intent>
             <action android:name="com.motorola.demo.BIND_KSP_ACTION" />
         </intent>
-    </queries> <!-- <queries> -->
+    </queries>
+    <!-- <queries> -->
     <!-- <package android:name="au.com.optus.android.gooptus" /> -->
     <!-- <package android:name="au.com.fetchtv" /> -->
     <!-- <package android:name="au.com.optus.optusstadium" /> -->
@@ -131,7 +132,7 @@
 
         <activity
             android:name=".activity.baseUrl.BaseUrlSettings"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.refreshTimer.RefreshTimer"
             android:screenOrientation="portrait" />
@@ -151,7 +152,7 @@
             android:name=".activity.welcomeScreen.WelcomeScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:theme="@style/Theme.App.Starting"
+
             android:name=".activity.splash.SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">

@@ -28,11 +28,8 @@ public class SplashScreen extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        androidx.core.splashscreen.SplashScreen splashScreen = androidx.core.splashscreen.SplashScreen.installSplashScreen(this);
-
         super.onCreate(savedInstanceState);
-        splashScreen.setKeepOnScreenCondition(() -> true );
-
+        setContentView(R.layout.activity_splash_screen);
         initView();
     }
 

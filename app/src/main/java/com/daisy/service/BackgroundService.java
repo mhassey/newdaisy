@@ -66,7 +66,7 @@ import com.daisy.utils.CameraLoad;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
-import com.rvalerio.fgchecker.AppChecker;
+import com.daisy.utils.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 

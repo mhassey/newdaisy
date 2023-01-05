@@ -5,7 +5,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 32
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "30.0.2"
 
     signingConfigs {
         debug {
@@ -56,17 +56,12 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
-
-
-
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
     buildFeatures {
+        dataBinding true
         viewBinding true
     }
 
@@ -99,7 +94,6 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.pusher:pusher-java-client:2.2.1'
-    implementation "com.rvalerio:fgchecker:${rootProject.ext.fgChecker}"
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation "com.google.android.gms:play-services-location:${rootProject.ext.locationService}"
     implementation platform("com.google.firebase:firebase-bom:${rootProject.ext.firebaseBom}")
