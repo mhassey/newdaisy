@@ -15,7 +15,6 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -525,7 +524,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
+//            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
 
             mBinding.webView.setWebChromeClient(new WebClient());
 
@@ -1581,16 +1580,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void logEvent(String cmd, String msg) {
-//            if (cmd.equals(Constraint.click)) {
-//                SessionManager.get().clckPerform(true);
-//                if (!Utils.isMyServiceRunning(LogGenerateService.class, context)) {
-//                    startService(new Intent(MainActivity.this, LogGenerateService.class));
-//                }
-//            }
-
-            Log.e("Kali1" + cmd, msg);
-
-
         }
 
         @JavascriptInterface
@@ -1602,7 +1591,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void heartbeat(String msg) {
-            Log.e("Kali2", msg);
+
         }
 
 
@@ -1613,8 +1602,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
 
         @JavascriptInterface
         public void callFromJS(String event) {
-            Log.e("Kali3", event);
-
         }
     }
 

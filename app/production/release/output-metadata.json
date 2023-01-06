@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.ally",
+  "applicationId": "com.allyy",
   "variantName": "productionRelease",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 32,
-      "versionName": "1.36",
+      "versionCode": 37,
+      "versionName": "1.37",
       "outputFile": "app-production-release.apk"
     }
   ]

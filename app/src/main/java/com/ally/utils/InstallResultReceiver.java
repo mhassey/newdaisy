@@ -19,8 +19,6 @@ public class InstallResultReceiver extends BroadcastReceiver {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            ValidationHelper.showToast(context,"AAA gya");
-            Log.e(TAG, "action="+intent.getAction()+" ,status="+status);
             if (status == PackageInstaller.STATUS_SUCCESS) {
                 // success
                 Log.e(TAG, packageName + " install success, msg: "+intent.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE));
