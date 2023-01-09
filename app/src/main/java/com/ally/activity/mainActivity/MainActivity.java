@@ -105,7 +105,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     private MainActivityViewModel mViewModel;
     private Context context;
     private WebViewClient yourWebClient;
-    private CountDownTimer sanitisedTimer;
     private UpdateProductViewModel updateProductViewModel;
     private GetCardViewModel getCardViewModel;
 
@@ -524,7 +523,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-//            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
+            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
 
             mBinding.webView.setWebChromeClient(new WebClient());
 
@@ -546,6 +545,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
             mBinding.webView.getSettings().setUseWideViewPort(Constraint.TRUE);
+            mBinding.webView.getSettings().setLoadsImagesAutomatically(true);
 
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setDisplayZoomControls(Constraint.FALSE);

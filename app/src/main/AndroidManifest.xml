@@ -79,7 +79,8 @@
             android:name="com.ally.service.SecurityService"
             android:enabled="true"
             android:exported="true" />
-
+        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="false" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -87,6 +88,7 @@
         <activity
             android:name="com.ally.activity.feedBack.FeedBackActivity"
             android:exported="false"
+
             android:screenOrientation="sensorLandscape" />
 
         <provider
