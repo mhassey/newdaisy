@@ -40,6 +40,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ally.pojo.RefreshLayout;
 import com.ally.utils.InstallResultReceiver;
 import com.ally.utils.InstallUtils;
 import com.bumptech.glide.Glide;
@@ -528,9 +529,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.setWebChromeClient(new WebClient());
 
             setWebViewClient();
+            mBinding.webView.getSettings().setDatabaseEnabled(true);
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
             mBinding.webView.setSoundEffectsEnabled(Constraint.TRUE);
+            mBinding.webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
             mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
@@ -553,7 +557,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             mBinding.webView.setScrollbarFadingEnabled(Constraint.FALSE);
             //mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
-            mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
 
             mBinding.webView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
 
@@ -1170,6 +1173,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         }
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshLayout(RefreshLayout sanitised) {
+        mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
+
+
+    }
+
 
 
     /**
@@ -1582,11 +1592,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         public void logEvent(String cmd, String msg) {
         }
 
-        @JavascriptInterface
-        public void systemEvent(String cmd, JSONArray msg) {
 
-
-        }
+//        @JavascriptInterface
+//        public void systemEvent(String cmd, JSONArray msg) {
+//
+//
+//        }
 
 
         @JavascriptInterface

@@ -40,6 +40,7 @@ import com.ally.checkCardAvailability.CheckCardAvailability;
 import com.ally.common.session.SessionManager;
 import com.ally.database.DBCaller;
 import com.ally.interfaces.SyncLogCallBack;
+import com.ally.pojo.RefreshLayout;
 import com.ally.pojo.response.ApkDetails;
 import com.ally.pojo.response.InternetResponse;
 import com.ally.pojo.response.Inversion;
@@ -284,6 +285,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 @Override
                 public void run() {
                     try {
+                        EventBus.getDefault().post(new RefreshLayout());
                         ValidatePromotion validatePromotion = new ValidatePromotion();
                         validatePromotion.checkPromotion();
                     } catch (Exception e) {

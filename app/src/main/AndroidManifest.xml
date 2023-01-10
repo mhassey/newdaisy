@@ -88,7 +88,6 @@
         <activity
             android:name="com.ally.activity.feedBack.FeedBackActivity"
             android:exported="false"
-
             android:screenOrientation="sensorLandscape" />
 
         <provider
