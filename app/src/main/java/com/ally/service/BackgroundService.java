@@ -272,6 +272,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         checkInversion();
         updateAPk();
         validatePromotion();
+        refreshLayout();
     }
 
     // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
@@ -291,6 +292,26 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     } catch (Exception e) {
 
                     }
+                }
+            }, second, second);
+
+        } catch (Exception e) {
+        }
+
+    }
+
+
+    // for every defined time app will fire ValidatePromotion checkPromotion method for checking our all promotion are valid or not
+    private void refreshLayout() {
+        try {
+            int hour = Constraint.ZERO;
+            int minit = 30;
+            int second = ((hour * Constraint.THIRTY_SIX_HUNDRED) + (minit * Constraint.SIXTY)) * Constraint.THOUSAND;
+            refreshTimer4 = new Timer();
+            refreshTimer4.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                        EventBus.getDefault().post(new RefreshLayout());
                 }
             }, second, second);
 

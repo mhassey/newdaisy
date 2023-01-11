@@ -1175,8 +1175,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshLayout(RefreshLayout sanitised) {
-        mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
-
+//        mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
+//        mBinding.webView.loadUrl( "javascript:window.location.reload( true )" );
 
     }
 
