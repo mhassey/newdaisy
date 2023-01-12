@@ -27,10 +27,8 @@ public class InstallUtils {
         sessionParams.setSize(apkFile.length());
 
         int sessionId = createSession(packageInstaller, sessionParams);
-        Log.d(TAG,"install28  sessionId="+sessionId);
         if (sessionId != -1) {
             boolean copySuccess = copyInstallFile(packageInstaller, sessionId, apkFilePath);
-            Log.d(TAG,"install28  copySuccess="+copySuccess);
             if (copySuccess) {
                 execInstallCommand(context,packageInstaller, sessionId,receiver);
             }
@@ -92,8 +90,6 @@ public class InstallUtils {
             mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 5000, mPendingIntent);
             session.commit(pendingIntent.getIntentSender());
 
-
-            Log.i(TAG, "begin session");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
