@@ -1232,4 +1232,8 @@ public class SessionManager {
     public void clckPerform(boolean b) {
         pref.setBooleanData(Constraint.Click, b) ;
     }
+
+    public void setApkDetailsNull() {
+        pref.setStringData(PrefConstant.APK_DETAILS, null);
+    }
 }

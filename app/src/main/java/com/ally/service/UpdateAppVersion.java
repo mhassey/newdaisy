@@ -46,7 +46,6 @@ public class UpdateAppVersion {
                     GlobalResponse<VersionUpdate> versionUpdate = response.body();
                     if (versionUpdate.isApi_status()) {
                         if (versionUpdate.getResult().isId()) {
-
                             sessionManager.setApkVersion(BuildConfig.VERSION_NAME);
                         }
                     }

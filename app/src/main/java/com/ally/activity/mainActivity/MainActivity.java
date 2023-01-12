@@ -497,6 +497,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
         installApk();
         sessionManager.uninstallShow(true);
         sessionManager.deleteApkVersion();
+        sessionManager.setApkDetailsNull();
+
 
 
     }

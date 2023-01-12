@@ -22,7 +22,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -741,7 +740,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Handle touch event on phone
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Log.e("Working", "Hance Proved");
         count = Constraint.ZERO;
         Inversion inversion = new Inversion();
         inversion.setInvert(Utils.getInvertedTime());
