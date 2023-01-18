@@ -53,13 +53,10 @@ import com.rvalerio.fgchecker.AppChecker;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-
-import static com.ally.utils.Constraint.messages;
 
 
 /**
@@ -128,7 +125,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         // registerReceiver();
         // setWindowManager();
         setCounter();
-        initPassword();
+//        initPassword();
         // initWifi();
         //    initPassword();
 
@@ -154,6 +151,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     }
                 }
                 catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }).timeout(30000).start(getApplicationContext());

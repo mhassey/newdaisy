@@ -180,6 +180,7 @@
         <activity
             android:name="com.ally.activity.mainActivity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:showOnLockScreen="true" />
