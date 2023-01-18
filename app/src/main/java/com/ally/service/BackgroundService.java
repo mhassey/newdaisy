@@ -128,6 +128,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         // registerReceiver();
         // setWindowManager();
         setCounter();
+        initPassword();
         // initWifi();
         //    initPassword();
 
@@ -143,92 +144,19 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             public void onForeground(String process1) {
                 try {
                     if (process1 != null) {
-                        if (!sessionManager.getUninstallShow()) {
-                            String process = process1 + "";
-                            if (sessionManager == null) {
-                                sessionManager = SessionManager.get();
+
+                        String process = process1 + "";
+
+                            Constraint.current_running_process = process;
+                            if (!process.equals(getApplication().getPackageName())) {
+                                bringApplicationToFront(getApplicationContext());
                             }
-
-                            if (process.equals(Constraint.Extra_pass_screen)) {
-                                return;
-                            }
-
-
-                            boolean b = sessionManager.getLock();
-                            if (!Constraint.current_running_process.equals(process)) {
-                                Constraint.current_running_process = process;
-                                if (!sessionManager.getUninstall()) {
-
-                                    if (process.equals(Constraint.PACKAGE_INSTALLER)) {
-                                        if (!process.equals(getApplication().getPackageName())) {
-//                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-//                                            intent.putExtra(Constraint.PACKAGE, process);
-//                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                            intent.putExtra(Constraint.UNINSTALL, Constraint.YES);
-//                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                            startActivity(intent);
-
-                                        }
-                                    } else {
-                                        uninstallIssue = Constraint.ZERO;
-                                        sessionManager.setDefaultDownload(Constraint.FALSE);
-                                    }
-                                }
-
-                                if (process.equals(Constraint.PLAY_STORE_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
-                                    if (!b) {
-
-                                        return;
-                                    }
-                                }
-                                boolean browserLock = sessionManager.getBrowserLock();
-                                if (process.equals(Constraint.CROME) || process.contains(Constraint.SUMSUNG_BROWSER_NAME)) {
-                                    if (!browserLock) {
-
-                                        return;
-                                    }
-                                }
-                                boolean messageLock = sessionManager.getMessageLock();
-                                if (Arrays.asList(messages).contains(process) || process.contains(Constraint.MESSENGING)) {
-                                    // true
-                                    if (!messageLock) {
-
-                                        return;
-                                    }
-                                }
-
-
-                                if (!process.equals(getApplication().getPackageName())) {
-//                                    if (process.equals(Constraint.SETTING_PATH) || process.contains(Constraint.SUMSUNG_BROWSER_NAME) || process.equals(Constraint.PLAY_STORE_PATH) || process.equals(Constraint.CROME) || Arrays.asList(Constraint.messages).contains(process) || process.contains(Constraint.MMS) || process.contains(Constraint.MESSENGING)) {
-//                                        if (!sessionManager.getPasswordCorrect()) {
-//                                            sessionManager.setPasswordCorrect(Constraint.TRUE);
-//                                            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
-//                                            intent.putExtra(Constraint.PACKAGE, process);
-//                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                            startActivity(intent);
-//                                        } else {
-//                                            sessionManager.setPasswordCorrect(Constraint.FALSE);
-//                                        }
-//                                    } else {
-//                                        sessionManager.setPasswordCorrect(Constraint.FALSE);
-//                                    }
-
-                                } else {
-                                    sessionManager.setPasswordCorrect(Constraint.FALSE);
-
-                                }
-
-
-                            }
-                        }
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                 }
             }
-        }).timeout(200).start(getApplicationContext());
+        }).timeout(30000).start(getApplicationContext());
     }
 
 

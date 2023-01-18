@@ -10,8 +10,8 @@ android {
         applicationId "com.ally"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 38
-        versionName "1.38"
+        versionCode 39
+        versionName "1.39"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

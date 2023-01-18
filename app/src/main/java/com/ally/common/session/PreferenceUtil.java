@@ -31,7 +31,7 @@ public class PreferenceUtil {
     }
 
     public void setFloatData(Context context, String key, float value) {
-        SharedPreferences.Editor appInstallInfoEditor = mSpref.edit();
+         SharedPreferences.Editor appInstallInfoEditor = mSpref.edit();
         appInstallInfoEditor.putFloat(key, value);
         appInstallInfoEditor.commit();
     }

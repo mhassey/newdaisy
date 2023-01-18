@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ally.R;
 import com.ally.app.AppController;
 import com.ally.common.session.SessionManager;
+import com.ally.pojo.LangPojo;
 
 import java.util.Locale;
 
@@ -34,6 +35,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppController.getInstance().setContext(getApplicationContext());
+
         initView();
 
     }
