@@ -23,7 +23,9 @@ public class AlarmReceiverForBackground extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (!Utils.isMyServiceRunning(BackgroundService.class, context)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startService(new Intent(context, BackgroundService.class));
+
+
+                context.startForegroundService(new Intent(context, BackgroundService.class));
             } else {
                 context.startService(new Intent(context, BackgroundService.class));
             }

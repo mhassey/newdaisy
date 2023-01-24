@@ -122,12 +122,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         //securityIntent = new Intent(getApplicationContext(), SecurityService.class);
         //showNotification();
         initWakeUpLock();
+        showNotification();
         // registerReceiver();
         // setWindowManager();
         setCounter();
 //        initPassword();
         // initWifi();
-        //    initPassword();
+            initPassword();
 
     }
 
@@ -140,21 +141,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             @Override
             public void onForeground(String process1) {
                 try {
-                    if (process1 != null) {
-
-                        String process = process1 + "";
-
-                            Constraint.current_running_process = process;
-                            if (!process.equals(getApplication().getPackageName())) {
-                                bringApplicationToFront(getApplicationContext());
-                            }
-                    }
+                    bringApplicationToFront(getApplicationContext());
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }).timeout(30000).start(getApplicationContext());
+        }).timeout(1000*60*60).start(getApplicationContext());
     }
 
 
@@ -503,6 +496,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             mainHandler.post(myRunnable);
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

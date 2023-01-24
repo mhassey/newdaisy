@@ -73,7 +73,8 @@
         <activity
             android:name="com.ally.activity.updateProduct.UpdateProduct"
             android:exported="false"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="sensorLandscape" >
+        </activity>
 
         <service
             android:name="com.ally.service.SecurityService"
