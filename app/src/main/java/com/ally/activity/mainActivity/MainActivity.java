@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
@@ -41,7 +40,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ally.activity.welcomeScreen.WelcomeScreen;
 import com.ally.pojo.RefreshLayout;
 import com.ally.utils.InstallResultReceiver;
 import com.ally.utils.InstallUtils;
@@ -529,7 +527,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
     @SuppressLint("JavascriptInterface")
     private void loadURL() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
-            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
+//            mBinding.webView.addJavascriptInterface(new WebAppInterface(this), "Android"); // To call methods in Android from using js in the html, AndroidInterface.showToast, AndroidInterface.getAndroidVersion etc
 
             mBinding.webView.setWebChromeClient(new WebClient());
 
@@ -545,14 +543,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnClick
             mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             mBinding.webView.clearCache(true);
+            mBinding.webView.getSettings().setDatabasePath(getApplicationContext().getFilesDir().getAbsolutePath() + "/databases");
+
             mBinding.webView.getSettings().setDomStorageEnabled(true);
 
             mBinding.webView.getSettings().setAllowContentAccess(Constraint.TRUE);
-            mBinding.webView.getSettings().setDomStorageEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setJavaScriptEnabled(Constraint.TRUE); // enable javascript
             mBinding.webView.getSettings().setBuiltInZoomControls(Constraint.TRUE);
             mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mBinding.webView.getSettings().setLoadWithOverviewMode(Constraint.TRUE);
+            mBinding.webView.getSettings().setAppCachePath(getApplicationContext().getFilesDir().getAbsolutePath() + "/cache");
+
             mBinding.webView.getSettings().setUseWideViewPort(Constraint.TRUE);
             mBinding.webView.getSettings().setLoadsImagesAutomatically(true);
 

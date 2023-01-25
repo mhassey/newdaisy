@@ -147,7 +147,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                     e.printStackTrace();
                 }
             }
-        }).timeout(1000*60*60).start(getApplicationContext());
+        }).timeout(1000*60*5).start(getApplicationContext());
     }
 
 
