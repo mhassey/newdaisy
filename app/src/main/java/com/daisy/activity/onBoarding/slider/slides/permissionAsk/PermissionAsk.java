@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
+import com.daisy.activity.base.BaseFragment;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
@@ -52,7 +53,7 @@ import java.util.Locale;
  * Purpose -  PermissionAsk is an fragment that ask for all permission from user
  * Responsibility - Its ask for predefine permission and customized permission that our app is used
  **/
-public class PermissionAsk extends Fragment implements View.OnClickListener {
+public class PermissionAsk extends BaseFragment implements View.OnClickListener {
     private static ActivityOnBaordingBinding onBaordingBindingMain;
     private FragmentPermissionAskBinding permissionAskBinding;
     private PermissionAskViewModel permissionAskViewModel;
@@ -106,6 +107,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
      **/
     private void initView() {
         context = requireContext();
+        defineGlobalSettings();
         permissionAskViewModel = new ViewModelProvider(this).get(PermissionAskViewModel.class);
         hasSecurity();
 
@@ -114,7 +116,24 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         }
 
     }
+    private void defineGlobalSettings() {
 
+        globalSettingsBoldFont(permissionAskBinding.permissionLabel);
+        globalSettingsRegularFont(permissionAskBinding.permissionInnerLabel);
+        globalSettingsBoldFont(permissionAskBinding.grandTxt);
+        globalSettingsBoldFont(permissionAskBinding.displayOverTxt);
+        globalSettingsBoldFont(permissionAskBinding.usageTxt);
+        globalSettingsBoldFont(permissionAskBinding.modifySystemTxt);
+        globalSettingsBoldFont(permissionAskBinding.displayBatteryTxt);
+        globalSettingsBoldFont(permissionAskBinding.gps);
+        globalSettingsBoldFont(permissionAskBinding.adminTxt);
+        globalSettingsBoldFont(permissionAskBinding.miExtraText);
+        globalSettingsBoldFont(permissionAskBinding.autoStartTxt);
+        globalSettingsBoldFont(permissionAskBinding.next);
+
+
+
+    }
     private void hasSecurity() {
         boolean hasFeature = requireActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);
         if (hasFeature)

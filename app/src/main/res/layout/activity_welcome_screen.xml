@@ -27,14 +27,15 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/welcome_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rbold"
                     android:text="@string/welcome"
                     android:textColor="@color/dark_grey_blue"
                     android:textSize="@dimen/dp25" />
 
                 <TextView
+                    android:id="@+id/welcome_inner_label"
                     android:layout_marginTop="@dimen/dp6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,7 +45,6 @@
                     android:textSize="@dimen/dp14" />
                 <EditText
                     android:id="@+id/key_name"
-
                     android:layout_marginTop="@dimen/dp14"
                     android:backgroundTint="@color/orange"
                     android:padding="@dimen/dp10"
@@ -60,7 +60,6 @@
 
                 <Button
                     android:id="@+id/begin"
-                    style="@style/fontBold"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp40"
                     android:layout_marginTop="@dimen/dp13"

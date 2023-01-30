@@ -223,8 +223,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         countDownTimer.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (dialog != null && dialog.isShowing())
-                    dialog.dismiss();
+                try {
+                    if (dialog != null && dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
             }
         }, Constraint.TWENTY_THOUSAND);
 

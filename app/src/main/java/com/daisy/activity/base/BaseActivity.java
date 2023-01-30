@@ -8,12 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,6 +42,9 @@ public class BaseActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
     private ProgressDialog progressDialog;
+    private Typeface regularFontTypeFace;
+    private Typeface boldFontTypeFace;
+    private Typeface semiBoldFontTypeFace;
     Timer brightNessCounter = new Timer();
 
 
@@ -216,5 +221,49 @@ public class BaseActivity extends AppCompatActivity {
         else
             SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getDefaultBrightness() + "") / 10));
 
+    }
+    public void globalSettingsRegularFont(TextView view)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            if (regularFontTypeFace==null)
+            {
+                regularFontTypeFace = getResources().getFont(R.font.rragular);
+            }
+
+            view.setTypeface(regularFontTypeFace);
+
+
+        }
+    }
+    public void globalSettingsBoldFont(TextView view)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            if (boldFontTypeFace==null)
+            {
+                boldFontTypeFace = getResources().getFont(R.font.rbold);
+            }
+
+            view.setTypeface(boldFontTypeFace);
+
+
+        }
+    }
+
+
+    public void globalSettingsSemiBoldFont(TextView view)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            if (semiBoldFontTypeFace==null)
+            {
+                semiBoldFontTypeFace = getResources().getFont(R.font.rmedium);
+            }
+
+            view.setTypeface(semiBoldFontTypeFace);
+
+
+        }
     }
 }

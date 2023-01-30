@@ -85,6 +85,16 @@ public class SignUp extends BaseFragment implements View.OnClickListener {
         sessionManager = SessionManager.get();
         signUpValidationHelper = new SignUpValidationHelper(context, loginBinding);
         signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+        initGlobalSettings();
+    }
+
+    private void initGlobalSettings() {
+        globalSettingsBoldFont(loginBinding.loginLabel);
+        globalSettingsRegularFont(loginBinding.loginInnerLabel);
+        globalSettingsBoldFont(loginBinding.singup);
+
+
+
     }
 
     @Override

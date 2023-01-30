@@ -84,9 +84,27 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
         alert.setView(alertBinding.getRoot());
         alert.setCancelable(false);
         dialog = alert.create();
+        initGlobalSettings();
         sessionWork();
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
         getDefaultUpdateTime();
+
+    }
+
+    private void initGlobalSettings() {
+        globalSettingsBoldFont(mBinding.developerLabel);
+        globalSettingsBoldFont(mBinding.setRefreshRate);
+        globalSettingsBoldFont(mBinding.changeLanguage);
+        globalSettingsBoldFont(mBinding.directApkUpdate);
+        globalSettingsBoldFont(mBinding.logs);
+        globalSettingsBoldFont(mBinding.feedBack);
+        globalSettingsBoldFont(mBinding.senaitisedLabel);
+        globalSettingsBoldFont(mBinding.securityLabel);
+        globalSettingsBoldFont(mBinding.enableSlientAlarmLabel);
+        globalSettingsRegularFont(mBinding.versionLabel);
+        globalSettingsRegularFont(mBinding.appVersion);
+        globalSettingsRegularFont(mBinding.lastUpdateLabel);
+        globalSettingsRegularFont(mBinding.updatetime);
 
     }
 

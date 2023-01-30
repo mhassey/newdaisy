@@ -22,14 +22,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/setting_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rbold"
                 android:text="@string/settings"
                 android:textColor="@color/dark_grey_blue"
                 android:textSize="@dimen/dp24" />
 
             <TextView
+                android:id="@+id/setting_inner_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp6"
@@ -52,11 +53,11 @@
 
                 <TextView
                     android:id="@+id/lock_access_to_browser_txt"
-                    style="@style/fontBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+
 
                     android:text="@string/lock_access_to_browser"
                     android:textColor="@color/white"
@@ -76,7 +77,6 @@
                         android:id="@+id/yes_browser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rragular"
                         android:gravity="center"
                         android:text="@string/yes"
                         android:textSize="@dimen/dp8"
@@ -107,7 +107,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp4"
-                        android:fontFamily="@font/rragular"
                         android:gravity="center"
                         android:text="@string/no"
                         android:textSize="@dimen/dp8" />
@@ -129,7 +128,6 @@
 
                 <TextView
                     android:id="@+id/lock_access_to_play_store_txt"
-                    style="@style/fontBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -180,7 +178,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp4"
-                        android:fontFamily="@font/rragular"
                         android:gravity="center"
                         android:text="@string/no"
                         android:textSize="@dimen/dp8" />
@@ -203,7 +200,6 @@
 
                 <TextView
                     android:id="@+id/lock_access_to_msg_txt"
-                    style="@style/fontBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -275,7 +271,6 @@
 
                 <TextView
                     android:id="@+id/delete_device_content_txt"
-                    style="@style/fontBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -337,7 +332,6 @@
 
             <TextView
                 android:id="@+id/next"
-                style="@style/fontBold"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp13"

@@ -72,6 +72,7 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
     private void initView() {
 
         context = requireContext();
+        initGlobalSettings();
         mViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
         addOrientationData();
         ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(context, R.layout.custom_spinner_center,R.id.text1, mViewModel.getOrientation());
@@ -80,6 +81,12 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         mBinding.webkitOrientation.setAdapter(orientationAdapter);
 
 
+    }
+
+    private void initGlobalSettings() {
+        globalSettingsBoldFont(mBinding.productLabel);
+        globalSettingsRegularFont(mBinding.productInnerLabel);
+        globalSettingsBoldFont(mBinding.begin);
     }
 
 

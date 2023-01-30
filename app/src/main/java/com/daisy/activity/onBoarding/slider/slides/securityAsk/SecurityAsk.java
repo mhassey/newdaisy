@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.daisy.R;
+import com.daisy.activity.base.BaseFragment;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentSecurityAskBinding;
 
@@ -22,7 +23,7 @@ import com.daisy.databinding.FragmentSecurityAskBinding;
  * Purpose -  SecurityAsk is an fragment that ask for security checks
  * Responsibility - Its ask for some security check example delete photo or not
  **/
-public class SecurityAsk extends Fragment implements View.OnClickListener {
+public class SecurityAsk extends BaseFragment implements View.OnClickListener {
 
     public FragmentSecurityAskBinding securityAskBinding;
     private Context context;
@@ -72,6 +73,26 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
 
     private void initView() {
         context = requireContext();
+        defineGlobalSettings();
+
+    }
+
+    private void defineGlobalSettings() {
+        globalSettingsBoldFont(securityAskBinding.settingLabel);
+        globalSettingsRegularFont(securityAskBinding.settingInnerLabel);
+        globalSettingsBoldFont(securityAskBinding.lockAccessToBrowserTxt);
+        globalSettingsBoldFont(securityAskBinding.lockAccessToPlayStoreTxt);
+        globalSettingsBoldFont(securityAskBinding.lockAccessToMsgTxt);
+        globalSettingsBoldFont(securityAskBinding.deleteDeviceContentTxt);
+        globalSettingsBoldFont(securityAskBinding.next);
+        globalSettingsRegularFont(securityAskBinding.yesBrowser);
+        globalSettingsRegularFont(securityAskBinding.noBrowser);
+        globalSettingsRegularFont(securityAskBinding.yesPlayTxt);
+        globalSettingsRegularFont(securityAskBinding.noPlay);
+        globalSettingsRegularFont(securityAskBinding.yesLock);
+        globalSettingsRegularFont(securityAskBinding.noLock);
+        globalSettingsRegularFont(securityAskBinding.yesDeviceContent);
+        globalSettingsRegularFont(securityAskBinding.noDeviceContent);
 
     }
 

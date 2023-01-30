@@ -22,14 +22,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/permission_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rbold"
                 android:text="@string/permission"
                 android:textColor="@color/dark_grey_blue"
                 android:textSize="@dimen/dp24" />
 
             <TextView
+                android:id="@+id/permission_inner_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp6"
@@ -68,8 +69,8 @@
                         android:visibility="invisible" />
 
                     <TextView
+
                         android:id="@+id/grand_txt"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp3"
@@ -113,7 +114,6 @@
 
                     <TextView
                         android:id="@+id/display_over_txt"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp3"
@@ -156,7 +156,6 @@
 
                     <TextView
                         android:id="@+id/usage_txt"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp3"
@@ -200,7 +199,6 @@
 
                     <TextView
                         android:id="@+id/modify_system_txt"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp3"
@@ -245,7 +243,6 @@
 
                     <TextView
                         android:id="@+id/display_battery_txt"
-                        style="@style/fontBold"
                         android:layout_marginStart="@dimen/dp3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -285,7 +282,6 @@
 
                     <TextView
                         android:id="@+id/gps"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
@@ -328,7 +324,6 @@
 
                     <TextView
                         android:id="@+id/admin_txt"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
@@ -371,7 +366,6 @@
 
                     <TextView
                         android:id="@+id/mi_extra_text"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
@@ -414,7 +408,6 @@
 
                     <TextView
                         android:id="@+id/auto_start_txt"
-                        style="@style/fontBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
@@ -427,7 +420,6 @@
 
             <TextView
                 android:id="@+id/next"
-                style="@style/fontBold"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp13"

@@ -65,7 +65,14 @@ public class RefreshTimer extends BaseActivity implements OnClickListener {
         context = this;
         setNoTitleBar(this);
         sessionManager = SessionManager.get();
+        initGlobalSettings();
         setTimerValue();
+    }
+
+    private void initGlobalSettings() {
+        globalSettingsSemiBoldFont(mBinding.updatetimeLabel);
+        globalSettingsSemiBoldFont(mBinding.directUpdate);
+        globalSettingsSemiBoldFont(mBinding.setTime);
     }
 
     /**

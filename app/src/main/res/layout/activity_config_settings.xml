@@ -3,7 +3,7 @@
 
     <RelativeLayout
         android:id="@+id/root_layout"
-
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -30,12 +30,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/setting_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rbold"
                 android:text="@string/settings"
                 android:textColor="@color/dark_grey_blue"
                 android:textSize="@dimen/dp25" />
+
 
             <TextView
                 android:id="@+id/update_product"
@@ -44,12 +45,10 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/update_product"
                 android:padding="@dimen/dp10"
                 android:textSize="@dimen/dp10" />
-
 
             <TextView
                 android:id="@+id/updatePosition"
@@ -57,7 +56,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/update_position"
                 android:inputType="text"
@@ -70,7 +68,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/direct_update"
                 android:inputType="text"
@@ -85,7 +82,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/developer"
                 android:padding="@dimen/dp10"
@@ -119,7 +115,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/change_brightness"
                 android:padding="@dimen/dp10"
@@ -132,7 +127,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/logout"
                 android:padding="@dimen/dp10"
@@ -175,10 +169,10 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/fontRagular"
+                        android:id="@+id/version_label"
                         android:layout_width="wrap_content"
 
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
 
                         android:text="@string/app_version"
                         android:textColor="@color/gray"
@@ -186,7 +180,6 @@
 
                     <TextView
                         android:id="@+id/appVersion"
-                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 

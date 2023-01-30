@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/rootLayout"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -41,11 +42,11 @@
                 android:src="@drawable/ic_refresh_icon"
                 android:layout_height="@dimen/dp120"/>
             <TextView
+                android:id="@+id/updatetime_label"
                 android:layout_marginBottom="@dimen/dp10"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_alignParentBottom="true"
-                style="@style/fontMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/update_time"

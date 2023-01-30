@@ -107,6 +107,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         setNoTitleBar(this);
         mBinding.appVersion.setText(" " + BuildConfig.VERSION_NAME);
+        initGlobalSettings();
         getDefaultUpdateTime();
         addOrientationData();
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -117,6 +118,19 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
         brightness.setView(brightnessBinding.getRoot());
         brightness.setCancelable(false);
         brightnessDialog = brightness.create();
+
+    }
+
+    private void initGlobalSettings() {
+        globalSettingsBoldFont(mBinding.settingLabel);
+        globalSettingsBoldFont(mBinding.updateProduct);
+        globalSettingsBoldFont(mBinding.updatePosition);
+        globalSettingsBoldFont(mBinding.directUpdate);
+        globalSettingsBoldFont(mBinding.developerOption);
+        globalSettingsBoldFont(mBinding.changeBrightness);
+        globalSettingsBoldFont(mBinding.logoutApp);
+        globalSettingsRegularFont(mBinding.versionLabel);
+        globalSettingsRegularFont(mBinding.appVersion);
 
     }
 

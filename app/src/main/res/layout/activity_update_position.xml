@@ -3,6 +3,7 @@
     <LinearLayout
 
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -38,7 +39,7 @@
                 android:src="@drawable/ic_location_icon" />
 
             <TextView
-                style="@style/fontMedium"
+                android:id="@+id/modify_position_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -54,10 +55,10 @@
 
 
         <TextView
+            android:id="@+id/aisle_label"
             android:layout_marginStart="@dimen/dp20"
             android:layout_marginTop="@dimen/sp15"
             android:text="@string/isle"
-            android:fontFamily="@font/rragular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -77,9 +78,9 @@
             android:textColorHint="@color/editTextLineColor"
             android:padding="@dimen/dp10" />
         <TextView
+            android:id="@+id/shelf_label"
             android:layout_marginStart="@dimen/dp20"
             android:text="@string/shelf"
-            android:fontFamily="@font/rragular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -98,9 +99,9 @@
             android:textColorHint="@color/editTextLineColor"
             android:padding="@dimen/dp10" />
         <TextView
+            android:id="@+id/position_label"
             android:layout_marginStart="@dimen/dp20"
             android:text="@string/position"
-            android:fontFamily="@font/rragular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText

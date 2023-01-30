@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:background="@color/white"
         android:id="@+id/root_layout"
 
         android:layout_width="match_parent"
@@ -32,21 +33,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/developer_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rbold"
                 android:text="@string/developer"
                 android:textColor="@color/dark_grey_blue"
                 android:textSize="@dimen/dp25" />
 
             <TextView
+
                 android:id="@+id/setRefreshRate"
 
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/adjest_timer"
                 android:padding="@dimen/dp10"
@@ -61,7 +62,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
 
                 android:hint="@string/change_language"
@@ -77,7 +77,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/update_app"
                 android:padding="@dimen/dp10"
@@ -91,7 +90,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/logs"
                 android:imeOptions="actionDone"
@@ -107,7 +105,6 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp14"
                 android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/rbold"
                 android:gravity="center"
                 android:hint="@string/feedback"
                 android:padding="@dimen/dp10"
@@ -124,10 +121,10 @@
 
 
                 <TextView
+                    android:id="@+id/senaitised_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp10"
-                    android:fontFamily="@font/rbold"
 
                     android:text="@string/sanitised"
                     android:textSize="@dimen/sp10" />
@@ -166,10 +163,10 @@
 
 
                 <TextView
+                    android:id="@+id/security_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp10"
-                    android:fontFamily="@font/rbold"
 
                     android:text="@string/securityHeader"
                     android:textSize="@dimen/sp10" />
@@ -208,10 +205,10 @@
 
 
                 <TextView
+                    android:id="@+id/enable_slient_alarm_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp10"
-                    android:fontFamily="@font/rbold"
                     android:text="@string/alramHeader"
                     android:textSize="@dimen/sp10" />
 
@@ -275,7 +272,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/fontRagular"
+                        android:id="@+id/version_label"
                         android:layout_width="wrap_content"
 
                         android:layout_height="match_parent"
@@ -286,7 +283,6 @@
 
                     <TextView
                         android:id="@+id/appVersion"
-                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray"
@@ -302,7 +298,7 @@
                     android:gravity="center|start">
 
                     <TextView
-                        style="@style/fontRagular"
+                        android:id="@+id/last_update_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/last_update_time"
@@ -311,7 +307,6 @@
 
                     <TextView
                         android:id="@+id/updatetime"
-                        style="@style/fontRagular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray"

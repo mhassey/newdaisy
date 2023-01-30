@@ -57,8 +57,16 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
         viewModel = new ViewModelProvider(this).get(UpdatePositionViewModel.class);
         updateProfileValidationHelper=new UpdateProfileValidationHelper(context,mBinding);
         sessionManager = SessionManager.get();
+        initGlobalSettings();
         setDefaultValue();
 
+    }
+
+    private void initGlobalSettings() {
+        globalSettingsSemiBoldFont(mBinding.modifyPositionLabel);
+        globalSettingsRegularFont(mBinding.aisleLabel);
+        globalSettingsRegularFont(mBinding.positionLabel);
+        globalSettingsRegularFont(mBinding.shelfLabel);
     }
 
     /**

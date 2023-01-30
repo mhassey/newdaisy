@@ -22,18 +22,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/login_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/rbold"
                 android:text="@string/credentials"
                 android:textColor="@color/dark_grey_blue"
                 android:textSize="@dimen/dp25" />
 
             <TextView
+                android:id="@+id/login_inner_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp6"
-                android:fontFamily="@font/rragular"
                 android:text="@string/to_proceed_enter_mpc_key"
                 android:textColor="@color/dark_grey_blue"
                 android:textSize="@dimen/dp14" />
@@ -73,7 +73,6 @@
             <TextView
 
                 android:id="@+id/singup"
-                style="@style/fontBold"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp13"

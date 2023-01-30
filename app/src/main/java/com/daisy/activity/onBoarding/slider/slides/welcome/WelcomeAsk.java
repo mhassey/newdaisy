@@ -1,6 +1,7 @@
 package com.daisy.activity.onBoarding.slider.slides.welcome;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
     private ActivityWelcomeScreenBinding mBinding;
@@ -60,13 +62,24 @@ public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
         welcomeValidationHelper = new WelcomeValidationHelper(requireContext(), mBinding);
         welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
         addScreenViewModel = new ViewModelProvider(this).get(AddScreenViewModel.class);
-
+        defineGlobalSettings();
         initView();
         initClick();
         firebaseConfiguration();
         defineKeyToUrlObserver();
         handleGeneralApiResponse();
         return mBinding.getRoot();
+    }
+
+
+
+    private void defineGlobalSettings() {
+
+        globalSettingsBoldFont(mBinding.welcomeLabel);
+       globalSettingsRegularFont(mBinding.welcomeInnerLabel);
+        globalSettingsBoldFont(mBinding.begin);
+
+
     }
 
     private void initView() {

@@ -3,6 +3,7 @@ package com.daisy.activity.base;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,10 @@ import com.daisy.R;
 public class BaseFragment extends Fragment {
 
     private ProgressDialog progressDialog;
+    private Typeface regularFontTypeFace;
+    private Typeface boldFontTypeFace;
+    private Typeface semiBoldFontTypeFace;
+
 
     @Nullable
     @Override
@@ -68,6 +74,50 @@ public class BaseFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void globalSettingsRegularFont(TextView view)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            if (regularFontTypeFace==null)
+            {
+                regularFontTypeFace = getResources().getFont(R.font.rragular);
+            }
+
+            view.setTypeface(regularFontTypeFace);
+
+
+        }
+    }
+    public void globalSettingsBoldFont(TextView view)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            if (boldFontTypeFace==null)
+            {
+                boldFontTypeFace = getResources().getFont(R.font.rbold);
+            }
+
+            view.setTypeface(boldFontTypeFace);
+
+
+        }
+    }
+
+    void globalSettingsSemiBoldFont(TextView view)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            if (semiBoldFontTypeFace==null)
+            {
+                semiBoldFontTypeFace = getResources().getFont(R.font.rmedium);
+            }
+
+            view.setTypeface(semiBoldFontTypeFace);
+
+
         }
     }
 }
