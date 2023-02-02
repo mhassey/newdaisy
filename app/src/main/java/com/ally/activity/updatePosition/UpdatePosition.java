@@ -14,6 +14,7 @@ import com.ally.R;
 import com.ally.activity.base.BaseActivity;
 import com.ally.activity.updatePosition.vo.UpdatePositionResponse;
 import com.ally.common.session.SessionManager;
+import com.ally.database.DBCaller;
 import com.ally.databinding.ActivityUpdatePositionBinding;
 import com.ally.pojo.response.GlobalResponse;
 import com.ally.pojo.response.ScreenPosition;
@@ -129,7 +130,7 @@ public class UpdatePosition extends BaseActivity implements View.OnClickListener
         showHideProgressDialog(false);
         if (updatePositionResponse != null) {
             if (updatePositionResponse.isApi_status()) {
-               // DBCaller.storeLogInDatabase(context,getString(R.string.position_update),"","",Constraint.APPLICATION_LOGS);
+                DBCaller.storeLogInDatabase(context,getString(R.string.position_update),"","",Constraint.APPLICATION_LOGS);
                 sessionManager.setScreenPosition(updatePositionResponse.getResult().getScreenPosition());
             }
             ValidationHelper.showToast(context, updatePositionResponse.getMessage());

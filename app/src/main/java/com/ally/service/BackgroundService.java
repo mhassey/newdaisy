@@ -184,7 +184,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     // set all main counters
     private void setCounter() {
         //setDeleteTimer();
-        // sendLogTimer();
+         sendLogTimer();
         checkUpdate();
         checkPromotion();
         checkInversion();

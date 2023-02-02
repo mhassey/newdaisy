@@ -22,6 +22,7 @@ import com.ally.activity.onBoarding.slider.getCard.GetCardViewModel;
 import com.ally.activity.onBoarding.slider.getCard.vo.GetCardResponse;
 import com.ally.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
 import com.ally.common.session.SessionManager;
+import com.ally.database.DBCaller;
 import com.ally.databinding.ActivityUpdateProductBinding;
 import com.ally.pojo.response.Carrier;
 import com.ally.pojo.response.GeneralResponse;
@@ -387,7 +388,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            //      DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
+                                  DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + getString(R.string.data_store), "", "", Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -450,7 +451,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        //   DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                           DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -474,7 +475,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        //     DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                             DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -520,7 +521,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        //   DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                           DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
@@ -544,7 +545,7 @@ public class UpdateProduct extends BaseActivity implements View.OnClickListener 
                         Utils.writeFile(configFilePath, UrlPath);
                         sessionManager.deleteLocation();
 
-                        //  DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
+                          DBCaller.storeLogInDatabase(context, Constraint.CHANGE_BASE_URL, Constraint.CHANGE_BASE_URL_DESCRIPTION, UrlPath, Constraint.APPLICATION_LOGS);
 
                     }
                 } else {
