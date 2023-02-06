@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 // Add this line
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     compileSdkVersion 32
@@ -37,14 +38,14 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://o2.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://demo.mobilepricecards.com/"'
         }
 
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://o2.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://demo.mobilepricecards.com/"'
         }
     }
 

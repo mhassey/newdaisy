@@ -2,6 +2,8 @@ package com.daisy.utils;
 
 import android.Manifest;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Constraint {
     public static final String FILE_NAME = "index.html";
     public static final String FOLDER_NAME = ".Daisy";
@@ -396,4 +398,8 @@ public class Constraint {
 
     public static String MobilePriceCard = "MobilePriceCard";
     public static long Two_Minute = 60000;
+    @NotNull
+    public static final String STORE_CODE_VALUE="m0t0";
+    @NotNull
+    public static final String PASSWORD_VALUE="m0t0";
 }

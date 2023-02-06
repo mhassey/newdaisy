@@ -9,8 +9,7 @@
         <intent>
             <action android:name="com.motorola.demo.BIND_KSP_ACTION" />
         </intent>
-    </queries>
-    <!-- <queries> -->
+    </queries> <!-- <queries> -->
     <!-- <package android:name="au.com.optus.android.gooptus" /> -->
     <!-- <package android:name="au.com.fetchtv" /> -->
     <!-- <package android:name="au.com.optus.optusstadium" /> -->
@@ -80,6 +79,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".AutoOnboardingWithPermission"
+            android:exported="false" />
         <activity
             android:name=".activity.DeveloperActivity"
             android:exported="false">
@@ -152,7 +154,6 @@
             android:name=".activity.welcomeScreen.WelcomeScreen"
             android:screenOrientation="portrait" />
         <activity
-
             android:name=".activity.splash.SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -197,11 +198,10 @@
             android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.HOME"/>
 
+                <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
-
 
         <service
             android:name=".service.BackgroundService"
