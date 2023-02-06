@@ -3,6 +3,7 @@ package com.daisy.utils;
 import android.Manifest;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Constraint {
     public static final String FILE_NAME = "index.html";
@@ -402,4 +403,6 @@ public class Constraint {
     public static final String STORE_CODE_VALUE="m0t0";
     @NotNull
     public static final String PASSWORD_VALUE="m0t0";
+    @Nullable
+    public static final String OPEN_SELECT_PRODUCT="OpenSelectProduct";
 }

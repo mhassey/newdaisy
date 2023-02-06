@@ -101,12 +101,21 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         sessionManager = SessionManager.get();
         screenAddViewModel = new ViewModelProvider(this).get(ScreenAddViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
+
         setNoTitleBar(this);
         stopSwipe();
         addFragmentList();
         setPager();
         disableSwipeOnViewPager();
+        if (getIntent().getExtras()!=null)
+        {
+            boolean isAutoSelectCall = getIntent().getBooleanExtra(Constraint.OPEN_SELECT_PRODUCT,false);
+            if (isAutoSelectCall)
+            {
+                mBinding.pager.setCurrentItem(Constraint.FOUR);
+            }
 
+        }
     }
 
 
@@ -241,7 +250,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onChanged(GlobalResponse<GetCardResponse> getCardResponseGlobalResponse) {
                         try {
-                            DBCaller.storeLogInDatabase(context, getCardResponseGlobalResponse.getResult().getPricecard().getPriceCardName() + Constraint.DATA_STORE, "", "", Constraint.APPLICATION_LOGS);
                             handleCardGetResponse(getCardResponseGlobalResponse);
                         } catch (IOException e) {
                             e.printStackTrace();

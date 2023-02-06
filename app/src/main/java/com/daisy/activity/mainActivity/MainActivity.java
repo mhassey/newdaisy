@@ -348,7 +348,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             if (CheckForSDCard.isSDCardPresent()) {
                 List<Promotion> promotions = sessionManager.getPromotion();
                 List<Download> downloads = new ArrayList<>();
-                if (checkPermission()) {
+
                     final String url = Utils.getPath();
                     if (url != null) {
                         if (sessionManager.getPriceCard() != null) {
@@ -366,7 +366,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     } else {
                         editorToolOpen();
                     }
-                }
+
             } else {
                 ValidationHelper.showToast(this, getString(R.string.storage_not_available));
             }

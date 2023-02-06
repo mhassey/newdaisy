@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 
 import com.daisy.R;
+import com.daisy.activity.AutoOnboardingWithPermission;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
@@ -96,7 +97,7 @@ public class SplashScreen extends BaseActivity {
                 intent = new Intent(SplashScreen.this, EditorTool.class);
 
             } else {
-                intent = new Intent(SplashScreen.this, OnBoarding.class);
+                intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
 
             }
 

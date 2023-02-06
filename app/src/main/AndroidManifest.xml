@@ -80,7 +80,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AutoOnboardingWithPermission"
+            android:name=".activity.AutoOnboardingWithPermission"
             android:exported="false" />
         <activity
             android:name=".activity.DeveloperActivity"
