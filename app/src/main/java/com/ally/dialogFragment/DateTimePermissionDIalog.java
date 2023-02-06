@@ -41,11 +41,11 @@ public class DateTimePermissionDIalog extends DialogFragment implements View.OnC
     }
 
     public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels / 1;
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
     public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels / 1;
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
     @Override
     public void onClick(View v) {

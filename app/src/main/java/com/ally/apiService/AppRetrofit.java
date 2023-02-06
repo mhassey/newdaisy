@@ -27,7 +27,7 @@ public class AppRetrofit {
     private AppRetrofit() {
         sessionManager=SessionManager.get();
        String baseUrl= sessionManager.getBaseUrl();
-       if (baseUrl!=null && baseUrl!="")
+       if (baseUrl!=null && !baseUrl.equals(""))
        {
            apiService = provideService(baseUrl);
 
