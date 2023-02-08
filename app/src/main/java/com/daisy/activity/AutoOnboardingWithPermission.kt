@@ -207,7 +207,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
         ) {
             getGeneralResponseForProductSelection(screenAddViewModel.deviceId, carriers[0])
         } else {
-
+            redirectToOnBoardingProcess()
         }
 
     }
