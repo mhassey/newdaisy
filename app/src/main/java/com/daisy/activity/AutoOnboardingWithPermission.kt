@@ -248,7 +248,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
                     val product: Product = products[0]
                     mViewModel.setAutoSelectProduct(product)
                     if (mViewModel.autoSelctedProduct != null) {
-                        handleCreateScreen()
+                        callAddScreen()
                     }
                 } else {
                     redirectToOnBoardingProcess()
@@ -293,8 +293,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
                sessionManager.setScreenID(screenAddResponseGlobalResponse.result.id)
                sessionManager.deviceToken = screenAddResponseGlobalResponse.result.token
                sessionManager.setScreenPosition(screenAddResponseGlobalResponse.result.screenPosition)
-//            sessionManager.orientation =
-
+               sessionManager.orientation =getString(R.string.defaultt)
                getCardData()
            } else {
                ValidationHelper.showToast(this, screenAddResponseGlobalResponse.message)
