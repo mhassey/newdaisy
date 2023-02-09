@@ -806,7 +806,7 @@ public class Utils {
                             clickListener.onClick(dialog, which);
                     }
                 }).create();
-
+        mAlertDialog.setCancelable(isCancelable);
         mAlertDialog.show();
         Button button = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         button.setTextColor(mContext.getResources().getColor(R.color.colorAccent));

@@ -93,9 +93,10 @@ public class LogoutDialog extends DialogFragment implements View.OnClickListener
             getActivity().stopService(new Intent(getActivity(), BackgroundService.class));
             SessionManager.get().clear();
             SessionManager.get().logout(true);
-            Intent intent = new Intent(getActivity(), SplashScreen.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            closeHoleApp();
+//            Intent intent = new Intent(getActivity(), SplashScreen.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent);
         } else {
             ValidationHelper.showToast(getActivity(), getString(R.string.please_wait_service_is_not_register_yet));
         }

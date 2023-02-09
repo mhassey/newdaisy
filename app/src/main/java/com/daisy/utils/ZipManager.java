@@ -99,11 +99,15 @@ public class ZipManager {
                 }
                 FileOutputStream fout = new FileOutputStream(file.getParent()+Constraint.SLASH +filename,false);
                 // cteni zipu a zapis
-                while ((count = zis.read(buffer)) != -1)
-                {
-                    fout.write(buffer, 0, count);
-                }
-
+               try {
+                   while ((count = zis.read(buffer)) != -1) {
+                       fout.write(buffer, 0, count);
+                   }
+               }
+               catch (Exception e)
+               {
+                   e.printStackTrace();
+               }
                 fout.close();
                 zis.closeEntry();
             }
