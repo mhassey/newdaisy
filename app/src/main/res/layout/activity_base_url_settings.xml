@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/rootLayout"
+        android:background="@color/white"
         android:weightSum="1"
         tools:context=".activity.onBoarding.slider.slides.permissionAsk.PermissionAsk">
 

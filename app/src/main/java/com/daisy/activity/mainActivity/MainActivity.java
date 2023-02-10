@@ -23,6 +23,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -281,6 +282,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         Utils.constructJobForBackground(time1, getApplicationContext());
     }
 
+    boolean isLongPress=false;
     /**
      * Button clicks initializing
      */
@@ -289,11 +291,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding.setting.setOnClickListener(this);
         mBinding.offLineIcon.setOnClickListener(this);
         mBinding.invert.setOnClickListener(this);
-        mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
-            public void onSwipeTop() {
-                settingHeader();
-            }
-        });
+//         mBinding.webViewLayout.setOnTouchListener((v, event) -> {
+//
+//         });
+//        mBinding.swipeclick.setOnTouchListener(
+//                new OnSwipeTouchListener(MainActivity.this) {
+//            public void onSwipeTop() {
+//                settingHeader();
+//            }
+//        });
 
         mBinding.webView.setOnTouchListener(this);
 
@@ -1641,11 +1647,26 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-//       startService(new Intent(this, BackgroundService.class));
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            handleUperLayoutClick();
+        int action = event.getAction();
+        switch(action & MotionEvent.ACTION_MASK)
+        {
+            case MotionEvent.ACTION_POINTER_DOWN:
+                // multitouch!! - touch down
+                int count = event.getPointerCount(); // Number of 'fingers' in this time
+                if (count==3)
+                {
+                    settingClick();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                handleUperLayoutClick();
+                break;
 
         }
+
+//        return true;
+//       startService(new Intent(this, BackgroundService.class));
+
 
 
         return false;
