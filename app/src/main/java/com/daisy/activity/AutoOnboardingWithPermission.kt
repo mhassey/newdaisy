@@ -48,7 +48,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
         ViewModelProvider(this)[GetCardViewModel::class.java]
     }
 
-
+    var id:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding=  DataBindingUtil.setContentView(this, R.layout.activity_auto_onboarding_with_permission)
