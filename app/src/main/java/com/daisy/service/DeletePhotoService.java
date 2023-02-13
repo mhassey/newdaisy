@@ -19,11 +19,9 @@ public class DeletePhotoService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw null;
     }
 
-    // TODO Delete all photo and data from storage
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {

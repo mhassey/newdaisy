@@ -322,7 +322,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
 
-    //TODO Handle resume work
     private void handleResumeWork() {
         if (sessionManager.getLocation() != null && !sessionManager.getLocation().equals("")) {
             if (!sessionManager.getOrientation().equals(getString(R.string.defaultt))) {
@@ -1392,7 +1391,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     try {
                         if (mBinding.setting.getVisibility() == View.VISIBLE) {
                             mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View

@@ -50,7 +50,6 @@ public class SecurityService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         return null;
     }
 
@@ -68,7 +67,6 @@ public class SecurityService extends Service {
 
     private void handleLocation() {
 
-        // TODO This commented code will be used in future
 //
 //        LocationCallback locationListener = new LocationCallback() {
 //            @Override
