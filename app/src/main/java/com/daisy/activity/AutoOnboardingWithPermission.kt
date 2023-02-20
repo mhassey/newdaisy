@@ -178,6 +178,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
      * @param signUpResponse
      */
     private fun handleResponse(signUpResponse: SignUpResponse?) {
+
         showHideProgressDialog(false)
        signUpResponse?.let {
             if (signUpResponse.isApi_status) {
