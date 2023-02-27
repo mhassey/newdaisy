@@ -140,7 +140,8 @@
         </LinearLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:id="@+id/check1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp60"
@@ -151,10 +152,12 @@
             android:layout_marginBottom="@dimen/dp10"
             android:gravity="center">
 
+
             <ImageView
+
                 android:id="@+id/mpc_logo"
                 android:layout_width="@dimen/dp70"
-                android:layout_height="@dimen/dp50"
+                android:layout_height="@dimen/dp40"
                 android:src="@drawable/logo" />
 
 
@@ -163,11 +166,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:layout_gravity="center|start"
-                android:layout_marginBottom="@dimen/dp10"
-                android:layout_toRightOf="@+id/mpc_logo"
                 android:gravity="center|start"
                 android:orientation="vertical">
+
 
 
                 <LinearLayout
@@ -221,7 +222,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 
