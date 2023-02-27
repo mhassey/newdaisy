@@ -406,6 +406,7 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 } else if (response.getResult().getPricing() != null && !response.getResult().getPricing().isEmpty()) {
+
                     sessionManager.setPricing(response.getResult().getPricing());
                     Intent i = new Intent(ConfigSettings.this, MainActivity.class);
                     i.putExtra(Constraint.PRICING, Constraint.TRUE_STR);
