@@ -146,6 +146,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding = DataBindingUtil.setContentView(this, (R.layout.activity_main));
         updateProductViewModel = new ViewModelProvider(this).get(UpdateProductViewModel.class);
         getCardViewModel = new ViewModelProvider(this).get(GetCardViewModel.class);
+        Utils.setFullBrightNess();
         setNoTitleBar(this);
         SessionManager.get().logout(false);
         context = this;
@@ -1270,12 +1271,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void interactWithFaceDetection(Interactor interactor) {
 
-        fireThirtySecondCounter();
+//        fireThirtySecondCounter();
     }
 
     private void handleUperLayoutClick() {
 
-        fireThirtySecondCounter();
+//        fireThirtySecondCounter();
 
         DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         Inversion inversion = new Inversion();
