@@ -143,22 +143,12 @@ public class Utils {
      */
     public static void setFullBrightNess() {
         try {
-            if (AppController.getInstance() != null && AppController.getInstance().getActivity() != null && (AppController.getInstance().getActivity() instanceof MainActivity)) {
+            BaseActivity baseActivity = AppController.getInstance().getActivity();
+            WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
+            layout.screenBrightness = 0.9f;
+            baseActivity.getWindow().setAttributes(layout);
 
-                BaseActivity baseActivity = AppController.getInstance().getActivity();
-                WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
-                layout.screenBrightness = SessionManager.get().getBrightness();
-                baseActivity.getWindow().setAttributes(layout);
-            } else {
-                BaseActivity baseActivity = AppController.getInstance().getActivity();
-                WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
-                if (!SessionManager.get().isBrighnessDefault())
-                    layout.screenBrightness = 0.9f;
-                else
-                    layout.screenBrightness = (Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10);
-                baseActivity.getWindow().setAttributes(layout);
 
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1140,7 +1140,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
             ComponentName componentInfo = taskInfo.get(0).topActivity;
             String name = componentInfo.getClassName();
             if (name.contains(Constraint.MAIN_ACTIVITY)) {
-                EventBus.getDefault().post(new Interactor());
+//                EventBus.getDefault().post(new Interactor());
 
                 DBCaller.storeFaceDetectionLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.APPLICATION_LOGS);
 

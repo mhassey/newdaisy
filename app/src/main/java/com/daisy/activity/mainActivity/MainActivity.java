@@ -1273,12 +1273,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void interactWithFaceDetection(Interactor interactor) {
 
-        fireThirtySecondCounter();
+//        fireThirtySecondCounter();
     }
 
     private void handleUperLayoutClick() {
 
-        fireThirtySecondCounter();
+//        fireThirtySecondCounter();
 
         DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         Inversion inversion = new Inversion();
