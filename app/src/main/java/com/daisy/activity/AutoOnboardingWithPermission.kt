@@ -447,7 +447,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
                 hashMap[Constraint.ISLE] = Constraint.ONE_STRING
                 hashMap[Constraint.SHELF] = Constraint.ONE_STRING
                 hashMap[Constraint.POSITION] = Constraint.ONE_STRING
-                    if (screenAddViewModel.deviceId != null && !screenAddViewModel.deviceId.equals("") && !screenAddViewModel.deviceId.equals(
+                hashMap[Constraint.IMEI_NUMBER] = SessionManager.get().imeiNumber
+
+        if (screenAddViewModel.deviceId != null && !screenAddViewModel.deviceId.equals("") && !screenAddViewModel.deviceId.equals(
                             "0"
                         )
                     ) {

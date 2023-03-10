@@ -197,6 +197,7 @@ public class Constraint {
     public static final String LAST_UPDATED ="lastUpdated";
     public static final String Z = "Z";
     public static final String CAMERA_LOADED = "cameraLoad";
+    public static final String IMEI_NUMBER = "imei";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
@@ -400,9 +401,9 @@ public class Constraint {
     public static String MobilePriceCard = "MobilePriceCard";
     public static long Two_Minute = 60000;
     @NotNull
-    public static final String STORE_CODE_VALUE="b123";
+    public static final String STORE_CODE_VALUE="10fwd";
     @NotNull
-    public static final String PASSWORD_VALUE="b123";
+    public static final String PASSWORD_VALUE="10fwd";
     @Nullable
     public static final String OPEN_SELECT_PRODUCT="OpenSelectProduct";
 }

@@ -1352,4 +1352,12 @@ public class SessionManager {
     public boolean getCameraLoaded() {
         return pref.getBoolean(Constraint.CAMERA_LOADED);
     }
+
+    public void setImeiNumber(String extra_imei) {
+        pref.setStringData(Constraint.IMEI_NUMBER,extra_imei);
+    }
+
+    public String getImeiNumber() {
+        return  pref.getStringData(Constraint.IMEI_NUMBER);
+    }
 }

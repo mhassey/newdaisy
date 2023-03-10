@@ -18,6 +18,7 @@ import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
+import com.daisy.utils.ValidationHelper;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data
@@ -41,6 +42,10 @@ public class SplashScreen extends BaseActivity {
      **/
     private void initView() {
         setNoTitleBar(this);
+        if (getIntent()!=null)
+        {
+            SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
+        }
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
@@ -54,6 +59,9 @@ public class SplashScreen extends BaseActivity {
         }, Constraint.FOUR_THOUSAND);
 
     }
+
+
+
 
     private void wakeUp() {
         try {

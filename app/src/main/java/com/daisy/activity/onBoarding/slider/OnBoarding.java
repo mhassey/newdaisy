@@ -455,6 +455,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             hashMap.put(Constraint.ISLE, Constraint.ONE_STRING);
             hashMap.put(Constraint.SHELF, Constraint.ONE_STRING);
             hashMap.put(Constraint.POSITION, Constraint.ONE_STRING);
+            hashMap.put(Constraint.IMEI_NUMBER, SessionManager.get().getImeiNumber());
             if (product == null) {
                 if (screenAddViewModel.getDeviceId() != null && !screenAddViewModel.getDeviceId().equals("") && !screenAddViewModel.getDeviceId().equals("0")) {
                     hashMap.put(Constraint.DEVICEID, screenAddViewModel.getDeviceId());
