@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">gomoto</string>
     <string name="storage_not_available">Хранилище недоступно</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Код оценки</string>
     <string name="don_t_optimized_battery">Отключить оптимизацию батареи</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Сохраните и запустите MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Сохраните и запустите gomoto >]]></string>
     <string name="store_code">Код магазина</string>
     <string name="Password">пароль</string>
     <string name="manage_device_content">Управление содержимым устройства</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Экран добавить</string>
     <string name="position_update">Позиция обновлена</string>
     <string name="load_add_screen">Загрузить экран добавления</string>
-    <string name="display_over_the_app">Разрешите MPC отображаться поверх других приложений на вашем устройстве.</string>
-    <string name="allow_data_access">Разрешите доступ к данным об использовании MPC в настройках вашего устройства.</string>
-    <string name="modify_system_settings_text">Разрешите MPC изменять системные настройки на вашем устройстве.</string>
+    <string name="display_over_the_app">Разрешите gomoto отображаться поверх других приложений на вашем устройстве.</string>
+    <string name="allow_data_access">Разрешите доступ к данным об использовании gomoto в настройках вашего устройства.</string>
+    <string name="modify_system_settings_text">Разрешите gomoto изменять системные настройки на вашем устройстве.</string>
     <string name="permission_req">Требуется разрешение</string>
-    <string name="battery_optimized">Разрешите MPC отключить оптимизацию заряда батареи на вашем устройстве.</string>
+    <string name="battery_optimized">Разрешите gomoto отключить оптимизацию заряда батареи на вашем устройстве.</string>
     <string name="position">Позиция</string>
     <string name="ok">ОК</string>
     <string name="cancle">Отмена</string>

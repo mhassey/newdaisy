@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">gomoto</string>
     <string name="storage_not_available">Pamięć niedostępna</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Kod punktacji</string>
     <string name="don_t_optimized_battery">Wyłącz optymalizację baterii</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Zapisz i uruchom MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Zapisz i uruchom gomoto >]]></string>
     <string name="store_code">Kod sklepu</string>
     <string name="Password">Hasło</string>
     <string name="manage_device_content">Zarządzaj zawartością urządzenia</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Dodaj ekran</string>
     <string name="position_update">Zaktualizowano pozycję</string>
     <string name="load_add_screen">Załaduj ekran dodawania</string>
-    <string name="display_over_the_app">Zezwól na wyświetlanie MPC nad innymi aplikacjami na Twoim urządzeniu.</string>
-    <string name="allow_data_access">Zezwól na dostęp do danych użytkowania do MPC w ustawieniach urządzenia.</string>
-    <string name="modify_system_settings_text">Proszę pozwolić MPC na modyfikację ustawień systemowych w twoim urządzeniu.</string>
+    <string name="display_over_the_app">Zezwól na wyświetlanie gomoto nad innymi aplikacjami na Twoim urządzeniu.</string>
+    <string name="allow_data_access">Zezwól na dostęp do danych użytkowania do gomoto w ustawieniach urządzenia.</string>
+    <string name="modify_system_settings_text">Proszę pozwolić gomoto na modyfikację ustawień systemowych w twoim urządzeniu.</string>
     <string name="permission_req">Wymagane pozwolenie</string>
-    <string name="battery_optimized">Proszę pozwolić MPC wyłączyć optymalizację baterii w Twoim urządzeniu.</string>
+    <string name="battery_optimized">Proszę pozwolić gomoto wyłączyć optymalizację baterii w Twoim urządzeniu.</string>
     <string name="position">Pozycja</string>
     <string name="ok">Ok</string>
     <string name="cancle">anulować</string>

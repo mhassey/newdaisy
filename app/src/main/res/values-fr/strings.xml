@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">gomoto</string>
     <string name="welcome">BIENVENUE</string>
     <string name="this_app_required_serveral_special_permission_to_prtform_properly_parsing_begin_below_will_start_guiding_you_though_the_process">Cette application nécessite plusieurs autorisations spéciales pour fonctionner correctement. Appuyezsur « commencer » ci-dessous et vous serez guidé tout au long du processus.</string>
     <string name="begin">COMMENCER</string>
@@ -20,7 +20,7 @@
     <string name="score_code">Code de score</string>
     <string name="don_t_optimized_battery">désactiver l\'optimisation de la batterie</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Sauvegarder et démarrer MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Sauvegarder et démarrer gomoto >]]></string>
     <string name="store_code">Code du magasin</string>
     <string name="Password">Mot de passe</string>
     <string name="manage_device_content">Gérer le contenu de l’appareil</string>
@@ -88,11 +88,11 @@
     <string name="screen_add">Ajout d\'écran</string>
     <string name="position_update">Position mise à jour</string>
     <string name="load_add_screen">Charger l\'écran d\'ajout</string>
-    <string name="display_over_the_app">Veuillez autoriser MPC à s\'afficher sur d\'autres applications sur votre appareil.</string>
-    <string name="allow_data_access">Veuillez autoriser l\'accès aux données d\'utilisation à MPC dans les paramètres de votre appareil.</string>
-    <string name="modify_system_settings_text">Veuillez autoriser MPC à modifier les paramètres système de votre appareil.</string>
+    <string name="display_over_the_app">Veuillez autoriser gomoto à s\'afficher sur d\'autres applications sur votre appareil.</string>
+    <string name="allow_data_access">Veuillez autoriser l\'accès aux données d\'utilisation à gomoto dans les paramètres de votre appareil.</string>
+    <string name="modify_system_settings_text">Veuillez autoriser gomoto à modifier les paramètres système de votre appareil.</string>
     <string name="permission_req">Autorisation requise</string>
-    <string name="battery_optimized">Veuillez autoriser la batterie MPC à ne pas être optimisée dans les paramètres de votre appareil</string>
+    <string name="battery_optimized">Veuillez autoriser la batterie gomoto à ne pas être optimisée dans les paramètres de votre appareil</string>
     <string name="ok">D\'accord</string>
     <string name="position">Position</string>
     <string name="cancle">Annuler</string>

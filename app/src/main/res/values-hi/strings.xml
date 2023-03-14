@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">gomoto</string>
     <string name="storage_not_available">भंडारण उपलब्ध नहीं है</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">स्क्रीन जोड़ें</string>
     <string name="position_update">स्थिति अपडेट की गई</string>
     <string name="load_add_screen">लोड स्क्रीन जोड़ें</string>
-    <string name="display_over_the_app">कृपया MPC को अपने डिवाइस पर अन्य ऐप्स पर प्रदर्शित करने की अनुमति दें।</string>
-    <string name="allow_data_access">कृपया अपने डिवाइस की सेटिंग में MPC के उपयोग डेटा एक्सेस की अनुमति दें।</string>
-    <string name="modify_system_settings_text">कृपया MPC को अपने डिवाइस में सिस्टम सेटिंग्स को संशोधित करने की अनुमति दें।</string>
+    <string name="display_over_the_app">कृपया gomoto को अपने डिवाइस पर अन्य ऐप्स पर प्रदर्शित करने की अनुमति दें।</string>
+    <string name="allow_data_access">कृपया अपने डिवाइस की सेटिंग में gomoto के उपयोग डेटा एक्सेस की अनुमति दें।</string>
+    <string name="modify_system_settings_text">कृपया gomoto को अपने डिवाइस में सिस्टम सेटिंग्स को संशोधित करने की अनुमति दें।</string>
     <string name="permission_req">अनुमति आवश्यक है</string>
-    <string name="battery_optimized">कृपया MPC को अपने डिवाइस में बैटरी ऑप्टिमाइज़ेशन को अक्षम करने की अनुमति दें।</string>
+    <string name="battery_optimized">कृपया gomoto को अपने डिवाइस में बैटरी ऑप्टिमाइज़ेशन को अक्षम करने की अनुमति दें।</string>
     <string name="position">पद</string>
     <string name="ok">ठीक</string>
     <string name="cancle">रद्द करना</string>

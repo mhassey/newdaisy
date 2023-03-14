@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">gomoto</string>
     <string name="storage_not_available">Lagring ikke tilgjengelig</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Poengkode</string>
     <string name="don_t_optimized_battery">Deaktiver batterioptimalisering</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Lagre og start MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Lagre og start gomoto >]]></string>
     <string name="store_code">Butikkode</string>
     <string name="Password">Passord</string>
     <string name="manage_device_content">Administrer enhetsinnhold</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Skjermtillegg</string>
     <string name="position_update">Posisjon oppdatert</string>
     <string name="load_add_screen">Last inn skjerm</string>
-    <string name="display_over_the_app">Tillat at MPC kan vises over andre apper på enheten din.</string>
-    <string name="allow_data_access">Tillat bruk av datatilgang til MPC i enhetens innstillinger.</string>
-    <string name="modify_system_settings_text">Tillat at MPC endrer systeminnstillingene på enheten.</string>
+    <string name="display_over_the_app">Tillat at gomoto kan vises over andre apper på enheten din.</string>
+    <string name="allow_data_access">Tillat bruk av datatilgang til gomoto i enhetens innstillinger.</string>
+    <string name="modify_system_settings_text">Tillat at gomoto endrer systeminnstillingene på enheten.</string>
     <string name="permission_req">Tillatelse påkrevd</string>
-    <string name="battery_optimized">Tillat MPC å deaktivere batterioptimalisering på enheten.</string>
+    <string name="battery_optimized">Tillat gomoto å deaktivere batterioptimalisering på enheten.</string>
     <string name="position">Posisjon</string>
     <string name="ok">Ok</string>
     <string name="cancle">Avbryt</string>
