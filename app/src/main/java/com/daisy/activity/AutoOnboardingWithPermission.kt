@@ -48,19 +48,23 @@ class AutoOnboardingWithPermission : BaseActivity() {
         ViewModelProvider(this)[GetCardViewModel::class.java]
     }
 
-    var id:String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding=  DataBindingUtil.setContentView(this, R.layout.activity_auto_onboarding_with_permission)
         setNoTitleBar(this)
 
+
         defineObserver()
-        permissionChecker()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            permissionChecker()
+        }
 
 
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun permissionChecker() {
         if (!Settings.canDrawOverlays(this)) {
             askForPopUpPermission()
@@ -138,6 +142,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
          }
     }
 
+    /**
+     * Purpose - hitSignUpApi method is use for fire signup api with hashmap request
+     */
     private fun hitSignUpApi() {
         if (Utils.getNetworkState(this)) {
             showHideProgressDialog(true)
@@ -150,6 +157,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
         }
     }
 
+    /**
+     * Purpose - getSignUpRequest method is helps to create signup api request in form of hashmap
+     */
     private fun getSignUpRequest(): java.util.HashMap<String, String> {
         val hashMap = java.util.HashMap<String, String>()
         hashMap[Constraint.STORE_CODE] = Constraint.STORE_CODE_VALUE
@@ -159,6 +169,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
     }
 
 
+    /**
+     * Purpose - defineObserver method is help to define api response observation
+     */
     private fun defineObserver() {
         var liveData= signUpViewModel.responseLiveData
         if (!liveData.hasActiveObservers())
@@ -200,6 +213,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
         }
     }
 
+    /**
+     * Purpose - checkIdExsists method checks device id and perform operation accordingly
+     */
     private fun checkIdExsists(deviceId:String) {
         screenAddViewModel.deviceId = deviceId
         val carriers: List<Carrier> = sessionManager.loginResponse.carrier
@@ -213,6 +229,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
     }
 
+    /**
+     * Purpose - getGeneralResponseForProductSelection fire general api and get its response and call handleProductListData
+     */
     private fun getGeneralResponseForProductSelection(deviceId: String, carrier: Carrier) {
         if (Utils.getNetworkState(this)) {
             showHideProgressDialog(true)
@@ -236,6 +255,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
         }
     }
 
+    /**
+     * Purpose - handleProductListData method handle product response and if device is auto selected then call callAddScreen method
+     */
     private fun handleProductListData(
         generalResponseGlobalResponse: GlobalResponse<GeneralResponse>?,
         deviceId: String
@@ -259,6 +281,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
     }
 
+    /**
+     * Purpose - redirectToOnBoardingProcess method redirect control to onBoarding page
+     */
     private fun redirectToOnBoardingProcess() {
 
         var intent:Intent = Intent(this,OnBoarding::class.java)
@@ -268,10 +293,10 @@ class AutoOnboardingWithPermission : BaseActivity() {
         startActivity(intent)
     }
 
-    private fun handleCreateScreen() {
 
-    }
-
+    /**
+     * callAddScreen method fire create screen api and handle its response
+     */
     private fun callAddScreen() {
         showHideProgressDialog(true)
         screenAddViewModel.setMutableLiveData(getAddScreenRequest())
@@ -287,6 +312,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
         }
     }
 
+    /**
+     * Purpose - handleScreenAddResponse method set data in session  and call getCardData method
+     */
     private fun handleScreenAddResponse(screenAddResponseGlobalResponse: GlobalResponse<ScreenAddResponse>?) {
        screenAddResponseGlobalResponse?.let {
            if (screenAddResponseGlobalResponse.isApi_status) {
@@ -329,6 +357,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
         }
     }
 
+    /**
+     * Purpose - handleCardGetResponse method set price card promotion and pricing data
+     */
     private fun handleCardGetResponse(getCardResponseGlobalResponse: GlobalResponse<GetCardResponse>?) {
         showHideProgressDialog(false)
         if (getCardResponseGlobalResponse?.isApi_status == true) {
