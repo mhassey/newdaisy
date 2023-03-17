@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -42,9 +43,10 @@ public class SplashScreen extends BaseActivity {
      **/
     private void initView() {
         setNoTitleBar(this);
-        if (getIntent()!=null)
+        if (getIntent()!=null && getIntent().getStringExtra("extra_imei")!=null)
         {
             SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
+            Toast.makeText(this,getIntent().getStringExtra("extra_imei"), Toast.LENGTH_SHORT).show();
         }
         wakeUp();
         setDefaultBrightness();
