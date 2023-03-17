@@ -135,6 +135,8 @@
     <string name="settings_cap">إعدادات</string>
     <string name="logout">تسجيل خروج</string>
     <string name="file_has_issue">يرجى الاتصال بالمطور الخاص بك أو محاولة تثبيت التطبيق مرة أخرى لاحقًا!</string>
+    <string name="permission_msg">اضغط على كل زر من الأزرار أدناه للوصول إلى الأذونات المطلوبة</string>
+    <string name="auto_start">إذن بدء التشغيل التلقائي</string>
     <string name="title">عنوان</string>
     <string name="description">وصف</string>
     <string name="submit">إرسال</string>

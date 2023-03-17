@@ -612,7 +612,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                         if (value != null) {
                                             if (!value.equals(getApplication().getPackageName())) {
                                                 if (!value.equals(Constraint.PACKAGE_INSTALLER)) {
-
                                                     bringApplicationToFront(getApplicationContext());
                                                 }
                                             } else {
@@ -622,7 +621,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                                 String name = componentInfo.getClassName();
                                                 if (name.contains(Constraint.LOCK_SCREEN)) {
                                                     bringApplicationToFront(getApplicationContext());
-
                                                 }
                                             }
                                             count = Constraint.ZERO;
@@ -666,8 +664,6 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 }
             }
         }, second, second);
-
-
     }
 
 
@@ -738,10 +734,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
      * Purpose - timeChanged method checks any card or promotion is available or not
      */
     private void timeChanged() {
-
         CheckCardAvailability checkCardAvailability = new CheckCardAvailability();
         checkCardAvailability.checkCard(Constraint.UPDATE_INVERSION);
-
     }
 
 
