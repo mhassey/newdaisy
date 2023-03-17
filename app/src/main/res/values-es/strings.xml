@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">gomoto</string>
+    <string name="app_name">demo</string>
     <string name="storage_not_available">Almacenamiento no disponible</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
     <string name="baseurl">baseURL=</string>
     <string name="save_and_load">Guardar y cargar</string>
-    <string name="save_and_start_mpc"><![CDATA[Guarde e inicie gomoto >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Guarde e inicie demo >]]></string>
 
     <string name="loading">Cargando...</string>
     <string name="invalid_url">URL invalida</string>
@@ -88,11 +88,11 @@
     <string name="screen_add">Añadir pantalla</string>
     <string name="position_update">Posición actualizada</string>
     <string name="load_add_screen">Cargar agregar pantalla</string>
-    <string name="display_over_the_app">Permita que gomoto se muestre sobre otras aplicaciones en su dispositivo.</string>
-    <string name="allow_data_access">Permita el acceso a los datos de uso de gomoto en la configuración de su dispositivo.</string>
-    <string name="modify_system_settings_text">Permita que gomoto modifique la configuración del sistema en su dispositivo.</string>
+    <string name="display_over_the_app">Permita que demo se muestre sobre otras aplicaciones en su dispositivo.</string>
+    <string name="allow_data_access">Permita el acceso a los datos de uso de demo en la configuración de su dispositivo.</string>
+    <string name="modify_system_settings_text">Permita que demo modifique la configuración del sistema en su dispositivo.</string>
     <string name="permission_req">Permiso requerido</string>
-    <string name="battery_optimized">Permita que la batería gomoto no se optimice en la configuración de su dispositivo</string>
+    <string name="battery_optimized">Permita que la batería demo no se optimice en la configuración de su dispositivo</string>
     <string name="position">Posición</string>
     <string name="ok">Okay</string>
     <string name="cancle">Cancelar</string>

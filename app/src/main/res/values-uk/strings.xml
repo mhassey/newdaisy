@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">gomoto</string>
+    <string name="app_name">demo</string>
     <string name="storage_not_available">Сховище недоступне</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Код рахунку</string>
     <string name="don_t_optimized_battery">Вимкніть оптимізацію акумулятора</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Збережіть і запустіть gomoto >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Збережіть і запустіть demo >]]></string>
     <string name="store_code">Код магазину</string>
     <string name="Password">Пароль</string>
     <string name="manage_device_content">Керування вмістом пристрою</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Додавання екрана</string>
     <string name="position_update">Позиція оновлена</string>
     <string name="load_add_screen">Завантажити екран додавання</string>
-    <string name="display_over_the_app">Дозвольте gomoto відображатись над іншими програмами на вашому пристрої.</string>
-    <string name="allow_data_access">Будь ласка, дозвольте доступ до даних про використання до gomoto у налаштуваннях вашого пристрою.</string>
-    <string name="modify_system_settings_text">Дозвольте gomoto змінювати системні налаштування у вашому пристрої.</string>
+    <string name="display_over_the_app">Дозвольте demo відображатись над іншими програмами на вашому пристрої.</string>
+    <string name="allow_data_access">Будь ласка, дозвольте доступ до даних про використання до demo у налаштуваннях вашого пристрою.</string>
+    <string name="modify_system_settings_text">Дозвольте demo змінювати системні налаштування у вашому пристрої.</string>
     <string name="permission_req">Потрібен дозвіл</string>
-    <string name="battery_optimized">Дозвольте gomoto вимкнути оптимізацію заряду акумулятора у вашому пристрої.</string>
+    <string name="battery_optimized">Дозвольте demo вимкнути оптимізацію заряду акумулятора у вашому пристрої.</string>
     <string name="position">Позиція</string>
     <string name="ok">В порядку</string>
     <string name="cancle">Скасувати</string>

@@ -136,8 +136,8 @@ public class AutoStartHelper {
 
     private void showAlert(Context context, DialogInterface.OnClickListener onClickListener) {
 
-        new AlertDialog.Builder(context).setTitle("gomoto")
-                .setMessage("Please allow gomoto to auto start your device.")
+        new AlertDialog.Builder(context).setTitle("demo")
+                .setMessage("Please allow demo to auto start your device.")
                 .setPositiveButton("Ok", onClickListener).show().setCancelable(false);
     }
 

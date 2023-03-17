@@ -42,9 +42,10 @@ public class SplashScreen extends BaseActivity {
      **/
     private void initView() {
         setNoTitleBar(this);
-        if (getIntent()!=null)
+        if (getIntent()!=null && getIntent().getStringExtra("extra_imei")!=null)
         {
             SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
+            ValidationHelper.showToast(this,getIntent().getStringExtra("extra_imei"));
         }
         wakeUp();
         setDefaultBrightness();
