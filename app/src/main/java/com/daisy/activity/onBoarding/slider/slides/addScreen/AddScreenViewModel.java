@@ -15,6 +15,8 @@ import com.daisy.pojo.response.GlobalResponse;
 import com.daisy.pojo.response.Manufacture;
 import com.daisy.pojo.response.Product;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,6 +39,7 @@ public class AddScreenViewModel extends AndroidViewModel {
     private List<Manufacture> manufactures;
     private List<Product> autoSelectedProduct;
     private Manufacture manufacture;
+    public String storeCode = null;
 
     public AddScreenViewModel(@NonNull Application application) {
         super(application);

@@ -9,6 +9,9 @@ import android.os.PowerManager;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
 import com.daisy.activity.AutoOnboardingWithPermission;
@@ -16,6 +19,8 @@ import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.common.session.SessionManager;
+import com.daisy.pojo.response.SenncoDeviceResponse;
+import com.daisy.senncoData.SenncoViewModel;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
@@ -26,6 +31,7 @@ import com.daisy.utils.ValidationHelper;
  **/
 public class SplashScreen extends BaseActivity {
     private SessionManager sessionManager;
+    private SenncoViewModel senncoViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -42,25 +48,53 @@ public class SplashScreen extends BaseActivity {
      **/
     private void initView() {
         setNoTitleBar(this);
-        if (getIntent()!=null)
-        {
-            SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
-        }
+        senncoViewModel= new ViewModelProvider(this).get(SenncoViewModel.class);
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
-        final Handler handler = new Handler();
+        if (getIntent()!=null && getIntent().getStringExtra(Constraint.IMEI_STRING)!=null)
+        {
+            SessionManager.get().setImeiNumber(getIntent().getStringExtra(Constraint.IMEI_STRING));
+           ValidationHelper.showToast(this,getIntent().getStringExtra(Constraint.IMEI_STRING));
+            fireSenncoApiToGetStoreData();
+        }
+        else {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    redirectToWelcome();
+                }
+            }, Constraint.FOUR_THOUSAND);
+        }
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                redirectToWelcome();
-            }
-        }, Constraint.FOUR_THOUSAND);
+
+
+
+
+
 
     }
 
-
+    private void fireSenncoApiToGetStoreData() {
+        if (Utils.getNetworkState(this))
+        {
+          MutableLiveData<SenncoDeviceResponse> senncoDeviceResponseMutableLiveData= senncoViewModel.sendDeviceDetails("deviceid","type");
+          if (!senncoDeviceResponseMutableLiveData.hasActiveObservers())
+          {
+              senncoDeviceResponseMutableLiveData.observe(this, senncoDeviceResponse -> {
+                 Intent intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
+                 intent.putExtra(Constraint.STORE_CODE,senncoDeviceResponse.getStore().getStoreName());
+                 startActivity(intent);
+                  // handle further response ....
+              });
+          }
+        }
+        else {
+            ValidationHelper.showToast(this,getString(R.string.no_internet_available));
+            // do reverse code
+        }
+    }
 
 
     private void wakeUp() {

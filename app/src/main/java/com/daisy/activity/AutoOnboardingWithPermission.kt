@@ -53,11 +53,20 @@ class AutoOnboardingWithPermission : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding=  DataBindingUtil.setContentView(this, R.layout.activity_auto_onboarding_with_permission)
         setNoTitleBar(this)
+        workWithIntent()
 
         defineObserver()
         permissionChecker()
 
 
+    }
+
+    private fun workWithIntent() {
+        intent?.let {
+            it.getStringExtra(Constraint.STORE_CODE)?.let {
+                mViewModel.storeCode= it
+            }
+        }
     }
 
 
@@ -152,10 +161,18 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
     private fun getSignUpRequest(): java.util.HashMap<String, String> {
         val hashMap = java.util.HashMap<String, String>()
-        hashMap[Constraint.STORE_CODE] = Constraint.STORE_CODE_VALUE
-        hashMap[Constraint.PASSWORD_ID] = Constraint.PASSWORD_VALUE
+        if (mViewModel.storeCode!=null)
+        {
+            hashMap[Constraint.STORE_CODE] = mViewModel.storeCode
+            hashMap[Constraint.PASSWORD_ID] = mViewModel.storeCode
+        }
+        else {
+            hashMap[Constraint.STORE_CODE] = Constraint.STORE_CODE_VALUE
+            hashMap[Constraint.PASSWORD_ID] = Constraint.PASSWORD_VALUE
+
+        }
         hashMap[Constraint.DEVICENAME] = Utils.ModelNumber()
-        return hashMap
+            return hashMap
     }
 
 
