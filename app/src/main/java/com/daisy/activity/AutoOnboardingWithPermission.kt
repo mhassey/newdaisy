@@ -33,18 +33,18 @@ import java.io.IOException
 
 class AutoOnboardingWithPermission : BaseActivity() {
      lateinit var mBinding: ActivityAutoOnboardingWithPermissionBinding
-     val signUpViewModel: SignUpViewModel by lazy {
+     private val signUpViewModel: SignUpViewModel by lazy {
          ViewModelProvider(this)[SignUpViewModel::class.java]
      }
     val sessionManager:SessionManager by lazy { SessionManager.get() }
-    val screenAddViewModel:ScreenAddViewModel by lazy{
+    private val screenAddViewModel:ScreenAddViewModel by lazy{
         ViewModelProvider(this)[ScreenAddViewModel::class.java]
     }
-    val  mViewModel:AddScreenViewModel by lazy {
+    private val  mViewModel:AddScreenViewModel by lazy {
         ViewModelProvider(this)[AddScreenViewModel::class.java]
 
     }
-    val getCardViewModel : GetCardViewModel by lazy {
+    private val getCardViewModel : GetCardViewModel by lazy {
         ViewModelProvider(this)[GetCardViewModel::class.java]
     }
 
@@ -152,8 +152,15 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
     private fun getSignUpRequest(): java.util.HashMap<String, String> {
         val hashMap = java.util.HashMap<String, String>()
-        hashMap[Constraint.STORE_CODE] = Constraint.STORE_CODE_VALUE
-        hashMap[Constraint.PASSWORD_ID] = Constraint.PASSWORD_VALUE
+        if (SessionManager.get().storeCode !=null && SessionManager.get().storeCode !="" )
+        {
+            hashMap[Constraint.STORE_CODE] = SessionManager.get().storeCode
+            hashMap[Constraint.PASSWORD_ID] = SessionManager.get().storeCode
+        }
+        else {
+            hashMap[Constraint.STORE_CODE] = Constraint.STORE_CODE_VALUE
+            hashMap[Constraint.PASSWORD_ID] = Constraint.PASSWORD_VALUE
+        }
         hashMap[Constraint.DEVICENAME] = Utils.ModelNumber()
         return hashMap
     }

@@ -1360,4 +1360,12 @@ public class SessionManager {
     public String getImeiNumber() {
         return  pref.getStringData(Constraint.IMEI_NUMBER);
     }
+
+    public void setStoreCode(String store_code) {
+        pref.setStringData(Constraint.STORE_CODE,store_code);
+    }
+
+    public String getStoreCode() {
+        return pref.getStringData(Constraint.STORE_CODE);
+    }
 }

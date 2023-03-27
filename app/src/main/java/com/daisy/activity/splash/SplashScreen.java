@@ -45,6 +45,8 @@ public class SplashScreen extends BaseActivity {
         if (getIntent()!=null)
         {
             SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
+            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
+            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
         }
         wakeUp();
         setDefaultBrightness();
