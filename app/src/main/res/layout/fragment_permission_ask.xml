@@ -384,6 +384,47 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/accessibility_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:gravity="center">
+
+                <LinearLayout
+
+                    android:id="@+id/accessibility_internal_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_rounded_with_pink_border"
+                    android:gravity="center"
+
+                    android:padding="@dimen/dp10"
+                    android:paddingStart="@dimen/dp5"
+                    >
+
+                    <ImageView
+                        android:id="@+id/accessibility_radio"
+
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp17"
+                        android:buttonTint="@color/pink_dark"
+                        android:clickable="false"
+                        android:src="@drawable/tick"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/accessibility_txt"
+                        style="@style/fontBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:text="@string/accessibility"
+                        android:textColor="@color/dark_grey_blue"
+                        android:textSize="@dimen/sp10" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/auto_start_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

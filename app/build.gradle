@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 // Add this line
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-
+apply plugin: 'org.jetbrains.kotlin.android'
 android {
     compileSdkVersion 32
     buildToolsVersion "30.0.2"
@@ -63,6 +63,9 @@ android {
     buildFeatures {
         dataBinding true
         viewBinding true
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
 }

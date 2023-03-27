@@ -1,16 +1,23 @@
 package com.daisy.activity.splash;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
 import com.daisy.R;
+import com.daisy.accessibilityService.MyAccessibilityService;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
@@ -39,6 +46,7 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void initView() {
+        startService(new Intent(this, MyAccessibilityService.class));
         setNoTitleBar(this);
         wakeUp();
         setDefaultBrightness();

@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 public class PermissionAskViewModel extends AndroidViewModel {
     private boolean grandMediaPermission = false;
+    private boolean grandAccessibilityPermission = false;
     private boolean grandDisplayOverTheApp = false;
     private boolean grandModifySystemSettings = false;
     private boolean grandUsageAccess = false;
@@ -15,6 +16,14 @@ public class PermissionAskViewModel extends AndroidViewModel {
     private boolean grandAdminPermission = false;
     private boolean grandGpsEnable = false;
     private boolean isAutoStart = false;
+
+    public boolean isGrandAccessibilityPermission() {
+        return grandAccessibilityPermission;
+    }
+
+    public void setGrandAccessibilityPermission(boolean grandAccessibilityPermission) {
+        this.grandAccessibilityPermission = grandAccessibilityPermission;
+    }
 
     public boolean isGrandGpsEnable() {
         return grandGpsEnable;

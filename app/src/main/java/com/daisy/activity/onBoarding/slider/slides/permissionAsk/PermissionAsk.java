@@ -136,6 +136,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
         permissionAskBinding.next.setOnClickListener(this);
+        permissionAskBinding.accessibilityLayout.setOnClickListener(this);
 
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
         permissionAskBinding.miExtra.setOnClickListener(this);
@@ -161,8 +162,9 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkForGps();
         checkAdminPermission();
         checkAutoPermission();
+        checkAccessibilityPermission();
 
-        if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
+        if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart() && permissionAskViewModel.isGrandAccessibilityPermission()) {
             if (SessionManager.get().getDisplayOverTheAppAvailable()) {
                 if (!permissionAskViewModel.isGrandDisplayOverTheApp()) {
                     permissionAskBinding.next.setVisibility(View.GONE);
@@ -385,6 +387,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 }
 
                 // mainAdminAsk();
+                break;
+            }
+            case R.id.accessibility_layout:{
+                askAccessibilityPermission();
                 break;
             }
             case R.id.auto_start_internal_layout: {
@@ -676,6 +682,33 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             showToast(context, message);
 
         }
+    }
+
+    public void checkAccessibilityPermission () {
+        int accessEnabled = 0;
+        try {
+            accessEnabled = Settings.Secure.getInt(this.getActivity().getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (accessEnabled == 0) {
+            isSelected(permissionAskBinding.accessibilityLayout, permissionAskBinding.accessibilityTxt, permissionAskBinding.accessibilityRadio, true);
+            permissionAskViewModel.setGrandAccessibilityPermission(Constraint.FALSE);
+
+        } else {
+            permissionAskViewModel.setGrandAccessibilityPermission(Constraint.TRUE);
+
+            isSelected(permissionAskBinding.accessibilityLayout, permissionAskBinding.accessibilityTxt, permissionAskBinding.accessibilityRadio, false);
+
+        }
+    }
+
+
+    public void askAccessibilityPermission()
+    {
+        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(intent,Constraint.ACCESSIBILITY_CODE);
     }
 
 

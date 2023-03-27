@@ -255,4 +255,5 @@
     <string name="reset">Reset</string>
     <string name="save">Save</string>
     <string name="change_brightness">CHANGE BRIGHTNESS</string>
+    <string name="accessibility">GRANT ACCESS PERMISSION</string>
 </resources>
