@@ -15,9 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
 import com.daisy.R;
-import com.daisy.activity.onBoarding.slider.OnBoarding;
-import com.daisy.activity.splash.SplashScreen;
-import com.daisy.activity.welcomeScreen.WelcomeScreen;
+
 import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.LogoutBinding;

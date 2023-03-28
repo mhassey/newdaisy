@@ -801,6 +801,33 @@ public class Utils {
         return mAlertDialog;
     }
 
+    public static android.app.AlertDialog showAlertDialog(Context mContext, String text, String
+            positiveButtonText,String negetiveButton, final DialogInterface.OnClickListener clickListener,final DialogInterface.OnClickListener closeClick, boolean isCancelable) {
+        if (text == null)
+            text = "";
+        android.app.AlertDialog mAlertDialog = new AlertDialog.Builder(mContext).setMessage(text).setCancelable(true)
+                .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if (clickListener != null)
+                            clickListener.onClick(dialog, which);
+                    }
+                }).setNegativeButton(negetiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if (closeClick != null)
+                            closeClick.onClick(dialog, which);
+                    }
+                }).create();
+        mAlertDialog.setCancelable(isCancelable);
+        mAlertDialog.show();
+        Button button = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        button.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+        return mAlertDialog;
+    }
+
     public static int getThemeId(Context context) {
         try {
             Class<?> wrapper = Context.class;

@@ -15,6 +15,7 @@ import com.daisy.activity.AutoOnboardingWithPermission;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
+import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
@@ -107,8 +108,13 @@ public class SplashScreen extends BaseActivity {
                 intent = new Intent(SplashScreen.this, EditorTool.class);
 
             } else {
-                intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
+                if (SessionManager.get().getBaseUrl()==null && !SessionManager.get().getBaseUrl().equals("")) {
+                    intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
+                }
+                else {
+                    intent = new Intent(SplashScreen.this, WelcomeScreen.class);
 
+                }
             }
 
 

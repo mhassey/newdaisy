@@ -30,6 +30,8 @@ public class ValidationHelper {
     public ValidationHelper(Context context) {
         mContext = context;
     }
+
+
     public static void preventSpaceInEditText(EditText editText)
     {
         InputFilter filter = new InputFilter() {

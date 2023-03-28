@@ -146,7 +146,8 @@ class AutoOnboardingWithPermission : BaseActivity() {
         }
         else
         {
-            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
+            showAlertToReloadAndClose()
+//            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
         }
     }
 
@@ -203,7 +204,8 @@ class AutoOnboardingWithPermission : BaseActivity() {
                 ValidationHelper.showToast(this, signUpResponse.message)
             }
         } ?: kotlin.run {
-            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
+           showAlertToReloadAndClose()
+//            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
         }
     }
 
@@ -239,7 +241,9 @@ class AutoOnboardingWithPermission : BaseActivity() {
                 }
             }
         } else {
-            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
+            showAlertToReloadAndClose()
+
+//            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
         }
     }
 
@@ -332,7 +336,8 @@ class AutoOnboardingWithPermission : BaseActivity() {
                 }
             }
         } else {
-            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
+            showAlertToReloadAndClose()
+//            ValidationHelper.showToast(this, getString(R.string.no_internet_available))
         }
     }
 
@@ -504,6 +509,21 @@ class AutoOnboardingWithPermission : BaseActivity() {
         hashMap[Constraint.DEVICE_ID] = deviceId
         hashMap[Constraint.CARRIER_ID] = "${carrier.idcarrier}"
         return hashMap
+    }
+
+    fun showAlertToReloadAndClose() {
+      Utils.showAlertDialog(this,getString(R.string.no_internet_available),getString(R.string.reload),getString(R.string.close),
+          { _, _ ->
+              checkAccessUsage()
+          },
+          { _, _ ->
+            stopLockTask()
+              finishAffinity()
+              System.exit(0)
+          },false)
+
+
+
     }
 
 

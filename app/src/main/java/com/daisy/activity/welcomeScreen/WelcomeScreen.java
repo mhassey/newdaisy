@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
+import com.daisy.activity.AutoOnboardingWithPermission;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.onBoarding.slider.slides.addScreen.AddScreenViewModel;
@@ -262,7 +263,7 @@ public class WelcomeScreen extends BaseActivity implements View.OnClickListener 
      * Parameters - No parameter
      **/
     private void goToOnBoarding() {
-        Intent intent = new Intent(WelcomeScreen.this, OnBoarding.class);
+        Intent intent = new Intent(WelcomeScreen.this, AutoOnboardingWithPermission.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(Constraint.EXIT_CAPITAL, true);
         startActivity(intent);
