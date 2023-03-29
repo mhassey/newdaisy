@@ -357,9 +357,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
      */
     private void setCounter() {
         bringApplicationTimer();
-        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.Q) {
+        //if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.Q) {
             setDeleteTimer();
-        }
+        //}
         sendLogTimer();
 
         checkUpdate();
