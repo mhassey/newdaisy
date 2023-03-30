@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import com.daisy.common.session.SessionManager
 
 class MyAccessibilityService : AccessibilityService() {
     private val TAG = "MyAccessibilityService"
@@ -17,16 +18,17 @@ class MyAccessibilityService : AccessibilityService() {
          */
 
             if (event?.text.toString() == "[Phone options]") {
+
                 performGlobalAction(GLOBAL_ACTION_BACK)
             }
             if (event?.text.toString() == "[Side key settings]") {
                 performGlobalAction(GLOBAL_ACTION_BACK)
                 performGlobalAction(GLOBAL_ACTION_BACK)
             }
-            if (event?.text.toString() == "[]") {
-                performGlobalAction(GLOBAL_ACTION_BACK)
-                performGlobalAction(GLOBAL_ACTION_BACK)
-            }
+//            if (event?.text.toString() == "[]") {
+//                performGlobalAction(GLOBAL_ACTION_BACK)
+//                performGlobalAction(GLOBAL_ACTION_BACK)
+//            }
 
 
 
@@ -34,6 +36,8 @@ class MyAccessibilityService : AccessibilityService() {
 
 
     override fun onInterrupt() {
+        SessionManager.get().setAccessibilityService(false)
+
         Log.e(TAG, "onInterrupt: ")
 
     }
@@ -41,6 +45,7 @@ class MyAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
         val info = AccessibilityServiceInfo()
+        SessionManager.get().setAccessibilityService(true)
 
         info.apply {
             // These events are help to detect multiple triggers of user interactions

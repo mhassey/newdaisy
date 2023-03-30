@@ -721,7 +721,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                 permissionDone.setPermissionName(Constraint.MODIFY_SYSTEM_SET);
                 EventBus.getDefault().post(permissionDone);
             }
-        } else if (requestCode == Constraint.ADMIN) {
+        }
+
+        else if (requestCode == Constraint.ADMIN) {
             Admin admin = new Admin();
             EventBus.getDefault().post(admin);
         } else if (requestCode == Constraint.POP_UP_RESPONSE) {

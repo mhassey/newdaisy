@@ -46,7 +46,7 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void initView() {
-        startService(new Intent(this, MyAccessibilityService.class));
+
         setNoTitleBar(this);
         wakeUp();
         setDefaultBrightness();

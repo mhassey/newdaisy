@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.daisy.R;
+import com.daisy.accessibilityService.MyAccessibilityService;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityOnBaordingBinding;
 import com.daisy.databinding.FragmentPermissionAskBinding;
@@ -602,6 +603,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         designWork();
+        checkAccessibilityPermission();
     }
 
     private void designWork() {
@@ -686,14 +688,18 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
     public void checkAccessibilityPermission () {
         int accessEnabled = 0;
-        try {
-            accessEnabled = Settings.Secure.getInt(this.getActivity().getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
-        } catch (Settings.SettingNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (accessEnabled == 0) {
+//        try {
+//            accessEnabled = Settings.Secure.getInt(getContext().getApplicationContext().getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
+//        } catch (Settings.SettingNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
+       boolean value =SessionManager.get().getAccessibilityServiceEnabled();
+        if (!value) {
+
             isSelected(permissionAskBinding.accessibilityLayout, permissionAskBinding.accessibilityTxt, permissionAskBinding.accessibilityRadio, true);
             permissionAskViewModel.setGrandAccessibilityPermission(Constraint.FALSE);
+
 
         } else {
             permissionAskViewModel.setGrandAccessibilityPermission(Constraint.TRUE);
@@ -702,6 +708,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
         }
     }
+
 
 
     public void askAccessibilityPermission()

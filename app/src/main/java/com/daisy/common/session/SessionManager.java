@@ -1352,4 +1352,12 @@ public class SessionManager {
     public boolean getCameraLoaded() {
         return pref.getBoolean(Constraint.CAMERA_LOADED);
     }
+
+    public boolean getAccessibilityServiceEnabled() {
+        return pref.getBoolean(Constraint.ACCESSIBILITY);
+    }
+    public void setAccessibilityService(boolean value)
+    {
+        pref.setBooleanData(Constraint.ACCESSIBILITY,value);
+    }
 }
