@@ -1146,7 +1146,8 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
-
+        setDefaultBrightness();
+        Utils.setFullBrightNess();
 
     }
 
@@ -1155,6 +1156,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    public void setDefaultBrightness() {
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.2f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getDefaultBrightness() + "") / 10));
+
+    }
     FaceDetectionCamera camera;
 
     /**

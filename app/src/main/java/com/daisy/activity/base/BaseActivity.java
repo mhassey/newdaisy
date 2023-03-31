@@ -192,22 +192,22 @@ public class BaseActivity extends AppCompatActivity {
         else
             SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10));
         Utils.setFullBrightNess();
-        int second = 30 * Constraint.THOUSAND;
-        brightNessCounter.cancel();
-        brightNessCounter = new Timer();
-        brightNessCounter.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                setDefaultBrightness();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Utils.setFullBrightNess();
-
-                    }
-                });
-            }
-        }, second, second);
+//        int second = 30 * Constraint.THOUSAND;
+//        brightNessCounter.cancel();
+//        brightNessCounter = new Timer();
+//        brightNessCounter.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                setDefaultBrightness();
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Utils.setFullBrightNess();
+//
+//                    }
+//                });
+//            }
+//        }, second, second);
 
     }
 
