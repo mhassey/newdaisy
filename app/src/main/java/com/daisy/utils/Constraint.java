@@ -401,9 +401,9 @@ public class Constraint {
     public static String MobilePriceCard = "MobilePriceCard";
     public static long Two_Minute = 60000;
     @NotNull
-    public static final String STORE_CODE_VALUE="25aug001";
+    public static final String STORE_CODE_VALUE="1234";
     @NotNull
-    public static final String PASSWORD_VALUE="123";
+    public static final String PASSWORD_VALUE="1234";
     @Nullable
     public static final String OPEN_SELECT_PRODUCT="OpenSelectProduct";
 }
