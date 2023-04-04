@@ -281,6 +281,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
         var intent:Intent = Intent(this,OnBoarding::class.java)
         var bundle=Bundle()
         bundle.putBoolean(Constraint.OPEN_SELECT_PRODUCT,true)
+        bundle.putString(Constraint.DEVICEID,screenAddViewModel.deviceId)
         intent.putExtras(bundle)
         startActivity(intent)
     }

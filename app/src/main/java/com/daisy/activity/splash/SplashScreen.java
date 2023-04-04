@@ -141,6 +141,7 @@ public class SplashScreen extends BaseActivity {
             } else {
                 intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
 
+
             }
 
 

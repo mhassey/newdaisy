@@ -112,6 +112,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
             boolean isAutoSelectCall = getIntent().getBooleanExtra(Constraint.OPEN_SELECT_PRODUCT,false);
             if (isAutoSelectCall)
             {
+             screenAddViewModel.setDeviceId(getIntent().getStringExtra(Constraint.DEVICEID));
                 mBinding.pager.setCurrentItem(Constraint.FOUR);
             }
 
