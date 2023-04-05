@@ -46,9 +46,11 @@ public class SplashScreen extends BaseActivity {
         if (getIntent()!=null)
         {
             SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
-            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
-            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
+//            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
+//            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
         }
+            SessionManager.get().setBaseUrl("https:tesco.mobilepricecards.com/");
+            SessionManager.get().setStoreCode(getIntent().getStringExtra("1234"));
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
@@ -108,7 +110,7 @@ public class SplashScreen extends BaseActivity {
                 intent = new Intent(SplashScreen.this, EditorTool.class);
 
             } else {
-                if (SessionManager.get().getBaseUrl()==null && !SessionManager.get().getBaseUrl().equals("")) {
+                if (SessionManager.get().getBaseUrl()!=null && !SessionManager.get().getBaseUrl().equals("")) {
                     intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
                 }
                 else {
