@@ -62,14 +62,21 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
 
     private fun permissionChecker() {
-        if (!Settings.canDrawOverlays(this)) {
-            askForPopUpPermission()
-        }
-        else if (!Utils.isAccessGranted(this)) {
-        askForUsagesPermission()
+        if (SessionManager.get().appType != Constraint.GO) {
+            if (!Settings.canDrawOverlays(this)) {
+                askForPopUpPermission()
+            } else if (!Utils.isAccessGranted(this)) {
+                askForUsagesPermission()
+            } else {
+                hitSignUpApi()
+            }
         }
         else{
-            hitSignUpApi()
+            if (!Utils.isAccessGranted(this)) {
+                askForUsagesPermission()
+            } else {
+                hitSignUpApi()
+            }
         }
 
 
@@ -97,11 +104,16 @@ class AutoOnboardingWithPermission : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Constraint.POP_UP_RESPONSE) {
-            if (Settings.canDrawOverlays(this)) {
+            if (SessionManager.get().appType != Constraint.GO) {
+
+                if (Settings.canDrawOverlays(this)) {
+                    checkAccessUsage()
+                } else
+                    askForPopUpPermission()
+            }
+            else{
                 checkAccessUsage()
             }
-            else
-                askForPopUpPermission()
 
         }
         else if (requestCode== Constraint.RETURN) {

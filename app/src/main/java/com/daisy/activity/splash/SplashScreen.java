@@ -101,6 +101,8 @@ public class SplashScreen extends BaseActivity {
      **/
     private void redirectToWelcome() {
 
+
+
         Intent intent = null;
         try {
             boolean isInstalled = Utils.getWorkProfile(this);
