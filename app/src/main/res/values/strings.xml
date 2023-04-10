@@ -257,4 +257,9 @@
     <string name="change_brightness">CHANGE BRIGHTNESS</string>
     <string name="reload">Reload</string>
     <string name="close">Close</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="tap_for_more_information">Tap for more information</string>
+
 </resources>

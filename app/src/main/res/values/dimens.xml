@@ -28,7 +28,7 @@
     <dimen name="item_text_small">12sp</dimen>
     <dimen name="item_text_med">18sp</dimen>
     <dimen name="item_text_large">24sp</dimen>
-    <dimen name="crop__bar_height" >56dp</dimen>
+    <dimen name="crop__bar_height">56dp</dimen>
 
     <!-- RecyclerView max heights-->
     <dimen name="payment_method_list">400dp</dimen>
@@ -194,6 +194,13 @@
     <dimen name="dp185">185dp</dimen>
     <dimen name="dp55">55dp</dimen>
     <dimen name="dp24">24dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">0dp</dimen>
+    <dimen name="sp6">6sp</dimen>
 
 
 </resources>

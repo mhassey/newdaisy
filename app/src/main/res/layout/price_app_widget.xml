@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:background="@drawable/rouned_white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:gravity="center|top"
+        android:layout_weight="0.9"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/dp10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp13"
+            android:textStyle="bold"
+            android:id="@+id/first_val"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:gravity="center"
+            android:minHeight="0dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            android:includeFontPadding="false"
+            android:layout_below="@+id/first_val"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp22"
+            android:id="@+id/second_val"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="-3dp"
+            android:includeFontPadding="false"
+            android:layout_below="@id/second_val"
+            android:id="@+id/ther_val"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp6"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginTop="@dimen/dp1"
+            android:layout_marginBottom="@dimen/dp13"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/forth_val"
+            android:text="*TCs apply"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:id="@+id/fifth_val"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp13"
+            android:textStyle="bold" />
+        <TextView
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_below="@id/fifth_val"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp22"
+            android:id="@+id/sixth_val"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+        <TextView
+            android:layout_marginBottom="@dimen/dp9"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/open_mpc"
+            android:textSize="@dimen/sp6"
+            android:textColor="@color/black"
+            android:paddingVertical="@dimen/dp5"
+            android:paddingHorizontal="@dimen/dp10"
+            android:background="@drawable/rounded_edit_text"
+            android:text="@string/tap_for_more_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
