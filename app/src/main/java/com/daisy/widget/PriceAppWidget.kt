@@ -21,73 +21,74 @@ import java.util.*
 class PriceAppWidget : AppWidgetProvider() {
 
 
-fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
     val views = RemoteViews(context.packageName, R.layout.price_app_widget)
-    val pricing: List<Pricing> = SessionManager.get().pricing
-    var pricing1: Pricing? = null
-    if (pricing != null && !pricing.isEmpty()) {
-        OUTER_LOOP@ for (i in pricing.size - Constraint.ONE downTo Constraint.ZERO) {
-            try {
-                if (SessionManager.get().pricingPlainId
-                        .equals(pricing[i].pricingPlanID)
-                ) {
-                    val sdf = SimpleDateFormat(Constraint.YYY_MM_DD)
-                    var futureDate: Date? = if (pricing[i].getTimeExpires() != null) {
-                        sdf.parse(pricing[i].getDateExpires() + " " + pricing[i].getTimeExpires())
-                    } else {
-                        sdf.parse(pricing[i].getDateExpires() + " " + Constraint.DEFAULT_HOURS_MINUTES)
-                    }
-                    var dateEffective: Date?
-                    dateEffective = if (pricing[i].getTimeEffective() != null) {
-                        sdf.parse(pricing[i].getDateEffective() + " " + pricing[i].getTimeEffective())
-                    } else {
-                        sdf.parse(pricing[i].getDateEffective() + " " + Constraint.DEFAULT_HOURS_MINUTES)
-                    }
-                    val todayDate = Date()
-                    if (dateEffective != null && !dateEffective.after(todayDate)) {
-                        if (futureDate != null && futureDate.after(todayDate)) {
-                            pricing1 = pricing[i]
-                            break@OUTER_LOOP
+    if (SessionManager.get().pricing!=null) {
+        val pricing: List<Pricing> = SessionManager.get().pricing
+        var pricing1: Pricing? = null
+        if (pricing != null && pricing.isNotEmpty()) {
+            OUTER_LOOP@ for (i in pricing.size - Constraint.ONE downTo Constraint.ZERO) {
+                try {
+                    if (SessionManager.get().pricingPlainId
+                            .equals(pricing[i].pricingPlanID)
+                    ) {
+                        val sdf = SimpleDateFormat(Constraint.YYY_MM_DD)
+                        var futureDate: Date? = if (pricing[i].timeExpires != null) {
+                            sdf.parse(pricing[i].dateExpires + " " + pricing[i].timeExpires)
+                        } else {
+                            sdf.parse(pricing[i].dateExpires + " " + Constraint.DEFAULT_HOURS_MINUTES)
+                        }
+                        var dateEffective = if (pricing[i].timeEffective != null) {
+                            sdf.parse(pricing[i].dateEffective + " " + pricing[i].timeEffective)
+                        } else {
+                            sdf.parse(pricing[i].dateEffective + " " + Constraint.DEFAULT_HOURS_MINUTES)
+                        }
+                        val todayDate = Date()
+                        if (dateEffective != null && !dateEffective.after(todayDate)) {
+                            if (futureDate != null && futureDate.after(todayDate)) {
+                                pricing1 = pricing[i]
+                                break@OUTER_LOOP
+                            }
                         }
                     }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        if (pricing1 == null) {
-            for (i in Constraint.ZERO until pricing.size) {
-                if (pricing[i].getIsDefault() != null && pricing[i].getIsDefault()
-                        .equals(Constraint.ONE_STRING)
-                ) {
-                    pricing1 = pricing[i]
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
+            if (pricing1 == null) {
+                for (i in Constraint.ZERO until pricing.size) {
+                    if (pricing[i].isDefault != null && pricing[i].isDefault
+                            .equals(Constraint.ONE_STRING)
+                    ) {
+                        pricing1 = pricing[i]
+                    }
+                }
+            }
         }
-    }
-    if (pricing1 != null) {
-        views.setTextViewText(R.id.first_val, pricing1.getPfv10())
-        views.setTextViewText(R.id.second_val, pricing1.getPfv11())
-        views.setTextViewText(R.id.ther_val, pricing1.getPfv12())
-        views.setTextViewText(R.id.forth_val, pricing1.getPfv13())
-        views.setTextViewText(R.id.fifth_val, pricing1.getPfv14())
-        views.setTextViewText(R.id.sixth_val, pricing1.getPfv15())
-    }
+        if (pricing1 != null) {
+            views.setTextViewText(R.id.first_val, pricing1.pfv10)
+            views.setTextViewText(R.id.second_val, pricing1.pfv11)
+            views.setTextViewText(R.id.ther_val, pricing1.pfv12)
+            views.setTextViewText(R.id.forth_val, pricing1.pfv13)
+            views.setTextViewText(R.id.fifth_val, pricing1.pfv14)
+            views.setTextViewText(R.id.sixth_val, pricing1.pfv15)
+        }
 
-    views.setOnClickPendingIntent(
-        R.id.open_mpc,
-        PendingIntent.getActivity(
-            context,
-            0,
-            Intent(context, MainActivity::class.java),
-            PendingIntent.FLAG_IMMUTABLE
+        views.setOnClickPendingIntent(
+            R.id.open_mpc,
+            PendingIntent.getActivity(
+                context,
+                0,
+                Intent(context, MainActivity::class.java),
+                PendingIntent.FLAG_IMMUTABLE
+            )
         )
-    )
 
-    // Instruct the widget manager to update the widget
+        // Instruct the widget manager to update the widget
 
-    // Instruct the widget manager to update the widget
-    appWidgetManager.updateAppWidget(appWidgetId, views)
+        // Instruct the widget manager to update the widget
+        appWidgetManager.updateAppWidget(appWidgetId, views)
+    }
 }
 
 

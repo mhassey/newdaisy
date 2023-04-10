@@ -2,6 +2,12 @@ package com.daisy.activity.splash;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +27,13 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 /**
  * Purpose - SplashScreen is an activity that show splash data
  * Responsibility - Its use to hold screen to some second and show app logo
@@ -32,9 +45,12 @@ public class SplashScreen extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splash_screen);
         initView();
     }
+
+
 
 
     /**
@@ -42,7 +58,6 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void initView() {
-        setNoTitleBar(this);
         if (getIntent()!=null)
         {
             SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
