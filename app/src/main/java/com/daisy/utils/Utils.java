@@ -38,6 +38,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.mainActivity.MainActivity;
@@ -1138,6 +1139,13 @@ public class Utils {
         String address = info.getMacAddress();
         return address;
 
+    }
+
+    public static boolean isAllAccessPermissionGiven(Context context) {
+        boolean isExternalStorageManager = false;
+            isExternalStorageManager = Environment.isExternalStorageManager();
+
+            return isExternalStorageManager;
     }
 }
 

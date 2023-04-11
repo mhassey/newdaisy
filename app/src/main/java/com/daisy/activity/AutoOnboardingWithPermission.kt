@@ -72,17 +72,51 @@ class AutoOnboardingWithPermission : BaseActivity() {
             }
         }
         else{
+
             if (!Utils.isAccessGranted(this)) {
                 askForUsagesPermission()
             } else {
-                hitSignUpApi()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    handleStoragePermission()
+                }
+                else{
+                    hitSignUpApi()
+                }
             }
         }
 
 
     }
 
+    private fun handleStoragePermission() {
+        if (Utils.isAllAccessPermissionGiven(this)) {
+            hitSignUpApi()
+        }
+        else {
+            try {
+                var uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+                var intent =  Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } catch ( ex: Exception) {
+                try {
+                    var intent =  Intent();
+                    intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } catch ( ex1:Exception) {
 
+                }
+            }
+
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        permissionChecker()
+    }
     @RequiresApi(api = Build.VERSION_CODES.M)
     fun askForPopUpPermission() {
 
@@ -143,8 +177,16 @@ class AutoOnboardingWithPermission : BaseActivity() {
      * Parameters - No parameter
      */
     private fun checkAccessUsage() {
+
+
+
         if (Utils.isAccessGranted(this)) {
-            hitSignUpApi()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                handleStoragePermission()
+            }
+            else{
+                hitSignUpApi()
+            }
         } else {
             askForUsagesPermission()
          }

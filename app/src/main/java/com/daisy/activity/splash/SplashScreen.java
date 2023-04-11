@@ -51,21 +51,18 @@ public class SplashScreen extends BaseActivity {
     }
 
 
-
-
     /**
      * Responsibility - initView method is used for initiate all object and perform some initial level task
      * Parameters - No parameter
      **/
     private void initView() {
-        if (getIntent()!=null)
-        {
+        if (getIntent() != null) {
             SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
 //            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
 //            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
         }
-            SessionManager.get().setBaseUrl("https:tesco.mobilepricecards.com/");
-            SessionManager.get().setStoreCode(getIntent().getStringExtra("1234"));
+        SessionManager.get().setBaseUrl("https:tesco.mobilepricecards.com/");
+        SessionManager.get().setStoreCode(getIntent().getStringExtra("1234"));
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
@@ -81,8 +78,6 @@ public class SplashScreen extends BaseActivity {
     }
 
 
-
-
     private void wakeUp() {
         try {
             PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -90,9 +85,7 @@ public class SplashScreen extends BaseActivity {
             PowerManager.WakeLock mWakeLock = powerManager.newWakeLock(flags, Constraint.WEAK_UP_TAG);
             mWakeLock.acquire();
             mWakeLock.release();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -117,7 +110,6 @@ public class SplashScreen extends BaseActivity {
     private void redirectToWelcome() {
 
 
-
         Intent intent = null;
         try {
             boolean isInstalled = Utils.getWorkProfile(this);
@@ -127,10 +119,9 @@ public class SplashScreen extends BaseActivity {
                 intent = new Intent(SplashScreen.this, EditorTool.class);
 
             } else {
-                if (SessionManager.get().getBaseUrl()!=null && !SessionManager.get().getBaseUrl().equals("")) {
+                if (SessionManager.get().getBaseUrl() != null && !SessionManager.get().getBaseUrl().equals("")) {
                     intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
-                }
-                else {
+                } else {
                     intent = new Intent(SplashScreen.this, WelcomeScreen.class);
 
                 }
