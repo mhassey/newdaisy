@@ -1062,15 +1062,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
     private void handleProximity(SensorEvent event) {
-        if (event.values[0]==0) {
-            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            String name = componentInfo.getClassName();
-            if (name.contains(Constraint.MAIN_ACTIVITY)) {
-                EventBus.getDefault().post(new Interactor());
-            }
-        }
+//        if (event.values[0]==0) {
+//            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+//            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+//            ComponentName componentInfo = taskInfo.get(0).topActivity;
+//            String name = componentInfo.getClassName();
+//            if (name.contains(Constraint.MAIN_ACTIVITY)) {
+//                EventBus.getDefault().post(new Interactor());
+//            }
+//        }
     }
 
     //  Handle gyro
@@ -1146,8 +1146,16 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
-        setDefaultBrightness();
-        Utils.setFullBrightNess();
+        EventBus.getDefault().post(new DimBrighness());
+    }
+
+    public void fireThirtySecondCounter() {
+
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.9f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10));
+
 
     }
 
