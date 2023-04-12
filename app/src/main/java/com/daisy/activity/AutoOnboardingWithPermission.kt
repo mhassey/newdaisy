@@ -55,7 +55,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
         setNoTitleBar(this)
 
         defineObserver()
-        permissionChecker()
+//        permissionChecker()
 
 
     }
@@ -68,7 +68,12 @@ class AutoOnboardingWithPermission : BaseActivity() {
             } else if (!Utils.isAccessGranted(this)) {
                 askForUsagesPermission()
             } else {
-                hitSignUpApi()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    handleStoragePermission()
+                }
+                else{
+                    hitSignUpApi()
+                }
             }
         }
         else{
@@ -76,6 +81,8 @@ class AutoOnboardingWithPermission : BaseActivity() {
             if (!Utils.isAccessGranted(this)) {
                 askForUsagesPermission()
             } else {
+
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     handleStoragePermission()
                 }
@@ -137,26 +144,26 @@ class AutoOnboardingWithPermission : BaseActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Constraint.POP_UP_RESPONSE) {
-            if (SessionManager.get().appType != Constraint.GO) {
-
-                if (Settings.canDrawOverlays(this)) {
-                    checkAccessUsage()
-                } else
-                    askForPopUpPermission()
-            }
-            else{
-                checkAccessUsage()
-            }
-
-        }
-        else if (requestCode== Constraint.RETURN) {
-            if (!Utils.isAccessGranted(this)) {
-                askForUsagesPermission()
-            } else {
-                checkAccessUsage()
-            }
-        }
+//        if (requestCode == Constraint.POP_UP_RESPONSE) {
+//            if (SessionManager.get().appType != Constraint.GO) {
+//
+//                if (Settings.canDrawOverlays(this)) {
+//                    checkAccessUsage()
+//                } else
+//                    askForPopUpPermission()
+//            }
+//            else{
+//                checkAccessUsage()
+//            }
+//
+//        }
+//        else if (requestCode== Constraint.RETURN) {
+//            if (!Utils.isAccessGranted(this)) {
+//                askForUsagesPermission()
+//            } else {
+//                checkAccessUsage()
+//            }
+//        }
         }
 
 
