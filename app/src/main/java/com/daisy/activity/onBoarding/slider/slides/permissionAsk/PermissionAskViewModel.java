@@ -16,6 +16,7 @@ public class PermissionAskViewModel extends AndroidViewModel {
     private boolean grandGpsEnable = false;
     private boolean isAutoStart = false;
 
+    private boolean isDeleteContent = false;
     public boolean isGrandGpsEnable() {
         return grandGpsEnable;
     }
@@ -90,5 +91,13 @@ public class PermissionAskViewModel extends AndroidViewModel {
 
     public void setGrandExtraAccess(boolean grandExtraAccess) {
         this.grandExtraAccess = grandExtraAccess;
+    }
+
+    public boolean isDeleteContentPermission() {
+        return isDeleteContent;
+    }
+    public  void setDeleteContent(boolean value)
+    {
+        isDeleteContent=value;
     }
 }

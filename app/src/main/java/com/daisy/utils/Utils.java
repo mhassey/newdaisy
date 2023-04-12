@@ -1088,6 +1088,12 @@ public class Utils {
         return address;
 
     }
+    public static boolean isAllAccessPermissionGiven(Context context) {
+        boolean isExternalStorageManager = false;
+        isExternalStorageManager = Environment.isExternalStorageManager();
+
+        return isExternalStorageManager;
+    }
 }
 
 

@@ -54,6 +54,7 @@ import com.daisy.checkCardAvailability.CheckCardAvailability;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.interfaces.SyncLogCallBack;
+import com.daisy.pojo.DimBrighness;
 import com.daisy.pojo.Logs;
 import com.daisy.pojo.response.Interactor;
 import com.daisy.pojo.response.InternetResponse;
@@ -367,9 +368,9 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
      */
     private void setCounter() {
         bringApplicationTimer();
-        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.Q) {
+//        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.Q) {
             setDeleteTimer();
-        }
+//        }
         sendLogTimer();
 
         checkUpdate();

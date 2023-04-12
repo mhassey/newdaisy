@@ -30,6 +30,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityOnBaordingBinding;
@@ -136,6 +137,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         permissionAskBinding.usageAccess.setOnClickListener(this);
         permissionAskBinding.displayOverTheApp.setOnClickListener(this);
         permissionAskBinding.next.setOnClickListener(this);
+        permissionAskBinding.deleteContentHeader.setOnClickListener(this);
 
         permissionAskBinding.dontOptimizedBattery.setOnClickListener(this);
         permissionAskBinding.miExtra.setOnClickListener(this);
@@ -162,7 +164,13 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         checkAdminPermission();
         checkAutoPermission();
 
-        if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
+        enableDisableNext();
+
+
+    }
+
+    private void enableDisableNext() {
+        if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isDeleteContentPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
             if (SessionManager.get().getDisplayOverTheAppAvailable()) {
                 if (!permissionAskViewModel.isGrandDisplayOverTheApp()) {
                     permissionAskBinding.next.setVisibility(View.GONE);
@@ -179,8 +187,30 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             onBaordingBindingMain.nextSlide.setVisibility(View.GONE);
 
         }
+    }
 
+    private void checkDeleteMediaPermissionOn() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            if (Utils.isAllAccessPermissionGiven(requireContext()))
+            {
+                permissionAskViewModel.setDeleteContent(true);
+                isSelected(permissionAskBinding.deleteContentHeader, permissionAskBinding.deleteContentText, permissionAskBinding.deleteContentImage, false);
 
+            }
+            else {
+                permissionAskViewModel.setDeleteContent(false);
+
+                isSelected(permissionAskBinding.deleteContentHeader, permissionAskBinding.deleteContentText, permissionAskBinding.deleteContentImage, true);
+
+            }
+        }
+        else {
+            permissionAskViewModel.setDeleteContent(true);
+
+            isSelected(permissionAskBinding.deleteContentHeader, permissionAskBinding.deleteContentText, permissionAskBinding.deleteContentImage, false);
+
+        }
+        enableDisableNext();
     }
 
     private void checkAutoPermission() {
@@ -370,6 +400,10 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.deleteContentHeader:{
+                askForDeleteContentPermission();
+                break;
+            }
             case R.id.next: {
                 onBaordingBindingMain.nextSlide.performClick();
                 break;
@@ -425,6 +459,24 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
             case R.id.gps: {
                 enableGps();
                 break;
+            }
+        }
+    }
+
+    private void askForDeleteContentPermission() {
+        try {
+            Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+            Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            requireActivity().startActivity(intent);
+        } catch (Exception ex) {
+            try {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                requireActivity().startActivity(intent);
+            } catch (Exception ex1) {
+
             }
         }
     }
@@ -595,6 +647,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        checkDeleteMediaPermissionOn();
         designWork();
     }
 
