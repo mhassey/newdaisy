@@ -1,5 +1,6 @@
 package com.daisy.activity.onBoarding.slider.slides.permissionAsk;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
@@ -333,7 +334,12 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
         boolean b;
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Do something for lollipop and above versions
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                String[] STORAGE_PERMISSION_WITH_PUSH = new String[]{Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,  Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
+
+                b = PermissionManager.checkPermissionOnly(requireActivity(), STORAGE_PERMISSION_WITH_PUSH, Constraint.RESPONSE_CODE);
+            }
+            else // Do something for lollipop and above versions
             b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
         } else {
             b = PermissionManager.checkPermissionOnly(requireActivity(), Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
@@ -409,13 +415,22 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.grandMediaPermission: {
-
+                boolean isDone=false;
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    // Do something for lollipop and above versions
-                    PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                     String[] STORAGE_PERMISSION_WITH_PUSH = new String[]{Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.BLUETOOTH, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,  Manifest.permission.WRITE_CALL_LOG, Manifest.permission.READ_SMS, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CAMERA};
+                     isDone=   PermissionManager.checkPermission(requireActivity(), STORAGE_PERMISSION_WITH_PUSH, Constraint.RESPONSE_CODE);
+                    }
+                    else
+                        isDone=PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
                 } else {
-                    PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
+                    isDone=PermissionManager.checkPermission(requireActivity(), Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
                     // do something for phones running an SDK before lollipop
+                }
+                if (isDone)
+                {
+                    permissionAskViewModel.setGrandExtraAccess(Constraint.TRUE);
+                    permissionSetter();
                 }
 
                 // mainAdminAsk();
@@ -549,6 +564,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
                                 intent.setData(Uri.parse("package:" + packageName));
                                 requireActivity().startActivityForResult(intent, Constraint.BATTRY_OPTIMIZATION_CODE);
                             }
+
                         }
                     }
                 }

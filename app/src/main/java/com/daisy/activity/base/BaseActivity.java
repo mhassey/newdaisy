@@ -232,6 +232,19 @@ public class BaseActivity extends AppCompatActivity {
         }, second, second);
 
     }
+    public void cancelDimBrightness()
+    {
+        try {
+
+            if (brightNessCounter != null) {
+                brightNessCounter.cancel();
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
 
     public void setDefaultBrightness() {
         if (!SessionManager.get().isBrighnessDefault())

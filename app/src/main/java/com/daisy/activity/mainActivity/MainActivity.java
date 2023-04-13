@@ -638,7 +638,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             mBinding.webView.setSoundEffectsEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
             mBinding.webView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
-            mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
+//            mBinding.webView.getSettings().setAppCacheEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             mBinding.webView.getSettings().setAllowContentAccess(Constraint.TRUE);
             mBinding.webView.getSettings().setDomStorageEnabled(Constraint.TRUE);
@@ -1265,11 +1265,13 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void interactWithFaceDetection(Interactor interactor) {
+        cancelDimBrightness();
         if (!SessionManager.get().isBrighnessDefault())
             SessionManager.get().setBrightness(0.9f);
         else
             SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10));
         Utils.setFullBrightNess();
+
     }
 
     private void handleUperLayoutClick() {
@@ -1816,7 +1818,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding.supportWebView.setSoundEffectsEnabled(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
-        mBinding.supportWebView.getSettings().setAppCacheEnabled(Constraint.TRUE);
+//        mBinding.supportWebView.getSettings().setAppCacheEnabled(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         mBinding.supportWebView.getSettings().setAllowContentAccess(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setDomStorageEnabled(Constraint.TRUE);
