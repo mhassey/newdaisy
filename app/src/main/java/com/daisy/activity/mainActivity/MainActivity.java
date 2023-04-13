@@ -132,6 +132,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},12);
         initView();
         initService();
         setOnClickListener();
@@ -153,7 +154,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         sessionWork();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        permissionAsking();
+//        permissionAsking();
         windowWork();
         loadURL();
         intentWork();
@@ -486,7 +487,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             } else {
                 if (grantResults.length > Constraint.ZERO
                         && grantResults[Constraint.ZERO] == PackageManager.PERMISSION_GRANTED) {
-                    getDownloadData();
+//                    getDownloadData();
 
                 }
             }

@@ -1014,7 +1014,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                 if (name.contains(Constraint.MAIN_ACTIVITY)) {
                     if (wifiManager.isWifiEnabled()) {
                         internetResponse.setAvailable(false);
-                        EventBus.getDefault().post(internetResponse);
+//                        EventBus.getDefault().post(internetResponse);
                     } else {
                         internetResponse.setAvailable(true);
                         EventBus.getDefault().post(internetResponse);

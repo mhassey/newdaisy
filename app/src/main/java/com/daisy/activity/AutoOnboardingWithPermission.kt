@@ -1,10 +1,13 @@
 package com.daisy.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -26,6 +29,7 @@ import com.daisy.common.session.SessionManager
 import com.daisy.databinding.ActivityAutoOnboardingWithPermissionBinding
 import com.daisy.pojo.response.*
 import com.daisy.utils.Constraint
+import com.daisy.utils.PermissionManager
 import com.daisy.utils.Utils
 import com.daisy.utils.ValidationHelper
 import java.io.File
@@ -69,9 +73,11 @@ class AutoOnboardingWithPermission : BaseActivity() {
                 askForUsagesPermission()
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
                     handleStoragePermission()
                 }
                 else{
+
                     hitSignUpApi()
                 }
             }
@@ -97,6 +103,19 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
     private fun handleStoragePermission() {
         if (Utils.isAllAccessPermissionGiven(this)) {
+            if(Build.MANUFACTURER.equals("samsung")) {
+                if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                    if(PermissionManager.checkPermission(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS),Constraint.PUSH_CODE))
+                    {
+                        hitSignUpApi()
+                    }
+                }
+                else
+                {
+                    hitSignUpApi()
+                }
+            }
+            else
             hitSignUpApi()
         }
         else {
@@ -585,6 +604,22 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
 
 
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode)
+        {
+            Constraint.PUSH_CODE->
+            {
+                permissionChecker()
+
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
 
