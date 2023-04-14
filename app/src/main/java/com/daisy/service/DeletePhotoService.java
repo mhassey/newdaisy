@@ -27,7 +27,7 @@ public class DeletePhotoService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            sessionManager = SessionManager.get();
+//            sessionManager = SessionManager.get();
 //            if (sessionManager.getDeletePhoto()) {
                 Utils.deleteGalaryPhoto();
 //            }

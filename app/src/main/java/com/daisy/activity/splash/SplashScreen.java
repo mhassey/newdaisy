@@ -66,8 +66,8 @@ public class SplashScreen extends BaseActivity {
 //            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
 //            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
         }
-        SessionManager.get().setBaseUrl("http://mpcqa3.mobilepricecards.com");
-        SessionManager.get().setStoreCode(getIntent().getStringExtra("10fwd"));
+        SessionManager.get().setBaseUrl("https://tesco.mobilepricecards.com");
+        SessionManager.get().setStoreCode(getIntent().getStringExtra("1234"));
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
