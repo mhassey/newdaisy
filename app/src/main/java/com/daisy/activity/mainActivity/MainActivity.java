@@ -24,6 +24,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -54,6 +55,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.apkUpdate.DownloadUpdateApk;
 import com.daisy.activity.base.BaseActivity;
@@ -132,11 +134,14 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},12);
+//        requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},12);
         initView();
         initService();
         setOnClickListener();
     }
+
+
+
 
 
     /**
@@ -311,6 +316,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     protected void onResume() {
         super.onResume();
         handleResumeWork();
+        handleNewPermissionIfNotGiven();
+
+
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
 
@@ -377,6 +385,19 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             e.printStackTrace();
         }
     }
+
+    private void handleNewPermissionIfNotGiven() {
+
+        if(Build.MANUFACTURER.equals("samsung")) {
+            if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                PermissionManager.checkPermission(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, Constraint.PUSH_CODE);
+
+            }
+        }
+
+
+    }
+
 
     /**
      * Create download file and send to download manager
@@ -475,19 +496,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                 } else {
                     boolean b;
 
-                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
                         // Do something for lollipop and above versions
-                        b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION, Constraint.RESPONSE_CODE);
-                    } else {
-                        b = PermissionManager.checkPermissionOnly(MainActivity.this, Constraint.STORAGE_PERMISSION_WITHOUT_SENSOR, Constraint.RESPONSE_CODE);
-                        // do something for phones running an SDK before lollipop
+                     PermissionManager.checkPermission(MainActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, Constraint.RESPONSE_CODE);
                     }
 
                 }
             } else {
-                if (grantResults.length > Constraint.ZERO
-                        && grantResults[Constraint.ZERO] == PackageManager.PERMISSION_GRANTED) {
-//                    getDownloadData();
+                if (grantResults[Constraint.ZERO] == PackageManager.PERMISSION_GRANTED) {
+
 
                 }
             }

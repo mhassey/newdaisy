@@ -1,5 +1,6 @@
 package com.daisy.activity.splash;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -8,14 +9,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
+import com.daisy.BuildConfig;
 import com.daisy.R;
 import com.daisy.activity.AutoOnboardingWithPermission;
 import com.daisy.activity.base.BaseActivity;
@@ -24,6 +28,7 @@ import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
+import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 
@@ -66,14 +71,7 @@ public class SplashScreen extends BaseActivity {
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
-        final Handler handler = new Handler();
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                redirectToWelcome();
-            }
-        }, Constraint.FOUR_THOUSAND);
 
     }
 
@@ -114,20 +112,6 @@ public class SplashScreen extends BaseActivity {
         try {
             boolean isInstalled = Utils.getWorkProfile(this);
             SessionManager.get().setDisableSecurity(isInstalled);
-
-            if (sessionManager.getOnBoarding()) {
-                intent = new Intent(SplashScreen.this, EditorTool.class);
-
-            } else {
-                if (SessionManager.get().getBaseUrl() != null && !SessionManager.get().getBaseUrl().equals("")) {
-                    intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
-                } else {
-                    intent = new Intent(SplashScreen.this, WelcomeScreen.class);
-
-                }
-            }
-
-
             try {
                 if (Utils.isSystemAlertWindowEnabled(this)) {
                     SessionManager.get().setAppType(Constraint.GO);
@@ -143,7 +127,26 @@ public class SplashScreen extends BaseActivity {
 
             }
 
-            startActivity(intent);
+            if (sessionManager.getOnBoarding()) {
+
+                handleStoragePermission();
+            }
+            else
+            {
+                if (SessionManager.get().getBaseUrl() != null && !SessionManager.get().getBaseUrl().equals("")) {
+                    intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
+                } else {
+                    intent = new Intent(SplashScreen.this, WelcomeScreen.class);
+
+                }
+                startActivity(intent);
+            }
+
+
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,6 +154,46 @@ public class SplashScreen extends BaseActivity {
 
         finish();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                redirectToWelcome();
+            }
+        }, Constraint.FOUR_THOUSAND);
+
+    }
+
+
+    private void handleStoragePermission() {
+        if (!Utils.isAllAccessPermissionGiven(this)) {
+            try {
+                SessionManager.get().setPasswordCorrect(true);
+                Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } catch (Exception ex) {
+                try {
+                    Intent intent = new  Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } catch ( Exception ex1) {
+
+                }
+            }
+        }
+        else {
+         Intent   intent = new Intent(SplashScreen.this, EditorTool.class);
+        startActivity(intent);
+        }
     }
 
     /**
