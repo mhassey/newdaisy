@@ -38,14 +38,14 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://tesco.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://mpcqa3.mobilepricecards.com/"'
         }
 
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://tesco.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"http://mpcqa3.mobilepricecards.com/"'
         }
     }
 

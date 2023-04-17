@@ -1,14 +1,7 @@
 package com.daisy.activity.splash;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,20 +17,10 @@ import com.daisy.R;
 import com.daisy.activity.AutoOnboardingWithPermission;
 import com.daisy.activity.base.BaseActivity;
 import com.daisy.activity.editorTool.EditorTool;
-import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.common.session.SessionManager;
 import com.daisy.utils.Constraint;
-import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
-import com.daisy.utils.ValidationHelper;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * Purpose - SplashScreen is an activity that show splash data
@@ -66,8 +49,8 @@ public class SplashScreen extends BaseActivity {
 //            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
 //            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
         }
-        SessionManager.get().setBaseUrl("https://tesco.mobilepricecards.com");
-        SessionManager.get().setStoreCode(getIntent().getStringExtra("1234"));
+        SessionManager.get().setBaseUrl("http://mpcqa3.mobilepricecards.com");
+        SessionManager.get().setStoreCode(getIntent().getStringExtra("10fwd"));
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
