@@ -37,14 +37,14 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://o2.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://xfinity.mobilepricecards.com/"'
         }
 
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://o2.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://xfinity.mobilepricecards.com/"'
         }
     }
 
