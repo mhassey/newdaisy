@@ -2,7 +2,6 @@ package com.daisy.activity
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -32,6 +31,8 @@ import com.daisy.utils.Constraint
 import com.daisy.utils.PermissionManager
 import com.daisy.utils.Utils
 import com.daisy.utils.ValidationHelper
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import java.io.File
 import java.io.IOException
 
@@ -60,8 +61,24 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
         defineObserver()
 //        permissionChecker()
+        firebaseConfiguration()
+
+    }
 
 
+    private fun firebaseConfiguration() {
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+
+
+                // Get new FCM registration token
+                val token = task.result
+                Log.e("My token", token!!)
+                SessionManager.get().fcmToken = token
+            })
     }
 
 
@@ -84,6 +101,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
         }
         else{
 
+
             if (!Utils.isAccessGranted(this)) {
                 askForUsagesPermission()
             } else {
@@ -100,10 +118,21 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
 
     }
+     fun handleNewPermissionIfNotGiven() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (PermissionManager.checkPermission(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    Constraint.PUSH_CODE
+                )
+            ) {
+
+            }
+        }
+    }
 
     private fun handleStoragePermission() {
         if (Utils.isAllAccessPermissionGiven(this)) {
-            if(Build.MANUFACTURER.equals("samsung")) {
                 if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
                     if(PermissionManager.checkPermission(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS),Constraint.PUSH_CODE))
                     {
@@ -114,9 +143,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
                 {
                     hitSignUpApi()
                 }
-            }
-            else
-            hitSignUpApi()
+
         }
         else {
             try {

@@ -316,7 +316,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     protected void onResume() {
         super.onResume();
         handleResumeWork();
-        handleNewPermissionIfNotGiven();
 
 
         mBinding.webView.resumeTimers();
@@ -386,17 +385,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         }
     }
 
-    private void handleNewPermissionIfNotGiven() {
 
-        if(Build.MANUFACTURER.equals("samsung")) {
-            if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-                PermissionManager.checkPermission(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, Constraint.PUSH_CODE);
-
-            }
-        }
-
-
-    }
 
 
     /**
