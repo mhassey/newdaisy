@@ -1794,6 +1794,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
     private void setDeleteTimer(int time) {
+        Log.e("Time value is ",time+"");
         int second = time * 1000;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -1802,7 +1803,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        mBinding.supportWebView.clearHistory();
                         if (mBinding.supportWebViewLayout.getVisibility() == View.VISIBLE) {
+
                             openMainWebView();
                         }
                     }
@@ -1836,7 +1839,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         mBinding.supportWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         mBinding.supportWebView.setScrollbarFadingEnabled(Constraint.FALSE);
-        mBinding.webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+        mBinding.supportWebView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
         mBinding.supportWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
 
         mBinding.supportWebView.getSettings().setMediaPlaybackRequiresUserGesture(Constraint.FALSE);
@@ -1845,12 +1848,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             mBinding.supportWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
             CookieManager.getInstance().setAcceptThirdPartyCookies(mBinding.supportWebView, Constraint.TRUE);
         }
-        mBinding.webView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
+        mBinding.supportWebView.getSettings().setUserAgentString(Constraint.GIVEN_BROWSER);
 
         mBinding.supportWebView.loadUrl(url);
 
         mBinding.webViewLayout.setVisibility(View.GONE);
         mBinding.supportWebViewLayout.setVisibility(View.VISIBLE);
+        mBinding.supportWebView.setWebViewClient(new WebViewClient(){
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                // do your handling codes here, which url is the requested url
+                // probably you need to open that url rather than redirect:
+                view.loadUrl(url);
+                return false; // then it is not handled by default action
+            }
+        });
         mBinding.supportWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
                 showHideProgressDialog(true);

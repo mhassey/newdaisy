@@ -80,7 +80,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Main service that handle hole background tasks
  */
-public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener{
+public class BackgroundService extends Service implements SyncLogCallBack, View.OnTouchListener, SensorEventListener, FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private static final String ACTION_DEBUG = "daichan4649.lockoverlay.action.DEBUG";
@@ -147,6 +147,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
         if (!SessionManager.get().getAppType().equals(Constraint.GO)) {
             initWifi();
             defineSensor();
+
+            try {
+                FrontCameraRetriever.retrieveFor(this);
+                FrontCameraRetriever.getInstance().load();
+            } catch (Exception e) {
+
+            }
         }
 
     }
@@ -1060,15 +1067,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
     private void handleProximity(SensorEvent event) {
-        if (event.values[0]==0) {
-            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            String name = componentInfo.getClassName();
-            if (name.contains(Constraint.MAIN_ACTIVITY)) {
-                EventBus.getDefault().post(new Interactor());
-            }
-        }
+//        if (event.values[0]==0) {
+//            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+//            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+//            ComponentName componentInfo = taskInfo.get(0).topActivity;
+//            String name = componentInfo.getClassName();
+//            if (name.contains(Constraint.MAIN_ACTIVITY)) {
+//                EventBus.getDefault().post(new Interactor());
+//            }
+//        }
     }
 
     //  Handle gyro
@@ -1113,76 +1120,77 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     }
 
 
-//    /**
-//     * Purpose - onFaceDetected method handles face detection event
-//     */
-//    @Override
-//    public void onFaceDetected() {
-//        try {
-//
-//            if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.FIVE_SECOND) {
-//                return;
-//            }
-//            lastFaceDetect = SystemClock.elapsedRealtime();
-//            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-//            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-//            ComponentName componentInfo = taskInfo.get(0).topActivity;
-//            String name = componentInfo.getClassName();
-//            if (name.contains(Constraint.MAIN_ACTIVITY)) {
-//                EventBus.getDefault().post(new Interactor());
-//
-//                DBCaller.storeFaceDetectionLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.APPLICATION_LOGS);
-//
-//            }
-//        } catch (Exception e) {
-//        }
-//
-//
-//    }
-//
-//
-//    //  Face out handler
-//    @Override
-//    public void onFaceTimedOut() {
-//
-//
-//    }
-//
-//    @Override
-//    public void onFaceDetectionNonRecoverableError() {
-//
-//    }
+    /**
+     * Purpose - onFaceDetected method handles face detection event
+     */
+    @Override
+    public void onFaceDetected() {
+        Log.e("face..","detected");
+        try {
 
-//    FaceDetectionCamera camera;
+            if (SystemClock.elapsedRealtime() - lastFaceDetect < Constraint.FIVE_SECOND) {
+                return;
+            }
+            lastFaceDetect = SystemClock.elapsedRealtime();
+            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            String name = componentInfo.getClassName();
+            if (name.contains(Constraint.MAIN_ACTIVITY)) {
+                EventBus.getDefault().post(new Interactor());
+
+                DBCaller.storeFaceDetectionLogInDatabase(getApplicationContext(), Constraint.USER_SEEN_PRICECARD__, "", "", Constraint.APPLICATION_LOGS);
+
+            }
+        } catch (Exception e) {
+        }
 
 
-//    @Override
-//    public void onLoaded(FaceDetectionCamera camera) {
-//        try {
-//
-//            // When the front facing camera has been retrieved we still need to ensure our display is ready
-//            // so we will let the camera surface view initialise the camera i.e turn face detection on
-//            if (touchLayoutforCamera != null) {
-//                try {
-//                    SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
-//                    this.camera = camera;
-//                    touchLayoutforCamera.addView(cameraSurface);
-//                    CameraLoad.getInstance().isLoaded = true;
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    }
 
 
-//    @Override
-//    public void onFailedToLoadFaceDetectionCamera() {
-//
-//    }
+    //  Face out handler
+    @Override
+    public void onFaceTimedOut() {
+
+
+    }
+
+    @Override
+    public void onFaceDetectionNonRecoverableError() {
+
+    }
+
+    FaceDetectionCamera camera;
+
+
+    @Override
+    public void onLoaded(FaceDetectionCamera camera) {
+        try {
+
+            // When the front facing camera has been retrieved we still need to ensure our display is ready
+            // so we will let the camera surface view initialise the camera i.e turn face detection on
+            if (touchLayoutforCamera != null) {
+                try {
+                    SurfaceView cameraSurface = new CameraSurfaceView(this, camera, this);
+                    this.camera = camera;
+                    touchLayoutforCamera.addView(cameraSurface);
+                    CameraLoad.getInstance().isLoaded = true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onFailedToLoadFaceDetectionCamera() {
+
+    }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {

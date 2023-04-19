@@ -54,6 +54,9 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void initView() {
+        SessionManager.get().isDisplayOverTheAppAvailable(true);
+
+        setNoTitleBar(this);
         if (getIntent() != null) {
             SessionManager.get().setImeiNumber(getIntent().getStringExtra("extra_imei"));
 //            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
