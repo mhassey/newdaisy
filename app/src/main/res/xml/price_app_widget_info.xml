@@ -2,7 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
 android:initialKeyguardLayout="@layout/price_app_widget"
 android:initialLayout="@layout/price_app_widget"
-android:previewImage="@drawable/mpc_logo"
+android:previewImage="@drawable/splash_logo"
 android:previewLayout="@layout/price_app_widget"
 android:resizeMode="horizontal|vertical"
 android:targetCellWidth="5"
