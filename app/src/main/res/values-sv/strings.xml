@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DMOTO</string>
+    <string name="app_name">gomoto</string>
     <string name="storage_not_available">Lagring inte tillgänglig</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Poängkod</string>
     <string name="don_t_optimized_battery">Inaktivera batterioptimering</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Spara och starta DMOTO >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Spara och starta gomoto >]]></string>
     <string name="store_code">Butikskod</string>
     <string name="Password">Lösenord</string>
     <string name="manage_device_content">Hantera enhetsinnehåll</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Skärmtillägg</string>
     <string name="position_update">Position uppdaterad</string>
     <string name="load_add_screen">Skärmen Ladda tillägg</string>
-    <string name="display_over_the_app">Låt DMOTO visa över andra appar på din enhet.</string>
-    <string name="allow_data_access">Tillåt Usage Data Access till DMOTO i enhetens inställningar.</string>
-    <string name="modify_system_settings_text">Låt DMOTO ändra systeminställningarna på din enhet.</string>
+    <string name="display_over_the_app">Låt gomoto visa över andra appar på din enhet.</string>
+    <string name="allow_data_access">Tillåt Usage Data Access till gomoto i enhetens inställningar.</string>
+    <string name="modify_system_settings_text">Låt gomoto ändra systeminställningarna på din enhet.</string>
     <string name="permission_req">Tillstånd krävs</string>
-    <string name="battery_optimized">Tillåt att DMOTO inaktiverar batterioptimering på din enhet.</string>
+    <string name="battery_optimized">Tillåt att gomoto inaktiverar batterioptimering på din enhet.</string>
     <string name="position">Placera</string>
     <string name="ok">Ok</string>
     <string name="cancle">Annullera</string>

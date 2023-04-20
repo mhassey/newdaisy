@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DMOTO</string>
+    <string name="app_name">gomoto</string>
     <string name="storage_not_available">사용할 수없는 스토리지</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">점수 코드</string>
     <string name="don_t_optimized_battery">배터리 최적화 비활성화</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[DMOTO 저장 및 시작 >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[gomoto 저장 및 시작 >]]></string>
     <string name="store_code">상점 코드</string>
     <string name="Password">암호</string>
     <string name="manage_device_content">장치 콘텐츠 관리</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">화면 추가</string>
     <string name="position_update">위치가 업데이트되었습니다.</string>
     <string name="load_add_screen">추가 화면로드</string>
-    <string name="display_over_the_app">DMOTO가 장치의 다른 앱 위에 표시되도록 허용하십시오.</string>
-    <string name="allow_data_access">장치 설정에서 DMOTO에 대한 사용 데이터 액세스를 허용하십시오.</string>
-    <string name="modify_system_settings_text">DMOTO가 장치의 시스템 설정을 수정하도록 허용하십시오.</string>
+    <string name="display_over_the_app">gomoto가 장치의 다른 앱 위에 표시되도록 허용하십시오.</string>
+    <string name="allow_data_access">장치 설정에서 gomoto에 대한 사용 데이터 액세스를 허용하십시오.</string>
+    <string name="modify_system_settings_text">gomoto가 장치의 시스템 설정을 수정하도록 허용하십시오.</string>
     <string name="permission_req">권한 필요</string>
-    <string name="battery_optimized">DMOTO가 장치에서 배터리 최적화를 비활성화하도록 허용하십시오.</string>
+    <string name="battery_optimized">gomoto가 장치에서 배터리 최적화를 비활성화하도록 허용하십시오.</string>
     <string name="position">위치</string>
     <string name="ok">확인</string>
     <string name="cancle">취소</string>

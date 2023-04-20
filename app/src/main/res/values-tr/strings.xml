@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DMOTO</string>
+    <string name="app_name">gomoto</string>
     <string name="storage_not_available">Depolama mevcut değil</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Puan Kodu</string>
     <string name="don_t_optimized_battery">Pil optimizasyonunu devre dışı bırakın</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[DMOTO\'yi kaydedin ve başlatın >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[gomoto\'yi kaydedin ve başlatın >]]></string>
     <string name="store_code">Mağaza Kodu</string>
     <string name="Password">Parola</string>
     <string name="manage_device_content">Cihaz İçeriğini Yönetin</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Ekran ekle</string>
     <string name="position_update">Pozisyon güncellendi</string>
     <string name="load_add_screen">Ekranı yükle</string>
-    <string name="display_over_the_app">Lütfen DMOTO\'nin cihazınızdaki diğer uygulamaların üzerinde görüntülenmesine izin verin.</string>
-    <string name="allow_data_access">Lütfen cihazınızın ayarlarında DMOTO\'ye Kullanım Verilerine Erişim izni verin.</string>
-    <string name="modify_system_settings_text">Lütfen DMOTO\'nin cihazınızdaki sistem ayarlarını değiştirmesine izin verin.</string>
+    <string name="display_over_the_app">Lütfen gomoto\'nin cihazınızdaki diğer uygulamaların üzerinde görüntülenmesine izin verin.</string>
+    <string name="allow_data_access">Lütfen cihazınızın ayarlarında gomoto\'ye Kullanım Verilerine Erişim izni verin.</string>
+    <string name="modify_system_settings_text">Lütfen gomoto\'nin cihazınızdaki sistem ayarlarını değiştirmesine izin verin.</string>
     <string name="permission_req">İzin Gerekli</string>
-    <string name="battery_optimized">Lütfen DMOTO\'nin cihazınızda pil optimizasyonunu devre dışı bırakmasına izin verin.</string>
+    <string name="battery_optimized">Lütfen gomoto\'nin cihazınızda pil optimizasyonunu devre dışı bırakmasına izin verin.</string>
     <string name="position">Durum</string>
     <string name="ok">Tamam</string>
     <string name="cancle">İptal etmek</string>
