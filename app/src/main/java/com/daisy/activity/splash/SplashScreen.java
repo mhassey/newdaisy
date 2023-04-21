@@ -63,7 +63,7 @@ public class SplashScreen extends BaseActivity {
 //            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
         }
         SessionManager.get().setBaseUrl("http://mpcqa3.mobilepricecards.com");
-        SessionManager.get().setStoreCode(getIntent().getStringExtra("10fwd"));
+        SessionManager.get().setStoreCode(getIntent().getStringExtra("25aug001"));
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
@@ -176,13 +176,14 @@ public class SplashScreen extends BaseActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 try {
                     Intent intent = new  Intent();
                     intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } catch ( Exception ex1) {
-
+                    ex1.printStackTrace();
                 }
             }
         }
@@ -231,6 +232,10 @@ public class SplashScreen extends BaseActivity {
                  startActivity(intent);
              }
 
+            }
+            else {
+                Intent   intent = new Intent(SplashScreen.this, EditorTool.class);
+                startActivity(intent);
             }
 
 
