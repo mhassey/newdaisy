@@ -1803,8 +1803,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mBinding.supportWebView.clearHistory();
-                        mBinding.supportWebView.reload();
+
                         if (mBinding.supportWebViewLayout.getVisibility() == View.VISIBLE) {
 
                             openMainWebView();
@@ -1820,8 +1819,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
     private void onSupportWebView(String url) {
-        mBinding.supportWebView.clearHistory();
-        mBinding.supportWebView.reload();
+
 
         mBinding.supportWebView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setAllowFileAccess(Constraint.TRUE);
