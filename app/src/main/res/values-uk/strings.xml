@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">XM</string>
+    <string name="app_name">XM Pricing</string>
     <string name="storage_not_available">Сховище недоступне</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>

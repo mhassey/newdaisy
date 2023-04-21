@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,9 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.PermissionManager;
 import com.daisy.utils.Utils;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,6 +82,7 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+        firebaseConfiguration();
         permissionSetter();
         initClick();
     }
@@ -169,6 +174,25 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
 
 
     }
+    private void firebaseConfiguration() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        Log.e("My token", token);
+
+                        SessionManager.get().setFCMToken(token);
+                    }
+                });
+    }
+
 
     private void enableDisableNext() {
         if (permissionAskViewModel.isGrandMediaPermission() && permissionAskViewModel.isDeleteContentPermission() && permissionAskViewModel.isGrandGpsEnable() && permissionAskViewModel.isGrandAdminPermission() && permissionAskViewModel.isGrandUsageAccess() && permissionAskViewModel.isGrandBatteyOptimization() && permissionAskViewModel.isAutoStart()) {
@@ -670,19 +694,18 @@ public class PermissionAsk extends Fragment implements View.OnClickListener {
     private void designWork() {
 
         if (SessionManager.get().getDisableSecurity()) {
-            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selector_dot_pink));
 
-            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selector_dot_pink));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
 //            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
         } else {
-            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selector_dot_pink));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.selector_dot_pink));
+            onBaordingBindingMain.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
             onBaordingBindingMain.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
             onBaordingBindingMain.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            onBaordingBindingMain.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.default_dot));
+//            onBaordingBindingMain.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
         }
     }

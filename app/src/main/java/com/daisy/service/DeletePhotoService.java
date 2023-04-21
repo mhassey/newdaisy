@@ -29,7 +29,7 @@ public class DeletePhotoService extends Service {
         try {
             sessionManager = SessionManager.get();
             if (sessionManager.getDeletePhoto()) {
-                Utils.deleteGalaryPhoto();
+//                Utils.deleteGalaryPhoto();
             }
             //    Utils.deleteCallList(getApplicationContext());
             stopSelf();

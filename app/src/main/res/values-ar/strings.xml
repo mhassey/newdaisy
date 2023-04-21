@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">XM</string>
+    <string name="app_name">XM Pricing</string>
     <string name="storage_not_available">التخزين غير متوفر</string>
     <string name="daisyconfig">ديزي كونفيغ</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">رمز النتيجة</string>
     <string name="don_t_optimized_battery">تعطيل تحسين البطارية</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[احفظ وابدأ XM >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[احفظ وابدأ XM Pricing >]]></string>
     <string name="store_code">كود المتجر</string>
     <string name="Password">كلمه السر</string>
     <string name="manage_device_content">إدارة محتوى الجهاز</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">إضافة الشاشة</string>
     <string name="position_update">تم تحديث الموقف</string>
     <string name="load_add_screen">تحميل شاشة الإضافة</string>
-    <string name="display_over_the_app">يرجى السماح لـ XM بالعرض فوق التطبيقات الأخرى الموجودة على جهازك.</string>
-    <string name="allow_data_access">يرجى السماح بالوصول إلى بيانات الاستخدام إلى XM في إعدادات جهازك.</string>
-    <string name="modify_system_settings_text">الرجاء السماح لـ XM بتعديل إعدادات النظام في جهازك.</string>
+    <string name="display_over_the_app">يرجى السماح لـ XM Pricing بالعرض فوق التطبيقات الأخرى الموجودة على جهازك.</string>
+    <string name="allow_data_access">يرجى السماح بالوصول إلى بيانات الاستخدام إلى XM Pricing في إعدادات جهازك.</string>
+    <string name="modify_system_settings_text">الرجاء السماح لـ XM Pricing بتعديل إعدادات النظام في جهازك.</string>
     <string name="permission_req">الإذن مطلوب</string>
-    <string name="battery_optimized">الرجاء السماح لـ XM بتعطيل تحسين البطارية في جهازك.</string>
+    <string name="battery_optimized">الرجاء السماح لـ XM Pricing بتعطيل تحسين البطارية في جهازك.</string>
     <string name="position">موضع</string>
     <string name="ok">حسنا</string>
     <string name="cancle">إلغاء</string>

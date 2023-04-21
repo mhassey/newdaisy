@@ -58,6 +58,7 @@ public class SplashScreen extends BaseActivity {
      **/
     private void handleSessionWork() {
         sessionManager = SessionManager.get();
+        sessionManager.setBaseUrl(Constraint.XFINITY_BASE_URL);
         sessionManager.setUpdateNotShow(Constraint.FALSE);
         sessionManager.uninstallShow(Constraint.FALSE);
         if (sessionManager.getDefaultTiming() == 0)

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">XM</string>
+    <string name="app_name">XM Pricing</string>
     <string name="storage_not_available">Хранилище недоступно</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Код оценки</string>
     <string name="don_t_optimized_battery">Отключить оптимизацию батареи</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Сохраните и запустите XM >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Сохраните и запустите XM Pricing >]]></string>
     <string name="store_code">Код магазина</string>
     <string name="Password">пароль</string>
     <string name="manage_device_content">Управление содержимым устройства</string>

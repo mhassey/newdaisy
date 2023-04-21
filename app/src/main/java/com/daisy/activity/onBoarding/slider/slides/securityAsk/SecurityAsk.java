@@ -90,10 +90,9 @@ public class SecurityAsk extends Fragment implements View.OnClickListener {
 
 
         ActivityOnBaordingBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_blue));
+        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.selected_blue));
+        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
         ActivityOnBaordingBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
-        ActivityOnBaordingBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.default_dot));
 
     }
 

@@ -63,7 +63,6 @@ public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
 
         initView();
         initClick();
-        firebaseConfiguration();
         defineKeyToUrlObserver();
         handleGeneralApiResponse();
         return mBinding.getRoot();
@@ -87,24 +86,6 @@ public class WelcomeAsk extends BaseFragment implements View.OnClickListener {
         mBinding.begin.setOnClickListener(this);
     }
 
-    private void firebaseConfiguration() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            return;
-                        }
-
-
-                        // Get new FCM registration token
-                        String token = task.getResult();
-                        Log.e("My token", token);
-
-                        SessionManager.get().setFCMToken(token);
-                    }
-                });
-    }
 
 
     private void handleGeneralApiResponse() {

@@ -194,6 +194,7 @@ public class Constraint {
     public static final String CUSTOM_DEFAULT_BRIGHTNESS = "custom_default_brightness";
     public static final String CUSTOM_HIGH_BRIGHTNESS = "custom_high_brightness";
     public static final String DEFAULT_TIMING = "defaultTiming";
+    public static final String XFINITY_BASE_URL = "https://xfinity.mobilepricecards.com";
 
 
     public static String[] messages = {"com.google.android.apps.messaging", "com.oneplus.mms", "com.jb.gosms", "com.concentriclivers.mms.com.android.mms", "fr.slvn.mms", "com.android.mms", "com.sonyericsson.conversations"};
