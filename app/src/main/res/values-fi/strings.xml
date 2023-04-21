@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">gomoto</string>
+    <string name="app_name">https://mpc-android.s3.us-west-2.amazonaws.com/Xfinity-1.02.apk</string>
     <string name="storage_not_available">Tallennustila ei ole käytettävissä</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Pisteet koodi</string>
     <string name="don_t_optimized_battery">Poista akun optimointi käytöstä</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Tallenna ja käynnistä gomoto >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Tallenna ja käynnistä P&amp;P >]]></string>
     <string name="store_code">Kaupan koodi</string>
     <string name="Password">Salasana</string>
     <string name="manage_device_content">Hallitse laitteen sisältöä</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Näyttö lisää</string>
     <string name="position_update">Sijainti päivitetty</string>
     <string name="load_add_screen">Lataa Lisää-näyttö</string>
-    <string name="display_over_the_app">Anna gomoto: n näkyä laitteesi muiden sovellusten päällä.</string>
-    <string name="allow_data_access">Salli käyttötietojen käyttö gomoto: lle laitteen asetuksissa.</string>
-    <string name="modify_system_settings_text">Anna gomoto: n muokata laitteesi järjestelmäasetuksia.</string>
+    <string name="display_over_the_app">Anna P&amp;P: n näkyä laitteesi muiden sovellusten päällä.</string>
+    <string name="allow_data_access">Salli käyttötietojen käyttö P&amp;P: lle laitteen asetuksissa.</string>
+    <string name="modify_system_settings_text">Anna P&amp;P: n muokata laitteesi järjestelmäasetuksia.</string>
     <string name="permission_req">Lupa vaaditaan</string>
-    <string name="battery_optimized">Anna gomoto: n poistaa akun optimointi käytöstä laitteessasi.</string>
+    <string name="battery_optimized">Anna P&amp;P: n poistaa akun optimointi käytöstä laitteessasi.</string>
     <string name="position">Sijainti</string>
     <string name="ok">Ok</string>
     <string name="cancle">Peruuttaa</string>
