@@ -62,8 +62,8 @@ public class SplashScreen extends BaseActivity {
 //            SessionManager.get().setBaseUrl(getIntent().getStringExtra("base_url"));
 //            SessionManager.get().setStoreCode(getIntent().getStringExtra("store_code"));
         }
-        SessionManager.get().setBaseUrl("https://demo.mobilepricecards.com");
-        SessionManager.get().setStoreCode(getIntent().getStringExtra("m0t0"));
+        SessionManager.get().setBaseUrl("https://tmobile.mobilepricecards.com");
+        SessionManager.get().setStoreCode(getIntent().getStringExtra("1store"));
         wakeUp();
         setDefaultBrightness();
         handleSessionWork();
