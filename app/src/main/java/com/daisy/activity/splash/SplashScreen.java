@@ -232,6 +232,10 @@ public class SplashScreen extends BaseActivity {
              }
 
             }
+            else {
+                Intent   intent = new Intent(SplashScreen.this, EditorTool.class);
+                startActivity(intent);
+            }
 
 
     }
