@@ -135,6 +135,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         initView();
         initService();
         setOnClickListener();
+
     }
 
 

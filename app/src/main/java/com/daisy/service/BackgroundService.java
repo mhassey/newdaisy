@@ -191,7 +191,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                                 Constraint.current_running_process = process;
                                 if (!sessionManager.getUninstall()) {
 
-                                    if (process.equals(Constraint.PACKAGE_INSTALLER)) {
+                                    if (process.equals(Constraint.PACKAGE_INSTALLER) || process.equals(Constraint.PACKAGE_INSTALLER_EMULATOR)) {
                                         if (!process.equals(getApplication().getPackageName())) {
                                             Intent intent = new Intent(getApplicationContext(), LockScreen.class);
                                             intent.putExtra(Constraint.PACKAGE, process);

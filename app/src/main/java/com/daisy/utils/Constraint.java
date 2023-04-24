@@ -36,6 +36,8 @@ public class Constraint {
     public static final int FIVE_INE_REAL = 5;
     public static final int FIVE_INE = 0;
     public static final String PACKAGE_INSTALLER = "com.google.android.packageinstaller";
+    public static final String PACKAGE_INSTALLER_EMULATOR = "com.android.packageinstaller";
+
     public static final String LOCK_SCREEN = "LockScreen";
     public static final String MAIN_ACTIVITY = "com.daisy.activity.mainActivity.MainActivity";
     public static final String LOG = "log";
