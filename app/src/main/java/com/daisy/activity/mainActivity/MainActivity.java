@@ -69,6 +69,7 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.databinding.ActivityMainBinding;
 import com.daisy.interfaces.CallBack;
+import com.daisy.pojo.request.DimBrighness;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.DeleteCardResponse;
 import com.daisy.pojo.response.Download;
@@ -1277,6 +1278,12 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void interactWithFaceDetection(Interactor interactor) {
+        cancelDimBrightness();
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.9f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10));
+        Utils.setFullBrightNess();
 
 //        fireThirtySecondCounter();
     }
@@ -1471,6 +1478,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void dimBrighness(DimBrighness dimm) {
+        dimBrightness();
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void SendCustomEvent(SocketEvent socketEvent) {

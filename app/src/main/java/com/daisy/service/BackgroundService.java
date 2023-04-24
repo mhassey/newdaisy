@@ -56,6 +56,7 @@ import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
 import com.daisy.interfaces.SyncLogCallBack;
 import com.daisy.pojo.Logs;
+import com.daisy.pojo.request.DimBrighness;
 import com.daisy.pojo.response.Interactor;
 import com.daisy.pojo.response.InternetResponse;
 import com.daisy.pojo.response.Inversion;
@@ -1152,6 +1153,15 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
     //  Face out handler
     @Override
     public void onFaceTimedOut() {
+        EventBus.getDefault().post(new DimBrighness());
+    }
+
+    public void fireThirtySecondCounter() {
+
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.9f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10));
 
 
     }
@@ -1161,6 +1171,13 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
 
     }
 
+    public void setDefaultBrightness() {
+        if (!SessionManager.get().isBrighnessDefault())
+            SessionManager.get().setBrightness(0.2f);
+        else
+            SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getDefaultBrightness() + "") / 10));
+
+    }
     FaceDetectionCamera camera;
 
 
