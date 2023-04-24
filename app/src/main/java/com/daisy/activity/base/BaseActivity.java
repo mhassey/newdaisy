@@ -41,6 +41,8 @@ public class BaseActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private ProgressDialog progressDialog;
     Timer brightNessCounter = new Timer();
+    Timer lowBrightNessCounter = new Timer();
+
 
 
     /**
@@ -187,7 +189,7 @@ public class BaseActivity extends AppCompatActivity {
     public void fireThirtySecondCounter() {
 
         if (!SessionManager.get().isBrighnessDefault())
-            SessionManager.get().setBrightness(0.9f);
+            SessionManager.get().setBrightness(0.8f);
         else
             SessionManager.get().setBrightness((Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10));
         Utils.setFullBrightNess();
@@ -208,6 +210,40 @@ public class BaseActivity extends AppCompatActivity {
             }
         }, second, second);
 
+    }
+    public void dimBrightness()
+    {
+        int second = 30 * Constraint.THOUSAND;
+
+        brightNessCounter.cancel();
+        brightNessCounter = new Timer();
+        brightNessCounter.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                setDefaultBrightness();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.setFullBrightNess();
+
+                    }
+                });
+            }
+        }, second, second);
+
+    }
+    public void cancelDimBrightness()
+    {
+        try {
+
+            if (brightNessCounter != null) {
+                brightNessCounter.cancel();
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     public void setDefaultBrightness() {

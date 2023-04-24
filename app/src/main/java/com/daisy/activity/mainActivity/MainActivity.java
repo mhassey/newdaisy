@@ -1290,7 +1290,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     private void handleUperLayoutClick() {
 
-//        fireThirtySecondCounter();
+        fireThirtySecondCounter();
 
         DBCaller.storeLogInDatabase(context, Constraint.TOUCH, Constraint.TOUCHES_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         Inversion inversion = new Inversion();
