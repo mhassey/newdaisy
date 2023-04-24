@@ -134,7 +134,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},12);
         initView();
         initService();
         setOnClickListener();
@@ -293,15 +292,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
      * Button clicks initializing
      */
     private void setOnClickListener() {
-        mBinding.settingHeader.setOnClickListener(this);
-        mBinding.setting.setOnClickListener(this);
+//        mBinding.settingHeader.setOnClickListener(this);
+//        mBinding.setting.setOnClickListener(this);
         mBinding.offLineIcon.setOnClickListener(this);
-        mBinding.invert.setOnClickListener(this);
-        mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
-            public void onSwipeTop() {
-                settingHeader();
-            }
-        });
+//        mBinding.invert.setOnClickListener(this);
+//        mBinding.swipeclick.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+//            public void onSwipeTop() {
+//                settingHeader();
+//            }
+//        });
 
         mBinding.webView.setOnTouchListener(this);
 
@@ -1253,16 +1252,16 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.settingHeader: {
-                settingHeader();
-                break;
-            }
-
-            case R.id.invert: {
-
-                mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
-                break;
-            }
+//            case R.id.settingHeader: {
+//                settingHeader();
+//                break;
+//            }
+//
+//            case R.id.invert: {
+//
+//                mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
+//                break;
+//            }
             case R.id.setting: {
                 settingClick();
                 break;
@@ -1355,18 +1354,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
     /**
-     * setting hader visibility
+     * setting header visibility
      */
-    private void settingHeader() {
-        if (mViewModel.isSettingVisible()) {
-            mViewModel.setSettingVisible(Constraint.FALSE);
-            mBinding.setting.setVisibility(View.GONE);
-        } else {
-            mViewModel.setSettingVisible(Constraint.TRUE);
-            mBinding.setting.setVisibility(View.VISIBLE);
-            hideSettingsIcon();
-        }
-    }
+//    private void settingHeader() {
+//        if (mViewModel.isSettingVisible()) {
+//            mViewModel.setSettingVisible(Constraint.FALSE);
+//            mBinding.setting.setVisibility(View.GONE);
+//        } else {
+//            mViewModel.setSettingVisible(Constraint.TRUE);
+//            mBinding.setting.setVisibility(View.VISIBLE);
+//            hideSettingsIcon();
+//        }
+//    }
 
     @Override
     protected void onDestroy() {
@@ -1389,30 +1388,29 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     /**
      * hide setting icon
      */
-    void hideSettingsIcon() {
-        try {
-            Runnable mRunnable;
-            Handler mHandler = new Handler();
-            mRunnable = new Runnable() {
-
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    try {
-                        if (mBinding.setting.getVisibility() == View.VISIBLE) {
-                            mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
-                        }
-                    } catch (Exception e) {
-
-                    }
-                }
-
-            };
-            mHandler.postDelayed(mRunnable, Constraint.TWENTY * Constraint.THOUSAND);
-        } catch (Exception e) {
-
-        }
-    }
+//    void hideSettingsIcon() {
+//        try {
+//            Runnable mRunnable;
+//            Handler mHandler = new Handler();
+//            mRunnable = new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    try {
+//                        if (mBinding.setting.getVisibility() == View.VISIBLE) {
+//                            mBinding.setting.setVisibility(View.GONE); //This will remove the View. and free s the space occupied by the View
+//                        }
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
+//
+//            };
+//            mHandler.postDelayed(mRunnable, Constraint.TWENTY * Constraint.THOUSAND);
+//        } catch (Exception e) {
+//
+//        }
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -1653,8 +1651,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     public boolean onTouch(View view, MotionEvent event) {
 //       startService(new Intent(this, BackgroundService.class));
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            handleUperLayoutClick();
+        int action = event.getAction();
+        switch(action & MotionEvent.ACTION_MASK)
+        {
+            case MotionEvent.ACTION_POINTER_DOWN:
+                // multitouch!! - touch down
+                int count = event.getPointerCount(); // Number of 'fingers' in this time
+                if (count==3)
+                {
+                    settingClick();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                handleUperLayoutClick();
+                break;
 
         }
 

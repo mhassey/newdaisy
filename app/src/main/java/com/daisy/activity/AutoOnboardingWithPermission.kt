@@ -60,24 +60,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
         setNoTitleBar(this)
         defineObserver()
 //        permissionChecker()
-        firebaseConfiguration()
 
-    }
-
-
-    private fun firebaseConfiguration() {
-        FirebaseMessaging.getInstance().token
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    return@OnCompleteListener
-                }
-
-
-                // Get new FCM registration token
-                val token = task.result
-                Log.e("My token", token!!)
-                SessionManager.get().fcmToken = token
-            })
     }
 
 
@@ -380,6 +363,7 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
         var intent:Intent = Intent(this,OnBoarding::class.java)
         var bundle=Bundle()
+        bundle.putString(Constraint.DEVICEID,screenAddViewModel.deviceId)
         bundle.putBoolean(Constraint.OPEN_SELECT_PRODUCT,true)
         intent.putExtras(bundle)
         startActivity(intent)

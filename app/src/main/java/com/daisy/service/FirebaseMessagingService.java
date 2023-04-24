@@ -19,8 +19,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         try {
-
-            Log.e("Checking....", "Push......");
 //            String type = Constraint.GET_CARDS;
 
             String type = new JSONObject(remoteMessage.getData()).getString("type");

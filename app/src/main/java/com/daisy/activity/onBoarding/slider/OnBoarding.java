@@ -50,6 +50,9 @@ import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -80,6 +83,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         initClick();
     }
 
+
+
+
     /**
      * Responsibility - initClick is an method that used for initiate clicks
      * Parameters - No parameter
@@ -96,6 +102,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void initView() {
+        firebaseConfiguration();
         context = this;
         mBinding.rootView.setVisibility(View.VISIBLE);
         sessionManager = SessionManager.get();
@@ -110,6 +117,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         if (getIntent().getExtras()!=null)
         {
             boolean isAutoSelectCall = getIntent().getBooleanExtra(Constraint.OPEN_SELECT_PRODUCT,false);
+            screenAddViewModel.setDeviceId(getIntent().getStringExtra(Constraint.DEVICEID));
             if (isAutoSelectCall)
             {
                 mBinding.pager.setCurrentItem(Constraint.FOUR);
@@ -118,6 +126,25 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
         }
     }
 
+
+
+
+    private void firebaseConfiguration() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+                        // Log and toast
+                        String token = task.getResult();
+                        SessionManager.get().setFCMToken(token);
+                    }
+                });
+
+    }
 
     /**
      * Responsibility - setPager method is used for setup pager and its behaviour
