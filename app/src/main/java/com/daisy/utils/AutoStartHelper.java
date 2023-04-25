@@ -136,8 +136,8 @@ public class AutoStartHelper {
 
     private void showAlert(Context context, DialogInterface.OnClickListener onClickListener) {
 
-        new AlertDialog.Builder(context).setTitle("MPC")
-                .setMessage("Please allow MPC to auto start your device.")
+        new AlertDialog.Builder(context).setTitle("P&P")
+                .setMessage("Please allow P&P to auto start your device.")
                 .setPositiveButton("Ok", onClickListener).show().setCancelable(false);
     }
 

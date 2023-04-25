@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">P&amp;P</string>
     <string name="storage_not_available">Spazio di archiviazione non disponibile</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Codice punteggio</string>
     <string name="don_t_optimized_battery">Disabilita l\'ottimizzazione della batteria</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Salva e avvia MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Salva e avvia P&amp;P >]]></string>
     <string name="store_code">Codice negozio</string>
     <string name="Password">Parola d\'ordine</string>
     <string name="manage_device_content">Gestisci il contenuto del dispositivo</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Aggiungi schermo</string>
     <string name="position_update">Posizione aggiornata</string>
     <string name="load_add_screen">Carica la schermata di aggiunta</string>
-    <string name="display_over_the_app">Consenti a MPC di visualizzare su altre app sul tuo dispositivo.</string>
-    <string name="allow_data_access">Consenti l\'accesso ai dati di utilizzo a MPC nelle impostazioni del tuo dispositivo.</string>
-    <string name="modify_system_settings_text">Consenti a MPC di modificare le impostazioni di sistema nel tuo dispositivo.</string>
+    <string name="display_over_the_app">Consenti a P&amp;P di visualizzare su altre app sul tuo dispositivo.</string>
+    <string name="allow_data_access">Consenti l\'accesso ai dati di utilizzo a P&amp;P nelle impostazioni del tuo dispositivo.</string>
+    <string name="modify_system_settings_text">Consenti a P&amp;P di modificare le impostazioni di sistema nel tuo dispositivo.</string>
     <string name="permission_req">Autorizzazione richiesta</string>
-    <string name="battery_optimized">Consenti a MPC di disabilitare l\'ottimizzazione della batteria nel dispositivo.</string>
+    <string name="battery_optimized">Consenti a P&amp;P di disabilitare l\'ottimizzazione della batteria nel dispositivo.</string>
     <string name="position">Posizione</string>
     <string name="ok">Ok</string>
     <string name="cancle">Annulla</string>
