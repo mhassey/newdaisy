@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -102,7 +103,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
      * Parameters - No parameter
      **/
     private void initView() {
-        firebaseConfiguration();
         context = this;
         mBinding.rootView.setVisibility(View.VISIBLE);
         sessionManager = SessionManager.get();
@@ -129,22 +129,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
 
 
-    private void firebaseConfiguration() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            return;
-                        }
 
-                        // Log and toast
-                        String token = task.getResult();
-                        SessionManager.get().setFCMToken(token);
-                    }
-                });
-
-    }
 
     /**
      * Responsibility - setPager method is used for setup pager and its behaviour

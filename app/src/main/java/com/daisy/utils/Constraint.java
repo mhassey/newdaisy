@@ -185,10 +185,10 @@ public class Constraint {
     public static final String SECURITY = "SECURITY";
     public static final String IS_DISPLAY_OVER_THE_APP = "IsDisplayOverTheApp";
     public static final String DEFAULT_BRIGHTNESS_LEVEL = "20%";
-    public static final String MAX_BRIGHTNESS_LEVEL = "90%";
+    public static final String MAX_BRIGHTNESS_LEVEL = "80%";
     public static final String PERCENTAGE = "%";
     public static final String MAX = "max";
-    public static final int MAX_BRIGHTNESS_INTEGER = 9;
+    public static final int MAX_BRIGHTNESS_INTEGER = 8;
     public static final int DEFAULT_BRIGHTNESS_INTEGER = 2;
     public static final String IS_BRIGHTNESS_DEFAULT = "is_brightness_default";
     public static final String CUSTOM_DEFAULT_BRIGHTNESS = "custom_default_brightness";
@@ -401,9 +401,9 @@ public class Constraint {
     public static String MobilePriceCard = "MobilePriceCard";
     public static long Two_Minute = 60000;
     @NotNull
-    public static final String STORE_CODE_VALUE="25aug001";
+    public static final String STORE_CODE_VALUE="10fwd";
     @NotNull
-    public static final String PASSWORD_VALUE="123";
+    public static final String PASSWORD_VALUE="10fwd";
     @Nullable
     public static final String OPEN_SELECT_PRODUCT="OpenSelectProduct";
     public static final int PUSH_CODE=989;

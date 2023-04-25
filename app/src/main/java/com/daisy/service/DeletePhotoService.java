@@ -19,7 +19,6 @@ public class DeletePhotoService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw null;
     }
 
@@ -29,7 +28,7 @@ public class DeletePhotoService extends Service {
         try {
 //            sessionManager = SessionManager.get();
 //            if (sessionManager.getDeletePhoto()) {
-//                Utils.deleteGalaryPhoto();
+                Utils.deleteGalaryPhoto();
 //            }
             //    Utils.deleteCallList(getApplicationContext());
             stopSelf();

@@ -58,9 +58,23 @@ class AutoOnboardingWithPermission : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding=  DataBindingUtil.setContentView(this, R.layout.activity_auto_onboarding_with_permission)
         setNoTitleBar(this)
+        firebaseConfiguration()
         defineObserver()
 //        permissionChecker()
 
+    }
+    private fun firebaseConfiguration() {
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+
+                // Log and toast
+                val token = task.result
+                Log.e("Kali...", token!!)
+                SessionManager.get().fcmToken = token
+            })
     }
 
 
