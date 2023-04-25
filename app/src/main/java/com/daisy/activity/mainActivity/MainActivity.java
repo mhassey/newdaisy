@@ -347,7 +347,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             if (CheckForSDCard.isSDCardPresent()) {
                 List<Promotion> promotions = sessionManager.getPromotion();
                 List<Download> downloads = new ArrayList<>();
-                if (checkPermission()) {
+
                     final String url = Utils.getPath();
                     if (url != null) {
                         if (sessionManager.getPriceCard() != null) {
@@ -365,7 +365,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     } else {
                         editorToolOpen();
                     }
-                }
+
             } else {
                 ValidationHelper.showToast(this, getString(R.string.storage_not_available));
             }
@@ -1602,7 +1602,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             List<Promotion> promotions = sessionManager.getPromotion();
             JSONArray listOfPromo = sessionManager.getPromotions();
             List<Download> downloads = new ArrayList<>();
-            if (checkPermission()) {
+
                 for (Promotion promotion : promotions) {
                     if (listOfPromo != null) {
                         for (int promowork = 0; promowork < listOfPromo.length(); promowork++) {
@@ -1635,7 +1635,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
                 new DownloadFile(MainActivity.this, MainActivity.this, downloads).execute();
                 sessionManager.setCardDeleted(Constraint.FALSE);
-            }
+
         } catch (Exception e) {
 
         }
