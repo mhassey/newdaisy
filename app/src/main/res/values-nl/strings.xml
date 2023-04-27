@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">XM Pricing</string>
     <string name="storage_not_available">Opslag niet beschikbaar</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Scorecode</string>
     <string name="don_t_optimized_battery">Schakel Batterijoptimalisatie uit</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Sla op en start MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Sla op en start XM Pricing >]]></string>
     <string name="store_code">Winkelcode</string>
     <string name="Password">Wachtwoord</string>
     <string name="manage_device_content">Beheer apparaatinhoud</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Scherm toevoegen</string>
     <string name="position_update">Positie bijgewerkt</string>
     <string name="load_add_screen">Laad add-scherm</string>
-    <string name="display_over_the_app">Geef MPC toestemming om over andere apps op uw apparaat te worden weergegeven.</string>
-    <string name="allow_data_access">Geef toegang tot gebruiksgegevens tot MPC in de instellingen van uw apparaat.</string>
-    <string name="modify_system_settings_text">Geef MPC toestemming om de systeeminstellingen op uw apparaat te wijzigen.</string>
+    <string name="display_over_the_app">Geef XM Pricing toestemming om over andere apps op uw apparaat te worden weergegeven.</string>
+    <string name="allow_data_access">Geef toegang tot gebruiksgegevens tot XM Pricing in de instellingen van uw apparaat.</string>
+    <string name="modify_system_settings_text">Geef XM Pricing toestemming om de systeeminstellingen op uw apparaat te wijzigen.</string>
     <string name="permission_req">Toestemming vereist</string>
-    <string name="battery_optimized">Geef MPC toestemming om de batterij-optimalisatie in uw apparaat uit te schakelen.</string>
+    <string name="battery_optimized">Geef XM Pricing toestemming om de batterij-optimalisatie in uw apparaat uit te schakelen.</string>
     <string name="position">Positie</string>
     <string name="ok">OK</string>
     <string name="cancle">annuleren</string>

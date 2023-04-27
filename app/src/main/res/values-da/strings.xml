@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">XM Pricing</string>
     <string name="storage_not_available">Opbevaring ikke tilgængelig</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -53,7 +53,7 @@
     <string name="score_code">Score kode</string>
     <string name="don_t_optimized_battery">Deaktiver batterioptimering</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Gem og start MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Gem og start XM Pricing >]]></string>
     <string name="store_code">Butikskode</string>
     <string name="Password">Adgangskode</string>
     <string name="manage_device_content">Administrer enhedens indhold</string>
@@ -94,11 +94,11 @@
     <string name="screen_add">Skærm tilføj</string>
     <string name="position_update">Position opdateret</string>
     <string name="load_add_screen">Indlæs tilføj skærm</string>
-    <string name="display_over_the_app">Tillad, at MPC kan vises over andre apps på din enhed.</string>
-    <string name="allow_data_access">Tillad brugsadgang til MPC i enhedens indstillinger.</string>
-    <string name="modify_system_settings_text">Tillad MPC at ændre systemindstillinger på din enhed.</string>
+    <string name="display_over_the_app">Tillad, at XM Pricing kan vises over andre apps på din enhed.</string>
+    <string name="allow_data_access">Tillad brugsadgang til XM Pricing i enhedens indstillinger.</string>
+    <string name="modify_system_settings_text">Tillad XM Pricing at ændre systemindstillinger på din enhed.</string>
     <string name="permission_req">Tilladelse påkrævet</string>
-    <string name="battery_optimized">Tillad venligst MPC at deaktivere batterioptimering på din enhed.</string>
+    <string name="battery_optimized">Tillad venligst XM Pricing at deaktivere batterioptimering på din enhed.</string>
     <string name="position">Position</string>
     <string name="ok">Okay</string>
     <string name="cancle">Afbestille</string>

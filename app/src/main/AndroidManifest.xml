@@ -9,7 +9,8 @@
         <intent>
             <action android:name="com.motorola.demo.BIND_KSP_ACTION" />
         </intent>
-    </queries> <!-- <queries> -->
+    </queries>
+    <!-- <queries> -->
     <!-- <package android:name="au.com.optus.android.gooptus" /> -->
     <!-- <package android:name="au.com.fetchtv" /> -->
     <!-- <package android:name="au.com.optus.optusstadium" /> -->
