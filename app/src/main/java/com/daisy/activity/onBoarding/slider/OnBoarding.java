@@ -293,7 +293,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-        if (count == Constraint.THREE) {
+        if (count == Constraint.TWO) {
 
 
             SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
@@ -329,12 +329,12 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
             }
 
-        } else if (count == Constraint.FOUR) {
+        } else if (count == Constraint.THREE) {
             handleCreateScreen(null);
 //            SignUp signUp = (SignUp) fragmentList.get(Constraint.FOUR);
 //
 //            signUp.loginBinding.singup.performClick();
-        } else if (count >= Constraint.FIVE) {
+        } else if (count >= Constraint.FOUR) {
             handleCreateScreen(null);
         }
 
