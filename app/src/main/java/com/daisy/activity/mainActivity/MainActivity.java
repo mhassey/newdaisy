@@ -36,6 +36,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -1842,7 +1843,19 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     private void onSupportWebView(String url) {
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            CookieManager.getInstance().removeAllCookies(null);
+            CookieManager.getInstance().flush();
+        } else
+        {
+            CookieSyncManager cookieSyncMngr=CookieSyncManager.createInstance(context);
+            cookieSyncMngr.startSync();
+            CookieManager cookieManager=CookieManager.getInstance();
+            cookieManager.removeAllCookie();
+            cookieManager.removeSessionCookie();
+            cookieSyncMngr.stopSync();
+            cookieSyncMngr.sync();
+        }
         mBinding.supportWebView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setAllowFileAccess(Constraint.TRUE);
         mBinding.supportWebView.setSoundEffectsEnabled(Constraint.TRUE);
