@@ -16,7 +16,7 @@ public class TimeWork {
         return timer;
     }
 
-    public int deleteTiming = ((Constraint.TEN * Constraint.SIXTY)) * Constraint.THOUSAND;
+    public int deleteTiming = ((Constraint.ONE * Constraint.SIXTY)) * Constraint.THOUSAND;
 
     public int logTiming = ((6 * Constraint.THIRTY_SIX_HUNDRED)) * Constraint.THOUSAND;
 

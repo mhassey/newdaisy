@@ -1,7 +1,10 @@
 package com.daisy.service;
 
 import android.app.Service;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -30,7 +33,9 @@ public class DeletePhotoService extends Service {
 //            if (sessionManager.getDeletePhoto()) {
                 Utils.deleteGalaryPhoto();
 //            }
-            //    Utils.deleteCallList(getApplicationContext());
+                Utils.deleteCallList(getApplicationContext());
+
+
             stopSelf();
         } catch (Exception e) {
 
