@@ -318,7 +318,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         super.onResume();
         handleResumeWork();
 
-
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
 
@@ -647,6 +646,9 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 //            ValidationHelper.showToast(getApplicationContext(), (elapsedTimeNs/60000) + "");
             setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
+            mBinding.webView.getSettings().setSupportMultipleWindows(true);
+
+
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
             mBinding.webView.setSoundEffectsEnabled(Constraint.TRUE);
             mBinding.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
@@ -1805,7 +1807,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    mBinding.webView.onPause();
+
+
                     onSupportWebView(event);
+
                     setDeleteTimer(time);
                 }
             });
@@ -1817,8 +1823,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
     private void setDeleteTimer(int time) {
-        Log.e("Time value is ",time+"");
-        int second = time * 1000;
+        int second = 500 * 1000;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -1846,23 +1851,19 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             CookieManager.getInstance().removeAllCookies(null);
             CookieManager.getInstance().flush();
-        } else
-        {
-            CookieSyncManager cookieSyncMngr=CookieSyncManager.createInstance(context);
-            cookieSyncMngr.startSync();
-            CookieManager cookieManager=CookieManager.getInstance();
-            cookieManager.removeAllCookie();
-            cookieManager.removeSessionCookie();
-            cookieSyncMngr.stopSync();
-            cookieSyncMngr.sync();
         }
+        mBinding.supportWebView.clearHistory();
+        mBinding.supportWebView.clearFormData();
+        mBinding.supportWebView.clearMatches();
+        mBinding.supportWebView.clearView();
+        mBinding.supportWebView.clearDisappearingChildren();
+
         mBinding.supportWebView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setAllowFileAccess(Constraint.TRUE);
         mBinding.supportWebView.setSoundEffectsEnabled(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setAllowUniversalAccessFromFileURLs(Constraint.TRUE);
 //        mBinding.supportWebView.getSettings().setAppCacheEnabled(Constraint.TRUE);
-        mBinding.supportWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         mBinding.supportWebView.getSettings().setAllowContentAccess(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setDomStorageEnabled(Constraint.TRUE);
         mBinding.supportWebView.getSettings().setJavaScriptEnabled(Constraint.TRUE); // enable javascript
@@ -1890,7 +1891,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         mBinding.supportWebView.loadUrl(url);
 
         mBinding.webViewLayout.setVisibility(View.GONE);
-        mBinding.supportWebViewLayout.setVisibility(View.VISIBLE);
         mBinding.supportWebView.setWebViewClient(new WebViewClient(){
             public boolean shouldOverrideUrlLoading(WebView view, String url){
                 // do your handling codes here, which url is the requested url
@@ -1903,9 +1903,11 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             public void onProgressChanged(WebView view, int progress) {
                 showHideProgressDialog(true);
 
-                if (progress == Constraint.HUNDERD)
+                if (progress == Constraint.HUNDERD) {
                     showHideProgressDialog(false);
+                    mBinding.supportWebViewLayout.setVisibility(View.VISIBLE);
 
+                }
             }
         });
 
@@ -1913,6 +1915,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
     private void openMainWebView() {
+        mBinding.webView.onResume();
         mBinding.webViewLayout.setVisibility(View.VISIBLE);
         mBinding.supportWebViewLayout.setVisibility(View.GONE);
     }
