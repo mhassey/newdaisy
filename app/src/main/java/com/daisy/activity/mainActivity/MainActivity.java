@@ -1823,7 +1823,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
 
     private void setDeleteTimer(int time) {
-        int second = 500 * 1000;
+        int second = time * 1000;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
