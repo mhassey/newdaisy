@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">VZW Pricing</string>
     <string name="storage_not_available">Almacenamiento no disponible</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
     <string name="baseurl">baseURL=</string>
     <string name="save_and_load">Guardar y cargar</string>
-    <string name="save_and_start_mpc"><![CDATA[Guarde e inicie MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Guarde e inicie VZW Pricing >]]></string>
 
     <string name="loading">Cargando...</string>
     <string name="invalid_url">URL invalida</string>
@@ -88,11 +88,11 @@
     <string name="screen_add">Añadir pantalla</string>
     <string name="position_update">Posición actualizada</string>
     <string name="load_add_screen">Cargar agregar pantalla</string>
-    <string name="display_over_the_app">Permita que MPC se muestre sobre otras aplicaciones en su dispositivo.</string>
-    <string name="allow_data_access">Permita el acceso a los datos de uso de MPC en la configuración de su dispositivo.</string>
-    <string name="modify_system_settings_text">Permita que MPC modifique la configuración del sistema en su dispositivo.</string>
+    <string name="display_over_the_app">Permita que VZW Pricing se muestre sobre otras aplicaciones en su dispositivo.</string>
+    <string name="allow_data_access">Permita el acceso a los datos de uso de VZW Pricing en la configuración de su dispositivo.</string>
+    <string name="modify_system_settings_text">Permita que VZW Pricing modifique la configuración del sistema en su dispositivo.</string>
     <string name="permission_req">Permiso requerido</string>
-    <string name="battery_optimized">Permita que la batería MPC no se optimice en la configuración de su dispositivo</string>
+    <string name="battery_optimized">Permita que la batería VZW Pricing no se optimice en la configuración de su dispositivo</string>
     <string name="position">Posición</string>
     <string name="ok">Okay</string>
     <string name="cancle">Cancelar</string>

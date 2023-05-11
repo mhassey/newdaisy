@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">VZW Pricing</string>
     <string name="storage_not_available">Storage not available</string>
     <string name="daisyconfig">DaisyConfig</string>
     <string name="v_01">V.01</string>
@@ -54,7 +54,7 @@
     <string name="score_code">Score Code</string>
     <string name="don_t_optimized_battery">DISABLE BATTERY OPTIMIZATION</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Save and start MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Save and start VZW Pricing >]]></string>
     <string name="store_code">ENTER STORE CODE</string>
     <string name="Password">Password</string>
     <string name="manage_device_content">Manage Device Content</string>
@@ -95,11 +95,11 @@
     <string name="screen_add">Screen add</string>
     <string name="position_update">Position updated</string>
     <string name="load_add_screen">Load add screen</string>
-    <string name="display_over_the_app">Please allow MPC to display over other apps on your device.</string>
-    <string name="allow_data_access">Please allow Usage Data Access to MPC in your device\'s settings.</string>
-    <string name="modify_system_settings_text">Please allow MPC to modify system settings in your device.</string>
+    <string name="display_over_the_app">Please allow VZW Pricing to display over other apps on your device.</string>
+    <string name="allow_data_access">Please allow Usage Data Access to VZW Pricing in your device\'s settings.</string>
+    <string name="modify_system_settings_text">Please allow VZW Pricing to modify system settings in your device.</string>
     <string name="permission_req">Permission Required</string>
-    <string name="battery_optimized">Please allow MPC to disable battery optimization in your device.</string>
+    <string name="battery_optimized">Please allow VZW Pricing to disable battery optimization in your device.</string>
     <string name="position">Position</string>
     <string name="ok">Ok</string>
     <string name="cancle">Cancel</string>
@@ -227,17 +227,17 @@
     <string name="device_synced_sucessfully">Device synced successfully. Now you are the socket admin</string>
     <string name="disable_admin">Disable Admin</string>
     <string name="device_list">Device List</string>
-    <string name="mpc_key">MPC KEY</string>
-    <string name="please_enter_your_mpc_key_in_the_box">Please enter your MPC Key \n below and tap CONNECT</string>
+    <string name="mpc_key">VZW Pricing KEY</string>
+    <string name="please_enter_your_mpc_key_in_the_box">Please enter your VZW Pricing Key \n below and tap CONNECT</string>
     <string name="connect">CONNECT</string>
-    <string name="key_can_not_be_empty">MPC key can not be empty</string>
-    <string name="mpc_key_not_correct">MPC key is not correct</string>
+    <string name="key_can_not_be_empty">VZW Pricing key can not be empty</string>
+    <string name="mpc_key_not_correct">VZW Pricing key is not correct</string>
     <string name="technical_issue">problem reaching id server - enter URL manually or contact customer support</string>
     <string name="auto_start">AUTO START PERMISSION</string>
     <string name="permission_msg">Tap on each of the buttons below  to access required permissions</string>
     <string name="enable_settings">Recommended settings are enabled.  Do not disable unless directed by your admin.</string>
     <string name="delete_device_content">DELETE DEVICE CONTENT</string>
-    <string name="to_proceed_enter_mpc_key">To proceed, enter your MPC store code  and password below.</string>
+    <string name="to_proceed_enter_mpc_key">To proceed, enter your VZW Pricing store code  and password below.</string>
     <string name="select_product">Select Product</string>
     <string name="if_your_product_selected_is_not">If the product selected is not what you want  to display, select from dropdown menu.</string>
     <string name="go">GO</string>
