@@ -366,7 +366,10 @@ class AutoOnboardingWithPermission : BaseActivity() {
                         callAddScreen()
                     }
                 } else {
-                    redirectToOnBoardingProcess()
+                    var product = Product()
+                    product.idproductStatic="117"
+                    mViewModel.setAutoSelectProduct(product)
+                    callAddScreen()
                 }
             }
         }
