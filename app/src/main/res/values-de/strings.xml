@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">demo</string>
     <string name="storage_not_available">Speicher nicht verfügbar</string>
     <string name="daisyconfig">daisyconfig</string>
     <string name="v_01">V.01</string>
@@ -48,7 +48,7 @@
     <string name="score_code">Ergebniscode</string>
     <string name="don_t_optimized_battery">Deaktivieren Sie die Batterieoptimierung</string>
     <string name="sumsung_galaxy_note_10">Sumsung Galaxy Note 10</string>
-    <string name="save_and_start_mpc"><![CDATA[Speichern und starten Sie MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Speichern und starten Sie demo >]]></string>
     <string name="store_code">Code speichern</string>
     <string name="Password">Passwort</string>
     <string name="manage_device_content">Geräteinhalt verwalten</string>
@@ -89,11 +89,11 @@
     <string name="screen_add">Bildschirm hinzufügen</string>
     <string name="position_update">Position aktualisiert</string>
     <string name="load_add_screen">Lade Add Screen</string>
-    <string name="display_over_the_app">Bitte lassen Sie MPC über andere Apps auf Ihrem Gerät anzeigen.</string>
-    <string name="allow_data_access">Bitte erlauben Sie den Nutzungsdatenzugriff auf MPC in den Einstellungen Ihres Geräts.</string>
-    <string name="modify_system_settings_text">Bitte erlauben Sie MPC, die Systemeinstellungen in Ihrem Gerät zu ändern.</string>
+    <string name="display_over_the_app">Bitte lassen Sie demo über andere Apps auf Ihrem Gerät anzeigen.</string>
+    <string name="allow_data_access">Bitte erlauben Sie den Nutzungsdatenzugriff auf demo in den Einstellungen Ihres Geräts.</string>
+    <string name="modify_system_settings_text">Bitte erlauben Sie demo, die Systemeinstellungen in Ihrem Gerät zu ändern.</string>
     <string name="permission_req">Erlaubnis erforderlich</string>
-    <string name="battery_optimized">Bitte erlauben Sie MPC, die Batterieoptimierung in Ihrem Gerät zu deaktivieren.</string>
+    <string name="battery_optimized">Bitte erlauben Sie demo, die Batterieoptimierung in Ihrem Gerät zu deaktivieren.</string>
     <string name="position">Position</string>
     <string name="ok">Ok</string>
     <string name="cancle">Stornieren</string>
