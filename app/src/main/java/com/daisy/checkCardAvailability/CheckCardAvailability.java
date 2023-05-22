@@ -1,5 +1,8 @@
 package com.daisy.checkCardAvailability;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Environment;
 
 import com.daisy.activity.onBoarding.slider.getCard.vo.GetCardResponse;
@@ -18,6 +21,7 @@ import com.daisy.support.PushUpdate;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.TimeWork;
 import com.daisy.utils.Utils;
+import com.daisy.widget.PriceAppWidget;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -296,6 +300,7 @@ public class CheckCardAvailability {
 
                         }
 
+                        updateWidgetIfAvailable();
                     } else {
 
                     }
@@ -378,6 +383,20 @@ public class CheckCardAvailability {
         }
     }
 
+    private void updateWidgetIfAvailable() {
+        try {
+            Intent intent = new Intent(AppController.getInstance(), PriceAppWidget.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            int[] ids = AppWidgetManager.getInstance(AppController.getInstance())
+                    .getAppWidgetIds(new ComponentName(AppController.getInstance(), PriceAppWidget.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            AppController.getInstance().sendBroadcast(intent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     /**
      * Create Card request
      */
@@ -389,5 +408,6 @@ public class CheckCardAvailability {
             hashMap.put(Constraint.pricecardid, sessionManager.getPriceCard().getIdpriceCard());
         return hashMap;
     }
+
 
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -97,6 +98,7 @@ import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.SettingLockSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+import com.daisy.widget.PriceAppWidget;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -862,6 +864,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     if (jsonArray.length() > 0) {
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
+                        updateWidgetIfAvailable();
                     }
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
@@ -2074,6 +2077,20 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
     public void onSwipeBottom() {
+    }
+    private void updateWidgetIfAvailable() {
+        try {
+            Intent intent = new Intent(this, PriceAppWidget.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            int[] ids = AppWidgetManager.getInstance(getApplication())
+                    .getAppWidgetIds(new ComponentName(getApplication(), PriceAppWidget.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            sendBroadcast(intent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }

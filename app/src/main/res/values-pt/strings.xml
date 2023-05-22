@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MPC</string>
+    <string name="app_name">Learn More</string>
     <string name="v_01">V.01</string>
     <string name="storage_not_available">Armazenamento não disponível</string>
     <string name="daisyconfig">DaisyConfig</string>
@@ -86,15 +86,15 @@
     <string name="screen_add">Adicionar tela</string>
     <string name="position_update">Posição atualizada</string>
     <string name="load_add_screen">Carregar adicionar tela</string>
-    <string name="display_over_the_app">Permita que o MPC seja exibido sobre outros aplicativos no seu dispositivo.</string>
-    <string name="allow_data_access">Permita o acesso a dados de uso do MPC nas configurações do seu dispositivo.</string>
-    <string name="modify_system_settings_text">Permita que MPC modifique as configurações do sistema em seu dispositivo.</string>
+    <string name="display_over_the_app">Permita que o Learn More seja exibido sobre outros aplicativos no seu dispositivo.</string>
+    <string name="allow_data_access">Permita o acesso a dados de uso do Learn More nas configurações do seu dispositivo.</string>
+    <string name="modify_system_settings_text">Permita que Learn More modifique as configurações do sistema em seu dispositivo.</string>
     <string name="permission_req">Permissão necessária</string>
-    <string name="battery_optimized">Permita que a bateria MPC não seja otimizada nas configurações do seu dispositivo</string>
+    <string name="battery_optimized">Permita que a bateria Learn More não seja otimizada nas configurações do seu dispositivo</string>
     <string name="position">Posição</string>
     <string name="ok">Está bem</string>
     <string name="cancle">Cancelar</string>
-    <string name="save_and_start_mpc"><![CDATA[Salvar e iniciar MPC >]]></string>
+    <string name="save_and_start_mpc"><![CDATA[Salvar e iniciar Learn More >]]></string>
     <string name="no_internet_available">Ops! \ n Verifique sua conectividade com a Internet e tente novamente.</string>
     <string name="invald_time">Hora inválida</string>
     <string name="english">English</string>

@@ -1,6 +1,9 @@
 package com.daisy.activity.onBoarding.slider;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -38,6 +41,7 @@ import com.daisy.activity.onBoarding.slider.slides.permissionAsk.PermissionAsk;
 import com.daisy.activity.onBoarding.slider.slides.securityAsk.SecurityAsk;
 import com.daisy.activity.onBoarding.slider.slides.signup.SignUp;
 import com.daisy.activity.onBoarding.slider.slides.welcome.WelcomeAsk;
+import com.daisy.activity.splash.SplashScreen;
 import com.daisy.adapter.SliderAdapter;
 import com.daisy.common.session.SessionManager;
 import com.daisy.database.DBCaller;
@@ -51,6 +55,8 @@ import com.daisy.security.Admin;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+import com.daisy.widget.PriceAppWidget;
+import com.daisy.widget.PriceNewAppWidget;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -354,6 +360,24 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
             signUp.loginBinding.singup.performClick();
         } else if (count >= Constraint.FIVE) {
+            int ids[] = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this,PriceAppWidget.class));
+            if (ids.length==0) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    AppWidgetManager mAppWidgetManager = getSystemService(AppWidgetManager.class);
+
+                    ComponentName myProvider = new ComponentName(OnBoarding.this, PriceAppWidget.class);
+
+                    Bundle b = new Bundle();
+                    if (mAppWidgetManager.isRequestPinAppWidgetSupported()) {
+                        Intent pinnedWidgetCallbackIntent = new Intent(OnBoarding.this, PriceAppWidget.class);
+                        PendingIntent successCallback = PendingIntent.getBroadcast(OnBoarding.this, 0,
+                                pinnedWidgetCallbackIntent, 0);
+
+                        mAppWidgetManager.requestPinAppWidget(myProvider, b, successCallback);
+                    }
+                }
+            }
+            else
             handleCreateScreen(null);
         }
 
