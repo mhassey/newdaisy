@@ -365,9 +365,10 @@ class AutoOnboardingWithPermission : BaseActivity() {
                     if (mViewModel.autoSelctedProduct != null) {
                         callAddScreen()
                     }
-                } else {
-                    redirectToOnBoardingProcess()
                 }
+                else {
+                    redirectToOnBoardingProcess()
+            }
             }
         }
 
