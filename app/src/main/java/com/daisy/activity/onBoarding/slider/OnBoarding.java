@@ -56,11 +56,6 @@ import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
 import com.daisy.widget.PriceAppWidget;
-import com.daisy.widget.PriceNewAppWidget;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
@@ -371,7 +366,7 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
                     if (mAppWidgetManager.isRequestPinAppWidgetSupported()) {
                         Intent pinnedWidgetCallbackIntent = new Intent(OnBoarding.this, PriceAppWidget.class);
                         PendingIntent successCallback = PendingIntent.getBroadcast(OnBoarding.this, 0,
-                                pinnedWidgetCallbackIntent, 0);
+                                pinnedWidgetCallbackIntent, PendingIntent.FLAG_IMMUTABLE);
 
                         mAppWidgetManager.requestPinAppWidget(myProvider, b, successCallback);
                     }
