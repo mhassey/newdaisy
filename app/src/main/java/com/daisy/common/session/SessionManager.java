@@ -1368,4 +1368,13 @@ public class SessionManager {
     public String getStoreCode() {
         return pref.getStringData(Constraint.STORE_CODE);
     }
+
+    public void testMode(boolean b) {
+        pref.setBooleanData(Constraint.TEST_MODE,b);
+    }
+
+    public boolean getTestMode() {
+
+        return pref.getBoolean(Constraint.TEST_MODE);
+    }
 }

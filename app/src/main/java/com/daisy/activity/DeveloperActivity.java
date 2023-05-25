@@ -33,9 +33,12 @@ import com.daisy.activity.feedBack.FeedBackActivity;
 import com.daisy.activity.langSupport.LangSupportViewModel;
 import com.daisy.activity.logs.LogsMainActivity;
 import com.daisy.activity.mainActivity.MainActivity;
+import com.daisy.activity.onBoarding.slider.OnBoarding;
 import com.daisy.activity.refreshTimer.RefreshTimer;
 import com.daisy.activity.socketConnection.SocketConnection;
+import com.daisy.activity.welcomeScreen.WelcomeScreen;
 import com.daisy.adapter.LangSupportAdaptor;
+import com.daisy.broadcast.broadcastforbackgroundservice.AlaramHelperBackground;
 import com.daisy.common.session.SessionManager;
 import com.daisy.databinding.ActivityDeveloperBinding;
 import com.daisy.databinding.ActivityLangSelectionBinding;
@@ -44,6 +47,7 @@ import com.daisy.pojo.LangPojo;
 import com.daisy.pojo.response.ApkDetails;
 import com.daisy.pojo.response.GeneralResponse;
 import com.daisy.pojo.response.GlobalResponse;
+import com.daisy.service.BackgroundService;
 import com.daisy.utils.Constraint;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
@@ -109,6 +113,22 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
         switch ((view.getId())) {
             case R.id.socket_connection: {
                 handleSocketConnectionCall();
+                break;
+            }
+            case R.id.testMode:{
+                if (BackgroundService.getServiceObject() != null) {
+                    AlaramHelperBackground.cancelAlarmElapsed();
+                    AlaramHelperBackground.cancelAlarmRTC();
+                    BackgroundService.getServiceObject().closeService();
+                    stopService(new Intent(this, BackgroundService.class));
+                    SessionManager.get().clear();
+                    SessionManager.get().testMode(true);
+                    Intent intent = new Intent(this, OnBoarding.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
+                    ValidationHelper.showToast(this, getString(R.string.please_wait_service_is_not_register_yet));
+                }
                 break;
             }
             case R.id.setRefreshRate: {
@@ -214,6 +234,7 @@ public class DeveloperActivity extends BaseActivity implements View.OnClickListe
         mBinding.logs.setOnClickListener(this::onClick);
         mBinding.setRefreshRate.setOnClickListener(this::onClick);
         mBinding.acClose.setOnClickListener(this);
+        mBinding.testMode.setOnClickListener(this);
     }
 
     /**

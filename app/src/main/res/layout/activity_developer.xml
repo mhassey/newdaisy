@@ -114,6 +114,19 @@
                 android:padding="@dimen/dp10"
                 android:textSize="@dimen/dp10" />
 
+            <TextView
+                android:id="@+id/testMode"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp14"
+                android:background="@drawable/rounded_edit_text"
+                android:fontFamily="@font/rbold"
+                android:gravity="center"
+                android:hint="@string/test_mode"
+                android:padding="@dimen/dp10"
+                android:textSize="@dimen/dp10" />
+
 
             <LinearLayout
                 android:id="@+id/sanitisedHeader"

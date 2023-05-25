@@ -218,9 +218,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
     private void addFragmentList() {
         fragmentList.add(WelcomeAsk.getInstance(OnBoarding.this));
 
-        fragmentList.add(PermissionAsk.getInstance(mBinding));
-        if (!SessionManager.get().getDisableSecurity())
-            fragmentList.add(SecurityAsk.getInstance(mBinding));
+//        fragmentList.add(PermissionAsk.getInstance(mBinding));
+//        if (!SessionManager.get().getDisableSecurity())
+//            fragmentList.add(SecurityAsk.getInstance(mBinding));
         fragmentList.add(SignUp.getInstance(OnBoarding.this));
         fragmentList.add(AddScreen.getInstance(OnBoarding.this));
 
@@ -313,47 +313,49 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         count = count + Constraint.ONE;
 
-        if (count == Constraint.THREE) {
+       // if (count == Constraint.THREE) {
 
 
-            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
-            if (securityAsk != null && securityAsk.securityAskBinding != null) {
-                try {
-                    if (securityAsk.securityAskBinding.yesDeviceContent.getVisibility() == View.VISIBLE) {
-                        sessionManager.setDeletePhoto(true);
-                    } else {
-                        sessionManager.setDeletePhoto(false);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                if (securityAsk.securityAskBinding.yesBrowser.getVisibility() == View.VISIBLE) {
-                    sessionManager.setLockOnBrowser(true);
-                } else {
-                    sessionManager.setLockOnBrowser(false);
-
-                }
-                if (securityAsk.securityAskBinding.yesLock.getVisibility() == View.VISIBLE) {
-                    sessionManager.setLockOnMessage(true);
-                } else {
-                    sessionManager.setLockOnMessage(false);
-
-                }
-                if (securityAsk.securityAskBinding.yesPlayTxt.getVisibility() == View.VISIBLE) {
-                    sessionManager.setLock(true);
-                } else {
-                    sessionManager.setLock(false);
-
-                }
-
-            }
-
-        } else if (count == Constraint.FOUR) {
-            SignUp signUp = (SignUp) fragmentList.get(Constraint.FOUR);
+//            SecurityAsk securityAsk = (SecurityAsk) fragmentList.get(count - 1);
+//            if (securityAsk != null && securityAsk.securityAskBinding != null) {
+//                try {
+//                    if (securityAsk.securityAskBinding.yesDeviceContent.getVisibility() == View.VISIBLE) {
+//                        sessionManager.setDeletePhoto(true);
+//                    } else {
+//                        sessionManager.setDeletePhoto(false);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//                if (securityAsk.securityAskBinding.yesBrowser.getVisibility() == View.VISIBLE) {
+//                    sessionManager.setLockOnBrowser(true);
+//                } else {
+//                    sessionManager.setLockOnBrowser(false);
+//
+//                }
+//                if (securityAsk.securityAskBinding.yesLock.getVisibility() == View.VISIBLE) {
+//                    sessionManager.setLockOnMessage(true);
+//                } else {
+//                    sessionManager.setLockOnMessage(false);
+//
+//                }
+//                if (securityAsk.securityAskBinding.yesPlayTxt.getVisibility() == View.VISIBLE) {
+//                    sessionManager.setLock(true);
+//                } else {
+//                    sessionManager.setLock(false);
+//
+//                }
+//
+//            }
+//
+//        } else
+            if (count == Constraint.TWO
+            ) {
+            SignUp signUp = (SignUp) fragmentList.get(Constraint.THREE);
 
             signUp.loginBinding.singup.performClick();
-        } else if (count >= Constraint.FIVE) {
+        } else if (count >= Constraint.THREE) {
             handleCreateScreen(null);
         }
 
@@ -395,9 +397,9 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
         if (Utils.getNetworkState(context)) {
             if (!SessionManager.get().getDisableSecurity())
-                addScreen = (AddScreen) fragmentList.get(Constraint.FOUR);
+                addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
             else
-                addScreen = (AddScreen) fragmentList.get(Constraint.THREE);
+                addScreen = (AddScreen) fragmentList.get(Constraint.TWO);
 
 
             ScreenAddValidationHelper screenAddValidationHelper = new ScreenAddValidationHelper(context, addScreen.mBinding);

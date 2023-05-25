@@ -21,14 +21,13 @@ import java.util.HashMap;
 public class SignUpViewModel extends AndroidViewModel {
     private MutableLiveData<HashMap<String, String>> signUpRequestMutableLiveData = new MutableLiveData<>();
     private LiveData<SignUpResponse> responseLiveData;
-    private SignUpRepo signUpRepo = new SignUpRepo();
 
     public SignUpViewModel(@NonNull Application application) {
         super(application);
         responseLiveData = Transformations.switchMap(signUpRequestMutableLiveData, new Function<HashMap<String, String>, LiveData<SignUpResponse>>() {
             @Override
             public LiveData<SignUpResponse> apply(HashMap<String, String> input) {
-                return signUpRepo.signUp(input);
+                return new SignUpRepo().signUp(input);
             }
         });
     }

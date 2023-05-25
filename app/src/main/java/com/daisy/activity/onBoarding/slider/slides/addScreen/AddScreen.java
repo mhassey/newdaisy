@@ -158,17 +158,17 @@ public class AddScreen extends BaseFragment implements View.OnClickListener {
         if (SessionManager.get().getDisableSecurity()) {
             baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_purple));
 
-            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+//            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
 
         } else {
             baording.mBinding.tabDotsLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.default_dot));
             baording.mBinding.tabDotsLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.default_dot));
-            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.default_dot));
+            baording.mBinding.tabDotsLayout.getTabAt(2).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+//            baording.mBinding.tabDotsLayout.getTabAt(3).setIcon(getResources().getDrawable(R.drawable.selected_purple));
 
-            baording.mBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.selected_purple));
+//            baording.mBinding.tabDotsLayout.getTabAt(4).setIcon(getResources().getDrawable(R.drawable.selected_purple));
         }
     }
 
