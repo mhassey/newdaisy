@@ -820,6 +820,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             @Override
             public void onLoadResource(WebView view, String url) {
+                Log.e("load","resources");
                 JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray.length() > 0) {
                     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
@@ -831,6 +832,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
+                Log.e("page","commit");
                 JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray.length() > 0) {
                     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
@@ -842,7 +844,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
+                Log.e("page","started");
                 JSONObject jsonArray = pricingUpdateStart();
                 if (jsonArray.length() > 0) {
                     mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
@@ -857,6 +859,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             @Override
             public void onPageFinished(WebView view, final String url) {
                 try {
+                    Log.e("page","finish");
 
                     JSONObject jsonArray = pricingUpdateStart();
                     if (jsonArray.length() > 0) {
