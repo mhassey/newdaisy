@@ -26,8 +26,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 5
-        versionName "1.05"
+        versionCode 6
+        versionName "1.06"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,14 +38,14 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://victra.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tmobile.mobilepricecards.com/"'
         }
 
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://victra.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tmobile.mobilepricecards.com/"'
         }
     }
 

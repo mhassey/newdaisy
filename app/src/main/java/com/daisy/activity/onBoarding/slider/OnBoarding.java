@@ -355,24 +355,6 @@ public class OnBoarding extends BaseActivity implements View.OnClickListener {
 
             signUp.loginBinding.singup.performClick();
         } else if (count >= Constraint.FIVE) {
-            int ids[] = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this,PriceAppWidget.class));
-            if (ids.length==0) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    AppWidgetManager mAppWidgetManager = getSystemService(AppWidgetManager.class);
-
-                    ComponentName myProvider = new ComponentName(OnBoarding.this, PriceAppWidget.class);
-
-                    Bundle b = new Bundle();
-                    if (mAppWidgetManager.isRequestPinAppWidgetSupported()) {
-                        Intent pinnedWidgetCallbackIntent = new Intent(OnBoarding.this, PriceAppWidget.class);
-                        PendingIntent successCallback = PendingIntent.getBroadcast(OnBoarding.this, 0,
-                                pinnedWidgetCallbackIntent, PendingIntent.FLAG_IMMUTABLE);
-
-                        mAppWidgetManager.requestPinAppWidget(myProvider, b, successCallback);
-                    }
-                }
-            }
-            else
             handleCreateScreen(null);
         }
 
