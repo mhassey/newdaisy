@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -48,6 +49,7 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -2092,6 +2094,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             e.printStackTrace();
         }
     }
+
 
 }
 

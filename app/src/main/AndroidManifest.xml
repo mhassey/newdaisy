@@ -202,7 +202,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.mainActivity.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true" />
 
