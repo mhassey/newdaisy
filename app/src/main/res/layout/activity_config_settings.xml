@@ -155,7 +155,7 @@
                 android:id="@+id/mpc_logo"
                 android:layout_width="@dimen/dp70"
                 android:layout_height="@dimen/dp50"
-                android:src="@drawable/logo" />
+                android:src="@mipmap/learn_more" />
 
 
             <LinearLayout

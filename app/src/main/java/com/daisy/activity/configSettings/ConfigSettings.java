@@ -223,7 +223,6 @@ public class ConfigSettings extends BaseActivity implements View.OnClickListener
                 break;
             }
 
-            case R.id.cancel:
             case R.id.ac_close: {
                 onBackPressed();
                 break;

@@ -148,15 +148,15 @@ public class Utils {
 
                 BaseActivity baseActivity = AppController.getInstance().getActivity();
                 WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
-                layout.screenBrightness = SessionManager.get().getBrightness();
+                layout.screenBrightness = 0.9f;
                 baseActivity.getWindow().setAttributes(layout);
             } else {
                 BaseActivity baseActivity = AppController.getInstance().getActivity();
                 WindowManager.LayoutParams layout = baseActivity.getWindow().getAttributes();
                 if (!SessionManager.get().isBrighnessDefault())
-                    layout.screenBrightness = 0.8f;
+                    layout.screenBrightness = 0.9f;
                 else
-                    layout.screenBrightness = (Float.parseFloat(SessionManager.get().getMaxBrightness() + "") / 10);
+                    layout.screenBrightness = 0.9f;
                 baseActivity.getWindow().setAttributes(layout);
 
             }

@@ -24,7 +24,7 @@
             android:layout_height="@dimen/dp30"
             android:layout_marginStart="25dp"
             android:layout_marginTop="55dp"
-            android:src="@drawable/logo"
+            android:src="@mipmap/learn_more"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
