@@ -130,7 +130,7 @@ public class SplashScreen extends BaseActivity {
             }
             else
             {
-                if (SessionManager.get().getBaseUrl() != null && !SessionManager.get().getBaseUrl().equals("") && !SessionManager.get().getTestMode()) {
+                if (SessionManager.get().getBaseUrl() != null && !SessionManager.get().getBaseUrl().equals("")) {
 
                     intent = new Intent(SplashScreen.this, AutoOnboardingWithPermission.class);
                 } else {

@@ -72,7 +72,6 @@ class AutoOnboardingWithPermission : BaseActivity() {
 
                 // Log and toast
                 val token = task.result
-                Log.e("Kali...", token!!)
                 SessionManager.get().fcmToken = token
             })
     }
