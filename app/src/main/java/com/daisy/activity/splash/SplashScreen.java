@@ -54,7 +54,7 @@ public class SplashScreen extends BaseActivity {
      * Parameters - No parameter
      **/
     private void initView() {
-        SessionManager.get().isDisplayOverTheAppAvailable(true);
+//        SessionManager.get().isDisplayOverTheAppAvailable(true);
 
         setNoTitleBar(this);
         if (getIntent() != null) {
@@ -112,12 +112,18 @@ public class SplashScreen extends BaseActivity {
                 if (Utils.isSystemAlertWindowEnabled(this)) {
                     SessionManager.get().setAppType(Constraint.GO);
 
+                        SessionManager.get().isDisplayOverTheAppAvailable(false);
+
                 } else {
+                    SessionManager.get().isDisplayOverTheAppAvailable(true);
+
                     SessionManager.get().setAppType(Constraint.MAIN);
 
 
                 }
             } catch (Exception e) {
+                SessionManager.get().isDisplayOverTheAppAvailable(true);
+
                 SessionManager.get().setAppType(Constraint.MAIN);
 
 
