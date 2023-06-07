@@ -610,7 +610,7 @@ public class BackgroundService extends Service implements SyncLogCallBack, View.
                         if (value1 != null) {
                             if (!value1.equals(getApplication().getPackageName())) {
                                 count++;
-                                if (count == Constraint.ONE_TWENTY) {
+                                if (count == Constraint.THIRTY_INT) {
                                     try {
                                         if (Utils.isPlugged(getApplicationContext())) {
                                             sessionManager.setStepCount(0);

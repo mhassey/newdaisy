@@ -236,8 +236,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         countDownTimer.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (dialog != null && dialog.isShowing())
-                    dialog.dismiss();
+
+                  mBinding.passwordLinearLayout.setVisibility(View.GONE);
             }
         }, Constraint.TWENTY_THOUSAND);
 
@@ -324,7 +324,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
-
     }
 
 
@@ -340,7 +339,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         if (sessionManager.getSanitized()) {
             if (sessionManager.getComeConfig()) {
                 sessionManager.setComeFromConfig(false);
-                setCownDownForSenitised();
+                //setCownDownForSenitised();
             } else {
                 Glide.with(this)
                         .load(R.drawable.ani)
@@ -651,6 +650,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setSupportMultipleWindows(true);
+            mBinding.webView.setVerticalScrollBarEnabled(false);
+            mBinding.webView.setHorizontalScrollBarEnabled(false);
 
 
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
@@ -1516,6 +1517,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         }
     }
 
+
+
     /**
      * change pricing
      */
@@ -1674,17 +1677,17 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         int action = event.getAction();
         switch(action & MotionEvent.ACTION_MASK)
         {
-            case MotionEvent.ACTION_POINTER_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN: {
                 // multitouch!! - touch down
                 int count = event.getPointerCount(); // Number of 'fingers' in this time
-                if (count==3)
-                {
+                if (count == 3) {
                     settingClick();
                 }
                 break;
-            case MotionEvent.ACTION_UP:
-                handleUperLayoutClick();
-                break;
+            }
+//            case MotionEvent.ACTION_UP:
+//                handleUperLayoutClick();
+//                break;
 
         }
 
@@ -1698,7 +1701,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-
+            Log.e("message111",consoleMessage.message());
 
             if (consoleMessage.message().contains(Constraint.MOBILE_PRICE_CARD_NOT_DEFINE)) {
             } else if (consoleMessage.message().contains(Constraint.PRICING_NOT_DEFINE)) {
@@ -1761,6 +1764,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         @JavascriptInterface
         public void systemEvent(String cmd, JSONArray msg) {
+            if (msg!=null)
+            Log.e("Message",msg.toString());
 
 
         }
@@ -1966,45 +1971,28 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
      * open config screen
      */
     private void openConfigSettings() {
+        mBinding.passwordLayout.storeName.setText(SessionManager.get().getLoginResponse().getStoreName());
 
-
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.password_layout, null);
-        final EditText password = alertLayout.findViewById(R.id.password);
-        final TextView storeName = alertLayout.findViewById(R.id.store_name);
-        final TextView cancle = alertLayout.findViewById(R.id.cancel);
-        final TextView unLock = alertLayout.findViewById(R.id.unlock);
-
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setView(alertLayout);
-        alert.setCancelable(false);
-
-        storeName.setText(SessionManager.get().getLoginResponse().getStoreName());
-        dialog = alert.create();
-        InsetDrawable insetDrawable = new InsetDrawable(new ColorDrawable(Color.TRANSPARENT), 150, 0, 150, 0);
-        dialog.getWindow().setBackgroundDrawable(insetDrawable);
-        cancle.setOnClickListener(new View.OnClickListener() {
+        mBinding.passwordLayout.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                mBinding.passwordLinearLayout.setVisibility(View.GONE);
                 nullAndVoidTimer();
 
 
             }
         });
-        unLock.setOnClickListener(new View.OnClickListener() {
+        mBinding.passwordLayout.unlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String passwordString = password.getText().toString();
+                String passwordString = mBinding.passwordLayout.password.getText().toString();
                 String lockPassword = sessionManager.getPasswordLock();
                 if (passwordString.equals("")) {
                     ValidationHelper.showToast(context, getString(R.string.empty_password));
 
                 } else if (passwordString.equals(lockPassword)) {
-                    dialog.dismiss();
+                    mBinding.passwordLinearLayout.setVisibility(View.GONE);
                     Intent intent = new Intent(MainActivity.this, ConfigSettings.class);
                     startActivity(intent);
                     nullAndVoidTimer();
@@ -2014,7 +2002,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             }
 
         });
-        dialog.show();
+        mBinding.passwordLinearLayout.setVisibility(View.VISIBLE);
         handleTwentySecondTimeout();
 
     }

@@ -9,6 +9,7 @@
 
         android:layout_height="match_parent">
 
+
         <FrameLayout
             android:id="@+id/helloWorldCameraPreview"
             android:layout_width="@dimen/dp10"
@@ -26,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:visibility="visible" />
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/supportWebViewLayout"
@@ -80,7 +82,17 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_launcher_background" />
 
-        </RelativeLayout>
 
+        </RelativeLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:background="#99000000"
+            android:id="@+id/password_linear_layout"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/password_layout" android:id="@+id/password_layout"
+                />
+        </LinearLayout>
     </RelativeLayout>
 </layout>
