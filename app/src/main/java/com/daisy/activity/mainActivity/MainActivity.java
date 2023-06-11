@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -97,6 +98,7 @@ import com.daisy.utils.SanitisedSingletonObject;
 import com.daisy.utils.SettingLockSingletonObject;
 import com.daisy.utils.Utils;
 import com.daisy.utils.ValidationHelper;
+import com.daisy.widget.PriceAppWidget;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -232,8 +234,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         countDownTimer.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (dialog != null && dialog.isShowing())
-                    dialog.dismiss();
+
+                  mBinding.passwordLinearLayout.setVisibility(View.GONE);
             }
         }, Constraint.TWENTY_THOUSAND);
 
@@ -320,7 +322,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
-
     }
 
 
@@ -336,7 +337,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         if (sessionManager.getSanitized()) {
             if (sessionManager.getComeConfig()) {
                 sessionManager.setComeFromConfig(false);
-                setCownDownForSenitised();
+                //setCownDownForSenitised();
             } else {
                 Glide.with(this)
                         .load(R.drawable.ani)
@@ -647,6 +648,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             setWebViewClient();
             mBinding.webView.getSettings().setAllowFileAccessFromFileURLs(Constraint.TRUE);
             mBinding.webView.getSettings().setSupportMultipleWindows(true);
+            mBinding.webView.setVerticalScrollBarEnabled(false);
+            mBinding.webView.setHorizontalScrollBarEnabled(false);
 
 
             mBinding.webView.getSettings().setAllowFileAccess(Constraint.TRUE);
@@ -865,6 +868,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                     if (jsonArray.length() > 0) {
                         mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
                         mViewModel.setExceptionInHtml(false);
+                        updateWidgetIfAvailable();
                     }
                     promotionSettings();
                     boolean b = Utils.getInvertedTime();
@@ -1364,6 +1368,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         DBCaller.storeLogInDatabase(context, Constraint.SETTINGS, Constraint.SETTINGS_DESCRIPTION, "", Constraint.APPLICATION_LOGS);
         openConfigSettings();
     }
+
 
 
     /**
@@ -1964,45 +1969,28 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
      * open config screen
      */
     private void openConfigSettings() {
+        mBinding.passwordLayout.storeName.setText(SessionManager.get().getLoginResponse().getStoreName());
 
-
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.password_layout, null);
-        final EditText password = alertLayout.findViewById(R.id.password);
-        final TextView storeName = alertLayout.findViewById(R.id.store_name);
-        final TextView cancle = alertLayout.findViewById(R.id.cancel);
-        final TextView unLock = alertLayout.findViewById(R.id.unlock);
-
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setView(alertLayout);
-        alert.setCancelable(false);
-
-        storeName.setText(SessionManager.get().getLoginResponse().getStoreName());
-        dialog = alert.create();
-        InsetDrawable insetDrawable = new InsetDrawable(new ColorDrawable(Color.TRANSPARENT), 150, 0, 150, 0);
-        dialog.getWindow().setBackgroundDrawable(insetDrawable);
-        cancle.setOnClickListener(new View.OnClickListener() {
+        mBinding.passwordLayout.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                mBinding.passwordLinearLayout.setVisibility(View.GONE);
                 nullAndVoidTimer();
 
 
             }
         });
-        unLock.setOnClickListener(new View.OnClickListener() {
+        mBinding.passwordLayout.unlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String passwordString = password.getText().toString();
+                String passwordString = mBinding.passwordLayout.password.getText().toString();
                 String lockPassword = sessionManager.getPasswordLock();
                 if (passwordString.equals("")) {
                     ValidationHelper.showToast(context, getString(R.string.empty_password));
 
                 } else if (passwordString.equals(lockPassword)) {
-                    dialog.dismiss();
+                    mBinding.passwordLinearLayout.setVisibility(View.GONE);
                     Intent intent = new Intent(MainActivity.this, ConfigSettings.class);
                     startActivity(intent);
                     nullAndVoidTimer();
@@ -2012,7 +2000,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             }
 
         });
-        dialog.show();
+        mBinding.passwordLinearLayout.setVisibility(View.VISIBLE);
         handleTwentySecondTimeout();
 
     }
@@ -2078,6 +2066,21 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
     public void onSwipeBottom() {
     }
+    private void updateWidgetIfAvailable() {
+        try {
+            Intent intent = new Intent(this, PriceAppWidget.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            int[] ids = AppWidgetManager.getInstance(getApplication())
+                    .getAppWidgetIds(new ComponentName(getApplication(), PriceAppWidget.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            sendBroadcast(intent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
 }
 
