@@ -41,14 +41,14 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://tmobile.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tmo.mobilepricecards.com/"'
         }
 
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://tmobile.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tmo.mobilepricecards.com/"'
         }
     }
 
