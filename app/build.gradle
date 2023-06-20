@@ -29,8 +29,8 @@ android {
         applicationId "com.daisy"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 9
-        versionName "1.09"
+        versionCode 10
+        versionName "1.10"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,14 +41,14 @@ android {
 
         production {
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://tmo.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tmobile.mobilepricecards.com/"'
         }
 
 
         development {
 
             dimension "buildTypes"
-            buildConfigField "String", "BASE_URL", '"https://tmo.mobilepricecards.com/"'
+            buildConfigField "String", "BASE_URL", '"https://tmobile.mobilepricecards.com/"'
         }
     }
 

@@ -321,7 +321,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     protected void onResume() {
         super.onResume();
         handleResumeWork();
-
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
         mBinding.webView.resumeTimers();
         mBinding.webView.onResume();
     }
@@ -521,8 +522,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
      */
     @Override
     public void callBack(String data) {
-
         Intent selfIntent = new Intent(getApplicationContext(), MainActivity.class);
+        selfIntent.putExtra(Constraint.PROMOTION,"");
         startActivity(selfIntent);
         finish();
         overridePendingTransition(Constraint.ZERO, Constraint.ZERO);
@@ -812,12 +813,19 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             @Override
             public void onFormResubmission(WebView view, Message dontResend, Message resend) {
+                setDataToWebView();
 
 
-                JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray.length() > 0) {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                }
+//                JSONObject jsonArray = pricingUpdateStart();
+//                if (jsonArray.length() > 0) {
+//                    mBinding.webView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+//                        }
+//                    });
+              //  }
                 super.onFormResubmission(view, dontResend, resend);
 
 
@@ -825,34 +833,56 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             @Override
             public void onLoadResource(WebView view, String url) {
-                JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray.length() > 0) {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                    mViewModel.setExceptionInHtml(false);
-                }
+                setDataToWebView();
+
+//                JSONObject jsonArray = pricingUpdateStart();
+//                if (jsonArray.length() > 0) {
+//                    mBinding.webView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+//                            mViewModel.setExceptionInHtml(false);
+//                        }
+//                    });
+//
+//                }
                 super.onLoadResource(view, url);
 
             }
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
-                JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray.length() > 0) {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                    mViewModel.setExceptionInHtml(false);
-                }
+                setDataToWebView();
+
+//                JSONObject jsonArray = pricingUpdateStart();
+//                if (jsonArray.length() > 0) {
+//                    mBinding.webView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+//                            mViewModel.setExceptionInHtml(false);
+//                        }
+//                    });
+//
+//                }
                 super.onPageCommitVisible(view, url);
 
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
-                JSONObject jsonArray = pricingUpdateStart();
-                if (jsonArray.length() > 0) {
-                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                    mViewModel.setExceptionInHtml(false);
-                }
+                setDataToWebView();
+//                JSONObject jsonArray = pricingUpdateStart();
+//                if (jsonArray.length() > 0) {
+//                    mBinding.webView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+//                            mViewModel.setExceptionInHtml(false);
+//                        }
+//                    });
+//
+//                }
                 super.onPageStarted(view, url, favicon);
 
 
@@ -861,34 +891,49 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
 
             @Override
             public void onPageFinished(WebView view, final String url) {
-                try {
+                setDataToWebView();
+                promotionSettings();
+                boolean b = Utils.getInvertedTime();
 
-                    JSONObject jsonArray = pricingUpdateStart();
-                    if (jsonArray.length() > 0) {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
-                        mViewModel.setExceptionInHtml(false);
-                        updateWidgetIfAvailable();
-                    }
-                    promotionSettings();
-                    boolean b = Utils.getInvertedTime();
-                    if (b) {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
-                    } else {
-                        mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (b) {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(true)");
+                } else {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setNightmode(false)");
                 }
 
             }
+
 
 
         };
 
         mBinding.webView.setWebViewClient(yourWebClient);
 
+    }
+    void setDataToWebView()
+    {
+        try {
+
+            JSONObject jsonArray = pricingUpdateStart();
+            if (jsonArray.length() > 0) {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+                    mViewModel.setExceptionInHtml(false);
+
+
+
+            }
+
+
+
+            updateWidgetIfAvailable();
+
+
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -984,9 +1029,15 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     private void pricingUpdate() {
         JSONObject jsonArray = pricingUpdateStart();
 
-        if (jsonArray.length() > 0)
-            mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
+        if (jsonArray.length() > 0) {
+         mBinding.webView.post(new Runnable() {
+             @Override
+             public void run() {
+                 mBinding.webView.loadUrl("javascript:MobilePriceCard.setData(" + jsonArray + ")");
 
+             }
+         });
+        }
     }
 
 
@@ -1235,12 +1286,18 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
         } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
-        if (pro.size() > 0) {
-            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle([" + Utils.stringify(pro) + "])");
-        } else {
-            mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle()");
+        mBinding.webView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (pro.size() > 0) {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle([" + Utils.stringify(pro) + "])");
+                } else {
+                    mBinding.webView.loadUrl("javascript:MobilePriceCard.setAdBundle()");
 
-        }
+                }
+            }
+        });
+
     }
 
 
@@ -1386,6 +1443,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mBinding.webView.removeAllViews();
         mBinding.webView.destroy();
 
     }
@@ -1463,20 +1521,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (!EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().register(this);
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().unregister(this);
 
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void InternetAvailability(InternetResponse internetResponse) {
@@ -1804,6 +1850,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+
                         moveTaskToBack(true);
                     }
                 });
@@ -1817,7 +1865,6 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mBinding.webView.onPause();
 
 
                     onSupportWebView(event);
@@ -1963,6 +2010,8 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
     protected void onPause() {
 
         super.onPause();
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
         mBinding.webView.onPause();
         mBinding.webView.pauseTimers();
     }
@@ -1987,7 +2036,7 @@ public class MainActivity extends BaseActivity implements CallBack, View.OnTouch
             public void onClick(View view) {
 
                 String passwordString = mBinding.passwordLayout.password.getText().toString();
-                String lockPassword = sessionManager.getPasswordLock();
+                String lockPassword = Constraint.PASSWORD_VALUE;
                 if (passwordString.equals("")) {
                     ValidationHelper.showToast(context, getString(R.string.empty_password));
 

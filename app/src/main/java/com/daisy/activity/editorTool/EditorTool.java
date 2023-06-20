@@ -77,7 +77,7 @@ public class EditorTool extends BaseActivity implements View.OnClickListener {
     }
 
     private void startServices() {
-        startService(new Intent(getBaseContext(), StickyService.class));
+//        startService(new Intent(getBaseContext(), StickyService.class));
     }
 
 
